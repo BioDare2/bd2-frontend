@@ -1,1 +1,178 @@
 /* You can add global styles to this file, and also import other style files */
+
+/* Move down content because we have a fixed navbar that is 50px tall */
+body {
+  padding-top: 50px;
+  padding-bottom: 20px;
+}
+
+/* Move down content because we have a fixed navbar that is 50px tall */
+div.header-bar {
+  /* margin-top: 50px; */
+  margin-bottom: 0.5em;
+}
+
+div.bd2-page-header {
+  background-color: #EEE;
+
+
+}
+
+div.main-area {
+  /*padding-left: 30px;*/
+}
+
+div.workspace {
+  min-height: 30em;
+}
+
+.workspace h2 {
+  margin-bottom: 1em;
+}
+
+.login-form input.form-control {
+  min-width: 6em;
+  max-width: 10em;
+}
+
+/* visual clues for validation state of inputs */
+input.ng-valid[required] {
+  border-left: 5px solid #42A948; /* green */
+}
+
+textarea.ng-valid[required] {
+  border-left: 5px solid #42A948; /* green */
+}
+
+.no-clues .ng-valid[required] {
+  border-left: 1px solid #ccc;
+}
+
+input.ng-invalid, div.ng-invalid input, div.ng-invalid input.ng-valid {
+  border-left: 5px solid #a94442; /* red */
+}
+
+textarea.ng-invalid {
+  border-left: 5px solid #a94442; /* red */
+}
+
+.no-clues .ng-invalid {
+  border-left: 1px solid #ccc;
+}
+/* visual clues for validation state of inputs -- end */
+
+
+input.short-input {
+  min-width: 6em;
+  max-width: 12em;
+}
+
+.list-group-item:hover {
+  /*color: #607D8B;*/
+  background-color: #DDD;
+  left: .1em;
+}
+
+/* buttons */
+
+.btn-success.active, .btn-success:active {
+  background-color: #258e25;
+}
+
+
+/* Navigation link styles */
+nav.secondary a {
+  padding: 5px 10px;
+  text-decoration: none;
+  margin-top: 10px;
+  display: inline-block;
+  background-color: #eee;
+  border-radius: 4px;
+}
+
+nav.secondary a:visited, nav.secondary a:link, nav.secondary a.shade {
+  color: #607D8B;
+}
+
+nav.secondary a:hover {
+  color: #039be5;
+  background-color: #CFD8DC;
+}
+
+nav.secondary a.router-link-active, nav.secondary a.active {
+  color: #039be5;
+  /*background-color: #CFD8DC;*/
+}
+
+hr {
+  width: 80%;
+  border-top-color: forestgreen;
+}
+
+div.asset-card .panel-heading h3 {
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+
+div.summary-box {
+  /*margin-bottom: 1.5em;*/
+}
+
+div.summary-box div.item {
+  padding-bottom: 0.4em;
+  padding-top: 0.4em;
+  padding-left: 0.5em;
+  padding-right: 0.5em;
+  /*margin-bottom: 1em;*/
+  border-bottom: 1px solid darkseagreen;
+}
+
+div.summary-box div.item-last {
+  border-bottom: none;
+}
+
+table.excel-table thead tr th {
+  padding: 4px;
+  background-color: grey;
+  text-align: center;
+}
+
+table.excel-table tr td.rowh {
+  padding: 4px;
+  background-color: grey;
+  text-align: center;
+  font-weight: bold;
+  vertical-align: middle;
+  font-size: 100%;
+}
+
+table.excel-table tr td {
+  padding: 4px;
+  text-align: left;
+  vertical-align: middle;
+  font-size: 80%;
+
+  word-wrap: break-word;         /* All browsers since IE 5.5+ */
+  overflow-wrap: break-word;     /* Renamed property in CSS3 draft spec */
+}
+
+div.panel hr {
+  margin-bottom: 14px;
+  margin-top: 15px;
+}
+
+tr.ppa_ignored {
+  color: grey;
+  font-style: italic;
+}
+
+tr.ppa_attention {
+  color: red;
+}
+
+.word_wrapping {
+  word-wrap: break-word;         /* All browsers since IE 5.5+ */
+  overflow-wrap: break-word;     /* Renamed property in CSS3 draft spec */
+}
+
+

@@ -1,0 +1,24 @@
+<div *ngIf="show" class="cookieconsent" [@shown]="show ? 'active' : 'inactive'"
+     style="
+  background: black;
+  color:white;
+  /*position: fixed;
+  right: 0;
+  left: 0;
+  top: 0;
+  z-index: 2000;*/
+  display: block;
+  opacity: 0;
+  padding-bottom: 0;
+  padding-top: 0;
+  ">
+  <div class="container">
+    This website uses cookies to ensure you get the best experience with BioDare.
+    We are also using Google Analytics cookies to monitor how you interact with BioDare.<br>
+    By continuing to use our site you are agreeing to our use of cookies and Google Analytics.
+    <button type="submit" class="btn btn-success" (click)="agree()">I understand</button>
+    <div *ngIf="nostorage">Your browser does not support local storage we cannot record your consent!!!
+    </div>
+  </div>
+</div>
+

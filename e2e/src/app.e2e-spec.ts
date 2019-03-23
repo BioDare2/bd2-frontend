@@ -8,9 +8,14 @@ describe('workspace-project App', () => {
     page = new AppPage();
   });
 
+  it('should display BioDare in title', () => {
+    page.navigateTo();
+    expect(page.getPageTitle()).toEqual('BioDare2 - circadian period analysis');
+  });
+
   it('should display welcome message', () => {
     page.navigateTo();
-    expect(page.getTitleText()).toEqual('Welcome to biodare2-ui!');
+    expect(page.getTitleText()).toEqual('Welcome to BioDare2!');
   });
 
   afterEach(async () => {

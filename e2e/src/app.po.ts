@@ -5,6 +5,10 @@ export class AppPage {
     return browser.get(browser.baseUrl) as Promise<any>;
   }
 
+  getPageTitle() {
+    return browser.getTitle();
+  }
+
   getTitleText() {
     return element(by.css('bd2-root h1')).getText() as Promise<string>;
   }

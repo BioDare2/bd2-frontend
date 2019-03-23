@@ -6,5 +6,5 @@ import { Component } from '@angular/core';
   styles: []
 })
 export class AppComponent {
-  title = 'biodare2-ui';
+  title = 'Welcome to BioDare2!';
 }
