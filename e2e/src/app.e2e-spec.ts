@@ -15,7 +15,7 @@ describe('workspace-project App', () => {
 
   it('should display welcome message', () => {
     page.navigateTo();
-    expect(page.getTitleText()).toEqual('Welcome to BioDare2!');
+    expect(page.getTitleText()).toEqual('BioDare2 beta');
   });
 
   afterEach(async () => {
