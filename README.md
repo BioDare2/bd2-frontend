@@ -1,4 +1,4 @@
-# Biodare2Ui
+# BioDare2 UI
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.3.6.
 
