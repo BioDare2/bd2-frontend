@@ -9,6 +9,7 @@ import {TopBarComponent} from './top-bar/top-bar.component';
 import { TopBarMenuComponent } from './top-bar-menu/top-bar-menu.component';
 import { WelcomeComponent } from './welcome/welcome.component';
 import {RouterModule} from '@angular/router';
+import {AuthModule} from '../auth/auth.module';
 
 
 @NgModule({
@@ -18,7 +19,8 @@ import {RouterModule} from '@angular/router';
     CommonModule,
     RouterModule,
     BrowserAnimationsModule, // for Cookie consent
-    FeedbackModule
+    FeedbackModule,
+    AuthModule
   ],
   exports: [
     AgreeCookiesComponent,

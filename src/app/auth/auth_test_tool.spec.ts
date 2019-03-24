@@ -1,12 +1,20 @@
 import {UserService} from './user.service';
-import {BD2User} from "./user.dom";
+import {BD2User} from './user.dom';
+import {FeedbackService} from '../feedback/feedback.service';
+import {fakeAnalyticsService} from '../analytics/analytics_test_tool.spec';
 
 
 export class MockUserService extends UserService {
 
+  // feedbackService: jasmine.SpyObj<FeedbackService>;
+  // analyticsService: jasmine.SpyObj<AnalyticsService>;
+
   constructor() {
 
-    super();
+    super(
+      fakeAnalyticsService(),
+      jasmine.createSpyObj('FeedbackService', ['info', 'success', 'error'])
+      );
 
   }
 

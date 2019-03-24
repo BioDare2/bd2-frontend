@@ -18,6 +18,7 @@ import {filter} from 'rxjs/operators';
             <span class="icon-bar"></span>
           </button>
           <a class="navbar-brand" routerLink="/" routerLinkActive="active">BioDare2</a>
+          {{user | json}}
         </div>
         <div id="navbar" class="navbar-collapse" [class.collapse]="collapsed">
           <div>
@@ -25,7 +26,7 @@ import {filter} from 'rxjs/operators';
           </div>
 
           <div class="navbar-right">
-            <!-- <bd2-inline-login-form [user]="user" (onNavigation)="collapse()"></bd2-inline-login-form> -->
+            <bd2-inline-login-form [user]="user" (navigation)="collapse()"></bd2-inline-login-form>
           </div>
 
         </div><!--/.navbar-collapse -->

@@ -4,8 +4,9 @@ import { TopBarComponent } from './top-bar.component';
 import {fakeUserService, MockUserService} from '../../auth/auth_test_tool.spec';
 import {UserService} from '../../auth/user.service';
 import {BD2User} from '../../auth/user.dom';
-import {TopBarMenuComponent} from "../top-bar-menu/top-bar-menu.component";
-import {RouterTestingModule} from "@angular/router/testing";
+import {TopBarMenuComponent} from '../top-bar-menu/top-bar-menu.component';
+import {RouterTestingModule} from '@angular/router/testing';
+import {AuthModule} from '../../auth/auth.module';
 
 describe('TopBarComponent', () => {
   let component: TopBarComponent;
@@ -17,7 +18,7 @@ describe('TopBarComponent', () => {
     TestBed.configureTestingModule({
       declarations: [ TopBarComponent,
         TopBarMenuComponent ],
-      imports: [ RouterTestingModule ],
+      imports: [ RouterTestingModule, AuthModule ],
       providers: [
         {provide: UserService, useValue: mockedUserService}
       ]
