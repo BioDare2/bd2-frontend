@@ -1,4 +1,5 @@
 import {UserService} from './user.service';
+import {BD2User} from "./user.dom";
 
 
 export class MockUserService extends UserService {
@@ -7,6 +8,10 @@ export class MockUserService extends UserService {
 
     super();
 
+  }
+
+  public setUser(user: BD2User) {
+    super.setUser(user);
   }
 }
 
