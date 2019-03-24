@@ -1,6 +1,6 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { TopBarComponent } from './top-bar.component';
+import {TopBarComponent} from './top-bar.component';
 import {fakeUserService, MockUserService} from '../../auth/auth_test_tool.spec';
 import {UserService} from '../../auth/user.service';
 import {BD2User} from '../../auth/user.dom';
@@ -16,14 +16,14 @@ describe('TopBarComponent', () => {
   beforeEach(async(() => {
     mockedUserService = fakeUserService();
     TestBed.configureTestingModule({
-      declarations: [ TopBarComponent,
-        TopBarMenuComponent ],
-      imports: [ RouterTestingModule, AuthModule ],
+      declarations: [TopBarComponent,
+        TopBarMenuComponent],
+      imports: [RouterTestingModule, AuthModule],
       providers: [
         {provide: UserService, useValue: mockedUserService}
       ]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

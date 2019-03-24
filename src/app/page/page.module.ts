@@ -1,13 +1,13 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { AgreeCookiesComponent } from './agree-cookies/agree-cookies.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { HeaderBarComponent } from './header-bar/header-bar.component';
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {AgreeCookiesComponent} from './agree-cookies/agree-cookies.component';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {HeaderBarComponent} from './header-bar/header-bar.component';
 import {FeedbackModule} from '../feedback/feedback.module';
 import {FeedbackListComponent} from '../feedback/feedback-list/feedback-list.component';
 import {TopBarComponent} from './top-bar/top-bar.component';
-import { TopBarMenuComponent } from './top-bar-menu/top-bar-menu.component';
-import { WelcomeComponent } from './welcome/welcome.component';
+import {TopBarMenuComponent} from './top-bar-menu/top-bar-menu.component';
+import {WelcomeComponent} from './welcome/welcome.component';
 import {RouterModule} from '@angular/router';
 import {AuthModule} from '../auth/auth.module';
 
@@ -29,4 +29,5 @@ import {AuthModule} from '../auth/auth.module';
     TopBarComponent
   ]
 })
-export class PageModule { }
+export class PageModule {
+}

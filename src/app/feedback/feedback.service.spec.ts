@@ -1,6 +1,6 @@
-import { TestBed } from '@angular/core/testing';
+import {TestBed} from '@angular/core/testing';
 
-import { FeedbackService } from './feedback.service';
+import {FeedbackService} from './feedback.service';
 import {FeedbackMessage} from './feedback.dom';
 
 describe('FeedbackService', () => {
@@ -18,7 +18,7 @@ describe('FeedbackService', () => {
 
     let msg: FeedbackMessage;
 
-    service.message$.subscribe( m => msg = m);
+    service.message$.subscribe(m => msg = m);
 
     service.info('a news');
 

@@ -1,4 +1,4 @@
-import {Component, OnInit, ChangeDetectionStrategy, Output, EventEmitter, Input} from '@angular/core';
+import {ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {UserService} from '../user.service';
 import {BD2User} from '../user.dom';
 import {Router} from '@angular/router';
@@ -50,14 +50,12 @@ export class InlineLoginFormComponent implements OnInit {
 
   username: string;
   password: string;
+  logged = false;
+  @Output()
+  navigation = new EventEmitter<boolean>();
 
   constructor(private userService: UserService, private router: Router) {
   }
-
-  logged = false;
-
-  @Output()
-  navigation = new EventEmitter<boolean>();
 
   @Input()
   set user(user: BD2User) {

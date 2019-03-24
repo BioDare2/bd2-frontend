@@ -1,7 +1,7 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import {NoopAnimationsModule} from '@angular/platform-browser/animations';
 // import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { AgreeCookiesComponent } from './agree-cookies.component';
+import {AgreeCookiesComponent} from './agree-cookies.component';
 
 describe('AgreeCookiesComponent', () => {
   let component: AgreeCookiesComponent;
@@ -9,10 +9,10 @@ describe('AgreeCookiesComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ AgreeCookiesComponent ],
-      imports: [ NoopAnimationsModule ]
+      declarations: [AgreeCookiesComponent],
+      imports: [NoopAnimationsModule]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

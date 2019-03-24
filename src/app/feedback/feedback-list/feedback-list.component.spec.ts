@@ -3,7 +3,6 @@ import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 import {FeedbackListComponent} from './feedback-list.component';
 import {AlertModule} from 'ngx-bootstrap';
 import {FeedbackService} from '../feedback.service';
-import {FeedbackMessage, FeedbackMessageType} from '../feedback.dom';
 
 describe('FeedbackListComponent', () => {
   let component: FeedbackListComponent;
@@ -12,10 +11,10 @@ describe('FeedbackListComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ FeedbackListComponent ],
+      declarations: [FeedbackListComponent],
       imports: [AlertModule.forRoot()]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

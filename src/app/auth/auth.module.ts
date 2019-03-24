@@ -1,6 +1,6 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { InlineLoginFormComponent } from './inline-login-form/inline-login-form.component';
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {InlineLoginFormComponent} from './inline-login-form/inline-login-form.component';
 import {FormsModule} from '@angular/forms';
 
 @NgModule({
@@ -11,4 +11,5 @@ import {FormsModule} from '@angular/forms';
   ],
   exports: [InlineLoginFormComponent]
 })
-export class AuthModule { }
+export class AuthModule {
+}

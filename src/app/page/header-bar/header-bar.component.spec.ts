@@ -1,7 +1,7 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { fakeUserService, MockUserService } from '../../auth/auth_test_tool.spec';
-import { HeaderBarComponent } from './header-bar.component';
+import {fakeUserService, MockUserService} from '../../auth/auth_test_tool.spec';
+import {HeaderBarComponent} from './header-bar.component';
 import {UserService} from '../../auth/user.service';
 
 describe('HeaderBarComponent', () => {
@@ -14,12 +14,12 @@ describe('HeaderBarComponent', () => {
     mockedUserService = fakeUserService();
 
     TestBed.configureTestingModule({
-      declarations: [ HeaderBarComponent ],
+      declarations: [HeaderBarComponent],
       providers: [
         {provide: UserService, useValue: mockedUserService}
       ]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

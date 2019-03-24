@@ -1,4 +1,4 @@
-import {Component, OnInit, ChangeDetectionStrategy, Output, Input, EventEmitter} from '@angular/core';
+import {ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {BD2User} from '../../auth/user.dom';
 
 @Component({
@@ -6,11 +6,11 @@ import {BD2User} from '../../auth/user.dom';
   template: `
     <ul class="nav navbar-nav">
       <li routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
-        <a routerLink="welcome" routerLinkActive="active"  [routerLinkActiveOptions]="{exact: true}"
+        <a routerLink="welcome" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"
            (click)="navigated()">Home</a>
       </li>
       <li routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
-        <a routerLink="/experiments" routerLinkActive="active"  [routerLinkActiveOptions]="{exact: true}"
+        <a routerLink="/experiments" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"
            (click)="navigated()">Experiments</a>
       </li>
       <li routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
@@ -41,6 +41,9 @@ export class TopBarMenuComponent implements OnInit {
   @Output()
   navigation = new EventEmitter<boolean>();
 
+  constructor() {
+  }
+
   @Input()
   set user(user: BD2User) {
     this.logged = (user && !user.anonymous);
@@ -50,8 +53,6 @@ export class TopBarMenuComponent implements OnInit {
     this.navigation.next(true);
     // console.log("Menu Click");
   }
-
-  constructor() { }
 
   ngOnInit() {
   }

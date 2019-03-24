@@ -1,10 +1,12 @@
-import { TestBed, async } from '@angular/core/testing';
-import { RouterTestingModule } from '@angular/router/testing';
-import { AppComponent } from './app.component';
+import {async, TestBed} from '@angular/core/testing';
+import {RouterTestingModule} from '@angular/router/testing';
+import {AppComponent} from './app.component';
 import {PageModule} from './page/page.module';
 // import {UserService} from "./auth/user.service";
 import {AnalyticsService} from './analytics/analytics.service';
 import {fakeAnalyticsService} from './analytics/analytics_test_tool.spec';
+import {fakeBioDareRestService} from './backend/biodare-rest_test_tool.spec';
+import {BioDareRestService} from './backend/biodare-rest.service';
 
 describe('AppComponent', () => {
   beforeEach(async(() => {
@@ -17,7 +19,8 @@ describe('AppComponent', () => {
         PageModule
       ],
       providers: [
-        {provide: AnalyticsService, useValue: fakeAnalyticsService()}
+        {provide: AnalyticsService, useValue: fakeAnalyticsService()},
+        {provide: BioDareRestService, useValue: fakeBioDareRestService()}
       ]
     }).compileComponents();
   }));

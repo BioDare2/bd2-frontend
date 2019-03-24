@@ -1,4 +1,4 @@
-import {Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef, OnDestroy} from '@angular/core';
+import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit} from '@angular/core';
 import {UserService} from '../../auth/user.service';
 import {BD2User} from '../../auth/user.dom';
 import {Subscription} from 'rxjs';
@@ -18,7 +18,6 @@ import {filter} from 'rxjs/operators';
             <span class="icon-bar"></span>
           </button>
           <a class="navbar-brand" routerLink="/" routerLinkActive="active">BioDare2</a>
-          {{user | json}}
         </div>
         <div id="navbar" class="navbar-collapse" [class.collapse]="collapsed">
           <div>
@@ -50,7 +49,7 @@ export class TopBarComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.userSubscription = this.userService.currentUser$
-      .pipe(filter( u => u ? true : false ))
+      .pipe(filter(u => u ? true : false))
       .subscribe(
         user => {
           // console.log("User changed: "+user.login)
@@ -65,7 +64,9 @@ export class TopBarComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    if (this.userSubscription) { this.userSubscription.unsubscribe(); }
+    if (this.userSubscription) {
+      this.userSubscription.unsubscribe();
+    }
   }
 
   toggle() {

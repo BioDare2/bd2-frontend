@@ -2,6 +2,7 @@ import {UserService} from './user.service';
 import {BD2User} from './user.dom';
 import {FeedbackService} from '../feedback/feedback.service';
 import {fakeAnalyticsService} from '../analytics/analytics_test_tool.spec';
+import {fakeBioDareRestService} from '../backend/biodare-rest_test_tool.spec';
 
 
 export class MockUserService extends UserService {
@@ -12,9 +13,10 @@ export class MockUserService extends UserService {
   constructor() {
 
     super(
+      fakeBioDareRestService(),
       fakeAnalyticsService(),
       jasmine.createSpyObj('FeedbackService', ['info', 'success', 'error'])
-      );
+    );
 
   }
 
@@ -24,7 +26,7 @@ export class MockUserService extends UserService {
 }
 
 
-export function fakeUserService()  {
+export function fakeUserService() {
 
   return new MockUserService();
 

@@ -1,8 +1,8 @@
 import {Injectable, Optional, SkipSelf} from '@angular/core';
 import {NavigationEnd, Router} from '@angular/router';
-import {Observable, Subject, Subscription, merge} from 'rxjs';
+import {merge, Observable, Subject, Subscription} from 'rxjs';
 // import {UserService} from '../auth/user.service';
-import {filter, distinctUntilChanged} from 'rxjs/operators';
+import {distinctUntilChanged, filter} from 'rxjs/operators';
 
 declare var ga: any;
 
@@ -19,6 +19,7 @@ class AnalEvent {
     if (this.category !== other.category) return false;
     return true;
   }
+
   /* tslint:enable:curly */
 }
 
@@ -57,7 +58,7 @@ export class AnalyticsService {
       distinctUntilChanged((previous: NavigationEnd, current: NavigationEnd) => {
         return previous.url === current.url;
       })
-      ).subscribe(
+    ).subscribe(
       (x: NavigationEnd) => {
         // console.log('router.change', x);
         ga('send', 'pageview', x.urlAfterRedirects);
@@ -79,27 +80,6 @@ export class AnalyticsService {
       () => console.log('Events finished')
     );
 
-  }
-
-  protected initEventsObservable(): Observable<AnalEvent> {
-
-    const o1 = this.experimentStream.pipe(
-        distinctUntilChanged((prev: AnalEvent, next: AnalEvent) => next.equals(prev))
-      );
-
-    const o2 = this.ppaStream;
-
-    const o3 = this.userStream;
-
-    const o4 = this.dataStream.pipe(
-      distinctUntilChanged((prev: AnalEvent, next: AnalEvent) => next.equals(prev))
-    );
-
-    const o5 = this.fileStream.pipe(
-      distinctUntilChanged((prev: AnalEvent, next: AnalEvent) => next.equals(prev))
-    );
-
-    return merge(o1, o2, o3, o4, o5);
   }
 
   public experimentView(id: number) {
@@ -138,6 +118,27 @@ export class AnalyticsService {
 
   public userRegistration(login: string) {
     this.userStream.next(new AnalEvent('user', 'register', login));
+  }
+
+  protected initEventsObservable(): Observable<AnalEvent> {
+
+    const o1 = this.experimentStream.pipe(
+      distinctUntilChanged((prev: AnalEvent, next: AnalEvent) => next.equals(prev))
+    );
+
+    const o2 = this.ppaStream;
+
+    const o3 = this.userStream;
+
+    const o4 = this.dataStream.pipe(
+      distinctUntilChanged((prev: AnalEvent, next: AnalEvent) => next.equals(prev))
+    );
+
+    const o5 = this.fileStream.pipe(
+      distinctUntilChanged((prev: AnalEvent, next: AnalEvent) => next.equals(prev))
+    );
+
+    return merge(o1, o2, o3, o4, o5);
   }
 
 }

@@ -1,15 +1,8 @@
-
 export class BD2User {
 
   email: string;
   institution: string;
   anonymous: boolean;
-
-  static deserialize(jsonObj: any): BD2User {
-    const obj = new BD2User(undefined, undefined, undefined);
-    obj.setAll(jsonObj as any);
-    return obj;
-  }
 
   constructor(public login: string,
               public firstName?: string,
@@ -26,15 +19,19 @@ export class BD2User {
         return this.firstName;
       }
     } else {
-        if (this.lastName) {
-            return this.lastName;
-        } else {
-            return this.login;
-        }
+      if (this.lastName) {
+        return this.lastName;
+      } else {
+        return this.login;
+      }
     }
   }
 
-
+  static deserialize(jsonObj: any): BD2User {
+    const obj = new BD2User(undefined, undefined, undefined);
+    obj.setAll(jsonObj as any);
+    return obj;
+  }
 
   setAll(other: BD2User): void {
     this.login = other.login;
@@ -47,7 +44,7 @@ export class BD2User {
 
   string2Bool(val: any) {
     if (val === true || val === 'true' || val === 'TRUE') {
-        return true;
+      return true;
     }
     return false;
   }

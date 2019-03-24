@@ -1,11 +1,5 @@
 import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit} from '@angular/core';
-import {
-  trigger,
-  state,
-  style,
-  transition,
-  animate
-} from '@angular/animations';
+import {animate, state, style, transition, trigger} from '@angular/animations';
 
 @Component({
   selector: 'bd2-cookieconsent',
@@ -43,7 +37,7 @@ export class AgreeCookiesComponent implements OnInit {
   ngOnInit(): void {
 
 
-    if (typeof(Storage) !== 'undefined') {
+    if (typeof (Storage) !== 'undefined') {
       // console.log("Storage");
       this.nostorage = false;
 

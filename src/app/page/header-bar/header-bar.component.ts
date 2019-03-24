@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, OnInit, OnDestroy, ChangeDetectorRef} from '@angular/core';
+import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit} from '@angular/core';
 import {Subscription} from 'rxjs';
 import {UserService} from '../../auth/user.service';
 import {BD2User} from '../../auth/user.dom';
@@ -10,15 +10,20 @@ import {BD2User} from '../../auth/user.dom';
     <div class="header-bar">
       <div *ngIf="isJumbo" class="jumbotron">
         <div class="container">
-          <h1>BioDare2 <small>beta</small></h1>
+          <h1>BioDare2
+            <small>beta</small>
+          </h1>
           <p>Fast period analysis, timeseries processing and aesthetic visualizations</p>
-          <p><a *ngIf="!logged" routerLink="/account/register" class="btn btn-primary btn-lg" role="button">Register &raquo;</a>
+          <p><a *ngIf="!logged" routerLink="/account/register" class="btn btn-primary btn-lg" role="button">Register
+            &raquo;</a>
           </p>
         </div>
       </div>
       <div *ngIf="!isJumbo" class="bd2-page-header">
         <div class="container">
-          <h1>BioDare2 <small>beta</small></h1>
+          <h1>BioDare2
+            <small>beta</small>
+          </h1>
         </div>
       </div>
     </div>
@@ -57,7 +62,9 @@ export class HeaderBarComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    if (this.userSubscription) { this.userSubscription.unsubscribe(); }
+    if (this.userSubscription) {
+      this.userSubscription.unsubscribe();
+    }
 
   }
 

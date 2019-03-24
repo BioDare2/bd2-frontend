@@ -1,8 +1,6 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {Observable, Subject} from 'rxjs';
 import {FeedbackMessage, FeedbackMessageType} from './feedback.dom';
-
-
 
 
 @Injectable({
@@ -10,11 +8,16 @@ import {FeedbackMessage, FeedbackMessageType} from './feedback.dom';
 })
 export class FeedbackService {
 
-  constructor() { }
-
   debug = true;
   private messageIds = 1;
   private messageStream = new Subject<FeedbackMessage>();
+
+  constructor() {
+  }
+
+  get message$(): Observable<FeedbackMessage> {
+    return this.messageStream;
+  }
 
   info(msg: string | any): FeedbackMessage {
 
@@ -39,10 +42,6 @@ export class FeedbackService {
     this.messageStream.next(feed);
     return feed;
 
-  }
-
-  get message$(): Observable<FeedbackMessage> {
-    return this.messageStream;
   }
 
 }

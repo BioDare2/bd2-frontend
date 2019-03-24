@@ -1,8 +1,9 @@
-import { Injectable } from '@angular/core';
-import {BehaviorSubject, Observable, of} from 'rxjs';
+import {Injectable} from '@angular/core';
+import {BehaviorSubject, Observable} from 'rxjs';
 import {BD2User} from './user.dom';
 import {FeedbackService} from '../feedback/feedback.service';
 import {AnalyticsService} from '../analytics/analytics.service';
+import {BioDareRestService} from '../backend/biodare-rest.service';
 
 @Injectable({
   providedIn: 'root'
@@ -12,8 +13,10 @@ export class UserService {
   private userStream: BehaviorSubject<BD2User>;
   private user: BD2User;
 
-  constructor(private analytics: AnalyticsService,
-              private feedback: FeedbackService) {
+  constructor(
+    private BD2REST: BioDareRestService,
+    private analytics: AnalyticsService,
+    private feedback: FeedbackService) {
 
     this.user = this.makeAnonymous();
     this.userStream = new BehaviorSubject(this.user);
@@ -36,22 +39,21 @@ export class UserService {
 
   login(login: string, password: string): Promise<BD2User> {
 
-    const u = this.makeAnonymous();
-    u.login = login;
-    u.firstName = 'F'+login;
-    u.lastName = login;
-    u.anonymous = false;
-    const l = of(u);
-
-
+    // making promise so login can be called without having to subscribe
     const p = new Promise<BD2User>((resolve, reject) => {
 
-      l.subscribe(
+      this.BD2REST.login(login, password).subscribe(
         user => {
+          user = BD2User.deserialize(user);
           this.setUser(user);
-          this.feedback.success(user.name + ', you are logged in');
-          this.analytics.userLoggedIn(user.login);
-          resolve(user);
+          if (user.anonymous === false) {
+            this.feedback.success(user.name + ', you are logged in');
+            this.analytics.userLoggedIn(user.login);
+            resolve(user);
+          } else {
+            this.handleError('Login got anonymous user: ' + user.login);
+            reject('Login got anonymous user');
+          }
         },
         e => {
           this.handleError(e);
@@ -63,11 +65,10 @@ export class UserService {
   }
 
   logout(): Promise<boolean> {
-    const l = of(true);
 
     const p = new Promise<boolean>((resolve, reject) => {
 
-      l.subscribe(
+      this.BD2REST.logout().subscribe(
         state => {
           this.setUser(this.makeAnonymous());
           if (state) {

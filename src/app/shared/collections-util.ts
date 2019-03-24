@@ -12,6 +12,7 @@ export function shallowSet(source: any, destination: any) {
     destination[k] = source[k];
   }
 }
+
 /* tslint:enable */
 
 
