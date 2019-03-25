@@ -5,19 +5,26 @@ import {ReactiveFormsModule} from '@angular/forms';
 import {fakeUserService} from '../../auth/auth_test_tool.spec';
 import {ReCaptchaModule} from '../../recaptcha/recaptcha.module';
 import {UserService} from '../../auth/user.service';
+import {StaticContentModule} from '../../documents/static-content.module';
+import {StaticContentService} from '../../documents/static-content.service';
 
 describe('RegistrationRFormComponent', () => {
   let component: RegistrationRFormComponent;
   let fixture: ComponentFixture<RegistrationRFormComponent>;
 
   beforeEach(async(() => {
+
+    const contentService = jasmine.createSpyObj('contentService', ['getDocs']);
+    contentService.getDocs.and.returnValue(Promise.resolve('Interesting document'));
+
     TestBed.configureTestingModule({
       imports: [
-        ReactiveFormsModule, ReCaptchaModule,
+        ReactiveFormsModule, ReCaptchaModule, StaticContentModule
       ],
       declarations: [RegistrationRFormComponent],
       providers: [
-        {provide: UserService, useValue: fakeUserService()}
+        {provide: UserService, useValue: fakeUserService()},
+        {provide: StaticContentService, useValue: contentService} // for documents popup
       ]
     })
       .compileComponents();

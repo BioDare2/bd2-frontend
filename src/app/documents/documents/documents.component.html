@@ -1,0 +1,15 @@
+<h2>BioDare2 Documentation</h2>
+
+<div class="panel panel-default panel-primary">
+  <div class="panel-heading" (click)="tocON = !tocON">Table of Content</div>
+  <div [hidden]="!tocON" class="panel-body">
+    <ul>
+      <li *ngFor="let doc of documentOptions"><a [routerLink]="['/documents', doc[0]]">{{doc[1]}}</a></li>
+    </ul>
+  </div>
+</div>
+
+<alert type="danger" *ngIf="missing">{{missing}}</alert>
+<bd2-static-content *ngIf="!missing" [docName]="document"></bd2-static-content>
+
+

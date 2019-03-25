@@ -18,7 +18,7 @@ export class BioDareRestService {
   }
 
   // it is static as the this was missinging in handleBadResponse
-  protected static extractMessage(resp: HttpErrorResponse, def: string): string {
+  public static extractMessage(resp: HttpErrorResponse, def: string): string {
     if (!resp) {
       return '' + def;
     }
