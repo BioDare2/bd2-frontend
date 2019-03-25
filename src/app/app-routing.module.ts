@@ -12,14 +12,14 @@ const routes: Routes = [
     path: 'logout',
     component: LoginFormComponent
   },
-  // { path: 'account', loadChildren: './account/account.module#AccountModule' },
-  { path: 'documents', loadChildren: './documents/documents.module#DocumentsModule' },
+  { path: 'account', loadChildren: './account/account.module#AccountModule' },
+  {path: 'documents', loadChildren: './documents/documents.module#DocumentsModule'},
   {path: '', component: WelcomeComponent, pathMatch: 'full'},
   {path: '**', component: WelcomeComponent}
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes , /*{enableTracing: true}*/)],
+  imports: [RouterModule.forRoot(routes, /*{enableTracing: true}*/)],
   exports: [RouterModule]
 })
 export class AppRoutingModule {

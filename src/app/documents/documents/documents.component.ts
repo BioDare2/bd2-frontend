@@ -1,13 +1,15 @@
-import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute, Params} from '@angular/router';
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {ActivatedRoute} from '@angular/router';
 
 import {getStaticDocParams, StaticDocsOptions} from '../known-docs';
 import {TitleSetterService} from '../../core/titlesetter.service';
+import {Subscription} from 'rxjs';
+import {map} from 'rxjs/operators';
 
 @Component({
   templateUrl: './documents.component.html',
 })
-export class DocumentsComponent implements OnInit {
+export class DocumentsComponent implements OnInit, OnDestroy {
 
   tocON = false;
 
@@ -15,37 +17,48 @@ export class DocumentsComponent implements OnInit {
   missing: string;
 
   documentOptions: string[][] = StaticDocsOptions;
+  docSubsrciption: Subscription;
 
   constructor(private route: ActivatedRoute, private titleSetter: TitleSetterService) {
 
     console.log('DS created');
   }
 
+  ngOnDestroy(): void {
+    if (this.docSubsrciption) {
+      this.docSubsrciption.unsubscribe();
+    }
+  }
+
   ngOnInit() {
 
-    this.route.params.forEach((params: Params) => {
+    this.docSubsrciption =
+      this.route.paramMap.pipe(
+        map(params => {
+          let doc = params.get('doc');
+          if (!doc || doc === 'all') {
+            doc = 'about';
+          }
+          return doc;
+        })
+      ).subscribe(doc => {
+        const docParams = getStaticDocParams(doc);
 
-      let doc = params.doc;
-      if (!doc || doc === 'all') {
-        doc = 'about';
-        this.tocON = true;
-      }
+        if (doc === 'about') {
+          this.tocON = true;
+        }
 
-      const docParams = getStaticDocParams(doc);
+        if (docParams) {
+          this.missing = undefined;
+          this.document = doc;
+          this.setTitle(docParams);
+        } else {
+          this.missing = 'Unknown document: ' + doc;
+          this.document = undefined;
+          this.tocON = true;
 
-      if (docParams) {
-        this.missing = undefined;
-        this.document = doc;
-        this.setTitle(docParams);
-      } else {
-        this.missing = 'Unknown document: ' + doc;
-        this.document = undefined;
-        this.tocON = true;
-
-      }
-
-
-    });
+        }
+      });
 
   }
 

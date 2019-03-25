@@ -8,7 +8,7 @@ import {AccountEditFormComponent} from './account-edit-form/account-edit-form.co
 
 const routes: Routes = [
   {
-    path: 'account',
+    path: '',
     children: [
       {
         path: 'edit',
