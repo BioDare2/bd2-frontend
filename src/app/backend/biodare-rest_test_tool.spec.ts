@@ -1,4 +1,4 @@
-import {BD2User} from "../auth/user.dom";
+import {BD2User} from '../auth/user.dom';
 import {of} from 'rxjs';
 
 export const testUserData = {
