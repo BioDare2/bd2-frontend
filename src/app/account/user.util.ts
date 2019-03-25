@@ -1,5 +1,6 @@
 /* tslint:disable:max-line-length */
 const emailPattern = /^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/;
+
 /* tslint:enable:max-line-length */
 
 export function isValidEmail(email: string) {
@@ -45,7 +46,7 @@ export function isValidAcademicEmail(email: string): boolean {
 
 function hasKnownInstitutionSuffix(email: string): boolean {
 
-  return (institutionDomains.findIndex( suffix => email.endsWith(suffix)) >= 0 );
+  return (institutionDomains.findIndex(suffix => email.endsWith(suffix)) >= 0);
 }
 
 const smPattern = /^[a-z]+$/;
@@ -54,7 +55,9 @@ const numPattern = /^[0-9]+$/;
 
 export function isWeakPassword(password: string): boolean {
 
-  if (!password) { return true; }
+  if (!password) {
+    return true;
+  }
 
   if (password.length < 8) {
     return true;

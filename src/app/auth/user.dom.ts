@@ -1,4 +1,3 @@
-
 export class EmailSuitability {
   isAcademic: boolean;
   isFree: boolean;

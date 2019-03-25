@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {BioDareEndPoints} from './biodare-rest.dom';
 import {HttpClient, HttpErrorResponse, HttpHeaders} from '@angular/common/http';
 import {Observable, throwError} from 'rxjs';
-import {catchError, map, tap} from 'rxjs/operators';
+import {catchError, map} from 'rxjs/operators';
 import {SystemEventsService} from '../system/system-events.service';
 import {BD2User} from '../auth/user.dom';
 
@@ -121,12 +121,20 @@ export class BioDareRestService {
   userRegister(user: any): Promise<any> {
     const options = this.makeOptions();
     const url = this.endPoints.user_register_url;
-    const body = JSON.stringify(user);
+    const body = user;
 
     return this.OKJson(this.http.put(url, body, options)).toPromise();
 
   }
 
+  userUpdate(user: any): Observable<any> {
+    const options = this.makeOptions();
+    const url = this.endPoints.user_update_url;
+    const body = user;
+
+    return this.OKJson(this.http.post(url, body, options));
+
+  }
 
 
   protected makeOptions() {
@@ -161,7 +169,7 @@ export class BioDareRestService {
   protected OKBoolean(resp$: Observable<any>): Observable<boolean> {
 
     return resp$.pipe(
-      map( resp => {
+      map(resp => {
         if (resp.body) {
           resp = resp.body;
         }
@@ -172,7 +180,7 @@ export class BioDareRestService {
           return false;
         }
         throw Error('Not boolean response: ' + resp);
-        }),
+      }),
       catchError(this.handleBadResponse)
     );
 

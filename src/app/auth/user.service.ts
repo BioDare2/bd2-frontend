@@ -157,7 +157,7 @@ export class UserService {
   register(user: any): Promise<BD2User> {
 
     return this.BD2REST.userRegister(user)
-      .then( user => {
+      .then(user => {
         user = BD2User.deserialize(user);
         this.analytics.userRegistration(user.login);
         return user;
@@ -165,7 +165,23 @@ export class UserService {
 
   }
 
+  update(userDsc: any): Promise<BD2User> {
 
+    return this.BD2REST.userUpdate(userDsc)
+      .pipe(
+        map(user => BD2User.deserialize(user)),
+        tap(
+          user => {
+            if (user.login === this.currentUser.login) {
+              // edited myself have to update the current user
+              // this.BD2REST.refreshUser().subscribe( u => this.setUser(BD2User.deserialize(u)));
+              this.setUser(user);
+            }
+          }
+        ),
+      ).toPromise();
+
+  }
 
 
   protected handleError(err) {

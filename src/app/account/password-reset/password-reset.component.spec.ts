@@ -1,6 +1,6 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { PasswordResetComponent } from './password-reset.component';
+import {PasswordResetComponent} from './password-reset.component';
 import {FormsModule} from '@angular/forms';
 import {UserService} from '../../auth/user.service';
 import {fakeUserService} from '../../auth/auth_test_tool.spec';
@@ -12,13 +12,13 @@ describe('PasswordResetComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ PasswordResetComponent ],
+      declarations: [PasswordResetComponent],
       imports: [FormsModule, RouterTestingModule],
       providers: [
         {provide: UserService, useValue: fakeUserService()}
       ]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

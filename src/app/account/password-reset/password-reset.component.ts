@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {UserService} from '../../auth/user.service';
 import {ActivatedRoute} from '@angular/router';
 import {isWeakPassword} from '../user.util';
@@ -102,8 +102,12 @@ export class PasswordResetComponent implements OnInit {
   }
 
   passwordProblem(): boolean {
-    if (this.weakPassword()) { return true; }
-    if (!this.matching()) { return true; }
+    if (this.weakPassword()) {
+      return true;
+    }
+    if (!this.matching()) {
+      return true;
+    }
     return false;
   }
 

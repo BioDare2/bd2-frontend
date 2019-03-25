@@ -5,13 +5,14 @@ import {AccountRoutingModule} from './account-routing.module';
 import {ResetRequestComponent} from './reset-request/reset-request.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {ReCaptchaModule} from '../recaptcha/recaptcha.module';
-import { PasswordResetComponent } from './password-reset/password-reset.component';
-import { AccountActivationComponent } from './account-activation/account-activation.component';
+import {PasswordResetComponent} from './password-reset/password-reset.component';
+import {AccountActivationComponent} from './account-activation/account-activation.component';
 import {RegistrationRFormComponent} from './registration-rform/registration-rform.component';
+import {AccountEditFormComponent} from './account-edit-form/account-edit-form.component';
 
 @NgModule({
   declarations: [ResetRequestComponent, PasswordResetComponent, AccountActivationComponent,
-    RegistrationRFormComponent],
+    RegistrationRFormComponent, AccountEditFormComponent],
   imports: [
     CommonModule,
     FormsModule,

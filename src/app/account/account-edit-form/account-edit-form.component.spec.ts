@@ -1,18 +1,19 @@
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import {AccountActivationComponent} from './account-activation.component';
-import {RouterTestingModule} from '@angular/router/testing';
-import {UserService} from '../../auth/user.service';
+import {AccountEditFormComponent} from './account-edit-form.component';
 import {fakeUserService} from '../../auth/auth_test_tool.spec';
+import {FormsModule} from '@angular/forms';
+import {UserService} from '../../auth/user.service';
 
-describe('AccountActivatationComponent', () => {
-  let component: AccountActivationComponent;
-  let fixture: ComponentFixture<AccountActivationComponent>;
+describe('UserEditFormComponent', () => {
+  let component: AccountEditFormComponent;
+  let fixture: ComponentFixture<AccountEditFormComponent>;
 
   beforeEach(async(() => {
+
     TestBed.configureTestingModule({
-      declarations: [AccountActivationComponent],
-      imports: [RouterTestingModule],
+      declarations: [AccountEditFormComponent],
+      imports: [FormsModule],
       providers: [
         {provide: UserService, useValue: fakeUserService()}
       ]
@@ -21,7 +22,7 @@ describe('AccountActivatationComponent', () => {
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(AccountActivationComponent);
+    fixture = TestBed.createComponent(AccountEditFormComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -1,0 +1,106 @@
+<div *ngIf="user && !user.anonymous">
+
+  <h3>Edit user: {{user.name}}</h3>
+
+  <form #userEditForm="ngForm">
+
+    <div class="form-group">
+      <label for="username">Login</label>
+      <input #fUsername="ngModel" [ngModel]="user.login" class="form-control"
+             disabled
+             id="username"
+             name="fUsername" type="text"
+      >
+    </div>
+
+    <div class="form-group">
+      <label for="email">Email</label>
+      <input #fEmail="ngModel" [(ngModel)]="email" class="form-control"
+             id="email"
+             name="fEmail"
+             placeholder="your email"
+             required type="text">
+      <div [hidden]="fEmail.pristine || validEmail()" class="alert alert-danger">
+        Email is not valid
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="password">Password</label>
+      <input #fPassword="ngModel" [(ngModel)]="password"
+             class="form-control"
+             id="password"
+             name="fPassword"
+             placeholder="new password or leave empty" type="password">
+      <div [hidden]="fPassword.pristine || !weakPassword()" class="alert alert-danger">
+        Password must be at least 8 long, containing a digit, symbol or cappital letter
+      </div>
+
+    </div>
+
+    <div class="form-group">
+      <label for="password2">Repeat password</label>
+      <input #fPassword2="ngModel" [(ngModel)]="password2"
+             class="form-control"
+             id="password2"
+             name="fPassword2"
+             placeholder="password" type="password">
+      <div [hidden]="matching()" class="alert alert-danger">
+        Passwords do not match
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="firstName">First Name</label>
+      <input #fFirstName="ngModel" [(ngModel)]="firstName" class="form-control"
+             id="firstName"
+             minlength="2"
+             name="fFirstName"
+             placeholder="your first name"
+             required type="text">
+      <div [hidden]="fFirstName.valid || fFirstName.pristine" class="alert alert-danger">
+        First name is required
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="lastName">Family Name</label>
+      <input #fLastName="ngModel" [(ngModel)]="lastName" class="form-control"
+             id="lastName"
+             minlength="3"
+             name="fLastName"
+             placeholder="your surname"
+             required type="text">
+      <div [hidden]="fLastName.valid || fLastName.pristine" class="alert alert-danger">
+        Last name is required
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="institution">Institution</label>
+      <input #fInstitution="ngModel" [(ngModel)]="institution" class="form-control"
+             id="institution"
+             name="fInstitution"
+             placeholder="e.g. University of Edinburgh"
+             required type="text">
+      <div [hidden]="fInstitution.valid || fInstitution.pristine" class="alert alert-danger">
+        Institution name is required
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="password">Your current password</label>
+      <input #fCurrentPassword="ngModel" [(ngModel)]="currentPassword" class="form-control"
+             id="currentPassword"
+             name="fCurrentPassword"
+             placeholder="current password"
+             required type="password">
+    </div>
+
+    <button (click)="save()" [disabled]="!userEditForm.form.valid ||
+     !validEmail() || passwordProblem() " class="btn btn-primary" type="submit">Save
+    </button>
+
+  </form>
+
+</div>

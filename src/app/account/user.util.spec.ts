@@ -1,5 +1,4 @@
-
-import {isValidEmail, isValidAcademicEmail, isWeakPassword} from './user.util';
+import {isValidAcademicEmail, isValidEmail, isWeakPassword} from './user.util';
 
 describe('User util', () => {
 
@@ -26,7 +25,7 @@ describe('User util', () => {
 
   it('accepts academic emails', () => {
 
-    const good = [                'tz@havrard.edu',
+    const good = ['tz@havrard.edu',
       'cos.ktos@bla.tra-st.edu',
       'ja.tez@ed.ac.uk',
       'ja.tez@ed.edu.uk',
@@ -60,7 +59,7 @@ describe('User util', () => {
 
   it('rejects nonacademic emails', () => {
 
-    const bad = [                'tz@havrard.ed',
+    const bad = ['tz@havrard.ed',
       'cos.ktos@bla.tra-st.edu.org',
       'cos.ktos@bla.tra-st.edu.com',
       'ja.tez@ed.edu.org',

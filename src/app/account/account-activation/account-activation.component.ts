@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {UserService} from '../../auth/user.service';
 import {FeedbackService} from '../../feedback/feedback.service';
@@ -13,9 +13,11 @@ export class AccountActivationComponent implements OnInit {
 
   token: string;
   activationMsg: string;
+
   constructor(private route: ActivatedRoute, private router: Router,
               private userService: UserService,
-              private feedback: FeedbackService) { }
+              private feedback: FeedbackService) {
+  }
 
   ngOnInit() {
     this.token = this.route.snapshot.queryParamMap.get('token');
