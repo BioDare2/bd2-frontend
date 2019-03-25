@@ -3,7 +3,7 @@ import {RouterModule, Routes} from '@angular/router';
 import {WelcomeComponent} from './page/welcome/welcome.component';
 
 const routes: Routes = [
-  {path: '', component: WelcomeComponent},
+  {path: '', component: WelcomeComponent, pathMatch: 'full'},
   {path: '**', component: WelcomeComponent}
 ];
 

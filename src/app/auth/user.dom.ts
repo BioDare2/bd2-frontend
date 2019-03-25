@@ -28,6 +28,9 @@ export class BD2User {
   }
 
   static deserialize(jsonObj: any): BD2User {
+    if (!jsonObj) {
+      throw new Error('Cannot deserialize null user');
+    }
     const obj = new BD2User(undefined, undefined, undefined);
     obj.setAll(jsonObj as any);
     return obj;

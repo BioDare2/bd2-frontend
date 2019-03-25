@@ -1,9 +1,10 @@
 import {Injectable} from '@angular/core';
-import {BehaviorSubject, Observable} from 'rxjs';
+import {BehaviorSubject, Observable, throwError} from 'rxjs';
 import {BD2User} from './user.dom';
 import {FeedbackService} from '../feedback/feedback.service';
 import {AnalyticsService} from '../analytics/analytics.service';
 import {BioDareRestService} from '../backend/biodare-rest.service';
+import {switchMap, map, tap, catchError} from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -40,53 +41,72 @@ export class UserService {
   login(login: string, password: string): Promise<BD2User> {
 
     // making promise so login can be called without having to subscribe
-    const p = new Promise<BD2User>((resolve, reject) => {
 
-      this.BD2REST.login(login, password).subscribe(
-        user => {
-          user = BD2User.deserialize(user);
-          this.setUser(user);
-          if (user.anonymous === false) {
-            this.feedback.success(user.name + ', you are logged in');
-            this.analytics.userLoggedIn(user.login);
-            resolve(user);
-          } else {
-            this.handleError('Login got anonymous user: ' + user.login);
-            reject('Login got anonymous user');
-          }
-        },
-        e => {
-          this.handleError(e);
-          reject(e);
-        }
-      );
-    });
-    return p;
+      return this.BD2REST.login(login, password).pipe(
+            map( user => {
+              user = BD2User.deserialize(user);
+              if (user.anonymous) {
+                throw new Error('Login got anonymous user: ' + user.login);
+              }
+              return user;
+            }),
+            tap( user => {
+              this.setUser(user);
+              this.feedback.success(user.name + ', you are logged in');
+              this.analytics.userLoggedIn(user.login);
+              },
+              err => this.handleError(err)
+            )
+          ).toPromise();
+
+
+
   }
+
+
+  /* Manual promise creation
+  const p = new Promise<BD2User>((resolve, reject) => {
+
+    this.BD2REST.login(login, password).subscribe(
+      user => {
+        user = BD2User.deserialize(user);
+        this.setUser(user);
+        if (user.anonymous === false) {
+          this.feedback.success(user.name + ', you are logged in');
+          this.analytics.userLoggedIn(user.login);
+          resolve(user);
+        } else {
+          this.handleError('Login got anonymous user: ' + user.login);
+          reject('Login got anonymous user');
+        }
+      },
+      e => {
+        this.handleError(e);
+        reject(e);
+      }
+    );
+  });
+  return p;
+
+  */
 
   logout(): Promise<boolean> {
 
-    const p = new Promise<boolean>((resolve, reject) => {
-
-      this.BD2REST.logout().subscribe(
-        state => {
-          this.setUser(this.makeAnonymous());
-          if (state) {
-            this.feedback.success('You are logged out');
-            this.refresh();
-          }
-          resolve(state);
-        },
-        e => {
-          this.handleError(e);
-          reject(e);
-        }
-      );
-    });
-    return p;
-
+      return this.BD2REST.logout()
+        .pipe(
+          switchMap( _ => this.BD2REST.refreshUser()),
+          tap(
+            user => {
+              user = BD2User.deserialize(user);
+              this.setUser(user);
+              this.feedback.success('You are logged out');
+            }
+          ),
+          map( user => true)
+        ).toPromise();
   }
 
+  /*
   refresh(): Promise<BD2User> {
 
     /*
@@ -95,9 +115,8 @@ export class UserService {
         this.setUser(user);
         return user;
       });
-    */
     return Promise.resolve(this.currentUser);
-  }
+  } */
 
   protected handleError(err) {
     this.feedback.error(err);

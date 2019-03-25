@@ -57,11 +57,11 @@ export class BioDareRestService {
     return this.OK(this.http.post(url, undefined, options));
   }
 
-  refreshUser() {
+  refreshUser(): Observable<BD2User> {
     const options = this.makeOptions();
     const url = this.endPoints.user_url;
 
-    // return this.OKJson(this.http.get(url, options).toPromise());
+    return this.OKJson(this.http.get<BD2User>(url, options));
 
   }
 
