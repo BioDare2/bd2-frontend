@@ -1,3 +1,9 @@
+
+export class EmailSuitability {
+  isAcademic: boolean;
+  isFree: boolean;
+}
+
 export class BD2User {
 
   email: string;

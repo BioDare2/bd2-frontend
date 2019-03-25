@@ -1,19 +1,19 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { PasswordResetComponent } from './password-reset.component';
+import { AccountActivationComponent } from './account-activation.component';
 import {FormsModule} from '@angular/forms';
+import {RouterTestingModule} from '@angular/router/testing';
 import {UserService} from '../../auth/user.service';
 import {fakeUserService} from '../../auth/auth_test_tool.spec';
-import {RouterTestingModule} from '@angular/router/testing';
 
-describe('PasswordResetComponent', () => {
-  let component: PasswordResetComponent;
-  let fixture: ComponentFixture<PasswordResetComponent>;
+describe('AccountActivatationComponent', () => {
+  let component: AccountActivationComponent;
+  let fixture: ComponentFixture<AccountActivationComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ PasswordResetComponent ],
-      imports: [FormsModule, RouterTestingModule],
+      declarations: [ AccountActivationComponent ],
+      imports: [RouterTestingModule],
       providers: [
         {provide: UserService, useValue: fakeUserService()}
       ]
@@ -22,7 +22,7 @@ describe('PasswordResetComponent', () => {
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(PasswordResetComponent);
+    fixture = TestBed.createComponent(AccountActivationComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {BioDareEndPoints} from './biodare-rest.dom';
 import {HttpClient, HttpErrorResponse, HttpHeaders} from '@angular/common/http';
 import {Observable, throwError} from 'rxjs';
-import {catchError, map} from 'rxjs/operators';
+import {catchError, map, tap} from 'rxjs/operators';
 import {SystemEventsService} from '../system/system-events.service';
 import {BD2User} from '../auth/user.dom';
 
@@ -65,6 +65,15 @@ export class BioDareRestService {
 
   }
 
+  userActivate(token: string): Promise<any> {
+    const options = this.makeOptions();
+    const url = this.endPoints.user_activate_url;
+    const body = token;
+
+    return this.OKJson(this.http.post(url, body, options)).toPromise();
+
+  }
+
   userRequestReset(identifier: string, gRecaptchaResponse: string): Promise<any> {
     const options = this.makeOptions();
     const url = this.endPoints.user_requestreset_url;
@@ -83,6 +92,41 @@ export class BioDareRestService {
     return this.OKJson(this.http.post(url, body, options)).toPromise();
 
   }
+
+  userAvailableLogin(login: string): Promise<boolean> {
+    const options = this.makeOptions();
+    const url = this.endPoints.user_available_login_url;
+    const body = login;
+
+    return this.OKBoolean(this.http.post<string>(url, login, options)).toPromise();
+  }
+
+  userAcademicEmail(email: string): Promise<boolean> {
+    const options = this.makeOptions();
+    const url = this.endPoints.user_academic_email_url;
+    const body = email;
+
+    return this.OKBoolean(this.http.post<string>(url, body, options)).toPromise();
+  }
+
+  userSuitableEmail(email: string): Promise<any> {
+    const options = this.makeOptions();
+    const url = this.endPoints.user_suitable_email_url;
+    const body = email;
+
+    return this.OKJson(this.http.post(url, body, options)).toPromise();
+  }
+
+
+  userRegister(user: any): Promise<any> {
+    const options = this.makeOptions();
+    const url = this.endPoints.user_register_url;
+    const body = JSON.stringify(user);
+
+    return this.OKJson(this.http.put(url, body, options)).toPromise();
+
+  }
+
 
 
   protected makeOptions() {
@@ -112,6 +156,26 @@ export class BioDareRestService {
       map(_ => true),
       catchError(this.handleBadResponse)
     );
+  }
+
+  protected OKBoolean(resp$: Observable<any>): Observable<boolean> {
+
+    return resp$.pipe(
+      map( resp => {
+        if (resp.body) {
+          resp = resp.body;
+        }
+        if (resp === true || resp === 'true') {
+          return true;
+        }
+        if (resp === false || resp === 'false') {
+          return false;
+        }
+        throw Error('Not boolean response: ' + resp);
+        }),
+      catchError(this.handleBadResponse)
+    );
+
   }
 
   protected handleBadResponse(resp: HttpErrorResponse) {

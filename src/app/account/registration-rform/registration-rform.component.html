@@ -1,0 +1,125 @@
+<div>
+
+  <h2>User registration</h2>
+
+  <div *ngIf="registered" class="alert alert-success">
+    <h4>Your registration was successful.</h4>
+    We sent you the activation link to <strong>{{registeredMsg}}</strong>, please use that link before logging in
+  </div>
+
+  <div *ngIf="!registered">
+    <form #registrationForm [formGroup]="userForm">
+      <div class="form-group">
+        <label for="username">Login</label>
+        <input class="form-control" formControlName="username" id="username"
+               minlength="5"
+               pattern="[0-9|a-z|\._]+"
+               placeholder="choose login"
+               required
+               type="text"
+        >
+        <div [hidden]="!userNameError" [innerHTML]="userNameError" class="alert alert-danger">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input class="form-control" formControlName="email" id="email"
+               placeholder="your email"
+               required
+               type="text"
+        >
+        <div [hidden]="!emailError" [innerHTML]="emailError" class="alert alert-danger">
+        </div>
+      </div>
+
+      <div formGroupName="passwords">
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input class="form-control" formControlName="password" id="password"
+                 minlength="8"
+                 placeholder="password"
+                 required
+                 type="password"
+
+          >
+          <div [hidden]="passwordField.pristine || passwordField.valid" class="alert alert-danger">
+            Password must be at least 8 long, containing a digit or symbol or capital letter
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="password2">Repeat password</label>
+          <input class="form-control" formControlName="password2" id="password2"
+                 minlength="8"
+                 placeholder="password"
+                 required
+                 type="password"
+          >
+          <div [hidden]="passwordField.pristine || userForm.get('passwords').valid || passwordField.invalid"
+               class="alert alert-danger">
+            Passwords do not match
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="firstName">First Name</label>
+        <input class="form-control" formControlName="firstName" id="firstName"
+               minlength="2"
+               placeholder="your first name"
+               required
+               type="text"
+        >
+      </div>
+
+      <div class="form-group">
+        <label for="lastName">Family Name</label>
+        <input class="form-control" formControlName="lastName" id="lastName"
+               minlength="2"
+               placeholder="your surname"
+               required
+               type="text"
+        >
+      </div>
+
+      <div class="form-group">
+        <label for="institution">Institution</label>
+        <input class="form-control" formControlName="institution" id="institution"
+               placeholder="e.g. University of Edinburgh"
+               required
+               type="text"
+        >
+      </div>
+
+      <div class="form-group">
+        <bd2-recaptcha #recaptcha (captchaExpired)="captchaExpired()"
+                       (captchaResponse)="captcha($event)"
+                       [site_key]="captchaSiteKey"
+        ></bd2-recaptcha>
+        <div [hidden]="!missingCaptcha" class="alert alert-danger">
+          Captcha selection is needed
+        </div>
+      </div>
+
+      <!--<bd2-static-pop-up #pop></bd2-static-pop-up>-->
+      <div class="form-group">
+        <label><input formControlName="terms" id="terms"
+                      required
+                      type="checkbox"
+        > I agree to conditions of </label>
+        <span style="font-weight: bold;"><a (click)="pop.show('service')">service</a></span>.
+        And I understand that unless changed
+        my data will be shared 3 years after their registration.
+      </div>
+
+      <button (click)="register()" [disabled]="blocked || userForm.invalid" class="btn btn-primary" type="button">
+        Register
+      </button>
+
+
+    </form>
+  </div>
+
+
+</div>

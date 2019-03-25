@@ -3,15 +3,19 @@ import {CommonModule} from '@angular/common';
 
 import {AccountRoutingModule} from './account-routing.module';
 import {ResetRequestComponent} from './reset-request/reset-request.component';
-import {FormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {ReCaptchaModule} from '../recaptcha/recaptcha.module';
 import { PasswordResetComponent } from './password-reset/password-reset.component';
+import { AccountActivationComponent } from './account-activation/account-activation.component';
+import {RegistrationRFormComponent} from './registration-rform/registration-rform.component';
 
 @NgModule({
-  declarations: [ResetRequestComponent, PasswordResetComponent],
+  declarations: [ResetRequestComponent, PasswordResetComponent, AccountActivationComponent,
+    RegistrationRFormComponent],
   imports: [
     CommonModule,
     FormsModule,
+    ReactiveFormsModule,
     ReCaptchaModule,
     AccountRoutingModule
   ]

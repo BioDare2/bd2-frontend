@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {BehaviorSubject, Observable} from 'rxjs';
-import {BD2User} from './user.dom';
+import {BD2User, EmailSuitability} from './user.dom';
 import {FeedbackService} from '../feedback/feedback.service';
 import {AnalyticsService} from '../analytics/analytics.service';
 import {BioDareRestService} from '../backend/biodare-rest.service';
@@ -117,6 +117,17 @@ export class UserService {
     return Promise.resolve(this.currentUser);
   } */
 
+  activate(token: string): Promise<BD2User> {
+
+    return this.BD2REST.userActivate(token)
+      .then(user => {
+        user = BD2User.deserialize(user);
+        this.analytics.userActivation(user.login);
+        return user;
+      });
+
+  }
+
   requestReset(identifier: string, gRecaptchaResponse: string): Promise<string> {
 
     return this.BD2REST.userRequestReset(identifier, gRecaptchaResponse)
@@ -127,6 +138,35 @@ export class UserService {
     return this.BD2REST.userResetPassword(password, token)
       .then(jsonObj => jsonObj.login);
   }
+
+  availableLogin(login: string): Promise<boolean> {
+    return this.BD2REST.userAvailableLogin(login);
+    // .then( txt => ('true' === txt));
+  }
+
+  isAcademicEmail(email: string): Promise<boolean> {
+    return this.BD2REST.userAcademicEmail(email);
+  }
+
+  suitableEmail(email: string): Promise<EmailSuitability> {
+
+    return this.BD2REST.userSuitableEmail(email);
+  }
+
+
+  register(user: any): Promise<BD2User> {
+
+    return this.BD2REST.userRegister(user)
+      .then( user => {
+        user = BD2User.deserialize(user);
+        this.analytics.userRegistration(user.login);
+        return user;
+      });
+
+  }
+
+
+
 
   protected handleError(err) {
     this.feedback.error(err);
