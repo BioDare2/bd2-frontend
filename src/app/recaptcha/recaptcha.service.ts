@@ -1,7 +1,5 @@
-
-import { Injectable, NgZone } from '@angular/core';
+import {Injectable, NgZone} from '@angular/core';
 import {BehaviorSubject, Observable} from 'rxjs';
-
 
 
 /*
@@ -18,31 +16,31 @@ import {BehaviorSubject, Observable} from 'rxjs';
 })
 export class ReCaptchaService {
 
-    public readonly captchSiteKey: string;
-    private scriptLoaded = false;
-    private readySubject: BehaviorSubject<boolean> = new BehaviorSubject(false);
+  public readonly captchSiteKey: string;
+  private scriptLoaded = false;
+  private readySubject: BehaviorSubject<boolean> = new BehaviorSubject(false);
 
-    constructor(zone: NgZone) {
-        /* the callback needs to exist before the API is loaded */
-        window['reCaptchaOnloadCallback' as any] = (() => zone.run(this.onloadCallback.bind(this))) as any;
-    }
+  constructor(zone: NgZone) {
+    /* the callback needs to exist before the API is loaded */
+    window['reCaptchaOnloadCallback' as any] = (() => zone.run(this.onloadCallback.bind(this))) as any;
+  }
 
-    public getReady(language: string): Observable<boolean> {
-        if (!this.scriptLoaded) {
-            this.scriptLoaded = true;
-            const doc = document.body as HTMLDivElement;
-            const script = document.createElement('script');
-            script.innerHTML = '';
-            script.src = 'https://www.google.com/recaptcha/api.js?onload=reCaptchaOnloadCallback&render=explicit' +
-                (language ? '&hl=' + language : '');
-            script.async = true;
-            script.defer = true;
-            doc.appendChild(script);
-        }
-        return this.readySubject.asObservable();
+  public getReady(language: string): Observable<boolean> {
+    if (!this.scriptLoaded) {
+      this.scriptLoaded = true;
+      const doc = document.body as HTMLDivElement;
+      const script = document.createElement('script');
+      script.innerHTML = '';
+      script.src = 'https://www.google.com/recaptcha/api.js?onload=reCaptchaOnloadCallback&render=explicit' +
+        (language ? '&hl=' + language : '');
+      script.async = true;
+      script.defer = true;
+      doc.appendChild(script);
     }
+    return this.readySubject.asObservable();
+  }
 
-    private onloadCallback() {
-        this.readySubject.next(true);
-    }
+  private onloadCallback() {
+    this.readySubject.next(true);
+  }
 }

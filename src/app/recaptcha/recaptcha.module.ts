@@ -1,16 +1,12 @@
-
-import {NgModule }       from '@angular/core';
+import {NgModule} from '@angular/core';
 import {ReCaptchaComponent} from './recaptcha.component';
-import {ReCaptchaService} from './recaptcha.service';
 
 @NgModule({
-  imports:      [
-
-  ],
+  imports: [],
   declarations: [
     ReCaptchaComponent
   ],
-  exports:      [
+  exports: [
     ReCaptchaComponent
   ],
 })

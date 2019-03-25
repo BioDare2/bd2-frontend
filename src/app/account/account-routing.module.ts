@@ -1,6 +1,7 @@
-import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import {NgModule} from '@angular/core';
+import {RouterModule, Routes} from '@angular/router';
 import {ResetRequestComponent} from './reset-request/reset-request.component';
+import {PasswordResetComponent} from "./password-reset/password-reset.component";
 
 const routes: Routes = [
   {
@@ -9,6 +10,10 @@ const routes: Routes = [
       {
         path: 'remind',
         component: ResetRequestComponent
+      },
+      {
+        path: 'reset',
+        component: PasswordResetComponent
       }
     ]
   }
@@ -18,4 +23,5 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class AccountRoutingModule { }
+export class AccountRoutingModule {
+}

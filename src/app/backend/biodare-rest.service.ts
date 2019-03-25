@@ -69,8 +69,16 @@ export class BioDareRestService {
     const options = this.makeOptions();
     const url = this.endPoints.user_requestreset_url;
 
-    // let body = JSON.stringify({identifier: identifier, gRecaptchaResponse:  gRecaptchaResponse});
-    const body = {identifier, g_recaptcha_response:  gRecaptchaResponse};
+    const body = {identifier, g_recaptcha_response: gRecaptchaResponse};
+
+    return this.OKJson(this.http.post(url, body, options)).toPromise();
+
+  }
+
+  userResetPassword(password: string, token: string): Promise<any> {
+    const options = this.makeOptions();
+    const url = this.endPoints.user_reset_url;
+    const body = {password, token};
 
     return this.OKJson(this.http.post(url, body, options)).toPromise();
 

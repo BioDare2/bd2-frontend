@@ -1,13 +1,14 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
 
-import { AccountRoutingModule } from './account-routing.module';
-import { ResetRequestComponent } from './reset-request/reset-request.component';
+import {AccountRoutingModule} from './account-routing.module';
+import {ResetRequestComponent} from './reset-request/reset-request.component';
 import {FormsModule} from '@angular/forms';
 import {ReCaptchaModule} from '../recaptcha/recaptcha.module';
+import { PasswordResetComponent } from './password-reset/password-reset.component';
 
 @NgModule({
-  declarations: [ResetRequestComponent],
+  declarations: [ResetRequestComponent, PasswordResetComponent],
   imports: [
     CommonModule,
     FormsModule,
@@ -15,4 +16,5 @@ import {ReCaptchaModule} from '../recaptcha/recaptcha.module';
     AccountRoutingModule
   ]
 })
-export class AccountModule { }
+export class AccountModule {
+}

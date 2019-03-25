@@ -123,6 +123,11 @@ export class UserService {
       .then(jsonObj => jsonObj.email);
   }
 
+  resetPassword(password: string, token: string): Promise<string> {
+    return this.BD2REST.userResetPassword(password, token)
+      .then(jsonObj => jsonObj.login);
+  }
+
   protected handleError(err) {
     this.feedback.error(err);
   }
