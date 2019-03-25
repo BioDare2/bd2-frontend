@@ -7,6 +7,7 @@ import {PageModule} from './page/page.module';
 import {HttpClientModule} from '@angular/common/http';
 import {environment} from '../environments/environment';
 import {BioDareEndPoints, bioDareRestConfigurator} from './backend/biodare-rest.dom';
+import {AccountModule} from './account/account.module';
 
 const endPoints: BioDareEndPoints = bioDareRestConfigurator(environment);
 
@@ -18,8 +19,9 @@ const endPoints: BioDareEndPoints = bioDareRestConfigurator(environment);
     BrowserModule,
     // BrowserAnimationsModule,
     HttpClientModule,
+    PageModule,
+    AccountModule,
     AppRoutingModule,
-    PageModule
   ],
   providers: [
     {provide: BioDareEndPoints, useValue: endPoints}

@@ -1,10 +1,10 @@
 import {Injectable} from '@angular/core';
-import {BehaviorSubject, Observable, throwError} from 'rxjs';
+import {BehaviorSubject, Observable} from 'rxjs';
 import {BD2User} from './user.dom';
 import {FeedbackService} from '../feedback/feedback.service';
 import {AnalyticsService} from '../analytics/analytics.service';
 import {BioDareRestService} from '../backend/biodare-rest.service';
-import {switchMap, map, tap, catchError} from 'rxjs/operators';
+import {map, switchMap, tap} from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -42,23 +42,22 @@ export class UserService {
 
     // making promise so login can be called without having to subscribe
 
-      return this.BD2REST.login(login, password).pipe(
-            map( user => {
-              user = BD2User.deserialize(user);
-              if (user.anonymous) {
-                throw new Error('Login got anonymous user: ' + user.login);
-              }
-              return user;
-            }),
-            tap( user => {
-              this.setUser(user);
-              this.feedback.success(user.name + ', you are logged in');
-              this.analytics.userLoggedIn(user.login);
-              },
-              err => this.handleError(err)
-            )
-          ).toPromise();
-
+    return this.BD2REST.login(login, password).pipe(
+      map(user => {
+        user = BD2User.deserialize(user);
+        if (user.anonymous) {
+          throw new Error('Login got anonymous user: ' + user.login);
+        }
+        return user;
+      }),
+      tap(user => {
+          this.setUser(user);
+          this.feedback.success(user.name + ', you are logged in');
+          this.analytics.userLoggedIn(user.login);
+        },
+        err => this.handleError(err)
+      )
+    ).toPromise();
 
 
   }
@@ -92,18 +91,18 @@ export class UserService {
 
   logout(): Promise<boolean> {
 
-      return this.BD2REST.logout()
-        .pipe(
-          switchMap( _ => this.BD2REST.refreshUser()),
-          tap(
-            user => {
-              user = BD2User.deserialize(user);
-              this.setUser(user);
-              this.feedback.success('You are logged out');
-            }
-          ),
-          map( user => true)
-        ).toPromise();
+    return this.BD2REST.logout()
+      .pipe(
+        switchMap(_ => this.BD2REST.refreshUser()),
+        tap(
+          user => {
+            user = BD2User.deserialize(user);
+            this.setUser(user);
+            this.feedback.success('You are logged out');
+          }
+        ),
+        map(user => true)
+      ).toPromise();
   }
 
   /*
@@ -117,6 +116,12 @@ export class UserService {
       });
     return Promise.resolve(this.currentUser);
   } */
+
+  requestReset(identifier: string, gRecaptchaResponse: string): Promise<string> {
+
+    return this.BD2REST.userRequestReset(identifier, gRecaptchaResponse)
+      .then(jsonObj => jsonObj.email);
+  }
 
   protected handleError(err) {
     this.feedback.error(err);

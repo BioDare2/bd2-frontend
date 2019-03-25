@@ -1,32 +1,32 @@
-
 <div>
 
 
   <div *ngIf="!isLoggedIn()">
     <h2>Sign in to BioDare2</h2>
 
-    <form #loginForm="ngForm" >
+    <form #loginForm="ngForm">
       <div class="form-group">
         <label for="username">Login</label>
-        <input type="text" class="form-control" required
-               id="username"
+        <input [(ngModel)]="username" class="form-control" id="username"
+               name="usernameF"
                placeholder="Your login"
-               [(ngModel)]="username"
-               name="usernameF" >
+               required
+               type="text">
       </div>
 
       <div class="form-group">
         <label for="password">Password</label>
-        <input type="password" class="form-control" required
-               id="password"
+        <input [(ngModel)]="password" class="form-control" id="password"
+               name="passwordF"
                placeholder="Your password"
-               [(ngModel)]="password"
-               name="passwordF" >
+               required
+               type="password">
       </div>
 
       <div class="form-group">
-        <button type="button" class="btn btn-primary"
-                [disabled]="!loginForm.form.valid || loginForm.form.pristine" (click)="login()">Sign in</button>
+        <button (click)="login()" [disabled]="!loginForm.form.valid || loginForm.form.pristine"
+                class="btn btn-primary" type="button">Sign in
+        </button>
         <!--<button type="button" class="btn btn-default" (click)="goBack()">Go back</button>-->
         <div class="pull-right">
           <a routerLink="/account/remind">Forgotten password?</a></div>
@@ -41,11 +41,10 @@
     </h3>
 
     <form>
-      <button type="button" class="btn btn-primary" (click)="logout()">Logout</button>
+      <button (click)="logout()" class="btn btn-primary" type="button">Logout</button>
       <!--<button type="button" class="btn btn-default" (click)="goBack()">Go back</button>-->
     </form>
   </div>
-
 
 
 </div>

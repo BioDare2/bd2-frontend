@@ -1,4 +1,4 @@
-import {fakeAsync, TestBed, tick} from '@angular/core/testing';
+import {TestBed} from '@angular/core/testing';
 
 import {UserService} from './user.service';
 import {RouterTestingModule} from '@angular/router/testing';
@@ -49,7 +49,7 @@ describe('UserService', () => {
 
   });
 
-  it( 'login gives error on anonymous', () => {
+  it('login gives error on anonymous', () => {
 
     const u = BD2User.deserialize(testUserData);
     u.anonymous = true;
@@ -58,20 +58,20 @@ describe('UserService', () => {
 
     const p = service.currentUser;
     service.login('t', 'p')
-      .then( a => fail('Expected error got' + a))
-      .catch( e => expect(e.message).toBe('Login got anonymous user: test'));
+      .then(a => fail('Expected error got' + a))
+      .catch(e => expect(e.message).toBe('Login got anonymous user: test'));
 
     expect(service.currentUser).toBe(p);
   });
 
-  it( 'login handles errors', () => {
+  it('login handles errors', () => {
 
     BD2REST.login.and.returnValue(throwError('Unknown user'));
 
     const p = service.currentUser;
     service.login('t', 'p')
-      .then( a => fail('Expected error got' + a))
-      .catch( e => expect(e).toBe('Unknown user'));
+      .then(a => fail('Expected error got' + a))
+      .catch(e => expect(e).toBe('Unknown user'));
 
     expect(service.currentUser).toBe(p);
   });

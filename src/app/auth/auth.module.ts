@@ -2,8 +2,8 @@ import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {InlineLoginFormComponent} from './inline-login-form/inline-login-form.component';
 import {FormsModule} from '@angular/forms';
-import { LoginFormComponent } from './login-form/login-form.component';
-import {Router, RouterModule} from '@angular/router';
+import {LoginFormComponent} from './login-form/login-form.component';
+import {RouterModule} from '@angular/router';
 
 @NgModule({
   declarations: [InlineLoginFormComponent, LoginFormComponent],

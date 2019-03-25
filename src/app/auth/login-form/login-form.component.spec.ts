@@ -1,6 +1,6 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { LoginFormComponent } from './login-form.component';
+import {LoginFormComponent} from './login-form.component';
 import {FormsModule} from '@angular/forms';
 import {UserService} from '../user.service';
 import {fakeUserService, MockUserService} from '../auth_test_tool.spec';
@@ -13,13 +13,13 @@ describe('LoginFormComponent', () => {
   beforeEach(async(() => {
     mockedUserService = fakeUserService();
     TestBed.configureTestingModule({
-      declarations: [ LoginFormComponent ],
+      declarations: [LoginFormComponent],
       imports: [FormsModule],
       providers: [
         {provide: UserService, useValue: mockedUserService}
       ]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

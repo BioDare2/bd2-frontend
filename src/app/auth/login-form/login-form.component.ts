@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {UserService} from '../user.service';
 import {BD2User} from '../user.dom';
 
@@ -16,25 +16,25 @@ export class LoginFormComponent implements OnInit {
 
   }
 
-  ngOnInit() {
-  }
-
   get currentUser(): BD2User {
     return this.userService.currentUser;
+  }
+
+  ngOnInit() {
   }
 
   login() {
     if (this.username && this.username.trim()) {
       this.userService.login(this.username, this.password)
-        .then( u => this.clearForm())
-        .catch( reason => console.error(reason));
+        .then(u => this.clearForm())
+        .catch(reason => console.error(reason));
     }
   }
 
   logout() {
     this.userService.logout()
-      .then( u => this.clearForm())
-      .catch( reason => console.error(reason));
+      .then(u => this.clearForm())
+      .catch(reason => console.error(reason));
 
     /*
       .then( state => {
@@ -59,11 +59,11 @@ export class LoginFormComponent implements OnInit {
     window.history.back();
   }
 
-    /*
-  refreshView() {
-    let path = window.location.pathname;
-    this.router.navigate(['/refresh',{path:path}]);
-  }*/
+  /*
+refreshView() {
+  let path = window.location.pathname;
+  this.router.navigate(['/refresh',{path:path}]);
+}*/
 
 
 }

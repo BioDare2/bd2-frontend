@@ -65,6 +65,18 @@ export class BioDareRestService {
 
   }
 
+  userRequestReset(identifier: string, gRecaptchaResponse: string): Promise<any> {
+    const options = this.makeOptions();
+    const url = this.endPoints.user_requestreset_url;
+
+    // let body = JSON.stringify({identifier: identifier, gRecaptchaResponse:  gRecaptchaResponse});
+    const body = {identifier, g_recaptcha_response:  gRecaptchaResponse};
+
+    return this.OKJson(this.http.post(url, body, options)).toPromise();
+
+  }
+
+
   protected makeOptions() {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
