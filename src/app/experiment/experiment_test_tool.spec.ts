@@ -12,6 +12,8 @@ import {SharedComponentsModule} from '../shared/shared-components.module';
 import {AnalyticsService} from '../analytics/analytics.service';
 import {fakeAnalyticsService} from '../analytics/analytics_test_tool.spec';
 import {ModalModule} from 'ngx-bootstrap/modal';
+import {ExperimentComponentsDependencies} from "./experiment-components.dependencies";
+import {CurrentExperimentService} from "./current-experiment.service";
 
 
 export function fakeExperimentService() {
@@ -38,7 +40,8 @@ export function fakeExperimentService() {
     {provide: ExperimentService, useValue: fakeExperimentService()},
     {provide: UserService, useValue: fakeUserService()},
     {provide: BioDareRestService, useValue: fakeBioDareRestService()},
-    {provide: AnalyticsService, useValue: fakeAnalyticsService()}
+    {provide: AnalyticsService, useValue: fakeAnalyticsService()},
+    CurrentExperimentService, ExperimentComponentsDependencies
   ],
   exports: [FormsModule, ButtonsModule, RouterTestingModule,
     RepoComponentsModule, SharedComponentsModule

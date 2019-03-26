@@ -9,11 +9,12 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {filter, map} from 'rxjs/operators';
 import {CurrentExperimentService} from '../current-experiment.service';
 import {ConfirmDialogComponent} from '../../shared/confirm-dialog.component';
+import {ExperimentComponentsDependencies} from "../experiment-components.dependencies";
 
 @Component({
   templateUrl: './experiment-feature.component.html',
   styles: [],
-  providers: [CurrentExperimentService]
+  providers: [CurrentExperimentService, ExperimentComponentsDependencies]
 })
 export class ExperimentFeatureComponent implements OnInit, OnDestroy {
 

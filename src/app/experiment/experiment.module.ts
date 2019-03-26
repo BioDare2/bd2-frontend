@@ -6,11 +6,15 @@ import { ExperimentFeatureComponent } from './experiment-feature/experiment-feat
 import {SharedComponentsModule} from '../shared/shared-components.module';
 import {ExperimentNavigationComponent} from './experiment-navigation.component';
 import {ExperimentBasicInfoViewComponent} from './experiment-basic-info-view.component';
+import {ExperimentAssayOverviewComponent} from './experiment-assay-overview/experiment-assay-overview.component';
+import {RepoComponentsModule} from "../repo/components/repo-comp.module";
 
 @NgModule({
-  declarations: [ExperimentFeatureComponent, ExperimentNavigationComponent,  ExperimentBasicInfoViewComponent],
+  declarations: [ExperimentFeatureComponent, ExperimentNavigationComponent,  ExperimentBasicInfoViewComponent,
+    ExperimentAssayOverviewComponent ],
   imports: [
     CommonModule,
+    RepoComponentsModule,
     SharedComponentsModule,
     ExperimentRoutingModule
   ]
