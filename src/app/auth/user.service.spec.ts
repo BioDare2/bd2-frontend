@@ -17,7 +17,7 @@ describe('UserService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [
-        RouterTestingModule,
+        // RouterTestingModule,
       ],
       providers: [
         {provide: AnalyticsService, useValue: fakeAnalyticsService()},

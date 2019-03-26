@@ -12,7 +12,8 @@ const routes: Routes = [
     path: 'logout',
     component: LoginFormComponent
   },
-  { path: 'account', loadChildren: './account/account.module#AccountModule' },
+  {path: 'experiments', loadChildren: './experiment/experiments.module#ExperimentsModule'},
+  {path: 'account', loadChildren: './account/account.module#AccountModule'},
   {path: 'documents', loadChildren: './documents/documents.module#DocumentsModule'},
   {path: '', component: WelcomeComponent, pathMatch: 'full'},
   {path: '**', component: WelcomeComponent}

@@ -7,7 +7,7 @@ import {ReCaptchaModule} from '../../recaptcha/recaptcha.module';
 import {UserService} from '../../auth/user.service';
 import {StaticContentModule} from '../../documents/static-content.module';
 import {StaticContentService} from '../../documents/static-content.service';
-import {ModalModule} from "ngx-bootstrap";
+import {ModalModule} from "ngx-bootstrap/modal";
 
 describe('RegistrationRFormComponent', () => {
   let component: RegistrationRFormComponent;

@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {BioDareEndPoints} from './biodare-rest.dom';
-import {HttpClient, HttpErrorResponse, HttpHeaders} from '@angular/common/http';
+import {HttpClient, HttpErrorResponse, HttpHeaders, HttpParams} from '@angular/common/http';
 import {Observable, throwError} from 'rxjs';
 import {catchError, map} from 'rxjs/operators';
 import {SystemEventsService} from '../system/system-events.service';
@@ -136,6 +136,18 @@ export class BioDareRestService {
 
   }
 
+  /* experiments */
+
+  experiments(onlyOwned = true): Promise<any> {
+    const options = this.makeOptions() as any;
+    options.params = options.params || new HttpParams();
+    options.params = options.params.set('onlyOwned', '' + onlyOwned);
+    const url = this.endPoints.experiments_url;
+
+    return this.OKJson(this.http.get(url, options)).toPromise();
+
+  }
+  /* experiments */
 
   protected makeOptions() {
     const headers = new HttpHeaders({

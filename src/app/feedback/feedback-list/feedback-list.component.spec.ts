@@ -1,7 +1,7 @@
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
 import {FeedbackListComponent} from './feedback-list.component';
-import {AlertModule} from 'ngx-bootstrap';
+import {AlertModule} from 'ngx-bootstrap/alert';
 import {FeedbackService} from '../feedback.service';
 
 describe('FeedbackListComponent', () => {
