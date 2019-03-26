@@ -67,7 +67,7 @@ export class ExperimentBaseComponent extends ValidableFormComponent<Experimental
 
   protected subscribeToExperiment() {
 
-    console.log('In subscribe');
+    // console.log('In subscribe');
     this.expSubscription = this.currentExperiment.experiment().pipe(
       filter(exp => (exp ? true : false))
       ).subscribe(

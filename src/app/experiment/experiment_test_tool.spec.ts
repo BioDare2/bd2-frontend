@@ -20,13 +20,14 @@ export function fakeExperimentService() {
 
 
   const ser = jasmine.createSpyObj('ExperimentService', [
-    'newDraft', 'newExperiment', 'getExperiment'
+    'newDraft', 'newExperiment', 'getExperiment', 'save'
   ]);
 
 
   ser.newDraft.and.returnValue(Promise.resolve({}));
   ser.newExperiment.and.returnValue(Promise.resolve({}));
   ser.getExperiment.and.returnValue(Promise.resolve({}));
+  ser.save.and.returnValue(Promise.resolve({}));
   return ser;
 }
 

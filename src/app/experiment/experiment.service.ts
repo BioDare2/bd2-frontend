@@ -36,6 +36,10 @@ export class ExperimentService {
       .then(jsonObj => this.json2ExperimentalAssayView(jsonObj));
   }
 
+  save(exp: ExperimentalAssayView): Promise<ExperimentalAssayView> {
+    return this.BD2REST.experimentSave(exp)
+      .then(jsonObj => this.json2ExperimentalAssayView(jsonObj));
+  }
 
 
   protected json2ExperimentSummaryList(data: any[]): ExperimentSummary[] {

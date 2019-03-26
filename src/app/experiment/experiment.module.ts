@@ -8,10 +8,11 @@ import {ExperimentNavigationComponent} from './experiment-navigation.component';
 import {ExperimentBasicInfoViewComponent} from './experiment-basic-info-view.component';
 import {ExperimentAssayOverviewComponent} from './experiment-assay-overview/experiment-assay-overview.component';
 import {RepoComponentsModule} from "../repo/components/repo-comp.module";
+import {ExperimentAssayEditFormComponent} from "./experiment-assay-edit-form/experiment-assay-edit-form.component";
 
 @NgModule({
   declarations: [ExperimentFeatureComponent, ExperimentNavigationComponent,  ExperimentBasicInfoViewComponent,
-    ExperimentAssayOverviewComponent ],
+    ExperimentAssayOverviewComponent, ExperimentAssayEditFormComponent ],
   imports: [
     CommonModule,
     RepoComponentsModule,

@@ -174,6 +174,16 @@ export class BioDareRestService {
 
   }
 
+  experimentSave(exp: ExperimentalAssayView): Promise<any> {
+    let options = this.makeOptions();
+    let url = this.endPoints.experiment_url + '/' + exp.id;
+    let body = exp;
+
+    return this.OKJson(this.http.post(url, body, options)).toPromise();
+
+  }
+
+
 
   /* experiments */
 
