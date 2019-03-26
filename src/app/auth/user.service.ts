@@ -21,6 +21,9 @@ export class UserService {
 
     this.user = this.makeAnonymous();
     this.userStream = new BehaviorSubject(this.user);
+
+    console.log('User service created');
+    this.refresh();
   }
 
   get currentUser(): BD2User {
@@ -103,6 +106,20 @@ export class UserService {
         ),
         map(user => true)
       ).toPromise();
+  }
+
+  refresh(): Promise<BD2User> {
+
+    return this.BD2REST.refreshUser().pipe(
+      tap(
+        user => {
+          user = BD2User.deserialize(user);
+          this.setUser(user);
+          },
+        err => this.handleError(err)
+      )
+    ).toPromise();
+
   }
 
   /*

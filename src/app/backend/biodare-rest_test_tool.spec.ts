@@ -14,11 +14,13 @@ export function fakeBioDareRestService() {
 
 
   const user = BD2User.deserialize(testUserData);
+  const unlogged = BD2User.deserialize(testUserData);
+  unlogged.anonymous = true;
 
   const ser = jasmine.createSpyObj('BioDareRestService', ['login', 'logout', 'refreshUser']);
 
   ser.login.and.returnValue(of(user));
   ser.logout.and.returnValue(of(true));
-  ser.refreshUser.and.returnValue(BD2User.deserialize(testUserData));
+  ser.refreshUser.and.returnValue(of(unlogged));
   return ser;
 }
