@@ -115,7 +115,7 @@ export class UserService {
         user => {
           user = BD2User.deserialize(user);
           this.setUser(user);
-          },
+        },
         err => this.handleError(err)
       )
     ).toPromise();

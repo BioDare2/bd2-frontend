@@ -10,8 +10,7 @@ describe('ExperimentService', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [
-      ],
+      imports: [],
       providers: [
         {provide: BioDareRestService, useValue: fakeBioDareRestService()}
       ]
@@ -26,7 +25,6 @@ describe('ExperimentService', () => {
   it('should be created', () => {
     expect(service).toBeTruthy();
   });
-
 
 
 });

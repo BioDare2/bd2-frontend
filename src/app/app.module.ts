@@ -7,8 +7,7 @@ import {PageModule} from './page/page.module';
 import {HttpClientModule} from '@angular/common/http';
 import {environment} from '../environments/environment';
 import {BioDareEndPoints, bioDareRestConfigurator} from './backend/biodare-rest.dom';
-import {AccountModule} from './account/account.module';
-import {ModalModule} from "ngx-bootstrap/modal";
+import {ModalModule} from 'ngx-bootstrap/modal';
 
 const endPoints: BioDareEndPoints = bioDareRestConfigurator(environment);
 

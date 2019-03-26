@@ -5,6 +5,7 @@ import {Observable, throwError} from 'rxjs';
 import {catchError, map} from 'rxjs/operators';
 import {SystemEventsService} from '../system/system-events.service';
 import {BD2User} from '../auth/user.dom';
+import {ExperimentalAssayView} from '../dom/repo/exp/experimental-assay-view';
 
 @Injectable({
   providedIn: 'root'
@@ -147,7 +148,46 @@ export class BioDareRestService {
     return this.OKJson(this.http.get(url, options)).toPromise();
 
   }
+
+  experimentNewDraft(): Promise<any> {
+    const options = this.makeOptions();
+    const url = this.endPoints.experiment_new_draft_url;
+
+    return this.OKJson(this.http.get(url, options)).toPromise();
+
+  }
+
+  experimentNewExperiment(exp: ExperimentalAssayView): Promise<any> {
+    const options = this.makeOptions();
+    const url = this.endPoints.experiment_new_experiment_url;
+    const body = exp;
+
+    return this.OKJson(this.http.put(url, body, options)).toPromise();
+
+  }
+
   /* experiments */
+
+  /* rdm aspects */
+
+  rdmAssayGuiAspects(exp: ExperimentalAssayView): Promise<any> {
+
+    const options = this.makeOptions();
+    const url = this.endPoints.experiment_url + '/' + exp.id + this.endPoints.rdmSocial + '/gui-aspects';
+
+    return this.OKJson(this.http.get(url, options)).toPromise();
+  }
+
+  rdmRegisterWarning(exp: ExperimentalAssayView, category: string): Promise<boolean> {
+
+    const options = this.makeOptions();
+    const url = this.endPoints.experiment_url + '/' + exp.id + this.endPoints.rdmSocial + '/register/warning/' + category;
+
+    return this.OK(this.http.put(url, '', options)).toPromise();
+
+  }
+
+  /* rdm aspects */
 
   protected makeOptions() {
     const headers = new HttpHeaders({

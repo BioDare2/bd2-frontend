@@ -1,0 +1,14 @@
+<div *ngIf="model">
+
+  <div *ngIf="model.technique">
+    <strong>Technique:</strong> {{ model.technique}}
+    {{model.equipment ? '(' + model.equipment + ')' : ''}}
+    <div *ngIf="model.description">
+      <strong>Details</strong>
+      <div>{{model.description}}</div>
+    </div>
+  </div>
+  <div *ngIf="!model.technique">
+    Unspecified
+  </div>
+</div>

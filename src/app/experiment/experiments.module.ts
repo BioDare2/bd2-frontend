@@ -6,14 +6,17 @@ import {ExperimentsListComponent} from './experiments-list/experiments-list.comp
 import {FormsModule} from '@angular/forms';
 import {RouterModule} from '@angular/router';
 import {ButtonsModule} from 'ngx-bootstrap/buttons';
+import {ExperimentAssayCreateFormComponent} from './experiment-assay-create-form/experiment-assay-create-form.component';
+import {RepoComponentsModule} from '../repo/components/repo-comp.module';
 
 @NgModule({
-  declarations: [ExperimentsListComponent],
+  declarations: [ExperimentsListComponent, ExperimentAssayCreateFormComponent],
   imports: [
     CommonModule,
     FormsModule,
     ButtonsModule,
     RouterModule,
+    RepoComponentsModule,
     ExperimentsRoutingModule
   ]
 })

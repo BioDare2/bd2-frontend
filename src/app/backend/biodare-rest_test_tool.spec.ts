@@ -18,7 +18,9 @@ export function fakeBioDareRestService() {
   unlogged.anonymous = true;
 
   const ser = jasmine.createSpyObj('BioDareRestService', ['login', 'logout', 'refreshUser',
-    'experiments']);
+    'experiments', 'experimentNewDraft', 'experimentNewExperiment',
+    'rdmAssayGuiAspects', 'rdmRegisterWarning'
+  ]);
 
   ser.login.and.returnValue(of(user));
   ser.logout.and.returnValue(of(true));

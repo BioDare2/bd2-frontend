@@ -1,0 +1,130 @@
+<div *ngIf="isUnauthorised">
+  <h4>You don't have permission to create experiment</h4>
+  <p>Try to login</p>
+</div>
+<div *ngIf="assay">
+
+  <h3>Create experiment</h3>
+
+
+  <div class="panel panel-default">
+    <div class="panel-heading">General description</div>
+    <div class="panel-body">
+      <bd2-general-desc-form
+        *ngIf="activeGeneralDescForm"
+        [model]="assay.generalDesc"
+        okLabel="Accept"
+        (onAccepted)="hideEdits($event)"
+        (onCancelled)="hideEdits($event)"
+      ></bd2-general-desc-form>
+      <bd2-general-desc-view
+        *ngIf="!activeGeneralDescForm"
+        [model]="assay.generalDesc"
+      ></bd2-general-desc-view>
+
+      <div *ngIf="!activeGeneralDescForm">
+        <hr>
+        <button type="button" class="btn btn-primary" [disabled]="activeGeneralDescForm"
+                (click)="activeGeneralDescForm=true">Modify
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="panel panel-default">
+    <div class="panel-heading">Biological details</div>
+    <div class="panel-body">
+
+      <bd2-simple-bio-desc-form
+        *ngIf="activeSimpleBioDescForm"
+        [model]="assay"
+        okLabel="Accept"
+        (onAccepted)="hideEdits($event)"
+        (onCancelled)="hideEdits($event)"
+      ></bd2-simple-bio-desc-form>
+
+      <bd2-simple-bio-desc-view
+        *ngIf="!activeSimpleBioDescForm"
+        [model]="assay"
+      ></bd2-simple-bio-desc-view>
+
+      <div *ngIf="!activeSimpleBioDescForm">
+        <hr>
+        <button type="button" class="btn btn-primary" [disabled]="activeSimpleBioDescForm"
+                (click)="activeSimpleBioDescForm=true">Modify
+        </button>
+      </div>
+
+    </div>
+
+  </div>
+
+  <div class="panel panel-default">
+    <div class="panel-heading">Contributions</div>
+    <div class="panel-body">
+
+      <bd2-contr-desc-form
+        *ngIf="activeContributionDescForm"
+        [model]="assay.contributionDesc"
+        okLabel="Accept"
+        (onAccepted)="hideEdits($event)"
+        (onCancelled)="hideEdits($event)"
+      ></bd2-contr-desc-form>
+      <bd2-contr-desc-view
+        *ngIf="!activeContributionDescForm"
+        [model]="assay.contributionDesc"
+      ></bd2-contr-desc-view>
+
+      <div *ngIf="!activeContributionDescForm">
+        <hr>
+        <button type="button" class="btn btn-primary" [disabled]="activeContributionDescForm"
+                (click)="activeContributionDescForm=true">Modify
+        </button>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="panel panel-default">
+    <div class="panel-heading">Measurement details</div>
+    <div class="panel-body">
+
+      <bd2-measurement-desc-rform
+        *ngIf="activeMeasurementDescForm"
+        [model]="assay.experimentalDetails.measurementDesc"
+        okLabel="Accept"
+        (onAccepted)="hideEdits($event)"
+        (onCancelled)="hideEdits($event)"
+      ></bd2-measurement-desc-rform>
+
+      <bd2-measurement-desc-view
+        *ngIf="!activeMeasurementDescForm"
+        [model]="assay.experimentalDetails.measurementDesc"
+      >
+      </bd2-measurement-desc-view>
+
+      <div *ngIf="!activeMeasurementDescForm">
+        <hr>
+        <button type="button" class="btn btn-primary" [disabled]="activeMeasurementDescForm"
+                (click)="activeMeasurementDescForm=true">Modify
+        </button>
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <div *ngIf="errors" class="alert alert-danger">
+    <ul>
+      <li *ngFor="let err of errors">{{err}}</li>
+    </ul>
+  </div>
+
+
+  <button type="button" class="btn btn-primary" [disabled]="blocked || errors" (click)="save()">Create</button>
+  <button type="button" class="btn btn-default" (click)="cancel()">Cancel</button>
+
+  <!--{{ assay | json }}-->
+</div>

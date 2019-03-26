@@ -1,0 +1,64 @@
+<div *ngIf="formModel">
+
+  <form [formGroup]="formModel">
+
+    <div class="form-group">
+      <div class="alert alert-success" role="alert">
+        Please email us if you don't see suitable terms in the value lists
+      </div>
+
+      <label for="mTechName">Technique</label>
+
+      <input #mTechName
+             (typeaheadOnSelect)="techniqueOnSelect($event)"
+             [typeaheadMinLength]="0"
+             [typeaheadOptionsLimit]="15"
+             [typeahead]="techniques"
+             class="form-control"
+             formControlName="technique"
+             id="mTechName"
+             placeholder="Type to select technique (backspace for all available)"
+             required
+      >
+      <div [hidden]="formModel.get('technique').valid || formModel.get('technique').pristine"
+           class="alert alert-danger">
+        Known technique must be selected
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="mEquipName">Equipment</label>
+
+      <input [typeaheadMinLength]="0" [typeaheadOptionsLimit]="7" [typeahead]="equipments"
+             class="form-control"
+             formControlName="equipment"
+             id="mEquipName"
+             placeholder="Type to choose or define equipment"
+             rows="5"
+             type="text"
+      >
+
+
+    </div>
+
+    <div class="form-group">
+      <label for="mDescription">Description</label>
+      <textarea class="form-control" formControlName="description" id="mDescription"
+                placeholder=
+                  "Describe how the measurement was conducted, used technical tricks etc...
+For example: plants were sprayed with luciferase two ours before measurement. Images were taken every two ours."
+                rows="5"
+                type="text"
+      >
+                 </textarea>
+
+    </div>
+
+    <button (click)="save()" [disabled]="blocked || !formModel.valid" class="btn btn-primary"
+            type="button">{{okLabel}}</button>
+    <button (click)="cancel()" class="btn btn-default" type="button">Cancel</button>
+
+
+  </form>
+</div>
+

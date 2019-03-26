@@ -1,0 +1,23 @@
+<div *ngIf="model">
+
+  <h4 *ngIf="model.authors.length > 0 ">
+    <span *ngFor="let author of model.authors">{{ author.name }}, </span>
+  </h4>
+
+  <div *ngIf="model.curators.length > 0">
+    <hr>
+    <strong>Data curators: </strong>
+    <span *ngFor="let curator of model.curators">{{ curator.name }} (data curator), </span>
+  </div>
+
+  <div *ngIf="model.institutions.length > 0 || model.fundings.length > 0">
+    <hr>
+    <strong>Institutions/Fundings: </strong>
+
+    <span *ngFor="let inst of model.institutions">{{ inst.name }}, </span>
+    <span *ngFor="let fund of model.fundings">{{ fund.name }}, </span>
+
+  </div>
+
+  <!--{{ model | json }}-->
+</div>

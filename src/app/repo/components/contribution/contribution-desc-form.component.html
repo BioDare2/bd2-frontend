@@ -1,0 +1,169 @@
+<div *ngIf="model">
+
+  <div *ngIf="errors" class="alert alert-danger">
+    <ul>
+      <li *ngFor="let err of errors">{{err}}</li>
+    </ul>
+  </div>
+
+  <div class="form-group">
+    <div class="well">
+      <label>Authors</label>
+      <p *ngIf="!(model.authors) || model.authors.length < 1">Please add an author</p>
+      <ul class="list-unstyled">
+        <li *ngFor="let author of model.authors">{{ author.name }}
+          <a (click)="removeAuthor(author)" role="button"><span aria-hidden="true"
+                                                                class="glyphicon glyphicon-remove"></span></a>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div *ngIf="model.curators.length > 0" class="form-group">
+    <div class="well">
+      <label>Data curators</label>
+      <ul class="list-unstyled">
+        <li *ngFor="let curator of model.curators">
+          {{ curator.name }}
+          <a (click)="removeCurator(curator)" role="button"><span aria-hidden="true"
+                                                                  class="glyphicon glyphicon-remove"></span></a>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <form #persForm="ngForm" class="form-inline  no-clues">
+    <div class="form-group">
+      <!--<label for="pFirst">Name</label>-->
+      <input #pFirst="ngModel" [(ngModel)]="firstName" class="form-control short-input"
+             id="pFirst"
+             maxlength="100"
+             minlength="2"
+             name="pFirst"
+             placeholder="Name (John)"
+             required type="text">
+      <!--<div [hidden]="pFirst.valid || pLast.pristine" class="alert alert-danger">
+        Valid first name is required
+      </div>-->
+    </div>
+    <div class="form-group">
+      <!--<label for="pLast">Surname</label>-->
+      <input #pLast="ngModel" [(ngModel)]="lastName" class="form-control  short-input"
+             id="pLast"
+             maxlength="100"
+             minlength="2"
+             name="pLast"
+             placeholder="Surname (Smith)"
+             required type="text">
+      <!--<div [hidden]="pLast.valid || pLast.pristine" class="alert alert-danger">
+        Valid last name is required
+      </div>-->
+    </div>
+
+    <button (click)="addAuthor()" [disabled]="!persForm.form.valid" class="btn btn-primary btn-sm" type="button">New
+      Author
+    </button>
+    <button (click)="addCurator()" [disabled]="!persForm.form.valid" class="btn btn-primary btn-sm" type="button">New
+      Curator
+    </button>
+
+  </form>
+
+  <hr>
+
+
+  <div class="form-group">
+
+    <div class="well">
+      <label>Institutions</label>
+      <p *ngIf="!(model.institutions) || model.institutions.length < 1">Please add an institution</p>
+      <ul class="list-unstyled">
+        <li *ngFor="let inst of model.institutions">
+          {{ inst.name }}
+          <a (click)="removeInstitution(inst)" role="button"><span aria-hidden="true"
+                                                                   class="glyphicon glyphicon-remove"></span></a>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <form #instForm="ngForm" class="form-inline  no-clues">
+    <div class="form-group">
+      <label for="iName">Institution</label>
+      <input #iName="ngModel" [(ngModel)]="institutionName" class="form-control"
+             id="iName"
+             maxlength="100"
+             minlength="3"
+             name="iName"
+             placeholder="e.g. University of Edinburgh"
+             required type="text">
+      <!--<div [hidden]="iName.valid || iName.pristine" class="alert alert-danger">
+        Institution name is required
+      </div>-->
+    </div>
+
+    <button (click)="addInstitution()" [disabled]="!instForm.form.valid" class="btn btn-primary btn-sm" type="button">
+      Add Institution
+    </button>
+
+  </form>
+
+  <hr>
+
+
+  <div *ngIf="model.fundings.length > 0" class="form-group">
+
+    <div class="well">
+      <label>Fundings</label>
+      <ul class="list-unstyled">
+        <li *ngFor="let fund of model.fundings">
+          {{ fund.name }}
+          <a (click)="removeFunding(fund)" role="button"><span aria-hidden="true"
+                                                               class="glyphicon glyphicon-remove"></span></a>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <form #fundForm="ngForm" class="form-inline no-clues">
+    <div class="form-group">
+      <label for="fName">Funder</label>
+      <input #fName="ngModel" [(ngModel)]="funderName" class="form-control"
+             id="fName"
+             maxlength="100"
+             minlength="3"
+             name="fName"
+             placeholder="e.g. BBSRC"
+             required type="text">
+      <!--<div [hidden]="fName.valid || fName.pristine" class="alert alert-danger">
+        Funder name is required
+      </div>-->
+    </div>
+
+    <div class="form-group">
+      <label for="fGrant">Grant</label>
+      <input #fGrant="ngModel" [(ngModel)]="grantNr"
+             class="form-control short-input"
+             id="fGrant"
+             maxlength="100"
+             minlength="3"
+             name="fGrant"
+             placeholder="e.g. EC2014" type="text">
+      <!--<div [hidden]="fGrant.valid || fGrant.pristine" class="alert alert-danger">
+        Invalid grant info
+      </div>-->
+    </div>
+
+    <button (click)="addFunding()" [disabled]="!fundForm.form.valid" class="btn btn-primary btn-sm" type="button">Add
+      Funding
+    </button>
+
+  </form>
+
+  <hr>
+
+  <button (click)="save()" [disabled]="blocked || errors" class="btn btn-primary" type="button">{{okLabel}}</button>
+  <button (click)="cancel()" class="btn btn-default" type="button">Cancel</button>
+
+  <!-- {{ model | json }} -->
+
+</div>
