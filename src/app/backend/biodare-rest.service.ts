@@ -166,6 +166,15 @@ export class BioDareRestService {
 
   }
 
+  experiment(expId: number): Promise<any> {
+    let options = this.makeOptions();
+    let url = this.endPoints.experiment_url + '/' + expId;
+
+    return this.OKJson(this.http.get(url, options)).toPromise();
+
+  }
+
+
   /* experiments */
 
   /* rdm aspects */

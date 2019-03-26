@@ -1,0 +1,47 @@
+<div>
+  <div *ngIf="model">
+
+    <div class="panel panel-default asset-card">
+      <div class="panel-heading">
+        <h3><img *ngIf="model.features.isOpenAccess" src="assets/Open_Access_logo_small.svg" style="height: 1.5em;">
+          Experiment: {{model.id}}<br>
+          <small>{{model.name}}</small>
+        </h3>
+      </div>
+
+      <div class="panel-body">
+        <bd2-experiment-basic-info-view
+          [model]="model"
+        ></bd2-experiment-basic-info-view>
+      </div>
+    </div>
+
+    <bd2-experiment-navigation
+      [experiment]="model" (onRefresh)="refresh()"
+    >
+    </bd2-experiment-navigation>
+
+  </div>
+  <div *ngIf="!model && !isUnauthorised">
+
+    ... loading experiment
+    <p>If just logged in try to refresh the window if the experiment is not loading.</p>
+  </div>
+  <div *ngIf="!model && isUnauthorised">
+
+    <h4>You don't have sufficient permissions to see the experiment</h4>
+    <p>Try to login</p>
+  </div>
+
+  <router-outlet></router-outlet>
+
+  <!--{{ model | json }}-->
+
+  <bd2-confirm-dialog #warningDialog
+                      cancelLabel="Not now"
+                      okLabel="OK"
+                      [ignorable]="false"
+  >
+  </bd2-confirm-dialog>
+
+</div>

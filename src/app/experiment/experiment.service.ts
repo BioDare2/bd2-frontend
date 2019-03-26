@@ -30,6 +30,13 @@ export class ExperimentService {
       .then(jsonObj => this.json2ExperimentalAssayView(jsonObj));
   }
 
+  getExperiment(expId: number): Promise<ExperimentalAssayView> {
+
+    return this.BD2REST.experiment(expId)
+      .then(jsonObj => this.json2ExperimentalAssayView(jsonObj));
+  }
+
+
 
   protected json2ExperimentSummaryList(data: any[]): ExperimentSummary[] {
 

@@ -13,8 +13,13 @@ const routes: Routes = [
     component: LoginFormComponent
   },
   {path: 'experiments', loadChildren: './experiment/experiments.module#ExperimentsModule'},
+
+  {path: 'experiment', loadChildren: './experiment/experiment.module#ExperimentModule'},
+
   {path: 'account', loadChildren: './account/account.module#AccountModule'},
+
   {path: 'documents', loadChildren: './documents/documents.module#DocumentsModule'},
+
   {path: '', component: WelcomeComponent, pathMatch: 'full'},
   {path: '**', component: WelcomeComponent}
 ];
