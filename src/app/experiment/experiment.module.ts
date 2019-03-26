@@ -7,8 +7,9 @@ import {SharedComponentsModule} from '../shared/shared-components.module';
 import {ExperimentNavigationComponent} from './experiment-navigation.component';
 import {ExperimentBasicInfoViewComponent} from './experiment-basic-info-view.component';
 import {ExperimentAssayOverviewComponent} from './experiment-assay-overview/experiment-assay-overview.component';
-import {RepoComponentsModule} from "../repo/components/repo-comp.module";
-import {ExperimentAssayEditFormComponent} from "./experiment-assay-edit-form/experiment-assay-edit-form.component";
+import {RepoComponentsModule} from '../repo/components/repo-comp.module';
+import {ExperimentAssayEditFormComponent} from './experiment-assay-edit-form/experiment-assay-edit-form.component';
+import {AttachmentsModule} from './attachments/attachments.module';
 
 @NgModule({
   declarations: [ExperimentFeatureComponent, ExperimentNavigationComponent,  ExperimentBasicInfoViewComponent,
@@ -17,6 +18,7 @@ import {ExperimentAssayEditFormComponent} from "./experiment-assay-edit-form/exp
     CommonModule,
     RepoComponentsModule,
     SharedComponentsModule,
+    AttachmentsModule,
     ExperimentRoutingModule
   ]
 })

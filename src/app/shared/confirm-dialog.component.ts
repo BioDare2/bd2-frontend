@@ -1,6 +1,6 @@
-import {Component, Output, EventEmitter, ViewChild, Input} from "@angular/core";
-import {ModalDirective} from "ngx-bootstrap/modal";
-import {first} from "rxjs/operators";
+import {Component, Output, EventEmitter, ViewChild, Input} from '@angular/core';
+import {ModalDirective} from 'ngx-bootstrap/modal';
+import {first} from 'rxjs/operators';
 
 @Component({
   selector: 'bd2-confirm-dialog',
@@ -35,16 +35,16 @@ import {first} from "rxjs/operators";
 })
 export class ConfirmDialogComponent {
 
-  question:string;
+  question: string;
 
-  details:string;
+  details: string;
 
   modalOptions = {};
 
   @Input()
-  set ignorable(val:boolean) {
+  set ignorable(val: boolean) {
       if (val) {
-        this.modalOptions = <any>{};
+        this.modalOptions = {} as any;
      } else {
         this.modalOptions = {backdrop: 'static'};
      }
@@ -90,7 +90,7 @@ export class ConfirmDialogComponent {
   /* tslint:enable:curly */
 
 
-  ask(question:string,details?:string):Promise<boolean> {
+  ask(question: string, details?: string): Promise<boolean> {
     this.question = question;
     this.details = details;
     this.show();

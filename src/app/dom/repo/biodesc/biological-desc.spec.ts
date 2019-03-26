@@ -2,7 +2,7 @@ import {BiologicalDescription} from './biological-desc';
 import {BiologicalInfo} from './biological-info';
 import {DataCategory} from './data-category';
 
-xdescribe('BiologicalDescription', () => {
+describe('BiologicalDescription', () => {
 
 
   it('correctly deserializes', () => {
@@ -53,9 +53,10 @@ xdescribe('BiologicalDescription', () => {
     expect(ans).toBeDefined();
     expect(ans.constructor).toBe(BiologicalDescription);
     expect(ans.bios.length).toBe(2);
-    ans.bios.forEach(b => {
-      expect(b.constructor).toBe(BiologicalInfo);
-    });
+    // bioinfo stays simple json
+    /*ans.bios.forEach(b => {
+      expect( b instanceof BiologicalInfo).toBeTruthy();
+    });*/
     ans.bios.forEach(b => {
       expect(b.dataCategory.constructor).toBe(DataCategory);
     });

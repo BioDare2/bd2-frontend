@@ -1,5 +1,6 @@
 import {BD2User} from '../auth/user.dom';
 import {of} from 'rxjs';
+import {ExperimentalAssayView} from '../dom/repo/exp/experimental-assay-view';
 
 export const testUserData = {
   firstName: 'Test',
@@ -19,7 +20,8 @@ export function fakeBioDareRestService() {
 
   const ser = jasmine.createSpyObj('BioDareRestService', ['login', 'logout', 'refreshUser',
     'experiments', 'experimentNewDraft', 'experimentNewExperiment',
-    'rdmAssayGuiAspects', 'rdmRegisterWarning'
+    'rdmAssayGuiAspects', 'rdmRegisterWarning',
+    'fileURL'
   ]);
 
   ser.login.and.returnValue(of(user));
@@ -27,5 +29,11 @@ export function fakeBioDareRestService() {
   ser.refreshUser.and.returnValue(of(unlogged));
 
   ser.experiments.and.returnValue(Promise.resolve([]));
+
+  function f(exp: ExperimentalAssayView, id: any): string {
+    return 'exp/file/' + id;
+  }
+
+  ser.fileURL.and.callFake(f);
   return ser;
 }

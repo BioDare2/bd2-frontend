@@ -1,7 +1,7 @@
-import {NgModule} from "@angular/core";
-import {CommonModule} from "@angular/common";
-import {ModalModule} from "ngx-bootstrap";
-import {ConfirmDialogComponent} from "./confirm-dialog.component";
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {ModalModule} from 'ngx-bootstrap';
+import {ConfirmDialogComponent} from './confirm-dialog.component';
 
 @NgModule({
   imports:      [
@@ -16,4 +16,4 @@ import {ConfirmDialogComponent} from "./confirm-dialog.component";
     ConfirmDialogComponent,
   ]
 })
-export class SharedComponentsModule { };
+export class SharedComponentsModule { }

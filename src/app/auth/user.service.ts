@@ -23,7 +23,7 @@ export class UserService {
     this.userStream = new BehaviorSubject(this.user);
 
     console.log('User service created');
-    //this.refresh();
+    this.refresh();
   }
 
   get currentUser(): BD2User {

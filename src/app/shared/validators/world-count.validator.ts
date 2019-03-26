@@ -150,7 +150,7 @@ export class WorldCountValidator {
     if (words < this.minWords) {
       return {minWords: 'required ' + this.minWords + ' found: ' + words};
     }
-    
+
 
     // valid, lets store it
     this.previouslyValid = text;

@@ -2,8 +2,8 @@ import {Component, AfterViewInit} from '@angular/core';
 import {ExperimentBaseComponent} from '../experiment-base.component';
 import {ExperimentComponentsDependencies} from '../experiment-components.dependencies';
 import {ActivatedRoute} from '@angular/router';
-import {ExperimentalAssayView} from "../../dom/repo/exp/experimental-assay-view";
-import {ExperimentalAssayViewValidator} from "../../dom/repo/exp/experimental-assay-view.validator";
+import {ExperimentalAssayView} from '../../dom/repo/exp/experimental-assay-view';
+import {ExperimentalAssayViewValidator} from '../../dom/repo/exp/experimental-assay-view.validator';
 
 @Component({
   templateUrl: './experiment-assay-edit-form.component.html',

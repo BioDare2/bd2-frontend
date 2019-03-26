@@ -1,0 +1,28 @@
+
+<div>
+  <div *ngIf="files.length > 0" class="clearfix" style="margin-bottom: 1em;">
+    <div class=""><label>Files:</label></div>
+    <div *ngFor="let file of files" class="pull-left fileitem">
+      {{file.name}}
+      <button type="button" class="close" aria-label="Close" (click)="remove(file)" style="margin-left: 0.5em;"><span aria-hidden="true">&times;</span></button>
+    </div>
+  </div>
+  <div style="margin-bottom: 1em;">
+  <label class="uploader-zone" ondragover="return false;"
+         [class.loaded]="loaded"
+         [style.outlineColor]="dragging ? activeColor : baseColor"
+         (dragenter)="handleDragEnter()"
+         (dragleave)="handleDragLeave()"
+         (drop)="handleDrop($event)">
+
+    <span class="glyphicon glyphicon-upload" aria-hidden="true" style="font-size: 400%; margin-right: 0.2em; color: grey;"></span><p> Drag file(s) or click to select</p>
+
+    <input *ngIf="multiple" type="file" #inputField name="inputField" multiple (change)="handleFileSelect($event)">
+    <input *ngIf="!multiple" type="file" #inputField name="inputField" (change)="handleFileSelect($event)">
+  </label>
+  </div>
+  <div *ngIf="sizeError" class="alert alert-danger">
+    Maximum upload size is {{sizeLimit}}MB
+  </div>
+  <button type="button" class="btn btn-primary btn-sm" [disabled]="blocked || files.length < 1 || sizeError" (click)="upload()">Upload selected</button>
+</div>

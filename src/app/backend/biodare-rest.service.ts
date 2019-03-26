@@ -6,6 +6,7 @@ import {catchError, map} from 'rxjs/operators';
 import {SystemEventsService} from '../system/system-events.service';
 import {BD2User} from '../auth/user.dom';
 import {ExperimentalAssayView} from '../dom/repo/exp/experimental-assay-view';
+import {ImportFormat} from '../experiment/data/import-dom';
 
 @Injectable({
   providedIn: 'root'
@@ -167,17 +168,17 @@ export class BioDareRestService {
   }
 
   experiment(expId: number): Promise<any> {
-    let options = this.makeOptions();
-    let url = this.endPoints.experiment_url + '/' + expId;
+    const options = this.makeOptions();
+    const url = this.endPoints.experiment_url + '/' + expId;
 
     return this.OKJson(this.http.get(url, options)).toPromise();
 
   }
 
   experimentSave(exp: ExperimentalAssayView): Promise<any> {
-    let options = this.makeOptions();
-    let url = this.endPoints.experiment_url + '/' + exp.id;
-    let body = exp;
+    const options = this.makeOptions();
+    const url = this.endPoints.experiment_url + '/' + exp.id;
+    const body = exp;
 
     return this.OKJson(this.http.post(url, body, options)).toPromise();
 
@@ -186,6 +187,72 @@ export class BioDareRestService {
 
 
   /* experiments */
+
+  /* files */
+
+  fileURL(parrent: ExperimentalAssayView, fileId: any): string {
+    const url = this.endPoints.experiment_url + '/' + parrent.id + this.endPoints.file_part + '/' + fileId;
+    return url;
+  }
+
+  files(parrent: ExperimentalAssayView): Promise<any> {
+
+    const options = this.makeOptions();
+    const url = this.endPoints.experiment_url + '/' + parrent.id + this.endPoints.file_part;
+
+    return this.OKJson(this.http.get(url, options)).toPromise();
+
+  }
+
+  expFileUpload(exp: ExperimentalAssayView, formData: FormData): Promise<any> {
+
+    const options = this.makeOptions();
+    options.headers = options.headers.delete('Content-Type');
+    const url = this.endPoints.experiment_url + '/' + exp.id + this.endPoints.file_part;
+    const body = formData;
+
+    return this.OKJson(this.http.post(url, body, options)).toPromise();
+
+  }
+
+  fileUpload(formData: FormData): Promise<any> {
+    const options = this.makeOptions();
+    options.headers = options.headers.delete('Content-Type');
+    const url = this.endPoints.file_upload_url;
+    const body = formData;
+
+    return this.OKJson(this.http.post(url, body, options)).toPromise();
+
+  }
+
+  fileUpdate(url: string, formData: FormData): Promise<any> {
+
+    const options = this.makeOptions();
+    options.headers = options.headers.delete('Content-Type');
+    // let url = this.endPoints.file_upload_url;
+    const body = formData;
+
+    return this.OKJson(this.http.post(url, body, options)).toPromise();
+
+  }
+
+  fileViewSimpleTable(fileId: string): Promise<any> {
+    const options = this.makeOptions();
+    const url = this.endPoints.file_url + '/' + fileId + this.endPoints.view_simple_table;
+
+    return this.OKJson(this.http.get(url, options)).toPromise();
+
+  }
+
+  fileViewVerifyFormat(format: ImportFormat, fileId: string): Promise<boolean> {
+    const options = this.makeOptions();
+    const url = this.endPoints.file_url + '/' + fileId + this.endPoints.view_verify_format + format.name;
+
+    return this.OK(this.http.get(url, options)).toPromise();
+
+  }
+
+  /* files */
 
   /* rdm aspects */
 
