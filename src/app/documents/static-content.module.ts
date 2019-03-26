@@ -8,7 +8,7 @@ import {StaticContentComponent} from './static-content/static-content.component'
 @NgModule({
   imports: [
     CommonModule,
-    ModalModule.forRoot(),
+    ModalModule,
     AlertModule
   ],
   declarations: [StaticPopUpComponent, StaticContentComponent],
