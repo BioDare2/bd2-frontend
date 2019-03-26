@@ -1,3 +1,248 @@
-<p>
-  welcome works!
-</p>
+<div>
+  <!--<div class="bd2-page-header" style="color: red; border: 2px solid red;">
+    <div class="container" >
+      <h2 >BioDare will be offline on Wednesday 10th October.</h2>
+    </div>
+  </div>-->
+
+  <h2>{{msg}}</h2>
+
+  <div *ngIf="logged" class="row">
+    <div class="col-sm-12">
+      <h4>Recently added features</h4>
+      <div class="clearfix">
+        <div class="alert alert-success" role="alert">
+          <h5 class="list-group-item-heading">BioDare YouTube channel with tutorials</h5>
+          <p class="list-group-item-text">Subscribe to our <a
+            href="https://www.youtube.com/channel/UC1_kTC0PFOkoKueJGo4h7dA">channel</a>
+            to access training videos. Watch our first tutorial about <a href="https://youtu.be/GW4g5FjbwUs">data
+              import</a>.
+          </p>
+        </div>
+        <div class="alert alert-info" role="alert">
+          <h5 class="list-group-item-heading">Publishing data</h5>
+          <p class="list-group-item-text">You can now make your data public, choose the padlock icon and follow the
+            instruction</p>
+        </div>
+        <div class="alert alert-info" role="alert">
+          <h5 class="list-group-item-heading">TopCount data</h5>
+          <p class="list-group-item-text">You can import TopCount data directly into BioDare</p>
+        </div>
+        <div class="alert alert-info" role="alert">
+          <h5 class="list-group-item-heading">Saving period and phase plots as SVG</h5>
+          <p class="list-group-item-text">Your beautiful period and phase plots can be downloaded as .svg file
+            <span aria-hidden="true" class="glyphicon glyphicon-download-alt"></span>
+            and edited or converted in a graphical program like the free Inkscape</p>
+        </div>
+        <div (click)="moreFeatures = true" *ngIf="!moreFeatures" class="pull-right">
+          <button class="btn btn-primary">see more</button>
+        </div>
+        <div *ngIf="moreFeatures">
+          <div class="alert alert-info" role="alert">
+            <h5 class="list-group-item-heading">Improved error messages</h5>
+            <p class="list-group-item-text">Notifications contain causes of problems with data import</p>
+          </div>
+          <div class="alert alert-info" role="alert">
+            <h5 class="list-group-item-heading">Password reset</h5>
+            <p class="list-group-item-text">You can use forgotten password feature if you lock yourself out of
+              BioDare</p>
+          </div>
+          <div class="alert alert-info" role="alert">
+            <h5 class="list-group-item-heading">Hiding items on period and phase plots</h5>
+            <p class="list-group-item-text">you can click on the legend entry to remove its results from the
+              plots</p>
+          </div>
+          <div class="alert alert-info" role="alert">
+            <h5 class="list-group-item-heading">Sorting on the period plot</h5>
+            <p class="list-group-item-text">items can be ordered by replicates label or median period</p>
+          </div>
+          <div class="alert alert-info" role="alert">
+            <h5 class="list-group-item-heading">Individual results on the phase plot</h5>
+            <p class="list-group-item-text">all individual data points can be enabled by clicking <code>Ind.</code>
+              button</p>
+          </div>
+        </div>
+      </div>
+      <hr>
+    </div>
+  </div>
+
+  <p><strong>BioDare2</strong> is a repository for circadian, biological data, providing
+    a platform for data sharing and period analysis.
+    The main features of <strong>BioDare2</strong> are: fast period analysis, timeseries processing,
+    attractive visualizations, simple data description and modern UI, all of it to assure the best user
+    experience.</p>
+
+  <hr>
+
+  <div class="row">
+    <div class="col-sm-6">
+      <iframe allowfullscreen frameborder="0"
+              src="https://www.youtube.com/embed/prqTuygHfhk?showinfo=0" style="min-height: 220px;" width="100%"></iframe>
+    </div>
+
+    <div class="col-sm-6">
+      <p>Watch our introductory video and subscribe to our
+        <a href="https://www.youtube.com/channel/UC1_kTC0PFOkoKueJGo4h7dA">channel</a>
+        for training materials.
+      </p>
+      <p>You can contact us at: <strong>biodare (@) ed.ac.uk</strong></p>
+      <p>You need a modern, up to date browser to use <strong>BioDare2</strong> (we are testing it with Chrome).</p>
+      <p><strong>BioDare2</strong> is currently at <i><strong>beta</strong></i> version.
+        Check the bottom of the page how this early stage may affect you.</p>
+    </div>
+  </div>
+
+  <hr>
+
+  <div class="row">
+    <div *ngIf="!logged" class="col-sm-12">
+      <h4>Public datasets</h4>
+      <ul>
+        <li>Multiple dataset are publicly available <a href="experiments">here.</a></li>
+        <li>All data become public after the maximum 3 years embargo period</li>
+      </ul>
+      <hr>
+    </div>
+
+    <div class="col-sm-6">
+      <h4>Excellent research that used BioDare </h4>
+      <ul>
+        <li>Enganti, R. et al.
+          <small><a href="https://doi.org/10.3389/fpls.2017.02210" rel="nofollow" target="_blank">Phosphorylation of
+            Ribosomal Protein RPS6 Integrates
+            Light Signals and Circadian Clock Signals.
+          </a></small>
+        </li>
+        <li>Boxall, S.F. et al.
+          <small><a href="https://doi.org/10.1105/tpc.17.00301" rel="nofollow" target="_blank">Phosphorylation of
+            Phosphoenolpyruvate
+            Carboxylase Is Essential for Maximal and Sustained Dark CO2 Fixation...
+          </a></small>
+        </li>
+        <li>Brancaccio, M. et al.
+          <small><a href="https://doi.org/10.1016/j.neuron.2017.02.030" rel="nofollow" target="_blank">
+            Astrocytes Control Circadian Timekeeping in the Suprachiasmatic Nucleus via Glutamatergic Signaling.
+          </a></small>
+        </li>
+      </ul>
+    </div>
+    <div class="col-sm-6">
+      <h4>&nbsp;</h4>
+      <ul>
+        <li>Dekhang, R. et al.
+          <small><a href="https://doi.org/10.1534/g3.116.034298" rel="nofollow" target="_blank">
+            The Neurospora Transcription Factor ADV-1 Transduces Light Signals and Temporal
+            Information...
+          </a></small>
+        </li>
+        <li>Goya, M.E. et al.
+          <small><a href="https://doi.org/10.1073/pnas.1605769113" rel="nofollow" target="_blank">
+            Circadian rhythms identified in Caenorhabditis elegans by in vivo long-term monitoring
+            of a bioluminescent reporter.
+          </a></small>
+        </li>
+        <li>Patton, A.P. et al.
+          <small><a href="http://doi.org/10.1523/JNEUROSCI.0958-16.2016" rel="nofollow" target="_blank">
+            Combined Pharmacological and Genetic Manipulations Unlock Unprecedented Temporal
+            Elasticity ...
+          </a></small>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <hr>
+
+  <div class="row">
+    <div class="col-sm-6">
+      <h4>Timeseries data</h4>
+      <p>Circadian research is all about timeseries. BioDare can visualize your data and allows you to perform
+        various timeseries processing:</p>
+      <ul>
+        <li>four detrending methods</li>
+        <li>normalization</li>
+        <li>alignment</li>
+      </ul>
+    </div>
+    <div class="col-sm-6">
+      <img class="img-responsive img-thumbnail" src="assets/data-plot.png">
+    </div>
+  </div>
+
+
+  <div class="row">
+    <div class="col-sm-6">
+      <img class="img-responsive img-thumbnail" src="assets/period-plot2.png">
+      <p><br>Available methods:</p>
+      <ul>
+        <li>FFT NLLS</li>
+        <li>MESA</li>
+        <li>MFourFit</li>
+        <li>Enright Periodogram</li>
+        <li>Lomb-Scargle periodogram</li>
+        <li>Spectrum resampling</li>
+      </ul>
+    </div>
+    <div class="col-sm-6">
+      <h4>Rhythm analysis</h4>
+      <p>Period analysis is the strongest point of BioDare. BioDare gives you access to the:</p>
+      <ul>
+        <li>best analysis methods</li>
+        <li>attractive visualizations</li>
+        <li>result aggregation</li>
+      </ul>
+      <img class="img-responsive img-thumbnail" src="assets/phase-plot.png">
+    </div>
+  </div>
+  <hr>
+
+
+  <p><strong>BioDare2</strong> is currently at <i><strong>beta</strong></i> version.
+    Please read below to find out how this testing phase may affect you.<br>&nbsp;</p>
+
+  <div class="row">
+
+    <div class="col-sm-4">
+      <h4>Rhythm analysis</h4>
+      <p>We are using exactly the same implementation of period analysis methods as in original
+        <a href="https://www.biodare.ed.ac.uk">BioDare</a>.</p>
+      <p>These methods will not change so any results you obtain using the <i>beta</i> version will be the
+        same as
+        if you wait for the final release.</p>
+    </div>
+
+    <div class="col-sm-4">
+      <h4>Data</h4>
+      <p>Your data is safe, changes to BioDare will not affect the deposited data.</p>
+      <p>At the moment data grouping and averaging is not available but we are working on it.</p>
+      <p>Currently, the supported time series formats are Excel file (with a time column and data columns) and
+        Topcount.</p>
+      <!--<p>We also cannot guarantee that we will preserve the data deposited during <i>beta</i> period.</p>
+      <p>The reason is that there is a small chance that we may need to change our internal representation
+      of the data in order to introduce new features and automatic migration may be too difficult for us.
+      However, it is a small chance and we will warn you before discarding any saved work in the beta test version of Biodare2.</p>-->
+    </div>
+
+    <div class="col-sm-4">
+      <h4>You</h4>
+      <p>Unfortunately bugs and glitches are to be expected.</p>
+      <p>The error messages are vague and probably not very informative.
+        Please have patience; refresh page if the system appears stuck;
+        email bug reports to <strong>biodare&nbsp;(@)&nbsp;ed.ac.uk</strong>.</p>
+      <p>Lab groups, as in BioDare, will return with a further release.</p>
+    </div>
+
+  </div>
+
+  <hr>
+  <div class="text-center">
+    <p> Please cite BioDare2 with its website: <strong>biodare2.ed.ac.uk</strong> and the paper:</p>
+    <p><i>Zielinski T, Moore AM, Troup E, Halliday KJ, Millar AJ (2014)<br>
+      Strengths and Limitations of Period Estimation Methods for Circadian Data<br>
+      (2014) PLoS ONE 9(5): e96462. doi:10.1371/journal.pone.0096462</i>
+      <a href="http://dx.doi.org/10.1371/journal.pone.0096462">read</a>
+    </p>
+    <p>BioDare2 development was funded by the EU FP7 Collaborative Project TiMet (award 245143)
+      and the UK Centre for Mammalian Synthetic Biology (award BB/M018040/1).</p>
+  </div>
+</div>

@@ -9,13 +9,13 @@ const routes: Routes = [
     children: [
 
       {
+        path: ':doc',
+        component: DocumentsComponent
+      },
+      {
         path: '',
         redirectTo: 'all',
         pathMatch: 'full'
-      },
-      {
-        path: ':doc',
-        component: DocumentsComponent
       }
     ]
   }

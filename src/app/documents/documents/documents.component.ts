@@ -17,22 +17,20 @@ export class DocumentsComponent implements OnInit, OnDestroy {
   missing: string;
 
   documentOptions: string[][] = StaticDocsOptions;
-  docSubsrciption: Subscription;
+  docSubscription: Subscription;
 
   constructor(private route: ActivatedRoute, private titleSetter: TitleSetterService) {
-
-    console.log('DS created');
   }
 
   ngOnDestroy(): void {
-    if (this.docSubsrciption) {
-      this.docSubsrciption.unsubscribe();
+    if (this.docSubscription) {
+      this.docSubscription.unsubscribe();
     }
   }
 
   ngOnInit() {
 
-    this.docSubsrciption =
+    this.docSubscription =
       this.route.paramMap.pipe(
         map(params => {
           let doc = params.get('doc');

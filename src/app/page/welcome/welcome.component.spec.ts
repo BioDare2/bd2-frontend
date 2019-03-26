@@ -1,6 +1,8 @@
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
 import {WelcomeComponent} from './welcome.component';
+import {UserService} from '../../auth/user.service';
+import {fakeUserService} from '../../auth/auth_test_tool.spec';
 
 describe('WelcomeComponent', () => {
   let component: WelcomeComponent;
@@ -8,7 +10,10 @@ describe('WelcomeComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [WelcomeComponent]
+      declarations: [WelcomeComponent],
+      providers: [
+        {provide: UserService, useValue: fakeUserService()}
+      ]
     })
       .compileComponents();
   }));
