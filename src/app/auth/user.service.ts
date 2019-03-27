@@ -121,17 +121,6 @@ export class UserService {
 
   }
 
-  /*
-  refresh(): Promise<BD2User> {
-
-    /*
-    return this.authenticationService.refreshUser()
-      .then(user => {
-        this.setUser(user);
-        return user;
-      });
-    return Promise.resolve(this.currentUser);
-  } */
 
   activate(token: string): Promise<BD2User> {
 
