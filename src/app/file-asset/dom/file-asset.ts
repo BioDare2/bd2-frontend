@@ -1,6 +1,6 @@
-
 import {AssetType} from './asset-type';
 import {AssetVersion} from './asset-version';
+
 export class FileAsset {
 
 

@@ -1,5 +1,4 @@
 import {BiologicalDescription} from './biological-desc';
-import {BiologicalInfo} from './biological-info';
 import {DataCategory} from './data-category';
 
 describe('BiologicalDescription', () => {

@@ -13,4 +13,5 @@ import {AlertModule} from 'ngx-bootstrap/alert';
   declarations: [AttachmentsDashboardComponent],
   providers: []
 })
-export class AttachmentsModule { }
+export class AttachmentsModule {
+}

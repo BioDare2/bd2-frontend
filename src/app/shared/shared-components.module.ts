@@ -4,16 +4,17 @@ import {ModalModule} from 'ngx-bootstrap';
 import {ConfirmDialogComponent} from './confirm-dialog.component';
 
 @NgModule({
-  imports:      [
+  imports: [
     CommonModule,
     ModalModule,
   ],
   declarations: [
     ConfirmDialogComponent,
   ],
-  exports:      [
+  exports: [
     ModalModule,
     ConfirmDialogComponent,
   ]
 })
-export class SharedComponentsModule { }
+export class SharedComponentsModule {
+}

@@ -1,6 +1,6 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { ExperimentFeatureComponent } from './experiment-feature.component';
+import {ExperimentFeatureComponent} from './experiment-feature.component';
 import {ExperimentsTestToolModule} from '../experiment_test_tool.spec';
 import {ExperimentNavigationComponent} from '../experiment-navigation.component';
 import {ExperimentBasicInfoViewComponent} from '../experiment-basic-info-view.component';
@@ -11,10 +11,10 @@ describe('ExperimentFeatureComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ExperimentFeatureComponent, ExperimentNavigationComponent,  ExperimentBasicInfoViewComponent ],
+      declarations: [ExperimentFeatureComponent, ExperimentNavigationComponent, ExperimentBasicInfoViewComponent],
       imports: [ExperimentsTestToolModule]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

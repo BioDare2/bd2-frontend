@@ -1,7 +1,6 @@
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { FileAssetFormComponent } from './file-asset-form.component';
+import {FileAssetFormComponent} from './file-asset-form.component';
 import {FileAssetTestModule} from '../file-asset_test_tool.spec';
 
 describe('FileAssetFormComponent', () => {
@@ -10,10 +9,10 @@ describe('FileAssetFormComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ FileAssetFormComponent ],
+      declarations: [FileAssetFormComponent],
       imports: [FileAssetTestModule]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

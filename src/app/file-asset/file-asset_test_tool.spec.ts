@@ -1,4 +1,3 @@
-
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {FormsModule} from '@angular/forms';
@@ -25,7 +24,7 @@ export function fakeFileAssetService() {
     FormsModule
   ],
   providers: [
-    {provide: FileAssetService, useValue: fakeFileAssetService() },
+    {provide: FileAssetService, useValue: fakeFileAssetService()},
     {provide: AnalyticsService, useValue: fakeAnalyticsService()}
   ],
   exports: [

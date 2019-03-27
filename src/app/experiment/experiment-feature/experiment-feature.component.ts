@@ -40,8 +40,8 @@ export class ExperimentFeatureComponent implements OnInit, OnDestroy {
   ngOnInit() {
 
     this.expSubscription = this.currentExperiment.experiment().pipe(
-        filter(exp => exp ? true : false)
-      )
+      filter(exp => exp ? true : false)
+    )
       .subscribe(
         exp => {
           this.model = exp;
@@ -61,10 +61,10 @@ export class ExperimentFeatureComponent implements OnInit, OnDestroy {
 
 
     this.paramsSubscription = this.route.paramMap.pipe(
-        map( p => p.get('id')),
-        filter( id => id ? true : false)
-      )
-      .subscribe( id => this.loadExperiment(+id));
+      map(p => p.get('id')),
+      filter(id => id ? true : false)
+    )
+      .subscribe(id => this.loadExperiment(+id));
   }
 
   ngOnDestroy(): void {

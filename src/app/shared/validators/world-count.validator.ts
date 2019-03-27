@@ -15,7 +15,9 @@ export class SimpleTokenizer {
   }
 
   next(): string {
-    if (this.nextPosition >= this.limit) { return ''; }
+    if (this.nextPosition >= this.limit) {
+      return '';
+    }
 
     for (; this.nextPosition < this.limit; this.nextPosition++) {
       const c = this.text.charAt(this.nextPosition);
@@ -25,7 +27,7 @@ export class SimpleTokenizer {
           this.currentWorld = '';
           return token;
         }
-          // else nothing we read next charracter as it is chain of whitespaces
+        // else nothing we read next charracter as it is chain of whitespaces
 
       } else if (c === '.' || c === ',' || c === ':' || c === '\'') {
         // skip punctuation
@@ -62,7 +64,9 @@ export class SimpleWorldsTools {
   }
 
   static removeLetterChain(world: string): string {
-    if (!world) { return ''; }
+    if (!world) {
+      return '';
+    }
     const limit = world.length;
     let simplified = world.charAt(0);
     let prev = world.charAt(0);
@@ -77,8 +81,12 @@ export class SimpleWorldsTools {
   }
 
   static removePairChain(world: string): string {
-    if (!world) { return ''; }
-    if (world.length < 4) { return world; }
+    if (!world) {
+      return '';
+    }
+    if (world.length < 4) {
+      return world;
+    }
 
     const limit = world.length - 1;
     let simplified = world.substring(0, 2);
@@ -111,22 +119,36 @@ export class SimpleWorldsTools {
   }
 
   static countDistinctCharacters(world: string): number {
-    if (!world) { return 0; }
+    if (!world) {
+      return 0;
+    }
     const chars = new Set<String>();
-    for (let i = 0; i < world.length; i++) { chars.add(world.charAt(i)); }
+    for (let i = 0; i < world.length; i++) {
+      chars.add(world.charAt(i));
+    }
     return chars.size;
 
   }
 
   static isSensibleWorld(world: string): boolean {
-    if (!world) { return false; }
-    if (world.length > 6 && SimpleWorldsTools.countDistinctCharacters(world) <= 4) { return false; }
+    if (!world) {
+      return false;
+    }
+    if (world.length > 6 && SimpleWorldsTools.countDistinctCharacters(world) <= 4) {
+      return false;
+    }
 
-    if (SimpleWorldsTools.bannedWords.has(world)) { return false; }
+    if (SimpleWorldsTools.bannedWords.has(world)) {
+      return false;
+    }
     const simplified = SimpleWorldsTools.simplifyWorld(world);
     let threshold = 4;
-    if (world.length === 4) { threshold = 3; }
-    if (world.length > 10) { threshold = 0.6 * world.length; }
+    if (world.length === 4) {
+      threshold = 3;
+    }
+    if (world.length > 10) {
+      threshold = 0.6 * world.length;
+    }
     return (simplified.length >= threshold);
   }
 
@@ -144,7 +166,9 @@ export class WorldCountValidator {
 
   validateText(text: string): ValidationErrors | null {
 
-    if (text && this.previouslyValid && text.startsWith(this.previouslyValid)) { return null; }
+    if (text && this.previouslyValid && text.startsWith(this.previouslyValid)) {
+      return null;
+    }
 
     const words = this.countWords(text, this.minWords);
     if (words < this.minWords) {
@@ -164,7 +188,9 @@ export class WorldCountValidator {
     const worlds = new Set<String>();
 
     for (let world = tokenizer.next(); world && worlds.size < limit; world = tokenizer.next()) {
-      if (SimpleWorldsTools.isSensibleWorld(world)) { worlds.add(world); }// ++;
+      if (SimpleWorldsTools.isSensibleWorld(world)) {
+        worlds.add(world);
+      }// ++;
     }
     return worlds.size;
   }

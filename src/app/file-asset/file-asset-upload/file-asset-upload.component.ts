@@ -1,4 +1,4 @@
-import {Component, OnInit, Output, EventEmitter} from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {FileAssetService} from '../file-asset-service';
 import {FeedbackService} from '../../feedback/feedback.service';
 import {FileAsset} from '../dom/file-asset';
@@ -40,9 +40,9 @@ export class FileAssetUploadComponent implements OnInit {
 
   @Output()
   uploaded = new EventEmitter<FileAsset>();
-  constructor(private fileService: FileAssetService, private feedback: FeedbackService) { }
 
-
+  constructor(private fileService: FileAssetService, private feedback: FeedbackService) {
+  }
 
 
   ngOnInit() {
@@ -50,6 +50,6 @@ export class FileAssetUploadComponent implements OnInit {
 
   upload(fileField: any) {
 
-    console.log( this.file ? this.file.constructor.name : 'not set', this.file);
+    console.log(this.file ? this.file.constructor.name : 'not set', this.file);
   }
 }

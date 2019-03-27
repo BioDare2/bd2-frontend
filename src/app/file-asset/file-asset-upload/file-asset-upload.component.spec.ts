@@ -1,7 +1,6 @@
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { FileAssetUploadComponent } from './file-asset-upload.component';
+import {FileAssetUploadComponent} from './file-asset-upload.component';
 import {FileAssetTestModule} from '../file-asset_test_tool.spec';
 
 describe('FileAssetUploadComponent', () => {
@@ -10,10 +9,10 @@ describe('FileAssetUploadComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ FileAssetUploadComponent ],
+      declarations: [FileAssetUploadComponent],
       imports: [FileAssetTestModule]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

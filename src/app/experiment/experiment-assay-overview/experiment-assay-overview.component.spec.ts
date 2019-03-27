@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
 import {ExperimentsTestToolModule} from '../experiment_test_tool.spec';
 import {ExperimentAssayOverviewComponent} from './experiment-assay-overview.component';
@@ -9,11 +9,11 @@ describe('ExperimentAssayOverviewComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ExperimentAssayOverviewComponent
-         ],
+      declarations: [ExperimentAssayOverviewComponent
+      ],
       imports: [ExperimentsTestToolModule]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

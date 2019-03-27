@@ -1,26 +1,26 @@
 .uploader-zone input {
-    display: none;
+  display: none;
 }
 
 .uploader-zone {
-    font-weight: normal;
-    -webkit-align-items: center;
-    align-items: center;
-    background-color: #efefef;
-    background-color: rgba(0, 0, 0, 0.02);
-    cursor: pointer;
-    display: -webkit-flex;
-    display: flex;
-    height: 100px;
-    -webkit-justify-content: center;
-    justify-content: center;
-    outline: 3px dashed #ccc;
+  font-weight: normal;
+  -webkit-align-items: center;
+  align-items: center;
+  background-color: #efefef;
+  background-color: rgba(0, 0, 0, 0.02);
+  cursor: pointer;
+  display: -webkit-flex;
+  display: flex;
+  height: 100px;
+  -webkit-justify-content: center;
+  justify-content: center;
+  outline: 3px dashed #ccc;
 }
 
 div.fileitem {
-    margin: 2px;
-    padding: 2px;
-    border: 1px solid #efefef;
-    border-radius: 4px;
+  margin: 2px;
+  padding: 2px;
+  border: 1px solid #efefef;
+  border-radius: 4px;
 }
 

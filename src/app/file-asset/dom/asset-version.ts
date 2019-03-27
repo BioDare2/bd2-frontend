@@ -1,4 +1,5 @@
 import {LocalDate} from '../../dom/repo/shared/dates';
+
 export class AssetVersion {
 
   public versionId: number;

@@ -1,4 +1,4 @@
-import {Component, Output, EventEmitter, ViewChild, Input} from '@angular/core';
+import {Component, EventEmitter, Input, Output, ViewChild} from '@angular/core';
 import {ModalDirective} from 'ngx-bootstrap/modal';
 import {first} from 'rxjs/operators';
 
@@ -40,28 +40,23 @@ export class ConfirmDialogComponent {
   details: string;
 
   modalOptions = {};
-
-  @Input()
-  set ignorable(val: boolean) {
-      if (val) {
-        this.modalOptions = {} as any;
-     } else {
-        this.modalOptions = {backdrop: 'static'};
-     }
-  }
-
   @Input()
   cancelLabel = 'Cancel';
-
   @Input()
   okLabel = 'OK';
-
   @Output()
   onAccepted = new EventEmitter<boolean>();
-
   @ViewChild(ModalDirective)
   private myModal: ModalDirective;
 
+  @Input()
+  set ignorable(val: boolean) {
+    if (val) {
+      this.modalOptions = {} as any;
+    } else {
+      this.modalOptions = {backdrop: 'static'};
+    }
+  }
 
   hidden() {
     // console.log("Hidden");
@@ -74,7 +69,6 @@ export class ConfirmDialogComponent {
     // this.onAccepted.emit(false);
     if (this.myModal) this.myModal.hide();
   }
-
 
 
   accepted() {

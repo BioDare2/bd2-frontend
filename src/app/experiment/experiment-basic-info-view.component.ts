@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input} from '@angular/core';
 import {ExperimentalAssayView} from '../dom/repo/exp/experimental-assay-view';
 
 @Component({
@@ -37,7 +37,6 @@ export class ExperimentBasicInfoViewComponent {
 
   @Input()
   model: ExperimentalAssayView;
-
 
 
 }

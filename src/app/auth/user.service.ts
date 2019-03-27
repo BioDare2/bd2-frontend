@@ -108,20 +108,6 @@ export class UserService {
       ).toPromise();
   }
 
-  protected refresh() {
-
-    return this.BD2REST.refreshUser()
-      .subscribe(
-        user => {
-              user = BD2User.deserialize(user);
-              this.setUser(user);
-        },
-        err => this.handleError(err)
-      );
-
-  }
-
-
   activate(token: string): Promise<BD2User> {
 
     return this.BD2REST.userActivate(token)
@@ -158,7 +144,6 @@ export class UserService {
     return this.BD2REST.userSuitableEmail(email);
   }
 
-
   register(user: any): Promise<BD2User> {
 
     return this.BD2REST.userRegister(user)
@@ -188,6 +173,18 @@ export class UserService {
 
   }
 
+  protected refresh() {
+
+    return this.BD2REST.refreshUser()
+      .subscribe(
+        user => {
+          user = BD2User.deserialize(user);
+          this.setUser(user);
+        },
+        err => this.handleError(err)
+      );
+
+  }
 
   protected handleError(err) {
     this.feedback.error(err);

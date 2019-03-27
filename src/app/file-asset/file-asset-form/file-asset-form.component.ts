@@ -1,4 +1,4 @@
-import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FileAsset} from '../dom/file-asset';
 import {FileAssetService} from '../file-asset-service';
 import {FeedbackService} from '../../feedback/feedback.service';
@@ -31,21 +31,20 @@ import {FeedbackService} from '../../feedback/feedback.service';
 })
 export class FileAssetFormComponent implements OnInit {
 
-  @Input()
-  set model(model: FileAsset) {
-    this.file = model;
-    this.description = this.file.last.description;
-    this.blocked = false;
-  }
-
   @Output()
   closed = new EventEmitter<boolean>();
-
   file: FileAsset;
   description: string;
   blocked = false;
 
   constructor(private fileService: FileAssetService, private feedback: FeedbackService) {
+  }
+
+  @Input()
+  set model(model: FileAsset) {
+    this.file = model;
+    this.description = this.file.last.description;
+    this.blocked = false;
   }
 
   ngOnInit() {
@@ -60,12 +59,12 @@ export class FileAssetFormComponent implements OnInit {
     }*/
     this.blocked = true;
     this.fileService.updateFile(this.file, fileField.files[0], this.description)
-      .then( file => this.file.setAll(file) )
-      .then( () => {
+      .then(file => this.file.setAll(file))
+      .then(() => {
         this.closed.next(true);
         this.blocked = false;
       })
-      .catch( reason => {
+      .catch(reason => {
         this.blocked = false;
         this.feedback.error(reason);
       });

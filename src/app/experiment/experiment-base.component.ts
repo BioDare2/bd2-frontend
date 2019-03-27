@@ -1,4 +1,4 @@
-import {OnInit, OnDestroy} from '@angular/core';
+import {OnDestroy, OnInit} from '@angular/core';
 import {ExperimentalAssayView} from '../dom/repo/exp/experimental-assay-view';
 import {FeedbackService} from '../feedback/feedback.service';
 import {CurrentExperimentService} from './current-experiment.service';
@@ -13,16 +13,13 @@ import {filter} from 'rxjs/operators';
 export class ExperimentBaseComponent extends ValidableFormComponent<ExperimentalAssayView> implements OnInit, OnDestroy {
 
   assay: ExperimentalAssayView;
-
-  private expSubscription: Subscription;
-
   protected experimentService: ExperimentService;
   protected currentExperiment: CurrentExperimentService;
   protected feedback: FeedbackService;
   protected router: Router;
   protected titleSetter: TitleSetterService;
-
   protected titlePart: string;
+  private expSubscription: Subscription;
 
   constructor(protected serviceDependencies: ExperimentComponentsDependencies) {
     super();
@@ -53,7 +50,6 @@ export class ExperimentBaseComponent extends ValidableFormComponent<Experimental
   }
 
 
-
   protected updateModel(exp: ExperimentalAssayView) {
     this.assay = exp;
     this.setTitle();
@@ -70,14 +66,14 @@ export class ExperimentBaseComponent extends ValidableFormComponent<Experimental
     // console.log('In subscribe');
     this.expSubscription = this.currentExperiment.experiment().pipe(
       filter(exp => (exp ? true : false))
-      ).subscribe(
-        exp => {
-          this.updateModel(exp);
-          // console.log(this.constructor.name+" changed exp to model: "+( exp != null ? exp.id : "null" ));
-        },
-        err => this.feedback.error(err),
-        () => console.log(this.constructor.name + ' expSubscription completed')
-      );
+    ).subscribe(
+      exp => {
+        this.updateModel(exp);
+        // console.log(this.constructor.name+" changed exp to model: "+( exp != null ? exp.id : "null" ));
+      },
+      err => this.feedback.error(err),
+      () => console.log(this.constructor.name + ' expSubscription completed')
+    );
   }
 
   protected refreshModel(): Promise<ExperimentalAssayView> {
@@ -108,7 +104,7 @@ export class ExperimentBaseComponent extends ValidableFormComponent<Experimental
     const nav = this.expHomePath(id);
     nav.push('edit');
     if (section) {
-      this.router.navigate(nav, {fragment: section });
+      this.router.navigate(nav, {fragment: section});
     } else {
       this.router.navigate(nav);
     }

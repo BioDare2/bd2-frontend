@@ -1,4 +1,4 @@
-import {Component, OnInit, Input} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {FileAsset} from '../dom/file-asset';
 import {AnalyticsService} from '../../analytics/analytics.service';
 
@@ -34,16 +34,9 @@ import {AnalyticsService} from '../../analytics/analytics.service';
 export class FileAssetViewComponent implements OnInit {
 
   @Input()
-  set model(model: FileAsset) {
-    this.file = model;
-  }
-
-  @Input()
   canEdit = true;
-
   @Input()
   parentId: string;
-
   file: FileAsset;
   showVersions = false;
   edit = false;
@@ -51,6 +44,11 @@ export class FileAssetViewComponent implements OnInit {
   constructor(private analytics: AnalyticsService, ) {
 
     this.model = this.fakeFileAsset();
+  }
+
+  @Input()
+  set model(model: FileAsset) {
+    this.file = model;
   }
 
   ngOnInit() {

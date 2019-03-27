@@ -7,6 +7,7 @@ import {SystemEventsService} from '../system/system-events.service';
 import {BD2User} from '../auth/user.dom';
 import {ExperimentalAssayView} from '../dom/repo/exp/experimental-assay-view';
 import {FileImportRequest, ImportFormat} from '../experiment/ts-data/import-dom';
+import {DetrendingType} from '../tsdata/ts-data-dom';
 
 @Injectable({
   providedIn: 'root'
@@ -185,10 +186,22 @@ export class BioDareRestService {
   }
 
 
-
   /* experiments */
 
   /* data */
+
+  tsdataExportURL(exp: ExperimentalAssayView, detrending: DetrendingType): string {
+    const url = this.endPoints.experiment_url + '/' + exp.id + this.endPoints.ts_data + '/' + detrending.name + '/export';
+    return url;
+  }
+
+  tsdata(exp: ExperimentalAssayView, detrending: DetrendingType): Promise<any> {
+
+    const options = this.makeOptions();
+    const url = this.endPoints.experiment_url + '/' + exp.id + this.endPoints.ts_data + '/' + detrending.name;
+
+    return this.OKJson(this.http.get(url, options)).toPromise();
+  }
 
   experimentImportTS(exp: ExperimentalAssayView, request: FileImportRequest): Promise<any> {
     const options = this.makeOptions();

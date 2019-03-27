@@ -1,38 +1,37 @@
-
 <h3>Attached files</h3>
 <hr>
 
 <div *ngIf="assay">
 
-<div *ngIf="assay.security.canWrite">
-  <bd2-file-upload-widget #uploadWidget
-   [autoReset]="false"
-   [blocked]="blocked"
-   (uploadFiles)="upload($event)"
-  ></bd2-file-upload-widget>
-  <hr>
-</div>
+  <div *ngIf="assay.security.canWrite">
+    <bd2-file-upload-widget #uploadWidget
+                            [autoReset]="false"
+                            [blocked]="blocked"
+                            (uploadFiles)="upload($event)"
+    ></bd2-file-upload-widget>
+    <hr>
+  </div>
 
-<div *ngIf="tsData && tsData.length > 0">
-  <h4>Timeseries files</h4>
-  <bd2-file-asset-view *ngFor="let file of tsData" [model]="file" [parentId]="assay.id">
-  </bd2-file-asset-view>
-  <alert *ngIf="assay.security.canWrite" type="info">
-    Use "Replace data" to change timeseries files.
-  </alert>
-  <hr>
-</div>
+  <div *ngIf="tsData && tsData.length > 0">
+    <h4>Timeseries files</h4>
+    <bd2-file-asset-view *ngFor="let file of tsData" [model]="file" [parentId]="assay.id">
+    </bd2-file-asset-view>
+    <alert *ngIf="assay.security.canWrite" type="info">
+      Use "Replace data" to change timeseries files.
+    </alert>
+    <hr>
+  </div>
 
   <alert *ngIf="!tsData || tsData.length === 0" type="info">
     Use "Import data" to add timeseries files.
   </alert>
 
 
-<div *ngIf="attachments && attachments.length > 0">
-  <h4>Attachments</h4>
-  <bd2-file-asset-view *ngFor="let file of attachments" [model]="file" [parentId]="assay.id">
-  </bd2-file-asset-view>
-</div>
+  <div *ngIf="attachments && attachments.length > 0">
+    <h4>Attachments</h4>
+    <bd2-file-asset-view *ngFor="let file of attachments" [model]="file" [parentId]="assay.id">
+    </bd2-file-asset-view>
+  </div>
   <alert *ngIf="assay.security.canWrite" type="info">
     Drag and upload files using the upload area in order to update the attachments.
   </alert>

@@ -1,29 +1,17 @@
 export class AssetType {
 
-  constructor(public name: string) {
-  }
-
   static NONE = new AssetType('NONE');
   static FILE = new AssetType('FILE');
   static MEDIA = new AssetType('MEDIA');
   static DATA = new AssetType('DATA');
   static TS_DATA = new AssetType('TS_DATA');
-
   static values = [AssetType.NONE, AssetType.FILE, AssetType.MEDIA, AssetType.DATA, AssetType.TS_DATA];
-
   static valuesMap: Map<String, AssetType> = AssetType.initValuesMap();
 
-  protected static initValuesMap(): Map<String, AssetType> {
-
-    const map = new Map<String, AssetType>();
-
-    AssetType.values.forEach(c => map.set(c.name, c));
-
-    return map;
+  constructor(public name: string) {
   }
 
-
-  static deserialize(val: string|number): AssetType {
+  static deserialize(val: string | number): AssetType {
 
     if (val === null || val === undefined) {
       return null;
@@ -39,6 +27,15 @@ export class AssetType {
       throw new RangeError('Uknown AssetType ' + val);
     }
     return AssetType.values[ix];
+  }
+
+  protected static initValuesMap(): Map<String, AssetType> {
+
+    const map = new Map<String, AssetType>();
+
+    AssetType.values.forEach(c => map.set(c.name, c));
+
+    return map;
   }
 
   public equals(other: AssetType) {

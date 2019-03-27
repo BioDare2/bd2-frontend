@@ -1,4 +1,4 @@
-import {Component, AfterViewInit} from '@angular/core';
+import {AfterViewInit, Component} from '@angular/core';
 import {ExperimentBaseComponent} from '../experiment-base.component';
 import {ExperimentComponentsDependencies} from '../experiment-components.dependencies';
 import {ActivatedRoute} from '@angular/router';
@@ -7,7 +7,7 @@ import {ExperimentalAssayViewValidator} from '../../dom/repo/exp/experimental-as
 
 @Component({
   templateUrl: './experiment-assay-edit-form.component.html',
-  providers:  []
+  providers: []
 })
 export class ExperimentAssayEditFormComponent extends ExperimentBaseComponent implements AfterViewInit {
 
@@ -33,8 +33,8 @@ export class ExperimentAssayEditFormComponent extends ExperimentBaseComponent im
 
     this.route.fragment.subscribe(
       fragment => {
-          this.requestedSection = fragment;
-          this.focusOnSection(fragment);
+        this.requestedSection = fragment;
+        this.focusOnSection(fragment);
       }
     );
   }
@@ -47,7 +47,9 @@ export class ExperimentAssayEditFormComponent extends ExperimentBaseComponent im
   focusOnSection(section: string) {
     // console.log("Focus on: "+section);
 
-    if (!section) { return; }
+    if (!section) {
+      return;
+    }
 
     const element = document.getElementById(section);
     if (element) {
@@ -62,15 +64,6 @@ export class ExperimentAssayEditFormComponent extends ExperimentBaseComponent im
     }
   }
 
-
-
-  protected updateModel(exp: ExperimentalAssayView) {
-    this._orgModel = exp;
-    this.assay = exp ? exp.clone() : null;
-    this.setTitle();
-
-  }
-
   saveEdits(event: any) {
     // console.log("save edits: "+(event ? JSON.stringify(event) : "null"));
 
@@ -79,19 +72,19 @@ export class ExperimentAssayEditFormComponent extends ExperimentBaseComponent im
       if (this.triggerValidation()) {
         this.blocked = true;
         this.experimentService.save(this.assay)
-          .then( exp => {
+          .then(exp => {
             this.feedback.success('Experiment: "' + exp.name + '" updated.');
             return exp;
           })
-          .then( exp => {
+          .then(exp => {
             this.currentExperiment.push(exp);
             return exp;
           })
-          .then( exp => {
+          .then(exp => {
             this.blocked = false;
             this.hideEdits(event);
           })
-          .catch( reason => {
+          .catch(reason => {
             this.blocked = false;
             this.feedback.error(reason);
           });
@@ -112,6 +105,13 @@ export class ExperimentAssayEditFormComponent extends ExperimentBaseComponent im
     // console.log("cancel");
     this.clearErrors();
     this.router.navigate(['/experiment', this.assay.id]);
+  }
+
+  protected updateModel(exp: ExperimentalAssayView) {
+    this._orgModel = exp;
+    this.assay = exp ? exp.clone() : null;
+    this.setTitle();
+
   }
 
   /*

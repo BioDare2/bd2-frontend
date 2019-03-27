@@ -17,7 +17,7 @@
     </div>
 
     <bd2-experiment-navigation
-      [experiment]="model" (onRefresh)="refresh()"
+      (onRefresh)="refresh()" [experiment]="model"
     >
     </bd2-experiment-navigation>
 
@@ -38,9 +38,9 @@
   <!--{{ model | json }}-->
 
   <bd2-confirm-dialog #warningDialog
+                      [ignorable]="false"
                       cancelLabel="Not now"
                       okLabel="OK"
-                      [ignorable]="false"
   >
   </bd2-confirm-dialog>
 

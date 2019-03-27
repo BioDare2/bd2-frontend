@@ -1,4 +1,4 @@
-import {Component, OnInit, Input, Output, EventEmitter, ElementRef, ViewChild} from '@angular/core';
+import {Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
 import {removeItemFromArr} from '../../shared/collections-util';
 
 @Component({
@@ -116,7 +116,7 @@ export class FileUploadWidgetComponent implements OnInit {
 
   checkSize() {
     let size = 0;
-    this.files.map(f => f.size).forEach( v => size += v);
+    this.files.map(f => f.size).forEach(v => size += v);
 
     size = size / (1024 * 1024);
 
@@ -129,7 +129,6 @@ export class FileUploadWidgetComponent implements OnInit {
       this.reset();
     }
   }
-
 
 
 }

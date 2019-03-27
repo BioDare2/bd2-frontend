@@ -21,7 +21,8 @@
                 minlength="55"
                 name="gPurpose"
                 placeholder=
-                  "Describe the main aim of the experiment. What you tried to achieve, test, verify, on what kind of samples." required
+                  "Describe the main aim of the experiment. What you tried to achieve, test, verify, on what kind of samples."
+                required
                 rows="4" type="text">
                  </textarea>
       <div [hidden]="gPurpose.valid && sufficientPurpose" class="alert alert-danger">
@@ -50,7 +51,8 @@ For example: seedlings were exposed to short day light regime (LD 6:18) at two t
                 class="form-control"
                 id="gComments"
                 name="gComments"
-                placeholder="Optional remarks, for example technical issues during the experiment, discrepancies/simplifications of in the following sections" type="text">
+                placeholder="Optional remarks, for example technical issues during the experiment, discrepancies/simplifications of in the following sections"
+                type="text">
                 </textarea>
       <!--<div [hidden]="gComments.valid || gComments.pristine" class="alert alert-danger">
           Valid comments are required

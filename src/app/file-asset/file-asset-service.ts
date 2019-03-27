@@ -1,4 +1,3 @@
-
 import {Injectable} from '@angular/core';
 import {BioDareRestService} from '../backend/biodare-rest.service';
 import {FileAsset} from './dom/file-asset';
@@ -10,7 +9,6 @@ export class FileAssetService {
 
   constructor(private BD2REST: BioDareRestService) {
   }
-
 
 
   updateFile(asset: FileAsset, file: File, description: string): Promise<FileAsset> {

@@ -1,5 +1,4 @@
-
-import {async, ComponentFixture, TestBed, fakeAsync, tick} from '@angular/core/testing';
+import {async, ComponentFixture, fakeAsync, TestBed, tick} from '@angular/core/testing';
 
 import {FileUploadWidgetComponent} from './file-upload-widget.component';
 import {FileAssetTestModule} from '../file-asset_test_tool.spec';

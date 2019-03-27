@@ -2,7 +2,7 @@ import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 
 import {ExperimentRoutingModule} from './experiment-routing.module';
-import { ExperimentFeatureComponent } from './experiment-feature/experiment-feature.component';
+import {ExperimentFeatureComponent} from './experiment-feature/experiment-feature.component';
 import {SharedComponentsModule} from '../shared/shared-components.module';
 import {ExperimentNavigationComponent} from './experiment-navigation.component';
 import {ExperimentBasicInfoViewComponent} from './experiment-basic-info-view.component';
@@ -12,8 +12,8 @@ import {ExperimentAssayEditFormComponent} from './experiment-assay-edit-form/exp
 import {AttachmentsModule} from './attachments/attachments.module';
 
 @NgModule({
-  declarations: [ExperimentFeatureComponent, ExperimentNavigationComponent,  ExperimentBasicInfoViewComponent,
-    ExperimentAssayOverviewComponent, ExperimentAssayEditFormComponent ],
+  declarations: [ExperimentFeatureComponent, ExperimentNavigationComponent, ExperimentBasicInfoViewComponent,
+    ExperimentAssayOverviewComponent, ExperimentAssayEditFormComponent],
   imports: [
     CommonModule,
     RepoComponentsModule,

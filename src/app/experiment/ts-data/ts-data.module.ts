@@ -14,11 +14,15 @@ import {ColumnTypeDialogComponent} from './ts-import/widgets/column-type.dialog.
 import {ConfirmRowCopyDialogComponent} from './ts-import/widgets/confirm-row-copy.dialog.component';
 import {ModalModule} from 'ngx-bootstrap/modal';
 import {SimpleAddDataFormComponent} from './ts-import/widgets/simple-add-data.form.component';
+import {TSPlotModule} from '../../tsdata/plots/ts-plot.module';
+import {TSViewComponent} from './ts-view/ts-view.component';
 
 @NgModule({
-  declarations: [UploadDataFileComponent, TSImportComponent,
+  declarations: [UploadDataFileComponent,
+    TSImportComponent,
     DescribeTSTableComponent, DescribeTopcountTableComponent, ColumnTypeDialogComponent, ConfirmRowCopyDialogComponent,
-    SimpleAddDataFormComponent
+    SimpleAddDataFormComponent,
+    TSViewComponent
   ],
   imports: [
     CommonModule,
@@ -27,6 +31,7 @@ import {SimpleAddDataFormComponent} from './ts-import/widgets/simple-add-data.fo
     ModalModule,
     SharedComponentsModule,
     FileAssetModule,
+    TSPlotModule,
     TsDataRoutingModule
   ]
 })

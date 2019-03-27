@@ -40,17 +40,16 @@ export class AttachmentsDashboardComponent extends ExperimentBaseComponent {
   refreshAttachments() {
     this.attachmentsService.getFiles(this.assay)
       .then(files => this.setFiles(files))
-      .catch( err => {
+      .catch(err => {
         this.feedback.error(err);
       })
     ;
   }
 
-  setFiles( files: FileAsset[]) {
-    this.tsData = files.filter( f => f.assetType.equals(AssetType.TS_DATA));
+  setFiles(files: FileAsset[]) {
+    this.tsData = files.filter(f => f.assetType.equals(AssetType.TS_DATA));
     this.attachments = files.filter(f => !f.assetType.equals(AssetType.TS_DATA));
   }
-
 
 
   upload(files: File[]) {
@@ -63,14 +62,14 @@ export class AttachmentsDashboardComponent extends ExperimentBaseComponent {
     this.blocked = true;
 
     this.attachmentsService.upload(this.assay, files)
-      .then( res => {
+      .then(res => {
         this.uploadWidget.reset();
         this.blocked = false;
         const s = res.length;
         this.feedback.success(s + ' files uploaded');
       })
-      .then( () => this.refreshModel())
-      .catch( err => {
+      .then(() => this.refreshModel())
+      .catch(err => {
         this.blocked = false;
         this.feedback.error(err);
       });

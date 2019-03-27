@@ -1,6 +1,5 @@
 import {AttachmentsService} from './attachments.service';
 import {BioDareRestService} from '../../backend/biodare-rest.service';
-import {ExperimentalAssayView} from '../../dom/repo/exp/experimental-assay-view';
 import {TestBed} from '@angular/core/testing';
 import {fakeBioDareRestService} from '../../backend/biodare-rest_test_tool.spec';
 import {FileAsset} from '../../file-asset/dom/file-asset';

@@ -9,6 +9,8 @@ import {environment} from '../environments/environment';
 import {BioDareEndPoints, bioDareRestConfigurator} from './backend/biodare-rest.dom';
 import {ModalModule} from 'ngx-bootstrap/modal';
 import {TypeaheadModule} from 'ngx-bootstrap/typeahead';
+import {AlertModule} from 'ngx-bootstrap/alert';
+
 const endPoints: BioDareEndPoints = bioDareRestConfigurator(environment);
 
 @NgModule({
@@ -21,6 +23,7 @@ const endPoints: BioDareEndPoints = bioDareRestConfigurator(environment);
     HttpClientModule,
     ModalModule.forRoot(),
     TypeaheadModule.forRoot(),
+    AlertModule.forRoot(),
     PageModule,
     // AccountModule,
     // DocumentsModule,
