@@ -1,6 +1,7 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {PPAStartFormComponent} from './ppa-start-form/ppa-start-form.component';
+import {PPADashboardComponent} from './ppa-dashboard/ppa-dashboard.component';
 
 const routes: Routes = [
   {
@@ -8,7 +9,7 @@ const routes: Routes = [
     children: [
       {path: 'new', component: PPAStartFormComponent},
       // {path: ':jobId/edit', component: PPASelectPeriodsFormComponent},
-      // {path: '', component: PPADashboardComponent, pathMatch: 'full'},
+      {path: '', component: PPADashboardComponent, pathMatch: 'full'}
     ]
   }
 ];

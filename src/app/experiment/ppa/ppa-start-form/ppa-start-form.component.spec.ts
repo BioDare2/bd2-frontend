@@ -3,7 +3,7 @@ import {PPAStartFormComponent} from './ppa-start-form.component';
 import {ExperimentsTestToolModule} from '../../experiment_test_tool.spec';
 import {PPAJobParamsRFormComponent} from './ppajob-params-rform/ppajob-params-rform.component';
 import {TSPlotModule} from '../../../tsdata/plots/ts-plot.module';
-import {StaticContentModule} from '../../../documents/static-content.module';
+import {StaticContentTestModule} from '../../../documents/static-content_test_tool.spec';
 
 
 describe('PPAStartFormComponent', () => {
@@ -13,7 +13,7 @@ describe('PPAStartFormComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [PPAStartFormComponent, PPAJobParamsRFormComponent],
-      imports: [ExperimentsTestToolModule, StaticContentModule, TSPlotModule]
+      imports: [ExperimentsTestToolModule, StaticContentTestModule, TSPlotModule]
     })
       .compileComponents();
   }));

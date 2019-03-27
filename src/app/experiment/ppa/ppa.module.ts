@@ -8,16 +8,40 @@ import {PPAJobParamsRFormComponent} from './ppa-start-form/ppajob-params-rform/p
 import {StaticContentModule} from '../../documents/static-content.module';
 import {TSPlotModule} from '../../tsdata/plots/ts-plot.module';
 import {AlertModule} from 'ngx-bootstrap/alert';
+import {PPADashboardComponent} from './ppa-dashboard/ppa-dashboard.component';
+import {SelectableFitDialogComponent} from './ppa-fit/selectable-fit-dialog.component';
+import {PPAJobExportDialogComponent} from './ppa-dashboard/ppajob-export-dialog/ppajob-export-dialog.component';
+import {PPAJobPaneComponent} from './ppa-dashboard/ppajob-pane/ppajob-pane.component';
+import {PhasesOptionsWidgetComponent} from './ppa-dashboard/ppajob-pane/phases-options-widget.component';
+import {HboxPlotModule} from 'bd2-ngx-hboxplot';
+import {PolarPlotModule} from 'bd2-ngx-polarplot';
+import {LegendModule} from '../../graphic/legend/legend.module';
+import {SVGSaverModule} from '../../graphic/svg-saver/svg-saver.module';
+import {PPAStatsTableComponent} from './ppa-dashboard/ppajob-pane/ppastats-table/ppastats-table.component';
+import {PPAJobResultsTableComponent} from './ppa-dashboard/ppajob-pane/ppajob-results-table/ppajob-results-table.component';
+import {ModalModule} from 'ngx-bootstrap/modal';
+import {SharedComponentsModule} from '../../shared/shared-components.module';
+import {ButtonsModule} from 'ngx-bootstrap/buttons';
 
 @NgModule({
-  declarations: [PPAStartFormComponent, PPAJobParamsRFormComponent],
+  declarations: [PPAStartFormComponent, PPAJobParamsRFormComponent,
+    PPADashboardComponent, PPAJobExportDialogComponent, PPAJobPaneComponent,
+    PhasesOptionsWidgetComponent, PPAStatsTableComponent, PPAJobResultsTableComponent,
+    SelectableFitDialogComponent],
   imports: [
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
     AlertModule,
+    ButtonsModule,
+    ModalModule,
     StaticContentModule,
+    SharedComponentsModule,
     TSPlotModule,
+    HboxPlotModule,
+    PolarPlotModule,
+    LegendModule,
+    SVGSaverModule,
     PPARoutingModule
   ]
 })
