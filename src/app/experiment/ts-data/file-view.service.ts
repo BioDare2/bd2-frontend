@@ -1,4 +1,3 @@
-
 import {Injectable} from '@angular/core';
 import {BioDareRestService} from '../../backend/biodare-rest.service';
 import {ImportFormat} from './import-dom';
@@ -9,12 +8,13 @@ import {ImportFormat} from './import-dom';
 })
 export class FileViewService {
 
-  constructor(private BD2REST: BioDareRestService) {}
+  constructor(private BD2REST: BioDareRestService) {
+  }
 
   getSimpleTableView(fileId: string): Promise<string[][]> {
 
     return this.BD2REST.fileViewSimpleTable(fileId)
-      .then( jsonObj => jsonObj.data);
+      .then(jsonObj => jsonObj.data);
   }
 
   verifyFormat(format: ImportFormat, fileId: string): Promise<boolean> {

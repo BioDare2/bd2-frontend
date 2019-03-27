@@ -1,6 +1,14 @@
 import {
-  colNrToExcelLetter, CellCoordinates, CellRange, CellRangeDescription, ColumnBlocks,
-  ColumnBlockEntry, CellRole, excelLettersToColNr, colNrToTopCountWellName, colNrToTopCountCoordinates
+  CellCoordinates,
+  CellRange,
+  CellRangeDescription,
+  CellRole,
+  colNrToExcelLetter,
+  colNrToTopCountCoordinates,
+  colNrToTopCountWellName,
+  ColumnBlockEntry,
+  ColumnBlocks,
+  excelLettersToColNr
 } from './sheet-dom';
 
 describe('nrToExcel', () => {
@@ -471,8 +479,6 @@ describe('ColumnBlocks', () => {
     expect(blocks.columns[6].details.lastCol).toBe(10);
     expect(blocks.columns[11].details.firstCol).toBe(11);
     expect(blocks.columns[12].details.lastCol).toBe(12);
-
-
 
 
   });

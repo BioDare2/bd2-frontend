@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component} from '@angular/core';
 import {ExperimentBaseComponent} from '../../experiment-base.component';
 import {ImportFormat, ImportFormatOptions} from '../import-dom';
 import {ExperimentComponentsDependencies} from '../../experiment-components.dependencies';
@@ -91,13 +91,25 @@ export class UploadDataFileComponent extends ExperimentBaseComponent {
   isTopCount(file: File): string {
     const name = file.name;
     let type = file.type as string;
-    if (!name) { return 'Unknown'; }
-    if (!type) { type = 'Unknown'; }
+    if (!name) {
+      return 'Unknown';
+    }
+    if (!type) {
+      type = 'Unknown';
+    }
 
-    if (file.name.endsWith('.csv')) { return 'CSV'; }
-    if (file.name.endsWith('.xls')) { return 'Excel'; }
-    if (file.name.endsWith('.xlsx')) { return 'Excel'; }
-    if (file.name.endsWith('.tsv')) { return 'tab separated'; }
+    if (file.name.endsWith('.csv')) {
+      return 'CSV';
+    }
+    if (file.name.endsWith('.xls')) {
+      return 'Excel';
+    }
+    if (file.name.endsWith('.xlsx')) {
+      return 'Excel';
+    }
+    if (file.name.endsWith('.tsv')) {
+      return 'tab separated';
+    }
 
     return null;
   }
@@ -105,15 +117,27 @@ export class UploadDataFileComponent extends ExperimentBaseComponent {
   isExcel(file: File): string {
     const name = file.name;
     const type = file.type as string;
-    if (!type || !name) { return 'Unknown'; }
+    if (!type || !name) {
+      return 'Unknown';
+    }
 
     // console.log("T: "+type);
-    if (file.name.endsWith('.csv')) { return 'CSV'; }
-    if (file.name.endsWith('.txt')) { return 'text'; }
-    if (file.name.endsWith('.tsv')) { return 'tab separated'; }
+    if (file.name.endsWith('.csv')) {
+      return 'CSV';
+    }
+    if (file.name.endsWith('.txt')) {
+      return 'text';
+    }
+    if (file.name.endsWith('.tsv')) {
+      return 'tab separated';
+    }
 
-    if (type.indexOf('excel') >= 0) { return null; }
-    if (type.indexOf('sheet') >= 0) { return null; }
+    if (type.indexOf('excel') >= 0) {
+      return null;
+    }
+    if (type.indexOf('sheet') >= 0) {
+      return null;
+    }
     return type;
   }
 

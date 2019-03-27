@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {BioDareRestService} from '../backend/biodare-rest.service';
 import {ExperimentSummary} from '../dom/repo/exp/experiment-summary';
 import {ExperimentalAssayView} from '../dom/repo/exp/experimental-assay-view';
+import {FileImportRequest} from "./ts-data/import-dom";
 
 @Injectable({
   providedIn: 'root'
@@ -41,6 +42,9 @@ export class ExperimentService {
       .then(jsonObj => this.json2ExperimentalAssayView(jsonObj));
   }
 
+  importTimeSeries(exp: ExperimentalAssayView, request: FileImportRequest): Promise<any> {
+    return this.BD2REST.experimentImportTS(exp, request);
+  }
 
   protected json2ExperimentSummaryList(data: any[]): ExperimentSummary[] {
 

@@ -1,11 +1,14 @@
-import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
-import {UploadDataFileComponent} from "./upload-data-file/upload-data-file.component";
+import {NgModule} from '@angular/core';
+import {RouterModule, Routes} from '@angular/router';
+import {UploadDataFileComponent} from './upload-data-file/upload-data-file.component';
+import {TSImportComponent} from './ts-import/ts-import.component';
 
 const routes: Routes = [{
   path: '',
   children: [
     {path: 'upload', component: UploadDataFileComponent},
+
+    {path: 'ts-import/:format/:fileId', component: TSImportComponent},
 
   ]
 }];
@@ -14,4 +17,5 @@ const routes: Routes = [{
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class TsDataRoutingModule { }
+export class TsDataRoutingModule {
+}

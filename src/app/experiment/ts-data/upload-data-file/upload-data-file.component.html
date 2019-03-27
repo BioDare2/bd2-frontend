@@ -6,17 +6,17 @@
     <div class="form-group">
       <label for="fImportFormat">Format</label>
 
-      <select class="form-control" required
-              id="fImportFormat"
+      <select #fImportFormat="ngModel" (change)="formatChanged($event)"
               [(ngModel)]="importFormat"
+              class="form-control"
+              id="fImportFormat"
               name="fImportFormat"
-              #fImportFormat="ngModel"
-              (change)="formatChanged($event)"
+              required
       >
         <option *ngFor="let opt of importFormatOptions; let ix = index" [value]="opt.name">{{opt.label}}</option>
       </select>
     </div>
-    <alert *ngIf="importFormat == 'EXCEL_TABLE'" type="info" dismissible="true" style="font-size: smaller;">
+    <alert *ngIf="importFormat == 'EXCEL_TABLE'" dismissible="true" style="font-size: smaller;" type="info">
       An Excel file in which one column contains time values while other columns contain measurements taken at the
       corresponding times.
       <ul>
@@ -41,7 +41,7 @@
         </li>
       </ul>
     </alert>
-    <alert *ngIf="importFormat == 'TOPCOUNT'" type="info" dismissible="true" style="font-size: smaller;">
+    <alert *ngIf="importFormat == 'TOPCOUNT'" dismissible="true" style="font-size: smaller;" type="info">
       Topcount data can be uploaded in two forms:
       <ul>
         <li>Individual file which contains concatenated topcount data blocks in one file</li>
@@ -52,11 +52,11 @@
     </alert>
     <div class="form-group">
       <bd2-file-upload-widget #uploadWidget
+                              (selectedFiles)="checkFormat($event)"
+                              (uploadFiles)="upload($event)"
                               [autoReset]="false"
                               [blocked]="blocked || !importFormat"
                               [multiple]="false"
-                              (uploadFiles)="upload($event)"
-                              (selectedFiles)="checkFormat($event)"
       ></bd2-file-upload-widget>
     </div>
     <alert *ngIf="formatWarning" type="danger">

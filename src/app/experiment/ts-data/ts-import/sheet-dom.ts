@@ -9,10 +9,24 @@ export class CellRole {
 
   protected static valuesMap: Map<string, CellRole>;
 
+  protected constructor(private _id: number, private _name: string, private _label: string) {
+  }
+
+  public get id(): number {
+    return this._id;
+  }
+
+  public get name(): string {
+    return this._name;
+  }
+
+  public get label(): string {
+    return this._label;
+  }
+
   public static get(name: string) {
     return CellRole.getValuesMap().get(name);
   }
-
 
   protected static getValuesMap(): Map<string, CellRole> {
 
@@ -34,21 +48,6 @@ export class CellRole {
     return map;
   }
 
-  protected constructor(private _id: number, private _name: string, private _label: string) {
-  }
-
-  public get id(): number {
-    return this._id;
-  }
-
-  public get name(): string {
-    return this._name;
-  }
-
-  public get label(): string {
-    return this._label;
-  }
-
   toJSON(): string {
     return this.name;
   }
@@ -64,6 +63,25 @@ export class TimeColumnType {
   static IMG_NUMBER = new TimeColumnType(4, 'IMG_NUMBER', 'image nr. (1-based)');
 
   protected static valuesMap: Map<string, TimeColumnType>;
+
+  protected constructor(private _id: number, private _name: string, private _label: string) {
+  }
+
+  public get id(): number {
+    return this._id;
+  }
+
+  public get name(): string {
+    return this._name;
+  }
+
+  public get label(): string {
+    return this._label;
+  }
+
+  public static get(name: string): TimeColumnType {
+    return TimeColumnType.getValuesMap().get(name);
+  }
 
   protected static getValuesMap(): Map<string, TimeColumnType> {
     if (!TimeColumnType.valuesMap) {
@@ -82,29 +100,8 @@ export class TimeColumnType {
     return map;
   }
 
-  public static get(name: string): TimeColumnType {
-    return TimeColumnType.getValuesMap().get(name);
-  }
-
-  protected constructor(private _id: number, private _name: string, private _label: string) {
-  }
-
-
   toJSON(): string {
     return this.name;
-  }
-
-
-  public get id(): number {
-    return this._id;
-  }
-
-  public get name(): string {
-    return this._name;
-  }
-
-  public get label(): string {
-    return this._label;
   }
 }
 
@@ -242,31 +239,6 @@ export class CellRange {
     return this.last.col;
   }
 
-  clone(): CellRange {
-    return new CellRange(this.first.clone(), this.last.clone());
-  }
-
-
-  normalize(first: CellCoordinates, last: CellCoordinates): CellCoordinates[] {
-
-    if (first.row <= last.row && first.col <= last.col) {
-      return [first, last];
-    }
-
-    const fRow = Math.min(first.row, last.row);
-    const fCol = Math.min(first.col, last.col);
-
-    const lRow = Math.max(first.row, last.row);
-    const lCol = Math.max(first.col, last.col);
-
-    return [new CellCoordinates(fCol, fRow), new CellCoordinates(lCol, lRow)];
-
-  }
-
-  isSingleCell(): boolean {
-    return (this.first.row === this.last.row && this.first.col === this.last.col);
-  }
-
   get fullRangeLabel(): string {
     if (this.isSingleCell()) {
       return this.first.excelLabel;
@@ -290,6 +262,29 @@ export class CellRange {
     return this.first.topCountWell + '-' + this.last.topCountWell;
   }
 
+  clone(): CellRange {
+    return new CellRange(this.first.clone(), this.last.clone());
+  }
+
+  normalize(first: CellCoordinates, last: CellCoordinates): CellCoordinates[] {
+
+    if (first.row <= last.row && first.col <= last.col) {
+      return [first, last];
+    }
+
+    const fRow = Math.min(first.row, last.row);
+    const fCol = Math.min(first.col, last.col);
+
+    const lRow = Math.max(first.row, last.row);
+    const lCol = Math.max(first.col, last.col);
+
+    return [new CellCoordinates(fCol, fRow), new CellCoordinates(lCol, lRow)];
+
+  }
+
+  isSingleCell(): boolean {
+    return (this.first.row === this.last.row && this.first.col === this.last.col);
+  }
 
   size(): number {
     const inRow = this.last.col - this.first.col + 1;
@@ -297,7 +292,6 @@ export class CellRange {
     return inRow * rows;
   }
 }
-
 
 
 export class CellRangeDescription {
@@ -308,13 +302,6 @@ export class CellRangeDescription {
   constructor(public range: CellRange, public content?: string) {
 
     // this.label = label || range.toExcelLabel();
-  }
-
-  clone(): CellRangeDescription {
-    const c = new CellRangeDescription(this.range.clone(), this.content);
-    c.role = this.role;
-    c.details = this.details;
-    return c;
   }
 
   get fullRangeLabel(): string {
@@ -336,6 +323,13 @@ export class CellRangeDescription {
 
   get lastCol(): number {
     return this.range.lastCol;
+  }
+
+  clone(): CellRangeDescription {
+    const c = new CellRangeDescription(this.range.clone(), this.content);
+    c.role = this.role;
+    c.details = this.details;
+    return c;
   }
 
 }
@@ -405,14 +399,6 @@ export class ColumnBlocks {
 
   }
 
-  details(col: number): CellRangeDescription {
-    const block = this.columns[col];
-    if (block) {
-      return block.details;
-    }
-    return undefined;
-  }
-
   get blocks(): ColumnBlockEntry[] {
 
     const blocks: ColumnBlockEntry[] = [];
@@ -429,6 +415,14 @@ export class ColumnBlocks {
     }
 
     return blocks;
+  }
+
+  details(col: number): CellRangeDescription {
+    const block = this.columns[col];
+    if (block) {
+      return block.details;
+    }
+    return undefined;
   }
 
   delete(range: CellRange): boolean {
@@ -505,19 +499,6 @@ export class ColumnBlocks {
     }
   }
 
-  private put(block: ColumnBlockEntry) {
-    for (let i = block.start; i <= block.end; i++) {
-      this.columns[i] = block;
-    }
-  }
-
-  private clear(range: CellRange) {
-    for (let i = range.firstCol; i <= range.lastCol; i++) {
-      this.columns[i] = undefined;
-    }
-  }
-
-
   trimPreviousAt(position: number) {
 
     const elm = this.columns[position];
@@ -538,6 +519,18 @@ export class ColumnBlocks {
 
     const newPost = elm.trimBegining(position);
     this.put(newPost);
+  }
+
+  private put(block: ColumnBlockEntry) {
+    for (let i = block.start; i <= block.end; i++) {
+      this.columns[i] = block;
+    }
+  }
+
+  private clear(range: CellRange) {
+    for (let i = range.firstCol; i <= range.lastCol; i++) {
+      this.columns[i] = undefined;
+    }
   }
 
 

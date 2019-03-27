@@ -1,4 +1,5 @@
-import {CellRangeDescription} from './sheet-dom';
+import {CellRangeDescription} from './ts-import/sheet-dom';
+
 export class ImportFormat {
 
   static NONE = new ImportFormat(0, 'NONE', 'none');
@@ -7,8 +8,13 @@ export class ImportFormat {
 
   protected static valuesMap: Map<string, ImportFormat>;
 
+  constructor(public id: number, public name: string, public label: string) {
+  }
+
   static getValuesMap(): Map<string, ImportFormat> {
-    if (!ImportFormat.valuesMap) { ImportFormat.valuesMap = ImportFormat.initValuesMap(); }
+    if (!ImportFormat.valuesMap) {
+      ImportFormat.valuesMap = ImportFormat.initValuesMap();
+    }
     return ImportFormat.valuesMap;
   }
 
@@ -22,10 +28,6 @@ export class ImportFormat {
     map.set(ImportFormat.EXCEL_TABLE.name, ImportFormat.EXCEL_TABLE);
     map.set(ImportFormat.TOPCOUNT.name, ImportFormat.TOPCOUNT);
     return map;
-  }
-
-
-  constructor(public id: number, public name: string, public label: string) {
   }
 
   toJSON(): string {

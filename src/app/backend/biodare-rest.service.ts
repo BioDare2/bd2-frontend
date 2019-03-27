@@ -6,7 +6,7 @@ import {catchError, map} from 'rxjs/operators';
 import {SystemEventsService} from '../system/system-events.service';
 import {BD2User} from '../auth/user.dom';
 import {ExperimentalAssayView} from '../dom/repo/exp/experimental-assay-view';
-import {ImportFormat} from '../experiment/ts-data/import-dom';
+import {FileImportRequest, ImportFormat} from '../experiment/ts-data/import-dom';
 
 @Injectable({
   providedIn: 'root'
@@ -187,6 +187,19 @@ export class BioDareRestService {
 
 
   /* experiments */
+
+  /* data */
+
+  experimentImportTS(exp: ExperimentalAssayView, request: FileImportRequest): Promise<any> {
+    const options = this.makeOptions();
+    const url = this.endPoints.experiment_url + '/' + exp.id + this.endPoints.ts_import;
+    const body = request;
+
+    return this.OKJson(this.http.post(url, body, options)).toPromise();
+
+  }
+
+  /* data */
 
   /* files */
 
