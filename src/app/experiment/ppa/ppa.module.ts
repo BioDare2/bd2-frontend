@@ -10,7 +10,7 @@ import {TSPlotModule} from '../../tsdata/plots/ts-plot.module';
 import {AlertModule} from 'ngx-bootstrap/alert';
 import {PPADashboardComponent} from './ppa-dashboard/ppa-dashboard.component';
 import {SelectableFitDialogComponent} from './ppa-fit/selectable-fit-dialog.component';
-import {PPAJobExportDialogComponent} from './ppa-dashboard/ppajob-export-dialog/ppajob-export-dialog.component';
+import {PPAJobExportDialogComponent} from './ppa-dashboard/ppajob-pane/ppajob-export-dialog/ppajob-export-dialog.component';
 import {PPAJobPaneComponent} from './ppa-dashboard/ppajob-pane/ppajob-pane.component';
 import {PhasesOptionsWidgetComponent} from './ppa-dashboard/ppajob-pane/phases-options-widget.component';
 import {HboxPlotModule} from 'bd2-ngx-hboxplot';

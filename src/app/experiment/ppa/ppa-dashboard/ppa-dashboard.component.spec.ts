@@ -4,7 +4,7 @@ import {ExperimentsTestToolModule} from '../../experiment_test_tool.spec';
 import {StaticContentTestModule} from '../../../documents/static-content_test_tool.spec';
 import {PPADashboardComponent} from './ppa-dashboard.component';
 import {SelectableFitDialogComponent} from '../ppa-fit/selectable-fit-dialog.component';
-import {PPAJobExportDialogComponent} from './ppajob-export-dialog/ppajob-export-dialog.component';
+import {PPAJobExportDialogComponent} from './ppajob-pane/ppajob-export-dialog/ppajob-export-dialog.component';
 import {PPAJobPaneComponent} from './ppajob-pane/ppajob-pane.component';
 import {PhasesOptionsWidgetComponent} from './ppajob-pane/phases-options-widget.component';
 import {PPAStatsTableComponent} from './ppajob-pane/ppastats-table/ppastats-table.component';

@@ -2,7 +2,7 @@ import {Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, Si
 import {ExperimentalAssayView} from '../../../../dom/repo/exp/experimental-assay-view';
 import {ConfirmDialogComponent} from '../../../../shared/confirm-dialog.component';
 import {SelectableFitDialogComponent} from '../../ppa-fit/selectable-fit-dialog.component';
-import {PPAJobExportDialogComponent} from '../ppajob-export-dialog/ppajob-export-dialog.component';
+import {PPAJobExportDialogComponent} from './ppajob-export-dialog/ppajob-export-dialog.component';
 import {
   PPAJobResultsGroups,
   PPAJobSimpleResults,

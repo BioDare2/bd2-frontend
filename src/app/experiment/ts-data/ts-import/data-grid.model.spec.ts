@@ -109,21 +109,30 @@ describe('DataGridModel', () => {
     expect(res).toEqual(['1', '2']);
   });
 
-  xit('labelCols gives nr and excell letters', () => {
+  it('labelCols gives nr and excell letters', () => {
 
     const res = DataGridModel.labelCols(2);
-    expect(res).toEqual(['1. A', '2. B']);
+    // expect(res).toEqual(['1. A', '2. B']);
+    expect(res).toEqual(['A', 'B']);
   });
 
-  xit('labelCols handles high cols numbers', () => {
+  it('labelCols handles high cols numbers', () => {
 
     const res = DataGridModel.labelCols(80);
-    expect(res[0]).toBe('1. A');
-    expect(res[16]).toBe('17. Q');
-    expect(res[25]).toBe('26. Z');
-    expect(res[26]).toBe('27. AA');
-    expect(res[52]).toBe('53. BA');
-    expect(res[79]).toBe('80. CB');
+    // expect(res[0]).toBe('1. A');
+    // expect(res[16]).toBe('17. Q');
+    // expect(res[25]).toBe('26. Z');
+    // expect(res[26]).toBe('27. AA');
+    // expect(res[52]).toBe('53. BA');
+    // expect(res[79]).toBe('80. CB');
+
+    expect(res[0]).toBe('A');
+    expect(res[16]).toBe('Q');
+    expect(res[25]).toBe('Z');
+    expect(res[26]).toBe('AA');
+    expect(res[52]).toBe('BA');
+    expect(res[79]).toBe('CB');
+
   });
 
   it('labelCols gives excell letters', () => {

@@ -2,7 +2,7 @@ import {Component, QueryList, ViewChild, ViewChildren} from '@angular/core';
 import {PPABaseComponent} from '../ppa-base.component';
 import {ConfirmDialogComponent} from '../../../shared/confirm-dialog.component';
 import {SelectableFitDialogComponent} from '../ppa-fit/selectable-fit-dialog.component';
-import {PPAJobExportDialogComponent} from './ppajob-export-dialog/ppajob-export-dialog.component';
+import {PPAJobExportDialogComponent} from './ppajob-pane/ppajob-export-dialog/ppajob-export-dialog.component';
 import {PPAJobPaneComponent} from './ppajob-pane/ppajob-pane.component';
 import {PPAJobSummary} from '../ppa-dom';
 import {PPAService} from '../ppa.service';
