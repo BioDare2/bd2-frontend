@@ -1,5 +1,5 @@
 import {NgModule} from '@angular/core';
-import {FormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {ButtonsModule} from 'ngx-bootstrap/buttons';
 import {RouterTestingModule} from '@angular/router/testing';
 import {UserService} from '../auth/user.service';
@@ -35,7 +35,7 @@ export function fakeExperimentService() {
 
 @NgModule({
   declarations: [],
-  imports: [FormsModule,
+  imports: [FormsModule, ReactiveFormsModule,
     ButtonsModule.forRoot(), AlertModule.forRoot(),
     RouterTestingModule, ModalModule.forRoot(),
     RepoComponentsModule, SharedComponentsModule
@@ -47,7 +47,8 @@ export function fakeExperimentService() {
     {provide: AnalyticsService, useValue: fakeAnalyticsService()},
     CurrentExperimentService, ExperimentComponentsDependencies
   ],
-  exports: [FormsModule, ButtonsModule, AlertModule,
+  exports: [FormsModule, ReactiveFormsModule,
+    ButtonsModule, AlertModule,
     RouterTestingModule,
     RepoComponentsModule, SharedComponentsModule
   ]

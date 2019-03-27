@@ -8,6 +8,7 @@ import {BD2User} from '../auth/user.dom';
 import {ExperimentalAssayView} from '../dom/repo/exp/experimental-assay-view';
 import {FileImportRequest, ImportFormat} from '../experiment/ts-data/import-dom';
 import {DetrendingType} from '../tsdata/ts-data-dom';
+import {PPARequest} from '../experiment/ppa/ppa-dom';
 
 @Injectable({
   providedIn: 'root'
@@ -213,6 +214,115 @@ export class BioDareRestService {
   }
 
   /* data */
+
+  /* ppa */
+
+  ppaNew(exp: ExperimentalAssayView, request: PPARequest): Promise<any> {
+    const options = this.makeOptions();
+    const url = this.endPoints.experiment_url + '/' + exp.id + this.endPoints.ppa_new;
+    const body = request;
+
+    return this.OKJson(this.http.put(url, body, options)).toPromise();
+
+  }
+
+  ppaJob(expId: number, jobId: number): Promise<any> {
+    const options = this.makeOptions();
+    const url = this.endPoints.experiment_url + '/' + expId + this.endPoints.ppa_job + '/' + jobId;
+
+    return this.OKJson(this.http.get(url, options)).toPromise();
+  }
+
+  ppaExportJob(expId: number, jobId: number, phaseType: string): Promise<any> {
+    const options = this.makeOptions();
+    options.headers = options.headers.delete('Content-Type');
+    (options as any).responseType  = 'blob'; // ResponseContentType.Blob;
+
+    const url = this.endPoints.experiment_url + '/' + expId + this.endPoints.ppa_job + '/' + jobId + '/export/' + phaseType;
+
+    // return this.OK(this.http.get(url, options).toPromise());
+
+    return this.http.get(url, options).pipe(
+      catchError(this.handleBadResponse)
+      )
+      .toPromise();
+  }
+
+  ppaDeleteJob(expId: number, jobId: number): Promise<any> {
+    const options = this.makeOptions();
+    const url = this.endPoints.experiment_url + '/' + expId + this.endPoints.ppa_job + '/' + jobId;
+
+    return this.OKJson(this.http.delete(url, options)).toPromise();
+  }
+
+
+  ppaJobResultsGrouped(expId: number, jobId: number): Promise<any> {
+    const options = this.makeOptions();
+    const url = this.endPoints.experiment_url + '/' + expId + this.endPoints.ppa_job + '/' + jobId + '/results/grouped';
+
+    return this.OKJson(this.http.get(url, options)).toPromise();
+
+  }
+
+  ppaJobSimpleResults(expId: number, jobId: number): Promise<any> {
+    const options = this.makeOptions();
+    const url = this.endPoints.experiment_url + '/' + expId + this.endPoints.ppa_job + '/' + jobId + '/results/simple';
+
+    return this.OKJson(this.http.get(url, options)).toPromise();
+  }
+
+  ppaJobSimpleStat(expId: number, jobId: number): Promise<any> {
+    const options = this.makeOptions();
+    const url = this.endPoints.experiment_url + '/' + expId + this.endPoints.ppa_job + '/' + jobId + '/stats/simple';
+
+    return this.OKJson(this.http.get(url, options)).toPromise();
+
+  }
+
+  ppaForSelect(expId: number, jobId: number): Promise<any> {
+    const options = this.makeOptions();
+    const url = this.endPoints.experiment_url + '/' + expId + this.endPoints.ppa_job + '/' + jobId + '/results/select';
+
+    return this.OKJson(this.http.get(url, options)).toPromise();
+  }
+
+  ppaDoSelection(expId: number, jobId: number, selection: any): Promise<any> {
+    const options = this.makeOptions();
+    const url = this.endPoints.experiment_url + '/' + expId + this.endPoints.ppa_job + '/' + jobId + '/results/select';
+    const body = selection;
+
+    return this.OKJson(this.http.post(url, body, options)).toPromise();
+
+  }
+
+  ppaFit(expId: number, jobId: number, dataId: number, selectable: boolean): Promise<any> {
+    const options = this.makeOptions();
+    const url = this.endPoints.experiment_url + '/' + expId + this.endPoints.ppa_job + '/' + jobId + '/fits/' + dataId + '/' + selectable;
+
+    return this.OKJson(this.http.get(url, options)).toPromise();
+  }
+
+
+  ppaJobs(exp: ExperimentalAssayView): Promise<any> {
+    const options = this.makeOptions();
+    const url = this.endPoints.experiment_url + '/' + exp.id + this.endPoints.ppa_jobs;
+
+    return this.OKJson(this.http.get(url, options)).toPromise();
+  }
+
+  ppaResults(exp: ExperimentalAssayView): Promise<any> {
+    const options = this.makeOptions();
+    const url = this.endPoints.experiment_url + '/' + exp.id + this.endPoints.ppa_results;
+
+    return this.OKJson(this.http.get(url, options)).toPromise();
+  }
+
+  ppaExportURL(expId: number): string {
+    return this.endPoints.experiment_url + '/' + expId + this.endPoints.ppa_results_export;
+  }
+
+
+  /* ppa */
 
   /* files */
 

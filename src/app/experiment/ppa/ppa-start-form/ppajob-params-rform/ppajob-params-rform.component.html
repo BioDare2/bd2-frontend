@@ -1,0 +1,91 @@
+<form [formGroup]="paramsForm" class="form-horizontal" role="form">
+
+  <div formGroupName="displayParams">
+
+    <div class="form-group" formGroupName="timeScale">
+      <label class="col-sm-4">Data window</label>
+
+      <label class="col-sm-1" for="windowStart">from:</label>
+      <div class="col-sm-2">
+        <input class="form-control" formControlName="timeStart" id="windowStart" min="0" required
+               size="5"
+               step="any"
+               type="number"
+        >
+      </div>
+      <label class="col-sm-1" for="windowEnd">to:</label>
+      <div class="col-sm-2">
+        <input class="form-control" formControlName="timeEnd" id="windowEnd" min="0" placeholder=""
+               required
+               size="5"
+               step="any"
+               type="number"
+        >
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="col-sm-4" for="detrending">Input Data <a (click)="help.show('detrending')"><span
+        aria-hidden="true" class="glyphicon glyphicon-question-sign"></span></a></label>
+
+      <div class="col-sm-6">
+        <select class="form-control" formControlName="detrending"
+                id="detrending"
+                required
+        >
+          <option *ngFor="let opt of detrendingOptions; let ix = index" [value]="opt.name">{{opt.label}}</option>
+        </select>
+
+      </div>
+    </div>
+  </div>
+
+
+  <div class="form-group" formGroupName="periodScale">
+    <label class="col-sm-4">Expected periods</label>
+
+    <label class="col-sm-1" for="periodMin">from:</label>
+    <div class="col-sm-2">
+      <input class="form-control" formControlName="periodMin" id="periodMin" max="50" min="10" placeholder=""
+             required
+             size="5"
+             step="any"
+             type="number"
+      >
+    </div>
+
+    <label class="col-sm-1" for="periodMax">to:</label>
+    <div class="col-sm-2">
+      <input class="form-control" formControlName="periodMax" id="periodMax" max="50" min="10" placeholder=""
+             required
+             size="5"
+             step="any"
+             type="number"
+      >
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label class="col-sm-4" for="method">Analysis Method <a (click)="help.show('period-methods')"><span
+      aria-hidden="true" class="glyphicon glyphicon-question-sign"></span></a></label>
+
+    <div class="col-sm-6">
+      <select class="form-control" formControlName="method"
+              id="method"
+              required
+      >
+        <option *ngFor="let opt of methodOptions; let ix = index" [value]="opt.name">{{opt.label}}</option>
+      </select>
+    </div>
+  </div>
+
+
+  <button (click)="analyse()" [disabled]="blocked || paramsForm.invalid" class="btn btn-primary" type="button">Analyse
+  </button>
+
+  <!--{{params | json }}-->
+</form>
+
+<bd2-static-pop-up #help></bd2-static-pop-up>
+
+

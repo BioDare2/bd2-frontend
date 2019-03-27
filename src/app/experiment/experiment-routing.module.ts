@@ -20,6 +20,8 @@ const routes: Routes = [
 
       {path: 'data', loadChildren: './ts-data/ts-data.module#TsDataModule'},
 
+      {path: 'ppa', loadChildren: './ppa/ppa.module#PPAModule'},
+
     ]
   }
 ];
