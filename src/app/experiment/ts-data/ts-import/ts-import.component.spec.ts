@@ -16,7 +16,7 @@ describe('TSImportComponent', () => {
     TestBed.configureTestingModule({
       declarations: [TSImportComponent, DescribeTSTableComponent, DescribeTopcountTableComponent,
         ColumnTypeDialogComponent, ConfirmRowCopyDialogComponent, SimpleAddDataFormComponent],
-      imports: [ExperimentsTestToolModule, ]
+      imports: [ExperimentsTestToolModule,]
     })
       .compileComponents();
   }));
