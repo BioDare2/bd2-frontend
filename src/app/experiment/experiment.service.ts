@@ -46,6 +46,11 @@ export class ExperimentService {
     return this.BD2REST.experimentImportTS(exp, request);
   }
 
+  publish(exp: ExperimentalAssayView, license: string): Promise<ExperimentalAssayView> {
+    return this.BD2REST.experimentPublish(exp, license)
+      .then(jsonObj => this.json2ExperimentalAssayView(jsonObj));
+  }
+
   protected json2ExperimentSummaryList(data: any[]): ExperimentSummary[] {
 
     return data.map((v: any) => ExperimentSummary.deserialize(v));

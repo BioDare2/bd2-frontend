@@ -175,4 +175,11 @@ tr.ppa_attention {
   overflow-wrap: break-word;     /* Renamed property in CSS3 draft spec */
 }
 
+/* After update there are no marigins between forms elements*/
+input, label {
+  margin-right: 2px;
+}
 
+nav.secondary a {
+  margin-right: 1px;
+}

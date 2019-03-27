@@ -10,6 +10,7 @@ import {ExperimentAssayOverviewComponent} from './experiment-assay-overview/expe
 import {RepoComponentsModule} from '../repo/components/repo-comp.module';
 import {ExperimentAssayEditFormComponent} from './experiment-assay-edit-form/experiment-assay-edit-form.component';
 import {AttachmentsModule} from './attachments/attachments.module';
+import {PublishModule} from './publish/publish.module';
 
 @NgModule({
   declarations: [ExperimentFeatureComponent, ExperimentNavigationComponent, ExperimentBasicInfoViewComponent,
@@ -19,6 +20,7 @@ import {AttachmentsModule} from './attachments/attachments.module';
     RepoComponentsModule,
     SharedComponentsModule,
     AttachmentsModule,
+    PublishModule,
     ExperimentRoutingModule
   ]
 })

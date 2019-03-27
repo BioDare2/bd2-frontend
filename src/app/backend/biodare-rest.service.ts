@@ -186,6 +186,14 @@ export class BioDareRestService {
 
   }
 
+  experimentPublish(exp: ExperimentalAssayView, license: string): Promise<any> {
+    const options = this.makeOptions();
+    const url = this.endPoints.experiment_url + '/' + exp.id + this.endPoints.publish;
+    const body = JSON.stringify(license);
+
+    return this.OKJson(this.http.put(url, body, options)).toPromise();
+
+  }
 
   /* experiments */
 
@@ -427,7 +435,7 @@ export class BioDareRestService {
   protected OKJson<T>(resp$: Observable<T>): Observable<T> {
 
     return resp$.pipe(
-      catchError(this.handleBadResponse)
+      catchError(err => this.handleBadResponse(err))
     );
   }
 
@@ -436,7 +444,7 @@ export class BioDareRestService {
 
     return resp$.pipe(
       map(_ => true),
-      catchError(this.handleBadResponse)
+      catchError( err => this.handleBadResponse(err))
     );
   }
 
@@ -455,7 +463,7 @@ export class BioDareRestService {
         }
         throw Error('Not boolean response: ' + resp);
       }),
-      catchError(this.handleBadResponse)
+      catchError(err => this.handleBadResponse(err))
     );
 
   }
@@ -478,7 +486,7 @@ export class BioDareRestService {
         break;
       }
       case 403: {
-        // console.log('Unauthorised');
+        console.log('Unauthorised');
         this.systemEvents.emitUnauthorised(resp.url);
 
         // must be static call as this is not defined in the pipe ??? why???

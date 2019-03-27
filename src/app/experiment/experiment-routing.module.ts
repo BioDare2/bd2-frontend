@@ -4,6 +4,7 @@ import {ExperimentFeatureComponent} from './experiment-feature/experiment-featur
 import {ExperimentAssayOverviewComponent} from './experiment-assay-overview/experiment-assay-overview.component';
 import {ExperimentAssayEditFormComponent} from './experiment-assay-edit-form/experiment-assay-edit-form.component';
 import {AttachmentsDashboardComponent} from './attachments/attachments-dashboard/attachments-dashboard.component';
+import {PublishFormComponent} from './publish/publish-form/publish-form.component';
 
 const routes: Routes = [
   {
@@ -17,6 +18,7 @@ const routes: Routes = [
       },
       {path: 'edit', component: ExperimentAssayEditFormComponent},
       {path: 'file', component: AttachmentsDashboardComponent},
+      {path: 'publish', component: PublishFormComponent},
 
       {path: 'data', loadChildren: './ts-data/ts-data.module#TsDataModule'},
 
