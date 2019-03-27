@@ -34,8 +34,8 @@ export class PPAService {
   }
 
   downloadPPAJob(expId: number, jobId: number, phaseType: string): Promise<Blob> {
-    return this.BD2REST.ppaExportJob(expId, jobId, phaseType)
-      .then(resp => resp.blob());
+    return this.BD2REST.ppaExportJob(expId, jobId, phaseType);
+      // .then(resp => resp.blob());
   }
 
 

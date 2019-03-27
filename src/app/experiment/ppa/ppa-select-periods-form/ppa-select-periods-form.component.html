@@ -1,0 +1,70 @@
+
+<div *ngIf="assay && job">
+
+  <h3>Select periods from job:<br>
+    <small>{{job.method}} {{job.summary}}</small>
+  </h3>
+  <hr>
+
+  <bd2-selectable-fit-dialog (selected)="markSelection($event)"></bd2-selectable-fit-dialog>
+
+    <form *ngIf="ppaGroups" role="form" #selectPPAForm="ngForm"
+          (ngSubmit)="selectPPA(selectPPAForm.value)" >
+
+      <button type="submit" class="btn btn-primary" [disabled]="blocked">Save selection</button>
+
+        <table class="table table-striped table-bordered">
+            <thead>
+              <tr>
+                <th></th>
+                <th>Period</th>
+                <th>Phase</th>
+                <th>Amp.</th>
+                <th>GOF</th>
+                <th>ERR</th>
+                <th>Fit</th>
+              </tr>
+            </thead>
+            <tbody>
+
+            <ng-template ngFor let-res [ngForOf]="ppaGroups">
+                <tr>
+                    <td colspan="7"><strong>{{res.dataRef}} {{res.label}}</strong>
+                        <span *ngIf="res.needsAttention || res.isIgnored">(not included in statistics)</span>
+                    </td>
+                </tr>
+                <tr *ngFor="let ppa of res.periods"
+                    [ngClass]="{ppa_ignored: res.isIgnored, ppa_attention: res.needsAttention}"
+                >
+                    <td>
+                        <input type="radio" name="{{'s_'+res.dataId}}"
+                            value="{{ppa.id}}"
+                           [(ngModel)]="res.selected"
+                        >
+                    </td>
+                    <td>{{ppa.period}}</td>
+                    <td>{{ppa.phase}}</td>
+                    <td>{{ppa.amplitude}}</td>
+                    <td>{{ppa.GOF}}</td>
+                    <td>{{ppa.ERR}}</td>
+                    <td><a role="button" (click)="showFit(res)">fit</a> </td>
+                </tr>
+                <tr>
+                    <td colspan="7">
+                        <input type="radio" name="{{'s_'+res.dataId}}"
+                               value="dismiss"
+                               [(ngModel)]="res.selected"
+                        > ignored
+                    </td>
+                </tr>
+            </ng-template>
+
+            </tbody>
+        </table>
+        <button type="submit" class="btn btn-primary" [disabled]="blocked">Save selection</button>
+
+
+    </form>
+
+
+</div>
