@@ -1,0 +1,68 @@
+<div *ngIf="assay">
+
+  <h3>Upload timeseries data</h3>
+  <hr>
+  <form class="">
+    <div class="form-group">
+      <label for="fImportFormat">Format</label>
+
+      <select class="form-control" required
+              id="fImportFormat"
+              [(ngModel)]="importFormat"
+              name="fImportFormat"
+              #fImportFormat="ngModel"
+              (change)="formatChanged($event)"
+      >
+        <option *ngFor="let opt of importFormatOptions; let ix = index" [value]="opt.name">{{opt.label}}</option>
+      </select>
+    </div>
+    <alert *ngIf="importFormat == 'EXCEL_TABLE'" type="info" dismissible="true" style="font-size: smaller;">
+      An Excel file in which one column contains time values while other columns contain measurements taken at the
+      corresponding times.
+      <ul>
+        <li>
+          Time can be represented as: hours from start (e.g 2.25 for measurement at 2 hours 15 minutes after the
+          start), minutes from
+          start, seconds from start, or as image nr (1-based) which will be converted to time using interval between
+          images.
+        </li>
+        <li>
+          Not all columns have to be imported.
+        </li>
+        <li>
+          Some columns can be marked as background noise,
+          their content will be averaged and subtracted from other data column to remove the noise from the data.
+        </li>
+        <li>
+          First few rows can contain arbitrary text.
+        </li>
+        <li>
+          Values from one row can be used as data labels.
+        </li>
+      </ul>
+    </alert>
+    <alert *ngIf="importFormat == 'TOPCOUNT'" type="info" dismissible="true" style="font-size: smaller;">
+      Topcount data can be uploaded in two forms:
+      <ul>
+        <li>Individual file which contains concatenated topcount data blocks in one file</li>
+        <li>Zip file which contains packed files from individual topcount reads</li>
+      </ul>
+      Check the Dosc section for details about suported data layouts inside tomcats file, we can currently read
+      ASCI content with "plate map" or "column" layouts.
+    </alert>
+    <div class="form-group">
+      <bd2-file-upload-widget #uploadWidget
+                              [autoReset]="false"
+                              [blocked]="blocked || !importFormat"
+                              [multiple]="false"
+                              (uploadFiles)="upload($event)"
+                              (selectedFiles)="checkFormat($event)"
+      ></bd2-file-upload-widget>
+    </div>
+    <alert *ngIf="formatWarning" type="danger">
+      {{formatWarning}}
+    </alert>
+  </form>
+  <hr>
+
+</div>

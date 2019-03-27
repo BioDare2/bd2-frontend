@@ -18,6 +18,8 @@ const routes: Routes = [
       {path: 'edit', component: ExperimentAssayEditFormComponent},
       {path: 'file', component: AttachmentsDashboardComponent},
 
+      {path: 'data', loadChildren: './ts-data/ts-data.module#TsDataModule'},
+
     ]
   }
 ];

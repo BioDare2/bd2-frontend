@@ -6,7 +6,7 @@ import {catchError, map} from 'rxjs/operators';
 import {SystemEventsService} from '../system/system-events.service';
 import {BD2User} from '../auth/user.dom';
 import {ExperimentalAssayView} from '../dom/repo/exp/experimental-assay-view';
-import {ImportFormat} from '../experiment/data/import-dom';
+import {ImportFormat} from '../experiment/ts-data/import-dom';
 
 @Injectable({
   providedIn: 'root'
