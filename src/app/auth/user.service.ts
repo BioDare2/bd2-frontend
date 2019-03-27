@@ -108,17 +108,16 @@ export class UserService {
       ).toPromise();
   }
 
-  refresh(): Promise<BD2User> {
+  protected refresh() {
 
-    return this.BD2REST.refreshUser().pipe(
-      tap(
+    return this.BD2REST.refreshUser()
+      .subscribe(
         user => {
-          user = BD2User.deserialize(user);
-          this.setUser(user);
+              user = BD2User.deserialize(user);
+              this.setUser(user);
         },
         err => this.handleError(err)
-      )
-    ).toPromise();
+      );
 
   }
 
