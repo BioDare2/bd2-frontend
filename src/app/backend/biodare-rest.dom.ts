@@ -38,6 +38,9 @@ export class BioDareEndPoints {
   file_url: string;
   view_simple_table: string;
   view_verify_format: string;
+
+  ontology_url: string;
+  ontology_species_url: string;
 }
 
 export function bioDareRestConfigurator(environment: any): BioDareEndPoints {
@@ -93,6 +96,9 @@ export function bioDareRestConfigurator(environment: any): BioDareEndPoints {
   endPoints.file_url = backendRoot + '/' + 'file';
   endPoints.view_simple_table = '/view/simpletable';
   endPoints.view_verify_format = '/verify/format/';
+
+  endPoints.ontology_url = backendRoot + '/onto';
+  endPoints.ontology_species_url = endPoints.ontology_url + '/species';
   return endPoints;
 
 }

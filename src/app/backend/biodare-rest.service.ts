@@ -419,6 +419,15 @@ export class BioDareRestService {
 
   /* rdm aspects */
 
+  species(): Observable<string[]> {
+
+    const options = this.makeOptions();
+    const url = this.endPoints.ontology_species_url;
+
+    return this.OKJson(this.http.get<string[]>(url, options));
+
+  }
+
   protected makeOptions() {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',

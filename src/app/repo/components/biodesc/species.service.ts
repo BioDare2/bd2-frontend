@@ -1,4 +1,9 @@
 import {Injectable} from '@angular/core';
+import {BioDareRestService} from '../../../backend/biodare-rest.service';
+import {locateHostElement} from '@angular/core/src/render3/instructions';
+import {catchError, tap, timeout} from 'rxjs/operators';
+import {Observable, throwError} from 'rxjs';
+import {of} from 'rxjs/internal/observable/of';
 
 @Injectable({
   providedIn: 'root'
@@ -6,7 +11,7 @@ import {Injectable} from '@angular/core';
 export class SpeciesService {
 
 
-  private knownSpecies = [
+  private popularSpecies: string[] = [
     'Arabidopsis thaliana',
     'Brassica rapa',
     'Danio rerio',
@@ -30,7 +35,39 @@ export class SpeciesService {
     'Synthetic data'
   ];
 
-  species(): Promise<string[]> {
-    return Promise.resolve(this.knownSpecies.slice());
+  private fetchedSpecies: string[] = undefined;
+
+  constructor(private BD2REST: BioDareRestService) {
+
+    console.log('Species Service');
+    // this.refreshSpecies();
   }
+
+
+  species(): Promise<string[]> {
+
+    if (this.fetchedSpecies) { return Promise.resolve(this.fetchedSpecies); }
+
+
+    return this.fetchSpecies().toPromise();
+  }
+
+  fetchSpecies(): Observable<string[]> {
+
+    return this.BD2REST.species().pipe(
+      timeout(5000),
+      tap( spec => {
+        if (spec && spec.length > 0) {
+          this.fetchedSpecies = spec;
+        } else {
+          throw new Error('Retrieved empty species falls back to default');
+        }
+      }),
+      catchError( err => {
+        console.log(' Could not fetch species', err);
+        return of(this.popularSpecies);
+      })
+    );
+  }
+
 }

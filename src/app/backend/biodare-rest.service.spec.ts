@@ -129,4 +129,23 @@ describe('BioDareRestService', () => {
     httpTestingController.verify();
   });
 
+  it('species gives list of species', () => {
+
+    const respData = ['Species1', 'Last One'];
+
+    service.species()
+      .subscribe(
+        data => {
+
+          expect(data).toBeDefined();
+          expect(data).toEqual(['Species1', 'Last One']);
+        }
+      );
+
+    const req = httpTestingController.expectOne(endPoints.ontology_species_url);
+    expect(req.request.method).toEqual('GET');
+    req.flush(respData);
+    httpTestingController.verify();
+  });
+
 });
