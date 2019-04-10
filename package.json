@@ -3,7 +3,9 @@
   "version": "2.0.0",
   "license": "MIT",
   "keywords": [
-    "BioDare"
+    "BioDare",
+    "circadian",
+    "biological rhythms"
   ],
   "author": {
     "name": "Tomasz Zielinski",

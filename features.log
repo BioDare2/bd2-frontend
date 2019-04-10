@@ -1,0 +1,140 @@
+2.0.0 NG update
+      Species from backend
+
+
+1.9.2 Privacy statement, data docs
+
+1.9.1 Welcome update with public link and some publications
+
+1.9.0 Making data public
+
+1.8.3 Showing public experiments
+1.8.2 TS Data import parameters fix for split up blocks by ignored regions
+
+1.8.0
+2017-09-27  Topcount data
+2017-09-16  Ng update
+
+1.7.9
+20117-08-24 Features update
+
+1.7.8
+2017-08-22  Password reset
+            Better error feedback
+
+2017-08-21  Stronger password
+
+1.7.7
+
+2017-08-07  Cli, NG, bootstrap update
+
+1.7.6
+
+2017-07-31  Welcome and docs update. You tube links, cookies delay.
+
+1.7.5
+
+2017-07-03  Normalization to max takes into account abs value of min as well
+            Trimmming ts updated min/max/mean
+            Welcome page shows recent changes
+
+2017-07-01  Svg export to file
+            switch for individual phase results
+            removing ppa groups after selection in legend
+
+2017-06-30  Export of processed ts data from the browser
+
+1.7.4
+2017-06-25  Phase plot with absolute unit.
+            Landing page update
+2017-06-24  Secondary data on graphs, normalization and spread
+
+2017-06-23
+            Update of ppa plots. Sorting switches for periods
+2017-06-20
+            Default period max 32.
+            isNaN test before Expo in ppa stats
+
+2017-06-20  1.7.2
+
+2017-06-19  ppa job ind export
+2017-06-15
+            disabled joined ind results
+            std of values in stats
+            Amp in scientific notation
+            Individual job results
+2017-06-14  Refreshing jobs pane from dashboard
+            Synchronizing dashbord jobs with childer jobs
+            Delete jobs
+
+2017-06-13  1.7.0
+            PPA new api, version for migration
+2017-06-08  1.6.1
+            PPA graphs
+
+2017-04-21  World count validation in purpose description
+
+2017-04-20  1.5.0
+            Circ pahse
+            Ng4, NgCli100
+
+2017-02-14  1.4.0
+2017-02-14  Ng-cli udpate
+
+2017-02-08  1.3.2
+
+2017-02-08  Reactive form for user registration
+2017-02-08  remote validation of academic emails
+2017-02-07  PPA documentation
+2017-02-07  Addition feedback fixed to the bottom of the screen
+2017-02-07  Openign Edit section depending on navigation fragment
+2017-02-06  Disabling analysis for RDM
+2017-02-06  Disabling secondary data form (to enforce RDM)
+2017-02-02  Improved google analytics
+
+2017-02-01  1.3.0
+
+2017-02-01  Data categories/technique update
+2017-01-26  Measurements details
+2017-01-24  Confirmation for data replace.
+
+2017-01-20  1.2.8
+
+2017-01-19  Account activation
+2017-01-13  Title in registration end user edit
+2017-01-13  Terms display on registration
+2017-01-13  Documentation components
+2017-01-12  User Account update
+2017-01-12  Verifying academic emails during registration
+2017-01-11  Improve responsinces od ts dispaly (data view and new ppa). Introduced debounde before ploting to reduce flickerin. Added ix tracking to for loop to reuse plot components
+2017-01-11  Period selection form forwads current selection to the fits dialog
+2017-01-09  Fix in ts import to reflect first data row in time cell coordinates
+2017-01-09  Anglular and Cli update
+
+2016-11-16  1.2.7
+2016-12-16  File format verificatin before import
+2016-12-14  Titles in navigation bar
+2016-12-13  Files attachments, adding and retrieving
+2016-12-07  Simple data export
+
+2016-11-28  1.2.6
+2016-11-28  Fits display and selection
+2016-11-18  Reactive form for ts display parameters
+
+2016-11-17  1.2.5
+2016-11-17  Angular and cli update
+
+2016-11-09  1.2.4
+2016-11-09  Show data
+2016-11-08  Collapsing menu on navigation and login button clicks
+
+2016-11-07  1.2.3
+2016-11-07  Disabling captcha for china
+2016-11-07  Cookies consent
+2016-11-06  Google analytics added
+2016-11-05  Plots of ts data for start ppa
+
+2016-11-02  1.2.2
+2016-11-02  Job status SUCCESS is presented as FINISHED for unified output
+2016-11-02  Saving descriptions modifications directly from the subpanels
+2016-11-02  Refresh button for experiments lists and experiment panel
