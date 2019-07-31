@@ -1,0 +1,33 @@
+<div *ngIf="assay">
+
+  <h3>Rhythmicity tests</h3>
+  <hr>
+
+
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <div *ngIf="jobs && jobs.length > 0">
+        <strong>Submitted jobs: {{jobs.length}}</strong>
+        <span [hidden]="!queuing"><br>{{queuing}} jobs queuing</span>
+      </div>
+      <div *ngIf="!jobs || jobs.length == 0">
+        No jobs submitted, start a new test.
+      </div>
+    </div>
+    <div class="panel-body">
+
+      <a *ngIf="assay.security.canWrite" [routerLink]="['new']" class="btn btn-primary">
+        New test
+      </a>
+
+      <button (click)="refresh()" [disabled]="blocked" class="btn btn-default" type="button">Refresh
+      </button>
+
+      <div *ngIf="hasFinished" class="pull-right">
+        <a class="btn btn-default" download href="{{exportURL}}" role="button">Download all</a>
+      </div>
+
+    </div>
+  </div>
+
+</div>

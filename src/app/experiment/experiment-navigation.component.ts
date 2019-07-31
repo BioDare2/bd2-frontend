@@ -25,6 +25,8 @@ import {ExperimentalAssayView} from '../dom/repo/exp/experimental-assay-view';
           analysis</a>
         <a *ngIf="experiment.features.hasPPAJobs" [routerLink]="['ppa']" routerLinkActive="active"
            [routerLinkActiveOptions]="{exact: false}">Analyses</a>
+        <a [routerLink]="['rhythmicity']" routerLinkActive="active"
+           [routerLinkActiveOptions]="{exact: false}">Rhythmicity</a>        
         <a [routerLink]="['file']" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Files</a>
         <a *ngIf="experiment.security.isOwner || experiment.security.isSuperOwner" [routerLink]="['publish']"
            routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">

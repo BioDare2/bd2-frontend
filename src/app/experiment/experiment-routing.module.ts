@@ -24,6 +24,7 @@ const routes: Routes = [
 
       {path: 'ppa', loadChildren: './ppa/ppa.module#PPAModule'},
 
+      {path: 'rhythmicity', loadChildren: './rhythmicity/rhythmicity.module#RhythmicityModule'},
     ]
   }
 ];
