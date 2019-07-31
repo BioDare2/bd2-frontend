@@ -30,6 +30,7 @@ export class AnalyticsService {
 
   experimentStream: Subject<AnalEvent> = new Subject<AnalEvent>();
   ppaStream: Subject<AnalEvent> = new Subject<AnalEvent>();
+  rhythmicityStream: Subject<AnalEvent> = new Subject<AnalEvent>();
   userStream: Subject<AnalEvent> = new Subject<AnalEvent>();
   dataStream: Subject<AnalEvent> = new Subject<AnalEvent>();
   fileStream: Subject<AnalEvent> = new Subject<AnalEvent>();
@@ -104,6 +105,11 @@ export class AnalyticsService {
     this.ppaStream.next(new AnalEvent('ppa', method, '' + id));
   }
 
+  public rhythmicityNew(method: string, id: number, login: string) {
+    this.rhythmicityStream.next(new AnalEvent('rhythmicity', method, login));
+    this.rhythmicityStream.next(new AnalEvent('rhythmicity', method, '' + id));
+  }
+
   public userLogin(login: string) {
     this.userStream.next(new AnalEvent('user', 'login', login));
   }
@@ -138,7 +144,8 @@ export class AnalyticsService {
       distinctUntilChanged((prev: AnalEvent, next: AnalEvent) => next.equals(prev))
     );
 
-    return merge(o1, o2, o3, o4, o5);
+    const o6 = this.rhythmicityStream;
+    return merge(o1, o2, o3, o4, o5, o6);
   }
 
 }

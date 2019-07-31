@@ -25,7 +25,7 @@ export class RhythmicityDashboardComponent extends RhythmicityBaseComponent {
   panes: QueryList<PPAJobPaneComponent>;
 
   constructor(
-    protected rhythmicityService: RhythmicityService,
+    rhythmicityService: RhythmicityService,
     serviceDependencies: ExperimentComponentsDependencies) {
     super(rhythmicityService, serviceDependencies);
 

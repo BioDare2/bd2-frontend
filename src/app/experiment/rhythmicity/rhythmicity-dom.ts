@@ -1,0 +1,131 @@
+import {DetrendingType} from "../../tsdata/ts-data-dom";
+import {PPAMethod} from "../ppa/ppa-dom";
+
+
+export class RhythmicityMethod {
+
+  static BD2EJTK = new RhythmicityMethod('BD2EJTK', 'BD2 eJTK');
+
+
+  private static values = [
+    RhythmicityMethod.BD2EJTK
+  ];
+
+  private static valuesMap: Map<string, RhythmicityMethod>;
+
+  protected constructor(private _name: string, private _label: string) {
+  }
+
+  /* tslint:enable:curly */
+
+  get name() {
+    return this._name;
+  }
+
+  get label() {
+    return this._label;
+  }
+
+  static get(name: string): RhythmicityMethod {
+    return RhythmicityMethod.getValuesMap().get(name);
+  }
+
+  /* tslint:disable:curly */
+  protected static getValuesMap(): Map<string, RhythmicityMethod> {
+    if (!RhythmicityMethod.valuesMap) RhythmicityMethod.valuesMap = RhythmicityMethod.initValuesMap();
+    return RhythmicityMethod.valuesMap;
+  }
+
+  protected static initValuesMap(): Map<string, RhythmicityMethod> {
+    const map = new Map<string, RhythmicityMethod>();
+    RhythmicityMethod.values.forEach(m => map.set(m.name, m));
+    return map;
+  }
+
+  toJSON(): string {
+    return this.name;
+  }
+}
+
+export const EnabledRhythmicityMethodOptions = [
+  RhythmicityMethod.BD2EJTK,
+];
+
+
+export class EJTPreset {
+
+  static EJTK_CLASSIC = new EJTPreset('EJTK_CLASSIC', 'eJTK Classic');
+  static BD2_CLASSIC = new EJTPreset('BD2_CLASSIC', 'BD2 Classic');
+  static BD2_SPREAD = new EJTPreset('BD2_SPREAD', 'Period range');
+
+
+  private static values = [
+    EJTPreset.EJTK_CLASSIC,
+    EJTPreset.BD2_CLASSIC,
+    EJTPreset.BD2_SPREAD,
+  ];
+
+  private static valuesMap: Map<string, EJTPreset>;
+
+  protected constructor(private _name: string, private _label: string) {
+  }
+
+  /* tslint:enable:curly */
+
+  get name() {
+    return this._name;
+  }
+
+  get label() {
+    return this._label;
+  }
+
+  static get(name: string): EJTPreset {
+    return EJTPreset.getValuesMap().get(name);
+  }
+
+  /* tslint:disable:curly */
+  protected static getValuesMap(): Map<string, EJTPreset> {
+    if (!EJTPreset.valuesMap) EJTPreset.valuesMap = EJTPreset.initValuesMap();
+    return EJTPreset.valuesMap;
+  }
+
+  protected static initValuesMap(): Map<string, EJTPreset> {
+    const map = new Map<string, EJTPreset>();
+    EJTPreset.values.forEach(m => map.set(m.name, m));
+    return map;
+  }
+
+  toJSON(): string {
+    return this.name;
+  }
+}
+
+export const EnabledEJTPresetOptions = [
+  EJTPreset.EJTK_CLASSIC,
+  EJTPreset.BD2_CLASSIC
+];
+
+export class RhythmicityRequest {
+  windowStart: number;
+  windowEnd: number;
+  periodMin: number;
+  periodMax: number;
+  method: RhythmicityMethod;
+  preset: EJTPreset;
+  detrending: DetrendingType;
+
+  /* tslint:disable:curly */
+  isValid(): boolean {
+    if (this.windowStart < 0 || this.windowEnd < 0 || this.periodMin <= 0 || this.periodMax <= 0) return false;
+    if (this.periodMin > this.periodMax) return false;
+    if (this.windowEnd > 0 && this.windowStart >= this.windowEnd) return false;
+    if (this.method === null || this.method === undefined) return false;
+    if (this.preset === null || this.preset === undefined) return false;
+    if (this.detrending === null || this.detrending === undefined) return false;
+    return true;
+  }
+
+  /* tslint:enable:curly */
+}
+
