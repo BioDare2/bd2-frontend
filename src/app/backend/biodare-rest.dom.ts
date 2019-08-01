@@ -31,6 +31,8 @@ export class BioDareEndPoints {
   ppa_results_export: string;
 
   rhythmicity_new: string;
+  rhythmicity_jobs: string;
+  rhythmicity_job: string;
 
   publish: string;
 
@@ -90,6 +92,8 @@ export function bioDareRestConfigurator(environment: any): BioDareEndPoints {
   endPoints.ppa_results_export = '/ppa/export';
 
   endPoints.rhythmicity_new = '/rhythmicity';
+  endPoints.rhythmicity_jobs = '/rhythmicity/jobs';
+  endPoints.rhythmicity_job = '/rhythmicity/job';
 
   endPoints.publish = '/publish';
 

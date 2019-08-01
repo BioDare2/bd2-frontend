@@ -9,9 +9,11 @@ import {SharedComponentsModule} from '../../shared/shared-components.module';
 import { RhythmicityStartFormComponent } from './rhythmicity-start-form/rhythmicity-start-form.component';
 import { RhythmicityjobParamsRformComponent } from './rhythmicity-start-form/rhythmicityjob-params-rform/rhythmicityjob-params-rform.component';
 import {TSPlotModule} from '../../tsdata/plots/ts-plot.module';
+import { RhythmicityJobPaneComponent } from './rhythmicity-dashboard/rhythmicity-job-pane/rhythmicity-job-pane.component';
 
 @NgModule({
-  declarations: [RhythmicityDashboardComponent, RhythmicityStartFormComponent, RhythmicityjobParamsRformComponent],
+  declarations: [RhythmicityDashboardComponent, RhythmicityStartFormComponent, RhythmicityjobParamsRformComponent,
+    RhythmicityJobPaneComponent],
   imports: [
     CommonModule,
     FormsModule,

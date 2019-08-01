@@ -40,7 +40,8 @@ export class LocalDateTime {
   }
 
   get date(): Date {
-    return new Date(this._year, this._month - 1, this._day, this._hour, this._minute, this._second, this._milisecond);
+    //return new Date(this._year, (this._month - 1), this._day, this._hour, this._minute, this._second, this._milisecond);
+    return new Date(this._year, (this._month - 1), this._day, this._hour, this._minute, this._second);
   }
 
   static deserialize(jsonObj: any): LocalDateTime {

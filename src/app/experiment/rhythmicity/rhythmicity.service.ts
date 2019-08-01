@@ -1,8 +1,7 @@
 import {Injectable} from '@angular/core';
 import {BioDareRestService} from '../../backend/biodare-rest.service';
 import {ExperimentalAssayView} from '../../dom/repo/exp/experimental-assay-view';
-import {PPAJobSummary, PPARequest} from '../ppa/ppa-dom';
-import {RhythmicityRequest} from "./rhythmicity-dom";
+import {RhythmicityJobSummary, RhythmicityRequest} from "./rhythmicity-dom";
 
 @Injectable({
   providedIn: 'root'
@@ -16,8 +15,12 @@ export class RhythmicityService {
     return this.BD2REST.rhythmicityNew(exp, request);
   }
 
-  getJobs(exp: ExperimentalAssayView): Promise<PPAJobSummary[]> {
-    return this.BD2REST.ppaJobs(exp)
+  getJob(assayId: number, jobId: string): Promise<RhythmicityJobSummary> {
+    return this.BD2REST.rhythmicityJob(assayId, jobId);
+  }
+
+  getJobs(exp: ExperimentalAssayView): Promise<RhythmicityJobSummary[]> {
+    return this.BD2REST.rhythmicityJobs(exp)
       .then(obj => obj.data);
   }
 

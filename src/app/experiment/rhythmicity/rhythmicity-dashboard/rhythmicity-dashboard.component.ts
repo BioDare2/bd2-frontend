@@ -4,7 +4,9 @@ import {RhythmicityService} from '../rhythmicity.service';
 import {ExperimentComponentsDependencies} from '../../experiment-components.dependencies';
 import {PPAJobPaneComponent} from '../../ppa/ppa-dashboard/ppajob-pane/ppajob-pane.component';
 import {ExperimentalAssayView} from '../../../dom/repo/exp/experimental-assay-view';
+import {RhythmicityJobSummary} from '../rhythmicity-dom';
 import {PPAJobSummary} from '../../ppa/ppa-dom';
+import {RhythmicityJobPaneComponent} from "./rhythmicity-job-pane/rhythmicity-job-pane.component";
 
 @Component({
   templateUrl: './rhythmicity-dashboard.component.html',
@@ -12,8 +14,10 @@ import {PPAJobSummary} from '../../ppa/ppa-dom';
 })
 export class RhythmicityDashboardComponent extends RhythmicityBaseComponent {
 
-  jobs: PPAJobSummary[];
-  jobsIds: number[];
+  jobs: RhythmicityJobSummary[];
+  jobsIds: string[];
+
+  expandAll = false;
 
   hasFinished = false;
   queuing: number;
@@ -21,8 +25,8 @@ export class RhythmicityDashboardComponent extends RhythmicityBaseComponent {
 
   exportURL: string;
 
-  // @ViewChildren(PPAJobPaneComponent)
-  panes: QueryList<PPAJobPaneComponent>;
+  @ViewChildren(RhythmicityJobPaneComponent)
+  panes: QueryList<RhythmicityJobPaneComponent>;
 
   constructor(
     rhythmicityService: RhythmicityService,
@@ -50,7 +54,7 @@ export class RhythmicityDashboardComponent extends RhythmicityBaseComponent {
       });
   }
 
-  protected loadJobs(exp: ExperimentalAssayView): Promise<PPAJobSummary[]> {
+  protected loadJobs(exp: ExperimentalAssayView): Promise<RhythmicityJobSummary[]> {
     return this.rhythmicityService.getJobs(exp)
       .then(jobs => {
         this.jobs = jobs;
@@ -60,7 +64,7 @@ export class RhythmicityDashboardComponent extends RhythmicityBaseComponent {
 
   }
 
-  protected refreshJobsInfo(jobs: PPAJobSummary[]) {
+  protected refreshJobsInfo(jobs: RhythmicityJobSummary[]) {
     this.jobsIds = jobs.map(j => j.jobId);
     this.queuing = this.calculateQueuing(jobs);
     this.hasFinished = this.checkFinished(jobs);
@@ -77,9 +81,32 @@ export class RhythmicityDashboardComponent extends RhythmicityBaseComponent {
       });
   }
 
-  protected calculateQueuing(jobs: PPAJobSummary[]) {
+  remove(job: RhythmicityJobSummary) {
+    // this.blocked = true;
+    const ix = this.jobs.findIndex(j => job.jobId === j.jobId);
+    if (ix >= 0) {
+      this.jobs.splice(ix, 1);
+      this.refreshJobsInfo(this.jobs);
+    }
+    // this.blocked = false;
+  }
 
-    return jobs.filter(j => this.isQueueing(j.state)).length;
+  refreshJob(job: RhythmicityJobSummary) {
+    // console.log("Refresh", job);
+    // this.blocked = true;
+    const ix = this.jobs.findIndex(j => job.jobId === j.jobId);
+    if (ix >= 0) {
+      this.jobs[ix] = job;
+      this.refreshJobsInfo(this.jobs);
+    }
+    // this.blocked = false;
+  }
+
+
+
+  protected calculateQueuing(jobs: RhythmicityJobSummary[]) {
+
+    return jobs.filter(j => this.isQueueing(j.jobStatus.state)).length;
 
   }
 
@@ -97,9 +124,9 @@ export class RhythmicityDashboardComponent extends RhythmicityBaseComponent {
 
   }
 
-  protected checkFinished(jobs: PPAJobSummary[]): boolean {
+  protected checkFinished(jobs: RhythmicityJobSummary[]): boolean {
 
-    return !!jobs.find(j => this.isFinished(j.state));
+    return !!jobs.find(j => this.isFinished(j.jobStatus.state));
 
   }
 

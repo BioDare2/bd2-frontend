@@ -1,0 +1,33 @@
+<div *ngIf="job" class="panel panel-default">
+  <div class="panel-heading clearfix">
+    <div (click)="toggleExpanded()" role="button" class="pull-left">
+                  <span [style.color]="expanded ? 'green' : 'red'" [style.font-size.%]="120"
+                        class="glyphicon glyphicon-sort-by-attributes" aria-hidden="true"></span>
+      &nbsp;{{job.jobId}} ({{toLocalDateTime(job.jobStatus.submitted) | date}}) <br>
+      {{job.parameters.METHOD}} {{job.parameters.PRESET}}
+    </div>
+    <div class="pull-right">
+      {{dots}}
+      {{job.jobStatus.state}}
+      <a (click)="reload()" role="button">
+        <span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>
+      </a>
+    </div>
+
+  </div>
+  <div class="panel-body">
+    <div class="clearfix">
+      {{job.parameters.PARAMS_SUMMARY}}
+      <div *ngIf="job.jobStatus.message && job.jobStatus.message != 'OK'" class="text-danger" style="word-wrap: break-word;"><br>ERROR:
+        {{job.jobStatus.message}}
+      </div>
+    </div>
+
+    <div [hidden]="!expanded || !isFinished(job)">
+
+      <hr>
+      Details ....
+
+    </div>
+  </div>
+</div>

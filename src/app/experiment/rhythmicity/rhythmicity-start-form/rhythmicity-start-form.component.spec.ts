@@ -6,7 +6,7 @@ import {StaticContentTestModule} from '../../../documents/static-content_test_to
 import {TSPlotModule} from '../../../tsdata/plots/ts-plot.module';
 import {RhythmicityjobParamsRformComponent} from './rhythmicityjob-params-rform/rhythmicityjob-params-rform.component';
 
-fdescribe('RhythmicityStartFormComponent', () => {
+describe('RhythmicityStartFormComponent', () => {
   let component: RhythmicityStartFormComponent;
   let fixture: ComponentFixture<RhythmicityStartFormComponent>;
 

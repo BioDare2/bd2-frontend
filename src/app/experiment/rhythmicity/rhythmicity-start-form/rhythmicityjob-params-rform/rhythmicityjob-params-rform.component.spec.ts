@@ -5,7 +5,7 @@ import {StaticContentTestModule} from '../../../../documents/static-content_test
 import {ReactiveFormsModule} from '@angular/forms';
 import {ModalModule} from 'ngx-bootstrap';
 
-fdescribe('RhythmicityjobParamsRformComponent', () => {
+describe('RhythmicityjobParamsRformComponent', () => {
   let component: RhythmicityjobParamsRformComponent;
   let fixture: ComponentFixture<RhythmicityjobParamsRformComponent>;
 

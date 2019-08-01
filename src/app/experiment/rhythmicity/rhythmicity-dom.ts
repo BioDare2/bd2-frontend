@@ -1,5 +1,5 @@
-import {DetrendingType} from "../../tsdata/ts-data-dom";
-import {PPAMethod} from "../ppa/ppa-dom";
+import {DetrendingType} from '../../tsdata/ts-data-dom';
+
 
 
 export class RhythmicityMethod {
@@ -127,5 +127,23 @@ export class RhythmicityRequest {
   }
 
   /* tslint:enable:curly */
+}
+
+export class JobStatus {
+
+  jobId: string;
+  state: string;
+  submitted: number;
+  modified: number;
+  completed: number;
+  message: string;
+}
+
+export class RhythmicityJobSummary {
+  jobId: string;
+  reloaded: boolean;
+  jobStatus: JobStatus;
+
+  parameters: any;
 }
 

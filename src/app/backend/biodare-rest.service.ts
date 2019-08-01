@@ -9,7 +9,7 @@ import {ExperimentalAssayView} from '../dom/repo/exp/experimental-assay-view';
 import {FileImportRequest, ImportFormat} from '../experiment/ts-data/import-dom';
 import {DetrendingType} from '../tsdata/ts-data-dom';
 import {PPARequest} from '../experiment/ppa/ppa-dom';
-import {RhythmicityRequest} from "../experiment/rhythmicity/rhythmicity-dom";
+import {RhythmicityRequest} from '../experiment/rhythmicity/rhythmicity-dom';
 
 @Injectable({
   providedIn: 'root'
@@ -343,6 +343,21 @@ export class BioDareRestService {
     return this.OKJson(this.http.put(url, body, options)).toPromise();
 
   }
+
+  rhythmicityJobs(exp: ExperimentalAssayView): Promise<any> {
+    const options = this.makeOptions();
+    const url = this.endPoints.experiment_url + '/' + exp.id + this.endPoints.rhythmicity_jobs;
+
+    return this.OKJson(this.http.get(url, options)).toPromise();
+  }
+
+  rhythmicityJob(expId: number, jobId: string): Promise<any> {
+    const options = this.makeOptions();
+    const url = this.endPoints.experiment_url + '/' + expId + this.endPoints.rhythmicity_job + '/' + jobId;
+
+    return this.OKJson(this.http.get(url, options)).toPromise();
+  }
+
 
   /* rhythmicity */
 

@@ -30,4 +30,22 @@
     </div>
   </div>
 
+  <hr>
+
+
+  <div *ngFor="let jobId of jobsIds; let i=index">
+    <bd2-rhythmicity-job-pane (deleted)="remove($event)" (finished)="refreshJob($event)" [assay]="assay"
+                              [jobId]="jobId"
+                              [expanded]="expandAll || i == 0"
+
+    >
+    </bd2-rhythmicity-job-pane>
+    <!--[confirmDialog]="confirmDialog"
+    [exportDialog]="exportDialog"
+    [fitDialog]="fitDialog"-->
+  </div>
+
+
+  <hr>
+
 </div>
