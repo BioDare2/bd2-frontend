@@ -147,3 +147,41 @@ export class RhythmicityJobSummary {
   parameters: any;
 }
 
+export class JTKPattern {
+  period: number;
+  leftPortion: number;
+  peak: number;
+  trough: number;
+  waveform: string;
+  width: number;
+}
+
+export class BD2eJTKRes {
+  rhythmic: boolean;
+  tau: number;
+  p: number;
+  bfP: number;
+  empP: number;
+  gammaP: number;
+  gammaPBH: number;
+  tsCharacteristic: any;
+  pattern: JTKPattern;
+}
+
+export class TSResult<R> {
+  id: number;
+  label: string;
+  result: R;
+}
+
+export class JobResults<R> {
+  UUID: string;
+  externalId: string;
+  state: string;
+  message: string;
+
+  results: TSResult<R>[];
+}
+
+
+

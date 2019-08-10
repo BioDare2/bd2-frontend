@@ -26,8 +26,11 @@
     <div [hidden]="!expanded || !isFinished(job)">
 
       <hr>
-      Details ....
-
+      <bd2-pvalue-form (pvalue$)="setPValueThreshold($event)">
+      </bd2-pvalue-form>
+      <hr>
+      <bd2-rhythmicity-results-table [results]="indResults">
+      </bd2-rhythmicity-results-table>
     </div>
   </div>
 </div>

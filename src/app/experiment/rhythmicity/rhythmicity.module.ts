@@ -10,10 +10,14 @@ import { RhythmicityStartFormComponent } from './rhythmicity-start-form/rhythmic
 import { RhythmicityjobParamsRformComponent } from './rhythmicity-start-form/rhythmicityjob-params-rform/rhythmicityjob-params-rform.component';
 import {TSPlotModule} from '../../tsdata/plots/ts-plot.module';
 import { RhythmicityJobPaneComponent } from './rhythmicity-dashboard/rhythmicity-job-pane/rhythmicity-job-pane.component';
+import { PValueFormComponent } from './rhythmicity-dashboard/rhythmicity-job-pane/pvalue-form/pvalue-form.component';
+import { RhythmicityResultsTableComponent } from './rhythmicity-dashboard/rhythmicity-job-pane/rhythmicity-results-table/rhythmicity-results-table.component';
 
 @NgModule({
   declarations: [RhythmicityDashboardComponent, RhythmicityStartFormComponent, RhythmicityjobParamsRformComponent,
-    RhythmicityJobPaneComponent],
+    RhythmicityJobPaneComponent,
+    PValueFormComponent,
+    RhythmicityResultsTableComponent],
   imports: [
     CommonModule,
     FormsModule,

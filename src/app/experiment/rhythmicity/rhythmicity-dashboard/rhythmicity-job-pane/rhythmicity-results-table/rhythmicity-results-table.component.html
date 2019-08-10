@@ -1,0 +1,31 @@
+<div>
+
+  <div *ngIf="!results || results.length === 0">
+    No results found.
+  </div>
+
+  <div *ngIf="results && results.length > 0">
+
+    <table class="table table-striped table-bordered">
+
+      <thead>
+      <tr>
+        <th>Data</th>
+        <th>Rhythmic</th>
+        <th>EmpP</th>
+        <th>Tau</th>
+        <th>Pattern</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let res of results">
+        <td>{{res.id}}. {{res.label}}</td>
+        <td>{{res.result.rhythmic}}</td>
+        <td>{{res.result.empP| number:'1.0-5'}}</td>
+        <td>{{res.result.tau | number:'1.0-2'}}</td>
+        <td>{{ res.result.rhythmic ? describePattern(res.result) : ''}}</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

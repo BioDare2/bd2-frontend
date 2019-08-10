@@ -10,7 +10,7 @@ import {Trace} from '../../../tsdata/plots/ts-plot.dom';
 import {Subscription} from 'rxjs';
 import {debounceTime} from 'rxjs/operators';
 import {DisplayParameters} from '../../../tsdata/plots/ts-display.dom';
-import {RhythmicityRequest} from "../rhythmicity-dom";
+import {RhythmicityRequest} from '../rhythmicity-dom';
 
 
 @Component({

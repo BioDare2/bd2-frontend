@@ -1,7 +1,8 @@
 import {Injectable} from '@angular/core';
 import {BioDareRestService} from '../../backend/biodare-rest.service';
 import {ExperimentalAssayView} from '../../dom/repo/exp/experimental-assay-view';
-import {RhythmicityJobSummary, RhythmicityRequest} from "./rhythmicity-dom";
+import {BD2eJTKRes, JobResults, RhythmicityJobSummary, RhythmicityRequest, TSResult} from './rhythmicity-dom';
+import {Observable} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -22,6 +23,10 @@ export class RhythmicityService {
   getJobs(exp: ExperimentalAssayView): Promise<RhythmicityJobSummary[]> {
     return this.BD2REST.rhythmicityJobs(exp)
       .then(obj => obj.data);
+  }
+
+  getResults(assayId: number, jobId: string): Observable<JobResults<BD2eJTKRes>> {
+    return this.BD2REST.rhythmicityResults(assayId, jobId);
   }
 
   exportURL(exp: ExperimentalAssayView): string {

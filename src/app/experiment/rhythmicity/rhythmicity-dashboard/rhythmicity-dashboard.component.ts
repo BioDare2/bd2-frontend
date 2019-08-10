@@ -6,7 +6,7 @@ import {PPAJobPaneComponent} from '../../ppa/ppa-dashboard/ppajob-pane/ppajob-pa
 import {ExperimentalAssayView} from '../../../dom/repo/exp/experimental-assay-view';
 import {RhythmicityJobSummary} from '../rhythmicity-dom';
 import {PPAJobSummary} from '../../ppa/ppa-dom';
-import {RhythmicityJobPaneComponent} from "./rhythmicity-job-pane/rhythmicity-job-pane.component";
+import {RhythmicityJobPaneComponent} from './rhythmicity-job-pane/rhythmicity-job-pane.component';
 
 @Component({
   templateUrl: './rhythmicity-dashboard.component.html',

@@ -358,6 +358,13 @@ export class BioDareRestService {
     return this.OKJson(this.http.get(url, options)).toPromise();
   }
 
+  rhythmicityResults(expId: number, jobId: string): Observable<any> {
+
+    const options = this.makeOptions();
+    const url = this.endPoints.experiment_url + '/' + expId + this.endPoints.rhythmicity_job + '/' + jobId + '/results';
+
+    return this.OKJson(this.http.get(url, options));
+  }
 
   /* rhythmicity */
 
