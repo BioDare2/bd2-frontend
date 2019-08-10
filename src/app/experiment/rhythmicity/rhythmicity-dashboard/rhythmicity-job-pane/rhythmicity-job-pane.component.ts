@@ -2,9 +2,11 @@ import {Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges} from '@an
 import {ExperimentalAssayView} from '../../../../dom/repo/exp/experimental-assay-view';
 import {FeedbackService} from '../../../../feedback/feedback.service';
 import {RhythmicityService} from '../../rhythmicity.service';
-import {BehaviorSubject} from 'rxjs';
+import {BehaviorSubject, timer} from 'rxjs';
 import {RhythmicityJobSummary} from '../../rhythmicity-dom';
 import {LocalDateTime} from "../../../../dom/repo/shared/dates";
+import {filter} from "rxjs/operators";
+import {PPAJobSummary} from "../../../ppa/ppa-dom";
 
 @Component({
   selector: 'bd2-rhythmicity-job-pane',
@@ -38,6 +40,10 @@ export class RhythmicityJobPaneComponent implements OnInit, OnChanges, OnDestroy
 
   dots = '';
 
+  retries = 0;
+  RETRY_INT = 1000;
+  MAX_TRIES = (10 * 60 * 1000) / this.RETRY_INT;
+
   constructor(private rhythmicityService: RhythmicityService,
               private feedback: FeedbackService) { }
 
@@ -56,6 +62,7 @@ export class RhythmicityJobPaneComponent implements OnInit, OnChanges, OnDestroy
 
     if (changes.jobId || changes.assay) {
       if (this.jobId && this.assay) {
+        this.retries = 0;
         this.loadJob(this.jobId, this.assay.id);
       }
     }
@@ -64,6 +71,36 @@ export class RhythmicityJobPaneComponent implements OnInit, OnChanges, OnDestroy
 
   initSubscriptions() {
     this.jobStream.subscribe(j => this.job = j);
+
+    this.initCheckingRunning();
+  }
+
+  initCheckingRunning() {
+    const runningJobs = this.jobStream.pipe(
+      filter(job => this.isRunning(job)));
+
+    runningJobs.subscribe(
+      job => {
+        timer(this.RETRY_INT)
+          .subscribe(() => {
+            // console.log("Retrying "+job.jobId+":"+this.retries);
+            if (job.jobId !== this.jobId) {
+              return;
+            }
+            this.dots += '*';
+            this.retries++;
+            if (this.dots.length > 10) {
+              this.dots = '*';
+            }
+
+            if (this.retries % 4 === 1) {
+              this.reload();
+            } else {
+              this.jobStream.next(job);
+            }
+          });
+      }
+    );
   }
 
   loadJob(jobId: string, assayId: number, reloaded?: boolean) {
@@ -101,4 +138,19 @@ export class RhythmicityJobPaneComponent implements OnInit, OnChanges, OnDestroy
     return job.jobStatus.state === 'SUCCESS';
   }
 
+  isRunning(job: RhythmicityJobSummary): boolean {
+    if (!job) {
+      return false;
+    }
+    if (!this._expanded) {
+      return false;
+    }
+    if (this.retries > this.MAX_TRIES) {
+      return false;
+    }
+    if (job && job.jobStatus.state && (job.jobStatus.state === 'SUBMITTED' || job.jobStatus.state === 'PROCESSING')) {
+      return true;
+    }
+    return false;
+  }
 }

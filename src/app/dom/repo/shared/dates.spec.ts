@@ -59,7 +59,7 @@ describe('Dates', () => {
       const ans = LocalDateTime.deserialize(jsonObj);
       expect(ans).toBeDefined();
       expect(ans.constructor).toBe(LocalDateTime);
-      expect(ans.date).toEqual(new Date(2016, 8, 24, 11, 49, 36, 965000000));
+      expect(ans.date).toEqual(new Date(2016, 8, 24, 11, 49, 36));
 
     });
 
