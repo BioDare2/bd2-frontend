@@ -19,7 +19,7 @@ export class RhythmicityResultsTableComponent implements OnInit {
   describePattern(res: BD2eJTKRes) {
     const pattern = res.pattern;
     const peak = Math.round(pattern.peak * 10) / 10;
-    return `${pattern.waveform}${pattern.period}:${peak}`;
+    return `${pattern.waveform} ${pattern.period}:${peak}`;
   }
 
 }

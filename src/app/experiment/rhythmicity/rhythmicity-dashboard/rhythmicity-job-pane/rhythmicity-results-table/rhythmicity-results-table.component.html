@@ -18,7 +18,7 @@
       </tr>
       </thead>
       <tbody>
-      <tr *ngFor="let res of results">
+      <tr *ngFor="let res of results" [style.font-weight]="res.result.rhythmic ? 'bold' : 'normal'">
         <td>{{res.id}}. {{res.label}}</td>
         <td>{{res.result.rhythmic}}</td>
         <td>{{res.result.empP| number:'1.0-5'}}</td>

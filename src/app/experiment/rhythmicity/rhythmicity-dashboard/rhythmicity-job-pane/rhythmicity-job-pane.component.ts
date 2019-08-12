@@ -193,7 +193,7 @@ export class RhythmicityJobPaneComponent implements OnInit, OnChanges, OnDestroy
   }
 
   setPValueThreshold(pvalue: number) {
-    console.log('pvalue', pvalue);
+    // console.log('pvalue', pvalue);
     this.pvalue$.next(pvalue);
 
   }
