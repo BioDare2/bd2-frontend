@@ -5,6 +5,8 @@ import {ExperimentsTestToolModule} from '../../experiment_test_tool.spec';
 import {RhythmicityJobPaneComponent} from './rhythmicity-job-pane/rhythmicity-job-pane.component';
 import {PValueFormComponent} from './rhythmicity-job-pane/pvalue-form/pvalue-form.component';
 import {RhythmicityResultsTableComponent} from './rhythmicity-job-pane/rhythmicity-results-table/rhythmicity-results-table.component';
+import {RhythmicityResultsMDTableComponent} from "./rhythmicity-job-pane/rhythmicity-results-mdtable/rhythmicity-results-mdtable.component";
+import {MatFormFieldModule, MatPaginatorModule, MatRadioModule, MatSortModule, MatTableModule} from "@angular/material";
 
 describe('RhythmicityDashboardComponent', () => {
   let component: RhythmicityDashboardComponent;
@@ -12,8 +14,15 @@ describe('RhythmicityDashboardComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [RhythmicityDashboardComponent, RhythmicityJobPaneComponent, PValueFormComponent, RhythmicityResultsTableComponent],
-      imports: [ExperimentsTestToolModule]
+      declarations: [RhythmicityDashboardComponent, RhythmicityJobPaneComponent, PValueFormComponent,
+        RhythmicityResultsTableComponent, RhythmicityResultsMDTableComponent],
+      imports: [ExperimentsTestToolModule,
+        MatRadioModule,
+        MatFormFieldModule,
+        MatPaginatorModule,
+        MatSortModule,
+        MatTableModule
+      ]
     })
       .compileComponents();
   }));
