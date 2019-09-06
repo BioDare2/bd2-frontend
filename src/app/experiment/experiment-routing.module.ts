@@ -20,11 +20,11 @@ const routes: Routes = [
       {path: 'file', component: AttachmentsDashboardComponent},
       {path: 'publish', component: PublishFormComponent},
 
-      {path: 'data', loadChildren: './ts-data/ts-data.module#TsDataModule'},
+      {path: 'data', loadChildren: () => import('./ts-data/ts-data.module').then(m => m.TsDataModule)},
 
-      {path: 'ppa', loadChildren: './ppa/ppa.module#PPAModule'},
+      {path: 'ppa', loadChildren: () => import('./ppa/ppa.module').then(m => m.PPAModule)},
 
-      {path: 'rhythmicity', loadChildren: './rhythmicity/rhythmicity.module#RhythmicityModule'},
+      {path: 'rhythmicity', loadChildren: () => import('./rhythmicity/rhythmicity.module').then(m => m.RhythmicityModule)},
     ]
   }
 ];

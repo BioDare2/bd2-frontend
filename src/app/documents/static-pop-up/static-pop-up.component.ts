@@ -37,7 +37,7 @@ export class StaticPopUpComponent implements OnInit {
   docName: string;
   missing: string;
 
-  @ViewChild('docsModal')
+  @ViewChild('docsModal', { static: true })
   private myModal: ModalDirective;
 
   constructor() {

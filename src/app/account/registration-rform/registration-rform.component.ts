@@ -29,7 +29,7 @@ export class RegistrationRFormComponent implements OnInit {
   missingCaptcha = false;
   g_recaptcha_response: string;
 
-  @ViewChild('recaptcha')
+  @ViewChild('recaptcha', { static: false })
   private recaptcha: ReCaptchaComponent;
 
 

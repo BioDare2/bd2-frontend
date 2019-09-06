@@ -51,7 +51,7 @@ export class PPAJobExportDialogComponent implements OnInit {
   modalOptions = {};
   phaseType = 'ByFit';
 
-  @ViewChild(ModalDirective)
+  @ViewChild(ModalDirective, { static: true })
   private myModal: ModalDirective;
 
   constructor() {

@@ -24,7 +24,7 @@ export class ExperimentFeatureComponent implements OnInit, OnDestroy {
   private expSubscription: Subscription;
   private paramsSubscription: Subscription;
 
-  @ViewChild('warningDialog')
+  @ViewChild('warningDialog', { static: true })
   private warningDialog: ConfirmDialogComponent;
 
   constructor(private experimentService: ExperimentService,

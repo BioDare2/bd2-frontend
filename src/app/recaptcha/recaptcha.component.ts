@@ -36,7 +36,7 @@ export class ReCaptchaComponent implements OnInit {
   @Output()
   captchaExpired = new EventEmitter();
 
-  @ViewChild('target') targetRef: ElementRef;
+  @ViewChild('target', { static: true }) targetRef: ElementRef;
   widgetId: any = null;
 
   constructor(

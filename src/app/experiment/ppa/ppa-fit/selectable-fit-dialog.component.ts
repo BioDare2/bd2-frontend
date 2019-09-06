@@ -22,7 +22,7 @@ export class SelectableFitDialogComponent implements OnInit {
   fitPack: PPAFitPack;
   selectedPeriod: string;
 
-  @ViewChild(ModalDirective)
+  @ViewChild(ModalDirective, { static: true })
   private myModal: ModalDirective;
 
   constructor(private fitService: PPAFitService, private feedback: FeedbackService) {

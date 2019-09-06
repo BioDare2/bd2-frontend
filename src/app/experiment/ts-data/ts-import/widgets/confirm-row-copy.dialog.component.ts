@@ -46,7 +46,7 @@ export class ConfirmRowCopyDialogComponent {
 
   private orgRange: CellRangeDescription;
 
-  @ViewChild(ModalDirective)
+  @ViewChild(ModalDirective, { static: true })
   private myModal: ModalDirective;
 
   show(selectedRange: CellRangeDescription) {

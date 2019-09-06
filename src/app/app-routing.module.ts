@@ -12,13 +12,13 @@ const routes: Routes = [
     path: 'logout',
     component: LoginFormComponent
   },
-  {path: 'experiments', loadChildren: './experiment/experiments.module#ExperimentsModule'},
+  {path: 'experiments', loadChildren: () => import('./experiment/experiments.module').then(m => m.ExperimentsModule)},
 
-  {path: 'experiment', loadChildren: './experiment/experiment.module#ExperimentModule'},
+  {path: 'experiment', loadChildren: () => import('./experiment/experiment.module').then(m => m.ExperimentModule)},
 
-  {path: 'account', loadChildren: './account/account.module#AccountModule'},
+  {path: 'account', loadChildren: () => import('./account/account.module').then(m => m.AccountModule)},
 
-  {path: 'documents', loadChildren: './documents/documents.module#DocumentsModule'},
+  {path: 'documents', loadChildren: () => import('./documents/documents.module').then(m => m.DocumentsModule)},
 
   {path: '', component: WelcomeComponent, pathMatch: 'full'},
   {path: '**', component: WelcomeComponent}

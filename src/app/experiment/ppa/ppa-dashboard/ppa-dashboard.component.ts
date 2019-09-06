@@ -17,13 +17,13 @@ export class PPADashboardComponent extends PPABaseComponent {
 
 
   // the dialogs are shared with the children jobs panes
-  @ViewChild('confirmDialog')
+  @ViewChild('confirmDialog', { static: false })
   confirmDialog: ConfirmDialogComponent;
 
-  @ViewChild(SelectableFitDialogComponent)
+  @ViewChild(SelectableFitDialogComponent, { static: false })
   fitDialog: SelectableFitDialogComponent;
 
-  @ViewChild(PPAJobExportDialogComponent)
+  @ViewChild(PPAJobExportDialogComponent, { static: false })
   exportDialog: PPAJobExportDialogComponent;
 
 

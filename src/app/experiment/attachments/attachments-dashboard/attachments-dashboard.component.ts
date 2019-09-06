@@ -13,7 +13,7 @@ import {ExperimentComponentsDependencies} from '../../experiment-components.depe
 })
 export class AttachmentsDashboardComponent extends ExperimentBaseComponent {
 
-  @ViewChild('uploadWidget')
+  @ViewChild('uploadWidget', { static: false })
   uploadWidget: FileUploadWidgetComponent;
 
   attachments: FileAsset[] = [];

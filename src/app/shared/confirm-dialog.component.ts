@@ -46,7 +46,7 @@ export class ConfirmDialogComponent {
   okLabel = 'OK';
   @Output()
   onAccepted = new EventEmitter<boolean>();
-  @ViewChild(ModalDirective)
+  @ViewChild(ModalDirective, { static: true })
   private myModal: ModalDirective;
 
   @Input()

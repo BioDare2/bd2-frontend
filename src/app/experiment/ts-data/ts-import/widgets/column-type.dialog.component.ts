@@ -155,9 +155,9 @@ export class ColumnTypeDialogComponent {
   imgInterval: number;
   rangeSize: number;
   private orgRange: CellRangeDescription;
-  @ViewChild('columnTypeModal')
+  @ViewChild('columnTypeModal', { static: true })
   private myModal: ModalDirective;
-  @ViewChild('columnTypeForm')
+  @ViewChild('columnTypeForm', { static: true })
   private columnTypeForm: NgForm;
 
   @Input()

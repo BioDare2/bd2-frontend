@@ -19,7 +19,7 @@ export class PPASelectPeriodsFormComponent extends PPABaseComponent implements O
   ppaGroups: PPASelectGroup[];
   blocked = false;
 
-  @ViewChild(SelectableFitDialogComponent)
+  @ViewChild(SelectableFitDialogComponent, { static: false })
   private fitDialog: SelectableFitDialogComponent;
   // hack to load data when experiment is known
   // private _jobId:number;

@@ -153,11 +153,11 @@ export class DescribeTSTableComponent {
   @Input()
   confirmDataLoss = false;
   private columnBlocks: ColumnBlocks;
-  @ViewChild('columnTypeDialog')
+  @ViewChild('columnTypeDialog', { static: false })
   private columnTypeDialog: ColumnTypeDialogComponent;
-  @ViewChild('rowCopyDialog')
+  @ViewChild('rowCopyDialog', { static: false })
   private rowCopyDialog: ConfirmRowCopyDialogComponent;
-  @ViewChild('confirmDialog')
+  @ViewChild('confirmDialog', { static: false })
   private confirmDialog: ConfirmDialogComponent;
 
   constructor() {
