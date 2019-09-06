@@ -1,6 +1,5 @@
 import {Injectable} from '@angular/core';
 import {BioDareRestService} from '../../../backend/biodare-rest.service';
-import {locateHostElement} from '@angular/core/src/render3/instructions';
 import {catchError, tap, timeout} from 'rxjs/operators';
 import {Observable, throwError} from 'rxjs';
 import {of} from 'rxjs/internal/observable/of';
