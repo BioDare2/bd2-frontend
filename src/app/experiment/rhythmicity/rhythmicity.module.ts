@@ -12,7 +12,8 @@ import {TSPlotModule} from '../../tsdata/plots/ts-plot.module';
 import { RhythmicityJobPaneComponent } from './rhythmicity-dashboard/rhythmicity-job-pane/rhythmicity-job-pane.component';
 import { PValueFormComponent } from './rhythmicity-dashboard/rhythmicity-job-pane/pvalue-form/pvalue-form.component';
 import { RhythmicityResultsTableComponent } from './rhythmicity-dashboard/rhythmicity-job-pane/rhythmicity-results-table/rhythmicity-results-table.component';
-
+import {MatRadioModule} from '@angular/material/radio';
+import {MatFormFieldModule} from '@angular/material/form-field';
 @NgModule({
   declarations: [RhythmicityDashboardComponent, RhythmicityStartFormComponent, RhythmicityjobParamsRformComponent,
     RhythmicityJobPaneComponent,
@@ -28,6 +29,8 @@ import { RhythmicityResultsTableComponent } from './rhythmicity-dashboard/rhythm
     StaticContentModule,
     SharedComponentsModule,
     TSPlotModule,
+    MatRadioModule,
+    MatFormFieldModule,
     RhythmicityRoutingModule
   ]
 })

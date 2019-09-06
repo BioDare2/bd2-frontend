@@ -1,23 +1,32 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {MatRadioChange} from "@angular/material";
 
 @Component({
   selector: 'bd2-pvalue-form',
   templateUrl: './pvalue-form.component.html',
-  styles: []
+  styles: [`
+    .mat-radio-button  {
+      margin-right: 15px;
+    }
+  `]
 })
 export class PValueFormComponent implements OnInit {
 
   constructor() { }
 
+  values = [0.0001, 0.001, 0.005, 0.01, 0.05, 0.1];
+
+  pvalue = 0.001;
+
   @Output()
   pvalue$ = new EventEmitter<number>();
 
   ngOnInit() {
-    this.pvalue$.emit(0.001);
+    this.pvalue$.emit(this.pvalue);
   }
 
-  selected(val: number) {
-    this.pvalue$.emit(val);
+  selected(change: MatRadioChange) {
+    this.pvalue$.emit(change.value);
   }
 
 }

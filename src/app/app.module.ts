@@ -10,6 +10,7 @@ import {BioDareEndPoints, bioDareRestConfigurator} from './backend/biodare-rest.
 import {ModalModule} from 'ngx-bootstrap/modal';
 import {TypeaheadModule} from 'ngx-bootstrap/typeahead';
 import {AlertModule} from 'ngx-bootstrap/alert';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 const endPoints: BioDareEndPoints = bioDareRestConfigurator(environment);
 
@@ -19,7 +20,6 @@ const endPoints: BioDareEndPoints = bioDareRestConfigurator(environment);
   ],
   imports: [
     BrowserModule,
-    // BrowserAnimationsModule,
     HttpClientModule,
     ModalModule.forRoot(),
     TypeaheadModule.forRoot(),
@@ -28,6 +28,7 @@ const endPoints: BioDareEndPoints = bioDareRestConfigurator(environment);
     // AccountModule,
     // DocumentsModule,
     AppRoutingModule,
+    BrowserAnimationsModule,
   ],
   providers: [
     {provide: BioDareEndPoints, useValue: endPoints}
