@@ -6,7 +6,7 @@ import { MatTableModule } from '@angular/material/table';
 
 import { RhythmicityResultsMDTableComponent } from './rhythmicity-results-mdtable.component';
 
-describe('RhythmicityResultsMDTableComponent', () => {
+fdescribe('RhythmicityResultsMDTableComponent', () => {
   let component: RhythmicityResultsMDTableComponent;
   let fixture: ComponentFixture<RhythmicityResultsMDTableComponent>;
 

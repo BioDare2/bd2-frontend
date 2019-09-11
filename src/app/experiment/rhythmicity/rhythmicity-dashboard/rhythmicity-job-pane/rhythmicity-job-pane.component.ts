@@ -8,6 +8,7 @@ import {LocalDateTime} from '../../../../dom/repo/shared/dates';
 import {distinct, filter, map, switchMap} from 'rxjs/operators';
 import {PPAJobSummary} from '../../../ppa/ppa-dom';
 import {combineLatest} from 'rxjs/internal/observable/combineLatest';
+import {RhythmicityResultsMDTableDataSource} from "./rhythmicity-results-mdtable/rhythmicity-results-mdtable-datasource";
 
 @Component({
   selector: 'bd2-rhythmicity-job-pane',
@@ -35,11 +36,15 @@ export class RhythmicityJobPaneComponent implements OnInit, OnChanges, OnDestroy
     this.expandedToogleStream.next(val);
   }
 
+  dataSource: RhythmicityResultsMDTableDataSource;
+
   job: RhythmicityJobSummary;
 
   jobStream = new BehaviorSubject<RhythmicityJobSummary>(null);
   expandedToogleStream = new BehaviorSubject<boolean>(false);
   pvalue$ = new BehaviorSubject<number>(0.001);
+
+  assayJob$ = new BehaviorSubject<[ExperimentalAssayView, RhythmicityJobSummary]>([null, null]);
 
   dots = '';
 
@@ -54,6 +59,8 @@ export class RhythmicityJobPaneComponent implements OnInit, OnChanges, OnDestroy
 
   ngOnInit() {
     this.initSubscriptions();
+
+    this.dataSource = new RhythmicityResultsMDTableDataSource(this.assayJob$, this.pvalue$, this.rhythmicityService);
 
   }
 
@@ -75,11 +82,14 @@ export class RhythmicityJobPaneComponent implements OnInit, OnChanges, OnDestroy
   }
 
   initSubscriptions() {
-    this.jobStream.subscribe(j => this.job = j);
+    this.jobStream.subscribe(j => {
+      this.job = j;
+      this.assayJob$.next([this.assay, this.job]);
+    });
 
     this.initCheckingRunning();
 
-    this.initResults();
+    // this.initResults();
   }
 
   initCheckingRunning() {
@@ -110,6 +120,7 @@ export class RhythmicityJobPaneComponent implements OnInit, OnChanges, OnDestroy
     );
   }
 
+  /*
   initResults() {
     const finishedJobs = this.jobStream.pipe(
       filter(job => this.isFinished(job)));
@@ -134,7 +145,7 @@ export class RhythmicityJobPaneComponent implements OnInit, OnChanges, OnDestroy
     );
 
     rankedResults.subscribe( r => this.indResults = r.results);
-  }
+  } */
 
   loadJob(jobId: string, assayId: number, reloaded?: boolean) {
     this.rhythmicityService.getJob(assayId, jobId)
@@ -147,9 +158,10 @@ export class RhythmicityJobPaneComponent implements OnInit, OnChanges, OnDestroy
       });
   }
 
+  /*
   loadResults(job: RhythmicityJobSummary): Observable<JobResults<BD2eJTKRes>> {
     return this.rhythmicityService.getResults(this.assay.id, job.jobId);
-  }
+  } */
 
   toggleExpanded() {
     this.expanded = !this.expanded;
@@ -171,10 +183,11 @@ export class RhythmicityJobPaneComponent implements OnInit, OnChanges, OnDestroy
     return LocalDateTime.deserialize(val).date;
   }
 
+  /*
   isFinished(job: RhythmicityJobSummary) {
     if (!job) { return false; }
     return job.jobStatus.state === 'SUCCESS';
-  }
+  }*/
 
   isRunning(job: RhythmicityJobSummary): boolean {
     if (!job) {

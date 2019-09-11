@@ -20,6 +20,7 @@ export class RhythmicityResultsMDTableComponent implements AfterViewInit, OnInit
   @ViewChild(MatPaginator, {static: false}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: false}) sort: MatSort;
   @ViewChild(MatTable, {static: false}) table: MatTable<TSResult<BD2eJTKRes>>;
+  @Input()
   dataSource: RhythmicityResultsMDTableDataSource;
 
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
@@ -37,10 +38,11 @@ export class RhythmicityResultsMDTableComponent implements AfterViewInit, OnInit
   }
 
   ngOnInit() {
-    this.dataSource = new RhythmicityResultsMDTableDataSource(this.result$.asObservable());
+    // this.dataSource = new RhythmicityResultsMDTableDataSource(this.result$.asObservable());
   }
 
   ngAfterViewInit() {
+    console.log("ngAfer", this.dataSource);
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
     this.table.dataSource = this.dataSource;

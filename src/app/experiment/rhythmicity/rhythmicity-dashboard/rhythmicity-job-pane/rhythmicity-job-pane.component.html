@@ -30,10 +30,10 @@
       </bd2-pvalue-form>
       <hr>
 
-      <bd2-rhythmicity-results-mdtable [results]="indResults"></bd2-rhythmicity-results-mdtable>
+      <bd2-rhythmicity-results-mdtable *ngIf="dataSource" [dataSource]="dataSource"></bd2-rhythmicity-results-mdtable>
 
-      <bd2-rhythmicity-results-table [results]="indResults">
-      </bd2-rhythmicity-results-table>
+      <!-- <bd2-rhythmicity-results-table [results]="indResults">
+      </bd2-rhythmicity-results-table> -->
     </div>
   </div>
 </div>

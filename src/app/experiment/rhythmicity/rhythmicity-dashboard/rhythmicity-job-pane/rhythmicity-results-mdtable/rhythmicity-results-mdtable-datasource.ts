@@ -1,9 +1,11 @@
 import { DataSource } from '@angular/cdk/collections';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
-import {map, tap} from 'rxjs/operators';
-import { Observable, merge } from 'rxjs';
-import {BD2eJTKRes, TSResult} from '../../../rhythmicity-dom';
+import {catchError, map, switchMap, tap} from 'rxjs/operators';
+import {Observable, merge, combineLatest} from 'rxjs';
+import {BD2eJTKRes, JobResults, RhythmicityJobSummary, TSResult} from '../../../rhythmicity-dom';
+import {RhythmicityService} from '../../../rhythmicity.service';
+import {ExperimentalAssayView} from '../../../../../dom/repo/exp/experimental-assay-view';
 
 
 /**
@@ -19,9 +21,47 @@ export class RhythmicityResultsMDTableDataSource extends DataSource<TSResult<BD2
 
   dataLength = 0;
 
-  constructor(data$: Observable<TSResult<BD2eJTKRes>[]>) {
+  constructor(private job$: Observable<[ExperimentalAssayView, RhythmicityJobSummary]>,
+              private pvalue$: Observable<number>,
+              private rhythmicityService: RhythmicityService) {
     super();
-    this.data$ = data$;
+
+    this.data$ = this.initData(job$, pvalue$);
+  }
+
+
+  initData(job$: Observable<[ExperimentalAssayView, RhythmicityJobSummary]>, pvalue$: Observable<number>):
+    Observable<TSResult<BD2eJTKRes>[]> {
+
+    const results = job$.pipe(
+      switchMap(([assay, job]) => this.isFinished(job) ? this.loadResults(assay, job) : [])
+    );
+
+    const rankedResults = combineLatest( [results, this.pvalue$]).pipe(
+      map(([jobRes, pvalue]) => {
+        jobRes.results.forEach( res => {
+          const ejtkR = res.result;
+          ejtkR.rhythmic = ejtkR.empP < pvalue;
+        });
+        return jobRes;
+      } )
+    );
+
+    return rankedResults;
+  }
+
+  isFinished(job: RhythmicityJobSummary) {
+    if (!job) { return false; }
+    return job.jobStatus.state === 'SUCCESS';
+  }
+
+  loadResults(assay: ExperimentalAssayView, job: RhythmicityJobSummary): Observable<JobResults<BD2eJTKRes>> {
+    return this.rhythmicityService.getResults(assay.id, job.jobId).pipe(
+      catchError( err => {
+        console.error('Could not load results', err);
+        return [];
+      })
+    );
   }
 
   /**
