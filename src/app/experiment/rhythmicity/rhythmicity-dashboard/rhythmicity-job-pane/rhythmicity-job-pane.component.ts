@@ -8,7 +8,7 @@ import {LocalDateTime} from '../../../../dom/repo/shared/dates';
 import {distinct, filter, map, switchMap} from 'rxjs/operators';
 import {PPAJobSummary} from '../../../ppa/ppa-dom';
 import {combineLatest} from 'rxjs/internal/observable/combineLatest';
-import {RhythmicityResultsMDTableDataSource} from "./rhythmicity-results-mdtable/rhythmicity-results-mdtable-datasource";
+import {RhythmicityResultsMDTableDataSource} from './rhythmicity-results-mdtable/rhythmicity-results-mdtable-datasource';
 
 @Component({
   selector: 'bd2-rhythmicity-job-pane',
@@ -42,7 +42,7 @@ export class RhythmicityJobPaneComponent implements OnInit, OnChanges, OnDestroy
 
   jobStream = new BehaviorSubject<RhythmicityJobSummary>(null);
   expandedToogleStream = new BehaviorSubject<boolean>(false);
-  pvalue$ = new BehaviorSubject<number>(0.001);
+
 
   assayJob$ = new BehaviorSubject<[ExperimentalAssayView, RhythmicityJobSummary]>([null, null]);
 
@@ -60,7 +60,7 @@ export class RhythmicityJobPaneComponent implements OnInit, OnChanges, OnDestroy
   ngOnInit() {
     this.initSubscriptions();
 
-    this.dataSource = new RhythmicityResultsMDTableDataSource(this.assayJob$, this.pvalue$, this.rhythmicityService);
+    this.dataSource = new RhythmicityResultsMDTableDataSource(this.assayJob$, this.rhythmicityService);
 
   }
 
@@ -120,32 +120,7 @@ export class RhythmicityJobPaneComponent implements OnInit, OnChanges, OnDestroy
     );
   }
 
-  /*
-  initResults() {
-    const finishedJobs = this.jobStream.pipe(
-      filter(job => this.isFinished(job)));
 
-    const expandedJobs = combineLatest( finishedJobs, this.expandedToogleStream.pipe(filter( v => v)))
-      .pipe(map(([j, e]) => j),
-        distinct()
-        );
-
-    // expandedJobs.subscribe( job => console.log("Job"+job.jobId));
-
-    const results = expandedJobs.pipe(switchMap(job => this.loadResults(job)));
-
-    const rankedResults = combineLatest( results, this.pvalue$).pipe(
-      map(([jobRes, pvalue]) => {
-        jobRes.results.forEach( res => {
-          const ejtkR = res.result;
-          ejtkR.rhythmic = ejtkR.empP < pvalue;
-        });
-        return jobRes;
-      } )
-    );
-
-    rankedResults.subscribe( r => this.indResults = r.results);
-  } */
 
   loadJob(jobId: string, assayId: number, reloaded?: boolean) {
     this.rhythmicityService.getJob(assayId, jobId)
@@ -183,11 +158,11 @@ export class RhythmicityJobPaneComponent implements OnInit, OnChanges, OnDestroy
     return LocalDateTime.deserialize(val).date;
   }
 
-  /*
+
   isFinished(job: RhythmicityJobSummary) {
     if (!job) { return false; }
     return job.jobStatus.state === 'SUCCESS';
-  }*/
+  }
 
   isRunning(job: RhythmicityJobSummary): boolean {
     if (!job) {
@@ -206,8 +181,8 @@ export class RhythmicityJobPaneComponent implements OnInit, OnChanges, OnDestroy
   }
 
   setPValueThreshold(pvalue: number) {
-    // console.log('pvalue', pvalue);
-    this.pvalue$.next(pvalue);
+    console.log('pvalue from widget', pvalue);
+    this.dataSource.pvalue$.next(pvalue);
 
   }
 }

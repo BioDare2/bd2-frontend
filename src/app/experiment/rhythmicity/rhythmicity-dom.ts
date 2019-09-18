@@ -166,6 +166,7 @@ export class BD2eJTKRes {
   gammaPBH: number;
   tsCharacteristic: any;
   pattern: JTKPattern;
+  patternLabel: string;
 }
 
 export class TSResult<R> {
@@ -180,7 +181,7 @@ export class JobResults<R> {
   state: string;
   message: string;
 
-  results: TSResult<R>[];
+  results: TSResult<R>[] = [];
 }
 
 

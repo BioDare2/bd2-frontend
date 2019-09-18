@@ -1,10 +1,10 @@
 import {AfterViewInit, Component, Input, OnInit, ViewChild} from '@angular/core';
-import { MatPaginator } from '@angular/material/paginator';
-import { MatSort } from '@angular/material/sort';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
+import {MatSort, Sort} from '@angular/material/sort';
 import { MatTable } from '@angular/material/table';
 import { RhythmicityResultsMDTableDataSource } from './rhythmicity-results-mdtable-datasource';
-import {BD2eJTKRes, TSResult} from "../../../rhythmicity-dom";
-import {Subject} from "rxjs";
+import {BD2eJTKRes, TSResult} from '../../../rhythmicity-dom';
+import {Subject} from 'rxjs';
 
 @Component({
   selector: 'bd2-rhythmicity-results-mdtable',
@@ -13,13 +13,14 @@ import {Subject} from "rxjs";
     .full-width-table {
       width: 100%;
     }
-    
+
   `]
 })
 export class RhythmicityResultsMDTableComponent implements AfterViewInit, OnInit {
   @ViewChild(MatPaginator, {static: false}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: false}) sort: MatSort;
   @ViewChild(MatTable, {static: false}) table: MatTable<TSResult<BD2eJTKRes>>;
+
   @Input()
   dataSource: RhythmicityResultsMDTableDataSource;
 
@@ -38,19 +39,23 @@ export class RhythmicityResultsMDTableComponent implements AfterViewInit, OnInit
   }
 
   ngOnInit() {
-    // this.dataSource = new RhythmicityResultsMDTableDataSource(this.result$.asObservable());
   }
 
   ngAfterViewInit() {
-    console.log("ngAfer", this.dataSource);
-    this.dataSource.sort = this.sort;
-    this.dataSource.paginator = this.paginator;
+
+    this.sort.sortChange.forEach( sort => this.dataSource.sort$.next(sort));
+    this.paginator.page.forEach( page => this.dataSource.page$.next(page));
+
+    const firstSort: Sort = { active: this.sort.active, direction: this.sort.direction};
+    this.dataSource.sort$.next(firstSort);
+
+    const firstPage = new PageEvent();
+    firstPage.pageSize = this.paginator.pageSize;
+    firstPage.pageIndex = this.paginator.pageIndex;
+    this.dataSource.page$.next(firstPage);
+
     this.table.dataSource = this.dataSource;
   }
 
-  describePattern(res: BD2eJTKRes) {
-    const pattern = res.pattern;
-    const peak = Math.round(pattern.peak * 10) / 10;
-    return `${pattern.waveform} ${pattern.period}:${peak}`;
-  }
+
 }
