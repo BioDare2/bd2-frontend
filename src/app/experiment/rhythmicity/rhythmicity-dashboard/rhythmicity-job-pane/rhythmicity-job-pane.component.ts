@@ -60,13 +60,16 @@ export class RhythmicityJobPaneComponent implements OnInit, OnChanges, OnDestroy
   ngOnInit() {
     this.initSubscriptions();
 
-    this.dataSource = new RhythmicityResultsMDTableDataSource(this.assayJob$, this.rhythmicityService);
+    this.dataSource = this.initResultsSource();
 
   }
 
   ngOnDestroy() {
     if (this.jobStream) {
       this.jobStream.complete();
+    }
+    if (this.expandedToogleStream) {
+      this.expandedToogleStream.complete();
     }
   }
 
@@ -79,6 +82,12 @@ export class RhythmicityJobPaneComponent implements OnInit, OnChanges, OnDestroy
       }
     }
 
+  }
+
+  initResultsSource() {
+    const dataSource = new RhythmicityResultsMDTableDataSource(this.assayJob$, this.rhythmicityService);
+    this.expandedToogleStream.forEach( v => dataSource.on$.next(v));
+    return dataSource;
   }
 
   initSubscriptions() {

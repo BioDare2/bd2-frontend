@@ -6,7 +6,7 @@ import {PageEvent} from '@angular/material/paginator';
 import {Sort} from '@angular/material/sort';
 import {fakeAsync, tick} from '@angular/core/testing';
 
-describe('RhythmicityResultsMDTableDataSource', () => {
+fdescribe('RhythmicityResultsMDTableDataSource', () => {
 
   let results: TSResult<BD2eJTKRes>[];
   let jobRes: JobResults<BD2eJTKRes>;
@@ -202,6 +202,7 @@ describe('RhythmicityResultsMDTableDataSource', () => {
 
     // works without ticks why?
     job$.next([assay, job]);
+    service.on$.next(true);
 
     expect(data).toBe(jobRes.results);
     expect(err).toBeUndefined();
@@ -216,6 +217,42 @@ describe('RhythmicityResultsMDTableDataSource', () => {
     expect(data).toBe(service.data);
     expect(service.dataLength).toBe(3);
   }));
+
+  it('initData gives observable that fetches from the service only when on', fakeAsync(() => {
+
+
+
+    const job = new RhythmicityJobSummary();
+    job.jobStatus = new JobStatus();
+    job.jobStatus.state = 'SUCCESS';
+    job.jobId = '123';
+
+    const assay = {id: 2} as ExperimentalAssayView;
+
+    const data$ = service.initData(job$);
+
+    let data: TSResult<BD2eJTKRes>[];
+    let err;
+
+    data$.subscribe(d => data = d, e => err = e);
+
+    rhythmicityService.getResults.and.returnValue(throwError('Should not be called'));
+    // works without ticks why?
+    job$.next([assay, job]);
+
+    expect(data).toBeUndefined();
+    expect(err).toBeUndefined();
+
+    rhythmicityService.getResults.and.returnValue(of(jobRes));
+    service.on$.next(true);
+
+    tick();
+
+    expect(data).toBe(jobRes.results);
+    expect(err).toBeUndefined();
+
+  }));
+
 
   it('connect gives observable that responses to page and sort', fakeAsync(() => {
 
@@ -240,6 +277,8 @@ describe('RhythmicityResultsMDTableDataSource', () => {
     expect(err).toBeUndefined();
 
     job$.next([assay, job]);
+    service.on$.next(true);
+
     tick();
     // as no page no sorting
     expect(data).toEqual([]);
