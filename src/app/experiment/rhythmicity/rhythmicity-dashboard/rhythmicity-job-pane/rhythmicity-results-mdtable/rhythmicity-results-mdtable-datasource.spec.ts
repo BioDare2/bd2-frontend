@@ -6,7 +6,7 @@ import {PageEvent} from '@angular/material/paginator';
 import {Sort} from '@angular/material/sort';
 import {fakeAsync, tick} from '@angular/core/testing';
 
-fdescribe('RhythmicityResultsMDTableDataSource', () => {
+describe('RhythmicityResultsMDTableDataSource', () => {
 
   let results: TSResult<BD2eJTKRes>[];
   let jobRes: JobResults<BD2eJTKRes>;

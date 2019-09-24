@@ -366,6 +366,13 @@ export class BioDareRestService {
     return this.OKJson(this.http.get(url, options));
   }
 
+  rhythmicityDeleteJob(expId: number, jobId: string): Observable<any> {
+    const options = this.makeOptions();
+    const url = this.endPoints.experiment_url + '/' + expId + this.endPoints.rhythmicity_job + '/' + jobId;
+
+    return this.OKJson(this.http.delete(url, options));
+  }
+
   /* rhythmicity */
 
   /* files */

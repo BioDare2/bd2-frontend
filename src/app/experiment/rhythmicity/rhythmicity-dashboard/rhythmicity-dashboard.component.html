@@ -32,12 +32,13 @@
 
   <hr>
 
+  <bd2-confirm-dialog #confirmDialog></bd2-confirm-dialog>
 
   <div *ngFor="let jobId of jobsIds; let i=index">
     <bd2-rhythmicity-job-pane (deleted)="remove($event)" (finished)="refreshJob($event)" [assay]="assay"
                               [jobId]="jobId"
                               [expanded]="expandAll || i == 0"
-
+                              [confirmDialog]="confirmDialog"
     >
     </bd2-rhythmicity-job-pane>
     <!--[confirmDialog]="confirmDialog"

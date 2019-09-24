@@ -1,18 +1,23 @@
-import {Component, QueryList, ViewChildren} from '@angular/core';
+import {Component, QueryList, ViewChild, ViewChildren} from '@angular/core';
 import {RhythmicityBaseComponent} from '../rhythmicity-base.component';
 import {RhythmicityService} from '../rhythmicity.service';
 import {ExperimentComponentsDependencies} from '../../experiment-components.dependencies';
-import {PPAJobPaneComponent} from '../../ppa/ppa-dashboard/ppajob-pane/ppajob-pane.component';
+
 import {ExperimentalAssayView} from '../../../dom/repo/exp/experimental-assay-view';
 import {RhythmicityJobSummary} from '../rhythmicity-dom';
-import {PPAJobSummary} from '../../ppa/ppa-dom';
+
 import {RhythmicityJobPaneComponent} from './rhythmicity-job-pane/rhythmicity-job-pane.component';
+import {ConfirmDialogComponent} from '../../../shared/confirm-dialog.component';
 
 @Component({
   templateUrl: './rhythmicity-dashboard.component.html',
   styles: []
 })
 export class RhythmicityDashboardComponent extends RhythmicityBaseComponent {
+
+  // the dialogs are shared with the children jobs panes
+  @ViewChild('confirmDialog', { static: false })
+  confirmDialog: ConfirmDialogComponent;
 
   jobs: RhythmicityJobSummary[];
   jobsIds: string[];

@@ -17,6 +17,16 @@
   </div>
   <div class="panel-body">
     <div class="clearfix">
+
+      <div *ngIf="assay.security.canWrite" class="pull-right">
+        <button type="button" class="btn btn-danger btn-sm" (click)="delete()">
+          <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+        </button>
+        <button type="button" class="btn btn-primary btn-sm" (click)="export()">
+          <span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span>
+        </button>
+      </div>
+
       {{job.parameters.PARAMS_SUMMARY}}
       <div *ngIf="job.jobStatus.message && job.jobStatus.message != 'OK'" class="text-danger" style="word-wrap: break-word;"><br>ERROR:
         {{job.jobStatus.message}}

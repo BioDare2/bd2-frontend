@@ -1,14 +1,14 @@
-import {Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges} from '@angular/core';
+import {Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges} from '@angular/core';
 import {ExperimentalAssayView} from '../../../../dom/repo/exp/experimental-assay-view';
 import {FeedbackService} from '../../../../feedback/feedback.service';
 import {RhythmicityService} from '../../rhythmicity.service';
 import {BehaviorSubject, Observable, timer} from 'rxjs';
-import {BD2eJTKRes, JobResults, RhythmicityJobSummary, TSResult} from '../../rhythmicity-dom';
+import {BD2eJTKRes, RhythmicityJobSummary, TSResult} from '../../rhythmicity-dom';
 import {LocalDateTime} from '../../../../dom/repo/shared/dates';
-import {distinct, filter, map, switchMap} from 'rxjs/operators';
-import {PPAJobSummary} from '../../../ppa/ppa-dom';
-import {combineLatest} from 'rxjs/internal/observable/combineLatest';
+import {distinct, filter, map, switchMap, combineLatest} from 'rxjs/operators';
+
 import {RhythmicityResultsMDTableDataSource} from './rhythmicity-results-mdtable/rhythmicity-results-mdtable-datasource';
+import {ConfirmDialogComponent} from '../../../../shared/confirm-dialog.component';
 
 @Component({
   selector: 'bd2-rhythmicity-job-pane',
@@ -23,6 +23,12 @@ export class RhythmicityJobPaneComponent implements OnInit, OnChanges, OnDestroy
 
   @Input()
   assay: ExperimentalAssayView;
+
+  @Input()
+  confirmDialog: ConfirmDialogComponent;
+
+  @Output()
+  deleted = new EventEmitter<RhythmicityJobSummary>();
 
   private _expanded = false;
 
@@ -83,6 +89,42 @@ export class RhythmicityJobPaneComponent implements OnInit, OnChanges, OnDestroy
     }
 
   }
+
+  export() {
+
+  }
+
+  delete() {
+    // in case they change when dialog is on
+    const exp = this.assay;
+    const job = this.job;
+
+    if (this.confirmDialog) {
+      this.confirmDialog.ask('Do you want to delete analysis: ' + job.jobId,
+        job.parameters.PARAMS_SUMMARY
+      ).then(ans => {
+        if (ans) {
+          this.doDelete(exp, job.jobId);
+        }
+      });
+    } else {
+      console.log('Confirmation dialog missing on job pane');
+      this.doDelete(exp, job.jobId);
+    }
+  }
+
+  doDelete(exp: ExperimentalAssayView, jobId: string) {
+    // console.log("Delete");
+    this.rhythmicityService.deleteJob(exp, jobId)
+      .subscribe(
+        job => {
+        this.deleted.next(job);
+        this.feedback.success('Job: ' + job.jobId + ' deleted');
+      }, reason => {
+        this.feedback.error(reason);
+      });
+  }
+
 
   initResultsSource() {
     const dataSource = new RhythmicityResultsMDTableDataSource(this.assayJob$, this.rhythmicityService);
