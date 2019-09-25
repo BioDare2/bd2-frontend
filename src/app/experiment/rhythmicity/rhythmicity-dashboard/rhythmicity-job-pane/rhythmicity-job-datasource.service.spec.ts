@@ -176,11 +176,10 @@ fdescribe('RhythmicityJobDatasourceService', () => {
     expect(resErr).toBeUndefined();
     expect(resIsRun).toEqual(false);
     expect(err).toBeUndefined();
+    expect(service.currentJob).toBe(job);
+    expect(service.currentAssay).toBe(assay);
 
-    // @ts-ignore
-    expect(service.job).toBe(job);
-    // @ts-ignore
-    expect(service.assay).toBe(assay);
+
 
   }));
 

@@ -22,8 +22,8 @@ export class RhythmicityJobDatasourceService {
   private readonly refresh$ = new BehaviorSubject<boolean>(false);
   private readonly job$ = new BehaviorSubject<RhythmicityJobSummary>(null);
 
-  private assay: ExperimentalAssayView;
-  private job: RhythmicityJobSummary;
+  currentAssay: ExperimentalAssayView;
+  currentJob: RhythmicityJobSummary;
 
   private RELOAD_INT = 10 * 1000; // 10 s
   private MAX_RELOAD_INT = 60 * 1000; // 1 minute
@@ -47,7 +47,7 @@ export class RhythmicityJobDatasourceService {
   }
 
   assayJob(assayJobId: [ExperimentalAssayView, string]) {
-    console.log("JS assayJob", assayJobId);
+    console.log('JS assayJob', assayJobId);
     if (assayJobId && assayJobId[0] && assayJobId[1]) {
       this.assayJob$.next(assayJobId);
     }
@@ -77,8 +77,8 @@ export class RhythmicityJobDatasourceService {
 
     timer(this.reloadInterval(job)).subscribe(
       v => {
-        if (!this.job || (job.jobId === this.job.jobId)) {
-          this.loadJob([this.assay, job.jobId]);
+        if (!this.currentJob || (job.jobId === this.currentJob.jobId)) {
+          this.loadJob([this.currentAssay, job.jobId]);
         } else {
           console.log('Disabled reload as job has changed');
         }
@@ -127,13 +127,13 @@ export class RhythmicityJobDatasourceService {
 
   private loadJob([assay, jobId]: [ExperimentalAssayView, string]) {
 
-    console.log("Loading job", jobId);
+    console.log('Loading job', jobId);
     if (assay && jobId) {
       this.rhythmicityService.getJob(assay.id, jobId).subscribe(
         job => {
           if (job) {
-            this.job = job;
-            this.assay = assay;
+            this.currentJob = job;
+            this.currentAssay = assay;
             this.job$.next(job);
             this.isRunning$.next(this.isRunning(job));
           } else {

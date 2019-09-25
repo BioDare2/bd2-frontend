@@ -34,7 +34,7 @@ describe('RhythmicityResultsMDTableComponent', () => {
       'getResults'
     ]);
 
-    //const job$ = new Subject<[ExperimentalAssayView, RhythmicityJobSummary]>();
+    // const job$ = new Subject<[ExperimentalAssayView, RhythmicityJobSummary]>();
     const dataSource = new RhythmicityResultsMDTableDataSource(rhythmicityService);
     component.dataSource = dataSource;
     fixture.detectChanges();

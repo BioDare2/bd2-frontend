@@ -46,21 +46,21 @@ export class RhythmicityJobPaneComponent implements OnInit, OnChanges, OnDestroy
 
   dataSource: RhythmicityResultsMDTableDataSource;
 
-  job: RhythmicityJobSummary;
+  // job: RhythmicityJobSummary;
 
   // jobStream = new BehaviorSubject<RhythmicityJobSummary>(null);
   expandedToogleStream = new BehaviorSubject<boolean>(false);
 
 
-  assayJob$ = new BehaviorSubject<[ExperimentalAssayView, RhythmicityJobSummary]>([null, null]);
+  // assayJob$ = new BehaviorSubject<[ExperimentalAssayView, RhythmicityJobSummary]>([null, null]);
 
-  dots = '';
+  // dots = '';
 
-  retries = 0;
-  RETRY_INT = 1000;
-  MAX_TRIES = (10 * 60 * 1000) / this.RETRY_INT;
+  // retries = 0;
+  // RETRY_INT = 1000;
+  // MAX_TRIES = (10 * 60 * 1000) / this.RETRY_INT;
 
-  indResults: TSResult<BD2eJTKRes>[];
+  // indResults: TSResult<BD2eJTKRes>[];
 
   constructor(private rhythmicityService: RhythmicityService,
               private rhythmicityJobDatasource: RhythmicityJobDatasourceService,
@@ -101,7 +101,8 @@ export class RhythmicityJobPaneComponent implements OnInit, OnChanges, OnDestroy
   delete() {
     // in case they change when dialog is on
     const exp = this.assay;
-    const job = this.job;
+    // const job = this.job;
+    const job = this.rhythmicityJobDatasource.currentJob;
 
     if (this.confirmDialog) {
       this.confirmDialog.ask('Do you want to delete analysis: ' + job.jobId,
@@ -115,6 +116,27 @@ export class RhythmicityJobPaneComponent implements OnInit, OnChanges, OnDestroy
       console.log('Confirmation dialog missing on job pane');
       this.doDelete(exp, job.jobId);
     }
+  }
+
+  initSubscriptions() {
+
+    this.rhythmicityJobDatasource.on(true);
+    /*
+    this.rhythmicityJobDatasource.allJob$.subscribe(j => {
+      console.log("allJobs ", j);
+      this.job = j;
+      this.assayJob$.next([this.assay, this.job]);
+    }, err => console.log("Err",err));
+    */
+    /*
+    this.jobStream.subscribe(j => {
+      this.job = j;
+      this.assayJob$.next([this.assay, this.job]);
+    });
+
+    this.initCheckingRunning();
+  */
+    // this.initResults();
   }
 
   doDelete(exp: ExperimentalAssayView, jobId: string) {
@@ -132,32 +154,20 @@ export class RhythmicityJobPaneComponent implements OnInit, OnChanges, OnDestroy
 
   initResultsSource() {
     const dataSource = new RhythmicityResultsMDTableDataSource(this.rhythmicityService);
-    this.assayJob$.forEach( v => dataSource.assayJob(v));
+
+    this.rhythmicityJobDatasource.finishedJob$.forEach( job => dataSource.assayJob([
+      this.rhythmicityJobDatasource.currentAssay, job
+    ]));
+
+    // this.assayJob$.forEach( v => dataSource.assayJob(v));
+
     this.expandedToogleStream.forEach( v => {
-      this.rhythmicityJobDatasource.on(v);
       dataSource.on(v);
     });
     return dataSource;
   }
 
-  initSubscriptions() {
 
-    this.rhythmicityJobDatasource.allJob$.subscribe(j => {
-      console.log("allJobs ", j);
-      this.job = j;
-      this.assayJob$.next([this.assay, this.job]);
-    }, err => console.log("Err",err));
-
-    /*
-    this.jobStream.subscribe(j => {
-      this.job = j;
-      this.assayJob$.next([this.assay, this.job]);
-    });
-
-    this.initCheckingRunning();
-  */
-    // this.initResults();
-  }
 
   /*
   initCheckingRunning() {
@@ -232,6 +242,7 @@ export class RhythmicityJobPaneComponent implements OnInit, OnChanges, OnDestroy
     return job.jobStatus.state === 'SUCCESS';
   }
 
+  /*
   isRunning(job: RhythmicityJobSummary): boolean {
     if (!job) {
       return false;
@@ -246,7 +257,7 @@ export class RhythmicityJobPaneComponent implements OnInit, OnChanges, OnDestroy
       return true;
     }
     return false;
-  }
+  }*/
 
   setPValueThreshold(pvalue: number) {
     console.log('pvalue from widget', pvalue);

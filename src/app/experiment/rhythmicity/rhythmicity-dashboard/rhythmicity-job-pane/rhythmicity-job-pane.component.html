@@ -1,4 +1,4 @@
-<div *ngIf="job" class="panel panel-default">
+<div *ngIf="rhythmicityJobDatasource.allJob$ | async as job" class="panel panel-default">
   <div class="panel-heading clearfix">
     <div (click)="toggleExpanded()" role="button" class="pull-left">
                   <span [style.color]="expanded ? 'green' : 'red'" [style.font-size.%]="120"
@@ -7,7 +7,6 @@
       {{job.parameters.METHOD}} {{job.parameters.PRESET}}
     </div>
     <div class="pull-right">
-      {{dots}}
       {{job.jobStatus.state}}
       <a (click)="reload()" role="button">
         <span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>
@@ -33,14 +32,19 @@
       </div>
     </div>
 
-    <div [hidden]="!expanded || !isFinished(job)">
+    <div [hidden]="!expanded">
 
       <hr>
-      <bd2-pvalue-form (pvalue$)="setPValueThreshold($event)">
-      </bd2-pvalue-form>
-      <hr>
+      <div *ngIf="rhythmicityJobDatasource.isRunning$ | async; else finished">
+        Job is still running, it may take up to 10 minutes to test for rhythmicity
+      </div>
+      <ng-template #finished>
+        <bd2-pvalue-form (pvalue$)="setPValueThreshold($event)">
+        </bd2-pvalue-form>
+        <hr>
 
-      <bd2-rhythmicity-results-mdtable *ngIf="dataSource" [dataSource]="dataSource"></bd2-rhythmicity-results-mdtable>
+        <bd2-rhythmicity-results-mdtable *ngIf="dataSource" [dataSource]="dataSource"></bd2-rhythmicity-results-mdtable>
+      </ng-template>
 
       <!-- <bd2-rhythmicity-results-table [results]="indResults">
       </bd2-rhythmicity-results-table> -->

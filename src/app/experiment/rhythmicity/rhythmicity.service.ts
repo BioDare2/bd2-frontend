@@ -3,7 +3,7 @@ import {BioDareRestService} from '../../backend/biodare-rest.service';
 import {ExperimentalAssayView} from '../../dom/repo/exp/experimental-assay-view';
 import {BD2eJTKRes, JobResults, RhythmicityJobSummary, RhythmicityRequest, TSResult} from './rhythmicity-dom';
 import {Observable} from 'rxjs';
-import {PPAJobSummary} from "../ppa/ppa-dom";
+import {PPAJobSummary} from '../ppa/ppa-dom';
 
 @Injectable({
   providedIn: 'root'
