@@ -1,6 +1,6 @@
-import {BD2eJTKRes, JobResults, JobStatus, JTKPattern, RhythmicityJobSummary, TSResult} from '../../../rhythmicity-dom';
+import {BD2eJTKRes, JobResults, JobStatus, JTKPattern, RhythmicityJobSummary, TSResult} from '../../rhythmicity-dom';
 import {Observable, of, Subject, throwError} from 'rxjs';
-import {ExperimentalAssayView} from '../../../../../dom/repo/exp/experimental-assay-view';
+import {ExperimentalAssayView} from '../../../../dom/repo/exp/experimental-assay-view';
 import {RhythmicityResultsMDTableDataSource} from './rhythmicity-results-mdtable-datasource';
 import {PageEvent} from '@angular/material/paginator';
 import {Sort} from '@angular/material/sort';
@@ -11,7 +11,7 @@ describe('RhythmicityResultsMDTableDataSource', () => {
   let results: TSResult<BD2eJTKRes>[];
   let jobRes: JobResults<BD2eJTKRes>;
   let rhythmicityService;
-  let job$: Subject<[ExperimentalAssayView, RhythmicityJobSummary]>;
+  // let job$: Subject<[ExperimentalAssayView, RhythmicityJobSummary]>;
 
   let service: RhythmicityResultsMDTableDataSource;
 
@@ -61,9 +61,9 @@ describe('RhythmicityResultsMDTableDataSource', () => {
       'getResults'
     ]);
 
-    job$ = new Subject<[ExperimentalAssayView, RhythmicityJobSummary]>();
+    // job$ = new Subject<[ExperimentalAssayView, RhythmicityJobSummary]>();
 
-    service = new RhythmicityResultsMDTableDataSource(job$, rhythmicityService);
+    service = new RhythmicityResultsMDTableDataSource(rhythmicityService);
 
   });
 
@@ -71,7 +71,7 @@ describe('RhythmicityResultsMDTableDataSource', () => {
     expect(results.length).toBe(3);
     expect(jobRes).toBeTruthy();
     expect(jobRes.results).toBe(results);
-    expect(job$).toBeTruthy();
+    // expect(job$).toBeTruthy();
     expect(rhythmicityService).toBeTruthy();
 
     expect(service).toBeTruthy();
@@ -178,6 +178,138 @@ describe('RhythmicityResultsMDTableDataSource', () => {
 
   });
 
+  it('initJobs gives jobs that only emits when on', fakeAsync( () => {
+
+    const job = new RhythmicityJobSummary();
+    job.jobStatus = new JobStatus();
+    job.jobStatus.state = 'SUCCESS';
+    job.jobId = '123';
+
+    const assay = {id: 2} as ExperimentalAssayView;
+
+    // @ts-ignore
+    const job$ = service.initJobs();
+
+    let val;
+    let err;
+    let iter = 0;
+
+    job$.subscribe( v => {
+      val = v;
+      iter++;
+    }, e => err = e);
+
+    tick();
+    expect(val).toBeUndefined();
+    expect(err).toBeUndefined();
+
+    service.assayJob([assay, job]);
+    tick();
+    expect(val).toBeUndefined();
+    expect(err).toBeUndefined();
+
+    service.on(true);
+    expect(val).toEqual([assay, job]);
+    expect(err).toBeUndefined();
+  }));
+
+  it('initJobs gives jobs that only emits distinct', fakeAsync( () => {
+
+    let job = new RhythmicityJobSummary();
+    job.jobStatus = new JobStatus();
+    job.jobStatus.state = 'SUCCESS';
+    job.jobId = '123';
+
+    const assay = {id: 2} as ExperimentalAssayView;
+
+    // @ts-ignore
+    const job$ = service.initJobs();
+
+    let val;
+    let err;
+    let iter = 0;
+
+    job$.subscribe( v => {
+      val = v;
+      iter++;
+    }, e => err = e);
+
+    service.on(true);
+
+
+    tick();
+    expect(val).toBeUndefined();
+    expect(err).toBeUndefined();
+
+    const p: [ExperimentalAssayView, RhythmicityJobSummary]  = [assay, job];
+    service.assayJob(p);
+    tick();
+    expect(val).toEqual([assay, job]);
+    expect(val).toBe(p);
+    expect(err).toBeUndefined();
+    expect(iter).toBe(1);
+
+    val = undefined;
+    service.assayJob([assay, job]);
+    tick();
+    expect(val).toBeUndefined();
+    expect(err).toBeUndefined();
+    expect(iter).toBe(1);
+
+    job = new RhythmicityJobSummary();
+    job.jobStatus = new JobStatus();
+    job.jobStatus.state = 'SUCCESS';
+    job.jobId = '124';
+
+    service.assayJob([assay, job]);
+    tick();
+    expect(val).toEqual([assay, job]);
+    expect(err).toBeUndefined();
+    expect(iter).toBe(2);
+  }));
+
+  it('initJobs gives jobs that emits last if refresh is called', fakeAsync( () => {
+
+    const job = new RhythmicityJobSummary();
+    job.jobStatus = new JobStatus();
+    job.jobStatus.state = 'SUCCESS';
+    job.jobId = '123';
+
+    const assay = {id: 2} as ExperimentalAssayView;
+
+    // @ts-ignore
+    const job$ = service.initJobs();
+    service.on(true);
+
+    let val;
+    let err;
+    let iter = 0;
+
+    job$.subscribe( v => {
+      val = v;
+      iter++;
+    }, e => err = e);
+
+    tick();
+    expect(val).toBeUndefined();
+    expect(err).toBeUndefined();
+
+    const p: [ExperimentalAssayView, RhythmicityJobSummary]  = [assay, job];
+    service.assayJob(p);
+    tick();
+    expect(val).toEqual([assay, job]);
+    expect(val).toBe(p);
+    expect(err).toBeUndefined();
+    expect(iter).toBe(1);
+
+    service.refresh();
+    tick();
+
+    expect(val).toBe(p);
+    expect(err).toBeUndefined();
+    expect(iter).toBe(2);
+  }));
+
   it('initData gives observable that fetches from the service, labels, and ranks', fakeAsync(() => {
 
     rhythmicityService.getResults.and.returnValue(of(jobRes));
@@ -189,7 +321,7 @@ describe('RhythmicityResultsMDTableDataSource', () => {
 
     const assay = {id: 2} as ExperimentalAssayView;
 
-    const data$ = service.initData(job$);
+    const data$ = service.initData();
 
     let data: TSResult<BD2eJTKRes>[];
     let err;
@@ -201,15 +333,15 @@ describe('RhythmicityResultsMDTableDataSource', () => {
     expect(err).toBeUndefined();
 
     // works without ticks why?
-    job$.next([assay, job]);
-    service.on$.next(true);
+    service.assayJob([assay, job]);
+    service.on(true);
 
     expect(data).toBe(jobRes.results);
     expect(err).toBeUndefined();
     // cause the pvalue emits 0 to start with
     expect(data.map(r => r.result.rhythmic)).toEqual([false, false, false]);
 
-    service.pvalue$.next(0.5);
+    service.pvalue(0.5);
     expect(data).toBe(jobRes.results);
     expect(err).toBeUndefined();
     expect(data.map(r => r.result.rhythmic)).toEqual([true, true, true]);
@@ -229,7 +361,7 @@ describe('RhythmicityResultsMDTableDataSource', () => {
 
     const assay = {id: 2} as ExperimentalAssayView;
 
-    const data$ = service.initData(job$);
+    const data$ = service.initData();
 
     let data: TSResult<BD2eJTKRes>[];
     let err;
@@ -238,13 +370,13 @@ describe('RhythmicityResultsMDTableDataSource', () => {
 
     rhythmicityService.getResults.and.returnValue(throwError('Should not be called'));
     // works without ticks why?
-    job$.next([assay, job]);
+    service.assayJob([assay, job]);
 
     expect(data).toBeUndefined();
     expect(err).toBeUndefined();
 
     rhythmicityService.getResults.and.returnValue(of(jobRes));
-    service.on$.next(true);
+    service.on(true);
 
     tick();
 
@@ -276,8 +408,8 @@ describe('RhythmicityResultsMDTableDataSource', () => {
     expect(data).toBeUndefined();
     expect(err).toBeUndefined();
 
-    job$.next([assay, job]);
-    service.on$.next(true);
+    service.assayJob([assay, job]);
+    service.on(true);
 
     tick();
     // as no page no sorting
@@ -289,8 +421,8 @@ describe('RhythmicityResultsMDTableDataSource', () => {
       direction: 'asc'
     };
 
-    service.pvalue$.next(0.5);
-    service.sort$.next(sort);
+    service.pvalue(0.5);
+    service.sort(sort);
 
     tick();
     // as no page
@@ -301,7 +433,7 @@ describe('RhythmicityResultsMDTableDataSource', () => {
     page.pageSize = 5;
     page.pageIndex = 0;
 
-    service.page$.next(page);
+    service.page(page);
     tick();
     expect(err).toBeUndefined();
     expect(data).toEqual(jobRes.results);

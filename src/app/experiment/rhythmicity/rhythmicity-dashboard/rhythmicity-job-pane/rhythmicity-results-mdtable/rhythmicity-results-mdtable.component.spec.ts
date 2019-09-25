@@ -5,7 +5,7 @@ import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
 
 import { RhythmicityResultsMDTableComponent } from './rhythmicity-results-mdtable.component';
-import {RhythmicityResultsMDTableDataSource} from './rhythmicity-results-mdtable-datasource';
+import {RhythmicityResultsMDTableDataSource} from '../rhythmicity-results-mdtable-datasource';
 import {Subject} from 'rxjs';
 import {ExperimentalAssayView} from '../../../../../dom/repo/exp/experimental-assay-view';
 import {RhythmicityJobSummary} from '../../../rhythmicity-dom';
@@ -34,8 +34,8 @@ describe('RhythmicityResultsMDTableComponent', () => {
       'getResults'
     ]);
 
-    const job$ = new Subject<[ExperimentalAssayView, RhythmicityJobSummary]>();
-    const dataSource = new RhythmicityResultsMDTableDataSource(job$, rhythmicityService);
+    //const job$ = new Subject<[ExperimentalAssayView, RhythmicityJobSummary]>();
+    const dataSource = new RhythmicityResultsMDTableDataSource(rhythmicityService);
     component.dataSource = dataSource;
     fixture.detectChanges();
   });

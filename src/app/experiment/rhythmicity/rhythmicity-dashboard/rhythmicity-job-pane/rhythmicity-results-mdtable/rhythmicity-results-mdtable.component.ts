@@ -2,7 +2,7 @@ import {AfterViewInit, Component, Input, OnInit, ViewChild} from '@angular/core'
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import {MatSort, Sort} from '@angular/material/sort';
 import { MatTable } from '@angular/material/table';
-import { RhythmicityResultsMDTableDataSource } from './rhythmicity-results-mdtable-datasource';
+import { RhythmicityResultsMDTableDataSource } from '../rhythmicity-results-mdtable-datasource';
 import {BD2eJTKRes, TSResult} from '../../../rhythmicity-dom';
 import {Subject} from 'rxjs';
 
@@ -43,16 +43,16 @@ export class RhythmicityResultsMDTableComponent implements AfterViewInit, OnInit
 
   ngAfterViewInit() {
 
-    this.sort.sortChange.forEach( sort => this.dataSource.sort$.next(sort));
-    this.paginator.page.forEach( page => this.dataSource.page$.next(page));
+    this.sort.sortChange.forEach( sort => this.dataSource.sort(sort));
+    this.paginator.page.forEach( page => this.dataSource.page(page));
 
     const firstSort: Sort = { active: this.sort.active, direction: this.sort.direction};
-    this.dataSource.sort$.next(firstSort);
+    this.dataSource.sort(firstSort);
 
     const firstPage = new PageEvent();
     firstPage.pageSize = this.paginator.pageSize;
     firstPage.pageIndex = this.paginator.pageIndex;
-    this.dataSource.page$.next(firstPage);
+    this.dataSource.page(firstPage);
 
     this.table.dataSource = this.dataSource;
   }

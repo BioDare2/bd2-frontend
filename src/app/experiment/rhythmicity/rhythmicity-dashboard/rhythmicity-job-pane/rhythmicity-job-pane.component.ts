@@ -7,7 +7,7 @@ import {BD2eJTKRes, RhythmicityJobSummary, TSResult} from '../../rhythmicity-dom
 import {LocalDateTime} from '../../../../dom/repo/shared/dates';
 import {distinct, filter, map, switchMap, combineLatest} from 'rxjs/operators';
 
-import {RhythmicityResultsMDTableDataSource} from './rhythmicity-results-mdtable/rhythmicity-results-mdtable-datasource';
+import {RhythmicityResultsMDTableDataSource} from './rhythmicity-results-mdtable-datasource';
 import {ConfirmDialogComponent} from '../../../../shared/confirm-dialog.component';
 
 @Component({
@@ -127,8 +127,9 @@ export class RhythmicityJobPaneComponent implements OnInit, OnChanges, OnDestroy
 
 
   initResultsSource() {
-    const dataSource = new RhythmicityResultsMDTableDataSource(this.assayJob$, this.rhythmicityService);
-    this.expandedToogleStream.forEach( v => dataSource.on$.next(v));
+    const dataSource = new RhythmicityResultsMDTableDataSource(this.rhythmicityService);
+    this.assayJob$.forEach( v => dataSource.assayJob(v));
+    this.expandedToogleStream.forEach( v => dataSource.on(v));
     return dataSource;
   }
 
@@ -233,7 +234,7 @@ export class RhythmicityJobPaneComponent implements OnInit, OnChanges, OnDestroy
 
   setPValueThreshold(pvalue: number) {
     console.log('pvalue from widget', pvalue);
-    this.dataSource.pvalue$.next(pvalue);
+    this.dataSource.pvalue(pvalue);
 
   }
 }
