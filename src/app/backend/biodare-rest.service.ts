@@ -351,11 +351,11 @@ export class BioDareRestService {
     return this.OKJson(this.http.get(url, options)).toPromise();
   }
 
-  rhythmicityJob(expId: number, jobId: string): Promise<any> {
+  rhythmicityJob(expId: number, jobId: string): Observable<any> {
     const options = this.makeOptions();
     const url = this.endPoints.experiment_url + '/' + expId + this.endPoints.rhythmicity_job + '/' + jobId;
 
-    return this.OKJson(this.http.get(url, options)).toPromise();
+    return this.OKJson(this.http.get(url, options));
   }
 
   rhythmicityResults(expId: number, jobId: string): Observable<any> {

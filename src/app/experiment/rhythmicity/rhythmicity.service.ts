@@ -17,7 +17,7 @@ export class RhythmicityService {
     return this.BD2REST.rhythmicityNew(exp, request);
   }
 
-  getJob(assayId: number, jobId: string): Promise<RhythmicityJobSummary> {
+  getJob(assayId: number, jobId: string): Observable<RhythmicityJobSummary> {
     return this.BD2REST.rhythmicityJob(assayId, jobId);
   }
 

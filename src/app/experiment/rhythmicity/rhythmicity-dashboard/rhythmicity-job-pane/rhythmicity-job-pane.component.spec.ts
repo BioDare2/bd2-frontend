@@ -7,7 +7,7 @@ import {PValueFormComponent} from './pvalue-form/pvalue-form.component';
 import {RhythmicityResultsMDTableComponent} from './rhythmicity-results-mdtable/rhythmicity-results-mdtable.component';
 import {MatFormFieldModule, MatPaginatorModule, MatRadioModule, MatSortModule, MatTableModule} from '@angular/material';
 
-describe('RhythmicityJobPaneComponent', () => {
+fdescribe('RhythmicityJobPaneComponent', () => {
   let component: RhythmicityJobPaneComponent;
   let fixture: ComponentFixture<RhythmicityJobPaneComponent>;
 

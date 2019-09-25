@@ -9,11 +9,13 @@ import {distinct, filter, map, switchMap, combineLatest} from 'rxjs/operators';
 
 import {RhythmicityResultsMDTableDataSource} from './rhythmicity-results-mdtable-datasource';
 import {ConfirmDialogComponent} from '../../../../shared/confirm-dialog.component';
+import {RhythmicityJobDatasourceService} from './rhythmicity-job-datasource.service';
 
 @Component({
   selector: 'bd2-rhythmicity-job-pane',
   templateUrl: './rhythmicity-job-pane.component.html',
-  styles: []
+  styles: [],
+  providers: [RhythmicityJobDatasourceService]
 })
 export class RhythmicityJobPaneComponent implements OnInit, OnChanges, OnDestroy {
 
@@ -46,7 +48,7 @@ export class RhythmicityJobPaneComponent implements OnInit, OnChanges, OnDestroy
 
   job: RhythmicityJobSummary;
 
-  jobStream = new BehaviorSubject<RhythmicityJobSummary>(null);
+  // jobStream = new BehaviorSubject<RhythmicityJobSummary>(null);
   expandedToogleStream = new BehaviorSubject<boolean>(false);
 
 
@@ -61,6 +63,7 @@ export class RhythmicityJobPaneComponent implements OnInit, OnChanges, OnDestroy
   indResults: TSResult<BD2eJTKRes>[];
 
   constructor(private rhythmicityService: RhythmicityService,
+              private rhythmicityJobDatasource: RhythmicityJobDatasourceService,
               private feedback: FeedbackService) { }
 
   ngOnInit() {
@@ -71,9 +74,9 @@ export class RhythmicityJobPaneComponent implements OnInit, OnChanges, OnDestroy
   }
 
   ngOnDestroy() {
-    if (this.jobStream) {
-      this.jobStream.complete();
-    }
+    // if (this.jobStream) {
+    //  this.jobStream.complete();
+    // }
     if (this.expandedToogleStream) {
       this.expandedToogleStream.complete();
     }
@@ -83,8 +86,9 @@ export class RhythmicityJobPaneComponent implements OnInit, OnChanges, OnDestroy
 
     if (changes.jobId || changes.assay) {
       if (this.jobId && this.assay) {
-        this.retries = 0;
-        this.loadJob(this.jobId, this.assay.id);
+        // this.retries = 0;
+        // this.loadJob(this.jobId, this.assay.id);
+        this.rhythmicityJobDatasource.assayJob([this.assay, this.jobId]);
       }
     }
 
@@ -129,21 +133,33 @@ export class RhythmicityJobPaneComponent implements OnInit, OnChanges, OnDestroy
   initResultsSource() {
     const dataSource = new RhythmicityResultsMDTableDataSource(this.rhythmicityService);
     this.assayJob$.forEach( v => dataSource.assayJob(v));
-    this.expandedToogleStream.forEach( v => dataSource.on(v));
+    this.expandedToogleStream.forEach( v => {
+      this.rhythmicityJobDatasource.on(v);
+      dataSource.on(v);
+    });
     return dataSource;
   }
 
   initSubscriptions() {
+
+    this.rhythmicityJobDatasource.allJob$.subscribe(j => {
+      console.log("allJobs ", j);
+      this.job = j;
+      this.assayJob$.next([this.assay, this.job]);
+    }, err => console.log("Err",err));
+
+    /*
     this.jobStream.subscribe(j => {
       this.job = j;
       this.assayJob$.next([this.assay, this.job]);
     });
 
     this.initCheckingRunning();
-
+  */
     // this.initResults();
   }
 
+  /*
   initCheckingRunning() {
     const runningJobs = this.jobStream.pipe(
       filter(job => this.isRunning(job)));
@@ -170,19 +186,19 @@ export class RhythmicityJobPaneComponent implements OnInit, OnChanges, OnDestroy
           });
       }
     );
-  }
+  }*/
 
 
 
   loadJob(jobId: string, assayId: number, reloaded?: boolean) {
-    this.rhythmicityService.getJob(assayId, jobId)
+    /*this.rhythmicityService.getJob(assayId, jobId)
       .then(job => {
         job.reloaded = reloaded;
         this.jobStream.next(job);
       })
       .catch(reason => {
         this.feedback.error(reason);
-      });
+      });*/
   }
 
   /*
