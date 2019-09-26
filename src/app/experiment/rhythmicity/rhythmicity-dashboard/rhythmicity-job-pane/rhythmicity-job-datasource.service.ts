@@ -46,6 +46,15 @@ export class RhythmicityJobDatasourceService {
     this.initJobStreams();
   }
 
+  close() {
+    this.assayJob$.complete();
+    this.on$.complete();
+    this.refresh$.complete();
+    this.job$.complete();
+    this.isRunning$.complete();
+    this.error$.complete();
+  }
+
   assayJob(assayJobId: [ExperimentalAssayView, string]) {
     console.log('JS assayJob', assayJobId);
     if (assayJobId && assayJobId[0] && assayJobId[1]) {
@@ -140,7 +149,10 @@ export class RhythmicityJobDatasourceService {
             console.log('Loaded null job');
           }
         },
-         err => this.error$.next(err)
+         err => {
+          console.log('Could not load job', err);
+          this.error$.next(err);
+         }
       );
     }
   }

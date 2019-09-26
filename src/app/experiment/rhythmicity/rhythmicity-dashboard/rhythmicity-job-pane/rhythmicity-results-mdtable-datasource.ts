@@ -6,6 +6,7 @@ import {Observable, merge, combineLatest, BehaviorSubject, Subject, of} from 'rx
 import {BD2eJTKRes, JobResults, RhythmicityJobSummary, TSResult} from '../../rhythmicity-dom';
 import {RhythmicityService} from '../../rhythmicity.service';
 import {ExperimentalAssayView} from '../../../../dom/repo/exp/experimental-assay-view';
+import {Injectable} from '@angular/core';
 
 
 /**
@@ -13,6 +14,7 @@ import {ExperimentalAssayView} from '../../../../dom/repo/exp/experimental-assay
  * encapsulate all logic for fetching and manipulating the displayed data
  * (including sorting, pagination, and filtering).
  */
+@Injectable()
 export class RhythmicityResultsMDTableDataSource extends DataSource<TSResult<BD2eJTKRes>> {
 
   readonly allData$: Observable<TSResult<BD2eJTKRes>[]>;
@@ -20,7 +22,9 @@ export class RhythmicityResultsMDTableDataSource extends DataSource<TSResult<BD2
   dataLength = 0;
   data: TSResult<BD2eJTKRes>[] = [];
 
-  private job$ = new BehaviorSubject<[ExperimentalAssayView, RhythmicityJobSummary]>(null);
+  readonly error$ = new Subject<any>();
+
+  private readonly job$ = new BehaviorSubject<[ExperimentalAssayView, RhythmicityJobSummary]>(null);
   private readonly pvalue$ = new BehaviorSubject<number>(0);
   private readonly page$ = new BehaviorSubject<PageEvent>(null);
   private readonly sort$ = new BehaviorSubject<Sort>(null);
@@ -31,7 +35,19 @@ export class RhythmicityResultsMDTableDataSource extends DataSource<TSResult<BD2
   constructor(private rhythmicityService: RhythmicityService) {
     super();
 
-    this.allData$ = this.initData();
+    this.allData$ = this.initResults();
+  }
+
+  close() {
+    this.job$.complete();
+    this.pvalue$.complete();
+    this.page$.complete();
+    this.sort$.complete();
+    this.on$.complete();
+    this.refresh$.complete();
+    this.error$.complete();
+    this.data = [];
+    this.dataLength = 0;
   }
 
   assayJob(def: [ExperimentalAssayView, RhythmicityJobSummary]) {
@@ -62,30 +78,6 @@ export class RhythmicityResultsMDTableDataSource extends DataSource<TSResult<BD2
     this.refresh$.next(true);
   }
 
-  initData(): Observable<TSResult<BD2eJTKRes>[]> {
-
-    const newJob$ = this.initJobs();
-
-    const results = newJob$.pipe(
-      // tap( p => console.log('Job Pair', p)),
-      switchMap(([assay, job]) => this.isFinished(job) ? this.loadResults(assay, job) : of(new JobResults<BD2eJTKRes>())),
-      tap( res => this.labelPatterns(res))
-    );
-
-    const rankedResults = combineLatest( [results, this.pvalue$]).pipe(
-      // tap( p => console.log('Results pvalue', p)),
-      map(([jobRes, pvalue]) => {
-        this.rankResults(jobRes, pvalue);
-        return jobRes.results;
-      } ),
-      tap(d => {
-        this.dataLength = d.length;
-        this.data = d;
-      })
-    );
-
-    return rankedResults;
-  }
 
   /**
    * Connect this data source to the table. The table will only update when
@@ -117,6 +109,31 @@ export class RhythmicityResultsMDTableDataSource extends DataSource<TSResult<BD2
    * any open connections or free any held resources that were set up during connect.
    */
   disconnect() {}
+
+  initResults(): Observable<TSResult<BD2eJTKRes>[]> {
+
+    const newJob$ = this.initJobs();
+
+    const results = newJob$.pipe(
+      // tap( p => console.log('Job Pair', p)),
+      switchMap(([assay, job]) => this.isFinished(job) ? this.loadResults(assay, job) : of(new JobResults<BD2eJTKRes>())),
+      tap( res => this.labelPatterns(res))
+    );
+
+    const rankedResults = combineLatest( [results, this.pvalue$]).pipe(
+      // tap( p => console.log('Results pvalue', p)),
+      map(([jobRes, pvalue]) => {
+        this.rankResults(jobRes, pvalue);
+        return jobRes.results;
+      } ),
+      tap(d => {
+        this.dataLength = d.length;
+        this.data = d;
+      })
+    );
+
+    return rankedResults;
+  }
 
   isFinished(job: RhythmicityJobSummary) {
     if (!job) { return false; }
@@ -173,6 +190,7 @@ export class RhythmicityResultsMDTableDataSource extends DataSource<TSResult<BD2
       tap( r => console.log('Fetching results', r)),
       catchError( err => {
         console.error('Could not load results', err);
+        this.error$.next(err);
         return of(new JobResults<BD2eJTKRes>());
       })
     );

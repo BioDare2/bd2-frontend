@@ -328,4 +328,30 @@ describe('RhythmicityJobDatasourceService', () => {
     expect(finished).toBe(job);
     expect(err).toBeUndefined();
   }));
+
+  it('close completes the stream', fakeAsync(() => {
+
+
+    let running;
+    let cRunning;
+    let finished;
+    let cFinished;
+    let errors;
+    let cErrors;
+    let err;
+
+    service.runningJob$.subscribe( v => running = v, e => err = e, () => cRunning = true);
+    service.finishedJob$.subscribe( v => finished = v, e => err = e, () => cFinished = true);
+    service.error$.subscribe( v => errors = v, e => err = e, () => cErrors = true);
+
+    service.close();
+    // tick();
+
+    expect(cRunning).toBe(true);
+    expect(cFinished).toBe(true);
+    expect(cErrors).toBe(true);
+    expect(errors).toBeUndefined();
+    expect(err).toBeUndefined();
+
+  }));
 });

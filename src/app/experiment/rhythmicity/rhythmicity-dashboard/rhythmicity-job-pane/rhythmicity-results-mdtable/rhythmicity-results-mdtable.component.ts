@@ -4,7 +4,6 @@ import {MatSort, Sort} from '@angular/material/sort';
 import { MatTable } from '@angular/material/table';
 import { RhythmicityResultsMDTableDataSource } from '../rhythmicity-results-mdtable-datasource';
 import {BD2eJTKRes, TSResult} from '../../../rhythmicity-dom';
-import {Subject} from 'rxjs';
 
 @Component({
   selector: 'bd2-rhythmicity-results-mdtable',
@@ -21,22 +20,12 @@ export class RhythmicityResultsMDTableComponent implements AfterViewInit, OnInit
   @ViewChild(MatSort, {static: false}) sort: MatSort;
   @ViewChild(MatTable, {static: false}) table: MatTable<TSResult<BD2eJTKRes>>;
 
-  @Input()
-  dataSource: RhythmicityResultsMDTableDataSource;
+  constructor(private dataSource: RhythmicityResultsMDTableDataSource) {
+
+  }
 
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
   displayedColumns = ['id', 'label', 'rhythmic', 'empp', 'tau', 'pattern'];
-
-  result$ = new Subject<TSResult<BD2eJTKRes>[]>();
-
-  @Input()
-  set results(results: TSResult<BD2eJTKRes>[]) {
-    if (results) {
-      this.result$.next(results.slice());
-    } else {
-      this.result$.next([]);
-    }
-  }
 
   ngOnInit() {
   }

@@ -321,7 +321,7 @@ describe('RhythmicityResultsMDTableDataSource', () => {
 
     const assay = {id: 2} as ExperimentalAssayView;
 
-    const data$ = service.initData();
+    const data$ = service.initResults();
 
     let data: TSResult<BD2eJTKRes>[];
     let err;
@@ -361,7 +361,7 @@ describe('RhythmicityResultsMDTableDataSource', () => {
 
     const assay = {id: 2} as ExperimentalAssayView;
 
-    const data$ = service.initData();
+    const data$ = service.initResults();
 
     let data: TSResult<BD2eJTKRes>[];
     let err;
@@ -439,6 +439,29 @@ describe('RhythmicityResultsMDTableDataSource', () => {
     expect(data).toEqual(jobRes.results);
     expect(data.map(r => r.id)).toEqual([1, 2, 3]);
 
+
+  }));
+
+  it('close completes streams', fakeAsync(() => {
+
+    let data;
+    let cData;
+    let errors;
+    let cErrors;
+    let err;
+
+    service.allData$.subscribe( v => data = v, e => err = e, () => cData = true);
+    service.error$.subscribe( v => errors = v, e => err = e, () => cErrors = true);
+
+    service.close();
+    // tick();
+
+    expect(cData).toBe(true);
+    expect(cErrors).toBe(true);
+    expect(errors).toBeUndefined();
+    expect(err).toBeUndefined();
+    expect(service.data).toEqual([]);
+    expect(service.dataLength).toEqual(0);
 
   }));
 
