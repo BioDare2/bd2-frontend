@@ -1,7 +1,7 @@
 import {BehaviorSubject, combineLatest, merge, Observable, Subject, timer} from 'rxjs';
 import {RhythmicityService} from '../../rhythmicity.service';
 import {ExperimentalAssayView} from '../../../../dom/repo/exp/experimental-assay-view';
-import {distinctUntilChanged, filter, map} from 'rxjs/operators';
+import {distinctUntilChanged, filter, flatMap, map, take} from 'rxjs/operators';
 import {RhythmicityJobSummary} from '../../rhythmicity-dom';
 import {Injectable} from '@angular/core';
 
@@ -19,7 +19,7 @@ export class RhythmicityJobDatasourceService {
   private readonly assayJob$ = new BehaviorSubject<[ExperimentalAssayView, string]>(null);
 
   private readonly on$ = new BehaviorSubject<boolean>(false);
-  private readonly refresh$ = new BehaviorSubject<boolean>(false);
+  private readonly refresh$ = new Subject<boolean>();
   private readonly job$ = new BehaviorSubject<RhythmicityJobSummary>(null);
 
   currentAssay: ExperimentalAssayView;
@@ -56,7 +56,7 @@ export class RhythmicityJobDatasourceService {
   }
 
   assayJob(assayJobId: [ExperimentalAssayView, string]) {
-    console.log('JS assayJob', assayJobId);
+    // console.log('JS assayJob', assayJobId);
     if (assayJobId && assayJobId[0] && assayJobId[1]) {
       this.assayJob$.next(assayJobId);
     }
@@ -123,20 +123,24 @@ export class RhythmicityJobDatasourceService {
         def1[1] === def2[1] && def1[0].id === def2[0].id
       ));
 
-
+    /*
     const refreshedJob$ = combineLatest([ onJob$, this.refresh$]).pipe(
       filter( ([job, isRef]) => isRef),
       map( ([job, isRef]) => job)
+    ); */
+
+    const refreshedJob2$ = this.refresh$.pipe(
+      flatMap( v => distinctJob$.pipe(take(1))),
     );
 
-    const merged = merge(distinctJob$, refreshedJob$);
+    const merged = merge(distinctJob$, refreshedJob2$);
 
     return merged;
   }
 
   private loadJob([assay, jobId]: [ExperimentalAssayView, string]) {
 
-    console.log('Loading job', jobId);
+    // console.log('Loading job', jobId);
     if (assay && jobId) {
       this.rhythmicityService.getJob(assay.id, jobId).subscribe(
         job => {

@@ -275,7 +275,7 @@ describe('RhythmicityResultsMDTableDataSource', () => {
     job.jobStatus.state = 'SUCCESS';
     job.jobId = '123';
 
-    const assay = {id: 2} as ExperimentalAssayView;
+    let assay = {id: 2} as ExperimentalAssayView;
 
     // @ts-ignore
     const job$ = service.initJobs();
@@ -294,7 +294,7 @@ describe('RhythmicityResultsMDTableDataSource', () => {
     expect(val).toBeUndefined();
     expect(err).toBeUndefined();
 
-    const p: [ExperimentalAssayView, RhythmicityJobSummary]  = [assay, job];
+    let p: [ExperimentalAssayView, RhythmicityJobSummary]  = [assay, job];
     service.assayJob(p);
     tick();
     expect(val).toEqual([assay, job]);
@@ -302,12 +302,34 @@ describe('RhythmicityResultsMDTableDataSource', () => {
     expect(err).toBeUndefined();
     expect(iter).toBe(1);
 
+    val = undefined;
     service.refresh();
     tick();
 
     expect(val).toBe(p);
     expect(err).toBeUndefined();
     expect(iter).toBe(2);
+
+    service.refresh();
+    tick();
+    expect(iter).toBe(3);
+
+    // now set new assay and recheck with refresh.
+    assay = {id: 4} as ExperimentalAssayView;
+    val = undefined;
+    p  = [assay, job];
+    service.assayJob(p);
+    tick();
+    expect(val).toEqual([assay, job]);
+    expect(val).toBe(p);
+    expect(err).toBeUndefined();
+    expect(iter).toBe(4);
+
+    val = undefined;
+    service.refresh();
+    tick();
+    expect(iter).toBe(5);
+    expect(val).toBe(p);
   }));
 
   it('initData gives observable that fetches from the service, labels, and ranks', fakeAsync(() => {
@@ -321,7 +343,8 @@ describe('RhythmicityResultsMDTableDataSource', () => {
 
     const assay = {id: 2} as ExperimentalAssayView;
 
-    const data$ = service.initResults();
+    // @ts-ignore
+    const data$ = service.results$;
 
     let data: TSResult<BD2eJTKRes>[];
     let err;
@@ -329,7 +352,7 @@ describe('RhythmicityResultsMDTableDataSource', () => {
     data$.subscribe(d => data = d, e => err = e);
 
     tick();
-    expect(data).toBeUndefined();
+    expect(data).toEqual([]);
     expect(err).toBeUndefined();
 
     // works without ticks why?
@@ -361,7 +384,8 @@ describe('RhythmicityResultsMDTableDataSource', () => {
 
     const assay = {id: 2} as ExperimentalAssayView;
 
-    const data$ = service.initResults();
+    // @ts-ignore
+    const data$ = service.results$;
 
     let data: TSResult<BD2eJTKRes>[];
     let err;
@@ -372,7 +396,7 @@ describe('RhythmicityResultsMDTableDataSource', () => {
     // works without ticks why?
     service.assayJob([assay, job]);
 
-    expect(data).toBeUndefined();
+    expect(data).toEqual([]);
     expect(err).toBeUndefined();
 
     rhythmicityService.getResults.and.returnValue(of(jobRes));
@@ -405,7 +429,7 @@ describe('RhythmicityResultsMDTableDataSource', () => {
     data$.subscribe(d => data = d, e => err = e);
 
     tick();
-    expect(data).toBeUndefined();
+    expect(data).toEqual([]);
     expect(err).toBeUndefined();
 
     service.assayJob([assay, job]);

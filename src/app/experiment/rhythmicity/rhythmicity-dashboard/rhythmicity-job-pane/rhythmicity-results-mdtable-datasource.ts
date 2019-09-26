@@ -1,7 +1,7 @@
 import { DataSource } from '@angular/cdk/collections';
 import {PageEvent} from '@angular/material/paginator';
 import {Sort} from '@angular/material/sort';
-import {catchError, distinctUntilChanged, filter, map, switchMap, tap} from 'rxjs/operators';
+import {catchError, distinctUntilChanged, filter, flatMap, map, switchMap, take, tap} from 'rxjs/operators';
 import {Observable, merge, combineLatest, BehaviorSubject, Subject, of} from 'rxjs';
 import {BD2eJTKRes, JobResults, RhythmicityJobSummary, TSResult} from '../../rhythmicity-dom';
 import {RhythmicityService} from '../../rhythmicity.service';
@@ -17,7 +17,9 @@ import {Injectable} from '@angular/core';
 @Injectable()
 export class RhythmicityResultsMDTableDataSource extends DataSource<TSResult<BD2eJTKRes>> {
 
-  readonly allData$: Observable<TSResult<BD2eJTKRes>[]>;
+  get allData$(): Observable<TSResult<BD2eJTKRes>[]> {
+    return this.results$.asObservable();
+  }
 
   dataLength = 0;
   data: TSResult<BD2eJTKRes>[] = [];
@@ -29,16 +31,18 @@ export class RhythmicityResultsMDTableDataSource extends DataSource<TSResult<BD2
   private readonly page$ = new BehaviorSubject<PageEvent>(null);
   private readonly sort$ = new BehaviorSubject<Sort>(null);
   private readonly on$ = new BehaviorSubject<boolean>(false);
-  private readonly refresh$ = new BehaviorSubject<boolean>(false);
+  private readonly refresh$ = new Subject<boolean>();
+  private readonly results$ = new BehaviorSubject<TSResult<BD2eJTKRes>[]>([]);
 
 
   constructor(private rhythmicityService: RhythmicityService) {
     super();
 
-    this.allData$ = this.initResults();
+    this.initResults();
   }
 
   close() {
+    this.results$.complete();
     this.job$.complete();
     this.pvalue$.complete();
     this.page$.complete();
@@ -110,14 +114,14 @@ export class RhythmicityResultsMDTableDataSource extends DataSource<TSResult<BD2
    */
   disconnect() {}
 
-  initResults(): Observable<TSResult<BD2eJTKRes>[]> {
+  initResults() {
 
     const newJob$ = this.initJobs();
 
     const results = newJob$.pipe(
       // tap( p => console.log('Job Pair', p)),
       switchMap(([assay, job]) => this.isFinished(job) ? this.loadResults(assay, job) : of(new JobResults<BD2eJTKRes>())),
-      tap( res => this.labelPatterns(res))
+
     );
 
     const rankedResults = combineLatest( [results, this.pvalue$]).pipe(
@@ -132,7 +136,8 @@ export class RhythmicityResultsMDTableDataSource extends DataSource<TSResult<BD2
       })
     );
 
-    return rankedResults;
+    // we do it this way so the HTTP observable won't be subscribed and called twice
+    rankedResults.subscribe( res => this.results$.next(res), err => this.error$.next(err));
   }
 
   isFinished(job: RhythmicityJobSummary) {
@@ -147,19 +152,29 @@ export class RhythmicityResultsMDTableDataSource extends DataSource<TSResult<BD2
     );
 
     const distinctJob$ = onJob$.pipe(
+      // tap( p => console.log('Before distinct', p)),
       distinctUntilChanged( (
                             def1: [ExperimentalAssayView, RhythmicityJobSummary],
                             def2: [ExperimentalAssayView, RhythmicityJobSummary]) =>
                   def1[1].jobId === def2[1].jobId && def1[0].id === def2[0].id
-    ));
+      ),
+      // tap( p => console.log('After distinct', p)),
 
-
-    const refreshedJob$ = combineLatest([ onJob$, this.refresh$]).pipe(
-      filter( ([job, isRef]) => isRef),
-      map( ([job, isRef]) => job)
     );
 
-    const merged = merge(distinctJob$, refreshedJob$);
+    /*
+    const refreshedJob$ = combineLatest([ onJob$, this.refresh$]).pipe(
+      tap( p => console.log('Before refresh', p)),
+      filter( ([job, isRef]) => isRef),
+      map( ([job, isRef]) => job),
+      tap( p => console.log('After refresh', p)),
+    ); */
+
+    const refreshedJob2$ = this.refresh$.pipe(
+      flatMap( v => distinctJob$.pipe(take(1))),
+    );
+
+    const merged = merge(distinctJob$, refreshedJob2$);
 
     return merged;
 
@@ -186,8 +201,10 @@ export class RhythmicityResultsMDTableDataSource extends DataSource<TSResult<BD2
 
 
   private loadResults(assay: ExperimentalAssayView, job: RhythmicityJobSummary): Observable<JobResults<BD2eJTKRes>> {
+    // console.log('Fetching results', job.jobId);
     return this.rhythmicityService.getResults(assay.id, job.jobId).pipe(
-      tap( r => console.log('Fetching results', r)),
+      // tap( r => console.log('Fetched results', r)),
+      tap( res => this.labelPatterns(res)),
       catchError( err => {
         console.error('Could not load results', err);
         this.error$.next(err);
@@ -219,7 +236,7 @@ export class RhythmicityResultsMDTableDataSource extends DataSource<TSResult<BD2
       return data;
     }
 
-    return data.sort((a, b) => {
+    return data.slice().sort((a, b) => {
       const isAsc = sort.direction === 'asc';
       switch (sort.active) {
         case 'label': return compare(a.label, b.label, isAsc);
