@@ -11,12 +11,15 @@ import { RhythmicityjobParamsRformComponent } from './rhythmicity-start-form/rhy
 import {TSPlotModule} from '../../tsdata/plots/ts-plot.module';
 import { RhythmicityJobPaneComponent } from './rhythmicity-dashboard/rhythmicity-job-pane/rhythmicity-job-pane.component';
 import { PValueFormComponent } from './rhythmicity-dashboard/rhythmicity-job-pane/pvalue-form/pvalue-form.component';
-import {MatRadioModule} from '@angular/material/radio';
-import { MatTableModule } from '@angular/material/table';
-import { MatPaginatorModule } from '@angular/material/paginator';
-import { MatSortModule } from '@angular/material/sort';
 import { RhythmicityResultsMDTableComponent } from './rhythmicity-dashboard/rhythmicity-job-pane/rhythmicity-results-mdtable/rhythmicity-results-mdtable.component';
-import {MatFormFieldModule} from '@angular/material/form-field';
+import {
+  MatFormFieldModule,
+  MatPaginatorModule,
+  MatProgressSpinnerModule,
+  MatRadioModule,
+  MatSortModule,
+  MatTableModule
+} from '@angular/material';
 
 @NgModule({
   declarations: [RhythmicityDashboardComponent, RhythmicityStartFormComponent, RhythmicityjobParamsRformComponent,
@@ -39,6 +42,7 @@ import {MatFormFieldModule} from '@angular/material/form-field';
     MatTableModule,
     MatPaginatorModule,
     MatSortModule,
+    MatProgressSpinnerModule,
     RhythmicityRoutingModule
   ]
 })

@@ -5,9 +5,16 @@ import {ExperimentsTestToolModule} from '../../../experiment_test_tool.spec';
 import {StaticContentTestModule} from '../../../../documents/static-content_test_tool.spec';
 import {PValueFormComponent} from './pvalue-form/pvalue-form.component';
 import {RhythmicityResultsMDTableComponent} from './rhythmicity-results-mdtable/rhythmicity-results-mdtable.component';
-import {MatFormFieldModule, MatPaginatorModule, MatRadioModule, MatSortModule, MatTableModule} from '@angular/material';
+import {
+  MatFormFieldModule,
+  MatPaginatorModule,
+  MatProgressSpinnerModule,
+  MatRadioModule,
+  MatSortModule,
+  MatTableModule
+} from '@angular/material';
 
-fdescribe('RhythmicityJobPaneComponent', () => {
+describe('RhythmicityJobPaneComponent', () => {
   let component: RhythmicityJobPaneComponent;
   let fixture: ComponentFixture<RhythmicityJobPaneComponent>;
 
@@ -20,7 +27,8 @@ fdescribe('RhythmicityJobPaneComponent', () => {
         MatFormFieldModule,
         MatPaginatorModule,
         MatSortModule,
-        MatTableModule]
+        MatTableModule,
+        MatProgressSpinnerModule]
     })
     .compileComponents();
   }));

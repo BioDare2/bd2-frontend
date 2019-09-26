@@ -4,7 +4,7 @@ import {JobStatus, RhythmicityJobSummary} from '../../rhythmicity-dom';
 import {ExperimentalAssayView} from '../../../../dom/repo/exp/experimental-assay-view';
 import {EMPTY, of, throwError} from 'rxjs';
 
-fdescribe('RhythmicityJobDatasourceService', () => {
+describe('RhythmicityJobDatasourceService', () => {
 
   let rhythmicityService;
   let service: RhythmicityJobDatasourceService;
