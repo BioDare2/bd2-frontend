@@ -85,14 +85,14 @@ export class RhythmicityStartFormComponent extends RhythmicityBaseComponent impl
 
     if (req.isValid()) {
       this.blocked = true;
-      this.rhythmicityService.newTest(this.assay, req)
-        .then(res => {
+      this.rhythmicityService.newTest(this.assay, req).subscribe(
+        res => {
           this.feedback.success('Rhythmicity test submitted');
           this.analytics.rhythmicityNew(req.method.name, this.assay.id, this.userService.currentUser.login);
-        })
-        .then(() => this.refreshModel())
-        .then(() => this.goToRhythmicityHome())
-        .catch(reason => {
+          this.refreshModel();
+          this.goToRhythmicityHome();
+        },
+        reason => {
           this.blocked = false;
           this.feedback.error(reason);
         });

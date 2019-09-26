@@ -9,6 +9,7 @@ import {RhythmicityJobSummary} from '../rhythmicity-dom';
 import {RhythmicityJobPaneComponent} from './rhythmicity-job-pane/rhythmicity-job-pane.component';
 import {ConfirmDialogComponent} from '../../../shared/confirm-dialog.component';
 
+
 @Component({
   templateUrl: './rhythmicity-dashboard.component.html',
   styles: []
@@ -24,8 +25,8 @@ export class RhythmicityDashboardComponent extends RhythmicityBaseComponent {
 
   expandAll = false;
 
-  hasFinished = false;
-  queuing: number;
+  // hasFinished = false;
+  // queuing: number;
   blocked = false;
 
   exportURL: string;
@@ -45,45 +46,46 @@ export class RhythmicityDashboardComponent extends RhythmicityBaseComponent {
   protected updateModel(exp: ExperimentalAssayView) {
     super.updateModel(exp);
     if (exp) {
-      this.loadRhythmicity(exp);
+      this.loadJobs(exp);
     }
   }
 
-  protected loadRhythmicity(exp: ExperimentalAssayView): Promise<any> {
+  protected loadJobs(exp: ExperimentalAssayView, refresh = false) {
     // console.log("Dashboard loading jobs");
-    return this.loadJobs(exp)
-      .then(() => this.exportURL = this.rhythmicityService.exportURL(exp))
-      .catch(reason => {
-        this.blocked = false;
-        this.feedback.error(reason);
-      });
-  }
-
-  protected loadJobs(exp: ExperimentalAssayView): Promise<RhythmicityJobSummary[]> {
-    return this.rhythmicityService.getJobs(exp)
-      .then(jobs => {
+    this.blocked = true;
+    this.rhythmicityService.getJobs(exp).subscribe(
+      jobs => {
         this.jobs = jobs;
         this.refreshJobsInfo(jobs);
-        return jobs;
-      });
-
+        this.exportURL = this.rhythmicityService.exportURL(exp);
+        if (refresh) {
+          this.refreshPanes();
+        }
+        this.blocked = false;
+      },
+      reason => {
+        this.blocked = false;
+        this.feedback.error(reason);
+      }
+    );
   }
 
   protected refreshJobsInfo(jobs: RhythmicityJobSummary[]) {
     this.jobsIds = jobs.map(j => j.jobId);
-    this.queuing = this.calculateQueuing(jobs);
-    this.hasFinished = this.checkFinished(jobs);
+    // this.queuing = this.calculateQueuing(jobs);
+    // this.hasFinished = this.checkFinished(jobs);
   }
 
 
   refresh() {
-    this.loadRhythmicity(this.assay)
-      .then(() => {
-        // this.blocked = false;
-        if (this.panes) {
-          this.panes.forEach(pane => pane.refresh());
-        }
-      });
+    this.loadJobs(this.assay, true);
+  }
+
+  refreshPanes() {
+      if (this.panes) {
+        this.panes.forEach(pane => pane.refresh());
+      }
+
   }
 
   remove(job: RhythmicityJobSummary) {

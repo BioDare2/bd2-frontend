@@ -335,20 +335,20 @@ export class BioDareRestService {
 
   /* rhythmicity */
 
-  rhythmicityNew(exp: ExperimentalAssayView, request: RhythmicityRequest): Promise<any> {
+  rhythmicityNew(exp: ExperimentalAssayView, request: RhythmicityRequest): Observable<any> {
     const options = this.makeOptions();
     const url = this.endPoints.experiment_url + '/' + exp.id + this.endPoints.rhythmicity_new;
     const body = request;
 
-    return this.OKJson(this.http.put(url, body, options)).toPromise();
+    return this.OKJson(this.http.put(url, body, options));
 
   }
 
-  rhythmicityJobs(exp: ExperimentalAssayView): Promise<any> {
+  rhythmicityJobs(exp: ExperimentalAssayView): Observable<any> {
     const options = this.makeOptions();
     const url = this.endPoints.experiment_url + '/' + exp.id + this.endPoints.rhythmicity_jobs;
 
-    return this.OKJson(this.http.get(url, options)).toPromise();
+    return this.OKJson(this.http.get(url, options));
   }
 
   rhythmicityJob(expId: number, jobId: string): Observable<any> {

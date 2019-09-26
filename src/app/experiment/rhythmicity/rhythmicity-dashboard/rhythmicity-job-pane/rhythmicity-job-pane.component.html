@@ -3,7 +3,7 @@
     <div (click)="toggleExpanded()" role="button" class="pull-left">
                   <span [style.color]="isExpanded ? 'green' : 'red'" [style.font-size.%]="120"
                         class="glyphicon glyphicon-sort-by-attributes" aria-hidden="true"></span>
-      &nbsp;{{job.jobId}} ({{toLocalDateTime(job.jobStatus.submitted) | date}}) <br>
+      &nbsp;{{shortUUID(job.jobId)}} ({{toLocalDateTime(job.jobStatus.submitted) | date}}) <br>
       {{job.parameters.METHOD}} {{job.parameters.PRESET}}
     </div>
     <div class="pull-right">

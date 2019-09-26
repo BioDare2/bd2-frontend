@@ -1,9 +1,11 @@
 <form class="form-inline">
-  <div>
+  <div >
     <mat-label id="pvalues-label">p-value threshold:</mat-label><br>
-    <mat-radio-group aria-label="Select p-value" aria-labelledby="pvalues-label"
+    <div class="text-center">
+    <mat-radio-group  aria-label="Select p-value" aria-labelledby="pvalues-label"
                      [value]="pvalue" (change)="selected($event)">
       <mat-radio-button *ngFor="let val of values" [value]="val" >{{val}}</mat-radio-button>
     </mat-radio-group>
+    </div>
   </div>
 </form>

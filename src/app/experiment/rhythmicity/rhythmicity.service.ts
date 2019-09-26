@@ -3,7 +3,7 @@ import {BioDareRestService} from '../../backend/biodare-rest.service';
 import {ExperimentalAssayView} from '../../dom/repo/exp/experimental-assay-view';
 import {BD2eJTKRes, JobResults, RhythmicityJobSummary, RhythmicityRequest, TSResult} from './rhythmicity-dom';
 import {Observable} from 'rxjs';
-import {PPAJobSummary} from '../ppa/ppa-dom';
+import {map} from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +13,7 @@ export class RhythmicityService {
   constructor(private BD2REST: BioDareRestService) {
   }
 
-  newTest(exp: ExperimentalAssayView, request: RhythmicityRequest): Promise<any> {
+  newTest(exp: ExperimentalAssayView, request: RhythmicityRequest): Observable<any> {
     return this.BD2REST.rhythmicityNew(exp, request);
   }
 
@@ -21,9 +21,10 @@ export class RhythmicityService {
     return this.BD2REST.rhythmicityJob(assayId, jobId);
   }
 
-  getJobs(exp: ExperimentalAssayView): Promise<RhythmicityJobSummary[]> {
-    return this.BD2REST.rhythmicityJobs(exp)
-      .then(obj => obj.data);
+  getJobs(exp: ExperimentalAssayView): Observable<RhythmicityJobSummary[]> {
+    return this.BD2REST.rhythmicityJobs(exp).pipe(
+      map(obj => obj.data)
+    );
   }
 
   getResults(assayId: number, jobId: string): Observable<JobResults<BD2eJTKRes>> {

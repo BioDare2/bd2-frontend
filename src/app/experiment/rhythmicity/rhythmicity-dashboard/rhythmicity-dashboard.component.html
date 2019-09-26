@@ -8,7 +8,7 @@
     <div class="panel-heading">
       <div *ngIf="jobs && jobs.length > 0">
         <strong>Submitted jobs: {{jobs.length}}</strong>
-        <span [hidden]="!queuing"><br>{{queuing}} jobs queuing</span>
+        <!--<span [hidden]="!queuing"><br>{{queuing}} jobs queuing</span>-->
       </div>
       <div *ngIf="!jobs || jobs.length == 0">
         No jobs submitted, start a new test.
@@ -23,9 +23,10 @@
       <button (click)="refresh()" [disabled]="blocked" class="btn btn-default" type="button">Refresh
       </button>
 
-      <div *ngIf="hasFinished" class="pull-right">
+
+      <!--<div *ngIf="jobsIds?.length" class="pull-right">
         <a class="btn btn-default" download href="{{exportURL}}" role="button">Download all</a>
-      </div>
+      </div>-->
 
     </div>
   </div>

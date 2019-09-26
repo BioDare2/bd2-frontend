@@ -15,7 +15,7 @@
     <!-- Rhythmic Column -->
     <ng-container matColumnDef="rhythmic">
       <th mat-header-cell *matHeaderCellDef >Rhythmic</th>
-      <td mat-cell *matCellDef="let row">{{row.result.rhythmic}}</td>
+      <td mat-cell *matCellDef="let row" [class.bold]="row.result.rhythmic">{{row.result.rhythmic}}</td>
     </ng-container>
 
     <!-- empP Column -->
@@ -26,11 +26,11 @@
 
     <!-- Tau Column -->
     <ng-container matColumnDef="tau">
-      <th mat-header-cell *matHeaderCellDef >Tau</th>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Tau</th>
       <td mat-cell *matCellDef="let row">{{row.result.tau | number:'1.0-2'}}</td>
     </ng-container>
 
-    <!-- Tau Column -->
+    <!-- Pattern Column -->
     <ng-container matColumnDef="pattern">
       <th mat-header-cell *matHeaderCellDef >Pattern</th>
       <td mat-cell *matCellDef="let row">{{row.result.rhythmic ? row.result.patternLabel : ''}}</td>

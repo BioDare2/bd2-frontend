@@ -123,7 +123,7 @@ export class RhythmicityJobPaneComponent implements OnInit, OnChanges, OnDestroy
       .subscribe(
         job => {
         this.deleted.next(job);
-        this.feedback.success('Job: ' + job.jobId + ' deleted');
+        this.feedback.success('Job: ' + this.shortUUID(jobId) + ' deleted');
       }, reason => {
         this.feedback.error(reason);
       });
@@ -136,6 +136,16 @@ export class RhythmicityJobPaneComponent implements OnInit, OnChanges, OnDestroy
 
   toLocalDateTime(val: any) {
     return LocalDateTime.deserialize(val).date;
+  }
+
+  shortUUID(id: string) {
+    if (id) {
+      const ix = id.indexOf('-');
+      if (ix > 1) {
+        return id.substring(0, ix);
+      }
+    }
+    return id;
   }
 
 }

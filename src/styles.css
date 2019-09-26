@@ -184,6 +184,10 @@ nav.secondary a {
   margin-right: 1px;
 }
 
+.bold {
+  font-weight: bold;
+}
+
 /* added by angular materials */
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

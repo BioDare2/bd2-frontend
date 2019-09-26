@@ -242,6 +242,7 @@ export class RhythmicityResultsMDTableDataSource extends DataSource<TSResult<BD2
         case 'label': return compare(a.label, b.label, isAsc);
         case 'id': return compare(+a.id, +b.id, isAsc);
         case 'empp': return compare(+a.result.empP, +b.result.empP, isAsc);
+        case 'tau': return compare(+a.result.tau, +b.result.tau, isAsc);
         default: return 0;
       }
     });
