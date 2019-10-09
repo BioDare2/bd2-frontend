@@ -13,7 +13,8 @@ import {
   MatSortModule,
   MatTableModule,
   MatSlideToggleModule,
-  MatCardModule
+  MatCardModule,
+  MatDividerModule
 } from '@angular/material';
 
 describe('RhythmicityDashboardComponent', () => {
@@ -32,7 +33,8 @@ describe('RhythmicityDashboardComponent', () => {
         MatTableModule,
         MatProgressSpinnerModule,
         MatSlideToggleModule,
-        MatCardModule
+        MatCardModule,
+        MatDividerModule
       ]
     })
       .compileComponents();

@@ -20,7 +20,8 @@ import {
   MatSortModule,
   MatTableModule,
   MatSlideToggleModule,
-  MatCardModule
+  MatCardModule,
+  MatDividerModule
 } from '@angular/material';
 
 @NgModule({
@@ -47,6 +48,7 @@ import {
     MatProgressSpinnerModule,
     MatSlideToggleModule,
     MatCardModule,
+    MatDividerModule,
     RhythmicityRoutingModule
   ]
 })

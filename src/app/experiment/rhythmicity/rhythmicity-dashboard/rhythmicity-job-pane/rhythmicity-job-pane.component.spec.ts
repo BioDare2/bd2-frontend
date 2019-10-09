@@ -13,7 +13,8 @@ import {
   MatSortModule,
   MatTableModule,
   MatSlideToggleModule,
-  MatCardModule
+  MatCardModule,
+  MatDividerModule
 } from '@angular/material';
 
 describe('RhythmicityJobPaneComponent', () => {
@@ -32,7 +33,8 @@ describe('RhythmicityJobPaneComponent', () => {
         MatTableModule,
         MatProgressSpinnerModule,
         MatSlideToggleModule,
-        MatCardModule]
+        MatCardModule,
+        MatDividerModule]
     })
     .compileComponents();
   }));
