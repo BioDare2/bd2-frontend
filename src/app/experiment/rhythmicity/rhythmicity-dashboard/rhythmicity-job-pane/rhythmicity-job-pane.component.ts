@@ -6,7 +6,7 @@ import {BehaviorSubject} from 'rxjs';
 import {RhythmicityJobSummary} from '../../rhythmicity-dom';
 import {LocalDateTime} from '../../../../dom/repo/shared/dates';
 
-
+import * as FileSaver from 'file-saver';
 import {RhythmicityResultsMDTableDataSource} from './rhythmicity-results-mdtable-datasource';
 import {ConfirmDialogComponent} from '../../../../shared/confirm-dialog.component';
 import {RhythmicityJobDatasourceService} from './rhythmicity-job-datasource.service';
@@ -75,6 +75,18 @@ export class RhythmicityJobPaneComponent implements OnInit, OnChanges, OnDestroy
 
   export() {
 
+      this.rhythmicityService.downloadJob(this.assay.id, this.jobId)
+        .subscribe( blob => {
+            this.saveJobBlob(blob, this.assay.id, this.jobId);
+          },
+    err => this.feedback.error(err));
+  }
+
+  saveJobBlob(blob: Blob, expId: number, jobId: string) {
+    FileSaver.saveAs(blob, expId + '_job' + this.shortUUID(jobId) + '.rhythmicity.csv');
+    // let url= window.URL.createObjectURL(blob);
+    // console.log("U",url);
+    // window.open(url);
   }
 
   refresh() {

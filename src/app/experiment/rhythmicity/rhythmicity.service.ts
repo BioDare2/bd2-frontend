@@ -38,4 +38,8 @@ export class RhythmicityService {
   deleteJob(exp: ExperimentalAssayView, jobId: string): Observable<RhythmicityJobSummary> {
     return this.BD2REST.rhythmicityDeleteJob(exp.id, jobId);
   }
+
+  downloadJob(expId: number, jobId: string): Observable<Blob> {
+    return this.BD2REST.rhythmicityExportJob(expId, jobId);
+  }
 }

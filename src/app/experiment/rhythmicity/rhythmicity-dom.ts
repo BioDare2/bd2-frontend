@@ -157,14 +157,16 @@ export class JTKPattern {
 }
 
 export class BD2eJTKRes {
+  id: number;
   rhythmic: boolean;
   tau: number;
   p: number;
   bfP: number;
   empP: number;
-  gammaP: number;
-  gammaPBH: number;
-  tsCharacteristic: any;
+  empPBH: number;
+  // gammaP: number;
+  // gammaPBH: number;
+  // tsCharacteristic: any;
   pattern: JTKPattern;
   patternLabel: string;
 }

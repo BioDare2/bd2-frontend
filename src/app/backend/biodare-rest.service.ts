@@ -373,6 +373,20 @@ export class BioDareRestService {
     return this.OKJson(this.http.delete(url, options));
   }
 
+  rhythmicityExportJob(expId: number, jobId: string): Observable<any> {
+    const options = this.makeOptions();
+    options.headers = options.headers.delete('Content-Type');
+    (options as any).responseType  = 'blob'; // ResponseContentType.Blob;
+
+    const url = this.endPoints.experiment_url + '/' + expId + this.endPoints.rhythmicity_job + '/' + jobId + '/export/';
+
+    // return this.OK(this.http.get(url, options).toPromise());
+
+    return this.http.get(url, options).pipe(
+      catchError(this.handleBadResponse)
+    );
+  }
+
   /* rhythmicity */
 
   /* files */
