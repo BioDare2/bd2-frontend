@@ -28,6 +28,7 @@ export class RhythmicityResultsMDTableDataSource extends DataSource<TSResult<BD2
 
   private readonly job$ = new BehaviorSubject<[ExperimentalAssayView, RhythmicityJobSummary]>(null);
   private readonly pvalue$ = new BehaviorSubject<number>(0);
+  private readonly bhCorrection$ = new BehaviorSubject<boolean>(false);
   private readonly page$ = new BehaviorSubject<PageEvent>(null);
   private readonly sort$ = new BehaviorSubject<Sort>(null);
   private readonly on$ = new BehaviorSubject<boolean>(false);
@@ -45,6 +46,7 @@ export class RhythmicityResultsMDTableDataSource extends DataSource<TSResult<BD2
     this.results$.complete();
     this.job$.complete();
     this.pvalue$.complete();
+    this.bhCorrection$.complete();
     this.page$.complete();
     this.sort$.complete();
     this.on$.complete();
@@ -63,6 +65,12 @@ export class RhythmicityResultsMDTableDataSource extends DataSource<TSResult<BD2
   pvalue(val: number) {
     if (val != null && val !== undefined) {
       this.pvalue$.next(val);
+    }
+  }
+
+  bhCorrection(val: boolean) {
+    if (val != null && val !== undefined) {
+      this.bhCorrection$.next(val);
     }
   }
 
@@ -124,10 +132,10 @@ export class RhythmicityResultsMDTableDataSource extends DataSource<TSResult<BD2
 
     );
 
-    const rankedResults = combineLatest( [results, this.pvalue$]).pipe(
+    const rankedResults = combineLatest( [results, this.pvalue$, this.bhCorrection$]).pipe(
       // tap( p => console.log('Results pvalue', p)),
-      map(([jobRes, pvalue]) => {
-        this.rankResults(jobRes, pvalue);
+      map(([jobRes, pvalue, bhCorrected]) => {
+        this.rankResults(jobRes, pvalue, bhCorrected);
         return jobRes.results;
       } ),
       tap(d => {
@@ -192,10 +200,11 @@ export class RhythmicityResultsMDTableDataSource extends DataSource<TSResult<BD2
     return `${pattern.waveform} ${pattern.period}:${peak}`;
   }
 
-  private rankResults(jobRes: JobResults<BD2eJTKRes>, pvalue: number) {
+  private rankResults(jobRes: JobResults<BD2eJTKRes>, pvalue: number, bhCorrected: boolean) {
     jobRes.results.forEach( res => {
       const ejtkR = res.result;
-      ejtkR.rhythmic = ejtkR.empP < pvalue;
+      const p = bhCorrected ? ejtkR.empPBH : ejtkR.empP;
+      ejtkR.rhythmic = p < pvalue;
     });
   }
 
@@ -242,6 +251,7 @@ export class RhythmicityResultsMDTableDataSource extends DataSource<TSResult<BD2
         case 'label': return compare(a.label, b.label, isAsc);
         case 'id': return compare(+a.id, +b.id, isAsc);
         case 'empp': return compare(+a.result.empP, +b.result.empP, isAsc);
+        case 'emppbh': return compare(+a.result.empPBH, +b.result.empPBH, isAsc);
         case 'tau': return compare(+a.result.tau, +b.result.tau, isAsc);
         default: return 0;
       }

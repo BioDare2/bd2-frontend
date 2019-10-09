@@ -27,6 +27,7 @@ describe('RhythmicityResultsMDTableDataSource', () => {
     tsRes.result = new BD2eJTKRes();
     let res = tsRes.result;
     res.empP = 0.01;
+    res.empPBH = 2 * res.empP;
     res.pattern = new JTKPattern();
     res.pattern.period = 24;
     res.pattern.peak = 25.11;
@@ -39,6 +40,7 @@ describe('RhythmicityResultsMDTableDataSource', () => {
     tsRes.result = new BD2eJTKRes();
     res = tsRes.result;
     res.empP = 0.001;
+    res.empPBH = 2 * res.empP;
     res.pattern = new JTKPattern();
     res.pattern.period = 24;
     res.pattern.peak = 26.12;
@@ -51,6 +53,7 @@ describe('RhythmicityResultsMDTableDataSource', () => {
     tsRes.result = new BD2eJTKRes();
     res = tsRes.result;
     res.empP = 0.0001;
+    res.empPBH = 2 * res.empP;
     res.pattern = new JTKPattern();
     res.pattern.period = 24;
     res.pattern.peak = 27.13;
@@ -161,13 +164,26 @@ describe('RhythmicityResultsMDTableDataSource', () => {
   it('rankResults ranks by pavalues', () => {
 
     // @ts-ignore
-    service.rankResults(jobRes, 0.01);
+    service.rankResults(jobRes, 0.01, false);
     expect(jobRes.results.map(res => res.result.rhythmic)).toEqual([false, true, true]);
 
     // @ts-ignore
-    service.rankResults(jobRes, 0.001);
+    service.rankResults(jobRes, 0.001, false);
     expect(jobRes.results.map(res => res.result.rhythmic)).toEqual([false, false, true]);
   });
+
+  it('rankResults ranks by corrected pavalues', () => {
+
+    // @ts-ignore
+    service.rankResults(jobRes, 0.02, false);
+    expect(jobRes.results.map(res => res.result.rhythmic)).toEqual([true, true, true]);
+
+    // @ts-ignore
+    service.rankResults(jobRes, 0.02, true);
+    expect(jobRes.results.map(res => res.result.rhythmic)).toEqual([false, true, true]);
+
+  });
+
 
   it('labelPatterns labels', () => {
 

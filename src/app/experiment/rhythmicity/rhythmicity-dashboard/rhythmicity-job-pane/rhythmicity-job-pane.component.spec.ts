@@ -11,7 +11,9 @@ import {
   MatProgressSpinnerModule,
   MatRadioModule,
   MatSortModule,
-  MatTableModule
+  MatTableModule,
+  MatSlideToggleModule,
+  MatCardModule
 } from '@angular/material';
 
 describe('RhythmicityJobPaneComponent', () => {
@@ -28,7 +30,9 @@ describe('RhythmicityJobPaneComponent', () => {
         MatPaginatorModule,
         MatSortModule,
         MatTableModule,
-        MatProgressSpinnerModule]
+        MatProgressSpinnerModule,
+        MatSlideToggleModule,
+        MatCardModule]
     })
     .compileComponents();
   }));

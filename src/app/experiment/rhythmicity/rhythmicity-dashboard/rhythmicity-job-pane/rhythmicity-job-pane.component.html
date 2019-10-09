@@ -40,9 +40,18 @@
         <div style="margin-top: 0.5em; text-align: center" >It may take up to 10 minutes to test for rhythmicity</div>
       </div>
       <ng-template #finished>
-        <bd2-pvalue-form (pvalue$)="rhythmicityResultsDataSource.pvalue($event)">
-        </bd2-pvalue-form>
-        <hr>
+        <mat-card class="result">
+          <mat-card-content>
+            <section>
+            <bd2-pvalue-form (pvalue$)="rhythmicityResultsDataSource.pvalue($event)">
+            </bd2-pvalue-form>
+            </section>
+
+            <section style="margin-top: 0.5em; text-align: center;">
+            <mat-slide-toggle (change)="rhythmicityResultsDataSource.bhCorrection($event.checked)">Benjamini Hochberg correction</mat-slide-toggle>
+            </section>
+          </mat-card-content>
+        </mat-card>
 
         <bd2-rhythmicity-results-mdtable></bd2-rhythmicity-results-mdtable>
       </ng-template>

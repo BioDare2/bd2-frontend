@@ -18,7 +18,9 @@ import {
   MatProgressSpinnerModule,
   MatRadioModule,
   MatSortModule,
-  MatTableModule
+  MatTableModule,
+  MatSlideToggleModule,
+  MatCardModule
 } from '@angular/material';
 
 @NgModule({
@@ -43,6 +45,8 @@ import {
     MatPaginatorModule,
     MatSortModule,
     MatProgressSpinnerModule,
+    MatSlideToggleModule,
+    MatCardModule,
     RhythmicityRoutingModule
   ]
 })

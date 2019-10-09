@@ -25,7 +25,7 @@ export class RhythmicityResultsMDTableComponent implements AfterViewInit, OnInit
   }
 
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
-  displayedColumns = ['id', 'label', 'rhythmic', 'empp', 'tau', 'pattern'];
+  displayedColumns = ['id', 'label', 'rhythmic', 'empp', 'emppbh', 'tau', 'pattern'];
 
   ngOnInit() {
   }
