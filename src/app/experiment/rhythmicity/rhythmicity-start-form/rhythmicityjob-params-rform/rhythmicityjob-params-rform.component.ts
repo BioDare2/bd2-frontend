@@ -35,6 +35,10 @@ export class RhythmicityjobParamsRformComponent implements OnInit {
 
   detrendingOptions = [ DetrendingType.NO_DTR, DetrendingType.LIN_DTR];
 
+  dataHelp = false;
+  presetsHelp = false;
+  methodHelp = false;
+
   constructor(private fb: FormBuilder) {
 
 

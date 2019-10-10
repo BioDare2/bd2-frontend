@@ -25,7 +25,7 @@
     </div>
 
     <div class="form-group">
-      <label class="col-sm-4" for="detrending">Input Data <a (click)="help.show('detrending')"><span
+      <label class="col-sm-4" for="detrending">Input Data <a (click)="dataHelp = !dataHelp"><span
         aria-hidden="true" class="glyphicon glyphicon-question-sign"></span></a></label>
 
       <div class="col-sm-6">
@@ -37,13 +37,20 @@
         </select>
 
       </div>
+
     </div>
+  </div>
+  <div  *ngIf="dataHelp" class="col-sm-12">
+    <alert type="info">
+      Rhythmicity tests are generally used for short, sparse timeseries. <br>
+      The current limit is 5 or 4 days of hourly sampled data for eJTK preset and BD2 preset respectivelly.<br>
+      Generally the raw data are being analysed, but we also enabled a linear detrended option.
+    </alert>
   </div>
 
 
-
   <div class="form-group">
-    <label class="col-sm-4" for="method">Test Method <a (click)="help.show('period-methods')"><span
+    <label class="col-sm-4" for="method">Test Method <a (click)="methodHelp = !methodHelp"><span
       aria-hidden="true" class="glyphicon glyphicon-question-sign"></span></a></label>
 
     <div class="col-sm-6">
@@ -55,9 +62,17 @@
       </select>
     </div>
   </div>
+  <div *ngIf="methodHelp"  class="col-sm-12">
+    <alert type="info">
+      BD2 eJTK is the BioDare2 implementation of Empirical JTK_CYCLE with asymmetry search
+      from <a href=" https://doi.org/10.1371/journal.pcbi.1004094" target="_blank">Alan L. Hutchison et al. 2015</a>.
+      It is a classic JTK method but with p values empirically calculated against set of random noise data.
+    </alert>
+  </div>
+
 
   <div class="form-group">
-    <label class="col-sm-4" for="method">Analysis Presets <a (click)="help.show('period-methods')"><span
+    <label class="col-sm-4" for="method">Analysis Presets <a (click)="presetsHelp = !presetsHelp"><span
       aria-hidden="true" class="glyphicon glyphicon-question-sign"></span></a></label>
 
     <div class="col-sm-6">
@@ -68,6 +83,25 @@
         <option *ngFor="let opt of presetOptions; let ix = index" [value]="opt.name">{{opt.label}}</option>
       </select>
     </div>
+  </div>
+  <div *ngIf="presetsHelp" class="col-sm-12">
+    <alert type="info">
+      Presets determine set of pattern curves against the comparison test is run.<br>
+      <ul>
+      <li>eJTK Classic is recommended for typical omics-like data for which eJTK method was developed. <br>
+        It works well for short data (48h, 2h- 1h-sampled) when actual period is within range 22-26 hours.<br>
+        The patterns are series of cosine-like waveforms with 24h period, phases by 2hours
+        and range of assymetries by 2h (see original paper).<br>
+      </li>
+      <li>BD2 Classic can detect non 24 periods and some forms of the spikes.<br>
+      As it compares against much more patterns it has a weaker power, it should be used for long data (3 days or more)
+      or if there is good reason to suspect periods outside 22-26h range.<br>
+      The patterns are series of cosine-like waverforms with periods from 18-35hours, for each period there are mulitiple
+        <b>circadian</b> phases with step 2h (so each period has same number of patterns) and range of assymetries by 2h
+        in circadian units (see original paper). There are also additional some spike patterns.
+      </li>
+      </ul>
+    </alert>
   </div>
 
   <div [hidden]="true" class="form-group" formGroupName="periodScale">
