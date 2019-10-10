@@ -10,7 +10,7 @@ import {TopBarMenuComponent} from './top-bar-menu/top-bar-menu.component';
 import {WelcomeComponent} from './welcome/welcome.component';
 import {RouterModule} from '@angular/router';
 import {AuthModule} from '../auth/auth.module';
-
+import {MatStepperModule, MatInputModule, MatButtonModule} from '@angular/material';
 
 @NgModule({
   declarations: [AgreeCookiesComponent, HeaderBarComponent,
@@ -20,7 +20,10 @@ import {AuthModule} from '../auth/auth.module';
     RouterModule,
     BrowserAnimationsModule, // for Cookie consent
     FeedbackModule,
-    AuthModule
+    AuthModule,
+    MatStepperModule,
+    MatInputModule,
+    MatButtonModule
   ],
   exports: [
     AgreeCookiesComponent,
