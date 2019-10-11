@@ -7,6 +7,7 @@ import {FileAssetModule} from '../../../file-asset/file-asset.module';
 import {NoopAnimationsModule} from '@angular/platform-browser/animations';
 import {UploadDataFileStepComponent} from './upload-data-file-step/upload-data-file-step.component';
 import {ExperimentsTestToolModule} from '../../experiment_test_tool.spec';
+import {ImportDetailsSummaryComponent} from './import-details-summary/import-details-summary.component';
 
 describe('TSImportDashboardComponent', () => {
   let component: TSImportDashboardComponent;
@@ -14,7 +15,7 @@ describe('TSImportDashboardComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ TSImportDashboardComponent, UploadDataFileStepComponent ],
+      declarations: [ TSImportDashboardComponent, UploadDataFileStepComponent, ImportDetailsSummaryComponent ],
       imports: [MaterialsModule, AlertModule.forRoot(), FileAssetModule, NoopAnimationsModule,
         ExperimentsTestToolModule]
     })

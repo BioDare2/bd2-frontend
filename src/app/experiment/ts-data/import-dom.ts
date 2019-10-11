@@ -62,3 +62,11 @@ export class FileImportRequest {
   public importFormat: ImportFormat;
   public importParameters: TSImportParameters;
 }
+
+export class ImportDetails {
+  fileName: string;
+  fileId: string;
+  importFormat: ImportFormat;
+  inRows = false;
+}
+

@@ -2,15 +2,10 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {ConfirmDialogComponent} from '../../../shared/confirm-dialog.component';
 import {MatVerticalStepper} from '@angular/material';
 import {TSFileService} from './ts-file.service';
-import {ImportFormat} from '../import-dom';
+import {ImportDetails, ImportFormat} from '../import-dom';
 import {FeedbackService} from '../../../feedback/feedback.service';
 
 
-class ImportDetails {
-  fileName: string;
-  fileId: string;
-  importFormat: ImportFormat;
-}
 
 @Component({
   selector: 'bd2-tsimport-dashboard',
@@ -24,6 +19,7 @@ export class TSImportDashboardComponent implements OnInit {
   stepper: MatVerticalStepper;
 
   importDetails = new ImportDetails();
+  inRows: any;
 
   constructor(private fileService: TSFileService,
               private feedback: FeedbackService) { }
@@ -32,7 +28,7 @@ export class TSImportDashboardComponent implements OnInit {
   }
 
   upload(upload: {files: File[], importFormat: ImportFormat}) {
-    console.log('Upload', upload);
+    // console.log('Upload', upload);
 
     if (!upload.files || upload.files.length !== 1) {
       console.error('Wrong upload files size', upload.files);
@@ -51,6 +47,10 @@ export class TSImportDashboardComponent implements OnInit {
       }
     );
 
+  }
+
+  loadData() {
+    console.log('Loading data');
   }
 
 }

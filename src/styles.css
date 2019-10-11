@@ -191,3 +191,7 @@ nav.secondary a {
 /* added by angular materials */
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.spaced mat-radio-button {
+  margin-right: 1em;
+}

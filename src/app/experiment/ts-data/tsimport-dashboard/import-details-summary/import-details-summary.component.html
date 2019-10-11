@@ -1,0 +1,13 @@
+<mat-card class="mat-elevation-z4">
+  <mat-grid-list cols="2" rowHeight="2em">
+    <mat-grid-tile colspan="2">
+      <p><label>File</label> {{importDetails?.fileName}}</p>
+    </mat-grid-tile>
+    <mat-grid-tile>
+      <p><label>Format</label> {{importDetails?.importFormat?.label}}</p>
+    </mat-grid-tile>
+    <mat-grid-tile>
+      <p><label>Series</label> in {{importDetails?.inRows ? 'rows' : 'columns'}}</p>
+    </mat-grid-tile>
+  </mat-grid-list>
+</mat-card>

@@ -19,6 +19,7 @@ import {TSViewComponent} from './ts-view/ts-view.component';
 import { TSImportDashboardComponent } from './tsimport-dashboard/tsimport-dashboard.component';
 import {MaterialsModule} from '../../shared/materials.module';
 import { UploadDataFileStepComponent } from './tsimport-dashboard/upload-data-file-step/upload-data-file-step.component';
+import { ImportDetailsSummaryComponent } from './tsimport-dashboard/import-details-summary/import-details-summary.component';
 
 @NgModule({
   declarations: [UploadDataFileComponent,
@@ -27,7 +28,8 @@ import { UploadDataFileStepComponent } from './tsimport-dashboard/upload-data-fi
     SimpleAddDataFormComponent,
     TSViewComponent,
     TSImportDashboardComponent,
-    UploadDataFileStepComponent
+    UploadDataFileStepComponent,
+    ImportDetailsSummaryComponent
   ],
   imports: [
     CommonModule,
