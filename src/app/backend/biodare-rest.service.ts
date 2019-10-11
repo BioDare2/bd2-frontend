@@ -445,11 +445,11 @@ export class BioDareRestService {
 
   }
 
-  fileViewVerifyFormat(format: ImportFormat, fileId: string): Promise<boolean> {
+  fileViewVerifyFormat(format: ImportFormat, fileId: string): Observable<boolean> {
     const options = this.makeOptions();
     const url = this.endPoints.file_url + '/' + fileId + this.endPoints.view_verify_format + format.name;
 
-    return this.OK(this.http.get(url, options)).toPromise();
+    return this.OK(this.http.get(url, options));
 
   }
 

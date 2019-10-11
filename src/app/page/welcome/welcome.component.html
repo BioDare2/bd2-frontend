@@ -7,39 +7,7 @@
 
   <h2>{{msg}}</h2>
 
-  <mat-vertical-stepper [linear]="true" #stepper>
-    <mat-step >
-      <form >
-        <ng-template matStepLabel>Fill out your name</ng-template>
-
-          <input matInput placeholder="Last name, First name" formControlName="firstCtrl" required>
-          <bd2-header-bar></bd2-header-bar>
-        <div>
-          <button mat-button [disabled]="false" (click)="stepper.next()">Next</button>
-        </div>
-      </form>
-    </mat-step>
-    <mat-step >
-      <form >
-        <ng-template matStepLabel>Fill out your address</ng-template>
-
-          <input matInput placeholder="Address" formControlName="secondCtrl" required>
-
-        <div>
-          <button mat-button matStepperPrevious>Back</button>
-          <button mat-button matStepperNext type="button">Next</button>
-        </div>
-      </form>
-    </mat-step>
-    <mat-step>
-      <ng-template matStepLabel>Done</ng-template>
-      You are now done.
-      <div>
-        <button mat-button matStepperPrevious>Back</button>
-        <button mat-button (click)="stepper.reset()">Reset</button>
-      </div>
-    </mat-step>
-  </mat-vertical-stepper>
+  <bd2-tsimport-dashboard></bd2-tsimport-dashboard>
 
   <div *ngIf="logged" class="row">
     <div class="col-sm-12">
