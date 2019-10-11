@@ -19,7 +19,7 @@ export class FileViewService {
 
   verifyFormat(format: ImportFormat, fileId: string): Promise<boolean> {
 
-    return this.BD2REST.fileViewVerifyFormat(format, fileId);
+    return this.BD2REST.fileViewVerifyFormat(format, fileId).toPromise();
   }
 
 

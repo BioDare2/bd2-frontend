@@ -1,0 +1,29 @@
+
+<mat-vertical-stepper linear #stepper>
+  <mat-step >
+      <ng-template matStepLabel>Upload data file</ng-template>
+
+      <bd2-upload-data-file-step (uploadFiles)="upload($event)"></bd2-upload-data-file-step>
+  </mat-step>
+  <mat-step >
+    <form >
+      <ng-template matStepLabel>Fill out your address</ng-template>
+
+      <input matInput placeholder="Address" required>
+
+      <div>
+        <button mat-button matStepperPrevious>Back</button>
+        <button mat-button matStepperNext type="button">Next</button>
+      </div>
+    </form>
+  </mat-step>
+  <mat-step>
+    <ng-template matStepLabel>Done</ng-template>
+    You are now done.
+    <div>
+      <button mat-button matStepperPrevious>Back</button>
+      <button mat-button (click)="stepper.reset()">Reset</button>
+    </div>
+  </mat-step>
+</mat-vertical-stepper>
+

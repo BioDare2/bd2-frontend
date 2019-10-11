@@ -16,13 +16,18 @@ import {ModalModule} from 'ngx-bootstrap/modal';
 import {SimpleAddDataFormComponent} from './ts-import/widgets/simple-add-data.form.component';
 import {TSPlotModule} from '../../tsdata/plots/ts-plot.module';
 import {TSViewComponent} from './ts-view/ts-view.component';
+import { TSImportDashboardComponent } from './tsimport-dashboard/tsimport-dashboard.component';
+import {MaterialsModule} from '../../shared/materials.module';
+import { UploadDataFileStepComponent } from './tsimport-dashboard/upload-data-file-step/upload-data-file-step.component';
 
 @NgModule({
   declarations: [UploadDataFileComponent,
     TSImportComponent,
     DescribeTSTableComponent, DescribeTopcountTableComponent, ColumnTypeDialogComponent, ConfirmRowCopyDialogComponent,
     SimpleAddDataFormComponent,
-    TSViewComponent
+    TSViewComponent,
+    TSImportDashboardComponent,
+    UploadDataFileStepComponent
   ],
   imports: [
     CommonModule,
@@ -32,8 +37,10 @@ import {TSViewComponent} from './ts-view/ts-view.component';
     SharedComponentsModule,
     FileAssetModule,
     TSPlotModule,
-    TsDataRoutingModule
-  ]
+    TsDataRoutingModule,
+    MaterialsModule
+  ],
+  exports: [TSImportDashboardComponent]
 })
 export class TsDataModule {
 }

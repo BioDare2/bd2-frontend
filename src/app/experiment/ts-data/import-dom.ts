@@ -5,6 +5,8 @@ export class ImportFormat {
   static NONE = new ImportFormat(0, 'NONE', 'none');
   static EXCEL_TABLE = new ImportFormat(1, 'EXCEL_TABLE', 'Excel Table');
   static TOPCOUNT = new ImportFormat(2, 'TOPCOUNT', 'TopCount');
+  static TAB_SEP = new ImportFormat(3, 'TAB_SEP', 'Tab-separated');
+  static COMA_SEP = new ImportFormat(4, 'COMA_SEP', 'Coma-separated');
 
   protected static valuesMap: Map<string, ImportFormat>;
 
@@ -27,6 +29,8 @@ export class ImportFormat {
     map.set(ImportFormat.NONE.name, ImportFormat.NONE);
     map.set(ImportFormat.EXCEL_TABLE.name, ImportFormat.EXCEL_TABLE);
     map.set(ImportFormat.TOPCOUNT.name, ImportFormat.TOPCOUNT);
+    map.set(ImportFormat.TAB_SEP.name, ImportFormat.TAB_SEP);
+    map.set(ImportFormat.COMA_SEP.name, ImportFormat.COMA_SEP);
     return map;
   }
 
@@ -36,7 +40,8 @@ export class ImportFormat {
 
 }
 
-export const ImportFormatOptions = [ImportFormat.EXCEL_TABLE, ImportFormat.TOPCOUNT];
+export const ImportFormatOptions = [ImportFormat.EXCEL_TABLE, ImportFormat.TAB_SEP, ImportFormat.COMA_SEP,
+  ImportFormat.TOPCOUNT];
 
 export abstract class TSImportParameters {
 

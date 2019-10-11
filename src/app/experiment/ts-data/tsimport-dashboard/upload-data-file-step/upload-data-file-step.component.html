@@ -1,0 +1,85 @@
+<div>
+<mat-card class="mat-elevation-z4">
+  <mat-card-title>Time series file</mat-card-title>
+  <mat-card-content>
+  <form class="">
+    <div class="form-group">
+
+      <mat-form-field>
+        <mat-label>File Format</mat-label>
+        <mat-select [(value)]="importFormat" required (selectionChange)="formatChanged($event)">
+          <mat-option *ngFor="let opt of importFormatOptions; let ix = index" [value]="opt">{{opt.label}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+   </div>
+    <alert *ngIf="importFormat.name == 'EXCEL_TABLE'" dismissible="true" style="font-size: smaller;" type="info">
+      An Excel file in which one column contains time values while other columns contain measurements taken at the
+      corresponding times.
+      <ul>
+        <li>
+          Time can be represented as: hours from start (e.g 2.25 for measurement at 2 hours 15 minutes after the
+          start), minutes from
+          start, seconds from start, or as image nr (1-based) which will be converted to time using interval between
+          images.
+        </li>
+        <li>
+          Not all columns have to be imported.
+        </li>
+        <li>
+          Some columns can be marked as background noise,
+          their content will be averaged and subtracted from other data column to remove the noise from the data.
+        </li>
+        <li>
+          First few rows can contain arbitrary text.
+        </li>
+        <li>
+          Values from one row can be used as data labels.
+        </li>
+      </ul>
+    </alert>
+    <alert *ngIf="importFormat.name == 'TAB_SEP' || importFormat.name == 'COMA_SEP'" dismissible="true" style="font-size: smaller;" type="info">
+      A coma or tab separeted file in which one column or row contains time values while other columns or rows contain measurements taken at the
+      corresponding times.
+      <ul>
+        <li>
+          Time can be represented as: hours from start (e.g 2.25 for measurement at 2 hours 15 minutes after the
+          start), minutes from start
+        </li>
+        <li>
+          Not all columns/rows have to be imported.
+        </li>
+        <li>
+          First few rows/columns can contain arbitrary text.
+        </li>
+        <li>
+          Values from one row/column can be used as data labels.
+        </li>
+      </ul>
+    </alert>
+    <alert *ngIf="importFormat.name == 'TOPCOUNT'" dismissible="true" style="font-size: smaller;" type="info">
+      Topcount data can be uploaded in two forms:
+      <ul>
+        <li>Individual file which contains concatenated topcount data blocks in one file</li>
+        <li>Zip file which contains packed files from individual topcount reads</li>
+      </ul>
+      Check the Dosc section for details about suported data layouts inside tomcats file, we can currently read
+      ASCI content with "plate map" or "column" layouts.
+    </alert>
+    <alert *ngIf="formatWarning" type="danger">
+      {{formatWarning}}
+    </alert>
+    <div class="form-group">
+      <bd2-file-upload-widget #uploadWidget
+                              (selectedFiles)="checkFormat($event)"
+                              (uploadFiles)="upload($event)"
+                              [autoReset]="false"
+                              [blocked]="blocked || !importFormat"
+                              [multiple]="false"
+      ></bd2-file-upload-widget>
+    </div>
+
+  </form>
+  </mat-card-content>
+</mat-card>
+</div>
