@@ -20,6 +20,7 @@ import { TSImportDashboardComponent } from './tsimport-dashboard/tsimport-dashbo
 import {MaterialsModule} from '../../shared/materials.module';
 import { UploadDataFileStepComponent } from './tsimport-dashboard/upload-data-file-step/upload-data-file-step.component';
 import { ImportDetailsSummaryComponent } from './tsimport-dashboard/import-details-summary/import-details-summary.component';
+import { DataSheetMDTableComponent } from './tsimport-dashboard/data-sheet-mdtable/data-sheet-mdtable.component';
 
 @NgModule({
   declarations: [UploadDataFileComponent,
@@ -29,7 +30,8 @@ import { ImportDetailsSummaryComponent } from './tsimport-dashboard/import-detai
     TSViewComponent,
     TSImportDashboardComponent,
     UploadDataFileStepComponent,
-    ImportDetailsSummaryComponent
+    ImportDetailsSummaryComponent,
+    DataSheetMDTableComponent
   ],
   imports: [
     CommonModule,
@@ -42,7 +44,7 @@ import { ImportDetailsSummaryComponent } from './tsimport-dashboard/import-detai
     TsDataRoutingModule,
     MaterialsModule
   ],
-  exports: [TSImportDashboardComponent]
+  exports: [TSImportDashboardComponent, DataSheetMDTableComponent]
 })
 export class TsDataModule {
 }
