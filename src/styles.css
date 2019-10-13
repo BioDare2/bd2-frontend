@@ -35,6 +35,8 @@ div.workspace {
   max-width: 10em;
 }
 
+
+
 /* visual clues for validation state of inputs */
 input.ng-valid[required] {
   border-left: 5px solid #42A948; /* green */
@@ -61,6 +63,9 @@ textarea.ng-invalid {
 }
 /* visual clues for validation state of inputs -- end */
 
+mat-form-field input.ng-valid[required], mat-form-field input.ng-invalid {
+  border-left: none;
+}
 
 input.short-input {
   min-width: 6em;

@@ -5,6 +5,8 @@
 
       <bd2-upload-data-file-step (uploadFiles)="upload($event)"></bd2-upload-data-file-step>
   </mat-step>-->
+
+  <!--
   <mat-step >
     <form >
       <ng-template matStepLabel>Data layout</ng-template>
@@ -18,10 +20,6 @@
             <mat-radio-button [value]="true" >Data in rows</mat-radio-button>
             <mat-radio-button [value]="false" >Data in columns</mat-radio-button>
           </mat-radio-group>
-          <!--<mat-button-toggle-group [value]="importDetails.inRows" (change)="importDetails.inRows = $event.value">
-            <mat-button-toggle [value]="true" >Data in rows</mat-button-toggle>
-            <mat-button-toggle [value]="false" >Data in columns</mat-button-toggle>
-          </mat-button-toggle-group>-->
         </mat-card-content>
         <mat-card-actions>
           <button mat-button matStepperPrevious>Back</button>
@@ -32,13 +30,30 @@
 
     </form>
   </mat-step>
+  -->
+
   <mat-step>
-    <ng-template matStepLabel>Define time {{importDetails.inRows ? 'row' : 'column'}}</ng-template>
+    <ng-template matStepLabel>Define time {{importDetails.inLabel}}</ng-template>
+
+    <bd2-import-details-summary [importDetails]="importDetails"></bd2-import-details-summary>
+
+    <bd2-define-time-step [importDetails]="importDetails"></bd2-define-time-step>
+
+    <div>
+      <button mat-button matStepperPrevious>Back</button>
+      <button mat-button matStepperNext type="button" (click)="stepper.next()" [disabled]="!importDetails.isTimeDefined()">Next</button>
+      <!--<button mat-button (click)="stepper.reset()">Reset</button> -->
+    </div>
+  </mat-step>
+  <mat-step>
+    <ng-template matStepLabel>Last</ng-template>
+
     You are now done.
     <div>
       <button mat-button matStepperPrevious>Back</button>
       <button mat-button (click)="stepper.reset()">Reset</button>
     </div>
   </mat-step>
+
 </mat-vertical-stepper>
 

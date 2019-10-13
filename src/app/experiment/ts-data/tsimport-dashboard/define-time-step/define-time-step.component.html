@@ -1,0 +1,51 @@
+
+<mat-card class="mat-elevation-z4">
+  <mat-card-content>
+
+    <div *ngIf="firstTimeCell">
+      <p>Times in {{importDetails.inLabel}}
+        <strong>{{importDetails.inRows ? firstTimeCell.rowName : firstTimeCell.colName}};</strong>&nbsp;
+
+        First time point: <strong>{{firstTimeCell.value}}{{importDetails.timeType?.unit}}</strong>
+        [{{firstTimeCell.colName+':'+firstTimeCell.rowName}}]
+      </p>
+      <p>
+        <mat-form-field>
+          <mat-label>Time unit</mat-label>
+          <mat-select [(value)]="importDetails.timeType" required>
+            <mat-option *ngFor="let opt of timeTypeOptions; let ix = index" [value]="opt">{{opt.label}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </p>
+
+      <p>
+        <mat-form-field>
+          <input matInput type="number" placeholder="Time offset" [(ngModel)]="importDetails.timeOffset">
+        </mat-form-field>
+      </p>
+
+      <p *ngIf="importDetails.timeType?.name == 'IMG_NUMBER'">
+        <mat-form-field>
+          <input matInput type="number" placeholder="Images interval (hours)" [(ngModel)]="importDetails.imgInterval" required>
+        </mat-form-field>
+      </p>
+
+
+      <alert *ngIf="firstTimeNotNumber()" type="danger">
+        The first time point value {{firstTimeCell.value}} does not look like a number;
+      </alert>
+    </div>
+    <div>
+      <alert [type]="firstTimeCell ? 'info': 'danger'">
+        Click on the first timepoint in the time {{importDetails.inLabel}} and select a time unit.
+      </alert>
+    </div>
+
+    <bd2-data-sheet-mdtable (selected)="selectFirstTime($event)"></bd2-data-sheet-mdtable>
+
+  </mat-card-content>
+  <!--<mat-card-actions>
+    <button mat-button matStepperPrevious>Back</button>
+    <button mat-button matStepperNext type="button" (click)="loadData()">Next</button>
+  </mat-card-actions>-->
+</mat-card>

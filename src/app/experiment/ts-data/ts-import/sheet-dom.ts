@@ -56,15 +56,16 @@ export class CellRole {
 }
 
 export class TimeColumnType {
-  static NONE = new TimeColumnType(0, 'NONE', 'NONE'); // so the real values starts at 1
-  static TIME_IN_HOURS = new TimeColumnType(1, 'TIME_IN_HOURS', 'time in hours');
-  static TIME_IN_MINUTES = new TimeColumnType(2, 'TIME_IN_MINUTES', 'time in minutes');
-  static TIME_IN_SECONDS = new TimeColumnType(3, 'TIME_IN_SECONDS', 'time in seconds');
-  static IMG_NUMBER = new TimeColumnType(4, 'IMG_NUMBER', 'image nr. (1-based)');
+  static NONE = new TimeColumnType(0, 'NONE', 'NONE', ''); // so the real values starts at 1
+  static TIME_IN_HOURS = new TimeColumnType(1, 'TIME_IN_HOURS', 'time in hours', 'h');
+  static TIME_IN_MINUTES = new TimeColumnType(2, 'TIME_IN_MINUTES', 'time in minutes', 'm');
+  static TIME_IN_SECONDS = new TimeColumnType(3, 'TIME_IN_SECONDS', 'time in seconds', 's');
+  static IMG_NUMBER = new TimeColumnType(4, 'IMG_NUMBER', 'image nr. (1-based)', 'img');
 
   protected static valuesMap: Map<string, TimeColumnType>;
 
-  protected constructor(private _id: number, private _name: string, private _label: string) {
+  // tslint:disable-next-line:variable-name
+  protected constructor(private _id: number, private _name: string, private _label: string, private _unit) {
   }
 
   public get id(): number {
@@ -77,6 +78,10 @@ export class TimeColumnType {
 
   public get label(): string {
     return this._label;
+  }
+
+  public get unit(): string {
+    return this._unit;
   }
 
   public static get(name: string): TimeColumnType {

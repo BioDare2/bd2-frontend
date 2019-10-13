@@ -21,6 +21,7 @@ import {MaterialsModule} from '../../shared/materials.module';
 import { UploadDataFileStepComponent } from './tsimport-dashboard/upload-data-file-step/upload-data-file-step.component';
 import { ImportDetailsSummaryComponent } from './tsimport-dashboard/import-details-summary/import-details-summary.component';
 import { DataSheetMDTableComponent } from './tsimport-dashboard/data-sheet-mdtable/data-sheet-mdtable.component';
+import { DefineTimeStepComponent } from './tsimport-dashboard/define-time-step/define-time-step.component';
 
 @NgModule({
   declarations: [UploadDataFileComponent,
@@ -31,7 +32,8 @@ import { DataSheetMDTableComponent } from './tsimport-dashboard/data-sheet-mdtab
     TSImportDashboardComponent,
     UploadDataFileStepComponent,
     ImportDetailsSummaryComponent,
-    DataSheetMDTableComponent
+    DataSheetMDTableComponent,
+    DefineTimeStepComponent
   ],
   imports: [
     CommonModule,

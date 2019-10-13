@@ -1,4 +1,5 @@
-import {CellRangeDescription} from './ts-import/sheet-dom';
+import {CellRangeDescription, TimeColumnType} from './ts-import/sheet-dom';
+import {CellSelection} from './tsimport-dashboard/data-table-dom';
 
 export class ImportFormat {
 
@@ -68,5 +69,32 @@ export class ImportDetails {
   fileId: string;
   importFormat: ImportFormat;
   inRows = false;
+
+  firstTimeCell: CellSelection;
+  timeType: TimeColumnType;
+  timeOffset = 0;
+  imgInterval: number;
+
+  get inLabel(): string {
+    return this.inRows ? 'row' : 'column';
+  }
+
+  isTimeDefined() {
+    if (!this.firstTimeCell) {
+      return false;
+    }
+    if (!this.timeType) {
+      return false;
+    }
+    if (this.timeType == TimeColumnType.IMG_NUMBER) {
+      if (!this.imgInterval || (+this.imgInterval) <= 0) {
+        return false;
+      }
+    }
+    if (isNaN(Number(this.firstTimeCell.value))) {
+      return false;
+    }
+    return true;
+  }
 }
 
