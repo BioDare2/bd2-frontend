@@ -1,6 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { DataSheetMDTableComponent } from './data-sheet-mdtable.component';
+import {MaterialsModule} from '../../../../shared/materials.module';
 
 describe('DataSheetMDTableComponent', () => {
   let component: DataSheetMDTableComponent;
@@ -8,7 +9,8 @@ describe('DataSheetMDTableComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ DataSheetMDTableComponent ]
+      declarations: [ DataSheetMDTableComponent ],
+      imports: [MaterialsModule],
     })
     .compileComponents();
   }));

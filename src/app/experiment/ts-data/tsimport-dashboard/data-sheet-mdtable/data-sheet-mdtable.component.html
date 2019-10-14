@@ -1,29 +1,27 @@
-  Times in row: {{selectedRow ? selectedRowName :''}}
-  First time in {{selectedColName}} ({{selectedColIx != undefined ? selectedRow[selectedColIx] : ''}})
-
-<div class="data-sheet-container">
+<div class="data-sheet-container" *ngIf="_dataSlice">
   <table mat-table [dataSource]="data" #table>
 
     <!-- Row Nr Column -->
     <ng-container matColumnDef="rowNr" sticky>
       <th mat-header-cell *matHeaderCellDef></th>
-      <td mat-cell *matCellDef="let row; let rowIx = index">
+      <td mat-cell *matCellDef="let row; let rowIx = index" (click)="selectCell(-1,rowIx)">
         <label>{{rowsNames[rowIx]}}</label> </td>
     </ng-container>
 
     <!-- A Column -->
     <ng-container *ngFor="let col of columnsNames; let colIx = index" [matColumnDef]="col">
-      <th mat-header-cell *matHeaderCellDef> {{col}} </th>
+      <th mat-header-cell *matHeaderCellDef [style.background-color]="styler.colBackground(colIx)"
+          (click)="selectCell(colIx,-1)"> {{col}} </th>
       <td mat-cell *matCellDef="let row; let rowIx = index"
-          matRipple matRippleCentered="true" [style.background-color]="selectedColIx === colIx && selectedRow === row ? 'mediumorchid': ''"
+          matRipple matRippleCentered="true" [style.background-color]="styler.cellBackground(colIx, rowIx)"
           (click)="selectCell(colIx,rowIx)"> {{row[colIx]}} </td>
     </ng-container>
 
 
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;"
-        [class.selected-row]="selectedRow === row"
+    <tr mat-row *matRowDef="let row; let rowIx = index; columns: displayedColumns;"
+        [style.background-color]="styler.rowBackground(rowIx)"
     ></tr>
   </table>
 </div>

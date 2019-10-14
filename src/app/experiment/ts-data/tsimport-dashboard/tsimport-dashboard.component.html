@@ -1,12 +1,13 @@
 
-<mat-vertical-stepper linear #stepper>
-  <!--<mat-step >
+<mat-vertical-stepper [linear]="true" #stepper>
+  <!--
+  <mat-step >
       <ng-template matStepLabel>Upload data file</ng-template>
 
       <bd2-upload-data-file-step (uploadFiles)="upload($event)"></bd2-upload-data-file-step>
-  </mat-step>-->
+  </mat-step>
 
-  <!--
+
   <mat-step >
     <form >
       <ng-template matStepLabel>Data layout</ng-template>
@@ -32,26 +33,75 @@
   </mat-step>
   -->
 
-  <mat-step>
+  <mat-step [completed]="importDetails.isTimeDefined()">
     <ng-template matStepLabel>Define time {{importDetails.inLabel}}</ng-template>
-
+    <mat-divider></mat-divider>
     <bd2-import-details-summary [importDetails]="importDetails"></bd2-import-details-summary>
 
     <bd2-define-time-step [importDetails]="importDetails"></bd2-define-time-step>
 
     <div>
       <button mat-button matStepperPrevious>Back</button>
-      <button mat-button matStepperNext type="button" (click)="stepper.next()" [disabled]="!importDetails.isTimeDefined()">Next</button>
+      <button mat-button matStepperNext type="button" [disabled]="!importDetails.isTimeDefined()">Next</button>
       <!--<button mat-button (click)="stepper.reset()">Reset</button> -->
     </div>
   </mat-step>
-  <mat-step>
-    <ng-template matStepLabel>Last</ng-template>
 
-    You are now done.
+
+  <mat-step >
+    <form >
+      <ng-template matStepLabel>Labelling options</ng-template>
+      <mat-divider></mat-divider>
+
+      <bd2-import-details-summary [importDetails]="importDetails" [showTime]="true"></bd2-import-details-summary>
+
+      <mat-card class="mat-elevation-z4">
+        <mat-card-content>
+          <mat-radio-group [(ngModel)]="importDetails.importLabels" name="importLabels" class="spaced">
+            <mat-radio-button [value]="true" >Import labels from {{importDetails.inLabel}}</mat-radio-button>
+            <mat-radio-button [value]="false" disabled>Manually label</mat-radio-button>
+          </mat-radio-group>
+        </mat-card-content>
+        <mat-card-actions>
+          <button mat-button matStepperPrevious>Back</button>
+          <button mat-button matStepperNext type="button" (click)="importLabels.loadData()">Next</button>
+        </mat-card-actions>
+      </mat-card>
+
+
+    </form>
+  </mat-step>
+
+  <mat-step [completed]="importDetails.areLabelsCorrectlySelected()">
+    <ng-template *ngIf="importDetails.importLabels" matStepLabel>Select labels {{importDetails.inLabelNeg}}</ng-template>
+    <ng-template *ngIf="!importDetails.importLabels" matStepLabel>Label data</ng-template>
+    <mat-divider></mat-divider>
+    <bd2-import-details-summary [importDetails]="importDetails" [showTime]="true" ></bd2-import-details-summary>
+
+    <bd2-import-labels-step [importDetails]="importDetails" #importLabels></bd2-import-labels-step>
+
     <div>
       <button mat-button matStepperPrevious>Back</button>
-      <button mat-button (click)="stepper.reset()">Reset</button>
+      <button mat-button matStepperNext type="button" [disabled]="!importDetails.areLabelsCorrectlySelected()">Next</button>
+      <!--<button mat-button (click)="stepper.reset()">Reset</button> -->
+    </div>
+  </mat-step>
+
+
+  <mat-step>
+    <ng-template matStepLabel>Import timeseries</ng-template>
+    <mat-divider></mat-divider>
+    <bd2-import-details-summary [importDetails]="importDetails" [showTime]="true" [showLabelling]="true"></bd2-import-details-summary>
+
+    <mat-card class="mat-elevation-z4">
+      <mat-card-content>
+        <alert type="info">You can import the timeseries now</alert>
+      </mat-card-content>
+    </mat-card>
+
+    <div>
+      <button mat-button matStepperPrevious>Back</button>
+      <button mat-button (click)="importData()">Import data</button>
     </div>
   </mat-step>
 

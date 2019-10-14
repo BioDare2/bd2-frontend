@@ -11,6 +11,20 @@ export class ImportDetailsSummaryComponent implements OnInit {
   @Input()
   importDetails: ImportDetails;
 
+  @Input()
+  showTime = false;
+
+  @Input()
+  showLabelling = false;
+
+  get firstTimeCell() {
+    return this.importDetails ? this.importDetails.firstTimeCell : undefined;
+  }
+
+  get labelsSelection() {
+    return this.importDetails ? this.importDetails.labelsSelection : undefined;
+  }
+
   constructor() { }
 
   ngOnInit() {

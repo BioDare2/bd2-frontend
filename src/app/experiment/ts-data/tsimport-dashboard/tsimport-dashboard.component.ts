@@ -18,11 +18,15 @@ export class TSImportDashboardComponent implements OnInit {
   @ViewChild('stepper', { static: false })
   stepper: MatVerticalStepper;
 
-  importDetails = new ImportDetails();
+  importDetails: ImportDetails;
   inRows: any;
 
   constructor(private fileService: TSFileService,
-              private feedback: FeedbackService) { }
+              private feedback: FeedbackService) {
+
+    this.importDetails = new ImportDetails();
+    this.importDetails.inRows = true;
+  }
 
   ngOnInit() {
   }
@@ -53,4 +57,11 @@ export class TSImportDashboardComponent implements OnInit {
     console.log('Loading data');
   }
 
+  startLabelling() {
+    console.log('Starting labeling');
+  }
+
+  importData() {
+
+  }
 }

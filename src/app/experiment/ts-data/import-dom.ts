@@ -75,8 +75,15 @@ export class ImportDetails {
   timeOffset = 0;
   imgInterval: number;
 
+  importLabels = true;
+  labelsSelection: CellSelection;
+
   get inLabel(): string {
     return this.inRows ? 'row' : 'column';
+  }
+
+  get inLabelNeg(): string {
+    return !this.inRows ? 'row' : 'column';
   }
 
   isTimeDefined() {
@@ -95,6 +102,24 @@ export class ImportDetails {
       return false;
     }
     return true;
+  }
+
+  areLabelsCorrectlySelected() {
+    if (!this.labelsSelection) {
+      return false;
+    }
+    return this.areLabelsAfterTime();
+  }
+
+  areLabelsAfterTime() {
+    if (this.firstTimeCell && this.labelsSelection) {
+      if (this.inRows) {
+        return this.labelsSelection.colIx < this.firstTimeCell.colIx;
+      } else {
+        return this.labelsSelection.rowIx < this.firstTimeCell.rowIx;
+      }
+    }
+    return false;
   }
 }
 

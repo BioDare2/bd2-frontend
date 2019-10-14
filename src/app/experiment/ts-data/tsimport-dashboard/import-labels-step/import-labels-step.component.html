@@ -1,0 +1,31 @@
+<mat-card *ngIf="importDetails" class="mat-elevation-z4">
+  <mat-card-content>
+
+    <div *ngIf="labelsSelection">
+      <p>Labels in {{importDetails.inLabelNeg}}
+        <strong>{{importDetails.inRows ? labelsSelection.colName : labelsSelection.rowName}};</strong>
+      </p>
+      <alert *ngIf="!importDetails.areLabelsAfterTime()" type="danger">
+        Labels {{importDetails.inLabelNeg}} must be before first time point.
+      </alert>
+    </div>
+
+    <div>
+      <alert [type]="labelsSelection ? 'info': 'danger'">
+        Click on the {{importDetails.inLabelNeg}} containing labels.
+      </alert>
+    </div>
+
+    <bd2-data-sheet-mdtable (selected)="selectLabels($event)"
+                            [dataSlice]="dataSlice" [selectableColHeader]="true"
+                            [styler]="tableSelector.tableStyler"></bd2-data-sheet-mdtable>
+
+    <div>
+      &nbsp;
+      <alert type="info" class="small">
+        Even if only the top part of the data table is presented all labels from the selected {{importDetails.inLabelNeg}}
+        will be imported
+      </alert>
+    </div>
+  </mat-card-content>
+</mat-card>
