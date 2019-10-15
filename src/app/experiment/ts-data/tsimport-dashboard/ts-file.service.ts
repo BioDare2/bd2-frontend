@@ -4,6 +4,7 @@ import {ImportFormat} from '../import-dom';
 import {UploadService} from '../../../file-asset/upload-service';
 import {Observable, from, throwError} from 'rxjs';
 import {flatMap, map} from 'rxjs/operators';
+import {DataTableSlice, Slice} from "./data-table-dom";
 
 
 @Injectable({
@@ -38,6 +39,10 @@ export class TSFileService {
     return this.BD2REST.fileViewVerifyFormat(format, fileId);
   }
 
+  getTableSlice(fileId: string, format: string, slice: Slice): Observable<DataTableSlice> {
+
+    return this.BD2REST.fileViewTableSlice(fileId, format, slice);
+  }
 
 }
 

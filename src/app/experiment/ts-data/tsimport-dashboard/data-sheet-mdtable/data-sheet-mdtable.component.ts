@@ -51,6 +51,9 @@ export class DataSheetMDTableComponent implements OnInit {
 
   @Input()
   set dataSlice(dataSlice: DataTableSlice) {
+    if (!dataSlice) {
+      return;
+    }
     this._dataSlice = dataSlice;
     this.columnsNames = dataSlice.columnsNames;
     this.rowsNames = dataSlice.rowsNames;

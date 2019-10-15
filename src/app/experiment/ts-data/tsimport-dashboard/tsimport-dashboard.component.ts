@@ -4,6 +4,7 @@ import {MatVerticalStepper} from '@angular/material';
 import {TSFileService} from './ts-file.service';
 import {ImportDetails, ImportFormat} from '../import-dom';
 import {FeedbackService} from '../../../feedback/feedback.service';
+import {DefineTimeStepComponent} from './define-time-step/define-time-step.component';
 
 
 
@@ -53,8 +54,9 @@ export class TSImportDashboardComponent implements OnInit {
 
   }
 
-  loadData() {
-    console.log('Loading data');
+  loadData(step: DefineTimeStepComponent) {
+    step.loadData();
+    // console.log('Loading data');
   }
 
   startLabelling() {

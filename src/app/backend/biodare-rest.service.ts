@@ -10,6 +10,7 @@ import {FileImportRequest, ImportFormat} from '../experiment/ts-data/import-dom'
 import {DetrendingType} from '../tsdata/ts-data-dom';
 import {PPARequest} from '../experiment/ppa/ppa-dom';
 import {RhythmicityRequest} from '../experiment/rhythmicity/rhythmicity-dom';
+import {Slice} from '../experiment/ts-data/tsimport-dashboard/data-table-dom';
 
 @Injectable({
   providedIn: 'root'
@@ -450,6 +451,14 @@ export class BioDareRestService {
     const url = this.endPoints.file_url + '/' + fileId + this.endPoints.view_verify_format + format.name;
 
     return this.OK(this.http.get(url, options));
+
+  }
+
+  fileViewTableSlice(fileId: string, format: string, slice: Slice): Observable<any> {
+    const options = this.makeOptions();
+    const url = this.endPoints.file_url + '/' + fileId + this.endPoints.view_table_slice + format;
+    const body = slice;
+    return this.OKJson(this.http.post(url, body, options));
 
   }
 

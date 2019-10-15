@@ -1,3 +1,4 @@
+import {PageEvent} from '@angular/material';
 
 
 export class DataTableSlice {
@@ -11,8 +12,23 @@ export class DataTableSlice {
   totalRows = 0;
   totalColumns = 0;
 
-
 }
+
+export class Slice {
+  rowPage = new PageEvent();
+  colPage = new PageEvent();
+
+  static firstPage() {
+    const slice = new Slice();
+    slice.rowPage.pageIndex = 0;
+    slice.rowPage.pageSize = 25;
+    slice.colPage.pageIndex = 0;
+    slice.colPage.pageSize = 25;
+    return slice;
+  }
+}
+
+
 
 
 export class CellSelection {
