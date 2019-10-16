@@ -6,15 +6,22 @@ import {AlertModule} from 'ngx-bootstrap';
 import {NoopAnimationsModule} from '@angular/platform-browser/animations';
 import {FormsModule} from '@angular/forms';
 import {DataSheetMDTableComponent} from '../data-sheet-mdtable/data-sheet-mdtable.component';
+import {TSFileService} from '../ts-file.service';
 
 describe('DefineTimeStepComponent', () => {
   let component: DefineTimeStepComponent;
   let fixture: ComponentFixture<DefineTimeStepComponent>;
-
+  let tsFileService;
   beforeEach(async(() => {
+
+    tsFileService = jasmine.createSpyObj('TSFileService', [
+      'getTableSlice'
+    ]);
+
     TestBed.configureTestingModule({
       declarations: [ DefineTimeStepComponent, DataSheetMDTableComponent ],
-      imports: [MaterialsModule, AlertModule.forRoot(), NoopAnimationsModule, FormsModule]
+      imports: [MaterialsModule, AlertModule.forRoot(), NoopAnimationsModule, FormsModule],
+      providers: [{provide: TSFileService, useValue: tsFileService}]
     })
     .compileComponents();
   }));

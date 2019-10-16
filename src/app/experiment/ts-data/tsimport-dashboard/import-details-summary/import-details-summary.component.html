@@ -1,7 +1,7 @@
 <mat-card class="mat-elevation-z4">
     <p>{{importDetails?.importFormat?.label}} <label>{{importDetails?.fileName}}</label></p>
 
-    <p><label>Series in {{importDetails?.inLabel+'s'}}</label></p>
+    <p><label>Time series in {{importDetails?.inLabel+'s'}}</label></p>
 
     <p *ngIf="showTime && firstTimeCell"><label>First time point</label> {{firstTimeCell.value}} {{importDetails.timeType?.unit}}
         [{{firstTimeCell.colName+':'+firstTimeCell.rowName}}]
