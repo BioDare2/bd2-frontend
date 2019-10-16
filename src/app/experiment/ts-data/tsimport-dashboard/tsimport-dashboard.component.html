@@ -64,7 +64,7 @@
         </mat-card-content>
         <mat-card-actions>
           <button mat-button matStepperPrevious>Back</button>
-          <button mat-button matStepperNext type="button" (click)="importLabels.loadData()">Next</button>
+          <button mat-button matStepperNext type="button" (click)="loadData(importLabelsStep)">Next</button>
         </mat-card-actions>
       </mat-card>
 
@@ -78,7 +78,7 @@
     <mat-divider></mat-divider>
     <bd2-import-details-summary [importDetails]="importDetails" [showTime]="true" ></bd2-import-details-summary>
 
-    <bd2-import-labels-step [importDetails]="importDetails" #importLabels></bd2-import-labels-step>
+    <bd2-import-labels-step [importDetails]="importDetails" #importLabelsStep></bd2-import-labels-step>
 
     <div>
       <button mat-button matStepperPrevious>Back</button>

@@ -79,6 +79,9 @@ export class DefineTimeStepComponent implements OnInit, OnDestroy {
     if (this.importDetails) {
       this.dataService.fileIdFormat([this.importDetails.fileId, this.importDetails.importFormat.name]);
       this.dataService.slice(this.page);
+      if (this.firstTimeCell) {
+        this.selectFirstTime(this.firstTimeCell);
+      }
     }
   }
 

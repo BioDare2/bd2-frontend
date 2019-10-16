@@ -5,6 +5,8 @@ import {TSFileService} from './ts-file.service';
 import {ImportDetails, ImportFormat} from '../import-dom';
 import {FeedbackService} from '../../../feedback/feedback.service';
 import {DefineTimeStepComponent} from './define-time-step/define-time-step.component';
+import {ImportLabelsStepComponent} from './import-labels-step/import-labels-step.component';
+import {CellSelection} from './data-table-dom';
 
 
 
@@ -27,6 +29,8 @@ export class TSImportDashboardComponent implements OnInit {
 
     this.importDetails = new ImportDetails();
     this.importDetails.inRows = true;
+    this.importDetails.firstTimeCell = new CellSelection(1, 1, 'B',
+      1, 1, '2', undefined);
   }
 
   ngOnInit() {
@@ -54,7 +58,7 @@ export class TSImportDashboardComponent implements OnInit {
 
   }
 
-  loadData(step: DefineTimeStepComponent) {
+  loadData(step: DefineTimeStepComponent| ImportLabelsStepComponent) {
     step.loadData();
     // console.log('Loading data');
   }
