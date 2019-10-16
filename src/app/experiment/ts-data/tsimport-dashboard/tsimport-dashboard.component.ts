@@ -1,12 +1,13 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {ConfirmDialogComponent} from '../../../shared/confirm-dialog.component';
+
 import {MatVerticalStepper} from '@angular/material';
 import {TSFileService} from './ts-file.service';
 import {ImportDetails, ImportFormat} from '../import-dom';
 import {FeedbackService} from '../../../feedback/feedback.service';
-import {DefineTimeStepComponent} from './define-time-step/define-time-step.component';
-import {ImportLabelsStepComponent} from './import-labels-step/import-labels-step.component';
+
 import {CellSelection} from './data-table-dom';
+import {TimeColumnType} from '../ts-import/sheet-dom';
+import {DataTableDependentStep} from './data-table-dependent-step';
 
 
 
@@ -29,6 +30,7 @@ export class TSImportDashboardComponent implements OnInit {
 
     this.importDetails = new ImportDetails();
     this.importDetails.inRows = true;
+    this.importDetails.timeType = TimeColumnType.TIME_IN_HOURS;
     this.importDetails.firstTimeCell = new CellSelection(1, 1, 'B',
       1, 1, '2', undefined);
   }
@@ -58,7 +60,7 @@ export class TSImportDashboardComponent implements OnInit {
 
   }
 
-  loadData(step: DefineTimeStepComponent| ImportLabelsStepComponent) {
+  loadData(step: DataTableDependentStep) {
     step.loadData();
     // console.log('Loading data');
   }

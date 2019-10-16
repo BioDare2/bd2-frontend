@@ -17,7 +17,8 @@
     </div>
 
     <bd2-data-sheet-mdtable (selected)="selectLabels($event)"
-                            [dataSlice]="dataSlice" [selectableColHeader]="true"
+                            [dataSlice]="dataSlice"
+                            [selectableColHeader]="importDetails.inRows" [selectableRowHeader]="!importDetails.inRows"
                             [styler]="tableSelector.tableStyler"></bd2-data-sheet-mdtable>
 
     <div>
