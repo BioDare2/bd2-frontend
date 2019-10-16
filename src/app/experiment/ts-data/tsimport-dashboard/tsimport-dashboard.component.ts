@@ -2,7 +2,7 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 
 import {MatVerticalStepper} from '@angular/material';
 import {TSFileService} from './ts-file.service';
-import {ImportDetails, ImportFormat} from '../import-dom';
+import {DataTableImportParameters, ImportDetails, ImportFormat} from '../import-dom';
 import {FeedbackService} from '../../../feedback/feedback.service';
 
 import {CellSelection} from './data-table-dom';
@@ -28,7 +28,7 @@ export class TSImportDashboardComponent implements OnInit {
   constructor(private fileService: TSFileService,
               private feedback: FeedbackService) {
 
-    this.importDetails = new ImportDetails();
+    this.importDetails = new DataTableImportParameters(); //ImportDetails();
     this.importDetails.inRows = true;
     this.importDetails.timeType = TimeColumnType.TIME_IN_HOURS;
     this.importDetails.firstTimeCell = new CellSelection(1, 1, 'B',

@@ -75,6 +75,8 @@ export class ImportDetails {
   timeOffset = 0;
   imgInterval: number;
 
+  dataStart: CellSelection;
+
   importLabels = true;
   labelsSelection: CellSelection;
 
@@ -121,5 +123,11 @@ export class ImportDetails {
     }
     return false;
   }
+}
+
+export class DataTableImportParameters extends ImportDetails {
+  // tslint:disable-next-line:variable-name
+  _class_name = '.DataTableImportParameters';
+
 }
 

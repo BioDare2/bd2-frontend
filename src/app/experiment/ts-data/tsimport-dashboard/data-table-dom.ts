@@ -42,4 +42,8 @@ export class CellSelection {
    public rowName = '',
    public value: string|number,
   ) {}
+
+  toJSON() {
+    return { col: this.colNumber, row: this.rowNumber };
+  }
 }
