@@ -23,7 +23,7 @@
 
     <div>
       &nbsp;
-      <alert type="info" class="small">
+      <alert *ngIf="hasMoreLabels()" type="info" class="small">
         Even if only the top part of the data table is presented all labels from the selected {{importDetails.inLabelNeg}}
         will be imported
       </alert>

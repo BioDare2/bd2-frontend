@@ -69,6 +69,10 @@ export class SelectionColorCycler {
   public static readonly MAIN_COL_BACKGROUND = '#87cefa';
   public static readonly MAIN_CELL_BACKGROUND = '#ba55d3'; // 'mediumorchid';
 
+  public static readonly TIME_BACKGROUND = '#dda0dd';
+  public static readonly LABELS_BACKGROUND = '#87cefa';
+  public static readonly FIRST_TIME_BACKGROUND = '#ba55d3'; // 'mediumorchid';
+
   public rowBackground(groupNr: number) {
     return SelectionColorCycler.MAIN_ROW_BACKGROUND;
   }
@@ -92,32 +96,32 @@ export class TableSelector {
   selectedRows: CellSelection[] = [];
   selectedCols: CellSelection[] = [];
 
-  public toggleRow(rowCell: CellSelection, withCell = false) {
+  public toggleRow(rowCell: CellSelection, withCell = false, rowColor?: string, cellColor?: string) {
 
     const toggled = this.selectedRows.splice(0, this.selectedRows.length);
     this.selectedRows.push(rowCell);
 
     this.uncolorRows(toggled);
-    this.colorRows(this.selectedRows);
+    this.colorRows(this.selectedRows, rowColor);
 
     if (withCell) {
       this.uncolorCells(toggled);
-      this.colorCells(this.selectedRows);
+      this.colorCells(this.selectedRows, cellColor);
     }
 
   }
 
-  public toggleCol(colCell: CellSelection, withCell = false) {
+  public toggleCol(colCell: CellSelection, withCell = false, colColor?: string, cellColor?: string) {
 
     const toggled = this.selectedCols.splice(0, this.selectedCols.length);
     this.selectedCols.push(colCell);
 
     this.uncolorCols(toggled);
-    this.colorCols(this.selectedCols);
+    this.colorCols(this.selectedCols, colColor);
 
     if (withCell) {
       this.uncolorCells(toggled);
-      this.colorCells(this.selectedCols);
+      this.colorCells(this.selectedCols, cellColor);
     }
 
   }
@@ -129,21 +133,21 @@ export class TableSelector {
   }
 
 
-  colorRows(cells: CellSelection[]) {
+  colorRows(cells: CellSelection[], color?: string) {
     cells.forEach( (cell, ix) => {
-      this.tableStyler.setRowBackground(cell.rowIx, this.colorCycler.rowBackground(ix));
+      this.tableStyler.setRowBackground(cell.rowIx, color ? color : this.colorCycler.rowBackground(ix));
     });
   }
 
-  colorCols(cells: CellSelection[]) {
+  colorCols(cells: CellSelection[], color?: string) {
     cells.forEach( (cell, ix) => {
-      this.tableStyler.setColBackground(cell.colIx, this.colorCycler.columnBackground(ix));
+      this.tableStyler.setColBackground(cell.colIx, color ? color : this.colorCycler.columnBackground(ix));
     });
   }
 
-  colorCells(cells: CellSelection[]) {
+  colorCells(cells: CellSelection[], color?: string) {
     cells.forEach( (cell, ix) => {
-      this.tableStyler.setCellBackground(cell.colIx, cell.rowIx, this.colorCycler.cellBackground(ix));
+      this.tableStyler.setCellBackground(cell.colIx, cell.rowIx, color ? color : this.colorCycler.cellBackground(ix));
     });
   }
 

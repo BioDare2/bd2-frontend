@@ -1,6 +1,6 @@
 import {OnDestroy, OnInit} from '@angular/core';
 import {ImportDetails} from '../import-dom';
-import {TableSelector} from './data-sheet-mdtable/table-styling';
+import {SelectionColorCycler, TableSelector} from './data-sheet-mdtable/table-styling';
 import {CellSelection, DataTableSlice, Slice} from './data-table-dom';
 import {DataTableService} from './data-table.service';
 import {FeedbackService} from '../../../feedback/feedback.service';
@@ -60,9 +60,11 @@ export class DataTableDependentStep implements OnInit, OnDestroy {
     this.importDetails.firstTimeCell = selection;
     if (selection) {
       if (this.importDetails.inRows) {
-        this.tableSelector.toggleRow(selection, true);
+        this.tableSelector.toggleRow(selection, true,
+          SelectionColorCycler.TIME_BACKGROUND, SelectionColorCycler.FIRST_TIME_BACKGROUND);
       } else {
-        this.tableSelector.toggleCol(selection, true);
+        this.tableSelector.toggleCol(selection, true,
+          SelectionColorCycler.TIME_BACKGROUND, SelectionColorCycler.FIRST_TIME_BACKGROUND);
       }
     }
   }
@@ -71,9 +73,9 @@ export class DataTableDependentStep implements OnInit, OnDestroy {
     this.importDetails.labelsSelection = selection;
     if (selection) {
       if (this.importDetails.inRows) {
-        this.tableSelector.toggleCol(selection);
+        this.tableSelector.toggleCol(selection, false, SelectionColorCycler.LABELS_BACKGROUND);
       } else {
-        this.tableSelector.toggleRow(selection);
+        this.tableSelector.toggleRow(selection, false, SelectionColorCycler.LABELS_BACKGROUND);
       }
     }
   }
@@ -109,6 +111,30 @@ export class DataTableDependentStep implements OnInit, OnDestroy {
     );
 
     return selection;
+  }
+
+  hasMoreTimes() {
+    if (!this.importDetails || !this.dataSlice) {
+      return false;
+    }
+
+    if (this.importDetails.inRows) {
+      return this.page.colPage.pageSize < this.dataSlice.totalColumns;
+    } else {
+      return this.page.rowPage.pageSize < this.dataSlice.totalRows;
+    }
+  }
+
+  hasMoreLabels() {
+    if (!this.importDetails || !this.dataSlice) {
+      return false;
+    }
+
+    if (!this.importDetails.inRows) {
+      return this.page.colPage.pageSize < this.dataSlice.totalColumns;
+    } else {
+      return this.page.rowPage.pageSize < this.dataSlice.totalRows;
+    }
   }
 
 

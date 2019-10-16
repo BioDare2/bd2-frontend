@@ -45,6 +45,10 @@
                             [dataSlice]="dataSlice"
                             [styler]="tableSelector.tableStyler"></bd2-data-sheet-mdtable>
 
+    <alert *ngIf="hasMoreTimes()" type="info" class="small">
+      Even if only the top part of the data table is presented all times from the selected {{importDetails.inLabel}}
+      will be imported
+    </alert>
   </mat-card-content>
 
 </mat-card>
