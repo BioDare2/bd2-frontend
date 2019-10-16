@@ -1,26 +1,16 @@
 <mat-card class="mat-elevation-z4">
-  <mat-grid-list cols="2" rowHeight="5em">
-    <mat-grid-tile colspan="2">
-      <p><label>File</label> {{importDetails?.fileName}}</p>
-    </mat-grid-tile>
-    <mat-grid-tile>
-      <p><label>Format</label> {{importDetails?.importFormat?.label}}</p>
-    </mat-grid-tile>
-    <mat-grid-tile>
-      <p><label>Series</label> in {{importDetails?.inLabel+'s'}}</p>
-    </mat-grid-tile>
-    <mat-grid-tile *ngIf="showTime && firstTimeCell" colspan="2">
-      <p><label>First time point</label> {{firstTimeCell.value}} {{importDetails.timeType?.unit}}
+    <p>{{importDetails?.importFormat?.label}} <label>{{importDetails?.fileName}}</label></p>
+
+    <p><label>Series in {{importDetails?.inLabel+'s'}}</label></p>
+
+    <p *ngIf="showTime && firstTimeCell"><label>First time point</label> {{firstTimeCell.value}} {{importDetails.timeType?.unit}}
         [{{firstTimeCell.colName+':'+firstTimeCell.rowName}}]
         <span *ngIf="importDetails.timeType?.name === 'IMG_NUMBER'"> <label>Images every</label> {{importDetails.imgInterval}}h </span>
         <span *ngIf="importDetails.timeOffset != 0"> <label>Time offset</label> {{importDetails.timeOffset}}h </span>
-      </p>
+    </p>
 
-    </mat-grid-tile>
-    <mat-grid-tile *ngIf="showLabelling && labelsSelection">
-      <p>Labels in {{importDetails.inLabelNeg}}
+    <p *ngIf="showLabelling && labelsSelection">
+      Labels in {{importDetails.inLabelNeg}}
         <strong>{{importDetails.inRows ? labelsSelection.colName : labelsSelection.rowName}};</strong>
-      </p>
-    </mat-grid-tile>
-  </mat-grid-list>
+    </p>
 </mat-card>
