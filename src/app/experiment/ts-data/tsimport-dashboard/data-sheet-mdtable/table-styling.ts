@@ -113,6 +113,21 @@ export class TableSelector {
 
   }
 
+  public toggleRowSelection(selectionIx: number, rowCell: CellSelection, withCell = false, rowColor?: string, cellColor?: string) {
+
+    const toggled = this.selectedRows[selectionIx] ? [this.selectedRows[selectionIx]] : [];
+    this.selectedRows[selectionIx] = rowCell;
+
+    this.uncolorRows(toggled);
+    this.colorRows([this.selectedRows[selectionIx]], rowColor);
+
+    if (withCell) {
+      this.uncolorCells(toggled);
+      this.colorCells([this.selectedRows[selectionIx]], cellColor);
+    }
+
+  }
+
   public toggleCol(colCell: CellSelection, withCell = false, colColor?: string, cellColor?: string) {
 
     const toggled = this.selectedCols.splice(0, this.selectedCols.length);
@@ -124,6 +139,21 @@ export class TableSelector {
     if (withCell) {
       this.uncolorCells(toggled);
       this.colorCells(this.selectedCols, cellColor);
+    }
+
+  }
+
+  public toggleColSelection(selectionIx: number, colCell: CellSelection, withCell = false, colColor?: string, cellColor?: string) {
+
+    const toggled = this.selectedCols[selectionIx] ? [this.selectedCols[selectionIx]] : [];
+    this.selectedCols[selectionIx] = colCell;
+
+    this.uncolorCols(toggled);
+    this.colorCols([this.selectedCols[selectionIx]], colColor);
+
+    if (withCell) {
+      this.uncolorCells(toggled);
+      this.colorCells([this.selectedCols[selectionIx]], cellColor);
     }
 
   }

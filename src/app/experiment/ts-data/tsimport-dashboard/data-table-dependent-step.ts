@@ -90,13 +90,13 @@ export class DataTableDependentStep implements OnInit, OnDestroy {
       if (this.importDetails.inRows) {
         if (!this.firstTimeCell || this.firstTimeCell.rowIx !== selection.rowIx) {
           this.importDetails.dataStart = selection;
-          this.tableSelector.toggleRow(selection, false,
+          this.tableSelector.toggleRowSelection(1, selection, false,
             SelectionColorCycler.FIST_DATA_BACKGROUND);
         }
       } else {
         if (!this.firstTimeCell || this.firstTimeCell.colIx !== selection.colIx) {
           this.importDetails.dataStart = selection;
-          this.tableSelector.toggleCol(selection, false,
+          this.tableSelector.toggleColSelection(1, selection, false,
             SelectionColorCycler.FIST_DATA_BACKGROUND);
         }
       }
