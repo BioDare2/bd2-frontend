@@ -1,0 +1,27 @@
+<mat-card *ngIf="importDetails" class="mat-elevation-z4">
+  <mat-card-content>
+
+    <div *ngIf="dataStart">
+      <p>Data starts in {{importDetails.inLabel}}
+        <strong>{{importDetails.inRows ? dataStart.rowName : dataStart.colName}};</strong>
+      </p>
+      <alert *ngIf="!importDetails.isDataAfterTime()" type="danger">
+        Data start {{importDetails.inLabel}} must be after time {{importDetails.inLabel}}.
+      </alert>
+    </div>
+
+    <div>
+      <alert [type]="dataStart ? 'info': 'danger'">
+        Click on the first data {{importDetails.inLabel}}.
+      </alert>
+    </div>
+
+    <bd2-data-sheet-mdtable (selected)="selectDataStart($event)"
+                            [dataSlice]="dataSlice"
+                            [selectableColHeader]="!importDetails.inRows" [selectableRowHeader]="importDetails.inRows"
+                            [styler]="tableSelector.tableStyler"></bd2-data-sheet-mdtable>
+
+
+  </mat-card-content>
+</mat-card>
+

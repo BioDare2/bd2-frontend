@@ -73,6 +73,8 @@ export class SelectionColorCycler {
   public static readonly LABELS_BACKGROUND = '#87cefa';
   public static readonly FIRST_TIME_BACKGROUND = '#ba55d3'; // 'mediumorchid';
 
+  public static readonly FIST_DATA_BACKGROUND = 'lightgreen';
+
   public rowBackground(groupNr: number) {
     return SelectionColorCycler.MAIN_ROW_BACKGROUND;
   }

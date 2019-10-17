@@ -13,4 +13,8 @@
       Labels in {{importDetails.inLabelNeg}}
         <strong>{{importDetails.inRows ? labelsSelection.colName : labelsSelection.rowName}};</strong>
     </p>
+  <p *ngIf="showDataStart && dataStart">
+    Data starts in {{importDetails.inLabel}}
+    <strong>{{importDetails.inRows ? dataStart.rowName : dataStart.colName}};</strong>
+  </p>
 </mat-card>

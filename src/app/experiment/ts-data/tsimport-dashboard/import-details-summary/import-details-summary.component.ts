@@ -17,12 +17,19 @@ export class ImportDetailsSummaryComponent implements OnInit {
   @Input()
   showLabelling = false;
 
+  @Input()
+  showDataStart = false;
+
   get firstTimeCell() {
     return this.importDetails ? this.importDetails.firstTimeCell : undefined;
   }
 
   get labelsSelection() {
     return this.importDetails ? this.importDetails.labelsSelection : undefined;
+  }
+
+  get dataStart() {
+    return this.importDetails ? this.importDetails.dataStart : undefined;
   }
 
   constructor() { }

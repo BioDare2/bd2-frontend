@@ -24,6 +24,10 @@ export class DataTableDependentStep implements OnInit, OnDestroy {
     return this.importDetails ? this.importDetails.labelsSelection : undefined;
   }
 
+  get dataStart() {
+    return this.importDetails ? this.importDetails.dataStart : undefined;
+  }
+
   constructor(protected dataService: DataTableService, protected feedback: FeedbackService) { }
 
   ngOnInit() {
@@ -77,6 +81,27 @@ export class DataTableDependentStep implements OnInit, OnDestroy {
       } else {
         this.tableSelector.toggleRow(selection, false, SelectionColorCycler.LABELS_BACKGROUND);
       }
+    }
+  }
+
+  selectDataStart(selection: CellSelection) {
+
+    if (selection) {
+      if (this.importDetails.inRows) {
+        if (!this.firstTimeCell || this.firstTimeCell.rowIx !== selection.rowIx) {
+          this.importDetails.dataStart = selection;
+          this.tableSelector.toggleRow(selection, false,
+            SelectionColorCycler.FIST_DATA_BACKGROUND);
+        }
+      } else {
+        if (!this.firstTimeCell || this.firstTimeCell.colIx !== selection.colIx) {
+          this.importDetails.dataStart = selection;
+          this.tableSelector.toggleCol(selection, false,
+            SelectionColorCycler.FIST_DATA_BACKGROUND);
+        }
+      }
+    } else {
+      this.importDetails.dataStart = undefined;
     }
   }
 

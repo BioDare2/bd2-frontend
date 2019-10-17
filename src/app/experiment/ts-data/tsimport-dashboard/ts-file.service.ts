@@ -4,7 +4,7 @@ import {ImportFormat} from '../import-dom';
 import {UploadService} from '../../../file-asset/upload-service';
 import {Observable, from, throwError} from 'rxjs';
 import {flatMap, map} from 'rxjs/operators';
-import {DataTableSlice, Slice} from "./data-table-dom";
+import {DataTableSlice, Slice} from './data-table-dom';
 
 
 @Injectable({

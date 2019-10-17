@@ -11,6 +11,7 @@ import {ImportDetailsSummaryComponent} from './import-details-summary/import-det
 import {DefineTimeStepComponent} from './define-time-step/define-time-step.component';
 import {ImportLabelsStepComponent} from './import-labels-step/import-labels-step.component';
 import {DataSheetMDTableComponent} from './data-sheet-mdtable/data-sheet-mdtable.component';
+import {SelectDataStartStepComponent} from './select-data-start-step/select-data-start-step.component';
 
 describe('TSImportDashboardComponent', () => {
   let component: TSImportDashboardComponent;
@@ -19,7 +20,7 @@ describe('TSImportDashboardComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ TSImportDashboardComponent, UploadDataFileStepComponent, ImportDetailsSummaryComponent,
-      DefineTimeStepComponent, ImportLabelsStepComponent, DataSheetMDTableComponent],
+      DefineTimeStepComponent, ImportLabelsStepComponent, DataSheetMDTableComponent, SelectDataStartStepComponent],
       imports: [MaterialsModule, AlertModule.forRoot(), FileAssetModule, NoopAnimationsModule,
         ExperimentsTestToolModule]
     })

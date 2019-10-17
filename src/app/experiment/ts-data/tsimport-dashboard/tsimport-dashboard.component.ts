@@ -28,7 +28,7 @@ export class TSImportDashboardComponent implements OnInit {
   constructor(private fileService: TSFileService,
               private feedback: FeedbackService) {
 
-    this.importDetails = new DataTableImportParameters(); //ImportDetails();
+    this.importDetails = new DataTableImportParameters(); // ImportDetails();
     this.importDetails.inRows = true;
     this.importDetails.timeType = TimeColumnType.TIME_IN_HOURS;
     this.importDetails.firstTimeCell = new CellSelection(1, 1, 'B',
