@@ -2,13 +2,14 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 
 import {MatVerticalStepper} from '@angular/material';
 import {TSFileService} from './ts-file.service';
-import {DataTableImportParameters, ImportDetails, ImportFormat} from '../import-dom';
+import {DataTableImportParameters, FileImportRequest, ImportDetails, ImportFormat} from '../import-dom';
 import {FeedbackService} from '../../../feedback/feedback.service';
 
 import {CellSelection} from './data-table-dom';
 import {TimeColumnType} from '../ts-import/sheet-dom';
 import {DataTableDependentStep} from './data-table-dependent-step';
 import {DataTableService} from './data-table.service';
+import {BioDareRestService} from '../../../backend/biodare-rest.service';
 
 
 
@@ -28,7 +29,7 @@ export class TSImportDashboardComponent implements OnInit {
   inRows: any;
 
   constructor(private fileService: TSFileService,
-              private feedback: FeedbackService) {
+              private feedback: FeedbackService, private BD2REST: BioDareRestService) {
 
     this.importDetails = new DataTableImportParameters(); // ImportDetails();
     this.importDetails.inRows = true;
@@ -67,11 +68,23 @@ export class TSImportDashboardComponent implements OnInit {
     // console.log('Loading data');
   }
 
-  startLabelling() {
-    console.log('Starting labeling');
-  }
 
   importData() {
+    console.log('Import data');
 
+    const request = new FileImportRequest();
+    request.fileId = this.importDetails.fileId;
+    request.importFormat = this.importDetails.importFormat;
+    request.importParameters = this.importDetails;
+
+    this.BD2REST.experimentImportTS2(10125, request)
+      .subscribe( resp => {
+        this.feedback.info('Imported');
+        console.log(resp);
+                  },
+        err => {
+          console.error('E', err);
+          this.feedback.error(err);
+        });
   }
 }

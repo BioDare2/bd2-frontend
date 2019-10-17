@@ -223,6 +223,15 @@ export class BioDareRestService {
 
   }
 
+  experimentImportTS2(expId: number, request: FileImportRequest): Observable<any> {
+    const options = this.makeOptions();
+    const url = this.endPoints.experiment_url + '/' + expId + this.endPoints.ts_import;
+    const body = request;
+
+    return this.OKJson(this.http.post(url, body, options));
+
+  }
+
   /* data */
 
   /* ppa */
