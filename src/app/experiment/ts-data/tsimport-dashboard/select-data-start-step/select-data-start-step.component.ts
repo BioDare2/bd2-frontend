@@ -8,7 +8,6 @@ import {CellSelection, DataTableSlice} from '../data-table-dom';
   selector: 'bd2-select-data-start-step',
   templateUrl: './select-data-start-step.component.html',
   styles: [],
-  providers: [ DataTableService],
   // tslint:disable-next-line:no-inputs-metadata-property
   inputs: ['importDetails']
 })
@@ -19,8 +18,8 @@ export class SelectDataStartStepComponent extends DataTableDependentStep impleme
   }
 
 
-  setDataSlice(dataSlice: DataTableSlice) {
-    super.setDataSlice(dataSlice);
+  applySelections() {
+    super.applySelections();
 
     if (this.firstTimeCell) {
       this.selectFirstTime(this.reselect(this.firstTimeCell));
@@ -30,16 +29,18 @@ export class SelectDataStartStepComponent extends DataTableDependentStep impleme
       this.selectLabels(this.reselect(this.labelsSelection));
     }
 
-    if (this.dataStart) {
+    if (this.dataStart && !this.dataStart.fake) {
       this.selectDataStart(this.reselect(this.dataStart));
     } else {
       // let set data to the next row col after time
       if (this.firstTimeCell) {
-        this.selectDataStart(this.reselect(
+        const fake = this.reselect(
           new CellSelection(
             this.firstTimeCell.colIx + 1, undefined, undefined,
             this.firstTimeCell.rowIx + 1, undefined, undefined, undefined
-          )));
+          ));
+        fake.fake = true;
+        this.selectDataStart(fake);
       }
     }
   }

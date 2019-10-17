@@ -50,14 +50,21 @@ export class DataTableDependentStep implements OnInit, OnDestroy {
 
   setDataSlice(dataSlice: DataTableSlice) {
     this.dataSlice = dataSlice;
+    this.applySelections();
   }
 
   loadData() {
     if (this.importDetails) {
       this.dataService.fileIdFormat([this.importDetails.fileId, this.importDetails.importFormat.name]);
       this.dataService.slice(this.page);
-      this.tableSelector.reset();
     }
+    if (this.dataSlice) {
+      this.applySelections();
+    }
+  }
+
+  applySelections() {
+    this.tableSelector.reset();
   }
 
   selectFirstTime(selection: CellSelection) {

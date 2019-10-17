@@ -7,6 +7,7 @@ import {AlertModule} from 'ngx-bootstrap';
 import {NoopAnimationsModule} from '@angular/platform-browser/animations';
 import {FormsModule} from '@angular/forms';
 import {TSFileService} from '../ts-file.service';
+import {DataTableService} from '../data-table.service';
 
 describe('SelectDataStartStepComponent', () => {
   let component: SelectDataStartStepComponent;
@@ -20,7 +21,7 @@ describe('SelectDataStartStepComponent', () => {
     TestBed.configureTestingModule({
       declarations: [ SelectDataStartStepComponent, DataSheetMDTableComponent ],
       imports: [MaterialsModule, AlertModule.forRoot(), NoopAnimationsModule, FormsModule],
-      providers: [{provide: TSFileService, useValue: tsFileService}]
+      providers: [{provide: TSFileService, useValue: tsFileService}, DataTableService]
     })
     .compileComponents();
   }));

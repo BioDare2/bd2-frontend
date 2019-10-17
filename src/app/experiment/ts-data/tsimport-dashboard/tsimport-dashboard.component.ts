@@ -8,13 +8,15 @@ import {FeedbackService} from '../../../feedback/feedback.service';
 import {CellSelection} from './data-table-dom';
 import {TimeColumnType} from '../ts-import/sheet-dom';
 import {DataTableDependentStep} from './data-table-dependent-step';
+import {DataTableService} from './data-table.service';
 
 
 
 @Component({
   selector: 'bd2-tsimport-dashboard',
   templateUrl: './tsimport-dashboard.component.html',
-  styles: []
+  styles: [],
+  providers: [ DataTableService]
 })
 export class TSImportDashboardComponent implements OnInit {
 

@@ -7,6 +7,7 @@ import {NoopAnimationsModule} from '@angular/platform-browser/animations';
 import {FormsModule} from '@angular/forms';
 import {DataSheetMDTableComponent} from '../data-sheet-mdtable/data-sheet-mdtable.component';
 import {TSFileService} from '../ts-file.service';
+import {DataTableService} from '../data-table.service';
 
 describe('ImportLabelsStepComponent', () => {
   let component: ImportLabelsStepComponent;
@@ -21,7 +22,7 @@ describe('ImportLabelsStepComponent', () => {
     TestBed.configureTestingModule({
       declarations: [ ImportLabelsStepComponent, DataSheetMDTableComponent ],
       imports: [MaterialsModule, AlertModule.forRoot(), NoopAnimationsModule, FormsModule],
-      providers: [{provide: TSFileService, useValue: tsFileService}]
+      providers: [{provide: TSFileService, useValue: tsFileService}, DataTableService]
     })
     .compileComponents();
   }));

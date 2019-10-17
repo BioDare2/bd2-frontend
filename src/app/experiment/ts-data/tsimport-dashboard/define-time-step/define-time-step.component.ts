@@ -9,7 +9,6 @@ import {DataTableSlice} from '../data-table-dom';
   selector: 'bd2-define-time-step',
   templateUrl: './define-time-step.component.html',
   styles: [],
-  providers: [ DataTableService],
   // tslint:disable-next-line:no-inputs-metadata-property
   inputs: ['importDetails']
 })
@@ -23,8 +22,8 @@ export class DefineTimeStepComponent extends DataTableDependentStep implements O
   }
 
 
-  setDataSlice(dataSlice: DataTableSlice) {
-    super.setDataSlice(dataSlice);
+  applySelections() {
+    super.applySelections();
 
     if (this.firstTimeCell) {
       this.selectFirstTime(this.reselect(this.firstTimeCell));

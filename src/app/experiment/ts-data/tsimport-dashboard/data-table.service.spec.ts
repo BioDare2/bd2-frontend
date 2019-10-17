@@ -137,4 +137,58 @@ describe('DataTableService', () => {
 
   }));
 
+  it('emits only once if same parameters', fakeAsync( () => {
+
+    tsFileService.getTableSlice.and.returnValue(of(data));
+    // tsFileService.getTableSlice.and.returnValue(throwError('should not be called'));
+
+    let error;
+    let val;
+    let err;
+
+    service.dataSlice$.subscribe( d => val = d, e => err = e);
+    service.error$.subscribe( e => error = e);
+
+    service.fileIdFormat(['123', ImportFormat.COMA_SEP.name]);
+    let slice = new Slice();
+    slice.rowPage.pageSize = 25;
+    slice.colPage.pageSize = 20;
+    service.slice(slice);
+
+    tick();
+    expect(val).toBe(data);
+    expect(err).toBeUndefined();
+    expect(error).toBeUndefined();
+
+    val = undefined;
+
+    service.fileIdFormat(['123', ImportFormat.COMA_SEP.name]);
+    tick();
+    expect(val).toBeUndefined();
+    expect(err).toBeUndefined();
+    expect(error).toBeUndefined();
+
+    slice = new Slice();
+    slice.rowPage.pageSize = 25;
+    slice.colPage.pageSize = 20;
+    service.slice(slice);
+    tick();
+
+    expect(val).toBeUndefined();
+    expect(err).toBeUndefined();
+    expect(error).toBeUndefined();
+
+    slice = new Slice();
+    slice.rowPage.pageSize = 25;
+    slice.colPage.pageSize = 10;
+    service.slice(slice);
+
+    tick();
+    expect(val).toBe(data);
+    expect(err).toBeUndefined();
+    expect(error).toBeUndefined();
+
+  }));
+
+
 });

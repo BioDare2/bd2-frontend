@@ -8,7 +8,6 @@ import {DataTableDependentStep} from '../data-table-dependent-step';
   selector: 'bd2-import-labels-step',
   templateUrl: './import-labels-step.component.html',
   styles: [],
-  providers: [ DataTableService],
   // tslint:disable-next-line:no-inputs-metadata-property
   inputs: ['importDetails']
 })
@@ -19,8 +18,8 @@ export class ImportLabelsStepComponent extends DataTableDependentStep implements
   }
 
 
-  setDataSlice(dataSlice: DataTableSlice) {
-    super.setDataSlice(dataSlice);
+  applySelections() {
+    super.applySelections();
 
     if (this.firstTimeCell) {
       this.selectFirstTime(this.reselect(this.firstTimeCell));

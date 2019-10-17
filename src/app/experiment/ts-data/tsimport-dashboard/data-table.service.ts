@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {BehaviorSubject, combineLatest, Observable, Subject} from 'rxjs';
 import {DataTableSlice, Slice} from './data-table-dom';
-import {filter, switchMap, tap} from 'rxjs/operators';
+import {distinctUntilChanged, filter, switchMap, tap} from 'rxjs/operators';
 
 import {TSFileService} from './ts-file.service';
 
@@ -46,17 +46,24 @@ export class DataTableService {
     }
   }
 
+  sameParams( [[format1, id1], slice1], [[format2, id2], slice2]) {
+    // tslint:disable-next-line:triple-equals
+    return (format1 == format2) && (id1 == id2) && (slice1 as Slice).equals(slice2);
+  }
+
   initDataStream() {
 
     const params = combineLatest([this.fileIdFormat$, this.slice$]).pipe(
-      tap( r => console.log('Params', r)),
-      filter( ([fileId, slice]) => fileId && !!slice)
+      // tap( r => console.log('Params', r)),
+      filter( ([fileId, slice]) => fileId && !!slice),
+      distinctUntilChanged(this.sameParams),
+      // tap( r => console.log('Distinct Params', r)),
     );
 
     params.pipe(
-      tap( r => console.log('BF switch', r)),
+      // tap( r => console.log('BF switch', r)),
       switchMap( ([fileIdFormat, slice]) => this.tsFileService.getTableSlice(fileIdFormat[0], fileIdFormat[1], slice)),
-      tap( r => console.log('After switch', r))
+      // tap( r => console.log('After switch', r))
     ).subscribe(
       data => this.tableSlice$.next(data),
       err => this.error$.next(err)

@@ -12,17 +12,21 @@ import {DefineTimeStepComponent} from './define-time-step/define-time-step.compo
 import {ImportLabelsStepComponent} from './import-labels-step/import-labels-step.component';
 import {DataSheetMDTableComponent} from './data-sheet-mdtable/data-sheet-mdtable.component';
 import {SelectDataStartStepComponent} from './select-data-start-step/select-data-start-step.component';
+import {TSFileService} from './ts-file.service';
 
 describe('TSImportDashboardComponent', () => {
   let component: TSImportDashboardComponent;
   let fixture: ComponentFixture<TSImportDashboardComponent>;
 
   beforeEach(async(() => {
+    /*  let tsFileService = jasmine.createSpyObj('TSFileService', [
+      'getTableSlice'
+    ]); */
     TestBed.configureTestingModule({
       declarations: [ TSImportDashboardComponent, UploadDataFileStepComponent, ImportDetailsSummaryComponent,
       DefineTimeStepComponent, ImportLabelsStepComponent, DataSheetMDTableComponent, SelectDataStartStepComponent],
       imports: [MaterialsModule, AlertModule.forRoot(), FileAssetModule, NoopAnimationsModule,
-        ExperimentsTestToolModule]
+        ExperimentsTestToolModule],
     })
     .compileComponents();
   }));

@@ -26,6 +26,20 @@ export class Slice {
     slice.colPage.pageSize = 25;
     return slice;
   }
+
+  static pageEquals(p1: PageEvent, p2: PageEvent) {
+    return (p1.pageIndex === p2.pageIndex) && (p1.pageSize === p2.pageSize);
+  }
+
+  equals(s2: Slice) {
+    if (!s2) {
+      return false;
+    }
+
+    return Slice.pageEquals(this.rowPage, s2.rowPage) && Slice.pageEquals(this.colPage, s2.colPage);
+  }
+
+
 }
 
 
@@ -33,6 +47,7 @@ export class Slice {
 
 export class CellSelection {
 
+  fake = false;
   constructor(
    public colIx = 0,
    public colNumber = 0,

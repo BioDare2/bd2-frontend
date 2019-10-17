@@ -123,6 +123,24 @@ export class ImportDetails {
     }
     return false;
   }
+
+  isDataAfterTime() {
+    if (this.firstTimeCell && this.dataStart) {
+      if (this.inRows) {
+        return this.dataStart.rowIx > this.firstTimeCell.rowIx;
+      } else {
+        return this.dataStart.colIx > this.firstTimeCell.colIx;
+      }
+    }
+    return false;
+  }
+
+  isDataStartCorrectlySelected() {
+    if (!this.dataStart) {
+      return false;
+    }
+    return this.isDataAfterTime();
+  }
 }
 
 export class DataTableImportParameters extends ImportDetails {
