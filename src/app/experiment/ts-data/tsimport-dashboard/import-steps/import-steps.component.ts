@@ -18,6 +18,9 @@ export class ImportStepsComponent implements OnInit {
   @Output()
   import = new EventEmitter<ImportDetails>();
 
+  @Output()
+  oldImport  = new EventEmitter<ImportDetails>();
+
   @Input()
   blocked = false;
 
@@ -42,6 +45,8 @@ export class ImportStepsComponent implements OnInit {
   ngOnInit() {
   }
 
+
+
   upload(upload: {files: File[], importFormat: ImportFormat}) {
     // console.log('Upload', upload);
 
@@ -56,6 +61,9 @@ export class ImportStepsComponent implements OnInit {
         this.importDetails.fileName = upload.files[0].name;
         this.importDetails.importFormat = upload.importFormat;
         this.stepper.next();
+        if (upload.importFormat == ImportFormat.EXCEL_TABLE || upload.importFormat == ImportFormat.TOPCOUNT) {
+          this.oldImport.next(this.importDetails);
+        }
       },
       err => {
         this.feedback.error(err);

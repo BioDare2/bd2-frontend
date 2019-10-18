@@ -1,5 +1,5 @@
 
-<bd2-import-steps (import)="importData($event)"></bd2-import-steps>
+<bd2-import-steps (import)="importData($event)" (oldImport)="goToOldImport($event)"></bd2-import-steps>
 <mat-card *ngIf="importing">
   <mat-card-content>
     <mat-spinner class="center-block"></mat-spinner>

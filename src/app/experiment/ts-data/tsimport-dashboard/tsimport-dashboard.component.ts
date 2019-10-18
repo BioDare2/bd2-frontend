@@ -60,4 +60,10 @@ export class TSImportDashboardComponent extends ExperimentBaseComponent implemen
     path.push('ts');
     this.router.navigate(path);
   }
+
+  goToOldImport(importDetails: ImportDetails) {
+    const path = this.expHomePath();
+    path.push('data', 'ts-import', importDetails.importFormat.name, importDetails.fileId);
+    this.router.navigate(path);
+  }
 }
