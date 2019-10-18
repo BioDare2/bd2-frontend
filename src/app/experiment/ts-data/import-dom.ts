@@ -50,6 +50,7 @@ export abstract class TSImportParameters {
 
 export class ExcelTSImportParameters extends TSImportParameters {
 
+  // tslint:disable-next-line:variable-name
   _class_name = '.ExcelTSImportParameters';
   timeColumn: CellRangeDescription;
   dataBlocks: CellRangeDescription[];
@@ -140,6 +141,15 @@ export class ImportDetails {
       return false;
     }
     return this.isDataAfterTime();
+  }
+
+  isComplete() {
+    if (!this.isTimeDefined()) { return false; }
+    if (this.importLabels) {
+      if (!this.areLabelsCorrectlySelected()) { return false; }
+      if (!this.isDataStartCorrectlySelected()) { return false; }
+    }
+    return true;
   }
 }
 

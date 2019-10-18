@@ -13,6 +13,7 @@ import {ImportLabelsStepComponent} from './import-labels-step/import-labels-step
 import {DataSheetMDTableComponent} from './data-sheet-mdtable/data-sheet-mdtable.component';
 import {SelectDataStartStepComponent} from './select-data-start-step/select-data-start-step.component';
 import {TSFileService} from './ts-file.service';
+import {ImportStepsComponent} from './import-steps/import-steps.component';
 
 describe('TSImportDashboardComponent', () => {
   let component: TSImportDashboardComponent;
@@ -23,7 +24,7 @@ describe('TSImportDashboardComponent', () => {
       'getTableSlice'
     ]); */
     TestBed.configureTestingModule({
-      declarations: [ TSImportDashboardComponent, UploadDataFileStepComponent, ImportDetailsSummaryComponent,
+      declarations: [ TSImportDashboardComponent, ImportStepsComponent, UploadDataFileStepComponent, ImportDetailsSummaryComponent,
       DefineTimeStepComponent, ImportLabelsStepComponent, DataSheetMDTableComponent, SelectDataStartStepComponent],
       imports: [MaterialsModule, AlertModule.forRoot(), FileAssetModule, NoopAnimationsModule,
         ExperimentsTestToolModule],

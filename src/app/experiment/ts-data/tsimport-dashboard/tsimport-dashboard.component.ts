@@ -1,90 +1,63 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
-
-import {MatVerticalStepper} from '@angular/material';
-import {TSFileService} from './ts-file.service';
-import {DataTableImportParameters, FileImportRequest, ImportDetails, ImportFormat} from '../import-dom';
-import {FeedbackService} from '../../../feedback/feedback.service';
-
-import {CellSelection} from './data-table-dom';
-import {TimeColumnType} from '../ts-import/sheet-dom';
-import {DataTableDependentStep} from './data-table-dependent-step';
-import {DataTableService} from './data-table.service';
+import {Component, OnInit} from '@angular/core';
+import {FileImportRequest, ImportDetails} from '../import-dom';
+import {ExperimentBaseComponent} from '../../experiment-base.component';
+import {ExperimentComponentsDependencies} from '../../experiment-components.dependencies';
 import {BioDareRestService} from '../../../backend/biodare-rest.service';
-
 
 
 @Component({
   selector: 'bd2-tsimport-dashboard',
   templateUrl: './tsimport-dashboard.component.html',
   styles: [],
-  providers: [ DataTableService]
 })
-export class TSImportDashboardComponent implements OnInit {
+export class TSImportDashboardComponent extends ExperimentBaseComponent implements OnInit {
 
+  importing = false;
 
-  @ViewChild('stepper', { static: false })
-  stepper: MatVerticalStepper;
+  constructor(private BD2REST: BioDareRestService, serviceDependencies: ExperimentComponentsDependencies) {
+    super(serviceDependencies);
 
-  importDetails: ImportDetails;
-  inRows: any;
-
-  constructor(private fileService: TSFileService,
-              private feedback: FeedbackService, private BD2REST: BioDareRestService) {
-
-    this.importDetails = new DataTableImportParameters(); // ImportDetails();
-    this.importDetails.inRows = true;
-    this.importDetails.timeType = TimeColumnType.TIME_IN_HOURS;
-    this.importDetails.firstTimeCell = new CellSelection(1, 1, 'B',
-      1, 1, '2', undefined);
+    this.titlePart = ' Import Data';
   }
 
   ngOnInit() {
+    super.ngOnInit();
   }
 
-  upload(upload: {files: File[], importFormat: ImportFormat}) {
-    // console.log('Upload', upload);
 
-    if (!upload.files || upload.files.length !== 1) {
-      console.error('Wrong upload files size', upload.files);
+
+  importData(importDetails: ImportDetails) {
+    console.log('Import data');
+
+    if (this.importing) {
       return;
     }
 
-    this.fileService.uploadFile(upload.files[0], upload.importFormat).subscribe(
-      fileId => {
-        this.importDetails.fileId = fileId;
-        this.importDetails.fileName = upload.files[0].name;
-        this.importDetails.importFormat = upload.importFormat;
-        this.stepper.next();
-      },
-      err => {
-        this.feedback.error(err);
-      }
-    );
-
-  }
-
-  loadData(step: DataTableDependentStep) {
-    step.loadData();
-    // console.log('Loading data');
-  }
-
-
-  importData() {
-    console.log('Import data');
-
     const request = new FileImportRequest();
-    request.fileId = this.importDetails.fileId;
-    request.importFormat = this.importDetails.importFormat;
-    request.importParameters = this.importDetails;
+    request.fileId = importDetails.fileId;
+    request.importFormat = importDetails.importFormat;
+    request.importParameters = importDetails;
 
-    this.BD2REST.experimentImportTS2(10125, request)
-      .subscribe( resp => {
-        this.feedback.info('Imported');
-        console.log(resp);
-                  },
+    this.importing = true;
+    this.BD2REST.experimentImportTS2(this.assay.id, request)
+      .subscribe( res => {
+          const msg = 'Imported ' + res.imported + ' timeseries';
+          this.feedback.success(msg);
+          this.refreshModel();
+          this.importing = false;
+          this.goToTSView();
+        },
         err => {
-          console.error('E', err);
+          this.importing = false;
           this.feedback.error(err);
         });
+  }
+
+  goToTSView() {
+    const path = this.expHomePath();
+    path.push('data');
+    path.push('view');
+    path.push('ts');
+    this.router.navigate(path);
   }
 }

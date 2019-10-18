@@ -50,7 +50,7 @@ export class DataTableDependentStep implements OnInit, OnDestroy {
 
   setDataSlice(dataSlice: DataTableSlice) {
     this.dataSlice = dataSlice;
-    this.applySelections();
+    this.applySelection();
   }
 
   loadData() {
@@ -59,16 +59,29 @@ export class DataTableDependentStep implements OnInit, OnDestroy {
       this.dataService.slice(this.page);
     }
     if (this.dataSlice) {
-      this.applySelections();
+      this.applySelection();
     }
   }
 
-  applySelections() {
+  applySelection() {
     this.tableSelector.reset();
+    this.markSelections();
+    this.applyDefaultSelections();
+  }
+
+  applyDefaultSelections() {
+  }
+
+  markSelections() {
   }
 
   selectFirstTime(selection: CellSelection) {
     this.importDetails.firstTimeCell = selection;
+    this.markFirstTime();
+  }
+
+  markFirstTime() {
+    const selection = this.firstTimeCell;
     if (selection) {
       if (this.importDetails.inRows) {
         this.tableSelector.toggleRow(selection, true,
@@ -82,6 +95,11 @@ export class DataTableDependentStep implements OnInit, OnDestroy {
 
   selectLabels(selection: CellSelection) {
     this.importDetails.labelsSelection = selection;
+    this.markLabels();
+  }
+
+  markLabels() {
+    const selection = this.labelsSelection;
     if (selection) {
       if (this.importDetails.inRows) {
         this.tableSelector.toggleCol(selection, false, SelectionColorCycler.LABELS_BACKGROUND);
@@ -97,18 +115,29 @@ export class DataTableDependentStep implements OnInit, OnDestroy {
       if (this.importDetails.inRows) {
         if (!this.firstTimeCell || this.firstTimeCell.rowIx !== selection.rowIx) {
           this.importDetails.dataStart = selection;
-          this.tableSelector.toggleRowSelection(1, selection, false,
-            SelectionColorCycler.FIST_DATA_BACKGROUND);
         }
       } else {
         if (!this.firstTimeCell || this.firstTimeCell.colIx !== selection.colIx) {
           this.importDetails.dataStart = selection;
-          this.tableSelector.toggleColSelection(1, selection, false,
-            SelectionColorCycler.FIST_DATA_BACKGROUND);
         }
       }
     } else {
       this.importDetails.dataStart = undefined;
+    }
+    this.markDataStart();
+  }
+
+  markDataStart() {
+    const selection = this.dataStart;
+
+    if (selection) {
+      if (this.importDetails.inRows) {
+          this.tableSelector.toggleRowSelection(1, selection, false,
+            SelectionColorCycler.FIST_DATA_BACKGROUND);
+      } else {
+          this.tableSelector.toggleColSelection(1, selection, false,
+            SelectionColorCycler.FIST_DATA_BACKGROUND);
+      }
     }
   }
 
@@ -142,6 +171,7 @@ export class DataTableDependentStep implements OnInit, OnDestroy {
       value
     );
 
+    selection.fake = oldSelection.fake;
     return selection;
   }
 

@@ -24,6 +24,7 @@ import { DataSheetMDTableComponent } from './tsimport-dashboard/data-sheet-mdtab
 import { DefineTimeStepComponent } from './tsimport-dashboard/define-time-step/define-time-step.component';
 import { ImportLabelsStepComponent } from './tsimport-dashboard/import-labels-step/import-labels-step.component';
 import { SelectDataStartStepComponent } from './tsimport-dashboard/select-data-start-step/select-data-start-step.component';
+import { ImportStepsComponent } from './tsimport-dashboard/import-steps/import-steps.component';
 
 @NgModule({
   declarations: [UploadDataFileComponent,
@@ -37,7 +38,8 @@ import { SelectDataStartStepComponent } from './tsimport-dashboard/select-data-s
     DataSheetMDTableComponent,
     DefineTimeStepComponent,
     ImportLabelsStepComponent,
-    SelectDataStartStepComponent
+    SelectDataStartStepComponent,
+    ImportStepsComponent
   ],
   imports: [
     CommonModule,

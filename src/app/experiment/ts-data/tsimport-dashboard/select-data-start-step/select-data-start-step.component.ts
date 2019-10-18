@@ -2,7 +2,7 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {DataTableDependentStep} from '../data-table-dependent-step';
 import {DataTableService} from '../data-table.service';
 import {FeedbackService} from '../../../../feedback/feedback.service';
-import {CellSelection, DataTableSlice} from '../data-table-dom';
+import {CellSelection} from '../data-table-dom';
 
 @Component({
   selector: 'bd2-select-data-start-step',
@@ -18,16 +18,8 @@ export class SelectDataStartStepComponent extends DataTableDependentStep impleme
   }
 
 
-  applySelections() {
-    super.applySelections();
-
-    if (this.firstTimeCell) {
-      this.selectFirstTime(this.reselect(this.firstTimeCell));
-    }
-
-    if (this.labelsSelection) {
-      this.selectLabels(this.reselect(this.labelsSelection));
-    }
+  applyDefaultSelections() {
+    super.applyDefaultSelections();
 
     if (this.dataStart && !this.dataStart.fake) {
       this.selectDataStart(this.reselect(this.dataStart));
@@ -44,5 +36,13 @@ export class SelectDataStartStepComponent extends DataTableDependentStep impleme
       }
     }
   }
+
+  markSelections() {
+    super.markSelections();
+    this.markFirstTime();
+    this.markLabels();
+  }
+
+
 
 }

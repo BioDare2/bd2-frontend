@@ -3,7 +3,7 @@ import {TimeColumnType} from '../../ts-import/sheet-dom';
 import {DataTableService} from '../data-table.service';
 import {FeedbackService} from '../../../../feedback/feedback.service';
 import {DataTableDependentStep} from '../data-table-dependent-step';
-import {DataTableSlice} from '../data-table-dom';
+import {CellSelection} from '../data-table-dom';
 
 @Component({
   selector: 'bd2-define-time-step',
@@ -22,11 +22,25 @@ export class DefineTimeStepComponent extends DataTableDependentStep implements O
   }
 
 
-  applySelections() {
-    super.applySelections();
+  applyDefaultSelections() {
+    super.applyDefaultSelections();
 
-    if (this.firstTimeCell) {
+    if (this.firstTimeCell && !this.firstTimeCell.fake) {
       this.selectFirstTime(this.reselect(this.firstTimeCell));
+    } else {
+      // lets set sensible defaults
+      let fake = this.importDetails.inRows ?
+        new CellSelection(
+          1, undefined, undefined,
+          0, undefined, undefined, undefined
+        ) :
+        new CellSelection(
+          0, undefined, undefined,
+          1, undefined, undefined, undefined
+        );
+      fake = this.reselect(fake);
+      fake.fake = true;
+      this.selectFirstTime(fake);
     }
   }
 

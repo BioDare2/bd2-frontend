@@ -20,6 +20,9 @@ import {ExperimentalAssayView} from '../dom/repo/exp/experimental-assay-view';
            routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Import data</a>
         <a *ngIf="experiment.security.canWrite && experiment.features.hasTSData" [routerLink]="['.','data','upload']"
            routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Replace data</a>
+        <a *ngIf="experiment.security.canWrite" [routerLink]="['.','data','ts-import2']"
+           routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+          {{experiment.features.hasTSData ? 'Replace data' : 'Import data'}}</a>
         <a *ngIf="experiment.security.canWrite && experiment.features.hasTSData && !experiment.features.hasPPAJobs"
            [routerLink]="['ppa/new']" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">New
           analysis</a>

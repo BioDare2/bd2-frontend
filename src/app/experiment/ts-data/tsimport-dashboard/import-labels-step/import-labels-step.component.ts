@@ -1,5 +1,5 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {DataTableSlice} from '../data-table-dom';
+import {CellSelection} from '../data-table-dom';
 import {DataTableService} from '../data-table.service';
 import {FeedbackService} from '../../../../feedback/feedback.service';
 import {DataTableDependentStep} from '../data-table-dependent-step';
@@ -18,17 +18,29 @@ export class ImportLabelsStepComponent extends DataTableDependentStep implements
   }
 
 
-  applySelections() {
-    super.applySelections();
+  applyDefaultSelections() {
+    super.applyDefaultSelections();
 
-    if (this.firstTimeCell) {
-      this.selectFirstTime(this.reselect(this.firstTimeCell));
-    }
-
-    if (this.labelsSelection) {
+    if (this.labelsSelection && !this.labelsSelection.fake) {
       this.selectLabels(this.reselect(this.labelsSelection));
+    } else {
+      if (this.firstTimeCell) {
+        const fake = this.reselect(
+          new CellSelection(
+            this.firstTimeCell.colIx - 1, undefined, undefined,
+            this.firstTimeCell.rowIx - 1, undefined, undefined, undefined
+          ));
+        fake.fake = true;
+        this.selectLabels(fake);
+      }
     }
   }
+
+  markSelections() {
+    super.markSelections();
+    this.markFirstTime();
+  }
+
 
 
 }
