@@ -25,6 +25,8 @@ import { DefineTimeStepComponent } from './tsimport-dashboard/define-time-step/d
 import { ImportLabelsStepComponent } from './tsimport-dashboard/import-labels-step/import-labels-step.component';
 import { SelectDataStartStepComponent } from './tsimport-dashboard/select-data-start-step/select-data-start-step.component';
 import { ImportStepsComponent } from './tsimport-dashboard/import-steps/import-steps.component';
+import { AssignLabelsStepComponent } from './tsimport-dashboard/assign-labels-step/assign-labels-step.component';
+import { SelectableRegionMDTableComponent } from './tsimport-dashboard/assign-labels-step/selectable-region-mdtable/selectable-region-mdtable.component';
 
 @NgModule({
   declarations: [UploadDataFileComponent,
@@ -39,7 +41,9 @@ import { ImportStepsComponent } from './tsimport-dashboard/import-steps/import-s
     DefineTimeStepComponent,
     ImportLabelsStepComponent,
     SelectDataStartStepComponent,
-    ImportStepsComponent
+    ImportStepsComponent,
+    AssignLabelsStepComponent,
+    SelectableRegionMDTableComponent
   ],
   imports: [
     CommonModule,
@@ -52,7 +56,7 @@ import { ImportStepsComponent } from './tsimport-dashboard/import-steps/import-s
     TsDataRoutingModule,
     MaterialsModule
   ],
-  exports: [TSImportDashboardComponent, DataSheetMDTableComponent]
+  exports: [AssignLabelsStepComponent]
 })
 export class TsDataModule {
 }

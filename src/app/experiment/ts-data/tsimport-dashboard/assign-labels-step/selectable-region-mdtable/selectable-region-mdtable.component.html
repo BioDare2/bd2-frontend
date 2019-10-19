@@ -1,0 +1,59 @@
+<div class="data-sheet-container" *ngIf="_dataSlice">
+  <table mat-table [dataSource]="data" #table>
+
+    <!-- Row Nr Column -->
+    <ng-container matColumnDef="rowNr" sticky>
+      <th mat-header-cell *matHeaderCellDef></th>
+      <td mat-cell *matCellDef="let row; let rowIx = index"
+          (mousedown)="startSelectCell(-1,rowIx)" (mouseup)="endSelectCell(-1,rowIx)">
+        <label>{{rowsNames[rowIx]}}</label> </td>
+    </ng-container>
+
+    <!-- Row Label Column -->
+    <ng-container *ngIf="showRowsLabels" matColumnDef="rowLabel" sticky>
+      <th mat-header-cell *matHeaderCellDef>Labels</th>
+      <td mat-cell *matCellDef="let row; let rowIx = index"
+          (mousedown)="startSelectCell(-1,rowIx)" (mouseup)="endSelectCell(-1,rowIx)">
+        <label>{{rowsLabels[rowIx]}}</label> </td>
+    </ng-container>
+
+    <!-- A Column -->
+    <ng-container *ngFor="let col of columnsNames; let colIx = index" [matColumnDef]="col">
+      <th mat-header-cell *matHeaderCellDef [style.background-color]="styler.colBackground(colIx)"
+          (mousedown)="startSelectCell(colIx,-1)" (mouseup)="endSelectCell(colIx,-1)"
+      > {{col}} </th>
+      <td mat-cell *matCellDef="let row; let rowIx = index"
+          matRipple matRippleCentered="true" [style.background-color]="styler.cellBackground(colIx, rowIx)"
+          > {{row[colIx]}} </td>
+    </ng-container>
+
+    <!-- 2nd Row Nr Column -->
+    <ng-container matColumnDef="rowNr2" sticky>
+      <th mat-header-cell *matHeaderCellDef>Labels</th>
+    </ng-container>
+
+    <!-- 2Row Label Column -->
+    <ng-container *ngIf="showRowsLabels" matColumnDef="rowLabel2" sticky>
+      <th mat-header-cell *matHeaderCellDef></th>
+    </ng-container>
+
+    <!-- label Columns -->
+    <ng-container *ngIf="showColumnsLabels">
+      <ng-container *ngFor="let col of columnsNames; let colIx = index" [matColumnDef]="'label'+colIx">
+        <th mat-header-cell *matHeaderCellDef [style.background-color]="styler.colBackground(colIx)"
+            (mousedown)="startSelectCell(colIx,-1)" (mouseup)="endSelectCell(colIx,-1)"
+        > {{columnsLabels[colIx]}} </th>
+      </ng-container>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+
+    <ng-container *ngIf="showColumnsLabels">
+      <tr mat-header-row *matHeaderRowDef="displayedLabelsColumns; sticky: true"></tr>
+    </ng-container>
+
+    <tr mat-row *matRowDef="let row; let rowIx = index; columns: displayedColumns;"
+        [style.background-color]="styler.rowBackground(rowIx)"
+    ></tr>
+  </table>
+</div>
