@@ -1,4 +1,4 @@
-import {SelectionColorCycler, TableSelector, TableStyler} from './table-styling';
+import {LabelsToColors, SelectionColorCycler, TableSelector, TableStyler} from './table-styling';
 import {CellSelection} from '../data-table-dom';
 
 
@@ -122,3 +122,28 @@ describe( 'TableSelector', () => {
   });
 
 });
+
+describe( 'LabelsToColors', () => {
+
+  let collorer: LabelsToColors;
+
+  beforeEach( () => {
+
+    collorer = new LabelsToColors();
+  });
+
+  it('assignes consistent colors',()=> {
+
+    const cA = collorer.toColor('A');
+    const cB = collorer.toColor('B');
+    const cC = collorer.toColor('C');
+    const cA2 = collorer.toColor('A');
+
+    expect(cA).toBeTruthy();
+    expect(cA).toBe(cA2);
+    expect(cA).not.toEqual(cB);
+    expect(cA).not.toEqual(cC);
+    expect(cC).not.toEqual(cB);
+  });
+
+})

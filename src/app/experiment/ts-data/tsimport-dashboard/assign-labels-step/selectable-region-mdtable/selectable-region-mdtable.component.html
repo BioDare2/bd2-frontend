@@ -4,27 +4,38 @@
     <!-- Row Nr Column -->
     <ng-container matColumnDef="rowNr" sticky>
       <th mat-header-cell *matHeaderCellDef></th>
-      <td mat-cell *matCellDef="let row; let rowIx = index"
+      <td mat-cell matRipple   *matCellDef="let row; let rowIx = index"
           (mousedown)="startSelectCell(-1,rowIx)" (mouseup)="endSelectCell(-1,rowIx)">
-        <label>{{rowsNames[rowIx]}}</label> </td>
+        <label>{{rowsNames[rowIx]}}</label>
+      </td>
+      <td mat-footer-cell *matFooterCellDef (click)="nextRow()">{{ hasMoreRows ? '...' : 'end'}}</td>
     </ng-container>
 
     <!-- Row Label Column -->
     <ng-container *ngIf="showRowsLabels" matColumnDef="rowLabel" sticky>
       <th mat-header-cell *matHeaderCellDef>Labels</th>
-      <td mat-cell *matCellDef="let row; let rowIx = index"
+      <td mat-cell matRipple  *matCellDef="let row; let rowIx = index"
           (mousedown)="startSelectCell(-1,rowIx)" (mouseup)="endSelectCell(-1,rowIx)">
-        <label>{{rowsLabels[rowIx]}}</label> </td>
+        <label class="user">{{rowsLabels[rowIx]}}</label> </td>
+        <td mat-footer-cell *matFooterCellDef (click)="nextRow()"></td>
     </ng-container>
 
-    <!-- A Column -->
+    <!-- Data Columns -->
     <ng-container *ngFor="let col of columnsNames; let colIx = index" [matColumnDef]="col">
-      <th mat-header-cell *matHeaderCellDef [style.background-color]="styler.colBackground(colIx)"
+      <th mat-header-cell matRipple  *matHeaderCellDef [style.background-color]="styler.colBackground(colIx)"
           (mousedown)="startSelectCell(colIx,-1)" (mouseup)="endSelectCell(colIx,-1)"
       > {{col}} </th>
       <td mat-cell *matCellDef="let row; let rowIx = index"
-          matRipple matRippleCentered="true" [style.background-color]="styler.cellBackground(colIx, rowIx)"
+          [style.background-color]="styler.cellBackground(colIx, rowIx)"
           > {{row[colIx]}} </td>
+      <td mat-footer-cell *matFooterCellDef (click)="nextRow()">{{ hasMoreRows ? '...' : ''}}</td>
+    </ng-container>
+
+    <!-- More data Column -->
+    <ng-container matColumnDef="more" sticky>
+      <th mat-header-cell *matHeaderCellDef (click)="nextColumn()">...</th>
+      <td mat-cell *matCellDef="let row; let rowIx = index" (click)="nextColumn()">...</td>
+      <td mat-footer-cell *matFooterCellDef></td>
     </ng-container>
 
     <!-- 2nd Row Nr Column -->
@@ -40,9 +51,9 @@
     <!-- label Columns -->
     <ng-container *ngIf="showColumnsLabels">
       <ng-container *ngFor="let col of columnsNames; let colIx = index" [matColumnDef]="'label'+colIx">
-        <th mat-header-cell *matHeaderCellDef [style.background-color]="styler.colBackground(colIx)"
+        <th mat-header-cell matRipple  *matHeaderCellDef [style.background-color]="styler.colBackground(colIx)"
             (mousedown)="startSelectCell(colIx,-1)" (mouseup)="endSelectCell(colIx,-1)"
-        > {{columnsLabels[colIx]}} </th>
+        ><label class="user">{{columnsLabels[colIx]}}</label></th>
       </ng-container>
     </ng-container>
 
@@ -55,5 +66,8 @@
     <tr mat-row *matRowDef="let row; let rowIx = index; columns: displayedColumns;"
         [style.background-color]="styler.rowBackground(rowIx)"
     ></tr>
+
+      <tr mat-footer-row *matFooterRowDef="displayedColumns"></tr>
+
   </table>
 </div>

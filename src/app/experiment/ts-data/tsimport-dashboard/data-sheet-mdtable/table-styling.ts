@@ -203,3 +203,33 @@ export class TableSelector {
 
 
 }
+
+export class LabelsToColors {
+
+  static colors = [
+    'lightgreen',
+    'lightblue',
+    'lightcoral',
+    'lightcyan',
+    'lightgreen',
+    'lightpink',
+    'lightsalmon',
+    'lightseagreen',
+    'lightskyblue',
+    'palegoldenrod',
+    'paleturquoise',
+    'palevioletred'
+  ];
+
+  private index = 0;
+  private labelsIndexes = new Map<string, number>();
+
+  public toColor(label: string) {
+    if (!this.labelsIndexes.has(label)) {
+      this.labelsIndexes.set(label, this.index++);
+    }
+
+    const ix = this.labelsIndexes.get(label) % LabelsToColors.colors.length;
+    return LabelsToColors.colors[ix];
+  }
+}
