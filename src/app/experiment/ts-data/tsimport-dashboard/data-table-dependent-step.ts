@@ -14,7 +14,8 @@ export class DataTableDependentStep implements OnInit, OnDestroy {
 
   dataSlice: DataTableSlice;
 
-  pageSlice: Slice;
+  firstPageSlice: Slice;
+  currentPageSlice: Slice;
 
   get firstTimeCell() {
     return this.importDetails ? this.importDetails.firstTimeCell : undefined;
@@ -29,11 +30,13 @@ export class DataTableDependentStep implements OnInit, OnDestroy {
   }
 
 
-  constructor(protected dataService: DataTableService, protected feedback: FeedbackService) { }
+  constructor(protected dataService: DataTableService, protected feedback: FeedbackService) {
+    this.firstPageSlice = Slice.firstPage();
+    this.currentPageSlice = Slice.firstPage();
+  }
 
   ngOnInit() {
 
-    this.pageSlice = Slice.firstPage();
 
     this.dataService.error$.forEach( err => this.feedback.error(err));
 
@@ -60,13 +63,14 @@ export class DataTableDependentStep implements OnInit, OnDestroy {
 
   setDataSlice(dataSlice: DataTableSlice) {
     this.dataSlice = dataSlice;
+    this.currentPageSlice = new Slice(dataSlice.rowPage, dataSlice.colPage);
     this.applySelection();
   }
 
   loadData() {
     if (this.importDetails) {
       this.dataService.fileIdFormat([this.importDetails.fileId, this.importDetails.importFormat.name]);
-      this.dataService.slice(this.pageSlice);
+      this.dataService.slice(this.firstPageSlice);
     }
     if (this.dataSlice) {
       this.applySelection();
@@ -191,9 +195,9 @@ export class DataTableDependentStep implements OnInit, OnDestroy {
     }
 
     if (this.importDetails.inRows) {
-      return this.pageSlice.colPage.pageSize < this.dataSlice.totalColumns;
+      return this.firstPageSlice.colPage.pageSize < this.dataSlice.totalColumns;
     } else {
-      return this.pageSlice.rowPage.pageSize < this.dataSlice.totalRows;
+      return this.firstPageSlice.rowPage.pageSize < this.dataSlice.totalRows;
     }
   }
 
@@ -203,9 +207,9 @@ export class DataTableDependentStep implements OnInit, OnDestroy {
     }
 
     if (!this.importDetails.inRows) {
-      return this.pageSlice.colPage.pageSize < this.dataSlice.totalColumns;
+      return this.firstPageSlice.colPage.pageSize < this.dataSlice.totalColumns;
     } else {
-      return this.pageSlice.rowPage.pageSize < this.dataSlice.totalRows;
+      return this.firstPageSlice.rowPage.pageSize < this.dataSlice.totalRows;
     }
   }
 

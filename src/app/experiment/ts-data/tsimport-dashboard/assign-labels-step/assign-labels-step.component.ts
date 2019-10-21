@@ -1,10 +1,11 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {AfterViewInit, Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {LabelsToColors, SelectionColorCycler, TableSelector} from '../data-sheet-mdtable/table-styling';
-import {CellSelection, DataTableSlice} from '../data-table-dom';
+import {CellSelection, DataTableSlice, Slice} from '../data-table-dom';
 import {ImportDetails} from '../../import-dom';
 import {DataTableDependentStep} from '../data-table-dependent-step';
 import {DataTableService} from '../data-table.service';
 import {FeedbackService} from '../../../../feedback/feedback.service';
+import {MatPaginator, PageEvent, MatPaginatorIntl} from '@angular/material';
 
 @Component({
   selector: 'bd2-assign-labels-step',
@@ -14,7 +15,7 @@ import {FeedbackService} from '../../../../feedback/feedback.service';
   // tslint:disable-next-line:no-inputs-metadata-property
   inputs: ['importDetails']
 })
-export class AssignLabelsStepComponent extends DataTableDependentStep implements OnInit, OnDestroy {
+export class AssignLabelsStepComponent extends DataTableDependentStep implements OnInit, OnDestroy, AfterViewInit {
 
 
   columnsLabels: string[] = [];
@@ -22,6 +23,13 @@ export class AssignLabelsStepComponent extends DataTableDependentStep implements
   userLabels: string[] = [];
 
   colorer = new LabelsToColors();
+
+  @ViewChild('colPaginator', { static: true })
+  colPaginator: MatPaginator;
+
+  @ViewChild('rowPaginator', { static: true })
+  rowPaginator: MatPaginator;
+
 
   constructor(dataService: DataTableService, feedback: FeedbackService) {
     super(dataService, feedback);
@@ -69,6 +77,14 @@ export class AssignLabelsStepComponent extends DataTableDependentStep implements
     // this.rowsLabels = data.rowsNames.map( v => 'R' + v);
 
 
+  }
+
+  ngAfterViewInit() {
+    this.colPaginator._intl = new MatPaginatorIntl();
+    this.colPaginator._intl.itemsPerPageLabel = 'Columns per page';
+
+    this.rowPaginator._intl = new MatPaginatorIntl();
+    this.rowPaginator._intl.itemsPerPageLabel = 'Rows per page';
   }
 
   markSelections() {
@@ -225,6 +241,71 @@ export class AssignLabelsStepComponent extends DataTableDependentStep implements
     }
   }
 
+  loadColPage(page: PageEvent) {
+    console.log('Load cols', page);
+
+    // this.currentPageSlice.colPage = page;
+
+    this.dataService.slice(new Slice(this.currentPageSlice.rowPage, page));
+
+    /*
+    const data = new DataTableSlice();
+    data.columnsNames = ['J', 'K'];
+    data.columnsNumbers = [9, 10];
+    data.rowsNames = [0, 1, 2, 3, 4, 5, 6, 7, 8].map( v => '' + (v + 1));
+    data.rowsNumbers = [0, 1, 2, 3, 4, 5, 6, 7, 8];
+    data.totalRows = 11;
+    data.totalColumns = 11;
+
+    data.data = [
+      ['before last', 'last'],
+      [1, 'toc 1 tr tra'],
+      [2, 'toc 3232 '],
+      [3, 'toc 2323asdf sfsfddasdfsdfasdfsf dfaf s'],
+      [4, 'wt', 12345600],
+      [5, 'wt', 12345600],
+      [6, 'sf f sffsdffdf a'],
+      [7, 'sdfdsffd sdfdsfdfdsdfdfds'],
+      [8, 'sdf sdfdsfdfdfd', 12345600],
+    ];
+
+    if (page.pageIndex == 0) {
+      this.setDataSlice(this.firstData());
+    } else {
+      this.setDataSlice(data);
+    }
+    */
+
+  }
+
+  loadRowPage(page: PageEvent) {
+    console.log('Load rows', page);
+
+    // this.currentPageSlice.rowPage = page;
+    this.dataService.slice(new Slice(page, this.currentPageSlice.colPage));
+
+    /*
+    const data = new DataTableSlice();
+    data.columnsNames = ['A', 'B', 'C', 'D', 'E', 'F', 'G ', 'H', 'I' ];
+    data.columnsNumbers = [0, 1, 2,    3,   4,   5,   6,   7,    8];
+    data.rowsNames = [9, 10].map( v => '' + (v + 1));
+    data.rowsNumbers = [9, 10];
+    data.totalRows = 11;
+    data.totalColumns = 9;
+
+    data.data = [
+      [9, 'tomcek', 12345600, 1, 'toc 1 tr tra', 12345600, 2, 'toc 3232 ', 12.00012, ],
+      [10, 'rabn', 12.00012, 2, 'toc 3232 ', 12.00012, 2, 'toc 3232 ', 12.00012, ],
+    ];
+
+
+    if (page.pageIndex == 0) {
+      this.setDataSlice(this.firstData());
+    } else {
+      this.setDataSlice(data);
+    } */
+  }
+
   firstData() {
     const data = new DataTableSlice();
     data.columnsNames = ['A', 'B', 'C', 'D', 'E', 'F', 'G ', 'H', 'I' ];
@@ -251,6 +332,9 @@ export class AssignLabelsStepComponent extends DataTableDependentStep implements
 
   moreColumns() {
     console.log('More columns');
+    this.colPaginator.nextPage();
+    /*
+
 
     const data = new DataTableSlice();
     data.columnsNames = ['J', 'K'];
@@ -273,12 +357,15 @@ export class AssignLabelsStepComponent extends DataTableDependentStep implements
     ];
 
     this.setDataSlice(data);
+
+     */
   }
 
   moreRows() {
 
     console.log('More rows');
-
+    this.rowPaginator.nextPage();
+    /*
     const data = new DataTableSlice();
     data.columnsNames = ['A', 'B', 'C', 'D', 'E', 'F', 'G ', 'H', 'I' ];
     data.columnsNumbers = [0, 1, 2,    3,   4,   5,   6,   7,    8];
@@ -293,6 +380,8 @@ export class AssignLabelsStepComponent extends DataTableDependentStep implements
     ];
 
     this.setDataSlice(data);
+
+     */
   }
 
 }

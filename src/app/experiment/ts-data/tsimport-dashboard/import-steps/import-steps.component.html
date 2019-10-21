@@ -58,7 +58,7 @@
         <mat-card-content>
           <mat-radio-group [(ngModel)]="importDetails.importLabels" name="importLabels" class="spaced">
             <mat-radio-button [value]="true" >Import labels from {{importDetails.inLabelNeg}}</mat-radio-button>
-            <mat-radio-button [value]="false" disabled>Manually label</mat-radio-button>
+            <mat-radio-button [value]="false" >Manually label</mat-radio-button>
           </mat-radio-group>
         </mat-card-content>
         <mat-card-actions>
@@ -70,6 +70,26 @@
 
     </form>
   </mat-step>
+
+
+
+  <ng-container *ngIf="!importDetails.importLabels">
+
+    <mat-step [completed]="importDetails.areLabelsCorrectlySelected()">
+      <ng-template matStepLabel>Label data</ng-template>
+      <mat-divider></mat-divider>
+      <bd2-import-details-summary [importDetails]="importDetails" [showTime]="true" ></bd2-import-details-summary>
+
+      <bd2-assign-labels-step [importDetails]="importDetails" #assignLabelsStep></bd2-assign-labels-step>
+
+      <div>
+        <button mat-button matStepperPrevious>Back</button>
+        <button mat-button matStepperNext type="button"
+                [disabled]="!importDetails.areLabelsCorrectlySelected()"
+        >Next</button>
+      </div>
+    </mat-step>
+  </ng-container>
 
   <ng-container *ngIf="importDetails.importLabels">
 

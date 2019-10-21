@@ -12,11 +12,17 @@ export class DataTableSlice {
   totalRows = 0;
   totalColumns = 0;
 
+  rowPage: PageEvent;
+  colPage: PageEvent;
+
 }
 
 export class Slice {
-  rowPage = new PageEvent();
-  colPage = new PageEvent();
+
+  constructor(public rowPage = new PageEvent(),
+              public colPage = new PageEvent()) {
+
+  };
 
   static firstPage() {
     const slice = new Slice();

@@ -30,6 +30,10 @@ export class ImportStepsComponent implements OnInit {
   @ViewChild('importLabelsStep', { static: false })
   importLabelsStep: DataTableDependentStep;
 
+
+  @ViewChild('assignLabelsStep', { static: false })
+  assignLabelsStep: DataTableDependentStep;
+
   importDetails: ImportDetails;
 
 
@@ -85,7 +89,12 @@ export class ImportStepsComponent implements OnInit {
         console.error('Missing importLabelStep');
       }
     } else {
-      this.feedback.error('Manual labelling not implemented');
+      // this.feedback.error('Manual labelling not implemented');
+      if (this.assignLabelsStep) {
+        this.assignLabelsStep.loadData();
+      } else {
+        console.error('Missing assignLabelsStep');
+      }
     }
   }
 
