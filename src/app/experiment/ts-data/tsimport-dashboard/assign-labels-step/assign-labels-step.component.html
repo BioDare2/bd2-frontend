@@ -15,7 +15,7 @@
                         [selectRows]="importDetails.inRows" [selectCols]="!importDetails.inRows"
 ></bd2-selectable-region-mdtable>
 
-<mat-paginator #rowPaginator [length]="dataSlice.totalRows"
+<mat-paginator #rowPaginator [length]="dataSlice.totalRows" [disabled]="!importDetails.inRows"
                [pageSize]="firstPageSlice.rowPage.pageSize"
                [pageSizeOptions]="[10, 25, 50, 100]"
                (page)="loadRowPage($event)"

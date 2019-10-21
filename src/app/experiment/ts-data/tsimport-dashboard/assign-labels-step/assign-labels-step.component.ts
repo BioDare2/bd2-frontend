@@ -332,7 +332,8 @@ export class AssignLabelsStepComponent extends DataTableDependentStep implements
 
   moreColumns() {
     console.log('More columns');
-    this.colPaginator.nextPage();
+    if (!this.importDetails.inRows)
+      this.colPaginator.nextPage();
     /*
 
 
@@ -364,7 +365,9 @@ export class AssignLabelsStepComponent extends DataTableDependentStep implements
   moreRows() {
 
     console.log('More rows');
-    this.rowPaginator.nextPage();
+    if (this.importDetails.inRows)
+      this.rowPaginator.nextPage();
+    
     /*
     const data = new DataTableSlice();
     data.columnsNames = ['A', 'B', 'C', 'D', 'E', 'F', 'G ', 'H', 'I' ];
