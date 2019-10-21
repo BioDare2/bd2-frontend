@@ -117,9 +117,9 @@ export class ImportDetails {
   areLabelsAfterTime() {
     if (this.firstTimeCell && this.labelsSelection) {
       if (this.inRows) {
-        return this.labelsSelection.colIx < this.firstTimeCell.colIx;
+        return this.labelsSelection.colNumber < this.firstTimeCell.colNumber;
       } else {
-        return this.labelsSelection.rowIx < this.firstTimeCell.rowIx;
+        return this.labelsSelection.rowNumber < this.firstTimeCell.rowNumber;
       }
     }
     return false;
@@ -128,9 +128,9 @@ export class ImportDetails {
   isDataAfterTime() {
     if (this.firstTimeCell && this.dataStart) {
       if (this.inRows) {
-        return this.dataStart.rowIx > this.firstTimeCell.rowIx;
+        return this.dataStart.rowNumber > this.firstTimeCell.rowNumber;
       } else {
-        return this.dataStart.colIx > this.firstTimeCell.colIx;
+        return this.dataStart.colNumber > this.firstTimeCell.colNumber;
       }
     }
     return false;

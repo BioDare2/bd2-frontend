@@ -28,8 +28,8 @@ export class SelectDataStartStepComponent extends DataTableDependentStep impleme
       if (this.firstTimeCell) {
         const fake = this.reselect(
           new CellSelection(
-            this.firstTimeCell.colIx + 1, undefined, undefined,
-            this.firstTimeCell.rowIx + 1, undefined, undefined, undefined
+            this.firstTimeCell.colIx + 1, this.colNumber(this.firstTimeCell.colIx + 1), undefined,
+            this.firstTimeCell.rowIx + 1, this.rowNumber(this.firstTimeCell.rowIx + 1), undefined, undefined
           ));
         fake.fake = true;
         this.selectDataStart(fake);

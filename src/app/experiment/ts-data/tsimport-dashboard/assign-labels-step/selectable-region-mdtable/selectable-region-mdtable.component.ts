@@ -8,7 +8,7 @@ import {TableStyler} from '../../data-sheet-mdtable/table-styling';
   templateUrl: './selectable-region-mdtable.component.html',
   styles: [`
     .data-sheet-container {
-      max-height: 300px;
+      max-height: 400px;
       overflow: auto;
     }
 

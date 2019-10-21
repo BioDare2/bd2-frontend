@@ -28,6 +28,7 @@ export class DataTableDependentStep implements OnInit, OnDestroy {
     return this.importDetails ? this.importDetails.dataStart : undefined;
   }
 
+
   constructor(protected dataService: DataTableService, protected feedback: FeedbackService) { }
 
   ngOnInit() {
@@ -47,6 +48,15 @@ export class DataTableDependentStep implements OnInit, OnDestroy {
       this.dataService.close();
     }
   }
+
+  colNumber(colIx: number) {
+    return colIx < 0 ? -1 : this.dataSlice.columnsNumbers[colIx];
+  }
+
+  rowNumber(rowIx: number) {
+    return rowIx < 0 ? -1 : this.dataSlice.rowsNumbers[rowIx];
+  }
+
 
   setDataSlice(dataSlice: DataTableSlice) {
     this.dataSlice = dataSlice;

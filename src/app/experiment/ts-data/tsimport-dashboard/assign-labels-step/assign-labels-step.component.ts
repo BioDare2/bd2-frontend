@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {LabelsToColors, TableSelector} from '../data-sheet-mdtable/table-styling';
+import {LabelsToColors, SelectionColorCycler, TableSelector} from '../data-sheet-mdtable/table-styling';
 import {CellSelection, DataTableSlice} from '../data-table-dom';
 import {ImportDetails} from '../../import-dom';
 
@@ -23,11 +23,16 @@ export class AssignLabelsStepComponent implements OnInit {
 
   collorer = new LabelsToColors();
 
+  get firstTimeCell() {
+    return this.importDetails ? this.importDetails.firstTimeCell : undefined;
+  }
+
+
   constructor() {
 
     this.importDetails = new ImportDetails();
     this.importDetails.inRows = true;
-    this.importDetails.firstTimeCell = new CellSelection(1, 1, 'B', 0, 0, '0', 1);
+    this.importDetails.firstTimeCell = new CellSelection(1, 1, 'B', 1, 1, '1', 1);
   }
 
   set dataSlice(data: DataTableSlice) {
@@ -38,6 +43,20 @@ export class AssignLabelsStepComponent implements OnInit {
     this.columnsLabels = this.userLabels.slice(data.columnsNumbers[0], data.columnsNumbers[data.columnsNumbers.length - 1]);
     console.log('CL', this.columnsLabels);
 
+
+    if (this.firstTimeCell) {
+      if (this.importDetails.inRows) {
+        const timeIx = this.dataSlice.rowsNumbers.indexOf(this.firstTimeCell.rowNumber);
+        if (timeIx >= 0) {
+          this.tableSelector.tableStyler.setRowBackground(timeIx, SelectionColorCycler.TIME_BACKGROUND);
+        }
+      } else {
+        const timeIx = this.dataSlice.columnsNumbers.indexOf(this.firstTimeCell.colNumber);
+        if (timeIx >= 0) {
+          this.tableSelector.tableStyler.setColBackground(timeIx, SelectionColorCycler.TIME_BACKGROUND);
+        }
+      }
+    }
   }
 
   get dataSlice() {
@@ -52,6 +71,8 @@ export class AssignLabelsStepComponent implements OnInit {
 
     this.columnsLabels = data.columnsNames.map( v => 'L' + v);
     this.rowsLabels = data.rowsNames.map( v => 'R' + v);
+
+
   }
 
   selected(selection: [CellSelection, CellSelection]) {
@@ -59,7 +80,9 @@ export class AssignLabelsStepComponent implements OnInit {
     const s = selection[0].colName + selection[0].rowName;
     const e = selection[1].colName + selection[1].rowName;
 
-    if (selection[1].isBefore(selection[0])) {
+
+
+    if (selection[1].isBeforeOrSame(selection[0])) {
       selection = [selection[1], selection[0]];
     }
 
@@ -100,13 +123,22 @@ export class AssignLabelsStepComponent implements OnInit {
   }
 
   labelRows(start: CellSelection, end: CellSelection) {
+    console.log("Label rows", start);
     if (start.rowIx < 0 || end.rowIx < 0) {
       console.warn('Label rows with col selection', start);
       return;
     }
 
+    if (this.firstTimeCell && this.firstTimeCell.rowNumber >= start.rowNumber) {
+      console.log('Ignroing labelling as Time row after selection');
+      return;
+    }
+
+
     const label = 'R' + start.rowName + '_' + (new Date()).getTime();
     const color = this.collorer.toColor(label);
+
+    console.log("Will label with", label);
 
     for (let i = start.rowIx; i <= end.rowIx; i++) {
       const uI = this.dataSlice.rowsNumbers[i];

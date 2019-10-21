@@ -30,24 +30,18 @@ import {TableStyler} from './table-styling';
 })
 export class DataSheetMDTableComponent implements OnInit {
 
-  displayedColumns: string[];  // = ['rowNr', 'A', 'B', 'C', 'D', 'E', 'F', 'G ', 'H' ];
-  // dataColumns = ['A', 'B', 'C', 'D', 'E', 'F', 'G ', 'H' ];
 
-  // selectedRow: any[];
-  // selectedRowIx: number;
-  // selectedRowName: string;
-  // selectedColIx: number;
-  // selectedColName: string;
+  // tslint:disable-next-line:variable-name
+  private _dataSlice: DataTableSlice;
+
+  displayedColumns: string[];  // = ['rowNr', 'A', 'B', 'C', 'D', 'E', 'F', 'G ', 'H' ];
 
   columnsNames: string[] = [];
   rowsNames: string[] = [];
   data: (string | number)[][] = [];
 
-  @ViewChild('table', { static: false })
-  matTable: MatTable<(string | number)[]>;
 
-  // tslint:disable-next-line:variable-name
-  private _dataSlice: DataTableSlice;
+
 
   @Input()
   set dataSlice(dataSlice: DataTableSlice) {
@@ -65,6 +59,7 @@ export class DataSheetMDTableComponent implements OnInit {
     }
   }
 
+
   @Input()
   styler = new TableStyler();
 
@@ -78,11 +73,33 @@ export class DataSheetMDTableComponent implements OnInit {
   @Output()
   selected = new EventEmitter<CellSelection>();
 
+  @ViewChild('table', { static: false })
+  matTable: MatTable<(string | number)[]>;
+
 
   constructor() {
+  }
 
 
 
+  colNumber(colIx: number) {
+    return colIx < 0 ? -1 : this._dataSlice.columnsNumbers[colIx];
+  }
+
+  rowNumber(rowIx: number) {
+    return rowIx < 0 ? -1 : this._dataSlice.rowsNumbers[rowIx];
+  }
+
+  colBackground(colIx) {
+    return this.styler.colBackground(this.colNumber(colIx));
+  }
+
+  rowBackground(rowIx) {
+    return this.styler.rowBackground(this.rowNumber(rowIx));
+  }
+
+  cellBackground(colIx: number, rowIx: number) {
+    return this.styler.cellBackground(this.colNumber(colIx), this.rowNumber(rowIx));
   }
 
   ngOnInit() {

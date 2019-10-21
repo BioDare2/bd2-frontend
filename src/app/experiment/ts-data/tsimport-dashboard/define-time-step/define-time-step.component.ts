@@ -31,12 +31,12 @@ export class DefineTimeStepComponent extends DataTableDependentStep implements O
       // lets set sensible defaults
       let fake = this.importDetails.inRows ?
         new CellSelection(
-          1, undefined, undefined,
-          0, undefined, undefined, undefined
+          1, this.colNumber(1), undefined,
+          0, this.rowNumber(0), undefined, undefined
         ) :
         new CellSelection(
-          0, undefined, undefined,
-          1, undefined, undefined, undefined
+          0, this.colNumber(0), undefined,
+          1, this.rowNumber(1), undefined, undefined
         );
       fake = this.reselect(fake);
       fake.fake = true;

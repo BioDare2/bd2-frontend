@@ -50,10 +50,10 @@ export class CellSelection {
   fake = false;
   constructor(
    public colIx = -1,
-   public colNumber,
+   public colNumber = -1,
    public colName = '',
-   public rowIx = 0,
-   public rowNumber,
+   public rowIx = -1,
+   public rowNumber = -1,
    public rowName = '',
    public value: string|number,
   ) {}
@@ -62,8 +62,8 @@ export class CellSelection {
     return { col: this.colNumber, row: this.rowNumber };
   }
 
-  isBefore(other: CellSelection) {
-    return (this.colIx < other.colIx && this.rowIx < other.rowIx);
+  isBeforeOrSame(other: CellSelection) {
+    return (this.colIx <= other.colIx && this.rowIx <= other.rowIx);
   }
 
   hasSameIx(other: CellSelection) {

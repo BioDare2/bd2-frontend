@@ -167,37 +167,37 @@ export class TableSelector {
 
   colorRows(cells: CellSelection[], color?: string) {
     cells.forEach( (cell, ix) => {
-      this.tableStyler.setRowBackground(cell.rowIx, color ? color : this.colorCycler.rowBackground(ix));
+      this.tableStyler.setRowBackground(cell.rowNumber, color ? color : this.colorCycler.rowBackground(ix));
     });
   }
 
   colorCols(cells: CellSelection[], color?: string) {
     cells.forEach( (cell, ix) => {
-      this.tableStyler.setColBackground(cell.colIx, color ? color : this.colorCycler.columnBackground(ix));
+      this.tableStyler.setColBackground(cell.colNumber, color ? color : this.colorCycler.columnBackground(ix));
     });
   }
 
   colorCells(cells: CellSelection[], color?: string) {
     cells.forEach( (cell, ix) => {
-      this.tableStyler.setCellBackground(cell.colIx, cell.rowIx, color ? color : this.colorCycler.cellBackground(ix));
+      this.tableStyler.setCellBackground(cell.colNumber, cell.rowNumber, color ? color : this.colorCycler.cellBackground(ix));
     });
   }
 
   uncolorRows(cells: CellSelection[]) {
     cells.forEach( cell => {
-      this.tableStyler.setRowBackground(cell.rowIx, undefined);
+      this.tableStyler.setRowBackground(cell.rowNumber, undefined);
     });
   }
 
   uncolorCols(cells: CellSelection[]) {
     cells.forEach( cell => {
-      this.tableStyler.setColBackground(cell.colIx, undefined);
+      this.tableStyler.setColBackground(cell.colNumber, undefined);
     });
   }
 
   uncolorCells(cells: CellSelection[]) {
     cells.forEach( cell => {
-      this.tableStyler.setCellBackground(cell.colIx, cell.rowIx, undefined);
+      this.tableStyler.setCellBackground(cell.colNumber, cell.rowNumber, undefined);
     });
   }
 
@@ -225,6 +225,10 @@ export class LabelsToColors {
   private labelsIndexes = new Map<string, number>();
 
   public toColor(label: string) {
+    if (!label) {
+      return undefined;
+    }
+
     if (!this.labelsIndexes.has(label)) {
       this.labelsIndexes.set(label, this.index++);
     }
