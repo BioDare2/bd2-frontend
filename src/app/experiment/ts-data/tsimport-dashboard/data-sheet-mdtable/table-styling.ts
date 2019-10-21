@@ -128,6 +128,21 @@ export class TableSelector {
 
   }
 
+  public selectRow(rowNumber: number, color?: string) {
+
+    const cell = new CellSelection(-1,-1, undefined, rowNumber, rowNumber, undefined, undefined);
+
+    const existingIx = this.selectedRows.findIndex( c => c.rowNumber === rowNumber);
+    if (existingIx < 0) {
+      this.selectedRows.push(cell);
+    } else {
+      this.selectedRows[existingIx] = cell;
+    }
+
+    this.colorRows([cell], color);
+
+  }
+
   public toggleCol(colCell: CellSelection, withCell = false, colColor?: string, cellColor?: string) {
 
     const toggled = this.selectedCols.splice(0, this.selectedCols.length);
@@ -157,6 +172,22 @@ export class TableSelector {
     }
 
   }
+
+  public selectCol(colNumber: number, color?: string) {
+
+    const cell = new CellSelection(colNumber, colNumber, undefined, -1, -1, undefined, undefined);
+
+    const existingIx = this.selectedRows.findIndex( c => c.colNumber === colNumber);
+    if (existingIx < 0) {
+      this.selectedCols.push(cell);
+    } else {
+      this.selectedCols[existingIx] = cell;
+    }
+
+    this.colorCols([cell], color);
+
+  }
+
 
   public reset() {
     this.selectedRows = [];
@@ -235,5 +266,9 @@ export class LabelsToColors {
 
     const ix = this.labelsIndexes.get(label) % LabelsToColors.colors.length;
     return LabelsToColors.colors[ix];
+  }
+
+  public setColor(label: string) {
+
   }
 }

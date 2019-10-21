@@ -14,7 +14,7 @@ export class DataTableDependentStep implements OnInit, OnDestroy {
 
   dataSlice: DataTableSlice;
 
-  page: Slice;
+  pageSlice: Slice;
 
   get firstTimeCell() {
     return this.importDetails ? this.importDetails.firstTimeCell : undefined;
@@ -33,7 +33,7 @@ export class DataTableDependentStep implements OnInit, OnDestroy {
 
   ngOnInit() {
 
-    this.page = Slice.firstPage();
+    this.pageSlice = Slice.firstPage();
 
     this.dataService.error$.forEach( err => this.feedback.error(err));
 
@@ -66,7 +66,7 @@ export class DataTableDependentStep implements OnInit, OnDestroy {
   loadData() {
     if (this.importDetails) {
       this.dataService.fileIdFormat([this.importDetails.fileId, this.importDetails.importFormat.name]);
-      this.dataService.slice(this.page);
+      this.dataService.slice(this.pageSlice);
     }
     if (this.dataSlice) {
       this.applySelection();
@@ -191,9 +191,9 @@ export class DataTableDependentStep implements OnInit, OnDestroy {
     }
 
     if (this.importDetails.inRows) {
-      return this.page.colPage.pageSize < this.dataSlice.totalColumns;
+      return this.pageSlice.colPage.pageSize < this.dataSlice.totalColumns;
     } else {
-      return this.page.rowPage.pageSize < this.dataSlice.totalRows;
+      return this.pageSlice.rowPage.pageSize < this.dataSlice.totalRows;
     }
   }
 
@@ -203,9 +203,9 @@ export class DataTableDependentStep implements OnInit, OnDestroy {
     }
 
     if (!this.importDetails.inRows) {
-      return this.page.colPage.pageSize < this.dataSlice.totalColumns;
+      return this.pageSlice.colPage.pageSize < this.dataSlice.totalColumns;
     } else {
-      return this.page.rowPage.pageSize < this.dataSlice.totalRows;
+      return this.pageSlice.rowPage.pageSize < this.dataSlice.totalRows;
     }
   }
 

@@ -1,40 +1,38 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {LabelsToColors, SelectionColorCycler, TableSelector} from '../data-sheet-mdtable/table-styling';
 import {CellSelection, DataTableSlice} from '../data-table-dom';
 import {ImportDetails} from '../../import-dom';
+import {DataTableDependentStep} from '../data-table-dependent-step';
+import {DataTableService} from '../data-table.service';
+import {FeedbackService} from '../../../../feedback/feedback.service';
 
 @Component({
   selector: 'bd2-assign-labels-step',
   templateUrl: './assign-labels-step.component.html',
-  styles: []
+  styles: [],
+  providers: [DataTableService],
+  // tslint:disable-next-line:no-inputs-metadata-property
+  inputs: ['importDetails']
 })
-export class AssignLabelsStepComponent implements OnInit {
+export class AssignLabelsStepComponent extends DataTableDependentStep implements OnInit, OnDestroy {
 
-  importDetails: ImportDetails;
-
-  tableSelector = new TableSelector();
-
-  // tslint:disable-next-line:variable-name
-  _dataSlice: DataTableSlice;
 
   columnsLabels: string[] = [];
   rowsLabels: string[] = [];
   userLabels: string[] = [];
 
-  collorer = new LabelsToColors();
+  colorer = new LabelsToColors();
 
-  get firstTimeCell() {
-    return this.importDetails ? this.importDetails.firstTimeCell : undefined;
-  }
+  constructor(dataService: DataTableService, feedback: FeedbackService) {
+    super(dataService, feedback);
 
-
-  constructor() {
 
     this.importDetails = new ImportDetails();
-    this.importDetails.inRows = true;
+    this.importDetails.inRows = false;
     this.importDetails.firstTimeCell = new CellSelection(1, 1, 'B', 1, 1, '1', 1);
   }
 
+  /*
   set dataSlice(data: DataTableSlice) {
     this._dataSlice = data;
 
@@ -57,22 +55,67 @@ export class AssignLabelsStepComponent implements OnInit {
         }
       }
     }
-  }
+  }*/
 
-  get dataSlice() {
-    return this._dataSlice;
-  }
+
 
   ngOnInit() {
-
+    super.ngOnInit();
     const data = this.firstData();
 
-    this.dataSlice = data;
+    this.setDataSlice(data);
 
-    this.columnsLabels = data.columnsNames.map( v => 'L' + v);
-    this.rowsLabels = data.rowsNames.map( v => 'R' + v);
+    // this.columnsLabels = data.columnsNames.map( v => 'L' + v);
+    // this.rowsLabels = data.rowsNames.map( v => 'R' + v);
 
 
+  }
+
+  markSelections() {
+    super.markSelections();
+    this.markFirstTime();
+
+    this.userLabels[4] = 'Fake label';
+    this.loadLabels();
+    this.markLabels();
+
+    this.labelTime();
+  }
+
+  labelTime() {
+    if (this.firstTimeCell) {
+      if (this.importDetails.inRows) {
+         const timeIx = this.dataSlice.rowsNumbers.indexOf(this.firstTimeCell.rowNumber);
+         if (timeIx >= 0) { this.rowsLabels[timeIx] = 'Time'; }
+      } else {
+        const timeIx = this.dataSlice.columnsNumbers.indexOf(this.firstTimeCell.colNumber);
+        if (timeIx >= 0) { this.columnsLabels[timeIx] = 'Time'; }
+      }
+    }
+
+  }
+
+  loadLabels() {
+    const data = this.dataSlice;
+
+    if (this.importDetails.inRows) {
+      this.rowsLabels = this.userLabels.slice(data.rowsNumbers[0], data.rowsNumbers[data.rowsNumbers.length - 1]);
+      this.columnsLabels = [];
+    } else {
+      this.rowsLabels = [];
+      this.columnsLabels = this.userLabels.slice(data.columnsNumbers[0], data.columnsNumbers[data.columnsNumbers.length - 1]);
+    }
+
+  }
+
+  markLabels() {
+    this.userLabels.forEach( (label, ix) => {
+      if (this.importDetails.inRows) {
+        this.tableSelector.selectRow(ix, this.colorer.toColor(label));
+      } else {
+        this.tableSelector.selectCol(ix, this.colorer.toColor(label));
+      }
+    });
   }
 
   selected(selection: [CellSelection, CellSelection]) {
@@ -123,7 +166,7 @@ export class AssignLabelsStepComponent implements OnInit {
   }
 
   labelRows(start: CellSelection, end: CellSelection) {
-    console.log("Label rows", start);
+    console.log('Label rows', start);
     if (start.rowIx < 0 || end.rowIx < 0) {
       console.warn('Label rows with col selection', start);
       return;
@@ -135,25 +178,51 @@ export class AssignLabelsStepComponent implements OnInit {
     }
 
 
-    const label = 'R' + start.rowName + '_' + (new Date()).getTime();
-    const color = this.collorer.toColor(label);
+    const label = 'R' + start.rowName; // + '_' + (new Date()).getTime();
+    const color = this.colorer.toColor(label);
 
-    console.log("Will label with", label);
+    console.log('Will label with', label);
 
     for (let i = start.rowIx; i <= end.rowIx; i++) {
-      const uI = this.dataSlice.rowsNumbers[i];
-      if (uI === undefined) {
+      const realNumber = this.dataSlice.rowsNumbers[i];
+      if (realNumber === undefined) {
         console.error('No row number for index ' + i);
       } else {
         this.rowsLabels[i] = label;
-        this.userLabels[uI] = label;
-        this.tableSelector.tableStyler.setRowBackground(i, color);
+        this.userLabels[realNumber] = label;
+        this.tableSelector.selectRow(realNumber, color);
       }
     }
   }
 
   labelColumns(start: CellSelection, end: CellSelection) {
+    console.log('Label cols', start);
+    if (start.colIx < 0 || end.colIx < 0) {
+      console.warn('Label cols with row selection', start);
+      return;
+    }
 
+    if (this.firstTimeCell && this.firstTimeCell.colNumber >= start.colNumber) {
+      console.log('Ignroing labelling as Time col after selection');
+      return;
+    }
+
+
+    const label = 'L' + start.colName; // + '_' + (new Date()).getTime();
+    const color = this.colorer.toColor(label);
+
+    console.log('Will label with', label);
+
+    for (let i = start.colIx; i <= end.colIx; i++) {
+      const realNumber = this.dataSlice.columnsNumbers[i];
+      if (realNumber === undefined) {
+        console.error('No col number for index ' + i);
+      } else {
+        this.columnsLabels[i] = label;
+        this.userLabels[realNumber] = label;
+        this.tableSelector.selectCol(realNumber, color);
+      }
+    }
   }
 
   firstData() {
@@ -203,7 +272,7 @@ export class AssignLabelsStepComponent implements OnInit {
       [8, 'sdf sdfdsfdfdfd', 12345600],
     ];
 
-    this.dataSlice = data;
+    this.setDataSlice(data);
   }
 
   moreRows() {
@@ -223,7 +292,7 @@ export class AssignLabelsStepComponent implements OnInit {
       [10, 'rabn', 12.00012, 2, 'toc 3232 ', 12.00012, 2, 'toc 3232 ', 12.00012, ],
     ];
 
-    this.dataSlice = data;
+    this.setDataSlice(data);
   }
 
 }

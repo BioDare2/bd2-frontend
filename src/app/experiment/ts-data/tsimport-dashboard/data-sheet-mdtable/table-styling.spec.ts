@@ -173,6 +173,36 @@ describe( 'TableSelector', () => {
 
   });
 
+  it('select row adds new rows selection leaving others intact', () => {
+
+    const styler = selector.tableStyler;
+
+    expect(styler.rowBackground(1)).toEqual('');
+    expect(styler.rowBackground(13)).toEqual('');
+
+    const selection = new CellSelection(0, 0, '0', 1, 1, '1', 'x');
+
+    selector.toggleRow(selection);
+    expect(styler.rowBackground(1)).toBe(SelectionColorCycler.MAIN_ROW_BACKGROUND);
+    expect(styler.rowBackground(13)).toEqual('');
+
+    selector.selectRow(13, 'blue');
+    expect(styler.rowBackground(1)).toBe(SelectionColorCycler.MAIN_ROW_BACKGROUND);
+    expect(styler.rowBackground(13)).toEqual('blue');
+
+    selector.selectRow(14, 'red');
+    expect(styler.rowBackground(1)).toBe(SelectionColorCycler.MAIN_ROW_BACKGROUND);
+    expect(styler.rowBackground(13)).toEqual('blue');
+    expect(styler.rowBackground(14)).toEqual('red');
+
+    selector.selectRow(1, 'green');
+    expect(styler.rowBackground(1)).toBe('green');
+    expect(styler.rowBackground(13)).toEqual('blue');
+    expect(styler.rowBackground(14)).toEqual('red');
+
+
+  });
+
 });
 
 describe( 'LabelsToColors', () => {

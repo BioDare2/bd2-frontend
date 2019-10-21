@@ -1,8 +1,8 @@
 <p>assign-labels-step works!</p>
-<button (click)="dataSlice = firstData()">Back</button>
+<button (click)="setDataSlice(firstData())">Back</button>
 <bd2-selectable-region-mdtable (selected)="selected($event)" (moreColumns)="moreColumns()" (moreRows)="moreRows()"
                         [dataSlice]="dataSlice" [columnsLabels]="columnsLabels" [rowsLabels]="rowsLabels"
                         [styler]="tableSelector.tableStyler"
-                        [selectableRowHeader]="true" [selectableColHeader]="true"
+                        [selectRows]="importDetails.inRows" [selectCols]="!importDetails.inRows"
 ></bd2-selectable-region-mdtable>
 

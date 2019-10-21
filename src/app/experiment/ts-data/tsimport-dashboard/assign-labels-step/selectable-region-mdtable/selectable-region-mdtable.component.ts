@@ -8,7 +8,7 @@ import {TableStyler} from '../../data-sheet-mdtable/table-styling';
   templateUrl: './selectable-region-mdtable.component.html',
   styles: [`
     .data-sheet-container {
-      max-height: 400px;
+      max-height: 800px;
       overflow: auto;
     }
 
@@ -34,15 +34,7 @@ import {TableStyler} from '../../data-sheet-mdtable/table-styling';
 })
 export class SelectableRegionMDTableComponent implements OnInit {
 
-  displayedColumns: string[];  // = ['rowNr', 'A', 'B', 'C', 'D', 'E', 'F', 'G ', 'H' ];
-  // dataColumns = ['A', 'B', 'C', 'D', 'E', 'F', 'G ', 'H' ];
-
-  // selectedRow: any[];
-  // selectedRowIx: number;
-  // selectedRowName: string;
-  // selectedColIx: number;
-  // selectedColName: string;
-
+  displayedColumns: string[];
   displayedLabelsColumns: string[];
 
 
@@ -99,13 +91,7 @@ export class SelectableRegionMDTableComponent implements OnInit {
     this.hasMoreColumns = dataSlice.columnsNumbers[dataSlice.columnsNumbers.length - 1] < (dataSlice.totalColumns - 1);
     this.hasMoreRows = dataSlice.rowsNumbers[dataSlice.rowsNumbers.length - 1] < (dataSlice.totalRows - 1);
 
-    this.displayedColumns = (this.showRowsLabels ? ['rowNr', 'rowLabel'] : ['rowNr']).concat(this.columnsNames);
-
-    this.displayedLabelsColumns = (this.showRowsLabels ? ['rowNr2', 'rowLabel2'] : ['rowNr2']).concat( this.columnsNames.map( (v, ix) => 'label' + ix));
-    if (this.hasMoreColumns) {
-      this.displayedColumns.push('more');
-      this.displayedLabelsColumns.push('more');
-    }
+    this.decideColumns();
 
     if (this.matTable) {
       this.matTable.renderRows();
@@ -116,16 +102,36 @@ export class SelectableRegionMDTableComponent implements OnInit {
   styler = new TableStyler();
 
   @Input()
-  selectableColHeader = false;
+  set selectRows(val: boolean) {
+    this.selectableRowHeader = val;
+    this.showRowsLabels = val;
+    this.decideColumns();
+  }
 
   @Input()
-  selectableRowHeader = false;
+  set selectCols(val: boolean) {
+    this.selectableColHeader = val;
+    this.showColumnsLabels = val;
+    this.decideColumns();
+  }
 
-  @Input()
-  showColumnsLabels = true;
+  private selectableColHeader = false;
 
-  @Input()
-  showRowsLabels = true;
+  private selectableRowHeader = false;
+
+  private showColumnsLabels = false;
+
+  private showRowsLabels = false;
+
+  decideColumns() {
+    this.displayedColumns = (this.showRowsLabels ? ['rowNr', 'rowLabel'] : ['rowNr']).concat(this.columnsNames);
+    this.displayedLabelsColumns = (this.showRowsLabels ? ['rowNr2', 'rowLabel2'] : ['rowNr2'])
+                                .concat( this.columnsNames.map( (v, ix) => 'label' + ix));
+    if (this.hasMoreColumns) {
+      this.displayedColumns.push('more');
+      this.displayedLabelsColumns.push('more');
+    }
+  }
 
 
   @Output()
@@ -148,6 +154,27 @@ export class SelectableRegionMDTableComponent implements OnInit {
 
   ngOnInit() {
   }
+
+  colNumber(colIx: number) {
+    return colIx < 0 ? -1 : this._dataSlice.columnsNumbers[colIx];
+  }
+
+  rowNumber(rowIx: number) {
+    return rowIx < 0 ? -1 : this._dataSlice.rowsNumbers[rowIx];
+  }
+
+  colBackground(colIx) {
+    return this.styler.colBackground(this.colNumber(colIx));
+  }
+
+  rowBackground(rowIx) {
+    return this.styler.rowBackground(this.rowNumber(rowIx));
+  }
+
+  cellBackground(colIx: number, rowIx: number) {
+    return this.styler.cellBackground(this.colNumber(colIx), this.rowNumber(rowIx));
+  }
+
 
   startSelectCell(colIx: number, rowIx: number) {
 

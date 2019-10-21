@@ -12,7 +12,7 @@
     </ng-container>
 
     <!-- Row Label Column -->
-    <ng-container *ngIf="showRowsLabels" matColumnDef="rowLabel" sticky>
+    <ng-container matColumnDef="rowLabel" sticky>
       <th mat-header-cell *matHeaderCellDef>Labels</th>
       <td mat-cell matRipple  *matCellDef="let row; let rowIx = index"
           (mousedown)="startSelectCell(-1,rowIx)" (mouseup)="endSelectCell(-1,rowIx)">
@@ -22,11 +22,11 @@
 
     <!-- Data Columns -->
     <ng-container *ngFor="let col of columnsNames; let colIx = index" [matColumnDef]="col">
-      <th mat-header-cell matRipple  *matHeaderCellDef [style.background-color]="styler.colBackground(colIx)"
+      <th mat-header-cell matRipple  *matHeaderCellDef [style.background-color]="colBackground(colIx)"
           (mousedown)="startSelectCell(colIx,-1)" (mouseup)="endSelectCell(colIx,-1)"
       > {{col}} </th>
       <td mat-cell *matCellDef="let row; let rowIx = index"
-          [style.background-color]="styler.cellBackground(colIx, rowIx)"
+          [style.background-color]="cellBackground(colIx, rowIx)"
           > {{row[colIx]}} </td>
       <td mat-footer-cell *matFooterCellDef (click)="nextRow()">{{ hasMoreRows ? '...' : ''}}</td>
     </ng-container>
@@ -44,14 +44,14 @@
     </ng-container>
 
     <!-- 2Row Label Column -->
-    <ng-container *ngIf="showRowsLabels" matColumnDef="rowLabel2" sticky>
+    <ng-container matColumnDef="rowLabel2" sticky>
       <th mat-header-cell *matHeaderCellDef></th>
     </ng-container>
 
     <!-- label Columns -->
     <ng-container *ngIf="showColumnsLabels">
       <ng-container *ngFor="let col of columnsNames; let colIx = index" [matColumnDef]="'label'+colIx">
-        <th mat-header-cell matRipple  *matHeaderCellDef [style.background-color]="styler.colBackground(colIx)"
+        <th mat-header-cell matRipple  *matHeaderCellDef [style.background-color]="colBackground(colIx)"
             (mousedown)="startSelectCell(colIx,-1)" (mouseup)="endSelectCell(colIx,-1)"
         ><label class="user">{{columnsLabels[colIx]}}</label></th>
       </ng-container>
@@ -64,7 +64,7 @@
     </ng-container>
 
     <tr mat-row *matRowDef="let row; let rowIx = index; columns: displayedColumns;"
-        [style.background-color]="styler.rowBackground(rowIx)"
+        [style.background-color]="rowBackground(rowIx)"
     ></tr>
 
       <tr mat-footer-row *matFooterRowDef="displayedColumns"></tr>
