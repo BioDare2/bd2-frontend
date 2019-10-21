@@ -1,0 +1,13 @@
+<h1 mat-dialog-title>{{data.title}}</h1>
+<div mat-dialog-content>
+  <p>Write label for {{data.regionName}}</p>
+  <mat-form-field>
+    <input matInput [(ngModel)]="data.label" (keydown.enter)="sendLabel()" cdkFocusInitial>
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button mat-button [mat-dialog-close]="undefined">Cancel</button>
+  <button mat-button [mat-dialog-close]="''" >Clear</button>
+  <button #ok mat-button mat-raised-button color="primary" [mat-dialog-close]="data.label" >Assign</button>
+</div>
+

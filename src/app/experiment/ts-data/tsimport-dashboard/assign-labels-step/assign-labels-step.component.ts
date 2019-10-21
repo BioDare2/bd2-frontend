@@ -5,7 +5,8 @@ import {ImportDetails} from '../../import-dom';
 import {DataTableDependentStep} from '../data-table-dependent-step';
 import {DataTableService} from '../data-table.service';
 import {FeedbackService} from '../../../../feedback/feedback.service';
-import {MatPaginator, PageEvent, MatPaginatorIntl} from '@angular/material';
+import {MatPaginator, PageEvent, MatPaginatorIntl, MatDialog} from '@angular/material';
+import {EditLabelDialogComponent, EditLabelDialogData} from './edit-label-dialog/edit-label-dialog.component';
 
 @Component({
   selector: 'bd2-assign-labels-step',
@@ -31,12 +32,12 @@ export class AssignLabelsStepComponent extends DataTableDependentStep implements
   rowPaginator: MatPaginator;
 
 
-  constructor(dataService: DataTableService, feedback: FeedbackService) {
+  constructor(public dialog: MatDialog, dataService: DataTableService, feedback: FeedbackService) {
     super(dataService, feedback);
 
 
     this.importDetails = new ImportDetails();
-    this.importDetails.inRows = false;
+    this.importDetails.inRows = true;
     this.importDetails.firstTimeCell = new CellSelection(1, 1, 'B', 1, 1, '1', 1);
   }
 
@@ -181,6 +182,14 @@ export class AssignLabelsStepComponent extends DataTableDependentStep implements
     console.log(s + '-' + e);
   }
 
+  getUserLabel(data: EditLabelDialogData) {
+    const dialogRef = this.dialog.open(EditLabelDialogComponent, {
+      data
+    });
+
+    return dialogRef.afterClosed();
+  }
+
   labelRows(start: CellSelection, end: CellSelection) {
     console.log('Label rows', start);
     if (start.rowIx < 0 || end.rowIx < 0) {
@@ -193,22 +202,42 @@ export class AssignLabelsStepComponent extends DataTableDependentStep implements
       return;
     }
 
+    const data: EditLabelDialogData = {
+      title: 'Label rows',
+      regionName: start.hasSameIx(end) ? 'row ' + start.rowName : 'rows ' + start.rowName + '-' + end.rowName,
+      label: this.userLabels[start.rowNumber]
+    };
 
-    const label = 'R' + start.rowName; // + '_' + (new Date()).getTime();
-    const color = this.colorer.toColor(label);
+    this.getUserLabel(data).subscribe( (label: string) => {
 
-    console.log('Will label with', label);
+      console.log('Got label :'+label+':', label);
 
-    for (let i = start.rowIx; i <= end.rowIx; i++) {
-      const realNumber = this.dataSlice.rowsNumbers[i];
-      if (realNumber === undefined) {
-        console.error('No row number for index ' + i);
-      } else {
-        this.rowsLabels[i] = label;
-        this.userLabels[realNumber] = label;
-        this.tableSelector.selectRow(realNumber, color);
+      if (label == undefined) {
+        console.log('Cancelled labelling');
+        return;
       }
-    }
+      label = label.trim();
+
+      // const label = 'R' + start.rowName; // + '_' + (new Date()).getTime();
+      const color = this.colorer.toColor(label);
+      console.log("COlor for"+label,color);
+
+
+      for (let i = start.rowIx; i <= end.rowIx; i++) {
+        const realNumber = this.dataSlice.rowsNumbers[i];
+        if (realNumber === undefined) {
+          console.error('No row number for index ' + i);
+        } else {
+          this.rowsLabels[i] = label;
+          this.userLabels[realNumber] = label;
+          if (label) {
+            this.tableSelector.selectRow(realNumber, color);
+          } else {
+            this.tableSelector.deselectRow(realNumber);
+          }
+        }
+      }
+    });
   }
 
   labelColumns(start: CellSelection, end: CellSelection) {
@@ -332,8 +361,9 @@ export class AssignLabelsStepComponent extends DataTableDependentStep implements
 
   moreColumns() {
     console.log('More columns');
-    if (!this.importDetails.inRows)
+    if (!this.importDetails.inRows) {
       this.colPaginator.nextPage();
+    }
     /*
 
 
@@ -365,9 +395,10 @@ export class AssignLabelsStepComponent extends DataTableDependentStep implements
   moreRows() {
 
     console.log('More rows');
-    if (this.importDetails.inRows)
+    if (this.importDetails.inRows) {
       this.rowPaginator.nextPage();
-    
+    }
+
     /*
     const data = new DataTableSlice();
     data.columnsNames = ['A', 'B', 'C', 'D', 'E', 'F', 'G ', 'H', 'I' ];

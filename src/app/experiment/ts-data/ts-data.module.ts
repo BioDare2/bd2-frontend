@@ -27,6 +27,7 @@ import { SelectDataStartStepComponent } from './tsimport-dashboard/select-data-s
 import { ImportStepsComponent } from './tsimport-dashboard/import-steps/import-steps.component';
 import { AssignLabelsStepComponent } from './tsimport-dashboard/assign-labels-step/assign-labels-step.component';
 import { SelectableRegionMDTableComponent } from './tsimport-dashboard/assign-labels-step/selectable-region-mdtable/selectable-region-mdtable.component';
+import { EditLabelDialogComponent } from './tsimport-dashboard/assign-labels-step/edit-label-dialog/edit-label-dialog.component';
 
 @NgModule({
   declarations: [UploadDataFileComponent,
@@ -43,7 +44,11 @@ import { SelectableRegionMDTableComponent } from './tsimport-dashboard/assign-la
     SelectDataStartStepComponent,
     ImportStepsComponent,
     AssignLabelsStepComponent,
-    SelectableRegionMDTableComponent
+    SelectableRegionMDTableComponent,
+    EditLabelDialogComponent
+  ],
+  entryComponents: [
+    EditLabelDialogComponent
   ],
   imports: [
     CommonModule,

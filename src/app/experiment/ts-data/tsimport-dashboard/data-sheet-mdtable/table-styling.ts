@@ -130,7 +130,7 @@ export class TableSelector {
 
   public selectRow(rowNumber: number, color?: string) {
 
-    const cell = new CellSelection(-1,-1, undefined, rowNumber, rowNumber, undefined, undefined);
+    const cell = new CellSelection(-1, -1, undefined, rowNumber, rowNumber, undefined, undefined);
 
     const existingIx = this.selectedRows.findIndex( c => c.rowNumber === rowNumber);
     if (existingIx < 0) {
@@ -140,6 +140,20 @@ export class TableSelector {
     }
 
     this.colorRows([cell], color);
+
+  }
+
+  public deselectRow(rowNumber: number) {
+
+
+    const existingIx = this.selectedRows.findIndex( c => c.rowNumber === rowNumber);
+    if (existingIx >= 0) {
+    } else {
+      this.selectedRows[existingIx] = undefined;
+    }
+
+    const cell = new CellSelection(-1, -1, undefined, rowNumber, rowNumber, undefined, undefined);
+    this.uncolorRows([cell]);
 
   }
 
