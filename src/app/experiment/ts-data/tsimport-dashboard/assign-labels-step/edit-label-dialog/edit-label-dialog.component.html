@@ -3,6 +3,7 @@
   <p>Write label for {{data.regionName}}</p>
   <mat-form-field>
     <input matInput [(ngModel)]="data.label" (keydown.enter)="sendLabel()" cdkFocusInitial>
+    <mat-hint align="start">Pressing <strong>Enter</strong> submits </mat-hint>
   </mat-form-field>
 </div>
 <div mat-dialog-actions>

@@ -16,10 +16,18 @@
 
       <mat-card class="mat-elevation-z4">
         <mat-card-content>
+          <p>
           <mat-radio-group [(ngModel)]="importDetails.inRows" name="inRows" class="spaced">
             <mat-radio-button [value]="true" >Data in rows</mat-radio-button>
             <mat-radio-button [value]="false" >Data in columns</mat-radio-button>
           </mat-radio-group>
+          </p>
+          <p>
+          <mat-radio-group [(ngModel)]="importDetails.importLabels" name="importLabels" class="spaced">
+            <mat-radio-button [value]="true" >Import labels from {{importDetails.inLabelNeg}}</mat-radio-button>
+            <mat-radio-button [value]="false" >Manually label</mat-radio-button>
+          </mat-radio-group>
+          </p>
         </mat-card-content>
         <mat-card-actions>
           <button mat-button matStepperPrevious>Back</button>
@@ -41,34 +49,10 @@
 
     <div>
       <button mat-button matStepperPrevious>Back</button>
-      <button mat-button matStepperNext type="button" [disabled]="!importDetails.isTimeDefined()">Next</button>
+      <button mat-button matStepperNext type="button" [disabled]="!importDetails.isTimeDefined()"
+              (click)="startLabelling()">Next</button>
       <!--<button mat-button (click)="stepper.reset()">Reset</button> -->
     </div>
-  </mat-step>
-
-
-  <mat-step >
-    <form >
-      <ng-template matStepLabel>Labelling options</ng-template>
-      <mat-divider></mat-divider>
-
-      <bd2-import-details-summary [importDetails]="importDetails" [showTime]="true"></bd2-import-details-summary>
-
-      <mat-card class="mat-elevation-z4">
-        <mat-card-content>
-          <mat-radio-group [(ngModel)]="importDetails.importLabels" name="importLabels" class="spaced">
-            <mat-radio-button [value]="true" >Import labels from {{importDetails.inLabelNeg}}</mat-radio-button>
-            <mat-radio-button [value]="false" >Manually label</mat-radio-button>
-          </mat-radio-group>
-        </mat-card-content>
-        <mat-card-actions>
-          <button mat-button matStepperPrevious>Back</button>
-          <button mat-button matStepperNext type="button" (click)="startLabelling()">Next</button>
-        </mat-card-actions>
-      </mat-card>
-
-
-    </form>
   </mat-step>
 
 

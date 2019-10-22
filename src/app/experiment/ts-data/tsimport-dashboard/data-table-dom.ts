@@ -75,4 +75,5 @@ export class CellSelection {
   hasSameIx(other: CellSelection) {
     return (this.colIx === other.colIx && this.rowIx === other.rowIx);
   }
+
 }

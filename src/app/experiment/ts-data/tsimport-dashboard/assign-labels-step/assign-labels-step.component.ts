@@ -6,6 +6,7 @@ import {DataTableService} from '../data-table.service';
 import {FeedbackService} from '../../../../feedback/feedback.service';
 import {MatPaginator, PageEvent, MatPaginatorIntl, MatDialog} from '@angular/material';
 import {EditLabelDialogComponent, EditLabelDialogData} from './edit-label-dialog/edit-label-dialog.component';
+import {utcDay} from 'd3-time';
 
 @Component({
   selector: 'bd2-assign-labels-step',
@@ -46,6 +47,14 @@ export class AssignLabelsStepComponent extends DataTableDependentStep implements
 
   ngOnInit() {
     super.ngOnInit();
+  }
+
+  ngOnDestroy(): void {
+    super.ngOnDestroy();
+    if (this.dataService) {
+      // we created it so we close it
+      this.dataService.close();
+    }
   }
 
   ngAfterViewInit() {
@@ -181,6 +190,7 @@ export class AssignLabelsStepComponent extends DataTableDependentStep implements
         return;
       }
       this.setRowsLabel(start, end, label);
+      this.selectNextRegion(start, end);
     });
 
   }
@@ -228,6 +238,7 @@ export class AssignLabelsStepComponent extends DataTableDependentStep implements
         return;
       }
       this.setColumnsLabel(start, end, label);
+      this.selectNextRegion(start, end);
     });
   }
 
@@ -252,6 +263,48 @@ export class AssignLabelsStepComponent extends DataTableDependentStep implements
         }
       }
     }
+  }
+
+  selectNextRegion(start: CellSelection, end: CellSelection) {
+    const sizes: [number, number] = [ end.colIx - start.colIx, end.rowIx - start.rowIx];
+
+    let nextStart =  this.moveCell(end, [1, 1]);
+    let nextEnd = this.moveCell(nextStart, sizes);
+
+    if (!this.isInPage(nextStart)) { return; }
+    if (!this.isInPage(nextEnd)) {
+      nextEnd = this.fitToPage(nextEnd);
+    }
+
+    nextStart = this.reselect(nextStart);
+    nextEnd = this.reselect(nextEnd);
+
+    this.selected([nextStart, nextEnd]);
+  }
+
+  isInPage(cell: CellSelection) {
+    if (cell.colIx >= 0 && cell.colIx >= this.dataSlice.columnsNumbers.length) {
+      return false;
+    }
+    if (cell.rowIx >= 0 && cell.rowIx >= this.dataSlice.rowsNumbers.length) {
+      return false;
+    }
+    return true;
+  }
+
+  fitToPage(cell: CellSelection) {
+    const colIx = cell.colIx >= 0 ? this.dataSlice.columnsNumbers.length - 1 : -1;
+    const rowIx = cell.rowIx >= 0 ? this.dataSlice.rowsNumbers.length - 1 : -1;
+
+    return new CellSelection(colIx, undefined, undefined, rowIx, undefined, undefined, undefined);
+  }
+
+  moveCell(cell: CellSelection, by: [number, number]) {
+
+    const colIx = cell.colIx >= 0 ? cell.colIx + by[0] : -1;
+    const rowIx = cell.rowIx >= 0 ? cell.rowIx + by[1] : -1;
+
+    return new CellSelection(colIx, undefined, undefined, rowIx, undefined, undefined, undefined);
   }
 
   loadColPage(page: PageEvent) {

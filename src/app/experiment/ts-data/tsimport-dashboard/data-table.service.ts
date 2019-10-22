@@ -17,7 +17,6 @@ export class DataTableService {
   private readonly fileIdFormat$ = new BehaviorSubject<string[]>(undefined);
   readonly error$ = new Subject<any>();
 
-
   constructor(private tsFileService: TSFileService) {
 
     this.dataSlice$ = this.tableSlice$.asObservable().pipe(

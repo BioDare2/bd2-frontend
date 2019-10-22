@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
+import {Component, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild} from '@angular/core';
 import {MatVerticalStepper} from '@angular/material';
 import {DataTableDependentStep} from '../data-table-dependent-step';
 import {DataTableImportParameters, ImportDetails, ImportFormat} from '../../import-dom';
@@ -13,7 +13,7 @@ import {DataTableService} from '../data-table.service';
   styles: [],
   providers: [ DataTableService]
 })
-export class ImportStepsComponent implements OnInit {
+export class ImportStepsComponent implements OnInit, OnDestroy {
 
   @Output()
   import = new EventEmitter<ImportDetails>();
@@ -38,7 +38,8 @@ export class ImportStepsComponent implements OnInit {
 
 
   constructor(private fileService: TSFileService,
-              private feedback: FeedbackService ) {
+              private feedback: FeedbackService,
+              private dataService: DataTableService) {
 
     this.importDetails = new DataTableImportParameters(); // ImportDetails();
     this.importDetails.inRows = true;
@@ -49,6 +50,12 @@ export class ImportStepsComponent implements OnInit {
   ngOnInit() {
   }
 
+  ngOnDestroy(): void {
+    if (this.dataService) {
+      // we injected it so we should close it
+      this.dataService.close();
+    }
+  }
 
 
   upload(upload: {files: File[], importFormat: ImportFormat}) {

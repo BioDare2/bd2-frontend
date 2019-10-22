@@ -4,6 +4,7 @@ import {SelectionColorCycler, TableSelector} from './data-sheet-mdtable/table-st
 import {CellSelection, DataTableSlice, Slice} from './data-table-dom';
 import {DataTableService} from './data-table.service';
 import {FeedbackService} from '../../../feedback/feedback.service';
+import {Subscription} from "rxjs";
 
 
 export class DataTableDependentStep implements OnInit, OnDestroy {
@@ -32,6 +33,7 @@ export class DataTableDependentStep implements OnInit, OnDestroy {
     return this.importDetails ? this.importDetails.dataStart : undefined;
   }
 
+  dataSubscription: Subscription;
 
   constructor(protected dataService: DataTableService, protected feedback: FeedbackService) {
     this.firstPageSlice = Slice.firstPage();
@@ -43,15 +45,16 @@ export class DataTableDependentStep implements OnInit, OnDestroy {
 
     this.dataService.error$.forEach( err => this.feedback.error(err));
 
-    this.dataService.dataSlice$.subscribe(
+    this.dataSubscription = this.dataService.dataSlice$.subscribe(
       dataSlice => this.setDataSlice(dataSlice),
       err => this.feedback.error(err)
     );
   }
 
   ngOnDestroy(): void {
-    if (this.dataService) {
-      this.dataService.close();
+    if (this.dataSubscription) {
+      this.dataSubscription.unsubscribe();
+      // this.dataService.close(); we cannot close it as it is shared
     }
   }
 

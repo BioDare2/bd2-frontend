@@ -1,7 +1,7 @@
 
 
-<div [hidden]="importDetails.inRows">
-<mat-paginator #colPaginator [length]="dataSlice?.totalColumns" [disabled]="importDetails.inRows"
+<div [hidden]="importDetails?.inRows">
+<mat-paginator #colPaginator [length]="dataSlice?.totalColumns" [disabled]="importDetails?.inRows"
                [pageSize]="currentPageSlice.colPage.pageSize"
                [pageIndex]="currentPageSlice.colPage.pageIndex"
                [pageSizeOptions]="[10, 25, 50, 100]"
@@ -14,11 +14,11 @@
 <bd2-selectable-region-mdtable (selected)="selected($event)" (moreColumns)="moreColumns()" (moreRows)="moreRows()"
                         [dataSlice]="dataSlice" [columnsLabels]="columnsLabels" [rowsLabels]="rowsLabels"
                         [styler]="tableSelector.tableStyler"
-                        [selectRows]="importDetails.inRows" [selectCols]="!importDetails.inRows"
+                        [selectRows]="importDetails?.inRows" [selectCols]="!importDetails?.inRows"
 ></bd2-selectable-region-mdtable>
 
-<div [hidden]="!importDetails.inRows">
-<mat-paginator #rowPaginator [length]="dataSlice?.totalRows" [disabled]="!importDetails.inRows"
+<div [hidden]="!importDetails?.inRows">
+<mat-paginator #rowPaginator [length]="dataSlice?.totalRows" [disabled]="!importDetails?.inRows"
                [pageSize]="firstPageSlice.rowPage.pageSize"
                [pageSizeOptions]="[10, 25, 50, 100]"
                (page)="loadRowPage($event)"
@@ -26,9 +26,9 @@
 </mat-paginator>
 </div>
 <alert *ngIf="!hasSeenAll()" type="danger" style="margin-top: 1em;">
-  You have not seen yet all the available {{importDetails.inLabel}}s for labelling
+  You have not seen yet all the available {{importDetails?.inLabel}}s for labelling
 </alert>
-<div>
+<div style="margin-top: 1em;">
   <label>Selected labels: </label>{{labelsSummary}}
 </div>
 
