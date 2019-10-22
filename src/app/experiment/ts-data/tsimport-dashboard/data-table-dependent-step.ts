@@ -17,6 +17,9 @@ export class DataTableDependentStep implements OnInit, OnDestroy {
   firstPageSlice: Slice;
   currentPageSlice: Slice;
 
+  lastColumnSeen = 0;
+  lastRowSeen = 0;
+
   get firstTimeCell() {
     return this.importDetails ? this.importDetails.firstTimeCell : undefined;
   }
@@ -63,12 +66,16 @@ export class DataTableDependentStep implements OnInit, OnDestroy {
 
   setDataSlice(dataSlice: DataTableSlice) {
     this.dataSlice = dataSlice;
+    this.lastColumnSeen = Math.max(this.lastColumnSeen, dataSlice.columnsNumbers[dataSlice.columnsNumbers.length-1]);
+    this.lastRowSeen = Math.max(this.lastRowSeen, dataSlice.rowsNumbers[dataSlice.rowsNumbers.length-1]);
     this.currentPageSlice = new Slice(dataSlice.rowPage, dataSlice.colPage);
     this.applySelection();
   }
 
   loadData() {
     if (this.importDetails) {
+      this.lastColumnSeen = 0;
+      this.lastRowSeen = 0;
       this.dataService.fileIdFormat([this.importDetails.fileId, this.importDetails.importFormat.name]);
       this.dataService.slice(this.firstPageSlice);
     }

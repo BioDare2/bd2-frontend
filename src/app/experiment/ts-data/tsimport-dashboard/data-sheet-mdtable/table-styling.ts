@@ -148,7 +148,6 @@ export class TableSelector {
 
     const existingIx = this.selectedRows.findIndex( c => c.rowNumber === rowNumber);
     if (existingIx >= 0) {
-    } else {
       this.selectedRows[existingIx] = undefined;
     }
 
@@ -191,7 +190,7 @@ export class TableSelector {
 
     const cell = new CellSelection(colNumber, colNumber, undefined, -1, -1, undefined, undefined);
 
-    const existingIx = this.selectedRows.findIndex( c => c.colNumber === colNumber);
+    const existingIx = this.selectedCols.findIndex( c => c.colNumber === colNumber);
     if (existingIx < 0) {
       this.selectedCols.push(cell);
     } else {
@@ -199,6 +198,19 @@ export class TableSelector {
     }
 
     this.colorCols([cell], color);
+
+  }
+
+  public deselectCol(colNumber: number) {
+
+
+    const existingIx = this.selectedCols.findIndex( c => c.colNumber === colNumber);
+    if (existingIx >= 0) {
+      this.selectedCols[existingIx] = undefined;
+    }
+
+    const cell = new CellSelection(colNumber, colNumber, undefined, -1, -1, undefined, undefined);
+    this.uncolorCols([cell]);
 
   }
 

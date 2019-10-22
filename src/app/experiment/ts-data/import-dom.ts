@@ -80,6 +80,7 @@ export class ImportDetails {
 
   importLabels = true;
   labelsSelection: CellSelection;
+  userLabels: string[] = [];
 
   get inLabel(): string {
     return this.inRows ? 'row' : 'column';
@@ -125,6 +126,14 @@ export class ImportDetails {
     return false;
   }
 
+  areLabelsCorrectlyAssigned() {
+    if (!this.userLabels) {
+      return false;
+    }
+    return this.userLabels.filter( v => !!v).length > 0;
+
+  }
+
   isDataAfterTime() {
     if (this.firstTimeCell && this.dataStart) {
       if (this.inRows) {
@@ -148,8 +157,28 @@ export class ImportDetails {
     if (this.importLabels) {
       if (!this.areLabelsCorrectlySelected()) { return false; }
       if (!this.isDataStartCorrectlySelected()) { return false; }
+    } else {
+      if (!this.areLabelsCorrectlyAssigned()) { return false; }
     }
     return true;
+  }
+
+  summarizeLabels(size = 10) {
+
+    if (!this.userLabels) { return 'No labels'; }
+
+    const set = new Set<string>();
+    for (const val of this.userLabels) {
+      if (val) {
+        set.add(val);
+        if (set.size >= size) {
+          set.add('...');
+          break;
+        }
+      }
+    }
+
+    return [...set].join(', ');
   }
 }
 

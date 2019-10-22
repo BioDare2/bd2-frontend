@@ -75,7 +75,7 @@
 
   <ng-container *ngIf="!importDetails.importLabels">
 
-    <mat-step [completed]="importDetails.areLabelsCorrectlySelected()">
+    <mat-step [completed]="importDetails.areLabelsCorrectlyAssigned()">
       <ng-template matStepLabel>Label data</ng-template>
       <mat-divider></mat-divider>
       <bd2-import-details-summary [importDetails]="importDetails" [showTime]="true" ></bd2-import-details-summary>
@@ -85,7 +85,7 @@
       <div>
         <button mat-button matStepperPrevious>Back</button>
         <button mat-button matStepperNext type="button"
-                [disabled]="!importDetails.areLabelsCorrectlySelected()"
+                [disabled]="!importDetails.areLabelsCorrectlyAssigned()"
         >Next</button>
       </div>
     </mat-step>
@@ -94,8 +94,7 @@
   <ng-container *ngIf="importDetails.importLabels">
 
     <mat-step [completed]="importDetails.areLabelsCorrectlySelected()">
-      <ng-template *ngIf="importDetails.importLabels" matStepLabel>Select labels {{importDetails.inLabelNeg}}</ng-template>
-      <ng-template *ngIf="!importDetails.importLabels" matStepLabel>Label data</ng-template>
+      <ng-template matStepLabel>Select labels {{importDetails.inLabelNeg}}</ng-template>
       <mat-divider></mat-divider>
       <bd2-import-details-summary [importDetails]="importDetails" [showTime]="true" ></bd2-import-details-summary>
 

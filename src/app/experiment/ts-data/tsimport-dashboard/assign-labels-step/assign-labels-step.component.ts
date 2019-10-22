@@ -21,9 +21,14 @@ export class AssignLabelsStepComponent extends DataTableDependentStep implements
 
   columnsLabels: string[] = [];
   rowsLabels: string[] = [];
-  userLabels: string[] = [];
+
+  get userLabels() {
+    return this.importDetails ? this.importDetails.userLabels : undefined;
+  }
 
   colorer = new LabelsToColors();
+
+  labelsSummary: string;
 
   @ViewChild('colPaginator', { static: true })
   colPaginator: MatPaginator;
@@ -92,9 +97,9 @@ export class AssignLabelsStepComponent extends DataTableDependentStep implements
     super.markSelections();
     this.markFirstTime();
 
-    this.userLabels[4] = 'Fake label';
     this.loadLabels();
     this.markLabels();
+    this.labelsSummary = this.importDetails.summarizeLabels(25);
 
     this.labelTime();
   }
@@ -135,6 +140,14 @@ export class AssignLabelsStepComponent extends DataTableDependentStep implements
     });
   }
 
+  hasSeenAll() {
+    if (this.importDetails.inRows) {
+      return this.lastRowSeen >= this.dataSlice.totalRows - 1;
+    } else {
+      return this.lastColumnSeen >= this.dataSlice.totalColumns - 1;
+    }
+  }
+
   selected(selection: [CellSelection, CellSelection]) {
     console.log('Selected', selection);
     const s = selection[0].colName + selection[0].rowName;
@@ -152,37 +165,32 @@ export class AssignLabelsStepComponent extends DataTableDependentStep implements
       this.labelColumns(selection[0], selection[1]);
     }
 
-    /*
-    if (selection[0].colIx >= 0) {
-      const label = 'L' + selection[0].colName + (new Date()).getTime();
-      for (let i = selection[0].colIx; i <= selection[1].colIx; i++ ) {
-        const uI = this.dataSlice.columnsNumbers[i];
-        if (uI === undefined) {
-          console.error('No column number for ix' + i);
-        } else {
-          this.columnsLabels[i] = label;
-          this.userLabels[uI] = label;
-        }
-      }
-    }
-
-    if (selection[0].rowIx >= 0) {
-      const label = 'R' + selection[0].rowName + '_' + (new Date()).getTime();
-      for (let i = selection[0].rowIx; i <= selection[1].rowIx; i++ ) {
-        const uI = this.dataSlice.rowsNumbers[i];
-        if (uI === undefined) {
-          console.error('No row number for index ' + i);
-        } else {
-          this.rowsLabels[i] = label;
-          this.userLabels[uI] = label;
-        }
-      }
-    } */
-
     console.log(s + '-' + e);
   }
 
-  getUserLabel(data: EditLabelDialogData) {
+  setUserLabel(realNumber: number, label: string) {
+    this.userLabels[realNumber] = label;
+    this.labelsSummary = this.importDetails.summarizeLabels(25);
+  }
+
+  askForLabel(start: CellSelection, end: CellSelection, inRows: boolean) {
+
+    let data: EditLabelDialogData;
+
+    if (inRows) {
+      data = {
+        title: 'Label rows',
+        regionName: start.hasSameIx(end) ? 'row ' + start.rowName : 'rows ' + start.rowName + '-' + end.rowName,
+        label: this.userLabels[start.rowNumber]
+      };
+    } else {
+      data = {
+        title: 'Label columns',
+        regionName: start.hasSameIx(end) ? 'column ' + start.colName : 'columns ' + start.colName + '-' + end.colName,
+        label: this.userLabels[start.rowNumber]
+      };
+    }
+
     const dialogRef = this.dialog.open(EditLabelDialogComponent, {
       data
     });
@@ -202,25 +210,23 @@ export class AssignLabelsStepComponent extends DataTableDependentStep implements
       return;
     }
 
-    const data: EditLabelDialogData = {
-      title: 'Label rows',
-      regionName: start.hasSameIx(end) ? 'row ' + start.rowName : 'rows ' + start.rowName + '-' + end.rowName,
-      label: this.userLabels[start.rowNumber]
-    };
-
-    this.getUserLabel(data).subscribe( (label: string) => {
-
-      console.log('Got label :'+label+':', label);
-
-      if (label == undefined) {
+    this.askForLabel(start, end, true).subscribe( label => {
+      if (label === undefined) {
         console.log('Cancelled labelling');
         return;
       }
+      this.setRowsLabel(start, end, label);
+    });
+
+  }
+
+  setRowsLabel(start: CellSelection, end: CellSelection, label: string) {
+
+      console.log('Got label ', label);
       label = label.trim();
 
-      // const label = 'R' + start.rowName; // + '_' + (new Date()).getTime();
       const color = this.colorer.toColor(label);
-      console.log("COlor for"+label,color);
+      console.log('COlor for' + label, color);
 
 
       for (let i = start.rowIx; i <= end.rowIx; i++) {
@@ -229,7 +235,7 @@ export class AssignLabelsStepComponent extends DataTableDependentStep implements
           console.error('No row number for index ' + i);
         } else {
           this.rowsLabels[i] = label;
-          this.userLabels[realNumber] = label;
+          this.setUserLabel(realNumber, label);
           if (label) {
             this.tableSelector.selectRow(realNumber, color);
           } else {
@@ -237,7 +243,6 @@ export class AssignLabelsStepComponent extends DataTableDependentStep implements
           }
         }
       }
-    });
   }
 
   labelColumns(start: CellSelection, end: CellSelection) {
@@ -252,11 +257,21 @@ export class AssignLabelsStepComponent extends DataTableDependentStep implements
       return;
     }
 
+    this.askForLabel(start, end, false).subscribe(label => {
+      if (label === undefined) {
+        console.log('Cancelled labelling');
+        return;
+      }
+      this.setColumnsLabel(start, end, label);
+    });
+  }
 
-    const label = 'L' + start.colName; // + '_' + (new Date()).getTime();
-    const color = this.colorer.toColor(label);
+  setColumnsLabel(start: CellSelection, end: CellSelection, label: string) {
 
     console.log('Will label with', label);
+    label = label.trim();
+    const color = this.colorer.toColor(label);
+
 
     for (let i = start.colIx; i <= end.colIx; i++) {
       const realNumber = this.dataSlice.columnsNumbers[i];
@@ -264,8 +279,12 @@ export class AssignLabelsStepComponent extends DataTableDependentStep implements
         console.error('No col number for index ' + i);
       } else {
         this.columnsLabels[i] = label;
-        this.userLabels[realNumber] = label;
-        this.tableSelector.selectCol(realNumber, color);
+        this.setUserLabel(realNumber, label);
+        if (label) {
+          this.tableSelector.selectCol(realNumber, color);
+        } else {
+          this.tableSelector.deselectCol(realNumber);
+        }
       }
     }
   }
