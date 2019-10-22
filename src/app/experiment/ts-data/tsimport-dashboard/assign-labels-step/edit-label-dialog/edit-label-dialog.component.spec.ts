@@ -1,10 +1,10 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { EditLabelDialogComponent } from './edit-label-dialog.component';
-import {MaterialsModule} from "../../../../../shared/materials.module";
-import {FormsModule} from "@angular/forms";
-import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material";
-import {NoopAnimationsModule} from "@angular/platform-browser/animations";
+import {MaterialsModule} from '../../../../../shared/materials.module';
+import {FormsModule} from '@angular/forms';
+import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
+import {NoopAnimationsModule} from '@angular/platform-browser/animations';
 
 describe('EditLabelDialogComponent', () => {
   let component: EditLabelDialogComponent;

@@ -4,7 +4,7 @@ import {SelectionColorCycler, TableSelector} from './data-sheet-mdtable/table-st
 import {CellSelection, DataTableSlice, Slice} from './data-table-dom';
 import {DataTableService} from './data-table.service';
 import {FeedbackService} from '../../../feedback/feedback.service';
-import {Subscription} from "rxjs";
+import {Subscription} from 'rxjs';
 
 
 export class DataTableDependentStep implements OnInit, OnDestroy {
