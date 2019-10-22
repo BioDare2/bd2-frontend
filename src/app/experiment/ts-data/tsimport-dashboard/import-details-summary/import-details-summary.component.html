@@ -14,7 +14,7 @@
         <strong>{{importDetails.inRows ? labelsSelection.colName : labelsSelection.rowName}};</strong>
     </p>
     <p *ngIf="showLabelling && !importDetails.importLabels">
-      Selected Labels: {{importDetails.summarizeLabels()}}
+      <label>Selected Labels:</label> {{importDetails.summarizeLabels()}}
     </p>
     <p *ngIf="showDataStart && importDetails.importLabels && dataStart">
       Data starts in {{importDetails.inLabel}}

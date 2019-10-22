@@ -66,8 +66,8 @@ export class DataTableDependentStep implements OnInit, OnDestroy {
 
   setDataSlice(dataSlice: DataTableSlice) {
     this.dataSlice = dataSlice;
-    this.lastColumnSeen = Math.max(this.lastColumnSeen, dataSlice.columnsNumbers[dataSlice.columnsNumbers.length-1]);
-    this.lastRowSeen = Math.max(this.lastRowSeen, dataSlice.rowsNumbers[dataSlice.rowsNumbers.length-1]);
+    this.lastColumnSeen = Math.max(this.lastColumnSeen, dataSlice.columnsNumbers[dataSlice.columnsNumbers.length - 1]);
+    this.lastRowSeen = Math.max(this.lastRowSeen, dataSlice.rowsNumbers[dataSlice.rowsNumbers.length - 1]);
     this.currentPageSlice = new Slice(dataSlice.rowPage, dataSlice.colPage);
     this.applySelection();
   }

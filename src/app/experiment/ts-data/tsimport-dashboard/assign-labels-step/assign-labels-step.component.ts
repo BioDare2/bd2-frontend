@@ -1,7 +1,6 @@
 import {AfterViewInit, Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
-import {LabelsToColors, SelectionColorCycler, TableSelector} from '../data-sheet-mdtable/table-styling';
-import {CellSelection, DataTableSlice, Slice} from '../data-table-dom';
-import {ImportDetails} from '../../import-dom';
+import {LabelsToColors, } from '../data-sheet-mdtable/table-styling';
+import {CellSelection, Slice} from '../data-table-dom';
 import {DataTableDependentStep} from '../data-table-dependent-step';
 import {DataTableService} from '../data-table.service';
 import {FeedbackService} from '../../../../feedback/feedback.service';
@@ -40,49 +39,13 @@ export class AssignLabelsStepComponent extends DataTableDependentStep implements
   constructor(public dialog: MatDialog, dataService: DataTableService, feedback: FeedbackService) {
     super(dataService, feedback);
 
-
-    this.importDetails = new ImportDetails();
-    this.importDetails.inRows = true;
-    this.importDetails.firstTimeCell = new CellSelection(1, 1, 'B', 1, 1, '1', 1);
   }
 
-  /*
-  set dataSlice(data: DataTableSlice) {
-    this._dataSlice = data;
-
-    this.rowsLabels = this.userLabels.slice(data.rowsNumbers[0], data.rowsNumbers[data.rowsNumbers.length - 1]);
-    console.log('RL', this.rowsLabels);
-    this.columnsLabels = this.userLabels.slice(data.columnsNumbers[0], data.columnsNumbers[data.columnsNumbers.length - 1]);
-    console.log('CL', this.columnsLabels);
-
-
-    if (this.firstTimeCell) {
-      if (this.importDetails.inRows) {
-        const timeIx = this.dataSlice.rowsNumbers.indexOf(this.firstTimeCell.rowNumber);
-        if (timeIx >= 0) {
-          this.tableSelector.tableStyler.setRowBackground(timeIx, SelectionColorCycler.TIME_BACKGROUND);
-        }
-      } else {
-        const timeIx = this.dataSlice.columnsNumbers.indexOf(this.firstTimeCell.colNumber);
-        if (timeIx >= 0) {
-          this.tableSelector.tableStyler.setColBackground(timeIx, SelectionColorCycler.TIME_BACKGROUND);
-        }
-      }
-    }
-  }*/
 
 
 
   ngOnInit() {
     super.ngOnInit();
-    const data = this.firstData();
-
-    this.setDataSlice(data);
-
-    // this.columnsLabels = data.columnsNames.map( v => 'L' + v);
-    // this.rowsLabels = data.rowsNames.map( v => 'R' + v);
-
-
   }
 
   ngAfterViewInit() {
@@ -141,6 +104,8 @@ export class AssignLabelsStepComponent extends DataTableDependentStep implements
   }
 
   hasSeenAll() {
+    if (!this.dataSlice) { return false; }
+
     if (this.importDetails.inRows) {
       return this.lastRowSeen >= this.dataSlice.totalRows - 1;
     } else {
@@ -292,68 +257,45 @@ export class AssignLabelsStepComponent extends DataTableDependentStep implements
   loadColPage(page: PageEvent) {
     console.log('Load cols', page);
 
-    // this.currentPageSlice.colPage = page;
+    /*if (this.importDetails.inRows) {
+      console.log('Ignorig loading column as data in rows');
+      return;
+    }*/
 
     this.dataService.slice(new Slice(this.currentPageSlice.rowPage, page));
-
-    /*
-    const data = new DataTableSlice();
-    data.columnsNames = ['J', 'K'];
-    data.columnsNumbers = [9, 10];
-    data.rowsNames = [0, 1, 2, 3, 4, 5, 6, 7, 8].map( v => '' + (v + 1));
-    data.rowsNumbers = [0, 1, 2, 3, 4, 5, 6, 7, 8];
-    data.totalRows = 11;
-    data.totalColumns = 11;
-
-    data.data = [
-      ['before last', 'last'],
-      [1, 'toc 1 tr tra'],
-      [2, 'toc 3232 '],
-      [3, 'toc 2323asdf sfsfddasdfsdfasdfsf dfaf s'],
-      [4, 'wt', 12345600],
-      [5, 'wt', 12345600],
-      [6, 'sf f sffsdffdf a'],
-      [7, 'sdfdsffd sdfdsfdfdsdfdfds'],
-      [8, 'sdf sdfdsfdfdfd', 12345600],
-    ];
-
-    if (page.pageIndex == 0) {
-      this.setDataSlice(this.firstData());
-    } else {
-      this.setDataSlice(data);
-    }
-    */
 
   }
 
   loadRowPage(page: PageEvent) {
     console.log('Load rows', page);
 
-    // this.currentPageSlice.rowPage = page;
+    /*if (!this.importDetails.inRows) {
+      console.log('Ignorig loading row as data in cols');
+      return;
+    }*/
+
     this.dataService.slice(new Slice(page, this.currentPageSlice.colPage));
 
-    /*
-    const data = new DataTableSlice();
-    data.columnsNames = ['A', 'B', 'C', 'D', 'E', 'F', 'G ', 'H', 'I' ];
-    data.columnsNumbers = [0, 1, 2,    3,   4,   5,   6,   7,    8];
-    data.rowsNames = [9, 10].map( v => '' + (v + 1));
-    data.rowsNumbers = [9, 10];
-    data.totalRows = 11;
-    data.totalColumns = 9;
-
-    data.data = [
-      [9, 'tomcek', 12345600, 1, 'toc 1 tr tra', 12345600, 2, 'toc 3232 ', 12.00012, ],
-      [10, 'rabn', 12.00012, 2, 'toc 3232 ', 12.00012, 2, 'toc 3232 ', 12.00012, ],
-    ];
-
-
-    if (page.pageIndex == 0) {
-      this.setDataSlice(this.firstData());
-    } else {
-      this.setDataSlice(data);
-    } */
   }
 
+  moreColumns() {
+    console.log('More columns');
+    if (!this.importDetails.inRows) {
+      this.colPaginator.nextPage();
+    }
+  }
+
+  moreRows() {
+
+    console.log('More rows');
+    if (this.importDetails.inRows) {
+      this.rowPaginator.nextPage();
+    }
+
+  }
+
+
+  /*
   firstData() {
     const data = new DataTableSlice();
     data.columnsNames = ['A', 'B', 'C', 'D', 'E', 'F', 'G ', 'H', 'I' ];
@@ -376,65 +318,7 @@ export class AssignLabelsStepComponent extends DataTableDependentStep implements
     ];
 
     return data;
-  }
+  }*/
 
-  moreColumns() {
-    console.log('More columns');
-    if (!this.importDetails.inRows) {
-      this.colPaginator.nextPage();
-    }
-    /*
-
-
-    const data = new DataTableSlice();
-    data.columnsNames = ['J', 'K'];
-    data.columnsNumbers = [9, 10];
-    data.rowsNames = [0, 1, 2, 3, 4, 5, 6, 7, 8].map( v => '' + (v + 1));
-    data.rowsNumbers = [0, 1, 2, 3, 4, 5, 6, 7, 8];
-    data.totalRows = 11;
-    data.totalColumns = 11;
-
-    data.data = [
-      ['before last', 'last'],
-      [1, 'toc 1 tr tra'],
-      [2, 'toc 3232 '],
-      [3, 'toc 2323asdf sfsfddasdfsdfasdfsf dfaf s'],
-      [4, 'wt', 12345600],
-      [5, 'wt', 12345600],
-      [6, 'sf f sffsdffdf a'],
-      [7, 'sdfdsffd sdfdsfdfdsdfdfds'],
-      [8, 'sdf sdfdsfdfdfd', 12345600],
-    ];
-
-    this.setDataSlice(data);
-
-     */
-  }
-
-  moreRows() {
-
-    console.log('More rows');
-    if (this.importDetails.inRows) {
-      this.rowPaginator.nextPage();
-    }
-
-    /*
-    const data = new DataTableSlice();
-    data.columnsNames = ['A', 'B', 'C', 'D', 'E', 'F', 'G ', 'H', 'I' ];
-    data.columnsNumbers = [0, 1, 2,    3,   4,   5,   6,   7,    8];
-    data.rowsNames = [9, 10].map( v => '' + (v + 1));
-    data.rowsNumbers = [9, 10];
-    data.totalRows = 11;
-    data.totalColumns = 9;
-
-    data.data = [
-      [9, 'tomcek', 12345600, 1, 'toc 1 tr tra', 12345600, 2, 'toc 3232 ', 12.00012, ],
-      [10, 'rabn', 12.00012, 2, 'toc 3232 ', 12.00012, 2, 'toc 3232 ', 12.00012, ],
-    ];
-
-    this.setDataSlice(data);
-
-     */
-  }
 
 }

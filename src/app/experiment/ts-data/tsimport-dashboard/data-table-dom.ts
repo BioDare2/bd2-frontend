@@ -22,7 +22,7 @@ export class Slice {
   constructor(public rowPage = new PageEvent(),
               public colPage = new PageEvent()) {
 
-  };
+  }
 
   static firstPage() {
     const slice = new Slice();
