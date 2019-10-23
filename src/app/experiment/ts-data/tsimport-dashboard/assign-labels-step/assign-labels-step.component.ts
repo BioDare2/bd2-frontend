@@ -143,7 +143,7 @@ export class AssignLabelsStepComponent extends DataTableDependentStep implements
   }
 
   setUserLabel(realNumber: number, label: string) {
-    this.userLabels[realNumber] = label;
+    this.userLabels[realNumber] = label ? label : undefined;
     this.labelsSummary = this.importDetails.summarizeLabels(25);
   }
 
@@ -190,7 +190,7 @@ export class AssignLabelsStepComponent extends DataTableDependentStep implements
         return;
       }
       this.setRowsLabel(start, end, label);
-      this.selectNextRegion(start, end);
+      if (label) { this.selectNextRegion(start, end); }
     });
 
   }
@@ -238,7 +238,7 @@ export class AssignLabelsStepComponent extends DataTableDependentStep implements
         return;
       }
       this.setColumnsLabel(start, end, label);
-      this.selectNextRegion(start, end);
+      if (label) { this.selectNextRegion(start, end); }
     });
   }
 

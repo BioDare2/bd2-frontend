@@ -42,7 +42,7 @@ export class ImportStepsComponent implements OnInit, OnDestroy {
               private dataService: DataTableService) {
 
     this.importDetails = new DataTableImportParameters(); // ImportDetails();
-    this.importDetails.inRows = true;
+    // this.importDetails.inRows = true;
     this.importDetails.timeType = TimeColumnType.TIME_IN_HOURS;
     // this.importDetails.firstTimeCell = new CellSelection(1, 1, 'B', 1, 1, '2', undefined);
   }
@@ -71,10 +71,18 @@ export class ImportStepsComponent implements OnInit, OnDestroy {
         this.importDetails.fileId = fileId;
         this.importDetails.fileName = upload.files[0].name;
         this.importDetails.importFormat = upload.importFormat;
+        if (upload.importFormat == ImportFormat.EXCEL_TABLE) {
+          this.importDetails.inRows = false;
+        } else {
+          this.importDetails.inRows = true;
+        }
         this.stepper.next();
-        if (upload.importFormat == ImportFormat.EXCEL_TABLE || upload.importFormat == ImportFormat.TOPCOUNT) {
+        if (upload.importFormat == ImportFormat.TOPCOUNT) {
           this.oldImport.next(this.importDetails);
         }
+        /*if (upload.importFormat == ImportFormat.EXCEL_TABLE) {
+          this.oldImport.next(this.importDetails);
+        }*/
       },
       err => {
         this.feedback.error(err);
