@@ -1,4 +1,4 @@
-<mat-vertical-stepper [linear]="true" #stepper>
+<mat-vertical-stepper [linear]="true" #stepper (selectionChange)="stepChanged($event)">
 
   <mat-step >
     <ng-template matStepLabel>Upload data file</ng-template>
@@ -6,6 +6,22 @@
     <bd2-upload-data-file-step (uploadFiles)="upload($event)"></bd2-upload-data-file-step>
   </mat-step>
 
+  <ng-container *ngIf="importDetails.containsBackgrounds">
+    <mat-step >
+      <ng-template matStepLabel>Select backgrounds labels</ng-template>
+      <mat-divider></mat-divider>
+      <bd2-import-details-summary [importDetails]="importDetails" [showTime]="true" [showLabelling]="true"
+                                  [showDataStart]="true"></bd2-import-details-summary>
+
+      <bd2-select-backgrounds-labels-step [importDetails]="importDetails">
+      </bd2-select-backgrounds-labels-step>
+
+      <div>
+        <button mat-button matStepperPrevious>Back</button>
+        <button mat-button matStepperNext type="button">Next</button>
+      </div>
+    </mat-step>
+  </ng-container>
 
   <mat-step >
     <form >
@@ -27,6 +43,12 @@
             <mat-radio-button [value]="true" >Import labels from {{importDetails.inLabelNeg}}</mat-radio-button>
             <mat-radio-button [value]="false" >Manually label</mat-radio-button>
           </mat-radio-group>
+          </p>
+          <p>
+            <mat-radio-group [(ngModel)]="importDetails.containsBackgrounds" name="containsBackgrounds" class="spaced">
+              <mat-radio-button [value]="false" >No noise data</mat-radio-button>
+              <mat-radio-button [value]="true" >Background noise in {{importDetails.inLabel}}s</mat-radio-button>
+            </mat-radio-group>
           </p>
         </mat-card-content>
         <mat-card-actions>
@@ -108,6 +130,7 @@
     </mat-step>
 
   </ng-container>
+
 
 
 

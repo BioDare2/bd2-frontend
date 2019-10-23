@@ -6,6 +6,7 @@ import {TimeColumnType} from '../../ts-import/sheet-dom';
 import {TSFileService} from '../ts-file.service';
 import {FeedbackService} from '../../../../feedback/feedback.service';
 import {DataTableService} from '../data-table.service';
+import {StepperSelectionEvent} from "@angular/cdk/stepper";
 
 @Component({
   selector: 'bd2-import-steps',
@@ -42,9 +43,8 @@ export class ImportStepsComponent implements OnInit, OnDestroy {
               private dataService: DataTableService) {
 
     this.importDetails = new DataTableImportParameters(); // ImportDetails();
-    // this.importDetails.inRows = true;
     this.importDetails.timeType = TimeColumnType.TIME_IN_HOURS;
-    // this.importDetails.firstTimeCell = new CellSelection(1, 1, 'B', 1, 1, '2', undefined);
+    this.importDetails.containsBackgrounds = true;
   }
 
   ngOnInit() {
@@ -117,6 +117,10 @@ export class ImportStepsComponent implements OnInit, OnDestroy {
     if (this.importDetails.isComplete()) {
       this.import.next(this.importDetails);
     }
+  }
+
+  stepChanged(event: StepperSelectionEvent) {
+    console.log('step chagne', event);
   }
 
 }

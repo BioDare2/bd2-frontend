@@ -82,6 +82,9 @@ export class ImportDetails {
   labelsSelection: CellSelection;
   userLabels: string[] = [];
 
+  containsBackgrounds = false;
+  backgroundsLabels = [];
+
   get inLabel(): string {
     return this.inRows ? 'row' : 'column';
   }

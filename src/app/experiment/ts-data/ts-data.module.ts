@@ -3,7 +3,7 @@ import {CommonModule} from '@angular/common';
 
 import {TsDataRoutingModule} from './ts-data-routing.module';
 import {UploadDataFileComponent} from './upload-data-file/upload-data-file.component';
-import {FormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {FileAssetModule} from '../../file-asset/file-asset.module';
 import {AlertModule} from 'ngx-bootstrap/alert';
 import {DescribeTSTableComponent} from './ts-import/widgets/describe-ts-table.component';
@@ -28,6 +28,7 @@ import { ImportStepsComponent } from './tsimport-dashboard/import-steps/import-s
 import { AssignLabelsStepComponent } from './tsimport-dashboard/assign-labels-step/assign-labels-step.component';
 import { SelectableRegionMDTableComponent } from './tsimport-dashboard/assign-labels-step/selectable-region-mdtable/selectable-region-mdtable.component';
 import { EditLabelDialogComponent } from './tsimport-dashboard/assign-labels-step/edit-label-dialog/edit-label-dialog.component';
+import { SelectBackgroundsLabelsStepComponent } from './tsimport-dashboard/select-backgrounds-labels-step/select-backgrounds-labels-step.component';
 
 @NgModule({
   declarations: [UploadDataFileComponent,
@@ -45,7 +46,8 @@ import { EditLabelDialogComponent } from './tsimport-dashboard/assign-labels-ste
     ImportStepsComponent,
     AssignLabelsStepComponent,
     SelectableRegionMDTableComponent,
-    EditLabelDialogComponent
+    EditLabelDialogComponent,
+    SelectBackgroundsLabelsStepComponent
   ],
   entryComponents: [
     EditLabelDialogComponent
@@ -53,6 +55,7 @@ import { EditLabelDialogComponent } from './tsimport-dashboard/assign-labels-ste
   imports: [
     CommonModule,
     FormsModule,
+    ReactiveFormsModule,
     AlertModule,
     ModalModule,
     SharedComponentsModule,
@@ -61,7 +64,7 @@ import { EditLabelDialogComponent } from './tsimport-dashboard/assign-labels-ste
     TsDataRoutingModule,
     MaterialsModule
   ],
-  exports: [AssignLabelsStepComponent]
+  exports: [SelectBackgroundsLabelsStepComponent]
 })
 export class TsDataModule {
 }
