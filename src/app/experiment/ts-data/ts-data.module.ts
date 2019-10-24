@@ -64,7 +64,7 @@ import { SelectBackgroundsLabelsStepComponent } from './tsimport-dashboard/selec
     TsDataRoutingModule,
     MaterialsModule
   ],
-  exports: [SelectBackgroundsLabelsStepComponent]
+  exports: []
 })
 export class TsDataModule {
 }

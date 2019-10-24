@@ -16,6 +16,7 @@ import {TSFileService} from './ts-file.service';
 import {ImportStepsComponent} from './import-steps/import-steps.component';
 import {AssignLabelsStepComponent} from './assign-labels-step/assign-labels-step.component';
 import {SelectableRegionMDTableComponent} from './assign-labels-step/selectable-region-mdtable/selectable-region-mdtable.component';
+import {SelectBackgroundsLabelsStepComponent} from './select-backgrounds-labels-step/select-backgrounds-labels-step.component';
 
 describe('TSImportDashboardComponent', () => {
   let component: TSImportDashboardComponent;
@@ -28,7 +29,7 @@ describe('TSImportDashboardComponent', () => {
     TestBed.configureTestingModule({
       declarations: [ TSImportDashboardComponent, ImportStepsComponent, UploadDataFileStepComponent, ImportDetailsSummaryComponent,
       DefineTimeStepComponent, ImportLabelsStepComponent, DataSheetMDTableComponent, SelectDataStartStepComponent,
-      AssignLabelsStepComponent, SelectableRegionMDTableComponent],
+      AssignLabelsStepComponent, SelectableRegionMDTableComponent, SelectBackgroundsLabelsStepComponent],
       imports: [MaterialsModule, AlertModule.forRoot(), FileAssetModule, NoopAnimationsModule,
         ExperimentsTestToolModule],
     })

@@ -14,6 +14,7 @@ import {NoopAnimationsModule} from '@angular/platform-browser/animations';
 import {ExperimentsTestToolModule} from '../../../experiment_test_tool.spec';
 import {AssignLabelsStepComponent} from '../assign-labels-step/assign-labels-step.component';
 import {SelectableRegionMDTableComponent} from '../assign-labels-step/selectable-region-mdtable/selectable-region-mdtable.component';
+import {SelectBackgroundsLabelsStepComponent} from '../select-backgrounds-labels-step/select-backgrounds-labels-step.component';
 
 describe('ImportStepsComponent', () => {
   let component: ImportStepsComponent;
@@ -23,7 +24,7 @@ describe('ImportStepsComponent', () => {
     TestBed.configureTestingModule({
       declarations: [ ImportStepsComponent, UploadDataFileStepComponent, ImportDetailsSummaryComponent,
         DefineTimeStepComponent, ImportLabelsStepComponent, DataSheetMDTableComponent, SelectDataStartStepComponent,
-        AssignLabelsStepComponent, SelectableRegionMDTableComponent
+        AssignLabelsStepComponent, SelectableRegionMDTableComponent, SelectBackgroundsLabelsStepComponent
       ],
       imports: [MaterialsModule, FileAssetModule, NoopAnimationsModule,
         ExperimentsTestToolModule],
