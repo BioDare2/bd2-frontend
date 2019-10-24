@@ -10,7 +10,7 @@ import {TopBarMenuComponent} from './top-bar-menu/top-bar-menu.component';
 import {WelcomeComponent} from './welcome/welcome.component';
 import {RouterModule} from '@angular/router';
 import {AuthModule} from '../auth/auth.module';
-import {TsDataModule} from "../experiment/ts-data/ts-data.module";
+import {TsDataModule} from '../experiment/ts-data/ts-data.module';
 
 
 @NgModule({
