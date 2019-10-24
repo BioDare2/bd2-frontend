@@ -173,20 +173,20 @@ export class AssignLabelsStepComponent extends DataTableDependentStep implements
   }
 
   labelRows(start: CellSelection, end: CellSelection) {
-    console.log('Label rows', start);
+    // console.log('Label rows', start);
     if (start.rowIx < 0 || end.rowIx < 0) {
       console.warn('Label rows with col selection', start);
       return;
     }
 
     if (this.firstTimeCell && this.firstTimeCell.rowNumber >= start.rowNumber) {
-      console.log('Ignroing labelling as Time row after selection');
+      // console.log('Ignroing labelling as Time row after selection');
       return;
     }
 
     this.askForLabel(start, end, true).subscribe( label => {
       if (label === undefined) {
-        console.log('Cancelled labelling');
+        // console.log('Cancelled labelling');
         return;
       }
       this.setRowsLabel(start, end, label);
@@ -197,11 +197,11 @@ export class AssignLabelsStepComponent extends DataTableDependentStep implements
 
   setRowsLabel(start: CellSelection, end: CellSelection, label: string) {
 
-      console.log('Got label ', label);
+      // console.log('Got label ', label);
       label = label.trim();
 
       const color = this.colorer.toColor(label);
-      console.log('COlor for' + label, color);
+      // console.log('COlor for' + label, color);
 
 
       for (let i = start.rowIx; i <= end.rowIx; i++) {
@@ -221,7 +221,7 @@ export class AssignLabelsStepComponent extends DataTableDependentStep implements
   }
 
   labelColumns(start: CellSelection, end: CellSelection) {
-    console.log('Label cols', start);
+    // console.log('Label cols', start);
     if (start.colIx < 0 || end.colIx < 0) {
       console.warn('Label cols with row selection', start);
       return;
@@ -234,7 +234,7 @@ export class AssignLabelsStepComponent extends DataTableDependentStep implements
 
     this.askForLabel(start, end, false).subscribe(label => {
       if (label === undefined) {
-        console.log('Cancelled labelling');
+        // console.log('Cancelled labelling');
         return;
       }
       this.setColumnsLabel(start, end, label);
@@ -244,7 +244,7 @@ export class AssignLabelsStepComponent extends DataTableDependentStep implements
 
   setColumnsLabel(start: CellSelection, end: CellSelection, label: string) {
 
-    console.log('Will label with', label);
+    // console.log('Will label with', label);
     label = label.trim();
     const color = this.colorer.toColor(label);
 
@@ -308,31 +308,21 @@ export class AssignLabelsStepComponent extends DataTableDependentStep implements
   }
 
   loadColPage(page: PageEvent) {
-    console.log('Load cols', page);
-
-    /*if (this.importDetails.inRows) {
-      console.log('Ignorig loading column as data in rows');
-      return;
-    }*/
+    // console.log('Load cols', page);
 
     this.dataService.slice(new Slice(this.currentPageSlice.rowPage, page));
 
   }
 
   loadRowPage(page: PageEvent) {
-    console.log('Load rows', page);
-
-    /*if (!this.importDetails.inRows) {
-      console.log('Ignorig loading row as data in cols');
-      return;
-    }*/
+    // console.log('Load rows', page);
 
     this.dataService.slice(new Slice(page, this.currentPageSlice.colPage));
 
   }
 
   moreColumns() {
-    console.log('More columns');
+    // console.log('More columns');
     if (!this.importDetails.inRows) {
       this.colPaginator.nextPage();
     }
@@ -340,7 +330,7 @@ export class AssignLabelsStepComponent extends DataTableDependentStep implements
 
   moreRows() {
 
-    console.log('More rows');
+    // console.log('More rows');
     if (this.importDetails.inRows) {
       this.rowPaginator.nextPage();
     }
@@ -348,30 +338,7 @@ export class AssignLabelsStepComponent extends DataTableDependentStep implements
   }
 
 
-  /*
-  firstData() {
-    const data = new DataTableSlice();
-    data.columnsNames = ['A', 'B', 'C', 'D', 'E', 'F', 'G ', 'H', 'I' ];
-    data.columnsNumbers = [0, 1, 2,    3,   4,   5,   6,   7,    8];
-    data.rowsNames = [0, 1, 2, 3, 4, 5, 6, 7, 8].map( v => '' + (v + 1));
-    data.rowsNumbers = [0, 1, 2, 3, 4, 5, 6, 7, 8];
-    data.totalRows = 11;
-    data.totalColumns = 11;
 
-    data.data = [
-      ['A', 'B', 'C I am long labelr', 'D toc1 3PR 690dfskldfljd', 'E', 'F', 'G ', 'H', 'I'],
-      [1, 'toc 1 tr tra', 12345600, 1, 'toc 1 tr tra', 12345600, 2, 'toc 3232 ', 12.00012, ],
-      [2, 'toc 3232 ', 12.00012, 2, 'toc 3232 ', 12.00012, 2, 'toc 3232 ', 12.00012, ],
-      [3, 'toc 2323asdf sfsfddasdfsdfasdfsf dfaf s', '12E-07', 3, 'toc 2323a', 12E-07, 3, 'toc 2323a', 12E-07, ],
-      [4, 'wt', 12345600, 4, 'wt', 12345600, 4, 'wt', 12345600],
-      [5, 'wt', 12345600, 5, 'wt', 12345600, 5, 'wt', 12345600, ],
-      [6, 'sf f sffsdffdf a', 12345600, 6, 'sf f sffsdffdf a', 12345600, 6, 'sf f sffsdffdf a', 12345600, ],
-      [7, 'sdfdsffd sdfdsfdfdsdfdfds', 12345600, 7, 'sdfdsffd sdfdsfdfdsdfdfds', 12345600, 7, 'sdfdsffd sdfdsfdfdsdfdfds', 12345600, ],
-      [8, 'sdf sdfdsfdfdfd', 12345600, 8, 'sdf sdfdsfdfdfd', 12345600, 8, 'sdf sdfdsfdfdfd', 12345600, ],
-    ];
-
-    return data;
-  }*/
 
 
 }

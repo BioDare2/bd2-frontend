@@ -246,8 +246,6 @@ export class SelectableRegionMDTableComponent implements OnInit {
     this.moreRows.next(true);
   }
 
-  event(event: any, name: string) {
-    console.log(name, event);
-  }
+
 
 }
