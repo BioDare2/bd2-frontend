@@ -1,4 +1,4 @@
-<mat-vertical-stepper [linear]="true" #stepper (selectionChange)="stepChanged($event)">
+<mat-vertical-stepper [linear]="true" #stepper >
 
   <mat-step >
     <ng-template matStepLabel>Upload data file</ng-template>
@@ -6,22 +6,6 @@
     <bd2-upload-data-file-step (uploadFiles)="upload($event)"></bd2-upload-data-file-step>
   </mat-step>
 
-  <ng-container *ngIf="importDetails.containsBackgrounds">
-    <mat-step >
-      <ng-template matStepLabel>Select backgrounds labels</ng-template>
-      <mat-divider></mat-divider>
-      <bd2-import-details-summary [importDetails]="importDetails" [showTime]="true" [showLabelling]="true"
-                                  [showDataStart]="true"></bd2-import-details-summary>
-
-      <bd2-select-backgrounds-labels-step [importDetails]="importDetails">
-      </bd2-select-backgrounds-labels-step>
-
-      <div>
-        <button mat-button matStepperPrevious>Back</button>
-        <button mat-button matStepperNext type="button">Next</button>
-      </div>
-    </mat-step>
-  </ng-container>
 
   <mat-step >
     <form >
@@ -91,7 +75,7 @@
       <div>
         <button mat-button matStepperPrevious>Back</button>
         <button mat-button matStepperNext type="button"
-                [disabled]="!importDetails.areLabelsCorrectlyAssigned()"
+                [disabled]="!importDetails.areLabelsCorrectlyAssigned()" (click)="startChoosingBackgrounds()"
         >Next</button>
       </div>
     </mat-step>
@@ -124,13 +108,30 @@
 
       <div>
         <button mat-button matStepperPrevious>Back</button>
-        <button mat-button matStepperNext type="button" [disabled]="!importDetails.isDataStartCorrectlySelected()">Next</button>
+        <button mat-button matStepperNext type="button" [disabled]="!importDetails.isDataStartCorrectlySelected()"
+                (click)="startChoosingBackgrounds()">Next</button>
         <!--<button mat-button (click)="stepper.reset()">Reset</button> -->
       </div>
     </mat-step>
 
   </ng-container>
 
+  <ng-container *ngIf="importDetails.containsBackgrounds">
+    <mat-step >
+      <ng-template matStepLabel>Select backgrounds labels</ng-template>
+      <mat-divider></mat-divider>
+      <bd2-import-details-summary [importDetails]="importDetails" [showTime]="true" [showLabelling]="true"
+                                  [showDataStart]="true"></bd2-import-details-summary>
+
+      <bd2-select-backgrounds-labels-step #selectBackgroundsStep [importDetails]="importDetails">
+      </bd2-select-backgrounds-labels-step>
+
+      <div>
+        <button mat-button matStepperPrevious>Back</button>
+        <button mat-button matStepperNext type="button">Next</button>
+      </div>
+    </mat-step>
+  </ng-container>
 
 
 

@@ -20,4 +20,7 @@
       Data starts in {{importDetails.inLabel}}
       <strong>{{importDetails.inRows ? dataStart.rowName : dataStart.colName}};</strong>
     </p>
+    <p *ngIf="showLabelling && importDetails.containsBackgrounds && importDetails.backgroundsLabels">
+      <strong>Background noise as</strong> {{importDetails.backgroundsLabels.join(", ")}}
+    </p>
 </mat-card>

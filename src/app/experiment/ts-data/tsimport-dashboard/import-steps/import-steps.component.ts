@@ -6,7 +6,8 @@ import {TimeColumnType} from '../../ts-import/sheet-dom';
 import {TSFileService} from '../ts-file.service';
 import {FeedbackService} from '../../../../feedback/feedback.service';
 import {DataTableService} from '../data-table.service';
-import {StepperSelectionEvent} from "@angular/cdk/stepper";
+import {StepperSelectionEvent} from '@angular/cdk/stepper';
+import {SelectBackgroundsLabelsStepComponent} from '../select-backgrounds-labels-step/select-backgrounds-labels-step.component';
 
 @Component({
   selector: 'bd2-import-steps',
@@ -35,6 +36,9 @@ export class ImportStepsComponent implements OnInit, OnDestroy {
   @ViewChild('assignLabelsStep', { static: false })
   assignLabelsStep: DataTableDependentStep;
 
+  @ViewChild('selectBackgroundsStep', { static: false })
+  selectBackgroundsStep: SelectBackgroundsLabelsStepComponent;
+
   importDetails: ImportDetails;
 
 
@@ -44,7 +48,7 @@ export class ImportStepsComponent implements OnInit, OnDestroy {
 
     this.importDetails = new DataTableImportParameters(); // ImportDetails();
     this.importDetails.timeType = TimeColumnType.TIME_IN_HOURS;
-    this.importDetails.containsBackgrounds = true;
+    // this.importDetails.containsBackgrounds = true;
   }
 
   ngOnInit() {
@@ -113,14 +117,22 @@ export class ImportStepsComponent implements OnInit, OnDestroy {
     }
   }
 
+  startChoosingBackgrounds() {
+    if (this.importDetails.containsBackgrounds) {
+      if (this.selectBackgroundsStep) {
+        this.selectBackgroundsStep.loadLabels();
+      } else {
+        console.error('Missing selectBackgroundsStep');
+      }
+    }
+  }
+
   importData() {
     if (this.importDetails.isComplete()) {
       this.import.next(this.importDetails);
     }
   }
 
-  stepChanged(event: StepperSelectionEvent) {
-    console.log('step chagne', event);
-  }
+
 
 }

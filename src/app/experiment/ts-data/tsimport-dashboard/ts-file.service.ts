@@ -61,16 +61,13 @@ export class TSFileService {
 
     return this.getTableSlice(fileId, format, slice).pipe(
       map( (data: DataTableSlice) => {
-        const set = new Set<string>();
-        data.data.forEach( row => row.forEach( v => set.add(''+v)) );
-        return [...set];
+        const flat = [];
+        data.data.forEach( row => row.forEach( v => flat.push('' + v)) );
+        return flat;
       })
     );
 
-    /*return of(['A', 'B', 'C', 'Label1', 'Label2', 'Label10', 'Labellog1', 'Very very long Label1', 'Background',
-      'Wilid Type', 'Again' ]);
 
-     */
   }
 
 }

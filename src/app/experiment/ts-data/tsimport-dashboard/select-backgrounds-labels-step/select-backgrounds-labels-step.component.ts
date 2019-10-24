@@ -1,13 +1,13 @@
 import {Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
 import {ImportDetails} from '../../import-dom';
-import {BehaviorSubject, Observable} from 'rxjs';
+import {Observable} from 'rxjs';
 import {FormControl} from '@angular/forms';
 import {MatAutocomplete, MatChipInputEvent} from '@angular/material';
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
 import {map, startWith} from 'rxjs/operators';
 import {MatAutocompleteSelectedEvent} from '@angular/material/typings/esm5/autocomplete';
 import {TSFileService} from '../ts-file.service';
-import {CellSelection} from '../data-table-dom';
+
 
 @Component({
   selector: 'bd2-select-backgrounds-labels-step',
@@ -16,7 +16,6 @@ import {CellSelection} from '../data-table-dom';
 })
 export class SelectBackgroundsLabelsStepComponent implements OnInit {
 
-  visible = true;
   selectable = true;
   removable = true;
   addOnBlur = false;
@@ -25,8 +24,11 @@ export class SelectBackgroundsLabelsStepComponent implements OnInit {
   filteredLabels: Observable<string[]>;
   allLabels: string[];
 
-  @ViewChild('backgroundInput', {static: false}) backgroundInput: ElementRef<HTMLInputElement>;
-  @ViewChild('auto', {static: false}) matAutocomplete: MatAutocomplete;
+  @ViewChild('backgroundInput', {static: false})
+  backgroundInput: ElementRef<HTMLInputElement>;
+
+  @ViewChild('auto', {static: false})
+  matAutocomplete: MatAutocomplete;
 
 
   @Input()
@@ -36,9 +38,14 @@ export class SelectBackgroundsLabelsStepComponent implements OnInit {
     return this.importDetails ? this.importDetails.backgroundsLabels : [];
   }
 
+  set backgrounds(vals: string[]) {
+    this.importDetails.backgroundsLabels = vals;
+  }
+
 
   constructor(private tsFileService: TSFileService) {
 
+    /*
     this.importDetails = new ImportDetails();
     this.importDetails.containsBackgrounds = true;
     this.importDetails.backgroundsLabels = ['background', 'Noise'];
@@ -47,6 +54,7 @@ export class SelectBackgroundsLabelsStepComponent implements OnInit {
      'Label1', 'WT', 'WT PRR3'];
     this.importDetails.fileId = '23';
     this.importDetails.labelsSelection = new CellSelection(1, 1, undefined, 1, 1, undefined, undefined);
+    */
 
     this.allLabels = [];
     this.filteredLabels = this.backgroundCtrl.valueChanges.pipe(
@@ -57,31 +65,46 @@ export class SelectBackgroundsLabelsStepComponent implements OnInit {
 
   ngOnInit() {
 
-    this.loadLabels();
+    // this.loadLabels();
   }
 
   loadLabels() {
     if (!this.importDetails || !this.importDetails.fileId) {
-      this.allLabels = [];
+      this.updateAllLabels([]);
+      return;
     }
 
     if (!this.importDetails.importLabels) {
-      this.allLabels = this.unique(this.importDetails.userLabels);
+      this.updateAllLabels(this.unique(this.importDetails.userLabels));
     } else {
       if (this.importDetails.labelsSelection) {
         this.tsFileService.previewLabels(this.importDetails.fileId, this.importDetails.importFormat.name,
-          this.importDetails.labelsSelection, this.importDetails.inRows).subscribe( resp => this.allLabels = resp);
+                this.importDetails.labelsSelection, this.importDetails.inRows)
+                        .subscribe( resp => {
+                          this.updateAllLabels(this.unique(resp));
+                        });
       }
     }
   }
 
+  updateAllLabels(labels: string[]) {
+    this.allLabels = labels;
+    const old = this.backgrounds || [];
+    this.backgrounds = [];
+    old.forEach(v => this.addBackground(v));
+    this.backgroundCtrl.setValue(' ');
+    this.backgroundCtrl.setValue(null);
+  }
+
   unique(values: string[]) {
+    values = values.filter(l => !!l)
+      .map( l => l.trim());
     const set = new Set(values);
     return [...set];
   }
 
   addBackground(value: string) {
-    if ((value || '')) {
+    if ((value || '').trim()) {
       const index = this.backgrounds.indexOf(value);
       const known = this.allLabels.indexOf(value);
       if (index < 0 && known >= 0) {
