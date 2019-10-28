@@ -24,7 +24,8 @@ describe('CSVExporter', () => {
 
   it('appends correct data headers', () => {
 
-    const params = new DisplayParameters(0, 0, DetrendingType.LIN_DTR, 'MEAN_NORM', 'NONE');
+    const params = new DisplayParameters(0, 0, DetrendingType.LIN_DTR, 'MEAN_NORM', 'NONE',
+      DisplayParameters.firstPage());
     const table = new ColumnMap<string, string>();
 
     exporter.appendDataProperties(table, params);

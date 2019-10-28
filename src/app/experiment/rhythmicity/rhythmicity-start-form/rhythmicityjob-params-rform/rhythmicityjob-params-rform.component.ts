@@ -83,7 +83,7 @@ export class RhythmicityjobParamsRformComponent implements OnInit {
         const params = new DisplayParameters(val.value.timeScale.timeStart,
           val.value.timeScale.timeEnd,
           DetrendingType.get(val.value.detrending),
-          undefined, undefined
+          undefined, undefined, DisplayParameters.firstPage()
         );
         return params;
       }));

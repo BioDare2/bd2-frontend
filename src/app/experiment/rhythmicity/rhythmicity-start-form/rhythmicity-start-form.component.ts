@@ -38,7 +38,7 @@ export class RhythmicityStartFormComponent extends RhythmicityBaseComponent impl
     super(rhythmicityService, serviceDependencies);
 
     this.titlePart = ' New Test';
-    this.fetcher = new TSFetcher(tsdataService, serviceDependencies.currentExperiment, serviceDependencies.feedback);
+    this.fetcher = new TSFetcher(tsdataService);
 
   }
 

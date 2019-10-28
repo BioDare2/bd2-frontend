@@ -5,6 +5,7 @@ import {DetrendingType} from './ts-data-dom';
 import {Trace, TraceSet} from './plots/ts-plot.dom';
 import {DisplayParameters} from './plots/ts-display.dom';
 import {Observable} from "rxjs";
+import {PageEvent} from "@angular/material";
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +16,7 @@ export class TSDataService {
 
   }
 
-  loadDataSet(exp: ExperimentalAssayView, detrending: DetrendingType): Observable<TraceSet> {
+  loadDataSet(exp: ExperimentalAssayView, detrending: DetrendingType, page: PageEvent): Observable<TraceSet> {
 
     return this.BD2REST.tsdata(exp, detrending);
       // .then(jsonObj => jsonObj.data);

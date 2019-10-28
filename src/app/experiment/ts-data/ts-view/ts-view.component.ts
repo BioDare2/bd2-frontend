@@ -76,7 +76,7 @@ export class TSViewComponent extends ExperimentBaseComponent implements OnDestro
     super(serviceDependencies);
 
     this.titlePart = ' Data';
-    this.fetcher = new TSFetcher(tsdataService, serviceDependencies.currentExperiment, serviceDependencies.feedback);
+    this.fetcher = new TSFetcher(tsdataService);
   }
 
   ngOnInit(): any {

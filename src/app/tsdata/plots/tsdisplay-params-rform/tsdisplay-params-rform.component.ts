@@ -111,7 +111,7 @@ export class TSDisplayParamsRFormComponent implements OnInit {
           val.value.timeScale.timeEnd,
           DetrendingType.get(val.value.detrending),
           val.value.normalisation,
-          val.value.align
+          val.value.align, DisplayParameters.firstPage()
         );
         return params;
       }),

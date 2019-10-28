@@ -3,39 +3,54 @@ import {Timepoint, Trace, TraceSet} from './ts-plot.dom';
 import {OnDestroy, OnInit} from '@angular/core';
 import {BehaviorSubject, combineLatest, Observable, of, Subject} from 'rxjs';
 import {TSDataService} from '../ts-data.service';
-import {CurrentExperimentService} from '../../experiment/current-experiment.service';
-import {FeedbackService} from '../../feedback/feedback.service';
 import {AlignOptions, DetrendingType, NormalisationOptions} from '../ts-data-dom';
-import {catchError, debounceTime, distinctUntilChanged, filter, map, switchMap} from 'rxjs/operators';
+import {catchError, debounceTime, distinctUntilChanged, filter, map, switchMap, tap} from 'rxjs/operators';
 import {ExperimentalAssayView} from '../../dom/repo/exp/experimental-assay-view';
+import {PageEvent} from '@angular/material';
 
 
 export class TimeSeriesPack {
 
-  constructor(public params: DisplayParameters, public data: Trace[]) {
+  constructor(public params: DisplayParameters, public data: Trace[],
+              public totalTraces = 0, public currentPage: PageEvent = DisplayParameters.firstPage()) {
   }
 
 }
 
 export class TSFetcher implements OnInit, OnDestroy {
 
-  public timeSeriesStream: Observable<Trace[]>;
   public seriesPackStream: Observable<TimeSeriesPack>;
-  protected dataSetsStream: Observable<TraceSet>;
 
-  // private displayStream: Subject<DisplayParameters>;
-  // private detrendingStream: Subject<DetrendingType>;
+  public readonly error$ = new Subject<any>();
+  public readonly loading$ = new Subject<boolean>();
+
+  private dataSetsStream = new BehaviorSubject<TraceSet>(undefined);
   private displayParamsStream: Subject<DisplayParameters>;
+  private experiment$ = new BehaviorSubject<ExperimentalAssayView>(undefined);
+  private slowParameters$: Observable<DisplayParameters>;
+  // private seriesPack$ = new BehaviorSubject<TimeSeriesPack>(undefined);
 
-  constructor(private tsdataService: TSDataService,
-              private currentExperiment: CurrentExperimentService,
-              private feedback: FeedbackService) {
+  constructor(private tsDataService: TSDataService, removeDebounce = false) {
 
     const par = new DisplayParameters(0, 0, DetrendingType.LIN_DTR,
-      NormalisationOptions[0].name, AlignOptions[0].name);
+      NormalisationOptions[0].name, AlignOptions[0].name, DisplayParameters.firstPage());
 
     this.displayParamsStream = new BehaviorSubject<DisplayParameters>(par);
 
+    if (removeDebounce) {
+      this.slowParameters$ = this.displayParamsStream.pipe(
+        filter(params => (params ? true : false))
+      );
+    } else {
+      this.slowParameters$ = this.displayParamsStream.pipe(
+        debounceTime(400),
+        filter(params => (params ? true : false))
+      );
+    }
+
+    /*this.seriesPackStream = this.seriesPack$.asObservable().pipe(
+      filter( d => d ? true : false)
+    );*/
     this.initObservables();
   }
 
@@ -43,121 +58,97 @@ export class TSFetcher implements OnInit, OnDestroy {
     this.displayParamsStream.next(params);
   }
 
+  public experiment(exp: ExperimentalAssayView) {
+    this.experiment$.next(exp);
+  }
+
 
   ngOnInit(): any {
   }
 
   ngOnDestroy(): void {
-    if (this.displayParamsStream) {
-      this.displayParamsStream.complete();
-    }
+    this.displayParamsStream.complete();
+    this.dataSetsStream.complete();
+    this.error$.complete();
+    this.experiment$.complete();
+    this.loading$.complete();
   }
 
-  spreadMeans(data: Trace[]) {
-
-    const res: Trace[] = [];
-
-    let lastM = 0;
-    let lastH = 0;
-    data.forEach(trace => {
-      const dist = Math.max(lastH, trace.mean - trace.min);
-      const newMean = lastM + dist;
-      lastH = trace.max - trace.mean;
-      res.push(this.subTrace(trace, trace.mean - newMean));
-      lastM = newMean;
-    });
-    return res;
-  }
-
-  minMaxMean(series: Timepoint[]): { min: number, max: number, mean: number } {
-    const minMaxMean = {min: NaN, max: NaN, mean: NaN};
-
-    if (series.length === 0) {
-      return minMaxMean;
-    }
 
 
-    minMaxMean.min = series[0].y;
-    minMaxMean.max = series[0].y;
-    minMaxMean.mean = series[0].y;
 
-    series.forEach(tp => {
-      const y = tp.y;
-      if (y < minMaxMean.min) {
-        minMaxMean.min = y;
-      }
-      if (y > minMaxMean.max) {
-        minMaxMean.max = y;
-      }
-      minMaxMean.mean += y;
-    });
-    minMaxMean.mean = minMaxMean.mean / series.length;
-    return minMaxMean;
-  }
-
-  /*  protected initTimeSeriesStream(datasets: Observable<Trace[]>):Observable<Trace[]> {
-
-   let params = this.displayParamsStream
-   .debounceTime(400)
-   .filter( params => params.isValid())
-   .distinctUntilChanged((prev: DisplayParameters, next: DisplayParameters) => next.equalsView(prev));
-
-   let joined = Observable.combineLatest(datasets,params,(dataSet,params)=> {return { dataSet:dataSet,params:params};});
-
-   return joined.map( pair => this.trimData(pair.dataSet,pair.params));
-   }*/
 
   protected initObservables() {
 
-    this.dataSetsStream = this.initDataSetsStream();
+    this.initDataSetsStream();
     this.seriesPackStream = this.initSeriesPackStream(this.dataSetsStream);
-    this.timeSeriesStream = this.initTimeSeriesStream(this.seriesPackStream);
   }
 
-  protected initDataSetsStream(): Observable<TraceSet> {
+  protected initDataSetsStream() {
 
-    const exps = this.currentExperiment.experiment().pipe(
-      filter(exp => (exp ? true : false)));
 
-    const trends = this.displayParamsStream.pipe(
-      debounceTime(400),
-      filter(params => (params ? true : false)),
+
+    const page$ = this.slowParameters$.pipe(
+      map( p => p.page),
+      distinctUntilChanged((prev: PageEvent, next: PageEvent) => {
+        return DisplayParameters.equalsPages(prev, next);
+      })
+    );
+
+    const exp$ = this.experiment$.pipe(
+      filter(exp => (exp ? true : false))
+    );
+
+    const trend$ = this.slowParameters$.pipe(
       map(params => params.detrending),
       distinctUntilChanged((prev: DetrendingType, next: DetrendingType) => next.equals(prev))
     );
 
-    const joined = combineLatest(exps, trends, (exp, trend) => {
-      // console.log("DSS: "+trend.name);
-      return {assay: exp, detrending: trend};
-    });
-
-    return joined.pipe(
-      switchMap(pair => this.loadDataSet(pair.assay, pair.detrending)),
-      filter(ds => (ds ? true : false))
-    );
+    combineLatest([exp$, trend$, page$]).pipe(
+      tap( v => console.log("DataSets combine", v)),
+      tap( p => this.loading$.next(true)),
+      switchMap(([exp, detrending, page]) => this.loadDataSet(exp, detrending, page)),
+      catchError( err => {
+        console.log("Caught error", err);
+        this.error$.next(err);
+        return of(undefined);
+      }),
+      tap( p => this.loading$.next(false)),
+      tap( v => console.log("After switch map DataSets combine", v)),
+    ).subscribe( ds => this.dataSetsStream.next(ds));
   }
 
-  protected initSeriesPackStream(datasets: Observable<TraceSet>): Observable<TimeSeriesPack> {
 
-    const parameters = this.displayParamsStream.pipe(
-      debounceTime(400),
-      filter(params => params.isValid()),
-      distinctUntilChanged((prev: DisplayParameters, next: DisplayParameters) => next.equals(prev))
+  protected initSeriesPackStream(datasets: Observable<TraceSet>) {
+
+    const parameter$ = this.slowParameters$.pipe(
+      distinctUntilChanged((prev: DisplayParameters, next: DisplayParameters) => next.equalsView(prev))
     );
 
-    const joined = combineLatest([datasets, parameters]).pipe(
+    return combineLatest([datasets, parameter$]).pipe(
+      tap( p => console.log('DS' + p[0], p)),
       map(([dataSet, params]) => {
-      // console.log("SPS: "+params.detrending.name);
-      return {dataSet, params};
-    }));
-
-    return joined.pipe(
-      map(pair => new TimeSeriesPack(pair.params, this.processData(pair.dataSet.traces, pair.params)))
+        console.log('In map ' + dataSet);
+        if (dataSet) {
+            const traces = this.processData(dataSet.traces, params);
+            return new TimeSeriesPack(params, traces, dataSet.totalTraces, dataSet.currentPage);
+          } else {
+            return new TimeSeriesPack(params, [], 0, DisplayParameters.firstPage());
+          }
+      }),
+      tap( p => console.log('After map' + p, p))
     );
+
+    /*
+    .subscribe( ds => {
+      console.log("Emiting "+ds, ds);
+      this.seriesPack$.next(ds);
+    }, err => console.log("Error in ds", err));*/
   }
 
-  protected initTimeSeriesStream(dataPacks: Observable<TimeSeriesPack>): Observable<Trace[]> {
-    return dataPacks.pipe(map(dp => dp.data));
+  protected loadDataSet(exp: ExperimentalAssayView, detrending: DetrendingType, page: PageEvent): Observable<TraceSet> {
+
+    return this.tsDataService.loadDataSet(exp, detrending, page);
   }
 
   protected processData(data: Trace[], params: DisplayParameters): Trace[] {
@@ -277,62 +268,50 @@ export class TSFetcher implements OnInit, OnDestroy {
     return trimmed;
   }
 
-  /*
-   protected isInRange(point: Timepoint,  params : DisplayParameters): boolean {
-   if (params.windowStart !== 0) {
-   if (point.x < params.windowStart) return false;
-   }
-   if (params.windowEnd !== 0) {
-   if (point.x > params.windowEnd) return false;
-   }
-   return true;
-   }
-   */
 
-  protected loadDataSet(exp: ExperimentalAssayView, detrending: DetrendingType): Observable<TraceSet> { // Observable<Trace[]> {
 
-    // console.log("LDS: "+exp.id+" "+JSON.stringify(detrending));
 
-    return this.tsdataService.loadDataSet(exp, detrending).pipe(
-      catchError( err => {
-        console.log('LDS error: ' + err);
-        this.feedback.error(err);
-        return of(undefined);
-      })
-    );
 
-    /*
-    try {
-      const p = this.tsdataService.loadDataSet(exp, detrending)
-        .catch(err => {
-          console.log('LDS error: ' + err);
-          this.feedback.error(err);
-          return [];
-        });
-      return p;
-      // return Observable.fromPromise(p);
-    } catch (err) {
-      console.log('LDS Try error:' + err);
-      this.feedback.error(err);
-      // return Observable.of([]);
-      return Promise.resolve([]);
-    }*/
+  spreadMeans(data: Trace[]) {
 
-    /*
+    const res: Trace[] = [];
 
-     return Observable.onErrorResumeNext<Trace[]>(this.tsdataService.loadDataSet(exp,detrending)
-     .map( d => {
-     console.log("Got data: "+(d ? d.length : d));
-     return d;
-     })
-     .onErrorResumeNext(Observable.of([]))
-     .catch( (error,org) => {
-     console.log("LDS error: "+error);
-     this.feedback.error(error);
-     return Observable.of([]);
-     }),Observable.of([]));
-     */
+    let lastM = 0;
+    let lastH = 0;
+    data.forEach(trace => {
+      const dist = Math.max(lastH, trace.mean - trace.min);
+      const newMean = lastM + dist;
+      lastH = trace.max - trace.mean;
+      res.push(this.subTrace(trace, trace.mean - newMean));
+      lastM = newMean;
+    });
+    return res;
+  }
 
+  minMaxMean(series: Timepoint[]): { min: number, max: number, mean: number } {
+    const minMaxMean = {min: NaN, max: NaN, mean: NaN};
+
+    if (series.length === 0) {
+      return minMaxMean;
+    }
+
+
+    minMaxMean.min = series[0].y;
+    minMaxMean.max = series[0].y;
+    minMaxMean.mean = series[0].y;
+
+    series.forEach(tp => {
+      const y = tp.y;
+      if (y < minMaxMean.min) {
+        minMaxMean.min = y;
+      }
+      if (y > minMaxMean.max) {
+        minMaxMean.max = y;
+      }
+      minMaxMean.mean += y;
+    });
+    minMaxMean.mean = minMaxMean.mean / series.length;
+    return minMaxMean;
   }
 
 }

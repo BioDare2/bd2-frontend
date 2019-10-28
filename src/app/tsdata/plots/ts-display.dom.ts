@@ -1,4 +1,5 @@
 import {DetrendingType} from '../ts-data-dom';
+import {PageEvent} from '@angular/material';
 
 export function validTimeScale(timeScale: any): { [key: string]: any } {
   // console.log("Validator called: "+JSON.stringify(control.value));
@@ -27,9 +28,18 @@ export class DisplayParameters {
   detrending: DetrendingType;
   normalisation: string;
   align: string;
+  page: PageEvent;
+
+  static firstPage() {
+    const page = new PageEvent();
+    page.pageIndex = 0;
+    page.pageSize = 100;
+    return page;
+
+  }
 
   constructor(timeStart: number, timeEnd: number, detrending: DetrendingType,
-              normalisation: string, align: string
+              normalisation: string, align: string, page: PageEvent
   ) {
     this.timeScale = {
       timeStart,
@@ -38,6 +48,8 @@ export class DisplayParameters {
     this.detrending = detrending;
     this.normalisation = normalisation;
     this.align = align;
+
+    this.page = page || DisplayParameters.firstPage();
   }
 
   get timeStart(): number {
@@ -68,6 +80,9 @@ export class DisplayParameters {
     if (this.detrending !== other.detrending) {
       return false;
     }
+    if (!this.equalsPage(other.page)) {
+      return false;
+    }
 
     return true;
   }
@@ -91,10 +106,26 @@ export class DisplayParameters {
     return true;
   }
 
+  equalsPage(otherPage: PageEvent) {
+    return DisplayParameters.equalsPages(this.page, otherPage);
+  }
+
+  static equalsPages(page: PageEvent, otherPage: PageEvent) {
+    if (page) {
+      if (otherPage) {
+        return (page.pageIndex === otherPage.pageIndex) &&
+          (page.pageSize === otherPage.pageSize);
+      } else {
+        return false;
+      }
+    } else {
+      return !otherPage;
+    }
+  }
 
   clone(): DisplayParameters {
     const other = new DisplayParameters(this.timeStart, this.timeEnd, this.detrending,
-      this.normalisation, this.align);
+      this.normalisation, this.align, this.page);
     return other;
   }
 
@@ -104,6 +135,7 @@ export class DisplayParameters {
     this.detrending = other.detrending;
     this.normalisation = other.normalisation;
     this.align = other.align;
+    this.page = other.page;
   }
 
 }
