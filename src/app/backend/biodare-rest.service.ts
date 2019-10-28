@@ -206,12 +206,12 @@ export class BioDareRestService {
     return url;
   }
 
-  tsdata(exp: ExperimentalAssayView, detrending: DetrendingType): Promise<any> {
+  tsdata(exp: ExperimentalAssayView, detrending: DetrendingType): Observable<any> {
 
     const options = this.makeOptions();
     const url = this.endPoints.experiment_url + '/' + exp.id + this.endPoints.ts_data + '/' + detrending.name;
 
-    return this.OKJson(this.http.get(url, options)).toPromise();
+    return this.OKJson(this.http.get(url, options));
   }
 
   experimentImportTS(exp: ExperimentalAssayView, request: FileImportRequest): Promise<any> {

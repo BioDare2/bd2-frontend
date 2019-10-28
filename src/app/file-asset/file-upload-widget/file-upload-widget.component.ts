@@ -32,7 +32,7 @@ export class FileUploadWidgetComponent implements OnInit {
   autoReset = false;
 
   @Input()
-  sizeLimit = 25;
+  sizeLimit = 50;
 
   @Output()
   uploadFiles = new EventEmitter<File[]>();

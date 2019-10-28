@@ -1,12 +1,12 @@
 import {DisplayParameters} from './ts-display.dom';
-import {Timepoint, Trace} from './ts-plot.dom';
+import {Timepoint, Trace, TraceSet} from './ts-plot.dom';
 import {OnDestroy, OnInit} from '@angular/core';
-import {BehaviorSubject, combineLatest, Observable, Subject} from 'rxjs';
+import {BehaviorSubject, combineLatest, Observable, of, Subject} from 'rxjs';
 import {TSDataService} from '../ts-data.service';
 import {CurrentExperimentService} from '../../experiment/current-experiment.service';
 import {FeedbackService} from '../../feedback/feedback.service';
 import {AlignOptions, DetrendingType, NormalisationOptions} from '../ts-data-dom';
-import {debounceTime, distinctUntilChanged, filter, map, switchMap} from 'rxjs/operators';
+import {catchError, debounceTime, distinctUntilChanged, filter, map, switchMap} from 'rxjs/operators';
 import {ExperimentalAssayView} from '../../dom/repo/exp/experimental-assay-view';
 
 
@@ -21,7 +21,7 @@ export class TSFetcher implements OnInit, OnDestroy {
 
   public timeSeriesStream: Observable<Trace[]>;
   public seriesPackStream: Observable<TimeSeriesPack>;
-  protected dataSetsStream: Observable<Trace[]>;
+  protected dataSetsStream: Observable<TraceSet>;
 
   // private displayStream: Subject<DisplayParameters>;
   // private detrendingStream: Subject<DetrendingType>;
@@ -114,7 +114,7 @@ export class TSFetcher implements OnInit, OnDestroy {
     this.timeSeriesStream = this.initTimeSeriesStream(this.seriesPackStream);
   }
 
-  protected initDataSetsStream(): Observable<Trace[]> {
+  protected initDataSetsStream(): Observable<TraceSet> {
 
     const exps = this.currentExperiment.experiment().pipe(
       filter(exp => (exp ? true : false)));
@@ -137,21 +137,22 @@ export class TSFetcher implements OnInit, OnDestroy {
     );
   }
 
-  protected initSeriesPackStream(datasets: Observable<Trace[]>): Observable<TimeSeriesPack> {
+  protected initSeriesPackStream(datasets: Observable<TraceSet>): Observable<TimeSeriesPack> {
 
-    const params = this.displayParamsStream.pipe(
+    const parameters = this.displayParamsStream.pipe(
       debounceTime(400),
       filter(params => params.isValid()),
       distinctUntilChanged((prev: DisplayParameters, next: DisplayParameters) => next.equals(prev))
     );
 
-    const joined = combineLatest(datasets, params, (dataSet, params) => {
+    const joined = combineLatest([datasets, parameters]).pipe(
+      map(([dataSet, params]) => {
       // console.log("SPS: "+params.detrending.name);
       return {dataSet, params};
-    });
+    }));
 
     return joined.pipe(
-      map(pair => new TimeSeriesPack(pair.params, this.processData(pair.dataSet, pair.params)))
+      map(pair => new TimeSeriesPack(pair.params, this.processData(pair.dataSet.traces, pair.params)))
     );
   }
 
@@ -288,16 +289,21 @@ export class TSFetcher implements OnInit, OnDestroy {
    }
    */
 
-  protected loadDataSet(exp: ExperimentalAssayView, detrending: DetrendingType): Promise<Trace[]> { // Observable<Trace[]> {
+  protected loadDataSet(exp: ExperimentalAssayView, detrending: DetrendingType): Observable<TraceSet> { // Observable<Trace[]> {
 
     // console.log("LDS: "+exp.id+" "+JSON.stringify(detrending));
 
+    return this.tsdataService.loadDataSet(exp, detrending).pipe(
+      catchError( err => {
+        console.log('LDS error: ' + err);
+        this.feedback.error(err);
+        return of(undefined);
+      })
+    );
+
+    /*
     try {
       const p = this.tsdataService.loadDataSet(exp, detrending)
-      /*.then(d => {
-       console.log("Got data: "+(d ? d.length : d));
-       return d;
-       })*/
         .catch(err => {
           console.log('LDS error: ' + err);
           this.feedback.error(err);
@@ -310,7 +316,8 @@ export class TSFetcher implements OnInit, OnDestroy {
       this.feedback.error(err);
       // return Observable.of([]);
       return Promise.resolve([]);
-    }
+    }*/
+
     /*
 
      return Observable.onErrorResumeNext<Trace[]>(this.tsdataService.loadDataSet(exp,detrending)
