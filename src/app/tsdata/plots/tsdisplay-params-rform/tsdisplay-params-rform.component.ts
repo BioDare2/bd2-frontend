@@ -1,15 +1,12 @@
-import {AfterViewInit, Component, Input, OnInit, Output, ViewChild} from '@angular/core';
-import {DisplayParameters, validTimeScale} from '../ts-display.dom';
-import {AlignOptions, DetrendingType, DetrendingTypeOptions, NormalisationOptions} from '../../ts-data-dom';
-import {BehaviorSubject, combineLatest, Observable, zip} from 'rxjs';
-import {AbstractControl, FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {distinctUntilChanged, filter, map, tap} from 'rxjs/operators';
-import {MatPaginator, MatPaginatorIntl, PageEvent} from '@angular/material';
+import {AfterViewInit, Component, OnDestroy, OnInit, ViewChild,} from '@angular/core';
+import {FormBuilder} from '@angular/forms';
+import {BaseTSDisplayParamsRForm} from './base-tsdisplay-params-rform';
+import {MatPaginator, MatPaginatorIntl} from "@angular/material";
 
 @Component({
   selector: 'bd2-tsdisplay-params-rform',
   template: `
-  <form [formGroup]="paramsForm" class="form-horizontal" role="form">
+  <form [formGroup]="mainForm" class="form-horizontal" role="form">
 
     <div formGroupName="timeScale" class="form-group row">
       <label class="col-sm-2">Time scale</label>
@@ -88,90 +85,20 @@ import {MatPaginator, MatPaginatorIntl, PageEvent} from '@angular/material';
     <!--{{paramsForm.value | json }}-->
   </form>
 
-`
+`,
+  // tslint:disable-next-line:no-outputs-metadata-property
+  outputs: ['displayParams'],
+  // tslint:disable-next-line:no-inputs-metadata-property
+  inputs: ['disabled', 'totalTraces', 'currentPage'],
+
 })
-export class TSDisplayParamsRFormComponent implements OnInit, AfterViewInit {
-
-  detrendingOptions = DetrendingTypeOptions;
-  normalisationOptions = NormalisationOptions;
-  alignOptions = AlignOptions;
-
-  paramsForm: FormGroup;
-  disabledPagination = false;
-
-  @Output()
-  displayParams: Observable<DisplayParameters>;
-
-  @Input()
-  set disabled(val: boolean) {
-    if (val) {
-      this.paramsForm.disable();
-    } else {
-      this.paramsForm.enable();
-    }
-  }
-
-  @Input()
-  totalTraces = 0;
-
-  @Input()
-  currentPage = DisplayParameters.firstPage();
+export class TSDisplayParamsRFormComponent extends BaseTSDisplayParamsRForm implements OnInit, OnDestroy, AfterViewInit {
 
   @ViewChild('dataPaginator', { static: true })
   dataPaginator: MatPaginator;
 
-  page$ = new BehaviorSubject<PageEvent>(DisplayParameters.firstPage());
-
-  constructor(private fb: FormBuilder) {
-
-
-    this.paramsForm = this.fb.group({
-      timeScale: this.fb.group({
-        timeStart: [0, [Validators.required]],
-        timeEnd: [0, [Validators.required]]
-      }, {validator: (control: AbstractControl) => validTimeScale(control.value)}),
-      detrending: [DetrendingType.LIN_DTR.name, [Validators.required]],
-      normalisation: [NormalisationOptions[0].name, [Validators.required]],
-      align: [AlignOptions[0].name, [Validators.required]],
-    });
-
-
-    const validParams = zip(this.paramsForm.valueChanges, this.paramsForm.statusChanges).pipe(
-      tap( v => console.log('Before valid params', v)),
-      filter(([val, status]) => status === 'VALID' && val),
-      tap( v => console.log('After filter params', v)),
-      map(([val, status]) => val),
-      tap( v => console.log('Valid param', v))
-    );
-
-    this.displayParams = combineLatest([validParams, this.page$]).pipe(
-      tap( v => console.log('Param and page', v)),
-      map(([val, page]) => {
-
-        const params = new DisplayParameters(val.timeScale.timeStart,
-          val.timeScale.timeEnd,
-          DetrendingType.get(val.detrending),
-          val.normalisation,
-          val.align, page
-        );
-        return params;
-      }),
-      filter((params: DisplayParameters) => params.isValid()),
-      tap( v => console.log('Filtered', v)),
-      distinctUntilChanged((prev: DisplayParameters, next: DisplayParameters) => {
-        return next.equals(prev);
-      }),
-      tap( v => console.log('Distinct', v)),
-
-    );
-
-
-
-  }
-
-
-
-  ngOnInit() {
+  constructor(fb: FormBuilder) {
+    super(fb);
 
   }
 
@@ -180,10 +107,6 @@ export class TSDisplayParamsRFormComponent implements OnInit, AfterViewInit {
       this.dataPaginator._intl = new MatPaginatorIntl();
       this.dataPaginator._intl.itemsPerPageLabel = 'Series per page';
     }
-  }
-
-  loadDataPage(page: PageEvent) {
-    this.page$.next(page);
   }
 
 }
