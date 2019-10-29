@@ -3,6 +3,8 @@ import {ReactiveFormsModule} from '@angular/forms';
 import {PPAJobParamsRFormComponent} from './ppajob-params-rform.component';
 import {ModalModule} from 'ngx-bootstrap/modal';
 import {StaticContentTestModule} from '../../../../documents/static-content_test_tool.spec';
+import {NoopAnimationsModule} from '@angular/platform-browser/animations';
+import {MaterialsModule} from '../../../../shared/materials.module';
 
 
 describe('PPAJobParamsRFormComponent', () => {
@@ -15,7 +17,7 @@ describe('PPAJobParamsRFormComponent', () => {
         // StaticContentModule,
         StaticContentTestModule,
         ReactiveFormsModule,
-        ModalModule.forRoot(),
+        ModalModule.forRoot(), NoopAnimationsModule, MaterialsModule
       ],
       declarations: [PPAJobParamsRFormComponent],
       providers: []

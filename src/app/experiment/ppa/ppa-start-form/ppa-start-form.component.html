@@ -5,7 +5,7 @@
   <div *ngIf="!disabled">
     <bd2-ppajob-params-rform (displayParams)="emitDisplayParams($event)"
                              (ppaRequests)="doAnalysis($event)"
-                             [blocked]="blocked">
+                             [disabled]="blocked" [currentPage]="currentPage" [totalTraces]="totalTraces">
 
     </bd2-ppajob-params-rform>
 

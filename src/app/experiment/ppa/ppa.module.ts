@@ -23,6 +23,7 @@ import {ModalModule} from 'ngx-bootstrap/modal';
 import {SharedComponentsModule} from '../../shared/shared-components.module';
 import {ButtonsModule} from 'ngx-bootstrap/buttons';
 import {PPASelectPeriodsFormComponent} from './ppa-select-periods-form/ppa-select-periods-form.component';
+import {MaterialsModule} from '../../shared/materials.module';
 
 @NgModule({
   declarations: [PPAStartFormComponent, PPAJobParamsRFormComponent,
@@ -44,7 +45,8 @@ import {PPASelectPeriodsFormComponent} from './ppa-select-periods-form/ppa-selec
     PolarPlotModule,
     LegendModule,
     SVGSaverModule,
-    PPARoutingModule
+    PPARoutingModule,
+    MaterialsModule
   ]
 })
 export class PPAModule {

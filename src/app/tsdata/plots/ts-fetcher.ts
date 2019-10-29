@@ -112,16 +112,16 @@ export class TSFetcher implements OnInit, OnDestroy {
     );
 
     combineLatest([exp$, trend$, page$]).pipe(
-      tap( v => console.log("DataSets combine", v)),
+      // tap( v => console.log('DataSets combine', v)),
       tap( p => this.loading$.next(true)),
       switchMap(([exp, detrending, page]) => this.loadDataSet(exp, detrending, page)),
       catchError( err => {
-        console.log("Caught error", err);
+        console.log('Caught error', err);
         this.error$.next(err);
         return of(undefined);
       }),
       tap( p => this.loading$.next(false)),
-      tap( v => console.log("After switch map DataSets combine", v)),
+      // tap( v => console.log('After switch map DataSets combine', v)),
     ).subscribe( ds => this.dataSetsStream.next(ds));
   }
 
@@ -133,9 +133,9 @@ export class TSFetcher implements OnInit, OnDestroy {
     );
 
     return combineLatest([datasets, parameter$]).pipe(
-      tap( p => console.log('DS' + p[0], p)),
+      // tap( p => console.log('DS' + p[0], p)),
       map(([dataSet, params]) => {
-        console.log('In map ' + dataSet);
+        // console.log('In map ' + dataSet);
         if (dataSet) {
             const traces = this.processData(dataSet.traces, params);
             return new TimeSeriesPack(params, traces, dataSet.totalTraces, dataSet.currentPage);
@@ -143,7 +143,7 @@ export class TSFetcher implements OnInit, OnDestroy {
             return new TimeSeriesPack(params, [], 0, DisplayParameters.firstPage());
           }
       }),
-      tap( p => console.log('After map' + p, p))
+      // tap( p => console.log('After map' + p, p))
     );
 
     /*

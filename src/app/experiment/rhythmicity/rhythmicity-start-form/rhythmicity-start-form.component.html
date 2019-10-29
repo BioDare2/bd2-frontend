@@ -5,7 +5,7 @@
   <div *ngIf="!disabled">
     <bd2-rhythmicityjob-params-rform (displayParams)="emitDisplayParams($event)"
                              (rhythmicityRequests)="doAnalysis($event)"
-                             [blocked]="blocked">
+                             [disabled]="blocked" [totalTraces]="totalTraces" [currentPage]="currentPage">
 
     </bd2-rhythmicityjob-params-rform>
 

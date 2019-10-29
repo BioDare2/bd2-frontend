@@ -17,7 +17,7 @@ import {UserService} from '../../../auth/user.service';
 
 @Component({
   templateUrl: './ppa-start-form.component.html',
-  providers: []
+  providers: [TSFetcher]
 })
 export class PPAStartFormComponent extends PPABaseComponent implements OnInit, OnDestroy {
 
@@ -26,13 +26,14 @@ export class PPAStartFormComponent extends PPABaseComponent implements OnInit, O
 
   timeseries: Trace[];
   tracesPerPlot = 5;
+  totalTraces = 0;
+  currentPage = DisplayParameters.firstPage();
 
   private timeSeriesSubsripction: Subscription;
 
-  private fetcher: TSFetcher;
 
   constructor(
-    private tsdataService: TSDataService,
+    private fetcher: TSFetcher,
     private RDMSocial: RDMSocialServiceService,
     private analytics: AnalyticsService,
     private userService: UserService,
@@ -42,9 +43,7 @@ export class PPAStartFormComponent extends PPABaseComponent implements OnInit, O
 
 
     this.titlePart = ' New PPA';
-    this.fetcher = new TSFetcher(tsdataService);
 
-    // this.fetcher.changeDisplayParams(this.params2display(this.params));
   }
 
   ngOnInit() {
@@ -60,6 +59,8 @@ export class PPAStartFormComponent extends PPABaseComponent implements OnInit, O
           // console.log("Got data: "+data.length);
           this.tracesPerPlot = Math.max(5, data.length / 20);
           this.timeseries = data;
+          this.totalTraces = pack.totalTraces;
+          this.currentPage = pack.currentPage;
         },
         (err) => {
           console.log('Error in TS subscription: ' + err);
@@ -116,6 +117,8 @@ export class PPAStartFormComponent extends PPABaseComponent implements OnInit, O
           this.disabled = true;
         }*/
       });
+
+    this.fetcher.experiment(exp);
 
     super.updateModel(exp);
 

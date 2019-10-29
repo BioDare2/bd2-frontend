@@ -21,23 +21,6 @@ export function validTimeScale(timeScale: any): { [key: string]: any } {
 
 export class DisplayParameters {
 
-  timeScale: {
-    timeStart: number;
-    timeEnd: number;
-  };
-  detrending: DetrendingType;
-  normalisation: string;
-  align: string;
-  page: PageEvent;
-
-  static firstPage() {
-    const page = new PageEvent();
-    page.pageIndex = 0;
-    page.pageSize = 50;
-    return page;
-
-  }
-
   constructor(timeStart: number, timeEnd: number, detrending: DetrendingType,
               normalisation: string, align: string, page: PageEvent
   ) {
@@ -58,6 +41,36 @@ export class DisplayParameters {
 
   get timeEnd(): number {
     return this.timeScale.timeEnd;
+  }
+
+  timeScale: {
+    timeStart: number;
+    timeEnd: number;
+  };
+  detrending: DetrendingType;
+  normalisation: string;
+  align: string;
+  page: PageEvent;
+
+  static firstPage() {
+    const page = new PageEvent();
+    page.pageIndex = 0;
+    page.pageSize = 50;
+    return page;
+
+  }
+
+  static equalsPages(page: PageEvent, otherPage: PageEvent) {
+    if (page) {
+      if (otherPage) {
+        return (page.pageIndex === otherPage.pageIndex) &&
+          (page.pageSize === otherPage.pageSize);
+      } else {
+        return false;
+      }
+    } else {
+      return !otherPage;
+    }
   }
 
   isValid(): boolean {
@@ -108,19 +121,6 @@ export class DisplayParameters {
 
   equalsPage(otherPage: PageEvent) {
     return DisplayParameters.equalsPages(this.page, otherPage);
-  }
-
-  static equalsPages(page: PageEvent, otherPage: PageEvent) {
-    if (page) {
-      if (otherPage) {
-        return (page.pageIndex === otherPage.pageIndex) &&
-          (page.pageSize === otherPage.pageSize);
-      } else {
-        return false;
-      }
-    } else {
-      return !otherPage;
-    }
   }
 
   clone(): DisplayParameters {

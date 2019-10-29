@@ -1,55 +1,48 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {Observable, zip} from 'rxjs';
-import {DisplayParameters, validTimeScale} from '../../../../tsdata/plots/ts-display.dom';
+import {AfterViewInit, Component, EventEmitter, OnDestroy, OnInit} from '@angular/core';
 
-import {AbstractControl, FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {DetrendingType, DetrendingTypeOptions} from '../../../../tsdata/ts-data-dom';
-import {distinctUntilChanged, filter, map} from 'rxjs/operators';
+import {AbstractControl, FormBuilder, Validators} from '@angular/forms';
+import {DetrendingType} from '../../../../tsdata/ts-data-dom';
 import {
   EJTPreset,
   EnabledEJTPresetOptions,
   EnabledRhythmicityMethodOptions,
-  RhythmicityMethod, RhythmicityRequest
+  RhythmicityMethod,
+  RhythmicityRequest
 } from '../../rhythmicity-dom';
+import {BaseTSDisplayParamsRForm} from '../../../../tsdata/plots/tsdisplay-params-rform/base-tsdisplay-params-rform';
 
 @Component({
   selector: 'bd2-rhythmicityjob-params-rform',
   templateUrl: './rhythmicityjob-params-rform.component.html',
-  styles: []
+  styles: [],
+  // tslint:disable-next-line:no-outputs-metadata-property
+  outputs: ['displayParams', 'rhythmicityRequests'],
+  // tslint:disable-next-line:no-inputs-metadata-property
+  inputs: ['disabled', 'totalTraces', 'currentPage']
 })
-export class RhythmicityjobParamsRformComponent implements OnInit {
-
-  @Input()
-  blocked = false;
-
-  @Output()
-  displayParams: Observable<DisplayParameters>;
-
-  @Output()
-  rhythmicityRequests = new EventEmitter<RhythmicityRequest>();
-
-  paramsForm: FormGroup;
+export class RhythmicityjobParamsRformComponent extends BaseTSDisplayParamsRForm implements OnInit, OnDestroy, AfterViewInit {
 
   methodOptions = EnabledRhythmicityMethodOptions;
   presetOptions = EnabledEJTPresetOptions;
-
-  detrendingOptions = [ DetrendingType.NO_DTR, DetrendingType.LIN_DTR];
 
   dataHelp = false;
   presetsHelp = false;
   methodHelp = false;
 
-  constructor(private fb: FormBuilder) {
+  rhythmicityRequests = new EventEmitter<RhythmicityRequest>();
+
+  constructor(fb: FormBuilder) {
+    super(fb);
+
+    this.detrendingOptions = [ DetrendingType.NO_DTR, DetrendingType.LIN_DTR];
+  }
 
 
-    this.paramsForm = this.fb.group({
-      displayParams: this.fb.group({
-        timeScale: this.fb.group({
-          timeStart: [0, [Validators.required]],
-          timeEnd: [0, [Validators.required]]
-        }, {validator: (control: AbstractControl) => validTimeScale(control.value)}),
-        detrending: [DetrendingType.NO_DTR.name, [Validators.required]]
-      }),
+  buildMainForm() {
+
+
+    const form = this.fb.group({
+      displayParams: this.displayParamsForm,
       periodScale: this.fb.group({
         periodMin: [18, [Validators.required]],
         periodMax: [34, [Validators.required]]
@@ -58,73 +51,36 @@ export class RhythmicityjobParamsRformComponent implements OnInit {
       preset: [EJTPreset.EJTK_CLASSIC.name, [Validators.required]],
     });
 
-    const dispG = this.paramsForm.get('displayParams');
-    this.displayParams = zip(dispG.valueChanges, dispG.statusChanges,
-      (value, status) => {
-        return {value, status};
-      }).pipe(
-      filter(val => val.status === 'VALID'),
-      distinctUntilChanged((prev: any, next: any) => {
-        // console.log(prev.value.timeScale.timeStart+":"+next.value.timeScale.timeStart);
-        if (prev.value.timeScale.timeStart !== next.value.timeScale.timeStart) {
-          return false;
-        }
-        if (prev.value.timeScale.timeEnd !== next.value.timeScale.timeEnd) {
-          return false;
-        }
-        if (prev.value.detrending !== next.value.detrending) {
-          return false;
-        }
-
-        return true;
-      }),
-      map(val => {
-
-        const params = new DisplayParameters(val.value.timeScale.timeStart,
-          val.value.timeScale.timeEnd,
-          DetrendingType.get(val.value.detrending),
-          undefined, undefined, DisplayParameters.firstPage()
-        );
-        return params;
-      }));
-
-    // .filter((params: DisplayParameters) => params.isValid())
-    /*.distinctUntilChanged((prev: DisplayParameters, next: DisplayParameters) => {
-      return next.equals(prev);
-    })*/
-
+    return form;
   }
 
-
-  ngOnInit() {
+  defaultDetrending() {
+    return DetrendingType.NO_DTR.name;
   }
 
-  /* tslint:disable:curly */
   validPeriodScale(periodScale: any): { [key: string]: any } {
     // console.log("Validator called: "+JSON.stringify(control.value));
     const start = periodScale.periodMin;
     const end = periodScale.periodMax;
-    if (start < 10) return {validPeriodScale: 'Period min must >= 10'};
-    if (end < 10) return {validPeriodScale: 'Period max must >= 10'};
-    if (end > 50) return {validPeriodScale: 'Period max must < 50'};
-    if (start >= end) return {validPeriodScale: 'Period min must be < max'};
+    if (start < 10) { return {validPeriodScale: 'Period min must >= 10'}; }
+    if (end < 10) { return {validPeriodScale: 'Period max must >= 10'}; }
+    if (end > 50) { return {validPeriodScale: 'Period max must < 50'}; }
+    if (start >= end) { return {validPeriodScale: 'Period min must be < max'}; }
     // console.log("Validator passed: "+JSON.stringify(control.value));
     return null;
   }
 
-  /* tslint:enable:curly */
-
-  /* tslint:disable:curly */
   analyse() {
-    if (this.paramsForm.invalid)
+    if (this.mainForm.invalid) {
       return;
+    }
 
-    const req: RhythmicityRequest = this.map2RhythmicityRequest(this.paramsForm.value);
-    if (req.isValid())
+    const req: RhythmicityRequest = this.map2RhythmicityRequest(this.mainForm.value);
+    if (req.isValid()) {
       this.rhythmicityRequests.next(req);
+    }
   }
 
-  /* tslint:enable:curly */
 
   protected map2RhythmicityRequest(value: any): RhythmicityRequest {
     const req = new RhythmicityRequest();

@@ -6,8 +6,10 @@ import {AbstractControl, FormBuilder, FormGroup, Validators} from '@angular/form
 import {distinctUntilChanged, filter, map, startWith, tap} from 'rxjs/operators';
 import {MatPaginator, MatPaginatorIntl, PageEvent} from '@angular/material';
 
-export class BaseTSDisplayParamsRForm implements OnInit, OnDestroy {
+export class BaseTSDisplayParamsRForm implements OnInit, OnDestroy, AfterViewInit {
 
+  @ViewChild('dataPaginator', { static: true })
+  dataPaginator: MatPaginator;
   totalTraces = 0;
 
   currentPage = DisplayParameters.firstPage();
@@ -20,7 +22,15 @@ export class BaseTSDisplayParamsRForm implements OnInit, OnDestroy {
     } else {
       this.mainForm.enable();
     }
+    this._disabled = val;
   }
+
+  get disabled() {
+    return this._disabled;
+  }
+
+  // tslint:disable-next-line:variable-name
+  _disabled = false;
 
 
 
@@ -73,15 +83,15 @@ export class BaseTSDisplayParamsRForm implements OnInit, OnDestroy {
 
     const validParams = zip(this.displayParamsForm.valueChanges, this.displayParamsForm.statusChanges).pipe(
       startWith([this.displayParamsForm.value, this.displayParamsForm.status]),
-      tap( v => console.log('Before valid params', v)),
+      // tap( v => console.log('Before valid params', v)),
       filter(([val, status]) => status === 'VALID' && val),
-      tap( v => console.log('After filter params', v)),
+      // tap( v => console.log('After filter params', v)),
       map(([val, status]) => val),
-      tap( v => console.log('Valid param', v))
+      // tap( v => console.log('Valid param', v))
     );
 
     const paramsStream = combineLatest([validParams, this.page$]).pipe(
-      tap( v => console.log('Param and page', v)),
+      // tap( v => console.log('Param and page', v)),
       map(([val, page]) => {
 
         const params = new DisplayParameters(val.timeScale.timeStart,
@@ -93,11 +103,11 @@ export class BaseTSDisplayParamsRForm implements OnInit, OnDestroy {
         return params;
       }),
       filter((params: DisplayParameters) => params.isValid()),
-      tap( v => console.log('Filtered', v)),
+      // tap( v => console.log('Filtered', v)),
       distinctUntilChanged((prev: DisplayParameters, next: DisplayParameters) => {
         return next.equals(prev);
       }),
-      tap( v => console.log('Distinct', v)),
+      // tap( v => console.log('Distinct', v)),
 
     );
 
@@ -112,10 +122,14 @@ export class BaseTSDisplayParamsRForm implements OnInit, OnDestroy {
         timeStart: [0, [Validators.required]],
         timeEnd: [0, [Validators.required]]
       }, {validator: (control: AbstractControl) => validTimeScale(control.value)}),
-      detrending: [DetrendingType.LIN_DTR.name, [Validators.required]],
+      detrending: [this.defaultDetrending(), [Validators.required]],
       normalisation: [NormalisationOptions[0].name, [Validators.required]],
       align: [AlignOptions[0].name, [Validators.required]],
     });
+  }
+
+  defaultDetrending() {
+    return DetrendingType.LIN_DTR.name;
   }
 
   buildMainForm() {
@@ -123,8 +137,18 @@ export class BaseTSDisplayParamsRForm implements OnInit, OnDestroy {
   }
 
   loadDataPage(page: PageEvent) {
-    console.log("Load page",page);
+    // console.log('Load page', page);
     this.page$.next(page);
+  }
+
+
+
+
+  ngAfterViewInit() {
+    if (this.dataPaginator) {
+      this.dataPaginator._intl = new MatPaginatorIntl();
+      this.dataPaginator._intl.itemsPerPageLabel = 'Series per page';
+    }
   }
 
 

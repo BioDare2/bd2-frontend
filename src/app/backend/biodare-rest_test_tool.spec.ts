@@ -20,7 +20,7 @@ export function fakeBioDareRestService() {
 
   const ser = jasmine.createSpyObj('BioDareRestService', ['login', 'logout', 'refreshUser',
     'experiments', 'experimentNewDraft', 'experimentNewExperiment',
-    'rdmAssayGuiAspects', 'rdmRegisterWarning',
+    'rdmAssayGuiAspects', 'rdmRegisterWarning', 'tsdataExportURL',
     'fileURL',
     'species'
   ]);

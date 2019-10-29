@@ -3,7 +3,6 @@ import {RhythmicityBaseComponent} from '../rhythmicity-base.component';
 import {RhythmicityService} from '../rhythmicity.service';
 import {ExperimentComponentsDependencies} from '../../experiment-components.dependencies';
 import {TSFetcher} from '../../../tsdata/plots/ts-fetcher';
-import {TSDataService} from '../../../tsdata/ts-data.service';
 import {AnalyticsService} from '../../../analytics/analytics.service';
 import {UserService} from '../../../auth/user.service';
 import {Trace} from '../../../tsdata/plots/ts-plot.dom';
@@ -11,11 +10,13 @@ import {Subscription} from 'rxjs';
 import {debounceTime} from 'rxjs/operators';
 import {DisplayParameters} from '../../../tsdata/plots/ts-display.dom';
 import {RhythmicityRequest} from '../rhythmicity-dom';
+import {ExperimentalAssayView} from '../../../dom/repo/exp/experimental-assay-view';
 
 
 @Component({
   templateUrl: './rhythmicity-start-form.component.html',
-  styles: []
+  styles: [],
+  providers: [TSFetcher]
 })
 export class RhythmicityStartFormComponent extends RhythmicityBaseComponent implements OnInit, OnDestroy {
 
@@ -24,13 +25,14 @@ export class RhythmicityStartFormComponent extends RhythmicityBaseComponent impl
 
   timeseries: Trace[];
   tracesPerPlot = 5;
+  totalTraces = 0;
+  currentPage = DisplayParameters.firstPage();
 
   private timeSeriesSubsripction: Subscription;
 
-  private fetcher: TSFetcher;
 
   constructor(
-    private tsdataService: TSDataService,
+    private fetcher: TSFetcher,
     private analytics: AnalyticsService,
     private userService: UserService,
     rhythmicityService: RhythmicityService,
@@ -38,7 +40,6 @@ export class RhythmicityStartFormComponent extends RhythmicityBaseComponent impl
     super(rhythmicityService, serviceDependencies);
 
     this.titlePart = ' New Test';
-    this.fetcher = new TSFetcher(tsdataService);
 
   }
 
@@ -56,6 +57,8 @@ export class RhythmicityStartFormComponent extends RhythmicityBaseComponent impl
           // console.log("Got data: "+data.length);
           this.tracesPerPlot = Math.max(5, data.length / 20);
           this.timeseries = data;
+          this.totalTraces = pack.totalTraces;
+          this.currentPage = pack.currentPage;
         },
         (err) => {
           console.log('Error in TS subscription: ' + err);
@@ -77,7 +80,7 @@ export class RhythmicityStartFormComponent extends RhythmicityBaseComponent impl
 
   emitDisplayParams(params: DisplayParameters) {
     this.fetcher.changeDisplayParams(params);
-    // console.log("P"+params.timeStart+":"+params.timeEnd);
+    // console.log('P' + params.timeStart + ':' + params.timeEnd);
   }
 
   doAnalysis(req: RhythmicityRequest) {
@@ -98,6 +101,14 @@ export class RhythmicityStartFormComponent extends RhythmicityBaseComponent impl
         });
 
     }
+  }
+
+  protected updateModel(exp: ExperimentalAssayView) {
+
+    this.fetcher.experiment(exp);
+
+    super.updateModel(exp);
+
   }
 
 }

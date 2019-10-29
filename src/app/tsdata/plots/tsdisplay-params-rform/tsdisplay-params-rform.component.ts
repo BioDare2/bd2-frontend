@@ -1,7 +1,7 @@
-import {AfterViewInit, Component, OnDestroy, OnInit, ViewChild,} from '@angular/core';
+import {AfterViewInit, Component, OnDestroy, OnInit, ViewChild, } from '@angular/core';
 import {FormBuilder} from '@angular/forms';
 import {BaseTSDisplayParamsRForm} from './base-tsdisplay-params-rform';
-import {MatPaginator, MatPaginatorIntl} from "@angular/material";
+import {MatPaginator, MatPaginatorIntl} from '@angular/material';
 
 @Component({
   selector: 'bd2-tsdisplay-params-rform',
@@ -94,19 +94,11 @@ import {MatPaginator, MatPaginatorIntl} from "@angular/material";
 })
 export class TSDisplayParamsRFormComponent extends BaseTSDisplayParamsRForm implements OnInit, OnDestroy, AfterViewInit {
 
-  @ViewChild('dataPaginator', { static: true })
-  dataPaginator: MatPaginator;
 
   constructor(fb: FormBuilder) {
     super(fb);
 
   }
 
-  ngAfterViewInit() {
-    if (this.dataPaginator) {
-      this.dataPaginator._intl = new MatPaginatorIntl();
-      this.dataPaginator._intl.itemsPerPageLabel = 'Series per page';
-    }
-  }
 
 }
