@@ -11,6 +11,7 @@ import {DetrendingType} from '../tsdata/ts-data-dom';
 import {PPARequest} from '../experiment/ppa/ppa-dom';
 import {RhythmicityRequest} from '../experiment/rhythmicity/rhythmicity-dom';
 import {Slice} from '../experiment/ts-data/tsimport-dashboard/data-table-dom';
+import {PageEvent} from '@angular/material';
 
 @Injectable({
   providedIn: 'root'
@@ -206,11 +207,13 @@ export class BioDareRestService {
     return url;
   }
 
-  tsdata(exp: ExperimentalAssayView, detrending: DetrendingType): Observable<any> {
+  tsdata(exp: ExperimentalAssayView, detrending: DetrendingType, page: PageEvent): Observable<any> {
 
     const options = this.makeOptions();
     const url = this.endPoints.experiment_url + '/' + exp.id + this.endPoints.ts_data + '/' + detrending.name;
-
+    if (page) {
+      (options as any).params = new HttpParams().set('pageIndex', '' + page.pageIndex).set('pageSize', '' + page.pageSize);
+    }
     return this.OKJson(this.http.get(url, options));
   }
 

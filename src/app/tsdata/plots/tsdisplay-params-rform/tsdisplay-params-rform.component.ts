@@ -1,9 +1,10 @@
-import {Component, Input, OnInit, Output} from '@angular/core';
+import {AfterViewInit, Component, Input, OnInit, Output, ViewChild} from '@angular/core';
 import {DisplayParameters, validTimeScale} from '../ts-display.dom';
 import {AlignOptions, DetrendingType, DetrendingTypeOptions, NormalisationOptions} from '../../ts-data-dom';
-import {Observable, zip} from 'rxjs';
+import {BehaviorSubject, combineLatest, Observable, zip} from 'rxjs';
 import {AbstractControl, FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {distinctUntilChanged, filter, map} from 'rxjs/operators';
+import {distinctUntilChanged, filter, map, tap} from 'rxjs/operators';
+import {MatPaginator, MatPaginatorIntl, PageEvent} from '@angular/material';
 
 @Component({
   selector: 'bd2-tsdisplay-params-rform',
@@ -69,22 +70,57 @@ import {distinctUntilChanged, filter, map} from 'rxjs/operators';
       </select>
       </div>
     </div>
-    <!--{{paramsForm.value | json }}-->
 
+    <div class="form-group row">
+      <label class="col-sm-2"></label>
+      <div class="col-sm-8">
+
+        <mat-paginator #dataPaginator [length]="totalTraces" [disabled]="disabledPagination"
+                       [pageSize]="currentPage.pageSize"
+                       [pageIndex]="currentPage.pageIndex"
+                       [pageSizeOptions]="[10, 25, 50, 100, 200]"
+                       (page)="loadDataPage($event)"
+
+        >
+        </mat-paginator>
+      </div>
+    </div>
+    <!--{{paramsForm.value | json }}-->
   </form>
 
 `
 })
-export class TSDisplayParamsRFormComponent implements OnInit {
+export class TSDisplayParamsRFormComponent implements OnInit, AfterViewInit {
 
   detrendingOptions = DetrendingTypeOptions;
   normalisationOptions = NormalisationOptions;
   alignOptions = AlignOptions;
 
   paramsForm: FormGroup;
+  disabledPagination = false;
 
   @Output()
   displayParams: Observable<DisplayParameters>;
+
+  @Input()
+  set disabled(val: boolean) {
+    if (val) {
+      this.paramsForm.disable();
+    } else {
+      this.paramsForm.enable();
+    }
+  }
+
+  @Input()
+  totalTraces = 0;
+
+  @Input()
+  currentPage = DisplayParameters.firstPage();
+
+  @ViewChild('dataPaginator', { static: true })
+  dataPaginator: MatPaginator;
+
+  page$ = new BehaviorSubject<PageEvent>(DisplayParameters.firstPage());
 
   constructor(private fb: FormBuilder) {
 
@@ -100,40 +136,54 @@ export class TSDisplayParamsRFormComponent implements OnInit {
     });
 
 
-    this.displayParams = zip(this.paramsForm.valueChanges, this.paramsForm.statusChanges,
-      (value, status) => {
-        return {value, status};
-      }).pipe(
-      filter(val => val.status === 'VALID'),
-      map(val => {
+    const validParams = zip(this.paramsForm.valueChanges, this.paramsForm.statusChanges).pipe(
+      tap( v => console.log('Before valid params', v)),
+      filter(([val, status]) => status === 'VALID' && val),
+      tap( v => console.log('After filter params', v)),
+      map(([val, status]) => val),
+      tap( v => console.log('Valid param', v))
+    );
 
-        const params = new DisplayParameters(val.value.timeScale.timeStart,
-          val.value.timeScale.timeEnd,
-          DetrendingType.get(val.value.detrending),
-          val.value.normalisation,
-          val.value.align, DisplayParameters.firstPage()
+    this.displayParams = combineLatest([validParams, this.page$]).pipe(
+      tap( v => console.log('Param and page', v)),
+      map(([val, page]) => {
+
+        const params = new DisplayParameters(val.timeScale.timeStart,
+          val.timeScale.timeEnd,
+          DetrendingType.get(val.detrending),
+          val.normalisation,
+          val.align, page
         );
         return params;
       }),
       filter((params: DisplayParameters) => params.isValid()),
+      tap( v => console.log('Filtered', v)),
       distinctUntilChanged((prev: DisplayParameters, next: DisplayParameters) => {
         return next.equals(prev);
-      }));
+      }),
+      tap( v => console.log('Distinct', v)),
+
+    );
+
+
 
   }
 
-  @Input()
-  set disabled(val: boolean) {
-    if (val) {
-      this.paramsForm.disable();
-    } else {
-      this.paramsForm.enable();
-    }
-  }
+
 
   ngOnInit() {
 
   }
 
+  ngAfterViewInit() {
+    if (this.dataPaginator) {
+      this.dataPaginator._intl = new MatPaginatorIntl();
+      this.dataPaginator._intl.itemsPerPageLabel = 'Series per page';
+    }
+  }
+
+  loadDataPage(page: PageEvent) {
+    this.page$.next(page);
+  }
 
 }

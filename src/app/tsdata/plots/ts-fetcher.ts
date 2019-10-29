@@ -1,12 +1,13 @@
 import {DisplayParameters} from './ts-display.dom';
 import {Timepoint, Trace, TraceSet} from './ts-plot.dom';
-import {OnDestroy, OnInit} from '@angular/core';
+import {Inject, Injectable, OnDestroy, OnInit, Optional} from '@angular/core';
 import {BehaviorSubject, combineLatest, Observable, of, Subject} from 'rxjs';
 import {TSDataService} from '../ts-data.service';
 import {AlignOptions, DetrendingType, NormalisationOptions} from '../ts-data-dom';
 import {catchError, debounceTime, distinctUntilChanged, filter, map, switchMap, tap} from 'rxjs/operators';
 import {ExperimentalAssayView} from '../../dom/repo/exp/experimental-assay-view';
 import {PageEvent} from '@angular/material';
+import { InjectionToken } from '@angular/core';
 
 
 export class TimeSeriesPack {
@@ -17,6 +18,10 @@ export class TimeSeriesPack {
 
 }
 
+
+const REMOVE_DEBOUNCE = new InjectionToken<string>('param used only at tests');
+
+@Injectable()
 export class TSFetcher implements OnInit, OnDestroy {
 
   public seriesPackStream: Observable<TimeSeriesPack>;
@@ -30,12 +35,14 @@ export class TSFetcher implements OnInit, OnDestroy {
   private slowParameters$: Observable<DisplayParameters>;
   // private seriesPack$ = new BehaviorSubject<TimeSeriesPack>(undefined);
 
-  constructor(private tsDataService: TSDataService, removeDebounce = false) {
+  constructor(private tsDataService: TSDataService, @Inject(REMOVE_DEBOUNCE) @Optional() removeDebounce = false) {
 
     const par = new DisplayParameters(0, 0, DetrendingType.LIN_DTR,
       NormalisationOptions[0].name, AlignOptions[0].name, DisplayParameters.firstPage());
 
     this.displayParamsStream = new BehaviorSubject<DisplayParameters>(par);
+
+
 
     if (removeDebounce) {
       this.slowParameters$ = this.displayParamsStream.pipe(

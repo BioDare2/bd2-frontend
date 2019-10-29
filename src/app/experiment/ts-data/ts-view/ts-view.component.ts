@@ -12,6 +12,7 @@ import {CSVExporter} from '../../../tsdata/export/csv-exporter';
 import {TSDataService} from '../../../tsdata/ts-data.service';
 import {debounceTime} from 'rxjs/operators';
 import * as FileSaver from 'file-saver';
+import {PageEvent} from '@angular/material';
 
 @Component({
   template: `
@@ -21,6 +22,8 @@ import * as FileSaver from 'file-saver';
     <bd2-tsdisplay-params-rform
       (displayParams)="displayChanged($event)"
       [disabled]="disabledSecondary"
+      [totalTraces]="totalTraces"
+      [currentPage]="currentPage"
     ></bd2-tsdisplay-params-rform>
 
     <alert *ngIf="disabledSecondary" type="danger"
@@ -49,7 +52,7 @@ import * as FileSaver from 'file-saver';
                   [data]="timeseries"
     ></bd2-ts-plots>
   `,
-  providers: []
+  providers: [TSFetcher]
 })
 export class TSViewComponent extends ExperimentBaseComponent implements OnDestroy, OnInit {
 
@@ -57,18 +60,21 @@ export class TSViewComponent extends ExperimentBaseComponent implements OnDestro
   currentParams: DisplayParameters;
 
   timeseries: Trace[] = [];
+  totalTraces = 0;
+  currentPage: PageEvent = DisplayParameters.firstPage();
   tracesPerPlot = 5;
 
   blocked = false;
 
   disabledSecondary = false;
 
-  private fetcher: TSFetcher;
+
   private timeSeriesSubsripction: Subscription;
   private csvExporter = new CSVExporter();
 
 
-  constructor(private tsdataService: TSDataService,
+  constructor(private fetcher: TSFetcher,
+              private tsdataService: TSDataService,
               private RDMSocial: RDMSocialServiceService,
               private analytics: AnalyticsService,
               serviceDependencies: ExperimentComponentsDependencies) {
@@ -76,7 +82,6 @@ export class TSViewComponent extends ExperimentBaseComponent implements OnDestro
     super(serviceDependencies);
 
     this.titlePart = ' Data';
-    this.fetcher = new TSFetcher(tsdataService);
   }
 
   ngOnInit(): any {
@@ -93,6 +98,8 @@ export class TSViewComponent extends ExperimentBaseComponent implements OnDestro
           // console.log("P: "+pack.params.detrending.name+"; "+this.exportURL);
           this.timeseries = data;
           this.tracesPerPlot = Math.max(5, data.length / 20);
+          this.totalTraces = pack.totalTraces;
+          this.currentPage = pack.currentPage;
           this.analytics.experimentDataViev(this.assay.id);
 
         },
@@ -142,6 +149,9 @@ export class TSViewComponent extends ExperimentBaseComponent implements OnDestro
           this.disabledSecondary = false;
         }
       });
+
+    this.fetcher.experiment(exp);
+
     super.updateModel(exp);
 
   }

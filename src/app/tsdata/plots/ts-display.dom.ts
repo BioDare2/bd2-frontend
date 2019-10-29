@@ -33,7 +33,7 @@ export class DisplayParameters {
   static firstPage() {
     const page = new PageEvent();
     page.pageIndex = 0;
-    page.pageSize = 100;
+    page.pageSize = 50;
     return page;
 
   }
