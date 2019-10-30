@@ -12,6 +12,20 @@
     <div class="col-sm-12">
       <h4>Recently added features</h4>
       <div class="clearfix">
+        <div class="alert alert-info" role="alert">
+          <h5 class="list-group-item-heading">Rhythmicity Test</h5>
+          <p class="list-group-item-text">We have added the eJTK method
+            (<a href=" https://doi.org/10.1371/journal.pcbi.1004094">A.L. Hutchison et al. 2015</a>) for rhythmicity tests</p>
+        </div>
+        <div class="alert alert-info" role="alert">
+          <h5 class="list-group-item-heading">CSV and TSV files import</h5>
+          <p class="list-group-item-text">You can now import the timeseries data from text files</p>
+        </div>
+        <div class="alert alert-info" role="alert">
+          <h5 class="list-group-item-heading">Better handling of large data sets</h5>
+          <p class="list-group-item-text">Data views are now paginated so the large datasets will can be
+          displayed without crashing your browser.</p>
+        </div>
         <div class="alert alert-success" role="alert">
           <h5 class="list-group-item-heading">BioDare YouTube channel with tutorials</h5>
           <p class="list-group-item-text">Subscribe to our <a
@@ -20,25 +34,25 @@
               import</a>.
           </p>
         </div>
-        <div class="alert alert-info" role="alert">
-          <h5 class="list-group-item-heading">Publishing data</h5>
-          <p class="list-group-item-text">You can now make your data public, choose the padlock icon and follow the
-            instruction</p>
-        </div>
-        <div class="alert alert-info" role="alert">
-          <h5 class="list-group-item-heading">TopCount data</h5>
-          <p class="list-group-item-text">You can import TopCount data directly into BioDare</p>
-        </div>
-        <div class="alert alert-info" role="alert">
-          <h5 class="list-group-item-heading">Saving period and phase plots as SVG</h5>
-          <p class="list-group-item-text">Your beautiful period and phase plots can be downloaded as .svg file
-            <span aria-hidden="true" class="glyphicon glyphicon-download-alt"></span>
-            and edited or converted in a graphical program like the free Inkscape</p>
-        </div>
         <div (click)="moreFeatures = true" *ngIf="!moreFeatures" class="pull-right">
           <button class="btn btn-primary">see more</button>
         </div>
         <div *ngIf="moreFeatures">
+          <div class="alert alert-info" role="alert">
+            <h5 class="list-group-item-heading">Publishing data</h5>
+            <p class="list-group-item-text">You can now make your data public, choose the padlock icon and follow the
+              instruction</p>
+          </div>
+          <div class="alert alert-info" role="alert">
+            <h5 class="list-group-item-heading">TopCount data</h5>
+            <p class="list-group-item-text">You can import TopCount data directly into BioDare</p>
+          </div>
+          <div class="alert alert-info" role="alert">
+            <h5 class="list-group-item-heading">Saving period and phase plots as SVG</h5>
+            <p class="list-group-item-text">Your beautiful period and phase plots can be downloaded as .svg file
+              <span aria-hidden="true" class="glyphicon glyphicon-download-alt"></span>
+              and edited or converted in a graphical program like the free Inkscape</p>
+          </div>
           <div class="alert alert-info" role="alert">
             <h5 class="list-group-item-heading">Improved error messages</h5>
             <p class="list-group-item-text">Notifications contain causes of problems with data import</p>
@@ -117,6 +131,16 @@
     <div class="col-sm-6">
       <h4>Excellent research that used BioDare </h4>
       <ul>
+        <li>Hamnett, R. et al.
+          <small><a href="https://doi.org/10.1038/s41467-019-08427-3" rel="nofollow" target="_blank">
+            Vasoactive intestinal peptide controls the suprachiasmatic circadian clock network via ERK1/2 and DUSP4 signalling
+          </a></small>
+        </li>
+        <li>Lee, CM. et al.
+          <small><a href="https://doi.org/10.1038/s41467-019-11769-7" rel="nofollow" target="_blank">
+            GIGANTEA recruits the UBP12 and UBP13 deubiquitylases to regulate accumulation of the ZTL photoreceptor complex
+          </a></small>
+        </li>
         <li>Enganti, R. et al.
           <small><a href="https://doi.org/10.3389/fpls.2017.02210" rel="nofollow" target="_blank">Phosphorylation of
             Ribosomal Protein RPS6 Integrates
@@ -129,16 +153,26 @@
             Carboxylase Is Essential for Maximal and Sustained Dark CO2 Fixation...
           </a></small>
         </li>
-        <li>Brancaccio, M. et al.
+        <!--<li>Brancaccio, M. et al.
           <small><a href="https://doi.org/10.1016/j.neuron.2017.02.030" rel="nofollow" target="_blank">
             Astrocytes Control Circadian Timekeeping in the Suprachiasmatic Nucleus via Glutamatergic Signaling.
           </a></small>
-        </li>
+        </li>-->
       </ul>
     </div>
     <div class="col-sm-6">
       <h4>&nbsp;</h4>
       <ul>
+        <li>Brancaccion, M. et al.
+          <small><a href="https://doi.org/10.1126/science.aat4104" rel="nofollow" target="_blank">
+            Cell-autonomous clock of astrocytes drives circadian behavior in mammals
+          </a></small>
+        </li>
+        <li>Mwimba, M. et al.
+          <small><a href="https://doi.org/10.1038/s41467-018-06692-2" rel="nofollow" target="_blank">
+            Daily humidity oscillation regulates the circadian clock to influence plant physiology
+          </a></small>
+        </li>
         <li>Dekhang, R. et al.
           <small><a href="https://doi.org/10.1534/g3.116.034298" rel="nofollow" target="_blank">
             The Neurospora Transcription Factor ADV-1 Transduces Light Signals and Temporal
@@ -151,12 +185,12 @@
             of a bioluminescent reporter.
           </a></small>
         </li>
-        <li>Patton, A.P. et al.
+        <!--<li>Patton, A.P. et al.
           <small><a href="http://doi.org/10.1523/JNEUROSCI.0958-16.2016" rel="nofollow" target="_blank">
             Combined Pharmacological and Genetic Manipulations Unlock Unprecedented Temporal
             Elasticity ...
           </a></small>
-        </li>
+        </li>-->
       </ul>
     </div>
   </div>
@@ -206,8 +240,8 @@
   <hr>
 
 
-  <p><strong>BioDare2</strong> is currently at <i><strong>beta</strong></i> version.
-    Please read below to find out how this testing phase may affect you.<br>&nbsp;</p>
+  <p><strong>BioDare2</strong> is still under development.
+    Please read below to find out how this may affect you.<br>&nbsp;</p>
 
   <div class="row">
 
@@ -215,17 +249,16 @@
       <h4>Rhythm analysis</h4>
       <p>We are using exactly the same implementation of period analysis methods as in original
         <a href="https://www.biodare.ed.ac.uk">BioDare</a>.</p>
-      <p>These methods will not change so any results you obtain using the <i>beta</i> version will be the
-        same as
-        if you wait for the final release.</p>
+      <p>These methods will not change so any results you obtain using this version will be the
+        same as in the future ones.</p>
     </div>
 
     <div class="col-sm-4">
       <h4>Data</h4>
       <p>Your data is safe, changes to BioDare will not affect the deposited data.</p>
       <p>At the moment data grouping and averaging is not available but we are working on it.</p>
-      <p>Currently, the supported time series formats are Excel file (with a time column and data columns) and
-        Topcount.</p>
+      <!--<p>Currently, the supported time series formats are Excel file (with a time column and data columns) and
+        Topcount.</p>-->
       <!--<p>We also cannot guarantee that we will preserve the data deposited during <i>beta</i> period.</p>
       <p>The reason is that there is a small chance that we may need to change our internal representation
       of the data in order to introduce new features and automatic migration may be too difficult for us.
@@ -249,7 +282,7 @@
     <p><i>Zielinski T, Moore AM, Troup E, Halliday KJ, Millar AJ (2014)<br>
       Strengths and Limitations of Period Estimation Methods for Circadian Data<br>
       (2014) PLoS ONE 9(5): e96462. doi:10.1371/journal.pone.0096462</i>
-      <a href="http://dx.doi.org/10.1371/journal.pone.0096462">read</a>
+       <a href="http://dx.doi.org/10.1371/journal.pone.0096462"> read</a>
     </p>
     <p>BioDare2 development was funded by the EU FP7 Collaborative Project TiMet (award 245143)
       and the UK Centre for Mammalian Synthetic Biology (award BB/M018040/1).</p>

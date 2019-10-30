@@ -20,16 +20,16 @@ import {ExperimentalAssayView} from '../dom/repo/exp/experimental-assay-view';
            routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Import data</a>
         <a *ngIf="experiment.security.canWrite && experiment.features.hasTSData" [routerLink]="['.','data','upload']"
            routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Replace data</a> -->
+        <a *ngIf="experiment.security.canWrite && experiment.features.hasTSData && !experiment.features.hasPPAJobs"
+           [routerLink]="['ppa/new']" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Period
+          analysis</a>
+        <a *ngIf="experiment.features.hasPPAJobs" [routerLink]="['ppa']" routerLinkActive="active"
+           [routerLinkActiveOptions]="{exact: false}">Period analysis</a>
+        <a *ngIf="experiment.security.canWrite || experiment.features.hasRhythmicityJobs" [routerLink]="['rhythmicity']" routerLinkActive="active"
+           [routerLinkActiveOptions]="{exact: false}">Rhythmicity</a>
         <a *ngIf="experiment.security.canWrite" [routerLink]="['.','data','ts-import2']"
            routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
           {{experiment.features.hasTSData ? 'Replace data' : 'Import data'}}</a>
-        <a *ngIf="experiment.security.canWrite && experiment.features.hasTSData && !experiment.features.hasPPAJobs"
-           [routerLink]="['ppa/new']" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">New
-          analysis</a>
-        <a *ngIf="experiment.features.hasPPAJobs" [routerLink]="['ppa']" routerLinkActive="active"
-           [routerLinkActiveOptions]="{exact: false}">Analyses</a>
-        <a [routerLink]="['rhythmicity']" routerLinkActive="active"
-           [routerLinkActiveOptions]="{exact: false}">Rhythmicity</a>
         <a [routerLink]="['file']" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Files</a>
         <a *ngIf="experiment.security.isOwner || experiment.security.isSuperOwner" [routerLink]="['publish']"
            routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">

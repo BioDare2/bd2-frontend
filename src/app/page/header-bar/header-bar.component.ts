@@ -11,7 +11,7 @@ import {BD2User} from '../../auth/user.dom';
       <div *ngIf="isJumbo" class="jumbotron">
         <div class="container">
           <h1>BioDare2
-            <small>beta</small>
+            <!--<small>beta</small>-->
           </h1>
           <p>Fast period analysis, timeseries processing and aesthetic visualizations</p>
           <p><a *ngIf="!logged" routerLink="/account/register" class="btn btn-primary btn-lg" role="button">Register

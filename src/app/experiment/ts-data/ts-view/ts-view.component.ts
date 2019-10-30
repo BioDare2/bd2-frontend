@@ -100,7 +100,7 @@ export class TSViewComponent extends ExperimentBaseComponent implements OnDestro
           this.tracesPerPlot = Math.max(5, data.length / 20);
           this.totalTraces = pack.totalTraces;
           this.currentPage = pack.currentPage;
-          this.analytics.experimentDataViev(this.assay.id);
+          if (this.assay) { this.analytics.experimentDataViev(this.assay.id); }
 
         },
         (err) => {
