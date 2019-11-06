@@ -248,11 +248,11 @@ export class BioDareRestService {
 
   }
 
-  ppaJob(expId: number, jobId: number): Promise<any> {
+  ppaJob(expId: number, jobId: number): Observable<any> {
     const options = this.makeOptions();
     const url = this.endPoints.experiment_url + '/' + expId + this.endPoints.ppa_job + '/' + jobId;
 
-    return this.OKJson(this.http.get(url, options)).toPromise();
+    return this.OKJson(this.http.get(url, options));
   }
 
   ppaExportJob(expId: number, jobId: number, phaseType: string): Promise<any> {

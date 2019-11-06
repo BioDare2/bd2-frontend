@@ -2,12 +2,12 @@ import {fakeAsync, tick, TestBed} from '@angular/core/testing';
 
 import { PPAJobFetcherService } from './ppajob-fetcher.service';
 import {of, throwError} from 'rxjs';
-import pp = jasmine.pp;
+
 import {PPAService} from '../../../ppa.service';
 import {PPAJobSummary} from '../../../ppa-dom';
-import {run} from 'tslint/lib/runner';
 
-fdescribe('PPAJobFetcherService', () => {
+
+describe('PPAJobFetcherService', () => {
 
   let ppaService;
   let service: PPAJobFetcherService;
@@ -41,7 +41,7 @@ fdescribe('PPAJobFetcherService', () => {
     let error2;
     let running;
 
-    service.allJob$.subscribe( job => val = job, err => error1 = err);
+    service.allJob$.subscribe( j => val = j, err => error1 = err);
     service.error$.subscribe( err => error2 = err);
     service.isReloading$.subscribe(v => running = v);
 
@@ -92,9 +92,9 @@ fdescribe('PPAJobFetcherService', () => {
     let val;
     let error1;
 
-    service.allJob$.subscribe( job => val = job, err => error1 = err);
+    service.allJob$.subscribe( j => val = j, err => error1 = err);
 
-    let job = new PPAJobSummary();
+    const job = new PPAJobSummary();
     job.state = 'SUBMITTED';
     ppaService.getPPAJob.and.returnValue(of(job));
 

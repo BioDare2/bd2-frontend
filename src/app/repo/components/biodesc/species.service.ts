@@ -24,6 +24,7 @@ export class SpeciesService {
     'Mus musculus',
     'Nannochloropsis',
     'Neurospora crassa',
+    'Oryza sativa',
     'Ostreococcus tauri',
     'Phaeodactylum tricornutum',
     'Physcometrella patens',

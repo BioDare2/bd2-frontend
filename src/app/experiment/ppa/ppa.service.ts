@@ -10,6 +10,7 @@ import {
   PPAResultsGroup,
   PPASelectGroup
 } from './ppa-dom';
+import {Observable} from "rxjs";
 
 
 @Injectable({
@@ -29,7 +30,7 @@ export class PPAService {
       .then(obj => obj.data);
   }
 
-  getPPAJob(expId: number, jobId: number): Promise<PPAJobSummary> {
+  getPPAJob(expId: number, jobId: number): Observable<PPAJobSummary> {
     return this.BD2REST.ppaJob(expId, jobId);
   }
 

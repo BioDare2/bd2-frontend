@@ -82,7 +82,7 @@ export class PPASelectPeriodsFormComponent extends PPABaseComponent implements O
 
   loadJob(expId: number, jobId: number): Promise<PPAJobSummary> {
 
-    return this.ppaService.getPPAJob(expId, jobId)
+    return this.ppaService.getPPAJob(expId, jobId).toPromise()
       .then( job => {
         this.job = job;
         return job;

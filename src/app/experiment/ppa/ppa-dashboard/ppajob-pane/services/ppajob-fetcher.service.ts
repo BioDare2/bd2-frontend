@@ -21,11 +21,13 @@ export class IntervalsKeeper<T> {
   nextInterval(id: T): number {
     if (this.id !== id ) {
       this.reset(id);
-    } else if (this.interval < this.MAX_RELOAD_INT) {
-      this.interval *= 2;
+    } else {
+      if (this.interval < this.MAX_RELOAD_INT) {
+        this.interval *= 2;
+      }
     }
 
-    if (this.deadline < Date.now()) {
+    if (this.deadline > Date.now()) {
       return this.interval;
     } else {
       return undefined;
@@ -167,9 +169,11 @@ export class PPAJobFetcherService {
 
   private reloadJob(job: PPAJobSummary) {
 
+
     if (this.reloadSubscription) { this.reloadSubscription.unsubscribe(); }
 
     const interval = this.currentReloadStatus.nextInterval(job.jobId);
+
 
     if (!interval) {
       // cancel reloading
@@ -187,10 +191,7 @@ export class PPAJobFetcherService {
         } else {
           console.log('Disabled reload as job has changed');
         }
-      },
-        err => {},
-      () => {console.log('Completed reload '); }
-      );
+      });
 
   }
 

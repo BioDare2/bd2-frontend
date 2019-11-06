@@ -97,6 +97,7 @@ export class PPARequest {
 export class PPAJobSummary {
 
   jobId: number;
+  parentId: number;
   reloaded: boolean;
 
   state: string;

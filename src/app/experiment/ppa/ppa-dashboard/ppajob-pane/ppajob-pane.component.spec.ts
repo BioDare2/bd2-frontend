@@ -61,6 +61,7 @@ describe('PPAJobPaneComponent', () => {
 
     });
 
+    /*
     it('loadJob takes job from service', () => {
 
       (ppaService.getPPAJob as any).and.returnValue(Promise.resolve(job));
@@ -79,14 +80,15 @@ describe('PPAJobPaneComponent', () => {
       tick();
       expect(current).toBe(job);
 
-    }));
+    }));*/
 
+    /*
     it('job is subscribed to currentJobStream', fakeAsync(() => {
 
       component.jobStream.next(job);
       tick();
       expect(component.job).toBe(job);
 
-    }));
+    }));*/
   });
 });
