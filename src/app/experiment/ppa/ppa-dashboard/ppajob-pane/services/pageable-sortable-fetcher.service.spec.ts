@@ -1,0 +1,409 @@
+
+import { PageableSortableFetcherService } from './pageable-sortable-fetcher.service';
+import {fakeAsync, tick} from '@angular/core/testing';
+import {of} from 'rxjs';
+import {PageEvent, Sort} from '@angular/material';
+
+fdescribe('PageableSortableFetcherService', () => {
+
+  let service: PageableSortableFetcherService<number[], string[], string[]>;
+
+  beforeEach(() => {
+
+    function fetching(ids: number[]) {
+      const val = ids.map( v => '' + (v + 1));
+      return of(val);
+    }
+    service = new PageableSortableFetcherService(true);
+    // @ts-ignore
+    service.fetchAsset = fetching;
+
+
+  });
+
+  it('should be created', () => {
+    expect(service).toBeTruthy();
+  });
+
+  it('initAssetsInput gives ids only on ON and valid ids', fakeAsync( () => {
+
+    let val;
+    let error;
+
+    // @ts-ignore
+    service.initAssetsInput().subscribe( ids => val = ids, err => error = err );
+
+    expect(val).toBeUndefined();
+    expect(error).toBeUndefined();
+
+    service.input(undefined);
+    tick();
+    expect(val).toBeUndefined();
+    expect(error).toBeUndefined();
+
+    service.input([] as any);
+    tick();
+    expect(val).toBeUndefined();
+    expect(error).toBeUndefined();
+
+    service.input([0] as any);
+    tick();
+    expect(val).toBeUndefined();
+    expect(error).toBeUndefined();
+
+    service.on(true);
+    tick();
+    expect(val).toEqual([0]);
+    expect(error).toBeUndefined();
+
+    service.input([120, 340]);
+    tick();
+    expect(val).toEqual([120, 340]);
+    expect(error).toBeUndefined();
+
+    val = undefined;
+    service.on(false);
+    service.input([1200, 3400]);
+    tick();
+    expect(val).toBeUndefined();
+    expect(error).toBeUndefined();
+
+  }));
+
+  it('initAssetsInput gives only distinct ids', fakeAsync( () => {
+
+    let val = [1, 1];
+    let error;
+
+    // @ts-ignore
+    service.initAssetsInput().subscribe( ids => val = ids, err => error = err );
+    service.on(true);
+
+    tick();
+    expect(val).toEqual([1, 1]);
+    expect(error).toBeUndefined();
+
+
+    service.input([12, 34]);
+    tick();
+    expect(val).toEqual([12, 34]);
+    expect(error).toBeUndefined();
+
+    val = undefined;
+    service.input([12, 34]);
+    tick();
+    expect(val).toBeUndefined();
+    expect(error).toBeUndefined();
+
+    service.input([12, 340]);
+    tick();
+    expect(val).toEqual([12, 340]);
+    expect(error).toBeUndefined();
+
+    service.input([12, 341]);
+    tick();
+    expect(val).toEqual([12, 341]);
+    expect(error).toBeUndefined();
+
+    val = undefined;
+    service.input([12, 341]);
+    tick();
+    expect(val).toBeUndefined();
+    expect(error).toBeUndefined();
+
+    service.input([1, 341]);
+    tick();
+    expect(val).toEqual([1, 341]);
+    expect(error).toBeUndefined();
+
+  }));
+
+  it('initAssetsInput gives last on refresh', fakeAsync( () => {
+
+    let val = [1, 1];
+    let error;
+
+    // @ts-ignore
+    service.initAssetsInput().subscribe( ids => val = ids, err => error = err );
+    service.on(true);
+
+    tick();
+    expect(val).toEqual([1, 1]);
+    expect(error).toBeUndefined();
+
+    service.refresh();
+    tick();
+    expect(val).toEqual([1, 1]);
+    expect(error).toBeUndefined();
+
+    service.input([12, 34]);
+    tick();
+
+    val = undefined;
+
+    service.refresh();
+    tick();
+    expect(val).toEqual([12, 34]);
+    expect(error).toBeUndefined();
+
+    val = undefined;
+    service.refresh();
+    tick();
+    expect(val).toEqual([12, 34]);
+    expect(error).toBeUndefined();
+
+    service.input([120, 34]);
+    tick();
+    val = undefined;
+    service.refresh();
+    tick();
+    expect(val).toEqual([120, 34]);
+    expect(error).toBeUndefined();
+
+  }));
+
+  it('loadAsset emits true in busy', fakeAsync( () => {
+
+    const val: boolean[] = [];
+
+    service.isBusy$.subscribe( b => val.push(b));
+
+    tick();
+    expect(val).toEqual([false]);
+
+    // @ts-ignore
+    service.loadAsset([1]);
+    tick();
+    expect(val).toEqual([false, true, false]);
+
+  }));
+
+  it('loadAsset fetches assets and puts them in stream', fakeAsync( () => {
+
+    let val;
+    let error;
+
+    // @ts-ignore
+    service.asset$.subscribe( a => val = a);
+    service.error$.subscribe( err => error = err);
+
+    tick();
+    expect(val).toBeUndefined();
+    expect(error).toBeUndefined();
+
+    // @ts-ignore
+    service.loadAsset([1, 2]);
+    tick();
+
+    expect(error).toBeUndefined();
+    expect(val).toEqual(['2', '3']);
+
+
+  }));
+
+  it('set asset updates state and emits asset', fakeAsync( () => {
+
+
+    let val;
+    let error;
+
+    // @ts-ignore
+    service.asset$.subscribe( a => val = a);
+    service.error$.subscribe( err => error = err);
+
+    tick();
+    expect(val).toBeUndefined();
+    expect(error).toBeUndefined();
+
+    // @ts-ignore
+    service.setAsset(['A'], [1, 2]);
+    tick();
+
+    expect(error).toBeUndefined();
+    expect(val).toEqual(['A']);
+    expect(service.currentInput).toEqual([1, 2]);
+    expect(service.currentAsset).toEqual(['A']);
+    expect(service.dataLength).toBe(1);
+
+  }));
+
+  it('data mutators filter empty assets', fakeAsync( () => {
+
+    // @ts-ignore
+    const [assets, sorts, pages, params] = service.dataMutators();
+
+    const val: any[] = [];
+    assets.subscribe( v => val.push(v));
+    tick();
+    expect(val).toEqual([]);
+
+    // @ts-ignore
+    service.asset$.next(['A']);
+    tick();
+    expect(val).toEqual([['A']]);
+
+    // @ts-ignore
+    service.asset$.next(undefined);
+    // @ts-ignore
+    service.asset$.next(['B']);
+
+    tick();
+    expect(val).toEqual([['A'], ['B']]);
+
+  }));
+
+  it('data mutators filter empty page', fakeAsync( () => {
+
+    // @ts-ignore
+    const [assets, sorts, pages, params] = service.dataMutators();
+
+    const val: any[] = [];
+    pages.subscribe( v => val.push(v));
+    tick();
+    expect(val).toEqual([]);
+
+    const page1 = new PageEvent();
+    const page2 = new PageEvent();
+    page2.pageIndex = 2;
+
+    // @ts-ignore
+    service.page$.next(undefined);
+
+    service.page(page1);
+    // @ts-ignore
+    service.page$.next(undefined);
+
+    service.page(page2);
+    tick();
+
+    expect(val).toEqual([page1, page2]);
+
+
+  }));
+
+
+  it('data stream does not emits without a page set', fakeAsync( () => {
+
+    const val = [];
+    let error;
+
+    service.data$.subscribe( a => val.push(a));
+    service.error$.subscribe( err => error = err);
+
+    tick();
+    expect(val).toEqual([]);
+    expect(error).toBeUndefined();
+
+    // @ts-ignore
+    service.setAsset(['A'], [1, 2]);
+    tick();
+    expect(val).toEqual([]);
+    expect(error).toBeUndefined();
+
+    const sort: Sort = {active: 'id', direction: 'asc'};
+    service.sort(sort);
+
+    tick();
+    expect(val).toEqual([]);
+    expect(error).toBeUndefined();
+
+    const page = new PageEvent();
+    page.pageIndex = 1;
+    page.pageSize = 3;
+    service.page(page);
+
+    tick();
+    expect(error).toBeUndefined();
+    expect(val).toEqual([['A']]);
+
+  }));
+
+  it('data stream responds to assets, sort and page events', fakeAsync( () => {
+
+    const val = [];
+    let error;
+
+    service.data$.subscribe( a => val.push(a));
+    service.error$.subscribe( err => error = err);
+
+    tick();
+    expect(val).toEqual([]);
+    expect(error).toBeUndefined();
+
+    // @ts-ignore
+    service.setAsset(['A'], [1, 2]);
+    tick();
+    expect(val).toEqual([]);
+    expect(error).toBeUndefined();
+
+    const sort: Sort = {active: 'id', direction: 'asc'};
+    service.sort(sort);
+
+    tick();
+    expect(val).toEqual([]);
+    expect(error).toBeUndefined();
+
+    const page = new PageEvent();
+    page.pageIndex = 1;
+    page.pageSize = 3;
+    service.page(page);
+
+    tick();
+    expect(error).toBeUndefined();
+    expect(val).toEqual([['A']]);
+
+    service.page(page);
+    // @ts-ignore
+    service.setAsset(['B'], [1, 2]);
+    service.sort(sort);
+
+    tick();
+    expect(error).toBeUndefined();
+    expect(val).toEqual([['A'], ['A'], ['B'], ['B']]);
+
+    service.sort(undefined);
+    expect(error).toBeUndefined();
+    expect(val).toEqual([['A'], ['A'], ['B'], ['B'], ['B']]);
+
+  }));
+
+  it('data stream sets busy during sorting and pagination', fakeAsync( () => {
+
+    const val = [];
+    const data = [];
+    let error;
+
+    service.isBusy$.subscribe( a => val.push(a));
+    service.error$.subscribe( err => error = err);
+    // otherwise the data stream is not consumed
+    service.data$.subscribe( d => data.push(d));
+
+    tick();
+    expect(val).toEqual([false]);
+    expect(error).toBeUndefined();
+
+
+    // @ts-ignore
+    service.setAsset(['A'], [1, 2]);
+
+    const sort: Sort = {active: 'id', direction: 'asc'};
+    service.sort(sort);
+
+    const page = new PageEvent();
+    page.pageIndex = 1;
+    page.pageSize = 3;
+    service.page(page);
+
+    tick();
+    expect(error).toBeUndefined();
+    expect(val).toEqual([false, true, false]);
+
+
+    service.page(page);
+    tick();
+    expect(error).toBeUndefined();
+    expect(val).toEqual([false, true, false, true, false]);
+
+
+  }));
+});

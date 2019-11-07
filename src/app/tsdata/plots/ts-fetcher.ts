@@ -8,6 +8,7 @@ import {catchError, debounceTime, distinctUntilChanged, filter, map, switchMap, 
 import {ExperimentalAssayView} from '../../dom/repo/exp/experimental-assay-view';
 import {PageEvent} from '@angular/material';
 import { InjectionToken } from '@angular/core';
+import {REMOVE_DEBOUNCE} from "../../shared/tokens";
 
 
 export class TimeSeriesPack {
@@ -19,7 +20,7 @@ export class TimeSeriesPack {
 }
 
 
-const REMOVE_DEBOUNCE = new InjectionToken<string>('param used only at tests');
+
 
 @Injectable()
 export class TSFetcher implements OnInit, OnDestroy {
