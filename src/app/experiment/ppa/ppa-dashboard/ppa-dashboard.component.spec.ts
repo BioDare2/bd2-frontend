@@ -14,6 +14,9 @@ import {HboxPlotModule} from 'bd2-ngx-hboxplot';
 import {SVGSaverModule} from '../../../graphic/svg-saver/svg-saver.module';
 import {PolarPlotModule} from 'bd2-ngx-polarplot';
 import {LegendModule} from '../../../graphic/legend/legend.module';
+import {PPAStatsTable2Component} from "./ppajob-pane/ppastats-table2/ppastats-table2.component";
+import {MaterialsModule} from "../../../shared/materials.module";
+import {NoopAnimationsModule} from "@angular/platform-browser/animations";
 
 
 describe('PPADashboardComponent', () => {
@@ -23,9 +26,9 @@ describe('PPADashboardComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [PPADashboardComponent, SelectableFitDialogComponent, PPAJobExportDialogComponent,
-        PPAJobPaneComponent, PPAStatsTableComponent, PhasesOptionsWidgetComponent, PPAJobResultsTableComponent],
+        PPAJobPaneComponent, PPAStatsTable2Component, PPAStatsTableComponent, PhasesOptionsWidgetComponent, PPAJobResultsTableComponent],
       imports: [ExperimentsTestToolModule, StaticContentTestModule, TSPlotModule, HboxPlotModule, SVGSaverModule,
-        PolarPlotModule, LegendModule]
+        PolarPlotModule, LegendModule, MaterialsModule, NoopAnimationsModule]
     })
       .compileComponents();
   }));

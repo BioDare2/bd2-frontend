@@ -135,7 +135,7 @@ export function makePPAStats(jobId: number): PPAJobSimpleStats {
       N: 8,
       ERR: 0.28,
       GOF: 0.43,
-      per: 24.59,
+      per: "NaN",
       perStd: 0.65,
       ph2Z: {
         m: 13.11,

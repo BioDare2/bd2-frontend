@@ -3,24 +3,27 @@ import {REMOVE_DEBOUNCE} from '../../../../../shared/tokens';
 import {PageableSortableFetcherService} from './pageable-sortable-fetcher.service';
 import {PPAJobSimpleStats, PPAJobSummary, PPASimpleStats} from '../../../ppa-dom';
 import {PPAService} from '../../../ppa.service';
-import {Observable, of, throwError} from 'rxjs';
+import {Observable, of} from 'rxjs';
 import {PageEvent, Sort} from '@angular/material';
 import {pageObjectData, sortObjectData} from '../../../../../shared/collections-util';
+import {map} from "rxjs/operators";
 
 @Injectable()
 export class PPAStatsFetcherService extends PageableSortableFetcherService<PPAJobSummary, PPAJobSimpleStats, PPAJobSimpleStats> {
 
-  readonly stats$: Observable<PPAJobSimpleStats>;
+  readonly stats$: Observable<PPASimpleStats[]>;
 
   constructor(private ppaService: PPAService,
               @Inject(REMOVE_DEBOUNCE) @Optional() removeDebounce = false) {
     super(removeDebounce);
 
-    this.stats$ = this.data$;
+    this.stats$ = this.data$.pipe(
+      map( js => js.stats)
+    );
   }
 
   protected sameInput(def1: PPAJobSummary, def2: PPAJobSummary) {
-    if (!def1 || def2 ) { return false; }
+    if (!def1 || !def2 ) { return false; }
 
     return def1.jobId === def2.jobId && def1.parentId === def2.parentId;
   }
@@ -48,13 +51,16 @@ export class PPAStatsFetcherService extends PageableSortableFetcherService<PPAJo
     sorted.jobId = asset.jobId;
     sorted.stats = sortedEnt;
 
+
     return sorted;
   }
 
   protected sortingKey(sort: Sort): (s: PPASimpleStats) => any {
     switch (sort.active) {
       case 'label': return (s: PPASimpleStats) => s.label;
-      case 'period': return (s: PPASimpleStats) => s.per;
+      case 'period': return (s: PPASimpleStats) => {
+        return Number.isNaN(Number(s.per)) ? Number.MAX_VALUE : s.per;
+      }
       default: {
         console.error('Not implemented sorting for ' + sort.active);
         return s => 0;

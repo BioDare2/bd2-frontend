@@ -56,6 +56,32 @@ describe('PPAStatsFetcherService', () => {
     ext = service.sortingKey(sort);
     expect(ext(stat)).toEqual(0);
 
+    sort = {active: 'period', direction: 'asc'};
+    stat.per = 'NaN' as any;
+    // @ts-ignore
+    ext = service.sortingKey(sort);
+    expect(ext(stat)).toEqual(Number.MAX_VALUE);
+    // expect(ext(stat)).toEqual(Number.NaN);
+  });
+
+  it('sortingKey handles NaN as last', () => {
+
+    const stat = new PPASimpleStats();
+    stat.per = 20;
+    stat.label = 'a';
+
+
+
+    const sort = {active: 'period', direction: 'asc'};
+    // @ts-ignore
+    let ext = service.sortingKey(sort);
+
+    stat.per = 'NaN' as any;
+    expect(ext(stat)).toEqual(Number.MAX_VALUE);
+
+    stat.per = Number.NaN;
+    expect(ext(stat)).toEqual(Number.MAX_VALUE);
+
   });
 
   it('sorts by label and period', () => {
@@ -89,19 +115,21 @@ describe('PPAStatsFetcherService', () => {
       // @ts-ignore
       sorted = service.sortAsset(stats, sort);
 
-      let periods = sorted.stats.map(s => s.per);
-      let expP = [24.04,
+      let periods: any[] = sorted.stats.map(s => s.per);
+      let expP = [
+        24.04,
         24.04,
         24.12,
         24.27,
         24.38,
-        24.59,
         30.42,
         30.6,
         31,
-        31.08
+        31.08,
+        'NaN',
       ];
 
+      console.log(periods);
       expect(periods).toEqual(expP);
 
       sort = {active: 'period', direction: 'desc'};

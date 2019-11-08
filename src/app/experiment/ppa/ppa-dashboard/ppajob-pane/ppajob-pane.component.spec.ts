@@ -12,6 +12,9 @@ import {SVGSaverModule} from '../../../../graphic/svg-saver/svg-saver.module';
 import {PPAStatsTableComponent} from './ppastats-table/ppastats-table.component';
 import {PPAJobResultsTableComponent} from './ppajob-results-table/ppajob-results-table.component';
 import {RouterTestingModule} from '@angular/router/testing';
+import {PPAStatsTable2Component} from "./ppastats-table2/ppastats-table2.component";
+import {MaterialsModule} from "../../../../shared/materials.module";
+import {NoopAnimationsModule} from "@angular/platform-browser/animations";
 
 
 describe('PPAJobPaneComponent', () => {
@@ -29,9 +32,10 @@ describe('PPAJobPaneComponent', () => {
         PolarPlotModule,
         LegendModule,
         SVGSaverModule,
-        RouterTestingModule
+        RouterTestingModule,
+        MaterialsModule, NoopAnimationsModule
       ],
-      declarations: [PPAJobPaneComponent, PPAStatsTableComponent, PhasesOptionsWidgetComponent, PPAJobResultsTableComponent],
+      declarations: [PPAJobPaneComponent, PPAStatsTableComponent, PPAStatsTable2Component, PhasesOptionsWidgetComponent, PPAJobResultsTableComponent],
       providers: [
         {provide: PPAService, useValue: ppaService},
       ]

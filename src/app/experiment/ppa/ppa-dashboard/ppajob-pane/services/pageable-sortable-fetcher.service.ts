@@ -3,7 +3,7 @@ import {BehaviorSubject, combineLatest, merge, Observable, of, Subject, throwErr
 import {PageEvent, Sort} from '@angular/material';
 import {
   catchError,
-  debounceTime,
+  debounceTime, delay,
   distinctUntilChanged,
   filter,
   flatMap,
@@ -12,7 +12,7 @@ import {
   tap
 } from 'rxjs/operators';
 import {arraysMatch} from '../../../../../shared/collections-util';
-import {BD2eJTKRes, TSResult} from "../../../../rhythmicity/rhythmicity-dom";
+import {BD2eJTKRes, TSResult} from '../../../../rhythmicity/rhythmicity-dom';
 
 export class PageableSortableFetcherService<I, A, D> {
 
@@ -108,6 +108,7 @@ export class PageableSortableFetcherService<I, A, D> {
         this.error$.next(err);
         return this.errorToData(err);
       }),
+      // delay(2000),
       tap( v => this.isProcessing$.next(false)),
     );
 
@@ -214,7 +215,7 @@ export class PageableSortableFetcherService<I, A, D> {
     );
 
     const distinctInput$ = onInput$.pipe(
-      distinctUntilChanged( (def1: I, def2: I) => this.sameInput(def1, def2))
+      distinctUntilChanged( (def1: I, def2: I) => this.sameInput(def1, def2)),
     );
 
     const refreshedInput$ = this.refresh$.pipe(

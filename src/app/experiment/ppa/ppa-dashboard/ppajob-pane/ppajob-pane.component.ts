@@ -58,6 +58,16 @@ import {PPAJobFetcherService} from './services/ppajob-fetcher.service';
             {{job.lastError}}
           </div>
         </div>
+
+        <ng-container *ngIf="ppaJobFetcher.finishedJob$ | async as finishedJob">
+          <bd2-ppastats-table2
+            [job]="finishedJob" 
+            [phaseType]="phaseParams.phaseType"
+            [relativeTo]="phaseParams.relativeTo"
+            [phaseUnit]="phaseParams.phaseUnit"
+          ></bd2-ppastats-table2>
+        </ng-container>
+        
         <div [hidden]="!expanded || !isFinished(job)">
 
           <hr>
@@ -138,19 +148,22 @@ import {PPAJobFetcherService} from './services/ppajob-fetcher.service';
               </div>
             </div>
           </div>
+
           <div>
             <label (click)="toggleStats()" role="button">
                           <span [style.color]="statsOn ? 'green' : 'red'" [style.font-size.%]="120"
                                 class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>
               Summary statistics
             </label>
-            <div [hidden]="!statsOn || !isFinished(job)">
+
+            <!--<div [hidden]="!statsOn || !isFinished(job)">
               <bd2-ppastats-table [hidden]="statsLoading" [jobStats]="jobStats"
                                   [phaseType]="phaseParams.phaseType"
                                   [relativeTo]="phaseParams.relativeTo" [phaseUnit]="phaseParams.phaseUnit">
               </bd2-ppastats-table>
+
               <div [hidden]="!statsLoading"> loading stats...</div>
-            </div>
+            </div>-->
           </div>
 
           <div>
@@ -224,7 +237,7 @@ export class PPAJobPaneComponent implements OnInit, OnChanges, OnDestroy {
   sorted = 'none';
   legendOn = 'always';
   dots = '';
-  jobStats: PPAJobSimpleStats;
+  // jobStats: PPAJobSimpleStats;
   indResults: PPAJobSimpleResults;
   periods: number[][];
   phases: number[][];
@@ -551,13 +564,14 @@ export class PPAJobPaneComponent implements OnInit, OnChanges, OnDestroy {
       switchMap(job => this.ppaService.getPPAJobSimpleStats(this.assay.id, job.jobId)),
       filter(v => !!v));
 
+    /*
     this.statsStream
     // .delay(3000 + Math.random() * 3000)
       .subscribe(stat => {
           this.statsLoading = false;
           this.jobStats = stat;
         }
-      );
+      );*/
 
     this.indResultsStream = this.indToogleStream.pipe(
       combineLatest(

@@ -24,13 +24,15 @@ import {SharedComponentsModule} from '../../shared/shared-components.module';
 import {ButtonsModule} from 'ngx-bootstrap/buttons';
 import {PPASelectPeriodsFormComponent} from './ppa-select-periods-form/ppa-select-periods-form.component';
 import {MaterialsModule} from '../../shared/materials.module';
+import { PPAStatsTable2Component } from './ppa-dashboard/ppajob-pane/ppastats-table2/ppastats-table2.component';
 
 @NgModule({
   declarations: [PPAStartFormComponent, PPAJobParamsRFormComponent,
     PPADashboardComponent, PPAJobExportDialogComponent, PPAJobPaneComponent,
     PhasesOptionsWidgetComponent, PPAStatsTableComponent, PPAJobResultsTableComponent,
     SelectableFitDialogComponent,
-    PPASelectPeriodsFormComponent],
+    PPASelectPeriodsFormComponent,
+    PPAStatsTable2Component],
   imports: [
     CommonModule,
     FormsModule,
