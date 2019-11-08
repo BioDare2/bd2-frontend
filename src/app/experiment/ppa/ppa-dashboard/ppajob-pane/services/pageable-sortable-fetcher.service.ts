@@ -12,6 +12,7 @@ import {
   tap
 } from 'rxjs/operators';
 import {arraysMatch} from '../../../../../shared/collections-util';
+import {BD2eJTKRes, TSResult} from "../../../../rhythmicity/rhythmicity-dom";
 
 export class PageableSortableFetcherService<I, A, D> {
 
@@ -197,7 +198,7 @@ export class PageableSortableFetcherService<I, A, D> {
   /**
    * @ToBeOverwritten
    */
-  protected assetToDataLength(asset: A) {
+  protected assetToDataLength(asset: A): number {
     if (Array.isArray(asset)) {
       return asset.length;
     } else {
@@ -234,4 +235,6 @@ export class PageableSortableFetcherService<I, A, D> {
     }
     return def1 === def2;
   }
+
+
 }

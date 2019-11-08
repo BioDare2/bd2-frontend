@@ -1,16 +1,22 @@
 import {Inject, Injectable, Optional} from '@angular/core';
 import {REMOVE_DEBOUNCE} from '../../../../../shared/tokens';
 import {PageableSortableFetcherService} from './pageable-sortable-fetcher.service';
-import {PPAJobSimpleStats, PPAJobSummary} from '../../../ppa-dom';
+import {PPAJobSimpleStats, PPAJobSummary, PPASimpleStats} from '../../../ppa-dom';
 import {PPAService} from '../../../ppa.service';
+import {Observable, of, throwError} from 'rxjs';
+import {PageEvent, Sort} from '@angular/material';
+import {pageObjectData, sortObjectData} from '../../../../../shared/collections-util';
 
 @Injectable()
 export class PPAStatsFetcherService extends PageableSortableFetcherService<PPAJobSummary, PPAJobSimpleStats, PPAJobSimpleStats> {
 
+  readonly stats$: Observable<PPAJobSimpleStats>;
 
   constructor(private ppaService: PPAService,
               @Inject(REMOVE_DEBOUNCE) @Optional() removeDebounce = false) {
     super(removeDebounce);
+
+    this.stats$ = this.data$;
   }
 
   protected sameInput(def1: PPAJobSummary, def2: PPAJobSummary) {
@@ -20,5 +26,60 @@ export class PPAStatsFetcherService extends PageableSortableFetcherService<PPAJo
   }
 
 
+  protected assetToDataLength(stats: PPAJobSimpleStats) {
+    return stats.stats.length;
+  }
 
+  protected fetchAsset(job: PPAJobSummary): Observable<PPAJobSimpleStats> {
+
+    return this.ppaService.getPPAJobSimpleStats(job.parentId, job.jobId);
+
+  }
+
+  protected sortAsset(asset: PPAJobSimpleStats, sort: Sort) {
+
+    if (!sort || !sort.active || sort.direction === '') {
+      return asset;
+    }
+
+    const sortedEnt = sortObjectData(asset.stats, sort.direction, this.sortingKey(sort));
+
+    const sorted = new PPAJobSimpleStats();
+    sorted.jobId = asset.jobId;
+    sorted.stats = sortedEnt;
+
+    return sorted;
+  }
+
+  protected sortingKey(sort: Sort): (s: PPASimpleStats) => any {
+    switch (sort.active) {
+      case 'label': return (s: PPASimpleStats) => s.label;
+      case 'period': return (s: PPASimpleStats) => s.per;
+      default: {
+        console.error('Not implemented sorting for ' + sort.active);
+        return s => 0;
+      }
+    }
+  }
+
+  protected pageAsset(asset: PPAJobSimpleStats, page: PageEvent) {
+    if (!page) { return asset; }
+
+    const pagedEnt = pageObjectData(asset.stats, page);
+
+    const paged = new PPAJobSimpleStats();
+    paged.jobId = asset.jobId;
+    paged.stats = pagedEnt;
+
+    return paged;
+  }
+
+
+  protected processAsset(asset: PPAJobSimpleStats, params: any): PPAJobSimpleStats {
+    return asset;
+  }
+
+  protected errorToData(err: any): Observable<PPAJobSimpleStats> {
+    return of(new PPAJobSimpleStats());
+  }
 }

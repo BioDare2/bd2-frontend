@@ -59,9 +59,8 @@ export class PPAService {
       .then(obj => obj.data);
   }
 
-  getPPAJobSimpleStats(expId: number, jobId: number): Promise<PPAJobSimpleStats> {
-    return this.BD2REST.ppaJobSimpleStat(expId, jobId)
-      ;
+  getPPAJobSimpleStats(expId: number, jobId: number): Observable<PPAJobSimpleStats> {
+    return this.BD2REST.ppaJobSimpleStat(expId, jobId);
   }
 
   /*

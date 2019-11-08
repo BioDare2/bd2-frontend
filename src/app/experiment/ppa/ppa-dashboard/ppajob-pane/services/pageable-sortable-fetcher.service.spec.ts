@@ -4,7 +4,7 @@ import {fakeAsync, tick} from '@angular/core/testing';
 import {of} from 'rxjs';
 import {PageEvent, Sort} from '@angular/material';
 
-fdescribe('PageableSortableFetcherService', () => {
+describe('PageableSortableFetcherService', () => {
 
   let service: PageableSortableFetcherService<number[], string[], string[]>;
 
