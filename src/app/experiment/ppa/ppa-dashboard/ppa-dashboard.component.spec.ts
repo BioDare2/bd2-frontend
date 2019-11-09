@@ -1,6 +1,6 @@
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 import {ExperimentsTestToolModule} from '../../experiment_test_tool.spec';
-// import {PPAJobParamsRFormComponent} from './ppajob-params-rform/ppajob-params-rform.component';
+
 import {StaticContentTestModule} from '../../../documents/static-content_test_tool.spec';
 import {PPADashboardComponent} from './ppa-dashboard.component';
 import {SelectableFitDialogComponent} from '../ppa-fit/selectable-fit-dialog.component';
@@ -14,9 +14,10 @@ import {HboxPlotModule} from 'bd2-ngx-hboxplot';
 import {SVGSaverModule} from '../../../graphic/svg-saver/svg-saver.module';
 import {PolarPlotModule} from 'bd2-ngx-polarplot';
 import {LegendModule} from '../../../graphic/legend/legend.module';
-import {PPAStatsTable2Component} from "./ppajob-pane/ppastats-table2/ppastats-table2.component";
-import {MaterialsModule} from "../../../shared/materials.module";
-import {NoopAnimationsModule} from "@angular/platform-browser/animations";
+import {PPAStatsTable2Component} from './ppajob-pane/ppastats-table2/ppastats-table2.component';
+import {MaterialsModule} from '../../../shared/materials.module';
+import {NoopAnimationsModule} from '@angular/platform-browser/animations';
+import {PPAResultsTable2Component} from './ppajob-pane/pparesults-table2/pparesults-table2.component';
 
 
 describe('PPADashboardComponent', () => {
@@ -26,7 +27,8 @@ describe('PPADashboardComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [PPADashboardComponent, SelectableFitDialogComponent, PPAJobExportDialogComponent,
-        PPAJobPaneComponent, PPAStatsTable2Component, PPAStatsTableComponent, PhasesOptionsWidgetComponent, PPAJobResultsTableComponent],
+        PPAJobPaneComponent, PPAStatsTable2Component, PPAStatsTableComponent, PPAResultsTable2Component,
+        PhasesOptionsWidgetComponent, PPAJobResultsTableComponent],
       imports: [ExperimentsTestToolModule, StaticContentTestModule, TSPlotModule, HboxPlotModule, SVGSaverModule,
         PolarPlotModule, LegendModule, MaterialsModule, NoopAnimationsModule]
     })

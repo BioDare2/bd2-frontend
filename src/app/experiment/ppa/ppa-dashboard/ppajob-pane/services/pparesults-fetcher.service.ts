@@ -12,14 +12,17 @@ import {PageEvent, Sort} from '@angular/material';
 import {pageObjectData, sortObjectData} from '../../../../../shared/collections-util';
 
 @Injectable()
-export class PPAIndividualResultsFetcherService
+export class PPAResultsFetcherService
   extends PageableSortableFetcherService<PPAJobSummary, PPAJobSimpleResults, PPASimpleResultEntry[]> {
 
+  readonly results$: Observable<PPASimpleResultEntry[]>;
 
   constructor(private ppaService: PPAService,
               @Inject(REMOVE_DEBOUNCE) @Optional() removeDebounce = false) {
 
     super(removeDebounce);
+
+    this.results$ = this.data$;
   }
 
   protected sameInput(def1: PPAJobSummary, def2: PPAJobSummary) {

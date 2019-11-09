@@ -1,16 +1,16 @@
 import { TestBed } from '@angular/core/testing';
 
-import { PPAIndividualResultsFetcherService } from './ppaindividual-results-fetcher.service';
+import { PPAResultsFetcherService } from './pparesults-fetcher.service';
 import {throwError} from 'rxjs';
 import {PPAService} from '../../../ppa.service';
 import {PPASimpleResultEntry, } from '../../../ppa-dom';
 import {PageEvent, Sort} from '@angular/material';
 import {makePPASimpleResults, } from './ppa-test-data.spec';
 
-describe('PPAIndividualResultsFetcherService', () => {
+describe('PPAResultsFetcherService', () => {
 
   let ppaService;
-  let service: PPAIndividualResultsFetcherService;
+  let service: PPAResultsFetcherService;
 
   beforeEach(() => {
 
@@ -20,15 +20,15 @@ describe('PPAIndividualResultsFetcherService', () => {
 
     ppaService.getPPAJob.and.returnValue(throwError('mock service not initialized'));
 
-    service = new PPAIndividualResultsFetcherService(ppaService, true);
+    service = new PPAResultsFetcherService(ppaService, true);
   });
 
   it('should be created', () => {
     TestBed.configureTestingModule({providers: [
-        PPAIndividualResultsFetcherService,
+        PPAResultsFetcherService,
         {provide: PPAService, useValue: ppaService}]}
     );
-    const service1: PPAIndividualResultsFetcherService = TestBed.get(PPAIndividualResultsFetcherService);
+    const service1: PPAResultsFetcherService = TestBed.get(PPAResultsFetcherService);
     expect(service1).toBeTruthy();
 
     expect(service).toBeTruthy();
@@ -110,7 +110,7 @@ describe('PPAIndividualResultsFetcherService', () => {
     sort = {active: 'state', direction: 'asc'};
     // @ts-ignore
     ext = service.sortingKey(sort);
-    expect(ext(stat)).toEqual('I');
+    expect(ext(stat)).toEqual(' I');
 
     sort = {active: 'unknown', direction: 'asc'};
     // @ts-ignore

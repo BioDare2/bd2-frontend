@@ -233,8 +233,9 @@ export class PPASimpleResultEntry {
     if (res.failed) {
       return 'F';
     }
+    // there is a space here so sorting will look like A before I
     if (res.ignored) {
-      return 'I';
+      return ' I';
     }
     if (res.attention) {
       return 'A';

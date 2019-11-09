@@ -12,18 +12,18 @@
   </mat-expansion-panel-header>
 
   <mat-divider></mat-divider>
-  <mat-progress-bar *ngIf="statsFetcher.isBusy$ | async" mode="indeterminate"></mat-progress-bar>
+  <mat-progress-bar *ngIf="fetcher.isBusy$ | async" mode="indeterminate"></mat-progress-bar>
 
-  <mat-paginator #paginator [length]="statsFetcher.dataLength" [disabled]="disablePaginator"
-                   [pageSize]="statsFetcher.currentPage?.pageSize || 5"
-                   [pageIndex]="statsFetcher.currentPage?.pageIndex"
-                   [pageSizeOptions]="[2, 5, 10, 25, 50, 100]"
-                   (page)="loadPage($event)"
+  <mat-paginator #paginator [length]="fetcher.dataLength" [disabled]="disablePaginator"
+                 [pageSize]="fetcher.currentPage?.pageSize || 5"
+                 [pageIndex]="fetcher.currentPage?.pageIndex"
+                 [pageSizeOptions]="[2, 5, 10, 25, 50, 100]"
+                 (page)="loadPage($event)"
 
     >
     </mat-paginator>
 
-    <table mat-table class="full-width-table" width="100%" [dataSource]="statsFetcher.stats$"
+    <table mat-table class="full-width-table" width="100%" [dataSource]="fetcher.stats$"
            matSort (matSortChange)="sortData($event)"
 
            aria-label="Summary statistics">

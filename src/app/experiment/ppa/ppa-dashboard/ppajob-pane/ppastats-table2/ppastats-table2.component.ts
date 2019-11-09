@@ -20,44 +20,44 @@ export class PPAStatsTable2Component implements OnInit, OnDestroy {
 
   @Input()
   set job(job: PPAJobSummary) {
-    this.statsFetcher.input(job);
+    this.fetcher.input(job);
   }
 
   @Input()
   set on(val: boolean) {
     this.isOn = val;
-    this.statsFetcher.on(val);
+    this.fetcher.on(val);
   }
 
   isOn = false;
   disablePaginator = false;
   displayedColumns = ['label', 'n', 'period', 'period.std', 'phase', 'phase.std', 'amplitude', 'amplitude.std'];
 
-  constructor(private statsFetcher: PPAStatsFetcherService) { }
+  constructor(private fetcher: PPAStatsFetcherService) { }
 
   ngOnInit() {
     const firstPage = new PageEvent();
     firstPage.pageIndex = 0;
     firstPage.pageSize = 5;
-    this.statsFetcher.page(firstPage);
+    this.fetcher.page(firstPage);
 
 
-    // this.statsFetcher.on(true);
+    // this.fetcher.on(true);
   }
 
   ngOnDestroy(): void {
-    if (this.statsFetcher) {
-      this.statsFetcher.close();
+    if (this.fetcher) {
+      this.fetcher.close();
     }
   }
 
   loadPage(page: PageEvent) {
-    console.log('Load page', page);
-    this.statsFetcher.page(page);
+    // console.log('Load page', page);
+    this.fetcher.page(page);
   }
 
   sortData(sort: Sort) {
-    this.statsFetcher.sort(sort);
+    this.fetcher.sort(sort);
   }
 
   extractPhase(stat: PPASimpleStats): number {

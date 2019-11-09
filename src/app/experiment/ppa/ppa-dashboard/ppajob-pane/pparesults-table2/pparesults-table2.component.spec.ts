@@ -1,32 +1,30 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { PPAStatsTable2Component } from './ppastats-table2.component';
+import { PPAResultsTable2Component } from './pparesults-table2.component';
 import {PPAService} from '../../../ppa.service';
 import {MaterialsModule} from '../../../../../shared/materials.module';
 import {NoopAnimationsModule} from '@angular/platform-browser/animations';
 
-describe('PPAStatsTable2Component', () => {
-
+describe('PPAResultsTable2Component', () => {
   let ppaService: PPAService;
 
-  let component: PPAStatsTable2Component;
-  let fixture: ComponentFixture<PPAStatsTable2Component>;
+  let component: PPAResultsTable2Component;
+  let fixture: ComponentFixture<PPAResultsTable2Component>;
 
   beforeEach(async(() => {
     ppaService = jasmine.createSpyObj('ppaService', ['getPPAJob']);
 
     TestBed.configureTestingModule({
       imports: [MaterialsModule, NoopAnimationsModule],
-      declarations: [ PPAStatsTable2Component ],
+      declarations: [ PPAResultsTable2Component ],
       providers: [
         {provide: PPAService, useValue: ppaService},
       ]
-    })
-    .compileComponents();
+    }).compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(PPAStatsTable2Component);
+    fixture = TestBed.createComponent(PPAResultsTable2Component);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

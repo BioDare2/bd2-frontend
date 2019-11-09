@@ -10,7 +10,7 @@ import {
   PPAResultsGroup,
   PPASelectGroup
 } from './ppa-dom';
-import {Observable} from "rxjs";
+import {Observable} from 'rxjs';
 
 
 @Injectable({

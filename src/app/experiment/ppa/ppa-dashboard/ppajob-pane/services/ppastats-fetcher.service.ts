@@ -6,7 +6,7 @@ import {PPAService} from '../../../ppa.service';
 import {Observable, of} from 'rxjs';
 import {PageEvent, Sort} from '@angular/material';
 import {pageObjectData, sortObjectData} from '../../../../../shared/collections-util';
-import {map} from "rxjs/operators";
+import {map} from 'rxjs/operators';
 
 @Injectable()
 export class PPAStatsFetcherService extends PageableSortableFetcherService<PPAJobSummary, PPAJobSimpleStats, PPAJobSimpleStats> {
@@ -58,7 +58,7 @@ export class PPAStatsFetcherService extends PageableSortableFetcherService<PPAJo
       case 'label': return (s: PPASimpleStats) => s.label;
       case 'period': return (s: PPASimpleStats) => {
         return Number.isNaN(Number(s.per)) ? Number.MAX_VALUE : s.per;
-      }
+      };
       default: {
         console.error('Not implemented sorting for ' + sort.active);
         return s => 0;

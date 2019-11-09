@@ -74,7 +74,7 @@ describe('PPAStatsFetcherService', () => {
 
     const sort = {active: 'period', direction: 'asc'};
     // @ts-ignore
-    let ext = service.sortingKey(sort);
+    const ext = service.sortingKey(sort);
 
     stat.per = 'NaN' as any;
     expect(ext(stat)).toEqual(Number.MAX_VALUE);

@@ -61,13 +61,21 @@ import {PPAJobFetcherService} from './services/ppajob-fetcher.service';
 
         <ng-container *ngIf="ppaJobFetcher.finishedJob$ | async as finishedJob">
           <bd2-ppastats-table2
-            [job]="finishedJob" 
+            [job]="finishedJob"
             [phaseType]="phaseParams.phaseType"
             [relativeTo]="phaseParams.relativeTo"
             [phaseUnit]="phaseParams.phaseUnit"
           ></bd2-ppastats-table2>
+
+          <bd2-pparesults-table2
+            [job]="finishedJob"
+            [phaseType]="phaseParams.phaseType"
+            [relativeTo]="phaseParams.relativeTo"
+            [phaseUnit]="phaseParams.phaseUnit"
+            [fitDialog]="fitDialog"
+          ></bd2-pparesults-table2>
         </ng-container>
-        
+
         <div [hidden]="!expanded || !isFinished(job)">
 
           <hr>

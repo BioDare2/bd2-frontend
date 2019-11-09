@@ -21,7 +21,8 @@ import {
   MatIconModule,
   MatAutocompleteModule,
   MatExpansionModule,
-  MatProgressBarModule
+  MatProgressBarModule,
+  MatTooltipModule
 } from '@angular/material';
 
 @NgModule({
@@ -47,7 +48,8 @@ import {
     MatIconModule,
     MatAutocompleteModule,
     MatExpansionModule,
-    MatProgressBarModule
+    MatProgressBarModule,
+    MatTooltipModule
   ],
   exports: [
     MatFormFieldModule,
@@ -71,7 +73,8 @@ import {
     MatIconModule,
     MatAutocompleteModule,
     MatExpansionModule,
-    MatProgressBarModule
+    MatProgressBarModule,
+    MatTooltipModule
   ]
 })
 export class MaterialsModule {

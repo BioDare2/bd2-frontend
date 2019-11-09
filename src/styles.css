@@ -166,12 +166,12 @@ div.panel hr {
   margin-top: 15px;
 }
 
-tr.ppa_ignored {
+tr.ppa_ignored td {
   color: grey;
   font-style: italic;
 }
 
-tr.ppa_attention {
+tr.ppa_attention td {
   color: red;
 }
 
@@ -199,4 +199,8 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 .spaced mat-radio-button {
   margin-right: 1em;
+}
+
+.tooltip-red {
+  background: #b71c1c;
 }
