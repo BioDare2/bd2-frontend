@@ -29,7 +29,7 @@ describe('PPAStatsFetcherService', () => {
         PPAStatsFetcherService,
         {provide: PPAService, useValue: ppaService}]}
     );
-    const service1: PPAJobFetcherService = TestBed.get(PPAStatsFetcherService);
+    const service1: PPAStatsFetcherService = TestBed.get(PPAStatsFetcherService);
     expect(service1).toBeTruthy();
 
     expect(service).toBeTruthy();
@@ -129,7 +129,7 @@ describe('PPAStatsFetcherService', () => {
         'NaN',
       ];
 
-      console.log(periods);
+      // console.log(periods);
       expect(periods).toEqual(expP);
 
       sort = {active: 'period', direction: 'desc'};

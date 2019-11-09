@@ -1,4 +1,4 @@
-import {PPAJobSimpleStats} from '../../../ppa-dom';
+import {PPAJobSimpleResults, PPAJobSimpleStats} from '../../../ppa-dom';
 
 
 export function makePPAStats(jobId: number): PPAJobSimpleStats {
@@ -135,7 +135,7 @@ export function makePPAStats(jobId: number): PPAJobSimpleStats {
       N: 8,
       ERR: 0.28,
       GOF: 0.43,
-      per: "NaN",
+      per: 'NaN',
       perStd: 0.65,
       ph2Z: {
         m: 13.11,
@@ -611,4 +611,447 @@ export function makePPAStats(jobId: number): PPAJobSimpleStats {
 
   stats.jobId = jobId;
   return stats;
+}
+
+export function makePPASimpleResults(): PPAJobSimpleResults {
+
+const res = {
+  jobId: 866,
+  results: [
+    {
+      jobId: 866,
+      dataId: 1,
+      rawId: 1,
+      bioId: 1,
+      envId: 1,
+      orgId: 'B2',
+      dataRef: '1. [B2]',
+      label: 'noise',
+      message: null,
+      ignored: true,
+      circadian: true,
+      attention: false,
+      failed: false,
+      ERR: 0.95,
+      GOF: 0.92,
+      dType: 'LIN_DTR',
+      summary: null,
+      per: 26.65,
+      perE: 2.2,
+      ph2Z: {
+        m: 18.39,
+        f: 18.38,
+        p: 22.9,
+        a: 18.1
+      },
+      ph2W: {
+        m: 18.39,
+        f: 18.38,
+        p: 22.9,
+        a: 18.1
+      },
+      ph2ZCir: {
+        m: 16.56,
+        f: 16.55,
+        p: 20.62,
+        a: 16.3
+      },
+      ph2WCir: {
+        m: 16.56,
+        f: 16.55,
+        p: 20.62,
+        a: 16.3
+      },
+      phE: 5.3,
+      phECir: 4.77,
+      amp: {
+        m: 0.41,
+        f: 0.4,
+        p: 1.62,
+        a: 1.41
+      },
+      ampE: 0.385934
+    },
+    {
+      jobId: 866,
+      dataId: 2,
+      rawId: 2,
+      bioId: 2,
+      envId: 2,
+      orgId: 'B5',
+      dataRef: '2. [B5]',
+      label: '24 0.1',
+      message: null,
+      ignored: false,
+      circadian: true,
+      attention: false,
+      failed: false,
+      ERR: 0.56,
+      GOF: 0.92,
+      dType: 'LIN_DTR',
+      summary: null,
+      per: 21.85,
+      perE: 0.87,
+      ph2Z: {
+        m: 3.19,
+        f: 3.12,
+        p: 4.2,
+        a: 3.68
+      },
+      ph2W: {
+        m: 3.19,
+        f: 3.12,
+        p: 4.2,
+        a: 3.68
+      },
+      ph2ZCir: {
+        m: 3.5,
+        f: 3.43,
+        p: 4.61,
+        a: 4.04
+      },
+      ph2WCir: {
+        m: 3.5,
+        f: 3.43,
+        p: 4.61,
+        a: 4.04
+      },
+      phE: 2.84,
+      phECir: 3.12,
+      amp: {
+        m: 0.67,
+        f: 0.69,
+        p: 1.41,
+        a: 1.33
+      },
+      ampE: 0.374411
+    },
+    {
+      jobId: 866,
+      dataId: 3,
+      rawId: 3,
+      bioId: 1,
+      envId: 1,
+      orgId: 'B6',
+      dataRef: '3. [B6]',
+      label: 'noise',
+      message: null,
+      ignored: false,
+      circadian: false,
+      attention: true,
+      failed: false,
+      ERR: 0.69,
+      GOF: 0.93,
+      dType: 'LIN_DTR',
+      summary: null,
+      per: 2.83,
+      perE: 0.02,
+      ph2Z: {
+        m: 2.66,
+        f: 2.66,
+        p: 2.7,
+        a: 2.71
+      },
+      ph2W: {
+        m: 2.66,
+        f: 2.66,
+        p: 2.7,
+        a: 2.71
+      },
+      ph2ZCir: {
+        m: 22.51,
+        f: 22.52,
+        p: 22.87,
+        a: 22.95
+      },
+      ph2WCir: {
+        m: 22.53,
+        f: 22.53,
+        p: 22.87,
+        a: 22.96
+      },
+      phE: 0.51,
+      phECir: 4.32,
+      amp: {
+        m: 0.55,
+        f: 0.55,
+        p: 0.87,
+        a: 0.86
+      },
+      ampE: 0.381581
+    },
+    {
+      jobId: 866,
+      dataId: 4,
+      rawId: 4,
+      bioId: 3,
+      envId: 3,
+      orgId: 'B9',
+      dataRef: '4. [B9]',
+      label: '22 0.5',
+      message: null,
+      ignored: false,
+      circadian: true,
+      attention: false,
+      failed: false,
+      ERR: 0.06,
+      GOF: 0.48,
+      dType: 'LIN_DTR',
+      summary: null,
+      per: 22.02,
+      perE: 0.13,
+      ph2Z: {
+        m: 21.86,
+        f: 21.86,
+        p: 21.9,
+        a: 21.86
+      },
+      ph2W: {
+        m: 21.86,
+        f: 21.86,
+        p: 21.9,
+        a: 21.86
+      },
+      ph2ZCir: {
+        m: 23.83,
+        f: 23.83,
+        p: 23.87,
+        a: 23.83
+      },
+      ph2WCir: {
+        m: 23.83,
+        f: 23.83,
+        p: 23.87,
+        a: 23.83
+      },
+      phE: 0.41,
+      phECir: 0.45,
+      amp: {
+        m: 2.57,
+        f: 2.57,
+        p: 2.57,
+        a: 2.57
+      },
+      ampE: 0.156884
+    },
+    {
+      jobId: 866,
+      dataId: 5,
+      rawId: 5,
+      bioId: 3,
+      envId: 3,
+      orgId: 'B10',
+      dataRef: '5. [B10]',
+      label: '22 0.5',
+      message: null,
+      ignored: false,
+      circadian: true,
+      attention: false,
+      failed: false,
+      ERR: 0.08,
+      GOF: 0.44,
+      dType: 'LIN_DTR',
+      summary: null,
+      per: 21.97,
+      perE: 0.13,
+      ph2Z: {
+        m: 21.91,
+        f: 21.91,
+        p: 0.2,
+        a: 21.92
+      },
+      ph2W: {
+        m: 21.91,
+        f: 21.91,
+        p: 0.2,
+        a: 21.92
+      },
+      ph2ZCir: {
+        m: 23.93,
+        f: 23.93,
+        p: 0.22,
+        a: 23.95
+      },
+      ph2WCir: {
+        m: 23.93,
+        f: 23.93,
+        p: 0.22,
+        a: 23.95
+      },
+      phE: 0.39,
+      phECir: 0.43,
+      amp: {
+        m: 2.64,
+        f: 2.62,
+        p: 2.59,
+        a: 2.68
+      },
+      ampE: 0.206204
+    },
+    {
+      jobId: 866,
+      dataId: 6,
+      rawId: 6,
+      bioId: 4,
+      envId: 4,
+      orgId: 'B13',
+      dataRef: '6. [B13]',
+      label: '24 05',
+      message: null,
+      ignored: false,
+      circadian: true,
+      attention: false,
+      failed: false,
+      ERR: 0.06,
+      GOF: 0.49,
+      dType: 'LIN_DTR',
+      summary: null,
+      per: 23.81,
+      perE: 0.16,
+      ph2Z: {
+        m: 0.44,
+        f: 0.43,
+        p: 0.4,
+        a: 0.44
+      },
+      ph2W: {
+        m: 0.44,
+        f: 0.43,
+        p: 0.4,
+        a: 0.44
+      },
+      ph2ZCir: {
+        m: 0.44,
+        f: 0.43,
+        p: 0.4,
+        a: 0.44
+      },
+      ph2WCir: {
+        m: 0.44,
+        f: 0.43,
+        p: 0.4,
+        a: 0.44
+      },
+      phE: 0.46,
+      phECir: 0.46,
+      amp: {
+        m: 2.38,
+        f: 2.38,
+        p: 2.38,
+        a: 2.38
+      },
+      ampE: 0.149028
+    },
+    {
+      jobId: 866,
+      dataId: 7,
+      rawId: 7,
+      bioId: 5,
+      envId: 5,
+      orgId: 'B14',
+      dataRef: '7. [B14]',
+      label: '24 0.5',
+      message: null,
+      ignored: false,
+      circadian: true,
+      attention: false,
+      failed: false,
+      ERR: 0.3,
+      GOF: 0.84,
+      dType: 'LIN_DTR',
+      summary: null,
+      per: 24.49,
+      perE: 0.56,
+      ph2Z: {
+        m: 22.71,
+        f: 22.79,
+        p: 21.8,
+        a: 22.96
+      },
+      ph2W: {
+        m: 22.71,
+        f: 22.79,
+        p: 21.8,
+        a: 22.96
+      },
+      ph2ZCir: {
+        m: 22.26,
+        f: 22.33,
+        p: 21.36,
+        a: 22.5
+      },
+      ph2WCir: {
+        m: 22.26,
+        f: 22.33,
+        p: 21.36,
+        a: 22.5
+      },
+      phE: 1.53,
+      phECir: 1.5,
+      amp: {
+        m: 1.07,
+        f: 1.12,
+        p: 1.85,
+        a: 1.7
+      },
+      ampE: 0.322891
+    },
+    {
+      jobId: 867,
+      dataId: 8,
+      rawId: 8,
+      bioId: 5,
+      envId: 5,
+      orgId: 'B20',
+      dataRef: '8. [B20]',
+      label: 'noise',
+      message: 'Period 27.4 is not stat. significant, pval: 0.89',
+      ignored: true,
+      circadian: false,
+      attention: false,
+      failed: true,
+      ERR: 1.0,
+      GOF: 1.0,
+      dType: 'LIN_DTR',
+      summary: null,
+      per: 0.0,
+      perE: 0.0,
+      ph2Z: {
+        m: 0.0,
+        f: 0.0,
+        p: 0.0,
+        a: 0.0
+      },
+      ph2W: {
+        m: 0.0,
+        f: 0.0,
+        p: 0.0,
+        a: 0.0
+      },
+      ph2ZCir: {
+        m: 'NaN',
+        f: 'NaN',
+        p: 'NaN',
+        a: 'NaN'
+      },
+      ph2WCir: {
+        m: 'NaN',
+        f: 'NaN',
+        p: 'NaN',
+        a: 'NaN'
+      },
+      phE: 0.0,
+      phECir: 'NaN',
+      amp: {
+        m: 0.0,
+        f: 0.0,
+        p: 0.0,
+        a: 0.0
+      },
+      ampE: 0.0
+    }
+
+    ]
+} as PPAJobSimpleResults;
+return res;
 }

@@ -23,9 +23,7 @@ export class PPAStatsFetcherService extends PageableSortableFetcherService<PPAJo
   }
 
   protected sameInput(def1: PPAJobSummary, def2: PPAJobSummary) {
-    if (!def1 || !def2 ) { return false; }
-
-    return def1.jobId === def2.jobId && def1.parentId === def2.parentId;
+    return PPAJobSummary.sameJob(def1, def2);
   }
 
 

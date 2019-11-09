@@ -50,7 +50,7 @@ export class PPAService {
 
   }
 
-  getPPAJobSimpleResults(expId: number, jobId: number): Promise<PPAJobSimpleResults> {
+  getPPAJobSimpleResults(expId: number, jobId: number): Observable<PPAJobSimpleResults> {
     return this.BD2REST.ppaJobSimpleResults(expId, jobId);
   }
 

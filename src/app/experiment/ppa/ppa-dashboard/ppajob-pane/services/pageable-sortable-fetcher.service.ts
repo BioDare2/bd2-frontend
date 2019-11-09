@@ -170,7 +170,9 @@ export class PageableSortableFetcherService<I, A, D> {
   protected loadAsset(input: I) {
 
     this.isFetching$.next(true);
-    this.fetchAsset(input).subscribe(
+    this.fetchAsset(input)
+      // .pipe(delay(2000))
+      .subscribe(
       asset => {
         this.isFetching$.next(false);
         this.setAsset(asset, input);

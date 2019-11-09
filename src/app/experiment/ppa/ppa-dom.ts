@@ -123,6 +123,12 @@ export class PPAJobSummary {
   dataSetType: string;
   dataSetTypeName: string;
 
+  static sameJob(def1: PPAJobSummary, def2: PPAJobSummary) {
+    if (!def1 || !def2 ) { return false; }
+
+    return def1.jobId === def2.jobId && def1.parentId === def2.parentId;
+  }
+
 }
 
 export class ValuesByPhase {
@@ -222,6 +228,19 @@ export class PPASimpleResultEntry {
 
   amp: ValuesByPhase;
   ampE: number;
+
+  static extractState(res: PPASimpleResultEntry): string {
+    if (res.failed) {
+      return 'F';
+    }
+    if (res.ignored) {
+      return 'I';
+    }
+    if (res.attention) {
+      return 'A';
+    }
+    return '';
+  }
 }
 
 export function phaseValuesFromOptions(entry: PPASimpleStats | PPASimpleResultEntry,
