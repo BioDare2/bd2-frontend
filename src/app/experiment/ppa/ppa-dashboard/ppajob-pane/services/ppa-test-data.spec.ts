@@ -1,4 +1,4 @@
-import {PPAJobSimpleResults, PPAJobSimpleStats} from '../../../ppa-dom';
+import {PPAJobResultsGroups, PPAJobSimpleResults, PPAJobSimpleStats} from '../../../ppa-dom';
 
 
 export function makePPAStats(jobId: number): PPAJobSimpleStats {
@@ -1051,7 +1051,450 @@ const res = {
       ampE: 0.0
     }
 
-    ]
+  ]
 } as PPAJobSimpleResults;
 return res;
+}
+
+export function makePPAGroupResults(): PPAJobResultsGroups {
+
+  const res = {
+    jobId: 867,
+    periodMin: 18.0,
+    periodMax: 34.0,
+    groups: [
+      {
+        memberDataId: 1,
+        rawId: 1,
+        bioId: 1,
+        envId: 1,
+        label: 'noise',
+        failures: 1,
+        excluded: 1,
+        periods: [
+
+        ],
+        phases2Z: {
+          m: [
+
+          ],
+          f: [
+
+          ],
+          p: [
+
+          ],
+          a: [
+
+          ]
+        },
+        phases2W: {
+          m: [
+
+          ],
+          f: [
+
+          ],
+          p: [
+
+          ],
+          a: [
+
+          ]
+        },
+        phases2ZCir: {
+          m: [
+
+          ],
+          f: [
+
+          ],
+          p: [
+
+          ],
+          a: [
+
+          ]
+        },
+        phases2WCir: {
+          m: [
+
+          ],
+          f: [
+
+          ],
+          p: [
+
+          ],
+          a: [
+
+          ]
+        },
+        amps: {
+          m: [
+
+          ],
+          f: [
+
+          ],
+          p: [
+
+          ],
+          a: [
+
+          ]
+        }
+      },
+      {
+        memberDataId: 2,
+        rawId: 2,
+        bioId: 2,
+        envId: 2,
+        label: '24 0.1',
+        failures: 0,
+        excluded: 0,
+        periods: [
+          23.1
+        ],
+        phases2Z: {
+          m: [
+            1.49
+          ],
+          f: [
+            1.49
+          ],
+          p: [
+            3.9
+          ],
+          a: [
+            0.43
+          ]
+        },
+        phases2W: {
+          m: [
+            1.49
+          ],
+          f: [
+            1.49
+          ],
+          p: [
+            3.9
+          ],
+          a: [
+            0.43
+          ]
+        },
+        phases2ZCir: {
+          m: [
+            1.55
+          ],
+          f: [
+            1.55
+          ],
+          p: [
+            4.05
+          ],
+          a: [
+            0.45
+          ]
+        },
+        phases2WCir: {
+          m: [
+            1.55
+          ],
+          f: [
+            1.55
+          ],
+          p: [
+            4.05
+          ],
+          a: [
+            0.45
+          ]
+        },
+        amps: {
+          m: [
+            0.946885
+          ],
+          f: [
+            0.946885
+          ],
+          p: [
+            4.501
+          ],
+          a: [
+            4.109
+          ]
+        }
+      },
+      {
+        memberDataId: 4,
+        rawId: 4,
+        bioId: 3,
+        envId: 3,
+        label: '22 0.5',
+        failures: 0,
+        excluded: 0,
+        periods: [
+          22.14,
+          22.04
+        ],
+        phases2Z: {
+          m: [
+            21.92,
+            21.92
+          ],
+          f: [
+            21.92,
+            21.92
+          ],
+          p: [
+            20.9,
+            20.2
+          ],
+          a: [
+            20.59,
+            20.79
+          ]
+        },
+        phases2W: {
+          m: [
+            21.92,
+            21.92
+          ],
+          f: [
+            21.92,
+            21.92
+          ],
+          p: [
+            20.9,
+            20.2
+          ],
+          a: [
+            20.59,
+            20.79
+          ]
+        },
+        phases2ZCir: {
+          m: [
+            23.76,
+            23.87
+          ],
+          f: [
+            23.76,
+            23.87
+          ],
+          p: [
+            22.66,
+            22.0
+          ],
+          a: [
+            22.32,
+            22.64
+          ]
+        },
+        phases2WCir: {
+          m: [
+            23.76,
+            23.87
+          ],
+          f: [
+            23.76,
+            23.87
+          ],
+          p: [
+            22.66,
+            22.0
+          ],
+          a: [
+            22.32,
+            22.64
+          ]
+        },
+        amps: {
+          m: [
+            2.43,
+            2.71
+          ],
+          f: [
+            2.43,
+            2.71
+          ],
+          p: [
+            3.942,
+            4.713
+          ],
+          a: [
+            3.782,
+            4.355
+          ]
+        }
+      },
+      {
+        memberDataId: 6,
+        rawId: 6,
+        bioId: 4,
+        envId: 4,
+        label: '24 05',
+        failures: 0,
+        excluded: 0,
+        periods: [
+          23.9
+        ],
+        phases2Z: {
+          m: [
+            0.37
+          ],
+          f: [
+            0.37
+          ],
+          p: [
+            2.8
+          ],
+          a: [
+            2.23
+          ]
+        },
+        phases2W: {
+          m: [
+            0.37
+          ],
+          f: [
+            0.37
+          ],
+          p: [
+            2.8
+          ],
+          a: [
+            2.23
+          ]
+        },
+        phases2ZCir: {
+          m: [
+            0.37
+          ],
+          f: [
+            0.37
+          ],
+          p: [
+            2.81
+          ],
+          a: [
+            2.24
+          ]
+        },
+        phases2WCir: {
+          m: [
+            0.37
+          ],
+          f: [
+            0.37
+          ],
+          p: [
+            2.81
+          ],
+          a: [
+            2.24
+          ]
+        },
+        amps: {
+          m: [
+            2.527
+          ],
+          f: [
+            2.527
+          ],
+          p: [
+            4.091
+          ],
+          a: [
+            4.203
+          ]
+        }
+      },
+      {
+        memberDataId: 7,
+        rawId: 7,
+        bioId: 5,
+        envId: 5,
+        label: '24 0.5',
+        failures: 0,
+        excluded: 0,
+        periods: [
+          25.24
+        ],
+        phases2Z: {
+          m: [
+            22.94
+          ],
+          f: [
+            22.94
+          ],
+          p: [
+            19.3
+          ],
+          a: [
+            22.18
+          ]
+        },
+        phases2W: {
+          m: [
+            22.94
+          ],
+          f: [
+            22.94
+          ],
+          p: [
+            19.3
+          ],
+          a: [
+            22.18
+          ]
+        },
+        phases2ZCir: {
+          m: [
+            21.81
+          ],
+          f: [
+            21.81
+          ],
+          p: [
+            18.35
+          ],
+          a: [
+            21.09
+          ]
+        },
+        phases2WCir: {
+          m: [
+            21.81
+          ],
+          f: [
+            21.81
+          ],
+          p: [
+            18.35
+          ],
+          a: [
+            21.09
+          ]
+        },
+        amps: {
+          m: [
+            1.103
+          ],
+          f: [
+            1.103
+          ],
+          p: [
+            4.226
+          ],
+          a: [
+            4.2
+          ]
+        }
+      }
+    ]
+  } as PPAJobResultsGroups;
+  return res;
 }

@@ -49,3 +49,10 @@ export function pageObjectData<T>(data: T[], page: PageEvent): T[] {
 
   return data.slice().splice(startIndex, page.pageSize);
 }
+
+
+export function sortingMedian(data: number[]) {
+  if (!data || data.length === 0) { return Number.MAX_VALUE; }
+  data = data.slice().sort();
+  return data[Math.floor(data.length / 2)];
+}

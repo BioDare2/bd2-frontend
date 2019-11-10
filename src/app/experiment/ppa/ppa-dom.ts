@@ -370,8 +370,10 @@ export class PPAResultsGroupSummary {
   phases2WCir: ArraysByPhase;
   amps: ArraysByPhase;
 
+  // used only in UI to simplify rendering
   jobPeriodMin: number;
   jobPeriodMax: number;
+  medianPeriod: number;
 }
 
 export class PPAJobResultsGroups {

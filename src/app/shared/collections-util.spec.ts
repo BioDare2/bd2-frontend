@@ -1,4 +1,11 @@
-import {arraysMatch, pageObjectData, removeItemFromArr, shallowSet, sortObjectData} from './collections-util';
+import {
+  arraysMatch,
+  pageObjectData,
+  removeItemFromArr,
+  shallowSet,
+  sortingMedian,
+  sortObjectData
+} from './collections-util';
 import {PageEvent} from '@angular/material';
 
 
@@ -186,6 +193,41 @@ describe('collections-util pageObjectData', () => {
     expect(arr).toEqual([o1, o2 , o3 ]);
     expect(paged).not.toEqual([o1, o2 , o3 ]);
 
+  });
+
+});
+
+describe('collections-util sortingMedian', () => {
+
+  beforeEach(() => {
+  });
+
+  it('sortingMediangives Max for empty', () => {
+    let data: number[];
+
+    expect(sortingMedian(data)).toEqual(Number.MAX_VALUE);
+    data = null;
+    expect(sortingMedian(data)).toEqual(Number.MAX_VALUE);
+
+    data = [];
+    expect(sortingMedian(data)).toEqual(Number.MAX_VALUE);
+  });
+
+  it('sortingMediangives gives median preserving org', () => {
+    let data = [2, 1, 5, 4, 3];
+    const org = Array.from(data);
+
+    expect(sortingMedian(data)).toEqual(3);
+    expect(data).toEqual(org);
+
+    data = [2];
+    expect(sortingMedian(data)).toEqual(2);
+
+    data = [2, 1, 3, 4];
+    expect(sortingMedian(data)).toEqual(3);
+
+    data = [2, 3, 4];
+    expect(sortingMedian(data)).toEqual(3);
   });
 
 });

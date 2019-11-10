@@ -44,7 +44,7 @@ export class PPAService {
     return this.BD2REST.ppaDeleteJob(exp.id, jobId);
   }
 
-  getPPAJobResultsGrouped(expId: number, jobId: number): Promise<PPAJobResultsGroups> {
+  getPPAJobResultsGrouped(expId: number, jobId: number): Observable<PPAJobResultsGroups> {
 
     return this.BD2REST.ppaJobResultsGrouped(expId, jobId);
 

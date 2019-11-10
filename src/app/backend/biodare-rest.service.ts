@@ -278,11 +278,11 @@ export class BioDareRestService {
   }
 
 
-  ppaJobResultsGrouped(expId: number, jobId: number): Promise<any> {
+  ppaJobResultsGrouped(expId: number, jobId: number): Observable<any> {
     const options = this.makeOptions();
     const url = this.endPoints.experiment_url + '/' + expId + this.endPoints.ppa_job + '/' + jobId + '/results/grouped';
 
-    return this.OKJson(this.http.get(url, options)).toPromise();
+    return this.OKJson(this.http.get(url, options));
 
   }
 
