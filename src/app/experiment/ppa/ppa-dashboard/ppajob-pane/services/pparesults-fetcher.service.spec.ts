@@ -8,7 +8,6 @@ import {PageEvent, Sort} from '@angular/material';
 import {makePPASimpleResults, } from './ppa-test-data.spec';
 
 describe('PPAResultsFetcherService', () => {
-
   let ppaService;
   let service: PPAResultsFetcherService;
 
@@ -139,26 +138,26 @@ describe('PPAResultsFetcherService', () => {
 
   it('sorts preserves the original if applied', () => {
 
-    const asset = makePPASimpleResults();
+    const asset = makePPASimpleResults().results;
 
-    const orgOrder = asset.results.map( s => s.dataId);
+    const orgOrder = asset.map( s => s.dataId);
 
 
     let sort: Sort;
 
     // @ts-ignore
-    let sorted = service.sortAsset(asset, sort);
+    let sorted = service.sortData(asset, sort);
     expect(sorted).toBe(asset);
 
 
     sort = {active: 'label', direction: 'asc'};
 
     // @ts-ignore
-    sorted = service.sortAsset(asset, sort);
+    sorted = service.sortData(asset, sort);
     expect(sorted).not.toBe(asset);
 
-    const sortedOrder = sorted.results.map( s => s.dataId);
-    const currentOrder = asset.results.map( s => s.dataId);
+    const sortedOrder = sorted.map( s => s.dataId);
+    const currentOrder = asset.map( s => s.dataId);
 
     expect(sortedOrder).not.toEqual(orgOrder);
     expect(currentOrder).toEqual(orgOrder);
@@ -167,18 +166,18 @@ describe('PPAResultsFetcherService', () => {
 
   it('sorts by period', () => {
 
-    const asset = makePPASimpleResults();
+    const asset = makePPASimpleResults().results;
 
-    const orgOrder = asset.results.map( s => s.dataId);
+    const orgOrder = asset.map( s => s.dataId);
 
 
     const sort =  {active: 'period', direction: 'asc'};
 
     // @ts-ignore
-    const sorted = service.sortAsset(asset, sort);
+    const sorted = service.sortData(asset, sort);
     expect(sorted).not.toBe(asset);
 
-    const periods: any[] = sorted.results.map(s => s.per);
+    const periods: any[] = sorted.map(s => s.per);
     const expP = [
       0,
       2.83,
@@ -195,15 +194,15 @@ describe('PPAResultsFetcherService', () => {
 
   it('page preserves original if applied', () => {
 
-    const asset = makePPASimpleResults();
+    const asset = makePPASimpleResults().results;
 
-    const orgOrder = asset.results.map( s => s.dataId);
+    const orgOrder = asset.map( s => s.dataId);
 
 
     let page: PageEvent;
 
     // @ts-ignore
-    let paged = service.pageAsset(asset, page);
+    let paged = service.pageData(asset, page);
     expect(paged).toBe(asset);
 
 
@@ -212,22 +211,22 @@ describe('PPAResultsFetcherService', () => {
     page.pageSize = 2;
 
     // @ts-ignore
-    paged = service.pageAsset(asset, page);
+    paged = service.pageData(asset, page);
     expect(paged).not.toBe(asset);
 
-    const currentOrder = asset.results.map( s => s.dataId);
+    const currentOrder = asset.map( s => s.dataId);
     expect(currentOrder).toEqual(orgOrder);
 
-    expect(paged.results.length).toEqual(2);
-    expect(paged.results.length).toBeLessThan(asset.results.length);
+    expect(paged.length).toEqual(2);
+    expect(paged.length).toBeLessThan(asset.length);
 
   });
 
   it('page pages', () => {
 
-    const asset = makePPASimpleResults();
+    const asset = makePPASimpleResults().results;
 
-    const orgOrder = asset.results.map( s => s.dataId);
+    const orgOrder = asset.map( s => s.dataId);
 
 
 
@@ -236,8 +235,8 @@ describe('PPAResultsFetcherService', () => {
     page.pageSize = 3;
 
     // @ts-ignore
-    let paged = service.pageAsset(asset, page);
-    let currentOrder = paged.results.map( s => s.dataId);
+    let paged = service.pageData(asset, page);
+    let currentOrder = paged.map( s => s.dataId);
     let exp = [ orgOrder[0], orgOrder[1], orgOrder[2]];
     expect(currentOrder).toEqual(exp);
 
@@ -247,8 +246,8 @@ describe('PPAResultsFetcherService', () => {
     page.pageSize = 2;
 
     // @ts-ignore
-    paged = service.pageAsset(asset, page);
-    currentOrder = paged.results.map( s => s.dataId);
+    paged = service.pageData(asset, page);
+    currentOrder = paged.map( s => s.dataId);
 
     exp = [ orgOrder[2], orgOrder[3]];
     expect(currentOrder).toEqual(exp);
@@ -258,8 +257,8 @@ describe('PPAResultsFetcherService', () => {
     page.pageSize = 20;
 
     // @ts-ignore
-    paged = service.pageAsset(asset, page);
-    currentOrder = paged.results.map( s => s.dataId);
+    paged = service.pageData(asset, page);
+    currentOrder = paged.map( s => s.dataId);
 
     exp = [];
     expect(currentOrder).toEqual(exp);

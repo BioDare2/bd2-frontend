@@ -3,21 +3,65 @@ import { PageableSortableFetcherService } from './pageable-sortable-fetcher.serv
 import {fakeAsync, tick} from '@angular/core/testing';
 import {of} from 'rxjs';
 import {PageEvent, Sort} from '@angular/material';
+import {arraysMatch} from "../../../../../shared/collections-util";
+
+class TestablePageableSortableFetcherService extends PageableSortableFetcherService<number[], string, string[], string[]> {
+
+  constructor(removeDebounce = true) {
+    super(removeDebounce);
+  }
+
+  protected sameInput(def1: any, def2: any): boolean {
+    if (Array.isArray(def1)) {
+      return arraysMatch(def1, def2);
+    }
+    return def1 === def2;
+  }
+
+  protected fetchAsset(input: number[]) {
+    const val = input.map( v => '' + (v + 1));
+    return of(val);
+  }
+
+  protected assetToDataLength(asset: string[], parmas?: any): number {
+    return asset.length;
+  }
+
+
+
+  protected processSortedPagedData(asset: string[], sort: Sort, page: PageEvent, params: string) {
+
+    const sorted = this.sortAsset(asset, sort, params);
+    const paged = this.pageAsset(sorted, page, params);
+    const processed = this.processAsset(paged, params);
+    return processed;
+  }
+
+  protected sortAsset(asset: string[], sort: Sort, params?: string) {
+    return asset;
+  }
+
+  protected pageAsset(asset: string[], page: PageEvent, params?: string) {
+    return asset;
+  }
+
+  protected processAsset(asset: string[], params: string) {
+    return asset;
+  }
+
+
+
+
+}
 
 describe('PageableSortableFetcherService', () => {
 
-  let service: PageableSortableFetcherService<number[], string[], string[]>;
+  let service: PageableSortableFetcherService<number[], string, string[], string[]>;
 
   beforeEach(() => {
 
-    function fetching(ids: number[]) {
-      const val = ids.map( v => '' + (v + 1));
-      return of(val);
-    }
-    service = new PageableSortableFetcherService(true);
-    // @ts-ignore
-    service.fetchAsset = fetching;
 
+    service = new TestablePageableSortableFetcherService(true);
 
   });
 
@@ -223,7 +267,8 @@ describe('PageableSortableFetcherService', () => {
     expect(val).toEqual(['A']);
     expect(service.currentInput).toEqual([1, 2]);
     expect(service.currentAsset).toEqual(['A']);
-    expect(service.dataLength).toBe(1);
+    // now it happens in paging and sorting
+    // expect(service.dataLength).toBe(1);
 
   }));
 

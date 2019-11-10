@@ -12,9 +12,8 @@ import {
   tap
 } from 'rxjs/operators';
 import {arraysMatch} from '../../../../../shared/collections-util';
-import {BD2eJTKRes, TSResult} from '../../../../rhythmicity/rhythmicity-dom';
 
-export class PageableSortableFetcherService<I, A, D> {
+export abstract class PageableSortableFetcherService<I, P, A, D> {
 
   readonly data$: Observable<D>;
   readonly error$ = new Subject<any>();
@@ -26,6 +25,7 @@ export class PageableSortableFetcherService<I, A, D> {
   currentAsset: A;
   currentData: D;
   currentInput: I;
+  currentParams: P;
   dataLength = 0;
 
   protected readonly page$ = new BehaviorSubject<PageEvent>(undefined);
@@ -34,9 +34,10 @@ export class PageableSortableFetcherService<I, A, D> {
   protected readonly refresh$ = new Subject<boolean>();
 
   protected readonly input$ = new BehaviorSubject<I>(undefined);
+  protected readonly params$ = new BehaviorSubject<P>(undefined);
   protected readonly asset$ = new BehaviorSubject<A>(undefined);
 
-  constructor(protected removeDebounce = false) {
+  protected constructor(protected removeDebounce = false) {
 
     this.initAssetsStream();
     this.isBusy$ = this.initBusyStream();
@@ -46,6 +47,10 @@ export class PageableSortableFetcherService<I, A, D> {
 
   public input(v: I) {
     if (v) { this.input$.next(v); }
+  }
+
+  public params(v: P) {
+    this.params$.next(v);
   }
 
   public on(state = true) {
@@ -71,10 +76,27 @@ export class PageableSortableFetcherService<I, A, D> {
     this.isProcessing$.complete();
 
     this.input$.complete();
+    this.params$.complete();
     this.on$.complete();
     this.refresh$.complete();
     this.page$.complete();
     this.sort$.complete();
+  }
+
+  protected abstract sameInput(def1: I, def2: I): boolean;
+
+  protected abstract fetchAsset(input: I): Observable<A>;
+
+  protected abstract processSortedPagedData(asset: A, sort: Sort, page: PageEvent, params: P): D;
+
+  protected abstract assetToDataLength(asset: A, params?: P): number;
+
+
+  /**
+   * @ToBeOverwritten
+   */
+  protected errorToData(err: any): Observable<D> {
+    return of(undefined);
   }
 
   protected initBusyStream(): Observable<boolean> {
@@ -98,9 +120,13 @@ export class PageableSortableFetcherService<I, A, D> {
     return combineLatest(dataMutations).pipe(
       tap( v => this.isProcessing$.next(true)),
       map( ([asset, sort, page, params]) => {
+        // maybe this should be in set asset instead, but in that place the current params are not known
+        // do params influence the data length?
+        this.dataLength = this.assetToDataLength(asset, params);
         const data = this.processSortedPagedData(asset, sort, page, params);
         this.currentSort = sort;
         this.currentPage = page;
+        this.currentParams = params;
         this.currentData = data;
         return data;
       }),
@@ -114,49 +140,14 @@ export class PageableSortableFetcherService<I, A, D> {
 
   }
 
-  /**
-   * @ToBeOverwritten
-   */
-  protected errorToData(err: any): Observable<D> {
-    return of(undefined);
-  }
 
-  protected dataMutators(): [Observable<A>, Observable<Sort>, Observable<PageEvent>, Observable<any>] {
+  protected dataMutators(): [Observable<A>, Observable<Sort>, Observable<PageEvent>, Observable<P>] {
     return [
       this.asset$.pipe(filter(v => !!v)),
       this.sort$,
       this.page$.pipe(filter(v => !!v)),
-      of(true)
+      this.params$
     ];
-  }
-
-  protected processSortedPagedData(asset: A, sort: Sort, page: PageEvent, params: any): D {
-
-    const sorted = this.sortAsset(asset, sort);
-    const paged = this.pageAsset(sorted, page);
-    const processed = this.processAsset(paged, params);
-    return processed;
-  }
-
-  /**
-   * @ToBeOverwritten
-   */
-  protected sortAsset(asset: A, sort: Sort) {
-    return asset;
-  }
-
-  /**
-   * @ToBeOverwritten
-   */
-  protected pageAsset(asset: A, page: PageEvent) {
-    return asset;
-  }
-
-  /**
-   * @ToBeOverwritten
-   */
-  protected processAsset(asset: A, params: any): D {
-    return asset as any;
   }
 
   protected initAssetsStream() {
@@ -184,30 +175,15 @@ export class PageableSortableFetcherService<I, A, D> {
     );
   }
 
-  /**
-   * @ToBeOverwritten
-   */
-  protected fetchAsset(input: I): Observable<A> {
-    return throwError('fetching assets not implemented');
-  }
+
 
   protected setAsset(asset: A, input: I) {
     this.currentInput = input;
     this.currentAsset = asset;
-    this.dataLength = this.assetToDataLength(asset);
     this.asset$.next(asset);
   }
 
-  /**
-   * @ToBeOverwritten
-   */
-  protected assetToDataLength(asset: A): number {
-    if (Array.isArray(asset)) {
-      return asset.length;
-    } else {
-      throw new Error('assetToDataLength implemented only for arrays');
-    }
-  }
+
 
   protected initAssetsInput(): Observable<I> {
 
@@ -229,15 +205,7 @@ export class PageableSortableFetcherService<I, A, D> {
     return merged;
   }
 
-  /**
-   * @ToBeOverwritten
-   */
-  protected sameInput(def1: I, def2: I): boolean {
-    if (Array.isArray(def1)) {
-      return arraysMatch(def1, def2);
-    }
-    return def1 === def2;
-  }
+
 
 
 }

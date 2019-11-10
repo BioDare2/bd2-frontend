@@ -1,10 +1,10 @@
 import { TestBed } from '@angular/core/testing';
 
 import { PPAStatsFetcherService } from './ppastats-fetcher.service';
-import {PPAJobFetcherService} from './ppajob-fetcher.service';
+
 import {throwError} from 'rxjs';
 import {PPAService} from '../../../ppa.service';
-import {PPAJobSimpleStats, PPASimpleStats} from '../../../ppa-dom';
+import {PPASimpleStats} from '../../../ppa-dom';
 import {makePPAStats} from './ppa-test-data.spec';
 import {PageEvent, Sort} from '@angular/material';
 
@@ -86,16 +86,16 @@ describe('PPAStatsFetcherService', () => {
 
   it('sorts by label and period', () => {
 
-      const stats = makePPAStats(123);
+      const stats = makePPAStats(123).stats;
 
-      const orgOrder = stats.stats.map( s => s.memberDataId);
+      const orgOrder = stats.map( s => s.memberDataId);
 
       let sort: Sort = {active: 'label', direction: 'asc'};
 
       // @ts-ignore
-      let sorted = service.sortAsset(stats, sort);
+      let sorted = service.sortData(stats, sort);
 
-      const labels = sorted.stats.map( s => s.label);
+      const labels = sorted.map( s => s.label);
       const exp = [
         'WT LHY',
         'WT PRR5',
@@ -113,9 +113,9 @@ describe('PPAStatsFetcherService', () => {
 
       sort = {active: 'period', direction: 'asc'};
       // @ts-ignore
-      sorted = service.sortAsset(stats, sort);
+      sorted = service.sortData(stats, sort);
 
-      let periods: any[] = sorted.stats.map(s => s.per);
+      let periods: any[] = sorted.map(s => s.per);
       let expP = [
         24.04,
         24.04,
@@ -134,34 +134,34 @@ describe('PPAStatsFetcherService', () => {
 
       sort = {active: 'period', direction: 'desc'};
       // @ts-ignore
-      sorted = service.sortAsset(stats, sort);
-      periods = sorted.stats.map(s => s.per);
+      sorted = service.sortData(stats, sort);
+      periods = sorted.map(s => s.per);
       expP = expP.reverse();
       expect(periods).toEqual(expP);
   });
 
   it('sorts preserves the original if applied', () => {
 
-    const stats = makePPAStats(123);
+    const stats = makePPAStats(123).stats;
 
-    const orgOrder = stats.stats.map( s => s.memberDataId);
+    const orgOrder = stats.map( s => s.memberDataId);
 
 
     let sort: Sort;
 
     // @ts-ignore
-    let sorted = service.sortAsset(stats, sort);
+    let sorted = service.sortData(stats, sort);
     expect(sorted).toBe(stats);
 
 
     sort = {active: 'label', direction: 'asc'};
 
     // @ts-ignore
-    sorted = service.sortAsset(stats, sort);
+    sorted = service.sortData(stats, sort);
     expect(sorted).not.toBe(stats);
 
-    const sortedOrder = sorted.stats.map( s => s.memberDataId);
-    const currentOrder = stats.stats.map( s => s.memberDataId);
+    const sortedOrder = sorted.map( s => s.memberDataId);
+    const currentOrder = stats.map( s => s.memberDataId);
 
     expect(sortedOrder).not.toEqual(orgOrder);
     expect(currentOrder).toEqual(orgOrder);
@@ -170,15 +170,15 @@ describe('PPAStatsFetcherService', () => {
 
   it('page preserves original if applied', () => {
 
-    const stats = makePPAStats(123);
+    const stats = makePPAStats(123).stats;
 
-    const orgOrder = stats.stats.map( s => s.memberDataId);
+    const orgOrder = stats.map( s => s.memberDataId);
 
 
     let page: PageEvent;
 
     // @ts-ignore
-    let paged = service.pageAsset(stats, page);
+    let paged = service.pageData(stats, page);
     expect(paged).toBe(stats);
 
 
@@ -187,22 +187,22 @@ describe('PPAStatsFetcherService', () => {
     page.pageSize = 2;
 
     // @ts-ignore
-    paged = service.pageAsset(stats, page);
+    paged = service.pageData(stats, page);
     expect(paged).not.toBe(stats);
 
-    const currentOrder = stats.stats.map( s => s.memberDataId);
+    const currentOrder = stats.map( s => s.memberDataId);
     expect(currentOrder).toEqual(orgOrder);
 
-    expect(paged.stats.length).toEqual(2);
-    expect(paged.stats.length).toBeLessThan(stats.stats.length);
+    expect(paged.length).toEqual(2);
+    expect(paged.length).toBeLessThan(stats.length);
 
   });
 
   it('page pages', () => {
 
-    const stats = makePPAStats(123);
+    const stats = makePPAStats(123).stats;
 
-    const orgOrder = stats.stats.map( s => s.memberDataId);
+    const orgOrder = stats.map( s => s.memberDataId);
 
 
     let page = new PageEvent();
@@ -210,8 +210,8 @@ describe('PPAStatsFetcherService', () => {
     page.pageSize = 3;
 
     // @ts-ignore
-    let paged = service.pageAsset(stats, page);
-    let currentOrder = paged.stats.map( s => s.memberDataId);
+    let paged = service.pageData(stats, page);
+    let currentOrder = paged.map( s => s.memberDataId);
     let exp = [ orgOrder[0], orgOrder[1], orgOrder[2]];
     expect(currentOrder).toEqual(exp);
 
@@ -221,8 +221,8 @@ describe('PPAStatsFetcherService', () => {
     page.pageSize = 2;
 
     // @ts-ignore
-    paged = service.pageAsset(stats, page);
-    currentOrder = paged.stats.map( s => s.memberDataId);
+    paged = service.pageData(stats, page);
+    currentOrder = paged.map( s => s.memberDataId);
 
     exp = [ orgOrder[2], orgOrder[3]];
     expect(currentOrder).toEqual(exp);
@@ -232,8 +232,8 @@ describe('PPAStatsFetcherService', () => {
     page.pageSize = 20;
 
     // @ts-ignore
-    paged = service.pageAsset(stats, page);
-    currentOrder = paged.stats.map( s => s.memberDataId);
+    paged = service.pageData(stats, page);
+    currentOrder = paged.map( s => s.memberDataId);
 
     exp = [];
     expect(currentOrder).toEqual(exp);

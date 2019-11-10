@@ -7,9 +7,10 @@ import {Observable, of} from 'rxjs';
 import {PageEvent, Sort} from '@angular/material';
 import {pageObjectData, sortObjectData} from '../../../../../shared/collections-util';
 import {map} from 'rxjs/operators';
+import {PageableSortableArraysFetcherService} from './pageable-sortable-arrays-fetcher.service';
 
 @Injectable()
-export class PPAStatsFetcherService extends PageableSortableFetcherService<PPAJobSummary, PPAJobSimpleStats, PPAJobSimpleStats> {
+export class PPAStatsFetcherService extends PageableSortableArraysFetcherService<PPAJobSummary, string, PPAJobSimpleStats, PPASimpleStats> {
 
   readonly stats$: Observable<PPASimpleStats[]>;
 
@@ -17,40 +18,21 @@ export class PPAStatsFetcherService extends PageableSortableFetcherService<PPAJo
               @Inject(REMOVE_DEBOUNCE) @Optional() removeDebounce = false) {
     super(removeDebounce);
 
-    this.stats$ = this.data$.pipe(
-      map( js => js.stats)
-    );
+    this.stats$ = this.data$;
   }
 
   protected sameInput(def1: PPAJobSummary, def2: PPAJobSummary) {
     return PPAJobSummary.sameJob(def1, def2);
   }
 
-
-  protected assetToDataLength(stats: PPAJobSimpleStats) {
-    return stats.stats.length;
+  protected assetToData(stats: PPAJobSimpleStats) {
+    return stats.stats;
   }
 
   protected fetchAsset(job: PPAJobSummary): Observable<PPAJobSimpleStats> {
 
     return this.ppaService.getPPAJobSimpleStats(job.parentId, job.jobId);
 
-  }
-
-  protected sortAsset(asset: PPAJobSimpleStats, sort: Sort) {
-
-    if (!sort || !sort.active || sort.direction === '') {
-      return asset;
-    }
-
-    const sortedEnt = sortObjectData(asset.stats, sort.direction, this.sortingKey(sort));
-
-    const sorted = new PPAJobSimpleStats();
-    sorted.jobId = asset.jobId;
-    sorted.stats = sortedEnt;
-
-
-    return sorted;
   }
 
   protected sortingKey(sort: Sort): (s: PPASimpleStats) => any {
@@ -66,24 +48,5 @@ export class PPAStatsFetcherService extends PageableSortableFetcherService<PPAJo
     }
   }
 
-  protected pageAsset(asset: PPAJobSimpleStats, page: PageEvent) {
-    if (!page) { return asset; }
 
-    const pagedEnt = pageObjectData(asset.stats, page);
-
-    const paged = new PPAJobSimpleStats();
-    paged.jobId = asset.jobId;
-    paged.stats = pagedEnt;
-
-    return paged;
-  }
-
-
-  protected processAsset(asset: PPAJobSimpleStats, params: any): PPAJobSimpleStats {
-    return asset;
-  }
-
-  protected errorToData(err: any): Observable<PPAJobSimpleStats> {
-    return of(new PPAJobSimpleStats());
-  }
 }

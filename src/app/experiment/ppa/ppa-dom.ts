@@ -27,6 +27,7 @@ export class PPAMethod {
 
   private static valuesMap: Map<string, PPAMethod>;
 
+  // tslint:disable-next-line:variable-name
   protected constructor(private _name: string, private _label: string) {
   }
 
@@ -117,7 +118,9 @@ export class PPAJobSummary {
   dataWindow: string;
   dataWindowStart: number;
   dataWindowEnd: number;
+  // tslint:disable-next-line:variable-name
   min_period: number;
+  // tslint:disable-next-line:variable-name
   max_period: number;
   dataSetId: string;
   dataSetType: string;
@@ -367,6 +370,8 @@ export class PPAResultsGroupSummary {
   phases2WCir: ArraysByPhase;
   amps: ArraysByPhase;
 
+  jobPeriodMin: number;
+  jobPeriodMax: number;
 }
 
 export class PPAJobResultsGroups {
