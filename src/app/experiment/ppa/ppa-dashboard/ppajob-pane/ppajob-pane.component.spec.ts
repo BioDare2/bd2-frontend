@@ -1,22 +1,30 @@
-import {async, ComponentFixture, fakeAsync, TestBed, tick} from '@angular/core/testing';
-
-import {HboxPlotModule} from 'bd2-ngx-hboxplot';
-import {PolarPlotModule} from 'bd2-ngx-polarplot';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 import {PPAJobPaneComponent} from './ppajob-pane.component';
 import {PPAService} from '../../ppa.service';
-import {FormsModule} from '@angular/forms';
 import {PhasesOptionsWidgetComponent} from './phases-options-widget.component';
 import {PPAJobSummary} from '../../ppa-dom';
-import {LegendModule} from '../../../../graphic/legend/legend.module';
-import {SVGSaverModule} from '../../../../graphic/svg-saver/svg-saver.module';
 import {PPAStatsTableComponent} from './ppastats-table/ppastats-table.component';
 import {PPAJobResultsTableComponent} from './ppajob-results-table/ppajob-results-table.component';
 import {RouterTestingModule} from '@angular/router/testing';
 import {PPAStatsTable2Component} from './ppastats-table2/ppastats-table2.component';
-import {MaterialsModule} from '../../../../shared/materials.module';
-import {NoopAnimationsModule} from '@angular/platform-browser/animations';
 import {PPAResultsTable2Component} from './pparesults-table2/pparesults-table2.component';
+import {PPAPlotsComponentTestModule} from './ppaplots/ppaplots.component.spec';
+import {NgModule} from '@angular/core';
 
+@NgModule({
+  imports: [
+    RouterTestingModule,
+    PPAPlotsComponentTestModule],
+  exports: [
+    RouterTestingModule,
+    PPAPlotsComponentTestModule,
+    PPAJobPaneComponent
+  ],
+  declarations: [ PPAJobPaneComponent, PPAStatsTableComponent, PPAStatsTable2Component, PPAResultsTable2Component,
+    PhasesOptionsWidgetComponent, PPAJobResultsTableComponent ]
+})
+export class PPAJobPaneComponentTestModule {
+}
 
 describe('PPAJobPaneComponent', () => {
   let component: PPAJobPaneComponent;
@@ -28,16 +36,9 @@ describe('PPAJobPaneComponent', () => {
 
     TestBed.configureTestingModule({
       imports: [
-        FormsModule,
-        HboxPlotModule,
-        PolarPlotModule,
-        LegendModule,
-        SVGSaverModule,
-        RouterTestingModule,
-        MaterialsModule, NoopAnimationsModule
+        PPAJobPaneComponentTestModule
       ],
-      declarations: [PPAJobPaneComponent, PPAStatsTableComponent, PPAStatsTable2Component, PPAResultsTable2Component,
-        PhasesOptionsWidgetComponent, PPAJobResultsTableComponent],
+      declarations: [ ],
       providers: [
         {provide: PPAService, useValue: ppaService},
       ]

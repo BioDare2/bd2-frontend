@@ -1,9 +1,8 @@
-
-import { PageableSortableFetcherService } from './pageable-sortable-fetcher.service';
+import {PageableSortableFetcherService} from './pageable-sortable-fetcher.service';
 import {fakeAsync, tick} from '@angular/core/testing';
 import {of} from 'rxjs';
 import {PageEvent, Sort} from '@angular/material';
-import {arraysMatch} from "../../../../../shared/collections-util";
+import {arraysMatch} from '../../../../../shared/collections-util';
 
 class TestablePageableSortableFetcherService extends PageableSortableFetcherService<number[], string, string[], string[]> {
 

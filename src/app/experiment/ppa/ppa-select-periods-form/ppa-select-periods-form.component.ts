@@ -5,7 +5,7 @@ import {SelectableFitDialogComponent} from '../ppa-fit/selectable-fit-dialog.com
 import {ActivatedRoute, Params} from '@angular/router';
 import {PPAService} from '../ppa.service';
 import {ExperimentComponentsDependencies} from '../../experiment-components.dependencies';
-import {Subscription, combineLatest} from 'rxjs';
+import {combineLatest, Subscription} from 'rxjs';
 import {filter, map} from 'rxjs/operators';
 import {ExperimentalAssayView} from '../../../dom/repo/exp/experimental-assay-view';
 

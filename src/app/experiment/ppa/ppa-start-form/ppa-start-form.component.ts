@@ -3,7 +3,6 @@ import {PPABaseComponent} from '../ppa-base.component';
 import {Trace} from '../../../tsdata/plots/ts-plot.dom';
 import {Subscription} from 'rxjs';
 import {TSFetcher} from '../../../tsdata/plots/ts-fetcher';
-import {TSDataService} from '../../../tsdata/ts-data.service';
 import {RDMSocialServiceService} from '../../../rdmsocial/rdmsocial-service.service';
 import {AnalyticsService} from '../../../analytics/analytics.service';
 import {ExperimentComponentsDependencies} from '../../experiment-components.dependencies';

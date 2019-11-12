@@ -4,9 +4,9 @@ import {REMOVE_DEBOUNCE} from '../../../../../shared/tokens';
 import {PPAJobResultsGroups, PPAJobSummary, PPAResultsGroupSummary,} from '../../../ppa-dom';
 import {Observable} from 'rxjs';
 import {Sort} from '@angular/material';
-import {PageableSortableArraysFetcherService} from "./pageable-sortable-arrays-fetcher.service";
-import {tap} from "rxjs/operators";
-import {sortingMedian} from "../../../../../shared/collections-util";
+import {PageableSortableArraysFetcherService} from './pageable-sortable-arrays-fetcher.service';
+import {tap} from 'rxjs/operators';
+import {sortingMedian} from '../../../../../shared/collections-util';
 
 @Injectable()
 export class PPAGroupResultsFetcherService
@@ -52,7 +52,7 @@ export class PPAGroupResultsFetcherService
           s.medianPeriod = sortingMedian(s.periods);
         }
         return s.medianPeriod;
-      }
+      };
       default: {
         console.error('Not implemented sorting for ' + sort.active);
         return s => 0;

@@ -1,6 +1,6 @@
-import { TestBed } from '@angular/core/testing';
+import {TestBed} from '@angular/core/testing';
 
-import { PPAStatsFetcherService } from './ppastats-fetcher.service';
+import {PPAStatsFetcherService} from './ppastats-fetcher.service';
 
 import {throwError} from 'rxjs';
 import {PPAService} from '../../../ppa.service';

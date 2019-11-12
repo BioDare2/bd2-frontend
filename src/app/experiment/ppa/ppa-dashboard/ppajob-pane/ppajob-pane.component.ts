@@ -11,11 +11,11 @@ import {
   valueFromPhaseName
 } from '../../ppa-dom';
 import {PhaseParams} from './phases-options-widget.component';
-import {BehaviorSubject, Observable, Subject, timer} from 'rxjs';
+import {BehaviorSubject, Observable, Subject} from 'rxjs';
 import {PPAService} from '../../ppa.service';
 import {FeedbackService} from '../../../../feedback/feedback.service';
 import * as FileSaver from 'file-saver';
-import {combineLatest, distinctUntilChanged, filter, map, switchMap, tap} from 'rxjs/operators';
+import {combineLatest, filter, map, switchMap, tap} from 'rxjs/operators';
 import {BD2ColorPalette} from '../../../../graphic/color/color-palette';
 import {PPAJobFetcherService} from './services/ppajob-fetcher.service';
 
@@ -60,18 +60,23 @@ import {PPAJobFetcherService} from './services/ppajob-fetcher.service';
         </div>
 
         <ng-container *ngIf="ppaJobFetcher.finishedJob$ | async as finishedJob">
+
+          <bd2-ppaplots
+            [job]="finishedJob" [phaseParams]="phaseParams"
+          ></bd2-ppaplots>
+
+          <bd2-phases-options phaseType="ByFit" phaseUnit="circ" relativeTo="zero"
+                              (options)="phaseOptions($event)">
+          </bd2-phases-options>
+
           <bd2-ppastats-table2
             [job]="finishedJob"
-            [phaseType]="phaseParams.phaseType"
-            [relativeTo]="phaseParams.relativeTo"
-            [phaseUnit]="phaseParams.phaseUnit"
+            [phaseParams]="phaseParams"
           ></bd2-ppastats-table2>
 
           <bd2-pparesults-table2
             [job]="finishedJob"
-            [phaseType]="phaseParams.phaseType"
-            [relativeTo]="phaseParams.relativeTo"
-            [phaseUnit]="phaseParams.phaseUnit"
+            [phaseParams]="phaseParams"
             [fitDialog]="fitDialog"
           ></bd2-pparesults-table2>
         </ng-container>

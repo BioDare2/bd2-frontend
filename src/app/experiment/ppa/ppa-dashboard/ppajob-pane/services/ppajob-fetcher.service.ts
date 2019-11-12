@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {BehaviorSubject, combineLatest, merge, Observable, Subject, Subscription, timer} from 'rxjs';
 import {PPAJobSummary} from '../../../ppa-dom';
 import {distinctUntilChanged, filter, flatMap, map, take} from 'rxjs/operators';

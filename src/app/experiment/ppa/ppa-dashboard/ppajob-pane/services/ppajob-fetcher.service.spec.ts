@@ -1,6 +1,6 @@
-import {fakeAsync, tick, TestBed} from '@angular/core/testing';
+import {fakeAsync, TestBed, tick} from '@angular/core/testing';
 
-import { PPAJobFetcherService } from './ppajob-fetcher.service';
+import {PPAJobFetcherService} from './ppajob-fetcher.service';
 import {of, throwError} from 'rxjs';
 
 import {PPAService} from '../../../ppa.service';

@@ -24,8 +24,12 @@ import {SharedComponentsModule} from '../../shared/shared-components.module';
 import {ButtonsModule} from 'ngx-bootstrap/buttons';
 import {PPASelectPeriodsFormComponent} from './ppa-select-periods-form/ppa-select-periods-form.component';
 import {MaterialsModule} from '../../shared/materials.module';
-import { PPAStatsTable2Component } from './ppa-dashboard/ppajob-pane/ppastats-table2/ppastats-table2.component';
-import { PPAResultsTable2Component } from './ppa-dashboard/ppajob-pane/pparesults-table2/pparesults-table2.component';
+import {PPAStatsTable2Component} from './ppa-dashboard/ppajob-pane/ppastats-table2/ppastats-table2.component';
+import {PPAResultsTable2Component} from './ppa-dashboard/ppajob-pane/pparesults-table2/pparesults-table2.component';
+import {PPAPlotsComponent} from './ppa-dashboard/ppajob-pane/ppaplots/ppaplots.component';
+import {PPAPhasePlotComponent} from './ppa-dashboard/ppajob-pane/ppaplots/ppaphase-plot/ppaphase-plot.component';
+import {PPAPeriodPlotComponent} from './ppa-dashboard/ppajob-pane/ppaplots/ppaperiod-plot/ppaperiod-plot.component';
+import {PPASortWidgetComponent} from './ppa-dashboard/ppajob-pane/ppaplots/ppasort-widget/ppasort-widget.component';
 
 @NgModule({
   declarations: [PPAStartFormComponent, PPAJobParamsRFormComponent,
@@ -34,7 +38,11 @@ import { PPAResultsTable2Component } from './ppa-dashboard/ppajob-pane/pparesult
     SelectableFitDialogComponent,
     PPASelectPeriodsFormComponent,
     PPAStatsTable2Component,
-    PPAResultsTable2Component],
+    PPAResultsTable2Component,
+    PPAPlotsComponent,
+    PPAPhasePlotComponent,
+    PPAPeriodPlotComponent,
+    PPASortWidgetComponent],
   imports: [
     CommonModule,
     FormsModule,

@@ -4,7 +4,7 @@ import {REMOVE_DEBOUNCE} from '../../../../../shared/tokens';
 import {PPAJobSimpleResults, PPAJobSummary, PPASimpleResultEntry,} from '../../../ppa-dom';
 import {Observable} from 'rxjs';
 import {Sort} from '@angular/material';
-import {PageableSortableArraysFetcherService} from "./pageable-sortable-arrays-fetcher.service";
+import {PageableSortableArraysFetcherService} from './pageable-sortable-arrays-fetcher.service';
 
 @Injectable()
 export class PPAResultsFetcherService

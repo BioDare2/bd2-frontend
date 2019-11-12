@@ -2,6 +2,7 @@ import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {PPAStatsFetcherService} from '../services/ppastats-fetcher.service';
 import {phaseValuesFromOptions, PPAJobSummary, PPASimpleStats, valueFromPhaseName} from '../../../ppa-dom';
 import {PageEvent, Sort} from '@angular/material';
+import {PhaseParams} from '../phases-options-widget.component';
 
 @Component({
   selector: 'bd2-ppastats-table2',
@@ -11,16 +12,25 @@ import {PageEvent, Sort} from '@angular/material';
 })
 export class PPAStatsTable2Component implements OnInit, OnDestroy {
 
-  @Input()
+  // @Input()
   phaseType = 'ByFit';
-  @Input()
+  // @Input()
   relativeTo = 'zero';
-  @Input()
+  // @Input()
   phaseUnit = 'circ';
 
   @Input()
   set job(job: PPAJobSummary) {
     this.fetcher.input(job);
+  }
+
+  @Input()
+  set phaseParams(phaseParams: PhaseParams) {
+    if (!phaseParams) { return; }
+
+    this.phaseType = phaseParams.phaseType;
+    this.relativeTo = phaseParams.relativeTo;
+    this.phaseUnit = phaseParams.phaseUnit;
   }
 
   @Input()

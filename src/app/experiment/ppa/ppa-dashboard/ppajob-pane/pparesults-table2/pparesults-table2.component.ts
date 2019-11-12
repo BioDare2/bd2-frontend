@@ -3,6 +3,7 @@ import {PPAResultsFetcherService} from '../services/pparesults-fetcher.service';
 import {PageEvent, Sort} from '@angular/material';
 import {phaseValuesFromOptions, PPAJobSummary, PPASimpleResultEntry, valueFromPhaseName} from '../../../ppa-dom';
 import {SelectableFitDialogComponent} from '../../../ppa-fit/selectable-fit-dialog.component';
+import {PhaseParams} from '../phases-options-widget.component';
 
 @Component({
   selector: 'bd2-pparesults-table2',
@@ -15,16 +16,25 @@ export class PPAResultsTable2Component implements OnInit, OnDestroy {
   @Input()
   fitDialog: SelectableFitDialogComponent;
 
-  @Input()
+  // @Input()
   phaseType = 'ByFit';
-  @Input()
+  // @Input()
   relativeTo = 'zero';
-  @Input()
+  // @Input()
   phaseUnit = 'circ';
 
   @Input()
   set job(job: PPAJobSummary) {
     this.fetcher.input(job);
+  }
+
+  @Input()
+  set phaseParams(phaseParams: PhaseParams) {
+    if (!phaseParams) { return; }
+
+    this.phaseType = phaseParams.phaseType;
+    this.relativeTo = phaseParams.relativeTo;
+    this.phaseUnit = phaseParams.phaseUnit;
   }
 
   @Input()

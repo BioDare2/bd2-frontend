@@ -1,12 +1,9 @@
 import {Inject, Injectable, Optional} from '@angular/core';
 import {REMOVE_DEBOUNCE} from '../../../../../shared/tokens';
-import {PageableSortableFetcherService} from './pageable-sortable-fetcher.service';
 import {PPAJobSimpleStats, PPAJobSummary, PPASimpleStats} from '../../../ppa-dom';
 import {PPAService} from '../../../ppa.service';
-import {Observable, of} from 'rxjs';
-import {PageEvent, Sort} from '@angular/material';
-import {pageObjectData, sortObjectData} from '../../../../../shared/collections-util';
-import {map} from 'rxjs/operators';
+import {Observable} from 'rxjs';
+import {Sort} from '@angular/material';
 import {PageableSortableArraysFetcherService} from './pageable-sortable-arrays-fetcher.service';
 
 @Injectable()

@@ -1,6 +1,6 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { PPAResultsTable2Component } from './pparesults-table2.component';
+import {PPAResultsTable2Component} from './pparesults-table2.component';
 import {PPAService} from '../../../ppa.service';
 import {MaterialsModule} from '../../../../../shared/materials.module';
 import {NoopAnimationsModule} from '@angular/platform-browser/animations';

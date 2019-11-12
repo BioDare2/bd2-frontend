@@ -1,17 +1,6 @@
-
-import {BehaviorSubject, combineLatest, merge, Observable, of, Subject, throwError} from 'rxjs';
+import {BehaviorSubject, combineLatest, merge, Observable, of, Subject} from 'rxjs';
 import {PageEvent, Sort} from '@angular/material';
-import {
-  catchError,
-  debounceTime, delay,
-  distinctUntilChanged,
-  filter,
-  flatMap,
-  map,
-  take,
-  tap
-} from 'rxjs/operators';
-import {arraysMatch} from '../../../../../shared/collections-util';
+import {catchError, debounceTime, distinctUntilChanged, filter, flatMap, map, take, tap} from 'rxjs/operators';
 
 export abstract class PageableSortableFetcherService<I, P, A, D> {
 

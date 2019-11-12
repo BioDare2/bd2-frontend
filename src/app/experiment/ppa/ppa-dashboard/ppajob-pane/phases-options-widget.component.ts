@@ -1,12 +1,13 @@
-import {Component, Input, OnInit, Output} from '@angular/core';
+import {Component, Input, OnDestroy, OnInit, Output} from '@angular/core';
 import {Observable, Subject} from 'rxjs';
-import {debounceTime, distinctUntilChanged, map} from 'rxjs/operators';
+import {debounceTime, distinctUntilChanged, map, startWith} from 'rxjs/operators';
 
 
 export class PhaseParams {
   constructor(public phaseType: string,
               public relativeTo: string,
-              public phaseUnit: string) {
+              public phaseUnit: string,
+              public showIndividuals: string = 'selected') {
   }
 
   static same(prev: PhaseParams, next: PhaseParams): boolean {
@@ -18,7 +19,8 @@ export class PhaseParams {
     }
     return (prev.phaseType === next.phaseType) &&
       (prev.relativeTo === next.relativeTo) &&
-      (prev.phaseUnit === next.phaseUnit);
+      (prev.phaseUnit === next.phaseUnit) &&
+      (prev.showIndividuals === next.showIndividuals);
   }
 }
 
@@ -27,6 +29,7 @@ export class PhaseParams {
   template: `
 
     <div class="spaced">
+      <label>Phases by &nbsp;</label>
       <div class="btn-group spaced">
         <label class="btn btn-success btn-xs" [(ngModel)]="phaseType"
                btnRadio="ByFit">Fit</label>
@@ -51,6 +54,12 @@ export class PhaseParams {
         <label class="btn btn-success btn-xs" [(ngModel)]="phaseUnit"
                btnRadio="abs">Absolute</label>
       </div>
+
+      <div class="btn-group spaced">
+      <label class="btn btn-success btn-xs small"
+             [(ngModel)]="showIndividuals" btnCheckbox
+             btnCheckboxFalse="selected" btnCheckboxTrue="all">Ind.</label>
+      </div>
     </div>
   `,
   styles: [
@@ -61,7 +70,7 @@ export class PhaseParams {
     }`
   ]
 })
-export class PhasesOptionsWidgetComponent implements OnInit {
+export class PhasesOptionsWidgetComponent implements OnInit, OnDestroy {
 
   @Output()
   options: Observable<PhaseParams>;
@@ -70,12 +79,14 @@ export class PhasesOptionsWidgetComponent implements OnInit {
   constructor() {
 
     this.options = this.change.pipe(
+      startWith(true),
       // needed so not error on value changed appears
       debounceTime(50),
-      map(() => new PhaseParams(this.phaseType, this.relativeTo, this._phaseUnit)),
+      map(() => new PhaseParams(this.phaseType, this.relativeTo, this._phaseUnit, this._showIndividuals)),
       distinctUntilChanged(PhaseParams.same));
   }
 
+  // tslint:disable-next-line:variable-name
   _phaseType = 'ByFit';
 
   get phaseType(): string {
@@ -88,6 +99,7 @@ export class PhasesOptionsWidgetComponent implements OnInit {
     this.change.next(true);
   }
 
+  // tslint:disable-next-line:variable-name
   _relativeTo = 'zero';
 
   get relativeTo(): string {
@@ -100,6 +112,7 @@ export class PhasesOptionsWidgetComponent implements OnInit {
     this.change.next(true);
   }
 
+  // tslint:disable-next-line:variable-name
   _phaseUnit = 'circ';
 
   get phaseUnit(): string {
@@ -112,9 +125,27 @@ export class PhasesOptionsWidgetComponent implements OnInit {
     this.change.next(true);
   }
 
+  // tslint:disable-next-line:variable-name
+  _showIndividuals = 'selected';
+
+  get showIndividuals() {
+    return this._showIndividuals;
+  }
+
+  @Input()
+  set showIndividuals(val: string) {
+    this._showIndividuals = val;
+    this.change.next(true);
+  }
+
   ngOnInit() {
     /*this.options.subscribe( o => {
      console.log("PH",o);
      });*/
+    // this.change.next(true);
+  }
+
+  ngOnDestroy(): void {
+    this.change.complete();
   }
 }
