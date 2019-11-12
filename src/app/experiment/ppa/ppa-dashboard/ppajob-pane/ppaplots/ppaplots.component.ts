@@ -5,6 +5,7 @@ import {BD2ColorPalette} from '../../../../../graphic/color/color-palette';
 import {Subscription} from 'rxjs';
 import {PageEvent, Sort} from '@angular/material';
 import {PhaseParams} from '../phases-options-widget.component';
+import {Reloadable} from '../reloadable';
 
 @Component({
   selector: 'bd2-ppaplots',
@@ -12,7 +13,7 @@ import {PhaseParams} from '../phases-options-widget.component';
   styles: [],
   providers: [PPAGroupResultsFetcherService]
 })
-export class PPAPlotsComponent implements OnInit, OnDestroy {
+export class PPAPlotsComponent implements OnInit, OnDestroy, Reloadable {
 
   @Input()
   set job(job: PPAJobSummary) {
@@ -20,13 +21,17 @@ export class PPAPlotsComponent implements OnInit, OnDestroy {
   }
 
   @Input()
-  phaseParams: PhaseParams;
-
-  @Input()
   set on(val: boolean) {
     this.isOn = val;
     this.fetcher.on(val);
   }
+
+  constructor(private fetcher: PPAGroupResultsFetcherService) { }
+
+  @Input()
+  phaseParams: PhaseParams;
+
+
 
   // @Output()
   // phaseParams$ = new Subject<PhaseParams>();
@@ -40,7 +45,9 @@ export class PPAPlotsComponent implements OnInit, OnDestroy {
 
   resultsSubscription: Subscription;
 
-  constructor(private fetcher: PPAGroupResultsFetcherService) { }
+  reload() {
+    this.fetcher.refresh();
+  }
 
   ngOnInit() {
 

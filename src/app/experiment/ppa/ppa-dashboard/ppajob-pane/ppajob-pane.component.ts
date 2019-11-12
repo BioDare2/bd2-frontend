@@ -1,23 +1,26 @@
-import {Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges} from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnChanges,
+  OnDestroy,
+  OnInit,
+  Output,
+  SimpleChanges,
+  ViewChild
+} from '@angular/core';
 import {ExperimentalAssayView} from '../../../../dom/repo/exp/experimental-assay-view';
 import {ConfirmDialogComponent} from '../../../../shared/confirm-dialog.component';
 import {SelectableFitDialogComponent} from '../../ppa-fit/selectable-fit-dialog.component';
 import {PPAJobExportDialogComponent} from './ppajob-export-dialog/ppajob-export-dialog.component';
-import {
-  PPAJobResultsGroups,
-  PPAJobSimpleResults,
-  PPAJobSimpleStats,
-  PPAJobSummary,
-  valueFromPhaseName
-} from '../../ppa-dom';
+import {PPAJobSummary} from '../../ppa-dom';
 import {PhaseParams} from './phases-options-widget.component';
-import {BehaviorSubject, Observable, Subject} from 'rxjs';
+import {BehaviorSubject} from 'rxjs';
 import {PPAService} from '../../ppa.service';
 import {FeedbackService} from '../../../../feedback/feedback.service';
 import * as FileSaver from 'file-saver';
-import {combineLatest, filter, map, switchMap, tap} from 'rxjs/operators';
-import {BD2ColorPalette} from '../../../../graphic/color/color-palette';
 import {PPAJobFetcherService} from './services/ppajob-fetcher.service';
+import {Reloadable} from './reloadable';
 
 @Component({
   selector: 'bd2-ppajob-pane',
@@ -45,6 +48,14 @@ import {PPAJobFetcherService} from './services/ppajob-fetcher.service';
 })
 export class PPAJobPaneComponent implements OnInit, OnChanges, OnDestroy {
 
+  @ViewChild('ppaStats', {static: false})
+  ppaStatsComponent: Reloadable;
+  @ViewChild('ppaResults', {static: false})
+  ppaResultsComponent: Reloadable;
+  @ViewChild('ppaPlots', {static: false})
+  ppaPlotsComponent: Reloadable;
+
+
   @Input()
   jobId: number;
 
@@ -69,40 +80,12 @@ export class PPAJobPaneComponent implements OnInit, OnChanges, OnDestroy {
   finished = this.ppaJobFetcher.finishedJob$; // new EventEmitter<PPAJobSummary>();
 
   job: PPAJobSummary;
-  phaseShowIndividuals = 'selected';
-  sorted = 'none';
-  legendOn = 'always';
-  dots = '';
-  // jobStats: PPAJobSimpleStats;
-  indResults: PPAJobSimpleResults;
-  periods: number[][];
-  phases: number[][];
-  amplitudes: number[][];
-  legend: string[] = [];
-  palette: string[] = [];
-  removed: number[] = [];
-  phaseParams = new PhaseParams(undefined, undefined, undefined);
-  periodDomain: number[] = [17, 35];
-  phaseDomain: number[] = [0, 24];
-  periodsLoading = false;
-  phasesLoading = false;
-  statsLoading = false;
-  indLoading = false;
-  retries = 0;
-  RETRY_INT = 800;
-  MAX_TRIES = (2 * 60 * 1000) / this.RETRY_INT;
 
-  // jobStream = new BehaviorSubject<PPAJobSummary>(null);
 
-  phaseParamsStream = new Subject<PhaseParams>();
-  indToogleStream = new BehaviorSubject<boolean>(false);
-  statsToogleStream = new BehaviorSubject<boolean>(false);
-  periodsToogleStream = new BehaviorSubject<boolean>(false);
-  phasesToogleStream = new BehaviorSubject<boolean>(false);
+
+  phaseParams = new PhaseParams('ByFit', 'zero', 'circ');
+
   expandedToogleStream = new BehaviorSubject<boolean>(false);
-  resultsStream: Observable<PPAJobResultsGroups>;
-  indResultsStream: Observable<PPAJobSimpleResults>;
-  statsStream: Observable<PPAJobSimpleStats>;
 
   constructor(private ppaService: PPAService,
               private ppaJobFetcher: PPAJobFetcherService,
@@ -123,7 +106,7 @@ export class PPAJobPaneComponent implements OnInit, OnChanges, OnDestroy {
   @Input()
   set periodsOn(val: boolean) {
     this._periodsOn = val;
-    this.periodsToogleStream.next(val);
+    // this.periodsToogleStream.next(val);
   }
 
   // tslint:disable-next-line:variable-name
@@ -136,7 +119,7 @@ export class PPAJobPaneComponent implements OnInit, OnChanges, OnDestroy {
   @Input()
   set phasesOn(val: boolean) {
     this._phasesOn = val;
-    this.phasesToogleStream.next(val);
+    // this.phasesToogleStream.next(val);
   }
 
   // tslint:disable-next-line:variable-name
@@ -164,21 +147,9 @@ export class PPAJobPaneComponent implements OnInit, OnChanges, OnDestroy {
   @Input()
   set statsOn(val: boolean) {
     this._statsOn = val;
-    this.statsToogleStream.next(val);
+    // this.statsToogleStream.next(val);
   }
 
-  // tslint:disable-next-line:variable-name
-  private _indOn = false;
-
-  get indOn(): boolean {
-    return this._indOn;
-  }
-
-  @Input()
-  set indOn(val: boolean) {
-    this._indOn = val;
-    this.indToogleStream.next(val);
-  }
 
   ngOnInit() {
     this.initSubscriptions();
@@ -186,10 +157,6 @@ export class PPAJobPaneComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   ngOnDestroy() {
-    /*
-    if (this.jobStream) {
-      this.jobStream.complete();
-    }*/
     this.ppaJobFetcher.close();
   }
 
@@ -208,7 +175,7 @@ export class PPAJobPaneComponent implements OnInit, OnChanges, OnDestroy {
 
   phaseOptions(params: PhaseParams) {
     // console.log("Ph"+this.jobId, params);
-    this.phaseParamsStream.next(params);
+    // this.phaseParamsStream.next(params);
     this.phaseParams = params;
   }
 
@@ -275,29 +242,25 @@ export class PPAJobPaneComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   refresh() {
-    // this.loadJob(this.jobId, this.assay.id, true);
     this.ppaJobFetcher.refresh();
-    this.removed = [];
   }
 
   reload() {
-    // console.log("reload");
     this.expanded = true;
     this.refresh();
+    if (this.ppaPlotsComponent) { this.ppaPlotsComponent.reload(); }
+    if (this.ppaStatsComponent) { this.ppaStatsComponent.reload(); }
+    if (this.ppaResultsComponent) { this.ppaResultsComponent.reload(); }
   }
 
   toggleExpanded() {
     this.expanded = !this.expanded;
-    // this.expandedToogleStream.next(this.expanded);
+    this.expandedToogleStream.next(this.expanded);
   }
 
   toggleStats() {
     this.statsOn = !this.statsOn;
     // this.statsToogleStream.next(this.statsOn);
-  }
-
-  toggleInd() {
-    this.indOn = !this.indOn;
   }
 
   togglePeriods() {
@@ -312,15 +275,6 @@ export class PPAJobPaneComponent implements OnInit, OnChanges, OnDestroy {
     // if (this.phasesOn) this.resultsToogleStream.next(true);
   }
 
-  hideGroups(marked: number[]) {
-    // console.log("Hiding",marked);
-    this.removed = marked;
-  }
-
-  /*sameOrReloaded(prev: PPAJobSummary, next: PPAJobSummary) {
-    // console.log("P: "+prev.reloaded+":"+next.reloaded+":"+(!next.reloaded && (prev.jobId === next.jobId)));
-    return ((prev === next) || (!next.reloaded && prev.jobId === next.jobId));
-  }*/
 
   initSubscriptions() {
 
@@ -340,215 +294,9 @@ export class PPAJobPaneComponent implements OnInit, OnChanges, OnDestroy {
     this.ppaJobFetcher.allJob$.subscribe(j => this.job = j);
 
 
-    /*
-    const finishedJobs = this.jobStream.pipe(
-      filter(job => this.isFinished(job)));
-    */
-    const finishedJobs = this.ppaJobFetcher.finishedJob$;
 
-    /*
-    const runningJobs = this.jobStream.pipe(
-      filter(job => this.isRunning(job)));
-
-    runningJobs.subscribe(
-      job => {
-        timer(this.RETRY_INT)
-          .subscribe(() => {
-            // console.log("Retrying "+job.jobId+":"+this.retries);
-            if (job.jobId !== this.jobId) {
-              return;
-            }
-            this.dots += '*';
-            this.retries++;
-            if (this.dots.length > 10) {
-              this.dots = '*';
-            }
-
-            if (this.retries % 4 === 1) {
-              this.reload();
-            } else {
-              this.jobStream.next(job);
-            }
-          });
-      }
-    );
-
-    this.jobStream.pipe(
-      filter(job => job && !this.isRunning(job)))
-      .subscribe((job) => {
-        // console.log("Resets retries: "+job.jobId+":"+this.retries);
-        this.retries = 0;
-        this.dots = '';
-      })
-    ;*/
-
-    this.statsStream = this.statsToogleStream.pipe(
-      combineLatest(
-        this.expandedToogleStream,
-        (on1, on2) => on1 && on2
-      ),
-      combineLatest(
-        finishedJobs,
-        (on, job) => on ? job : null
-      ),
-      filter(job => !!job),
-      // distinctUntilChanged(this.sameOrReloaded),
-      tap(job => {
-        // console.log("Getting stats:" + job.jobId);
-        this.statsLoading = true;
-      }),
-      switchMap(job => this.ppaService.getPPAJobSimpleStats(this.assay.id, job.jobId)),
-      filter(v => !!v));
-
-    /*
-    this.statsStream
-    // .delay(3000 + Math.random() * 3000)
-      .subscribe(stat => {
-          this.statsLoading = false;
-          this.jobStats = stat;
-        }
-      );*/
-
-    this.indResultsStream = this.indToogleStream.pipe(
-      combineLatest(
-        this.expandedToogleStream,
-        (on1, on2) => on1 && on2
-      ),
-      combineLatest(
-        finishedJobs,
-        (on, job) => on ? job : null
-      ),
-      filter(job => !!job),
-      // distinctUntilChanged(this.sameOrReloaded),
-      tap(job => {
-        // console.log("Getting stats:" + job.jobId);
-        this.indLoading = true;
-      }),
-      switchMap(job => this.ppaService.getPPAJobSimpleResults(this.assay.id, job.jobId)),
-      filter(v => !!v));
-
-    this.indResultsStream
-    // .delay(3000 + Math.random() * 3000)
-      .subscribe(res => {
-          this.indLoading = false;
-          this.indResults = res;
-        }
-      );
-
-    const results = this.resultsStream = new Subject<PPAJobResultsGroups>();
-
-
-    this.resultsStream.pipe(
-      map(sets => sets.groups.map(set => set.label))
-    )
-      .subscribe(lab => {
-        this.legend = lab;
-        this.palette = BD2ColorPalette.palette(lab.length);
-      });
-
-    this.periodsToogleStream.pipe(
-      combineLatest(
-        this.resultsStream,
-        (on, res) => on ? res : null
-      ),
-      filter(res => !!res),
-      map(sets => {
-        return {
-          periods: sets.groups.map(set => set.periods),
-          range: [sets.periodMin, sets.periodMax]
-        };
-      }))
-    // .delay(4000 + Math.random() * 3000)
-      .subscribe(per => {
-        this.periodsLoading = false;
-        this.periods = per.periods;
-        this.periodDomain = per.range;
-      });
-
-    const phaseResultsAndParams = this.phasesToogleStream.pipe(
-      combineLatest(
-        this.resultsStream,
-        (on, res) => on ? res : null
-      ),
-      filter(res => !!res),
-      combineLatest(
-        this.phaseParamsStream,
-        (res, params) => {
-          return {sets: res, params};
-        }));
-
-    phaseResultsAndParams.pipe(
-      map(res => {
-        let phases: number[][];
-        let domain: number[];
-
-        if (res.params.phaseUnit === 'circ') {
-          phases = res.sets.groups.map(set =>
-            res.params.relativeTo === 'zero' ? valueFromPhaseName(set.phases2ZCir, res.params.phaseType)
-              : valueFromPhaseName(set.phases2WCir, res.params.phaseType)) as number[][];
-          domain = [0, 24];
-        } else {
-          phases = res.sets.groups.map(set =>
-            res.params.relativeTo === 'zero' ? valueFromPhaseName(set.phases2Z, res.params.phaseType)
-              : valueFromPhaseName(set.phases2W, res.params.phaseType)) as number[][];
-          domain = [0, res.sets.periodMax];
-        }
-        return {phases, domain};
-      }))
-    // .delay(Math.random() * 3000)
-      .subscribe((pack: { phases: number[][], domain: number[] }) => {
-        this.phasesLoading = false;
-        this.phases = pack.phases;
-        this.phaseDomain = pack.domain;
-      });
-
-
-    // only emits true if one emits true
-    const resultsToogleStream = this.periodsToogleStream.pipe(
-      combineLatest(
-        this.phasesToogleStream,
-        (on1, on2) => on1 || on2
-      ),
-      combineLatest(
-        this.expandedToogleStream,
-        (on1, on2) => on1 && on2
-      ));
-
-    // to prevent from multiple calls to backend
-    finishedJobs.pipe(
-      combineLatest(
-        resultsToogleStream, (job, on) => {
-          return on ? job : null;
-        }),
-      filter(job => !!job),
-      // distinctUntilChanged(this.sameOrReloaded),
-      tap(() => {
-        this.periodsLoading = true;
-        this.phasesLoading = true;
-      }),
-      switchMap(job => this.ppaService.getPPAJobResultsGrouped(this.assay.id, job.jobId))
-    )
-      .subscribe(res => results.next(res), err => results.error(err), () => results.complete());
-
-
-    /*
-    finishedJobs.pipe(
-      distinctUntilChanged(this.sameOrReloaded)
-    ).subscribe(job => this.finished.next(job));
-     */
   }
 
-  /*
-  loadJob(jobId: number, assayId: number, reloaded?: boolean) {
-    this.ppaService.getPPAJob(assayId, jobId).toPromise()
-      .then(job => {
-        job.reloaded = reloaded;
-        this.jobStream.next(job);
-      })
-      .catch(reason => {
-        this.feedback.error(reason);
-      });
-  }*/
 
   simplifyJobState(job: PPAJobSummary) {
     /*if (job.status.state === 'SUCCESS') {
@@ -562,27 +310,7 @@ export class PPAJobPaneComponent implements OnInit, OnChanges, OnDestroy {
 
     return this.ppaJobFetcher.isFinished(job);
 
-    /*if (job && job.state && (job.state === 'FINISHED' || job.state === 'SUCCESS')) {
-      return true;
-    }
-    return false;*/
   }
 
-  /*
-  isRunning(job: PPAJobSummary): boolean {
-    if (!job) {
-      return false;
-    }
-    if (!this._expanded) {
-      return false;
-    }
-    if (this.retries > this.MAX_TRIES) {
-      return false;
-    }
-    if (job && job.state && (job.state === 'SUBMITTED' || job.state === 'PROCESSING')) {
-      return true;
-    }
-    return false;
-  }*/
 
 }

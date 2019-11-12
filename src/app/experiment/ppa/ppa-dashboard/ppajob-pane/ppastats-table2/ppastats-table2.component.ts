@@ -3,6 +3,7 @@ import {PPAStatsFetcherService} from '../services/ppastats-fetcher.service';
 import {phaseValuesFromOptions, PPAJobSummary, PPASimpleStats, valueFromPhaseName} from '../../../ppa-dom';
 import {PageEvent, Sort} from '@angular/material';
 import {PhaseParams} from '../phases-options-widget.component';
+import {Reloadable} from '../reloadable';
 
 @Component({
   selector: 'bd2-ppastats-table2',
@@ -10,7 +11,7 @@ import {PhaseParams} from '../phases-options-widget.component';
   styles: [],
   providers: [PPAStatsFetcherService]
 })
-export class PPAStatsTable2Component implements OnInit, OnDestroy {
+export class PPAStatsTable2Component implements OnInit, OnDestroy, Reloadable {
 
   // @Input()
   phaseType = 'ByFit';
@@ -39,6 +40,10 @@ export class PPAStatsTable2Component implements OnInit, OnDestroy {
     this.fetcher.on(val);
   }
 
+
+
+
+
   isOn = false;
   disablePaginator = false;
   displayedColumns = ['label', 'n', 'period', 'period.std', 'phase', 'phase.std', 'amplitude', 'amplitude.std'];
@@ -59,6 +64,10 @@ export class PPAStatsTable2Component implements OnInit, OnDestroy {
     if (this.fetcher) {
       this.fetcher.close();
     }
+  }
+
+  reload() {
+    this.fetcher.refresh();
   }
 
   loadPage(page: PageEvent) {

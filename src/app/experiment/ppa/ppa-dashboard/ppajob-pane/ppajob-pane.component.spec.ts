@@ -3,8 +3,6 @@ import {PPAJobPaneComponent} from './ppajob-pane.component';
 import {PPAService} from '../../ppa.service';
 import {PhasesOptionsWidgetComponent} from './phases-options-widget.component';
 import {PPAJobSummary} from '../../ppa-dom';
-import {PPAStatsTableComponent} from './ppastats-table/ppastats-table.component';
-import {PPAJobResultsTableComponent} from './ppajob-results-table/ppajob-results-table.component';
 import {RouterTestingModule} from '@angular/router/testing';
 import {PPAStatsTable2Component} from './ppastats-table2/ppastats-table2.component';
 import {PPAResultsTable2Component} from './pparesults-table2/pparesults-table2.component';
@@ -20,8 +18,8 @@ import {NgModule} from '@angular/core';
     PPAPlotsComponentTestModule,
     PPAJobPaneComponent
   ],
-  declarations: [ PPAJobPaneComponent, PPAStatsTableComponent, PPAStatsTable2Component, PPAResultsTable2Component,
-    PhasesOptionsWidgetComponent, PPAJobResultsTableComponent ]
+  declarations: [ PPAJobPaneComponent, PPAStatsTable2Component, PPAResultsTable2Component,
+    PhasesOptionsWidgetComponent ]
 })
 export class PPAJobPaneComponentTestModule {
 }

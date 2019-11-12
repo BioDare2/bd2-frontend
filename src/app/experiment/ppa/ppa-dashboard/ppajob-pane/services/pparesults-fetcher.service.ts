@@ -1,7 +1,7 @@
 import {Inject, Injectable, Optional} from '@angular/core';
 import {PPAService} from '../../../ppa.service';
 import {REMOVE_DEBOUNCE} from '../../../../../shared/tokens';
-import {PPAJobSimpleResults, PPAJobSummary, PPASimpleResultEntry,} from '../../../ppa-dom';
+import {PPAJobSimpleResults, PPAJobSummary, PPASimpleResultEntry, } from '../../../ppa-dom';
 import {Observable} from 'rxjs';
 import {Sort} from '@angular/material';
 import {PageableSortableArraysFetcherService} from './pageable-sortable-arrays-fetcher.service';

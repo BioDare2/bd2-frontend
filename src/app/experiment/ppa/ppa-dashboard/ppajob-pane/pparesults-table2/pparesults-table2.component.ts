@@ -4,6 +4,7 @@ import {PageEvent, Sort} from '@angular/material';
 import {phaseValuesFromOptions, PPAJobSummary, PPASimpleResultEntry, valueFromPhaseName} from '../../../ppa-dom';
 import {SelectableFitDialogComponent} from '../../../ppa-fit/selectable-fit-dialog.component';
 import {PhaseParams} from '../phases-options-widget.component';
+import {Reloadable} from '../reloadable';
 
 @Component({
   selector: 'bd2-pparesults-table2',
@@ -11,17 +12,7 @@ import {PhaseParams} from '../phases-options-widget.component';
   styles: [],
   providers: [PPAResultsFetcherService]
 })
-export class PPAResultsTable2Component implements OnInit, OnDestroy {
-
-  @Input()
-  fitDialog: SelectableFitDialogComponent;
-
-  // @Input()
-  phaseType = 'ByFit';
-  // @Input()
-  relativeTo = 'zero';
-  // @Input()
-  phaseUnit = 'circ';
+export class PPAResultsTable2Component implements OnInit, OnDestroy, Reloadable {
 
   @Input()
   set job(job: PPAJobSummary) {
@@ -43,11 +34,25 @@ export class PPAResultsTable2Component implements OnInit, OnDestroy {
     this.fetcher.on(val);
   }
 
+  constructor(private fetcher: PPAResultsFetcherService) { }
+
+  @Input()
+  fitDialog: SelectableFitDialogComponent;
+
+  // @Input()
+  phaseType = 'ByFit';
+  // @Input()
+  relativeTo = 'zero';
+  // @Input()
+  phaseUnit = 'circ';
+
   isOn = false;
   disablePaginator = false;
   displayedColumns = ['id', 'label', 'state', 'period', 'phase', 'amplitude', 'gof', 'err', 'fit'];
 
-  constructor(private fetcher: PPAResultsFetcherService) { }
+  reload() {
+    this.fetcher.refresh();
+  }
 
   ngOnInit() {
     const firstPage = new PageEvent();
