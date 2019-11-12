@@ -1,0 +1,176 @@
+<div *ngIf="!job">NO JOB</div>
+<div *ngIf="job" class="panel panel-default">
+  <div class="panel-heading clearfix">
+    <div (click)="toggleExpanded()" role="button" class="pull-left">
+                  <span [style.color]="expanded ? 'green' : 'red'" [style.font-size.%]="120"
+                        class="glyphicon glyphicon-sort-by-attributes" aria-hidden="true"></span>
+      &nbsp;{{job.jobId}}. {{job.method}} ({{job.submitted | date}})
+    </div>
+    <div class="pull-right">
+      {{dots}}
+      {{simplifyJobState(job)}}
+      <a (click)="reload()" role="button">
+        <span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>
+      </a>
+    </div>
+
+  </div>
+  <div class="panel-body">
+    <div class="clearfix">
+      <div *ngIf="assay.security.canWrite" class="pull-right">
+        <button type="button" class="btn btn-danger btn-sm" (click)="delete()">
+          <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+        </button>
+        <a *ngIf="isFinished(job)" [routerLink]="['.',job.jobId,'edit']"
+           class="btn btn-primary btn-sm">
+          Select periods</a>
+        <button type="button" class="btn btn-primary btn-sm" (click)="export()">
+          <span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span>
+        </button>
+      </div>
+      {{job.summary}}
+      <span *ngIf="job.attentionCount" class="text-danger"><br>{{job.attentionCount}} results needs attention</span>
+      <div *ngIf="job.lastError" class="text-danger" style="word-wrap: break-word;"><br>ERROR:
+        {{job.lastError}}
+      </div>
+    </div>
+
+    <ng-container *ngIf="ppaJobFetcher.finishedJob$ | async as finishedJob">
+
+      <bd2-ppaplots
+        [job]="finishedJob" [phaseParams]="phaseParams"
+      ></bd2-ppaplots>
+
+      <bd2-phases-options phaseType="ByFit" phaseUnit="circ" relativeTo="zero"
+                          (options)="phaseOptions($event)">
+      </bd2-phases-options>
+
+      <bd2-ppastats-table2
+        [job]="finishedJob"
+        [phaseParams]="phaseParams"
+      ></bd2-ppastats-table2>
+
+      <bd2-pparesults-table2
+        [job]="finishedJob"
+        [phaseParams]="phaseParams"
+        [fitDialog]="fitDialog"
+      ></bd2-pparesults-table2>
+    </ng-container>
+
+    <div [hidden]="!expanded || !isFinished(job)">
+
+      <hr>
+      <div class="row">
+        <div class="col-sm-12">
+          <label (click)="togglePeriods()" role="button">
+                              <span [style.color]="periodsOn ? 'green' : 'red'" [style.font-size.%]="120"
+                                    class="glyphicon glyphicon-object-align-vertical" aria-hidden="true"></span>
+            Periods
+          </label>
+        </div>
+        <div #periodPlotC [hidden]="!periodsOn" class="col-sm-10">
+          <bd2-ngx-hbox-plot [hidden]="periodsLoading" [data]="periods" [domain]="periodDomain"
+                             [labels]="legend" [palette]="palette"
+                             [removed]="removed"
+                             [sorted]="sorted" [labelsOn]="legendOn">
+          </bd2-ngx-hbox-plot>
+          <div [hidden]="!periodsLoading"> loading periods...</div>
+        </div>
+        <div [hidden]="!periodsOn" class="col-sm-2">
+          <div class="btn-wrap">
+            <label>Sorting</label>
+            <div class="btn-group wide">
+              <label class="btn btn-success btn-xs wide" [(ngModel)]="sorted"
+                     btnRadio="median">Median</label>
+              <label class="btn btn-success btn-xs wide" [(ngModel)]="sorted"
+                     btnRadio="label">Labels</label>
+              <label class="btn btn-success btn-xs wide" [(ngModel)]="sorted"
+                     btnRadio="none">None</label>
+            </div>
+          </div>
+          <div class="btn-wrap">
+            <label>Legend</label>
+            <div class="btn-group">
+              <label class="btn btn-success btn-xs small" [(ngModel)]="legendOn"
+                     btnRadio="always">On</label>
+              <label class="btn btn-success btn-xs small" [(ngModel)]="legendOn"
+                     btnRadio="trigger">Off</label>
+            </div>
+          </div>
+          <bd2-ngx-svg-saver [fileName]="assay.id+'_'+job.method+'.periods'"
+                             [refNode]="periodPlotC"
+          ></bd2-ngx-svg-saver>
+        </div>
+
+        <div *ngIf="periodsOn || phasesOn" class="col-sm-12" style="margin-bottom: 1em;">
+          <bd2-simple-legend [labels]="legend" [palette]="palette"
+                             (marked)="hideGroups($event)"
+          ></bd2-simple-legend>
+        </div>
+
+        <div class="col-sm-12">
+          <label (click)="togglePhases()" role="button">
+                              <span [style.color]="phasesOn ? 'green' : 'red'" [style.font-size.%]="120"
+                                    class="glyphicon glyphicon-dashboard" aria-hidden="true"></span>
+            Phases
+          </label>
+        </div>
+        <div #phasePlotC [hidden]="!phasesOn" class="col-sm-7">
+          <bd2-ngx-polar-plot
+            [hidden]="phasesLoading" [data]="phases" [domain]="phaseDomain" [labels]="legend"
+            [showIndividuals]="phaseShowIndividuals" [removed]="removed"
+          >
+          </bd2-ngx-polar-plot>
+          <div [hidden]="!phasesLoading"> loading phases...</div>
+        </div>
+        <div [hidden]="!phasesOn && !statsOn && !indOn" [class.col-sm-5]="phasesOn"
+             [class.col-sm-12]="!phasesOn && (statsOn || indOn)">
+          <bd2-phases-options [phaseType]="phaseType" [phaseUnit]="phaseUnit" [relativeTo]="relativeTo"
+                              (options)="phaseOptions($event)">
+          </bd2-phases-options>
+          <div [hidden]="!phasesOn">
+            <label class="btn btn-success btn-xs small"
+                   [(ngModel)]="phaseShowIndividuals" btnCheckbox
+                   btnCheckboxFalse="selected" btnCheckboxTrue="all">Ind.</label>
+            <bd2-ngx-svg-saver [refNode]="phasePlotC"
+                               [fileName]="assay.id+'_'+job.method+'.phases'"></bd2-ngx-svg-saver>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <label (click)="toggleStats()" role="button">
+                          <span [style.color]="statsOn ? 'green' : 'red'" [style.font-size.%]="120"
+                                class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>
+          Summary statistics
+        </label>
+
+        <!--<div [hidden]="!statsOn || !isFinished(job)">
+          <bd2-ppastats-table [hidden]="statsLoading" [jobStats]="jobStats"
+                              [phaseType]="phaseParams.phaseType"
+                              [relativeTo]="phaseParams.relativeTo" [phaseUnit]="phaseParams.phaseUnit">
+          </bd2-ppastats-table>
+
+          <div [hidden]="!statsLoading"> loading stats...</div>
+        </div>-->
+      </div>
+
+      <div>
+        <label (click)="toggleInd()" role="button">
+                          <span [style.color]="indOn ? 'green' : 'red'" [style.font-size.%]="120"
+                                class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>
+          Individual results
+        </label>
+        <div [hidden]="!indOn || !isFinished(job)">
+          <bd2-ppajob-results-table [hidden]="indLoading" [results]="indResults" [assayId]="assay.id"
+                                    [phaseType]="phaseParams.phaseType"
+                                    [relativeTo]="phaseParams.relativeTo" [phaseUnit]="phaseParams.phaseUnit"
+                                    [fitDialog]="fitDialog"
+          >
+          </bd2-ppajob-results-table>
+          <div [hidden]="!statsLoading"> loading stats...</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
