@@ -1,5 +1,5 @@
 import {PageableSortableFetcherService} from './pageable-sortable-fetcher.service';
-import {fakeAsync, tick} from '@angular/core/testing';
+import {fakeAsync, flush, tick} from '@angular/core/testing';
 import {of} from 'rxjs';
 import {PageEvent, Sort} from '@angular/material';
 import {arraysMatch} from '../../../../../shared/collections-util';
@@ -205,6 +205,36 @@ describe('PageableSortableFetcherService', () => {
 
   }));
 
+  it('multiple refresh when off give only one when back on', fakeAsync( () => {
+
+    const vals = [];
+    let error;
+
+    // @ts-ignore
+    service.initAssetsInput().subscribe( ids => vals.push(ids), err => error = err );
+    service.on(true);
+    service.input([12, 34]);
+    tick();
+
+    expect(vals).toEqual([[12, 34]]);
+    expect(error).toBeUndefined();
+
+    service.refresh();
+    tick();
+    expect(vals).toEqual([[12, 34], [12, 34]]);
+    expect(error).toBeUndefined();
+
+
+    service.on(false);
+    service.refresh();
+    service.refresh();
+    service.refresh();
+    service.on(true);
+    expect(vals).toEqual([[12, 34], [12, 34], [12, 34]]);
+
+  }));
+
+
   it('loadAsset emits true in busy', fakeAsync( () => {
 
     const val: boolean[] = [];
@@ -403,13 +433,51 @@ describe('PageableSortableFetcherService', () => {
 
     tick();
     expect(error).toBeUndefined();
-    expect(val).toEqual([['A'], ['A'], ['B'], ['B']]);
+    // one extra B as sort trigers page as well
+    expect(val).toEqual([['A'], ['A'], ['B'], ['B'], ['B']]);
 
     service.sort(undefined);
     expect(error).toBeUndefined();
-    expect(val).toEqual([['A'], ['A'], ['B'], ['B'], ['B']]);
+    // two extra B as sort trigers page as well
+    expect(val).toEqual([['A'], ['A'], ['B'], ['B'], ['B'], ['B'], ['B']]);
 
   }));
+
+  it('sort resets the page to first one', fakeAsync( () => {
+
+
+    let vals: PageEvent[] = [];
+
+    // @ts-ignore
+    service.page$.subscribe( p => vals.push(p));
+
+    let sort: Sort = {active: 'id', direction: 'asc'};
+    service.sort(sort);
+
+    tick();
+    // cause pages is behaviour subject and starts with undefined
+    expect(vals).toEqual([undefined]);
+
+    const page = new PageEvent();
+    page.pageIndex = 2;
+    page.pageSize = 11;
+    service.page(page);
+
+    tick();
+    expect(vals).toEqual([undefined, page]);
+
+    sort = {active: 'id', direction: 'desc'};
+    service.sort(sort);
+
+    tick();
+    expect(vals.length).toEqual(3);
+
+    const page2 = vals[2];
+    expect(page2.pageIndex).toBe(0);
+    expect(page2.pageSize).toBe(11);
+
+  }));
+
 
   it('data stream sets busy during sorting and pagination', fakeAsync( () => {
 

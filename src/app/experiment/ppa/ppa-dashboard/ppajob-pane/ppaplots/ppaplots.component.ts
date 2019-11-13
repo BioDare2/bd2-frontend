@@ -26,7 +26,8 @@ export class PPAPlotsComponent implements OnInit, OnDestroy, Reloadable {
     this.fetcher.on(val);
   }
 
-  constructor(private fetcher: PPAGroupResultsFetcherService) { }
+  constructor(private fetcher: PPAGroupResultsFetcherService) {
+  }
 
   @Input()
   phaseParams: PhaseParams;

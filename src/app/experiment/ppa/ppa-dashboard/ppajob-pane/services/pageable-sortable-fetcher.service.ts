@@ -1,8 +1,31 @@
 import {BehaviorSubject, combineLatest, merge, Observable, of, Subject} from 'rxjs';
 import {PageEvent, Sort} from '@angular/material';
-import {catchError, debounceTime, distinctUntilChanged, filter, flatMap, map, take, tap} from 'rxjs/operators';
+import {
+  catchError,
+  debounceTime,
+  distinctUntilChanged,
+  filter,
+  flatMap,
+  map,
+  switchMap,
+  take,
+  tap
+} from 'rxjs/operators';
 
 export abstract class PageableSortableFetcherService<I, P, A, D> {
+
+  protected constructor(protected removeDebounce = false) {
+
+    this.id = PageableSortableFetcherService.ids++;
+    this.logMe('created');
+    this.initAssetsStream();
+    this.isBusy$ = this.initBusyStream();
+
+    this.data$ = this.initDataStream();
+  }
+  protected static ids = 0;
+
+  DEBUG = false;
 
   readonly data$: Observable<D>;
   readonly error$ = new Subject<any>();
@@ -26,13 +49,17 @@ export abstract class PageableSortableFetcherService<I, P, A, D> {
   protected readonly params$ = new BehaviorSubject<P>(undefined);
   protected readonly asset$ = new BehaviorSubject<A>(undefined);
 
-  protected constructor(protected removeDebounce = false) {
+  public readonly id: number;
 
-    this.initAssetsStream();
-    this.isBusy$ = this.initBusyStream();
-
-    this.data$ = this.initDataStream();
-  }
+  logMe(msg: string, obj?: any) {
+    if (!this.DEBUG) { return; }
+    msg = this.constructor.name + ':' + this.id + ' ' + msg;
+    if (obj) {
+      console.log(msg, obj);
+    } else {
+      console.log(msg);
+    }
+}
 
   public input(v: I) {
     if (v) { this.input$.next(v); }
@@ -56,6 +83,7 @@ export abstract class PageableSortableFetcherService<I, P, A, D> {
 
   public sort(sort: Sort) {
     this.sort$.next(sort);
+    this.resetPage();
   }
 
   public close() {
@@ -88,6 +116,19 @@ export abstract class PageableSortableFetcherService<I, P, A, D> {
     return of(undefined);
   }
 
+  protected resetPage() {
+    this.page$.pipe(take(1))
+      .subscribe( p => {
+        if (p) {
+          const page = new PageEvent();
+          page.pageIndex = 0;
+          page.pageSize = p.pageSize;
+          this.page(page);
+        }
+      }
+      );
+  }
+
   protected initBusyStream(): Observable<boolean> {
 
     if (this.removeDebounce) {
@@ -106,7 +147,17 @@ export abstract class PageableSortableFetcherService<I, P, A, D> {
 
     const dataMutations = this.dataMutators();
 
-    return combineLatest(dataMutations).pipe(
+    let latest;
+    if (this.removeDebounce) {
+      latest = combineLatest(dataMutations);
+    } else {
+      latest = combineLatest(dataMutations).pipe(
+        debounceTime(200)
+      );
+    }
+
+    return latest.pipe(
+      tap(v => this.logMe('Input for data stream', v)),
       tap( v => this.isProcessing$.next(true)),
       map( ([asset, sort, page, params]) => {
         // maybe this should be in set asset instead, but in that place the current params are not known
@@ -123,7 +174,6 @@ export abstract class PageableSortableFetcherService<I, P, A, D> {
         this.error$.next(err);
         return this.errorToData(err);
       }),
-      // delay(2000),
       tap( v => this.isProcessing$.next(false)),
     );
 
@@ -186,10 +236,13 @@ export abstract class PageableSortableFetcherService<I, P, A, D> {
     );
 
     const refreshedInput$ = this.refresh$.pipe(
-      flatMap( v => distinctInput$.pipe(take(1))),
+      switchMap( v => distinctInput$.pipe(take(1))),
     );
 
-    const merged = merge(distinctInput$, refreshedInput$);
+    const merged = merge(distinctInput$, refreshedInput$)
+      .pipe(
+        tap( v => this.logMe('Assets input', v))
+      );
 
     return merged;
   }
