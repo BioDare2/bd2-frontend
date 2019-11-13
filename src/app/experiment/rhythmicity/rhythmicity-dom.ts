@@ -1,7 +1,6 @@
 import {DetrendingType} from '../../tsdata/ts-data-dom';
 
 
-
 export class RhythmicityMethod {
 
   static BD2EJTK = new RhythmicityMethod('BD2EJTK', 'BD2 eJTK');

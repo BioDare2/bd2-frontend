@@ -3,7 +3,7 @@ import {DisplayParameters, validTimeScale} from '../ts-display.dom';
 import {AlignOptions, DetrendingType, DetrendingTypeOptions, NormalisationOptions, TSOption} from '../../ts-data-dom';
 import {BehaviorSubject, combineLatest, Subscription, zip} from 'rxjs';
 import {AbstractControl, FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {distinctUntilChanged, filter, map, startWith, tap} from 'rxjs/operators';
+import {distinctUntilChanged, filter, map, startWith} from 'rxjs/operators';
 import {MatPaginator, MatPaginatorIntl, PageEvent} from '@angular/material';
 
 export class BaseTSDisplayParamsRForm implements OnInit, OnDestroy, AfterViewInit {

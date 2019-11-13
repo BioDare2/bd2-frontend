@@ -4,7 +4,6 @@ import {RhythmicityDashboardComponent} from './rhythmicity-dashboard/rhythmicity
 import {RhythmicityStartFormComponent} from './rhythmicity-start-form/rhythmicity-start-form.component';
 
 
-
 const routes: Routes = [
   {
     path: '',

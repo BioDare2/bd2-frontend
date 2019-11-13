@@ -1,6 +1,6 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { SelectDataStartStepComponent } from './select-data-start-step.component';
+import {SelectDataStartStepComponent} from './select-data-start-step.component';
 import {DataSheetMDTableComponent} from '../data-sheet-mdtable/data-sheet-mdtable.component';
 import {MaterialsModule} from '../../../../shared/materials.module';
 import {AlertModule} from 'ngx-bootstrap';

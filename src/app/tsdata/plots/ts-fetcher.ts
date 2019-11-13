@@ -7,8 +7,7 @@ import {AlignOptions, DetrendingType, NormalisationOptions} from '../ts-data-dom
 import {catchError, debounceTime, distinctUntilChanged, filter, map, switchMap, tap} from 'rxjs/operators';
 import {ExperimentalAssayView} from '../../dom/repo/exp/experimental-assay-view';
 import {PageEvent} from '@angular/material';
-import { InjectionToken } from '@angular/core';
-import {REMOVE_DEBOUNCE} from "../../shared/tokens";
+import {REMOVE_DEBOUNCE} from '../../shared/tokens';
 
 
 export class TimeSeriesPack {

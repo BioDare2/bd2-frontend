@@ -1,12 +1,11 @@
 import {of, throwError} from 'rxjs';
 import {TSDataService} from '../ts-data.service';
 import {TimeSeriesPack, TSFetcher} from './ts-fetcher';
-import {fakeAsync, flushMicrotasks, tick} from '@angular/core/testing';
+import {fakeAsync, tick} from '@angular/core/testing';
 import {ExperimentalAssayView} from '../../dom/repo/exp/experimental-assay-view';
 import {TraceSet} from './ts-plot.dom';
 import {DisplayParameters} from './ts-display.dom';
 import {AlignOptions, DetrendingType, NormalisationOptions} from '../ts-data-dom';
-
 
 
 describe('TSFetcher', () => {

@@ -62,7 +62,7 @@ export class PPAJobFetcherService {
   currentAssayJobId: [number, number];
   currentJob: PPAJobSummary;
 
-  private currentReloadStatus = new IntervalsKeeper<number>(1000, 30 * 1000, 5 * 60 * 1000);
+  private currentReloadStatus = new IntervalsKeeper<number>(1000, 20 * 1000, 5 * 60 * 1000);
 
   private reloadSubscription: Subscription;
 

@@ -31,9 +31,9 @@
 
 
   <mat-paginator #paginator [length]="fetcher.dataLength" [disabled]="disablePaginator"
-                 [pageSize]="fetcher.currentPage?.pageSize || 5"
+                 [pageSize]="fetcher.currentPage?.pageSize || 10"
                  [pageIndex]="fetcher.currentPage?.pageIndex"
-                 [pageSizeOptions]="[2, 5, 10, 25, 50, 100]"
+                 [pageSizeOptions]="[5, 10, 25, 50, 100]"
                  (page)="loadPage($event)"
 
   >

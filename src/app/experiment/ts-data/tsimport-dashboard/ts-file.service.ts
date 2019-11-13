@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {BioDareRestService} from '../../../backend/biodare-rest.service';
 import {ImportFormat} from '../import-dom';
 import {UploadService} from '../../../file-asset/upload-service';
-import {Observable, from, throwError, of} from 'rxjs';
+import {from, Observable} from 'rxjs';
 import {flatMap, map} from 'rxjs/operators';
 import {CellSelection, DataTableSlice, Slice} from './data-table-dom';
 

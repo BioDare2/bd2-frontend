@@ -1,5 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {phaseValuesFromOptions, PPAJobSimpleStats, PPASimpleStats, valueFromPhaseName} from '../../../ppa-dom';
+import {phaseValuesFromOptions, PPAJobSimpleStats, PPASimpleStats, valueFromPhaseName} from '../../../../ppa-dom';
+
 
 @Component({
   selector: 'bd2-ppastats-table',
@@ -39,7 +40,7 @@ import {phaseValuesFromOptions, PPAJobSimpleStats, PPASimpleStats, valueFromPhas
   `,
   styles: []
 })
-export class PPAStatsTableComponent implements OnInit {
+class PPAStatsTableComponent implements OnInit {
 
   @Input()
   jobStats: PPAJobSimpleStats;

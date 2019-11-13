@@ -1,6 +1,6 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { DefineTimeStepComponent } from './define-time-step.component';
+import {DefineTimeStepComponent} from './define-time-step.component';
 import {MaterialsModule} from '../../../../shared/materials.module';
 import {AlertModule} from 'ngx-bootstrap';
 import {NoopAnimationsModule} from '@angular/platform-browser/animations';

@@ -1,16 +1,6 @@
 import {BehaviorSubject, combineLatest, merge, Observable, of, Subject} from 'rxjs';
 import {PageEvent, Sort} from '@angular/material';
-import {
-  catchError,
-  debounceTime,
-  distinctUntilChanged,
-  filter,
-  flatMap,
-  map,
-  switchMap,
-  take,
-  tap
-} from 'rxjs/operators';
+import {catchError, debounceTime, distinctUntilChanged, filter, map, switchMap, take, tap} from 'rxjs/operators';
 
 export abstract class PageableSortableFetcherService<I, P, A, D> {
 
@@ -25,7 +15,7 @@ export abstract class PageableSortableFetcherService<I, P, A, D> {
   }
   protected static ids = 0;
 
-  DEBUG = false;
+
 
   readonly data$: Observable<D>;
   readonly error$ = new Subject<any>();
@@ -48,6 +38,10 @@ export abstract class PageableSortableFetcherService<I, P, A, D> {
   protected readonly input$ = new BehaviorSubject<I>(undefined);
   protected readonly params$ = new BehaviorSubject<P>(undefined);
   protected readonly asset$ = new BehaviorSubject<A>(undefined);
+
+  protected DEBUG = false;
+  protected dataInputsDebounce = 200;
+  protected busyDebounce = 50;
 
   public readonly id: number;
 
@@ -137,7 +131,7 @@ export abstract class PageableSortableFetcherService<I, P, A, D> {
       );
     } else {
       return combineLatest([this.isFetching$, this.isProcessing$]).pipe(
-        debounceTime(50),
+        debounceTime(this.busyDebounce),
         map(([fetching, processing]) => fetching || processing)
       );
     }
@@ -152,7 +146,7 @@ export abstract class PageableSortableFetcherService<I, P, A, D> {
       latest = combineLatest(dataMutations);
     } else {
       latest = combineLatest(dataMutations).pipe(
-        debounceTime(200)
+        debounceTime(this.dataInputsDebounce)
       );
     }
 

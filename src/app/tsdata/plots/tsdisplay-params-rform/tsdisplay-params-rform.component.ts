@@ -1,7 +1,6 @@
-import {AfterViewInit, Component, OnDestroy, OnInit, ViewChild, } from '@angular/core';
+import {AfterViewInit, Component, OnDestroy, OnInit,} from '@angular/core';
 import {FormBuilder} from '@angular/forms';
 import {BaseTSDisplayParamsRForm} from './base-tsdisplay-params-rform';
-import {MatPaginator, MatPaginatorIntl} from '@angular/material';
 
 @Component({
   selector: 'bd2-tsdisplay-params-rform',

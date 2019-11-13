@@ -1,6 +1,6 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { EditLabelDialogComponent } from './edit-label-dialog.component';
+import {EditLabelDialogComponent} from './edit-label-dialog.component';
 import {MaterialsModule} from '../../../../../shared/materials.module';
 import {FormsModule} from '@angular/forms';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';

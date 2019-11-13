@@ -1,20 +1,20 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { RhythmicityJobPaneComponent } from './rhythmicity-job-pane.component';
+import {RhythmicityJobPaneComponent} from './rhythmicity-job-pane.component';
 import {ExperimentsTestToolModule} from '../../../experiment_test_tool.spec';
 import {StaticContentTestModule} from '../../../../documents/static-content_test_tool.spec';
 import {PValueFormComponent} from './pvalue-form/pvalue-form.component';
 import {RhythmicityResultsMDTableComponent} from './rhythmicity-results-mdtable/rhythmicity-results-mdtable.component';
 import {
+  MatCardModule,
+  MatDividerModule,
   MatFormFieldModule,
   MatPaginatorModule,
   MatProgressSpinnerModule,
   MatRadioModule,
-  MatSortModule,
-  MatTableModule,
   MatSlideToggleModule,
-  MatCardModule,
-  MatDividerModule
+  MatSortModule,
+  MatTableModule
 } from '@angular/material';
 
 describe('RhythmicityJobPaneComponent', () => {

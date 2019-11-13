@@ -6,7 +6,6 @@ import {TimeColumnType} from '../../ts-import/sheet-dom';
 import {TSFileService} from '../ts-file.service';
 import {FeedbackService} from '../../../../feedback/feedback.service';
 import {DataTableService} from '../data-table.service';
-import {StepperSelectionEvent} from '@angular/cdk/stepper';
 import {SelectBackgroundsLabelsStepComponent} from '../select-backgrounds-labels-step/select-backgrounds-labels-step.component';
 
 @Component({

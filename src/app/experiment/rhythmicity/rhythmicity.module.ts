@@ -6,12 +6,12 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {AlertModule, ButtonsModule, ModalModule} from 'ngx-bootstrap';
 import {StaticContentModule} from '../../documents/static-content.module';
 import {SharedComponentsModule} from '../../shared/shared-components.module';
-import { RhythmicityStartFormComponent } from './rhythmicity-start-form/rhythmicity-start-form.component';
-import { RhythmicityjobParamsRformComponent } from './rhythmicity-start-form/rhythmicityjob-params-rform/rhythmicityjob-params-rform.component';
+import {RhythmicityStartFormComponent} from './rhythmicity-start-form/rhythmicity-start-form.component';
+import {RhythmicityjobParamsRformComponent} from './rhythmicity-start-form/rhythmicityjob-params-rform/rhythmicityjob-params-rform.component';
 import {TSPlotModule} from '../../tsdata/plots/ts-plot.module';
-import { RhythmicityJobPaneComponent } from './rhythmicity-dashboard/rhythmicity-job-pane/rhythmicity-job-pane.component';
-import { PValueFormComponent } from './rhythmicity-dashboard/rhythmicity-job-pane/pvalue-form/pvalue-form.component';
-import { RhythmicityResultsMDTableComponent } from './rhythmicity-dashboard/rhythmicity-job-pane/rhythmicity-results-mdtable/rhythmicity-results-mdtable.component';
+import {RhythmicityJobPaneComponent} from './rhythmicity-dashboard/rhythmicity-job-pane/rhythmicity-job-pane.component';
+import {PValueFormComponent} from './rhythmicity-dashboard/rhythmicity-job-pane/pvalue-form/pvalue-form.component';
+import {RhythmicityResultsMDTableComponent} from './rhythmicity-dashboard/rhythmicity-job-pane/rhythmicity-results-mdtable/rhythmicity-results-mdtable.component';
 import {MaterialsModule} from '../../shared/materials.module';
 
 @NgModule({

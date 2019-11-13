@@ -1,6 +1,6 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { ImportDetailsSummaryComponent } from './import-details-summary.component';
+import {ImportDetailsSummaryComponent} from './import-details-summary.component';
 import {MaterialsModule} from '../../../../shared/materials.module';
 
 describe('ImportDetailsSummaryComponent', () => {

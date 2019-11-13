@@ -1,6 +1,6 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { TSImportDashboardComponent } from './tsimport-dashboard.component';
+import {TSImportDashboardComponent} from './tsimport-dashboard.component';
 import {MaterialsModule} from '../../../shared/materials.module';
 import {AlertModule} from 'ngx-bootstrap';
 import {FileAssetModule} from '../../../file-asset/file-asset.module';
@@ -12,7 +12,6 @@ import {DefineTimeStepComponent} from './define-time-step/define-time-step.compo
 import {ImportLabelsStepComponent} from './import-labels-step/import-labels-step.component';
 import {DataSheetMDTableComponent} from './data-sheet-mdtable/data-sheet-mdtable.component';
 import {SelectDataStartStepComponent} from './select-data-start-step/select-data-start-step.component';
-import {TSFileService} from './ts-file.service';
 import {ImportStepsComponent} from './import-steps/import-steps.component';
 import {AssignLabelsStepComponent} from './assign-labels-step/assign-labels-step.component';
 import {SelectableRegionMDTableComponent} from './assign-labels-step/selectable-region-mdtable/selectable-region-mdtable.component';

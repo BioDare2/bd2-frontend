@@ -3,7 +3,6 @@ import {SpeciesService} from './species.service';
 import {BioDareRestService} from '../../../backend/biodare-rest.service';
 import {fakeBioDareRestService} from '../../../backend/biodare-rest_test_tool.spec';
 import {of} from 'rxjs/internal/observable/of';
-import {throwError} from 'rxjs';
 
 describe('SpeciesService', () => {
   let service: SpeciesService;

@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {BioDareRestService} from '../backend/biodare-rest.service';
 import {ExperimentalAssayView} from '../dom/repo/exp/experimental-assay-view';
 import {DetrendingType} from './ts-data-dom';
-import {Trace, TraceSet} from './plots/ts-plot.dom';
+import {TraceSet} from './plots/ts-plot.dom';
 import {DisplayParameters} from './plots/ts-display.dom';
 import {Observable} from 'rxjs';
 import {PageEvent} from '@angular/material';

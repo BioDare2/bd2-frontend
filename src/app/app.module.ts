@@ -10,7 +10,7 @@ import {BioDareEndPoints, bioDareRestConfigurator} from './backend/biodare-rest.
 import {ModalModule} from 'ngx-bootstrap/modal';
 import {TypeaheadModule} from 'ngx-bootstrap/typeahead';
 import {AlertModule} from 'ngx-bootstrap/alert';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 const endPoints: BioDareEndPoints = bioDareRestConfigurator(environment);
 

@@ -1,8 +1,6 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { AssignLabelsStepComponent } from './assign-labels-step.component';
-import {DefineTimeStepComponent} from '../define-time-step/define-time-step.component';
-import {DataSheetMDTableComponent} from '../data-sheet-mdtable/data-sheet-mdtable.component';
+import {AssignLabelsStepComponent} from './assign-labels-step.component';
 import {MaterialsModule} from '../../../../shared/materials.module';
 import {AlertModule} from 'ngx-bootstrap';
 import {NoopAnimationsModule} from '@angular/platform-browser/animations';

@@ -15,7 +15,6 @@ import {SelectableFitDialogComponent} from '../../ppa-fit/selectable-fit-dialog.
 import {PPAJobExportDialogComponent} from './ppajob-export-dialog/ppajob-export-dialog.component';
 import {PPAJobSummary} from '../../ppa-dom';
 import {PhaseParams} from './phases-options-widget.component';
-import {BehaviorSubject} from 'rxjs';
 import {PPAService} from '../../ppa.service';
 import {FeedbackService} from '../../../../feedback/feedback.service';
 import * as FileSaver from 'file-saver';
@@ -62,12 +61,13 @@ export class PPAJobPaneComponent implements OnInit, OnChanges, OnDestroy {
   @Input()
   assay: ExperimentalAssayView;
 
+  /*
   @Input()
   phaseType = 'ByFit';
   @Input()
   relativeTo = 'zero';
   @Input()
-  phaseUnit = 'circ';
+  phaseUnit = 'circ';*/
   @Input()
   confirmDialog: ConfirmDialogComponent;
   @Input()
@@ -85,7 +85,7 @@ export class PPAJobPaneComponent implements OnInit, OnChanges, OnDestroy {
 
   phaseParams = new PhaseParams('ByFit', 'zero', 'circ');
 
-  expandedToogleStream = new BehaviorSubject<boolean>(false);
+  // expandedToogleStream = new BehaviorSubject<boolean>(false);
 
   constructor(private ppaService: PPAService,
               private ppaJobFetcher: PPAJobFetcherService,
@@ -103,7 +103,7 @@ export class PPAJobPaneComponent implements OnInit, OnChanges, OnDestroy {
     return this._periodsOn;
   }
 
-  @Input()
+  // @Input()
   set periodsOn(val: boolean) {
     this._periodsOn = val;
     // this.periodsToogleStream.next(val);
@@ -116,7 +116,7 @@ export class PPAJobPaneComponent implements OnInit, OnChanges, OnDestroy {
     return this._phasesOn;
   }
 
-  @Input()
+  // @Input()
   set phasesOn(val: boolean) {
     this._phasesOn = val;
     // this.phasesToogleStream.next(val);
@@ -132,7 +132,7 @@ export class PPAJobPaneComponent implements OnInit, OnChanges, OnDestroy {
   @Input()
   set expanded(val: boolean) {
     this._expanded = val;
-    this.expandedToogleStream.next(val);
+    // this.expandedToogleStream.next(val);
   }
 
   // tslint:disable-next-line:variable-name
@@ -144,7 +144,7 @@ export class PPAJobPaneComponent implements OnInit, OnChanges, OnDestroy {
 
   // resultsToogleStream: Observable<boolean>;// = new BehaviorSubject<boolean>(false);
 
-  @Input()
+  // @Input()
   set statsOn(val: boolean) {
     this._statsOn = val;
     // this.statsToogleStream.next(val);
@@ -185,7 +185,7 @@ export class PPAJobPaneComponent implements OnInit, OnChanges, OnDestroy {
       return;
     }
 
-    this.exportDialog.show(this.phaseType)
+    this.exportDialog.show(this.phaseParams.phaseType)
       .then(resp => {
         if (resp) {
           // console.log("Exporting...");
@@ -255,7 +255,7 @@ export class PPAJobPaneComponent implements OnInit, OnChanges, OnDestroy {
 
   toggleExpanded() {
     this.expanded = !this.expanded;
-    this.expandedToogleStream.next(this.expanded);
+    // this.expandedToogleStream.next(this.expanded);
   }
 
   toggleStats() {
@@ -283,12 +283,13 @@ export class PPAJobPaneComponent implements OnInit, OnChanges, OnDestroy {
     );
 
 
+    /*
     this.expandedToogleStream.subscribe(
       exp => {
         // job fetcher should always be on
         // this.ppaJobFetcher.on(exp);
       }
-    );
+    ); */
 
     // this.jobStream.subscribe(j => this.job = j);
     this.ppaJobFetcher.allJob$.subscribe(j => this.job = j);

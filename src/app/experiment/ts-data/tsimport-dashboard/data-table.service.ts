@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {BehaviorSubject, combineLatest, Observable, Subject} from 'rxjs';
 import {DataTableSlice, Slice} from './data-table-dom';
-import {distinctUntilChanged, filter, switchMap, tap} from 'rxjs/operators';
+import {distinctUntilChanged, filter, switchMap} from 'rxjs/operators';
 
 import {TSFileService} from './ts-file.service';
 

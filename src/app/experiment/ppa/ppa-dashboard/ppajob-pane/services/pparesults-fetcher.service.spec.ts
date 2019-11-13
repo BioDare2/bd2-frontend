@@ -3,9 +3,9 @@ import {TestBed} from '@angular/core/testing';
 import {PPAResultsFetcherService} from './pparesults-fetcher.service';
 import {throwError} from 'rxjs';
 import {PPAService} from '../../../ppa.service';
-import {PPASimpleResultEntry, } from '../../../ppa-dom';
+import {PPASimpleResultEntry,} from '../../../ppa-dom';
 import {PageEvent, Sort} from '@angular/material';
-import {makePPASimpleResults, } from './ppa-test-data.spec';
+import {makePPASimpleResults,} from './ppa-test-data.spec';
 
 describe('PPAResultsFetcherService', () => {
   let ppaService;

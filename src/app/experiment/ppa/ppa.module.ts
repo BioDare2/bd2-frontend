@@ -17,8 +17,6 @@ import {HboxPlotModule} from 'bd2-ngx-hboxplot';
 import {PolarPlotModule} from 'bd2-ngx-polarplot';
 import {LegendModule} from '../../graphic/legend/legend.module';
 import {SVGSaverModule} from '../../graphic/svg-saver/svg-saver.module';
-import {PPAStatsTableComponent} from './ppa-dashboard/ppajob-pane/ppastats-table/ppastats-table.component';
-import {PPAJobResultsTableComponent} from './ppa-dashboard/ppajob-pane/ppajob-results-table/ppajob-results-table.component';
 import {ModalModule} from 'ngx-bootstrap/modal';
 import {SharedComponentsModule} from '../../shared/shared-components.module';
 import {ButtonsModule} from 'ngx-bootstrap/buttons';
@@ -34,7 +32,7 @@ import {PPASortWidgetComponent} from './ppa-dashboard/ppajob-pane/ppaplots/ppaso
 @NgModule({
   declarations: [PPAStartFormComponent, PPAJobParamsRFormComponent,
     PPADashboardComponent, PPAJobExportDialogComponent, PPAJobPaneComponent,
-    PhasesOptionsWidgetComponent, PPAStatsTableComponent, PPAJobResultsTableComponent,
+    PhasesOptionsWidgetComponent,
     SelectableFitDialogComponent,
     PPASelectPeriodsFormComponent,
     PPAStatsTable2Component,

@@ -53,7 +53,7 @@ export class PPAStatsTable2Component implements OnInit, OnDestroy, Reloadable {
   ngOnInit() {
     const firstPage = new PageEvent();
     firstPage.pageIndex = 0;
-    firstPage.pageSize = 5;
+    firstPage.pageSize = 25;
     this.fetcher.page(firstPage);
 
 

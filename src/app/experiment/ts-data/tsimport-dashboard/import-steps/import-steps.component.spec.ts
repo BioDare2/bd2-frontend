@@ -1,6 +1,6 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { ImportStepsComponent } from './import-steps.component';
+import {ImportStepsComponent} from './import-steps.component';
 import {UploadDataFileStepComponent} from '../upload-data-file-step/upload-data-file-step.component';
 import {ImportDetailsSummaryComponent} from '../import-details-summary/import-details-summary.component';
 import {DefineTimeStepComponent} from '../define-time-step/define-time-step.component';

@@ -1,5 +1,5 @@
 import {BD2eJTKRes, JobResults, JobStatus, JTKPattern, RhythmicityJobSummary, TSResult} from '../../rhythmicity-dom';
-import {Observable, of, Subject, throwError} from 'rxjs';
+import {of, throwError} from 'rxjs';
 import {ExperimentalAssayView} from '../../../../dom/repo/exp/experimental-assay-view';
 import {RhythmicityResultsMDTableDataSource} from './rhythmicity-results-mdtable-datasource';
 import {PageEvent} from '@angular/material/paginator';

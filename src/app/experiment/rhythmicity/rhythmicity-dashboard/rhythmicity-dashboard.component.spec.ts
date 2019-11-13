@@ -6,15 +6,15 @@ import {RhythmicityJobPaneComponent} from './rhythmicity-job-pane/rhythmicity-jo
 import {PValueFormComponent} from './rhythmicity-job-pane/pvalue-form/pvalue-form.component';
 import {RhythmicityResultsMDTableComponent} from './rhythmicity-job-pane/rhythmicity-results-mdtable/rhythmicity-results-mdtable.component';
 import {
+  MatCardModule,
+  MatDividerModule,
   MatFormFieldModule,
   MatPaginatorModule,
   MatProgressSpinnerModule,
   MatRadioModule,
-  MatSortModule,
-  MatTableModule,
   MatSlideToggleModule,
-  MatCardModule,
-  MatDividerModule
+  MatSortModule,
+  MatTableModule
 } from '@angular/material';
 
 describe('RhythmicityDashboardComponent', () => {

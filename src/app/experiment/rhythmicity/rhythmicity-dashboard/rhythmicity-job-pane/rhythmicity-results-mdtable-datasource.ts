@@ -1,8 +1,8 @@
-import { DataSource } from '@angular/cdk/collections';
+import {DataSource} from '@angular/cdk/collections';
 import {PageEvent} from '@angular/material/paginator';
 import {Sort} from '@angular/material/sort';
 import {catchError, distinctUntilChanged, filter, flatMap, map, switchMap, take, tap} from 'rxjs/operators';
-import {Observable, merge, combineLatest, BehaviorSubject, Subject, of} from 'rxjs';
+import {BehaviorSubject, combineLatest, merge, Observable, of, Subject} from 'rxjs';
 import {BD2eJTKRes, JobResults, RhythmicityJobSummary, TSResult} from '../../rhythmicity-dom';
 import {RhythmicityService} from '../../rhythmicity.service';
 import {ExperimentalAssayView} from '../../../../dom/repo/exp/experimental-assay-view';
