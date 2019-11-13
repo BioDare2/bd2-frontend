@@ -1,5 +1,10 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {phaseValuesFromOptions, PPAJobSimpleResults, PPASimpleResultEntry, valueFromPhaseName} from '../../../../ppa-dom';
+import {
+  phaseValuesFromOptions,
+  PPAJobSimpleResults,
+  PPASimpleResultEntry,
+  valueFromPhaseName
+} from '../../../../ppa-dom';
 import {SelectableFitDialogComponent} from '../../../../ppa-fit/selectable-fit-dialog.component';
 
 @Component({

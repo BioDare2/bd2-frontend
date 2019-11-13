@@ -1,8 +1,8 @@
-import {AfterViewInit, Component, Input, OnInit, ViewChild} from '@angular/core';
-import { MatPaginator, PageEvent } from '@angular/material/paginator';
+import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
+import {MatPaginator, PageEvent} from '@angular/material/paginator';
 import {MatSort, Sort} from '@angular/material/sort';
-import { MatTable } from '@angular/material/table';
-import { RhythmicityResultsMDTableDataSource } from '../rhythmicity-results-mdtable-datasource';
+import {MatTable} from '@angular/material/table';
+import {RhythmicityResultsMDTableDataSource} from '../rhythmicity-results-mdtable-datasource';
 import {BD2eJTKRes, TSResult} from '../../../rhythmicity-dom';
 
 @Component({

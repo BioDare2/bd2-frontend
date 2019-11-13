@@ -1,6 +1,6 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { PValueFormComponent } from './pvalue-form.component';
+import {PValueFormComponent} from './pvalue-form.component';
 import {MatFormFieldModule, MatRadioModule} from '@angular/material';
 
 describe('PValueFormComponent', () => {

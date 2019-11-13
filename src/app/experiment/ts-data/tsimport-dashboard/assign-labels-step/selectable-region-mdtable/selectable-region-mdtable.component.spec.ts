@@ -1,6 +1,6 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { SelectableRegionMDTableComponent } from './selectable-region-mdtable.component';
+import {SelectableRegionMDTableComponent} from './selectable-region-mdtable.component';
 import {MaterialsModule} from '../../../../../shared/materials.module';
 
 describe('SelectableRegionMDTableComponent', () => {

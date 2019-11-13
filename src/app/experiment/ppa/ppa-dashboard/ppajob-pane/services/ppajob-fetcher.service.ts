@@ -14,8 +14,13 @@ export class IntervalsKeeper<T> {
   constructor(
     private readonly RELOAD_INT = 1000, // 1 s
     private readonly MAX_RELOAD_INT = 30 * 1000, // 30 s
-    private readonly MAX_RELOAD_TIME = 5 * 60 * 1000 // 5 min
+    private readonly MAX_RELOAD_TIME = 5 * 60 * 1000, // 5 min
+    private readonly RELOAD_FACTOR = 2
   ) {
+
+    if (RELOAD_FACTOR < 1) {
+      this.RELOAD_FACTOR = 2;
+    }
   }
 
   nextInterval(id: T): number {
@@ -23,7 +28,7 @@ export class IntervalsKeeper<T> {
       this.reset(id);
     } else {
       if (this.interval < this.MAX_RELOAD_INT) {
-        this.interval *= 2;
+        this.interval *= this.RELOAD_FACTOR;
       }
     }
 
@@ -62,7 +67,7 @@ export class PPAJobFetcherService {
   currentAssayJobId: [number, number];
   currentJob: PPAJobSummary;
 
-  private currentReloadStatus = new IntervalsKeeper<number>(1000, 20 * 1000, 5 * 60 * 1000);
+  private currentReloadStatus = new IntervalsKeeper<number>(500, 20 * 1000, 5 * 60 * 1000, 1.5);
 
   private reloadSubscription: Subscription;
 
