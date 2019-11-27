@@ -55,7 +55,7 @@ class TestableRunnableFetcherService extends RunnableFetcherService<number[], nu
 
 }
 
-fdescribe('RunnableFetcherService', () => {
+describe('RunnableFetcherService', () => {
 
   let service: RunnableFetcherService<number[], number, string[]>;
 

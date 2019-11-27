@@ -20,7 +20,7 @@ describe('PPAJobFetcherService', () => {
 
     ppaService.getPPAJob.and.returnValue(throwError('mock service not initialized'));
 
-    service = new PPAJobFetcherService(ppaService);
+    service = new PPAJobFetcherService(ppaService, true);
   });
 
   it('should be created', () => {
@@ -46,7 +46,7 @@ describe('PPAJobFetcherService', () => {
     service.isReloading$.subscribe(v => running = v);
 
     // @ts-ignore
-    service.loadJob([12, 34]);
+    service.loadAsset([12, 34]);
     tick();
     expect(val).toBeUndefined();
     expect(error1).toBeUndefined();
@@ -55,11 +55,12 @@ describe('PPAJobFetcherService', () => {
 
     error2 = undefined;
     let job = new PPAJobSummary();
+    job.jobId = 34;
     job.state = 'SUBMITTED';
     ppaService.getPPAJob.and.returnValue(of(job));
 
     // @ts-ignore
-    service.loadJob([12, 34]);
+    service.loadAsset([12, 34]);
     tick();
     expect(val).toBe(job);
     expect(error1).toBeUndefined();
@@ -69,12 +70,41 @@ describe('PPAJobFetcherService', () => {
     expect(service.currentJob).toBe(job);
     expect(running).toBe(true);
 
-    job = new PPAJobSummary();
+    // @ts-ignore
+    expect(service.reloadSubscription).toBeTruthy();
+    // @ts-ignore
+    service.reloadSubscription.unsubscribe();
+
+
+  }));
+
+  it('loadJob loads job using the service updating the status2', fakeAsync( () => {
+
+    let val;
+    let error1;
+    let error2;
+    let running;
+
+    service.allJob$.subscribe( j => val = j, err => error1 = err);
+    service.error$.subscribe( err => error2 = err);
+    service.isReloading$.subscribe(v => running = v);
+
+    // @ts-ignore
+    service.loadAsset([12, 34]);
+    tick();
+    expect(val).toBeUndefined();
+    expect(error1).toBeUndefined();
+    expect(error2).toEqual('mock service not initialized');
+    expect(running).toBe(false);
+
+    error2 = undefined;
+    let job = new PPAJobSummary();
+    job.jobId = 34;
     job.state = 'FINISHED';
     ppaService.getPPAJob.and.returnValue(of(job));
 
     // @ts-ignore
-    service.loadJob([12, 340]);
+    service.loadAsset([12, 340]);
     tick();
     expect(val).toBe(job);
     expect(error1).toBeUndefined();
@@ -99,26 +129,26 @@ describe('PPAJobFetcherService', () => {
     ppaService.getPPAJob.and.returnValue(of(job));
 
     // @ts-ignore
-    service.loadJob([12, 34]);
+    service.loadAsset([12, 34]);
     tick();
     expect(val).toBe(job);
     expect(job.parentId).toBe(12);
 
     // @ts-ignore
-    service.loadJob([13, 34]);
+    service.loadAsset([13, 34]);
     tick();
     expect(val).toBe(job);
     expect(job.parentId).toBe(12);
 
   }));
 
-  it('initAssayJobInput gives ids only on ON and valid ids', fakeAsync( () => {
+  it('initAssetsInput gives ids only on ON and valid ids', fakeAsync( () => {
 
     let val;
     let error;
 
     // @ts-ignore
-    service.initAssayJobInput().subscribe( ids => val = ids, err => error = err );
+    service.initAssetsInput().subscribe( ids => val = ids, err => error = err );
 
     expect(val).toBeUndefined();
     expect(error).toBeUndefined();
@@ -162,13 +192,13 @@ describe('PPAJobFetcherService', () => {
 
   }));
 
-  it('initAssayJobInput gives only distinct ids', fakeAsync( () => {
+  it('initAssetsInput gives only distinct ids', fakeAsync( () => {
 
     let val = [1, 1];
     let error;
 
     // @ts-ignore
-    service.initAssayJobInput().subscribe( ids => val = ids, err => error = err );
+    service.initAssetsInput().subscribe( ids => val = ids, err => error = err );
     service.on(true);
 
     tick();
@@ -210,13 +240,13 @@ describe('PPAJobFetcherService', () => {
 
   }));
 
-  it('initAssayJobInput gives last on refresh', fakeAsync( () => {
+  it('initAssetsInput gives last on refresh', fakeAsync( () => {
 
     let val = [1, 1];
     let error;
 
     // @ts-ignore
-    service.initAssayJobInput().subscribe( ids => val = ids, err => error = err );
+    service.initAssetsInput().subscribe( ids => val = ids, err => error = err );
     service.on(true);
 
     tick();

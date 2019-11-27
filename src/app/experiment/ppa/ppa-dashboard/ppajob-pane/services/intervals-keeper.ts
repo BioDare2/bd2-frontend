@@ -17,6 +17,7 @@ export class IntervalsKeeper<T> {
   }
 
   nextInterval(id: T): number {
+    // console.log("Next interval", id);
     if (this.id !== id) {
       this.reset(id);
     } else {
@@ -24,6 +25,8 @@ export class IntervalsKeeper<T> {
         this.interval *= this.RELOAD_FACTOR;
       }
     }
+
+    // console.log("Next interval int"+this.interval, id);
 
     if (this.deadline > Date.now()) {
       return this.interval;
