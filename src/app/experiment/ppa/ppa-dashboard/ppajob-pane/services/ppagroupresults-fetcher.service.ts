@@ -4,7 +4,7 @@ import {REMOVE_DEBOUNCE} from '../../../../../shared/tokens';
 import {PPAJobResultsGroups, PPAJobSummary, PPAResultsGroupSummary,} from '../../../ppa-dom';
 import {Observable} from 'rxjs';
 import {Sort} from '@angular/material';
-import {PageableSortableArraysFetcherService} from './pageable-sortable-arrays-fetcher.service';
+import {PageableSortableArraysFetcherService} from '../../../../../fetching-services/pageable-sortable-arrays-fetcher.service';
 import {tap} from 'rxjs/operators';
 import {sortingMedian} from '../../../../../shared/collections-util';
 

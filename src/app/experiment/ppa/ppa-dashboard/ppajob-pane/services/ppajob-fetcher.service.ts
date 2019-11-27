@@ -3,8 +3,8 @@ import {BehaviorSubject, combineLatest, merge, Observable, Subject, Subscription
 import {PPAJobSummary} from '../../../ppa-dom';
 import {distinctUntilChanged, filter, flatMap, map, take, tap} from 'rxjs/operators';
 import {PPAService} from '../../../ppa.service';
-import {IntervalsKeeper} from './intervals-keeper';
-import {RunnableFetcherService} from './runnable-fetcher.service';
+import {IntervalsKeeper} from '../../../../../fetching-services/intervals-keeper';
+import {RunnableFetcherService} from '../../../../../fetching-services/runnable-fetcher.service';
 import {REMOVE_DEBOUNCE} from '../../../../../shared/tokens';
 
 

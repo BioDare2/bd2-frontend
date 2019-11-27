@@ -2,7 +2,7 @@ import {fakeAsync, tick} from '@angular/core/testing';
 import {Observable, of} from 'rxjs';
 import {PageEvent, Sort} from '@angular/material';
 import {PageableSortableArraysFetcherService} from './pageable-sortable-arrays-fetcher.service';
-import {arraysMatch} from '../../../../../shared/collections-util';
+import {arraysMatch} from '../shared/collections-util';
 
 
 class TestablePageableSortableArraysFetcherService extends PageableSortableArraysFetcherService<number[], string, string[], string> {

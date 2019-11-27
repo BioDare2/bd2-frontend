@@ -1,6 +1,6 @@
 import {Observable, of} from 'rxjs';
 import {PageEvent, Sort} from '@angular/material';
-import {pageObjectData, sortObjectData} from '../../../../../shared/collections-util';
+import {pageObjectData, sortObjectData} from '../shared/collections-util';
 import {PageableSortableFetcherService} from './pageable-sortable-fetcher.service';
 
 export abstract class PageableSortableArraysFetcherService<I, P, A, D> extends PageableSortableFetcherService<I, P, A, D[]> {

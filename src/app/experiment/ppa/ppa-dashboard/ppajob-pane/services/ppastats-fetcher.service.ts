@@ -4,7 +4,7 @@ import {PPAJobSimpleStats, PPAJobSummary, PPASimpleStats} from '../../../ppa-dom
 import {PPAService} from '../../../ppa.service';
 import {Observable} from 'rxjs';
 import {Sort} from '@angular/material';
-import {PageableSortableArraysFetcherService} from './pageable-sortable-arrays-fetcher.service';
+import {PageableSortableArraysFetcherService} from '../../../../../fetching-services/pageable-sortable-arrays-fetcher.service';
 
 @Injectable()
 export class PPAStatsFetcherService extends PageableSortableArraysFetcherService<PPAJobSummary, string, PPAJobSimpleStats, PPASimpleStats> {

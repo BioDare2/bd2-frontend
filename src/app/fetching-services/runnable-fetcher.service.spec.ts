@@ -1,7 +1,7 @@
 import {RunnableFetcherService} from './runnable-fetcher.service';
 import {Observable, of} from 'rxjs';
 import {IntervalsKeeper} from './intervals-keeper';
-import {arraysMatch} from '../../../../../shared/collections-util';
+import {arraysMatch} from '../shared/collections-util';
 import {fakeAsync, tick} from '@angular/core/testing';
 
 
