@@ -200,6 +200,7 @@ describe('RhythmicityResultsMDTableDataSource', () => {
     job.jobStatus = new JobStatus();
     job.jobStatus.state = 'SUCCESS';
     job.jobId = '123';
+    job.parentId = 2;
 
     const assay = {id: 2} as ExperimentalAssayView;
 
@@ -219,7 +220,7 @@ describe('RhythmicityResultsMDTableDataSource', () => {
     expect(val).toBeUndefined();
     expect(err).toBeUndefined();
 
-    service.assayJob([assay, job]);
+    service.assayJob(job);
     tick();
     expect(val).toBeUndefined();
     expect(err).toBeUndefined();
@@ -235,6 +236,7 @@ describe('RhythmicityResultsMDTableDataSource', () => {
     job.jobStatus = new JobStatus();
     job.jobStatus.state = 'SUCCESS';
     job.jobId = '123';
+    job.parentId = 2;
 
     const assay = {id: 2} as ExperimentalAssayView;
 
@@ -257,7 +259,7 @@ describe('RhythmicityResultsMDTableDataSource', () => {
     expect(val).toBeUndefined();
     expect(err).toBeUndefined();
 
-    const p: [ExperimentalAssayView, RhythmicityJobSummary]  = [assay, job];
+    const p: RhythmicityJobSummary  = job;
     service.assayJob(p);
     tick();
     expect(val).toEqual([assay, job]);
@@ -266,7 +268,7 @@ describe('RhythmicityResultsMDTableDataSource', () => {
     expect(iter).toBe(1);
 
     val = undefined;
-    service.assayJob([assay, job]);
+    service.assayJob(job);
     tick();
     expect(val).toBeUndefined();
     expect(err).toBeUndefined();
@@ -277,7 +279,7 @@ describe('RhythmicityResultsMDTableDataSource', () => {
     job.jobStatus.state = 'SUCCESS';
     job.jobId = '124';
 
-    service.assayJob([assay, job]);
+    service.assayJob(job);
     tick();
     expect(val).toEqual([assay, job]);
     expect(err).toBeUndefined();
@@ -290,6 +292,7 @@ describe('RhythmicityResultsMDTableDataSource', () => {
     job.jobStatus = new JobStatus();
     job.jobStatus.state = 'SUCCESS';
     job.jobId = '123';
+    job.parentId = 2;
 
     let assay = {id: 2} as ExperimentalAssayView;
 
@@ -310,10 +313,10 @@ describe('RhythmicityResultsMDTableDataSource', () => {
     expect(val).toBeUndefined();
     expect(err).toBeUndefined();
 
-    let p: [ExperimentalAssayView, RhythmicityJobSummary]  = [assay, job];
+    let p: RhythmicityJobSummary  = job;
     service.assayJob(p);
     tick();
-    expect(val).toEqual([assay, job]);
+    expect(val).toEqual(job);
     expect(val).toBe(p);
     expect(err).toBeUndefined();
     expect(iter).toBe(1);
@@ -332,11 +335,12 @@ describe('RhythmicityResultsMDTableDataSource', () => {
 
     // now set new assay and recheck with refresh.
     assay = {id: 4} as ExperimentalAssayView;
+    job.parentId = 4;
     val = undefined;
-    p  = [assay, job];
+    p  = job;
     service.assayJob(p);
     tick();
-    expect(val).toEqual([assay, job]);
+    expect(val).toEqual(job);
     expect(val).toBe(p);
     expect(err).toBeUndefined();
     expect(iter).toBe(4);
@@ -356,6 +360,7 @@ describe('RhythmicityResultsMDTableDataSource', () => {
     job.jobStatus = new JobStatus();
     job.jobStatus.state = 'SUCCESS';
     job.jobId = '123';
+    job.parentId = 2;
 
     const assay = {id: 2} as ExperimentalAssayView;
 
@@ -372,7 +377,7 @@ describe('RhythmicityResultsMDTableDataSource', () => {
     expect(err).toBeUndefined();
 
     // works without ticks why?
-    service.assayJob([assay, job]);
+    service.assayJob(job);
     service.on(true);
 
     expect(data).toBe(jobRes.results);
@@ -397,6 +402,7 @@ describe('RhythmicityResultsMDTableDataSource', () => {
     job.jobStatus = new JobStatus();
     job.jobStatus.state = 'SUCCESS';
     job.jobId = '123';
+    job.parentId = 2;
 
     const assay = {id: 2} as ExperimentalAssayView;
 
@@ -410,7 +416,7 @@ describe('RhythmicityResultsMDTableDataSource', () => {
 
     rhythmicityService.getResults.and.returnValue(throwError('Should not be called'));
     // works without ticks why?
-    service.assayJob([assay, job]);
+    service.assayJob(job);
 
     expect(data).toEqual([]);
     expect(err).toBeUndefined();
@@ -434,6 +440,7 @@ describe('RhythmicityResultsMDTableDataSource', () => {
     job.jobStatus = new JobStatus();
     job.jobStatus.state = 'SUCCESS';
     job.jobId = '123';
+    job.parentId = 2;
 
     const assay = {id: 2} as ExperimentalAssayView;
 
@@ -448,7 +455,7 @@ describe('RhythmicityResultsMDTableDataSource', () => {
     expect(data).toEqual([]);
     expect(err).toBeUndefined();
 
-    service.assayJob([assay, job]);
+    service.assayJob(job);
     service.on(true);
 
     tick();

@@ -5,7 +5,6 @@ import {catchError, distinctUntilChanged, filter, flatMap, map, switchMap, take,
 import {BehaviorSubject, combineLatest, merge, Observable, of, Subject} from 'rxjs';
 import {BD2eJTKRes, JobResults, RhythmicityJobSummary, TSResult} from '../../rhythmicity-dom';
 import {RhythmicityService} from '../../rhythmicity.service';
-import {ExperimentalAssayView} from '../../../../dom/repo/exp/experimental-assay-view';
 import {Injectable} from '@angular/core';
 
 
@@ -26,7 +25,7 @@ export class RhythmicityResultsMDTableDataSource extends DataSource<TSResult<BD2
 
   readonly error$ = new Subject<any>();
 
-  private readonly job$ = new BehaviorSubject<[ExperimentalAssayView, RhythmicityJobSummary]>(null);
+  private readonly job$ = new BehaviorSubject<RhythmicityJobSummary>(undefined);
   private readonly pvalue$ = new BehaviorSubject<number>(0);
   private readonly bhCorrection$ = new BehaviorSubject<boolean>(false);
   private readonly page$ = new BehaviorSubject<PageEvent>(null);
@@ -56,8 +55,8 @@ export class RhythmicityResultsMDTableDataSource extends DataSource<TSResult<BD2
     this.dataLength = 0;
   }
 
-  assayJob(def: [ExperimentalAssayView, RhythmicityJobSummary]) {
-    if (def && def[0] && def[1]) {
+  assayJob(def: RhythmicityJobSummary) {
+    if (def) {
       this.job$.next(def);
     }
   }
@@ -128,7 +127,7 @@ export class RhythmicityResultsMDTableDataSource extends DataSource<TSResult<BD2
 
     const results = newJob$.pipe(
       // tap( p => console.log('Job Pair', p)),
-      switchMap(([assay, job]) => this.isFinished(job) ? this.loadResults(assay, job) : of(new JobResults<BD2eJTKRes>())),
+      switchMap((job) => this.isFinished(job) ? this.loadResults(job) : of(new JobResults<BD2eJTKRes>())),
 
     );
 
@@ -153,7 +152,7 @@ export class RhythmicityResultsMDTableDataSource extends DataSource<TSResult<BD2
     return job.jobStatus.state === 'SUCCESS';
   }
 
-  private initJobs(): Observable<[ExperimentalAssayView, RhythmicityJobSummary]> {
+  private initJobs(): Observable<RhythmicityJobSummary> {
     const onJob$ = combineLatest( [this.job$, this.on$]).pipe(
       filter( ([job, isOn]) => job && isOn),
       map( ([job, isOn]) => job)
@@ -162,9 +161,9 @@ export class RhythmicityResultsMDTableDataSource extends DataSource<TSResult<BD2
     const distinctJob$ = onJob$.pipe(
       // tap( p => console.log('Before distinct', p)),
       distinctUntilChanged( (
-                            def1: [ExperimentalAssayView, RhythmicityJobSummary],
-                            def2: [ExperimentalAssayView, RhythmicityJobSummary]) =>
-                  def1[1].jobId === def2[1].jobId && def1[0].id === def2[0].id
+                            def1: RhythmicityJobSummary,
+                            def2: RhythmicityJobSummary) =>
+                  def1.jobId === def2.jobId && def1.parentId === def2.parentId
       ),
       // tap( p => console.log('After distinct', p)),
 
@@ -209,9 +208,9 @@ export class RhythmicityResultsMDTableDataSource extends DataSource<TSResult<BD2
   }
 
 
-  private loadResults(assay: ExperimentalAssayView, job: RhythmicityJobSummary): Observable<JobResults<BD2eJTKRes>> {
+  private loadResults(job: RhythmicityJobSummary): Observable<JobResults<BD2eJTKRes>> {
     // console.log('Fetching results', job.jobId);
-    return this.rhythmicityService.getResults(assay.id, job.jobId).pipe(
+    return this.rhythmicityService.getResults(job.parentId, job.jobId).pipe(
       // tap( r => console.log('Fetched results', r)),
       tap( res => this.labelPatterns(res)),
       catchError( err => {

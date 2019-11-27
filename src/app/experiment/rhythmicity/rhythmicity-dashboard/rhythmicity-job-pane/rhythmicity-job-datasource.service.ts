@@ -1,173 +1,100 @@
-import {BehaviorSubject, combineLatest, merge, Observable, Subject, timer} from 'rxjs';
+import {Observable} from 'rxjs';
 import {RhythmicityService} from '../../rhythmicity.service';
-import {ExperimentalAssayView} from '../../../../dom/repo/exp/experimental-assay-view';
-import {distinctUntilChanged, filter, flatMap, map, take} from 'rxjs/operators';
+import {tap} from 'rxjs/operators';
 import {RhythmicityJobSummary} from '../../rhythmicity-dom';
-import {Injectable} from '@angular/core';
+import {Inject, Injectable, Optional} from '@angular/core';
+import {RunnableFetcherService} from '../../../../fetching-services/runnable-fetcher.service';
+import {REMOVE_DEBOUNCE} from '../../../../shared/tokens';
+import {IntervalsKeeper} from '../../../../fetching-services/intervals-keeper';
+
 
 @Injectable()
-export class RhythmicityJobDatasourceService {
+// tslint:disable-next-line:max-line-length
+export class RhythmicityJobDatasourceService extends RunnableFetcherService<[number, string], string, RhythmicityJobSummary> {
 
 
   readonly allJob$: Observable<RhythmicityJobSummary>;
   readonly finishedJob$: Observable<RhythmicityJobSummary>;
   readonly runningJob$: Observable<RhythmicityJobSummary>;
-  readonly isRunning$ = new BehaviorSubject<boolean>(false);
 
-  readonly error$ = new Subject<any>();
 
-  private readonly assayJob$ = new BehaviorSubject<[ExperimentalAssayView, string]>(null);
-
-  private readonly on$ = new BehaviorSubject<boolean>(false);
-  private readonly refresh$ = new Subject<boolean>();
-  private readonly job$ = new BehaviorSubject<RhythmicityJobSummary>(null);
-
-  currentAssay: ExperimentalAssayView;
-  currentJob: RhythmicityJobSummary;
-
-  private RELOAD_INT = 10 * 1000; // 10 s
-  private MAX_RELOAD_INT = 60 * 1000; // 1 minute
-  private currentReloadInterval: [string, number] = ['', this.RELOAD_INT];
-
-  constructor(private rhythmicityService: RhythmicityService) {
-
-    this.finishedJob$ = this.job$.asObservable().pipe(
-      filter( j => j && !this.isRunning(j))
-    );
-
-    this.runningJob$ = this.job$.asObservable().pipe(
-      filter( j => j && this.isRunning(j))
-    );
-
-    this.allJob$ = this.job$.asObservable().pipe(
-      filter( j => j != null && j !== undefined)
-    );
-
-    this.initJobStreams();
-  }
-
-  close() {
-    this.assayJob$.complete();
-    this.on$.complete();
-    this.refresh$.complete();
-    this.job$.complete();
-    this.isRunning$.complete();
-    this.error$.complete();
-  }
-
-  assayJob(assayJobId: [ExperimentalAssayView, string]) {
-    // console.log('JS assayJob', assayJobId);
-    if (assayJobId && assayJobId[0] && assayJobId[1]) {
-      this.assayJob$.next(assayJobId);
-    }
-  }
-
-  on(state = true) {
-    this.on$.next(state);
-  }
-
-  refresh() {
-    this.refresh$.next(true);
+  // currentAssay: ExperimentalAssayView;
+  get currentJob() {
+    return this.currentAsset;
   }
 
 
-  private initJobStreams() {
 
-    const inputJobs = this.initInputJobs();
+  constructor(private rhythmicityService: RhythmicityService,
+              @Inject(REMOVE_DEBOUNCE) @Optional() removeDebounce = false) {
 
-    inputJobs.forEach( def => this.loadJob(def));
+    super(removeDebounce);
 
-    this.runningJob$.forEach( job => this.realoadJob(job));
+    this.finishedJob$ = this.finished$;
 
+    this.runningJob$ = this.running$;
 
+    this.allJob$ = this.all$;
   }
 
-  private realoadJob(job: RhythmicityJobSummary) {
+  protected initIntervalsKeeper(): IntervalsKeeper<string> {
+    return new IntervalsKeeper<string>(1000, 30 * 1000, 10 * 60 * 1000, 2);
+  }
 
-    timer(this.reloadInterval(job)).subscribe(
-      v => {
-        if (!this.currentJob || (job.jobId === this.currentJob.jobId)) {
-          this.loadJob([this.currentAssay, job.jobId]);
+
+  assayJob(assayJobId: [number, string]) {
+    this.input(assayJobId);
+  }
+
+  protected sameInput( def1: [number, string],  def2: [number, string]) {
+    return def1[1] === def2[1] && def1[0] === def2[0];
+  }
+
+  protected fetchAsset([assayId, jobId]: [number, string]) {
+
+    return this.rhythmicityService.getJob(assayId, jobId).pipe(
+      tap(job => {
+        if (job) {
+          job.parentId = job.parentId || assayId;
         } else {
-          console.log('Disabled reload as job has changed');
+          console.warn('Loaded null job ', [assayId, jobId]);
         }
-      }
+      })
     );
   }
 
+  hasFailed(job: RhythmicityJobSummary): boolean {
+    if (!job) { return false; }
+    if (this.isFinished(job)) { return false; }
+    if (this.isRunning(job)) { return false; }
+    return true;
+  }
 
-  private reloadInterval(job: RhythmicityJobSummary): number {
-    if (job.jobId !== this.currentReloadInterval[0]) {
-      this.currentReloadInterval[0] = job.jobId;
-      this.currentReloadInterval[1] = this.RELOAD_INT;
-    } else {
-      if (this.currentReloadInterval[1] < this.MAX_RELOAD_INT) {
-        this.currentReloadInterval[1] *= 2;
-      }
+  isFinished(job: RhythmicityJobSummary): boolean {
+
+    if (job && job.jobStatus && (job.jobStatus.state === 'FINISHED' || job.jobStatus.state === 'SUCCESS')) {
+      return true;
     }
-    return this.currentReloadInterval[1];
-  }
-
-
-  private initInputJobs(): Observable<[ExperimentalAssayView, string]> {
-
-    const onJob$ = combineLatest( [this.assayJob$, this.on$]).pipe(
-      filter( ([job, isOn]) => job && isOn),
-      map( ([job, isOn]) => job)
-    );
-
-    const distinctJob$ = onJob$.pipe(
-      distinctUntilChanged( (
-        def1: [ExperimentalAssayView, string],
-        def2: [ExperimentalAssayView, string]) =>
-        def1[1] === def2[1] && def1[0].id === def2[0].id
-      ));
-
-    /*
-    const refreshedJob$ = combineLatest([ onJob$, this.refresh$]).pipe(
-      filter( ([job, isRef]) => isRef),
-      map( ([job, isRef]) => job)
-    ); */
-
-    const refreshedJob2$ = this.refresh$.pipe(
-      flatMap( v => distinctJob$.pipe(take(1))),
-    );
-
-    const merged = merge(distinctJob$, refreshedJob2$);
-
-    return merged;
-  }
-
-  private loadJob([assay, jobId]: [ExperimentalAssayView, string]) {
-
-    // console.log('Loading job', jobId);
-    if (assay && jobId) {
-      this.rhythmicityService.getJob(assay.id, jobId).subscribe(
-        job => {
-          if (job) {
-            this.currentJob = job;
-            this.currentAssay = assay;
-            this.job$.next(job);
-            this.isRunning$.next(this.isRunning(job));
-          } else {
-            console.log('Loaded null job');
-          }
-        },
-         err => {
-          console.log('Could not load job', err);
-          this.error$.next(err);
-         }
-      );
-    }
+    return false;
   }
 
   isRunning(job: RhythmicityJobSummary): boolean {
     if (!job) {
       return false;
     }
-    if (job && job.jobStatus.state && (job.jobStatus.state === 'SUBMITTED' || job.jobStatus.state === 'PROCESSING')) {
+    if (job && job.jobStatus && (job.jobStatus.state === 'SUBMITTED' || job.jobStatus.state === 'PROCESSING')) {
       return true;
     }
     return false;
   }
+
+  protected assetToId(asset: RhythmicityJobSummary): string {
+    return asset.jobId;
+  }
+
+  protected assetToInput(asset: RhythmicityJobSummary): [number, string] {
+    return [asset.parentId, asset.jobId];
+  }
+
+
 }

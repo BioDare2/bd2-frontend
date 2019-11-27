@@ -17,7 +17,7 @@ describe('RhythmicityJobDatasourceService', () => {
 
     rhythmicityService.getJob.and.returnValue(throwError('mock service not initialized'));
 
-    service = new RhythmicityJobDatasourceService(rhythmicityService);
+    service = new RhythmicityJobDatasourceService(rhythmicityService, true);
   });
 
   it('complies', () => {
@@ -25,12 +25,12 @@ describe('RhythmicityJobDatasourceService', () => {
     expect(service).toBeTruthy();
   });
 
-  it('initJobs gives jobs that only emits when on', fakeAsync( () => {
+  it('initAssetsInput gives jobs that only emits when on', fakeAsync( () => {
 
     const assay = {id: 2} as ExperimentalAssayView;
 
     // @ts-ignore
-    const job$ = service.initInputJobs();
+    const job$ = service.initAssetsInput();
 
     let val;
     let err;
@@ -45,28 +45,28 @@ describe('RhythmicityJobDatasourceService', () => {
     expect(val).toBeUndefined();
     expect(err).toBeUndefined();
 
-    service.assayJob([assay, '123']);
+    service.assayJob([assay.id, '123']);
     tick();
     expect(val).toBeUndefined();
     expect(err).toBeUndefined();
 
     service.on(true);
-    expect(val).toEqual([assay, '123']);
+    expect(val).toEqual([assay.id, '123']);
     expect(err).toBeUndefined();
 
-    service.assayJob([assay, '124']);
+    service.assayJob([assay.id, '124']);
     tick();
-    expect(val).toEqual([assay, '124']);
+    expect(val).toEqual([assay.id, '124']);
     expect(err).toBeUndefined();
 
   }));
 
-  it('initJobs gives only distinct jobs params', fakeAsync( () => {
+  it('initAssetsInput gives only distinct jobs params', fakeAsync( () => {
 
     let assay = {id: 2} as ExperimentalAssayView;
 
     // @ts-ignore
-    const job$ = service.initInputJobs();
+    const job$ = service.initAssetsInput();
 
     let val;
     let err;
@@ -83,27 +83,27 @@ describe('RhythmicityJobDatasourceService', () => {
     expect(val).toBeUndefined();
     expect(err).toBeUndefined();
 
-    service.assayJob([assay, '123']);
+    service.assayJob([assay.id, '123']);
     tick();
-    expect(val).toEqual([assay, '123']);
+    expect(val).toEqual([assay.id, '123']);
     expect(err).toBeUndefined();
 
     val = undefined;
-    service.assayJob([assay, '123']);
+    service.assayJob([assay.id, '123']);
     tick();
     expect(val).toBeUndefined();
     expect(err).toBeUndefined();
 
     assay = {id: 3} as ExperimentalAssayView;
-    service.assayJob([assay, '123']);
+    service.assayJob([assay.id, '123']);
     tick();
-    expect(val).toEqual([assay, '123']);
+    expect(val).toEqual([assay.id, '123']);
     expect(err).toBeUndefined();
 
     val = undefined;
-    service.assayJob([assay, '124']);
+    service.assayJob([assay.id, '124']);
     tick();
-    expect(val).toEqual([assay, '124']);
+    expect(val).toEqual([assay.id, '124']);
     expect(err).toBeUndefined();
 
   }));
@@ -113,7 +113,7 @@ describe('RhythmicityJobDatasourceService', () => {
     const assay = {id: 2} as ExperimentalAssayView;
 
     // @ts-ignore
-    const job$ = service.initInputJobs();
+    const job$ = service.initAssetsInput();
 
     let val;
     let err;
@@ -136,15 +136,15 @@ describe('RhythmicityJobDatasourceService', () => {
     expect(val).toBe(1);
     expect(err).toBeUndefined();
 
-    service.assayJob([assay, '123']);
+    service.assayJob([assay.id, '123']);
     tick();
-    expect(val).toEqual([assay, '123']);
+    expect(val).toEqual([assay.id, '123']);
     expect(err).toBeUndefined();
 
     val = undefined;
     service.refresh();
     tick();
-    expect(val).toEqual([assay, '123']);
+    expect(val).toEqual([assay.id, '123']);
     expect(err).toBeUndefined();
 
   }));
@@ -164,20 +164,20 @@ describe('RhythmicityJobDatasourceService', () => {
 
     service.allJob$.subscribe( v => resJob = v, e => err = e);
     service.error$.subscribe( v => resErr = v, e => err = e);
-    service.isRunning$.subscribe( v => resIsRun = v, e => err = e);
+    service.isReloading$.subscribe( v => resIsRun = v, e => err = e);
 
     rhythmicityService.getJob.and.returnValue(of(job));
 
     // @ts-ignore
-    service.loadJob([assay, job.jobId]);
+    service.loadAsset([assay.id, job.jobId]);
 
     tick();
     expect(resJob).toBe(job);
     expect(resErr).toBeUndefined();
     expect(resIsRun).toEqual(false);
     expect(err).toBeUndefined();
-    expect(service.currentJob).toBe(job);
-    expect(service.currentAssay).toBe(assay);
+    // expect(service.currentJob).toBe(job);
+    // expect(service.currentAssay).toBe(assay);
 
 
 
@@ -198,12 +198,12 @@ describe('RhythmicityJobDatasourceService', () => {
 
     service.allJob$.subscribe( v => resJob = v, e => err = e);
     service.error$.subscribe( v => resErr = v, e => err = e);
-    service.isRunning$.subscribe( v => resIsRun = v, e => err = e);
+    service.isReloading$.subscribe( v => resIsRun = v, e => err = e);
 
     rhythmicityService.getJob.and.returnValue(of(job));
 
     // @ts-ignore
-    service.loadJob([assay, job.jobId]);
+    service.loadAsset([assay.id, job.jobId]);
 
     tick();
     expect(resIsRun).toEqual(false);
@@ -211,7 +211,7 @@ describe('RhythmicityJobDatasourceService', () => {
 
     job.jobStatus.state = 'SUBMITTED';
     // @ts-ignore
-    service.loadJob([assay, job.jobId]);
+    service.loadAsset([assay.id, job.jobId]);
 
     tick();
     expect(resIsRun).toEqual(true);
@@ -219,8 +219,8 @@ describe('RhythmicityJobDatasourceService', () => {
 
     // to clean reload timer
     rhythmicityService.getJob.and.returnValue(EMPTY);
-    // @ts-ignore
-    tick(service.RELOAD_INT);
+
+    tick(60*1000);
 
   }));
 
@@ -235,11 +235,11 @@ describe('RhythmicityJobDatasourceService', () => {
 
     service.allJob$.subscribe( v => resJob = v, e => err = e);
     service.error$.subscribe( v => resErr = v, e => err = e);
-    service.isRunning$.subscribe( v => resIsRun = v, e => err = e);
+    service.isReloading$.subscribe( v => resIsRun = v, e => err = e);
 
     rhythmicityService.getJob.and.returnValue(throwError('expected'));
     // @ts-ignore
-    service.loadJob([assay, '1']);
+    service.loadAsset([assay.id, '1']);
 
     tick();
     expect(resJob).toBeFalsy();
@@ -263,7 +263,7 @@ describe('RhythmicityJobDatasourceService', () => {
 
 
     // @ts-ignore
-    service.job$.next(job);
+    service.asset$.next(job);
 
     expect(res).toBe(job);
     expect(err).toBeUndefined();
@@ -275,22 +275,25 @@ describe('RhythmicityJobDatasourceService', () => {
     job.jobStatus = new JobStatus();
     job.jobStatus.state = 'SUBMITTED';
     job.jobId = '123';
+    job.parentId = 2;
 
     let res;
     let err;
 
     service.runningJob$.subscribe( v => res = v, e => err = e);
 
+
+    service.currentInput = [2, '123'];
     // @ts-ignore
-    service.job$.next(job);
+    service.asset$.next(job);
 
     expect(res).toBe(job);
     expect(err).toBeUndefined();
 
     // to clean reload timer
     rhythmicityService.getJob.and.returnValue(EMPTY);
-    // @ts-ignore
-    tick(service.RELOAD_INT);
+
+    tick(60*1000);
 
   }));
 
@@ -302,6 +305,7 @@ describe('RhythmicityJobDatasourceService', () => {
     job.jobStatus = new JobStatus();
     job.jobStatus.state = 'SUBMITTED';
     job.jobId = '123';
+    job.parentId = 2;
 
     let running;
     let finished;
@@ -313,7 +317,7 @@ describe('RhythmicityJobDatasourceService', () => {
     rhythmicityService.getJob.and.returnValue(of(job));
 
     // @ts-ignore
-    service.loadJob([assay, job.jobId]);
+    service.loadAsset([assay.id, job.jobId]);
 
     tick();
     expect(running).toBe(job);
@@ -322,8 +326,8 @@ describe('RhythmicityJobDatasourceService', () => {
 
     job.jobStatus.state = 'SUCCESS';
     running = undefined;
-    // @ts-ignore
-    tick(service.RELOAD_INT);
+
+    tick(60*1000);
     expect(running).toBeUndefined();
     expect(finished).toBe(job);
     expect(err).toBeUndefined();

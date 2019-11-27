@@ -68,7 +68,7 @@ export class RhythmicityJobPaneComponent implements OnInit, OnChanges, OnDestroy
 
     if (changes.jobId || changes.assay) {
       if (this.jobId && this.assay) {
-        this.rhythmicityJobDatasource.assayJob([this.assay, this.jobId]);
+        this.rhythmicityJobDatasource.assayJob([this.assay.id, this.jobId]);
       }
     }
   }
@@ -119,7 +119,7 @@ export class RhythmicityJobPaneComponent implements OnInit, OnChanges, OnDestroy
     this.rhythmicityJobDatasource.on(true);
 
     this.rhythmicityJobDatasource.finishedJob$.forEach(
-        job => this.rhythmicityResultsDataSource.assayJob([this.rhythmicityJobDatasource.currentAssay, job])
+        job => this.rhythmicityResultsDataSource.assayJob(job)
     );
 
     this.expandedToogleStream.forEach( v => { this.rhythmicityResultsDataSource.on(v); } );

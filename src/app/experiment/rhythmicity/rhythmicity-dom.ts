@@ -140,6 +140,7 @@ export class JobStatus {
 
 export class RhythmicityJobSummary {
   jobId: string;
+  parentId: number;
   reloaded: boolean;
   jobStatus: JobStatus;
 
