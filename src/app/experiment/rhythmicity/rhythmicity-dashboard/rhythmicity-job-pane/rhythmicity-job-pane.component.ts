@@ -119,7 +119,7 @@ export class RhythmicityJobPaneComponent implements OnInit, OnChanges, OnDestroy
     this.rhythmicityJobDatasource.on(true);
 
     this.rhythmicityJobDatasource.finishedJob$.forEach(
-        job => this.rhythmicityResultsDataSource.assayJob(job)
+        job => this.rhythmicityResultsDataSource.input(job)
     );
 
     this.expandedToogleStream.forEach( v => { this.rhythmicityResultsDataSource.on(v); } );

@@ -5,17 +5,7 @@ import {ExperimentsTestToolModule} from '../../../experiment_test_tool.spec';
 import {StaticContentTestModule} from '../../../../documents/static-content_test_tool.spec';
 import {PValueFormComponent} from './pvalue-form/pvalue-form.component';
 import {RhythmicityResultsMDTableComponent} from './rhythmicity-results-mdtable/rhythmicity-results-mdtable.component';
-import {
-  MatCardModule,
-  MatDividerModule,
-  MatFormFieldModule,
-  MatPaginatorModule,
-  MatProgressSpinnerModule,
-  MatRadioModule,
-  MatSlideToggleModule,
-  MatSortModule,
-  MatTableModule
-} from '@angular/material';
+import {MaterialsModule} from "../../../../shared/materials.module";
 
 describe('RhythmicityJobPaneComponent', () => {
   let component: RhythmicityJobPaneComponent;
@@ -25,16 +15,8 @@ describe('RhythmicityJobPaneComponent', () => {
     TestBed.configureTestingModule({
       declarations: [ RhythmicityJobPaneComponent, PValueFormComponent,
         RhythmicityResultsMDTableComponent],
-      imports: [ExperimentsTestToolModule, StaticContentTestModule,
-        MatRadioModule,
-        MatFormFieldModule,
-        MatPaginatorModule,
-        MatSortModule,
-        MatTableModule,
-        MatProgressSpinnerModule,
-        MatSlideToggleModule,
-        MatCardModule,
-        MatDividerModule]
+      imports: [ExperimentsTestToolModule, StaticContentTestModule, MaterialsModule
+]
     })
     .compileComponents();
   }));

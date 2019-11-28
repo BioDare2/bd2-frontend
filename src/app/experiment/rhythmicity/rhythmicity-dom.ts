@@ -145,6 +145,12 @@ export class RhythmicityJobSummary {
   jobStatus: JobStatus;
 
   parameters: any;
+
+  static sameJob(def1: RhythmicityJobSummary, def2: RhythmicityJobSummary) {
+    if (!def1 || !def2 ) { return false; }
+
+    return def1.jobId === def2.jobId && def1.parentId === def2.parentId;
+  }
 }
 
 export class JTKPattern {

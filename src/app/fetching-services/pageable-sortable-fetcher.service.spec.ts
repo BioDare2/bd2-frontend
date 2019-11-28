@@ -518,4 +518,31 @@ describe('PageableSortableFetcherService', () => {
 
 
   }));
+
+  it('close completes the stream', fakeAsync(() => {
+
+
+    let running;
+    let cRunning;
+    let finished;
+    let cFinished;
+    let errors;
+    let cErrors;
+    let err;
+
+    service.data$.subscribe( v => running = v, e => err = e, () => cRunning = true);
+    service.isBusy$.subscribe( v => finished = v, e => err = e, () => cFinished = true);
+    service.error$.subscribe( v => errors = v, e => err = e, () => cErrors = true);
+
+    service.close();
+    // tick();
+
+    expect(cRunning).toBe(true);
+    expect(cFinished).toBe(true);
+    expect(cErrors).toBe(true);
+    expect(errors).toBeUndefined();
+    expect(err).toBeUndefined();
+
+  }));
+
 });

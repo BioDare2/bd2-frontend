@@ -16,35 +16,43 @@ import {BD2eJTKRes, TSResult} from '../../../rhythmicity-dom';
   `]
 })
 export class RhythmicityResultsMDTableComponent implements AfterViewInit, OnInit {
-  @ViewChild(MatPaginator, {static: false}) paginator: MatPaginator;
-  @ViewChild(MatSort, {static: false}) sort: MatSort;
-  @ViewChild(MatTable, {static: false}) table: MatTable<TSResult<BD2eJTKRes>>;
+  // @ViewChild(MatPaginator, {static: false}) paginator: MatPaginator;
+  // @ViewChild(MatSort, {static: false}) sort: MatSort;
+  // @ViewChild(MatTable, {static: false}) table: MatTable<TSResult<BD2eJTKRes>>;
 
-  constructor(private dataSource: RhythmicityResultsMDTableDataSource) {
+  constructor(private fetcher: RhythmicityResultsMDTableDataSource) {
 
   }
 
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
   displayedColumns = ['id', 'label', 'rhythmic', 'empp', 'emppbh', 'tau', 'pattern'];
+  disablePaginator = false;
 
   ngOnInit() {
   }
 
   ngAfterViewInit() {
 
-    this.sort.sortChange.forEach( sort => this.dataSource.sort(sort));
-    this.paginator.page.forEach( page => this.dataSource.page(page));
+    // this.sort.sortChange.forEach( sort => this.fetcher.sort(sort));
+    // this.paginator.page.forEach( page => this.fetcher.page(page));
 
-    const firstSort: Sort = { active: this.sort.active, direction: this.sort.direction};
-    this.dataSource.sort(firstSort);
+    // const firstSort: Sort = { active: this.sort.active, direction: this.sort.direction};
+    // this.fetcher.sort(firstSort);
 
     const firstPage = new PageEvent();
-    firstPage.pageSize = this.paginator.pageSize;
-    firstPage.pageIndex = this.paginator.pageIndex;
-    this.dataSource.page(firstPage);
+    firstPage.pageSize = 25;
+    firstPage.pageIndex = 0;
+    this.fetcher.page(firstPage);
 
-    this.table.dataSource = this.dataSource;
+    // this.table.fetcher = this.fetcher;
   }
 
+  sortData(sort: Sort) {
+    this.fetcher.sort(sort);
+  }
 
+  loadPage(page: PageEvent) {
+    // console.log('Load page', page);
+    this.fetcher.page(page);
+  }
 }

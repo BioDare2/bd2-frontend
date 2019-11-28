@@ -6,6 +6,7 @@ import {MatTableModule} from '@angular/material/table';
 
 import {RhythmicityResultsMDTableComponent} from './rhythmicity-results-mdtable.component';
 import {RhythmicityResultsMDTableDataSource} from '../rhythmicity-results-mdtable-datasource';
+import {MaterialsModule} from "../../../../../shared/materials.module";
 
 describe('RhythmicityResultsMDTableComponent', () => {
   let component: RhythmicityResultsMDTableComponent;
@@ -22,10 +23,7 @@ describe('RhythmicityResultsMDTableComponent', () => {
     TestBed.configureTestingModule({
       declarations: [ RhythmicityResultsMDTableComponent ],
       imports: [
-        NoopAnimationsModule,
-        MatPaginatorModule,
-        MatSortModule,
-        MatTableModule,
+        NoopAnimationsModule, MaterialsModule
       ],
       providers: [
         {provide: RhythmicityResultsMDTableDataSource, useValue: dataSource}
