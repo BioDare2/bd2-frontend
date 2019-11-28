@@ -12,21 +12,20 @@ import {
 import {ExperimentalAssayView} from '../../../../dom/repo/exp/experimental-assay-view';
 import {FeedbackService} from '../../../../feedback/feedback.service';
 import {RhythmicityService} from '../../rhythmicity.service';
-import {BehaviorSubject, of, Subscription, timer} from 'rxjs';
+import {BehaviorSubject, timer} from 'rxjs';
 import {RhythmicityJobSummary, StatTestOptions} from '../../rhythmicity-dom';
 import {LocalDateTime} from '../../../../dom/repo/shared/dates';
 
 import * as FileSaver from 'file-saver';
-import {RhythmicityResultsMDTableDataSource} from './rhythmicity-results-mdtable-datasource';
 import {ConfirmDialogComponent} from '../../../../shared/confirm-dialog.component';
-import {RhythmicityJobDatasourceService} from './rhythmicity-job-datasource.service';
+import {RhythmicityJobFetcherService} from './services/rhythmicity-job-fetcher.service';
 import {RhythmicityResultsMDTableComponent} from './rhythmicity-results-mdtable/rhythmicity-results-mdtable.component';
 
 @Component({
   selector: 'bd2-rhythmicity-job-pane',
   templateUrl: './rhythmicity-job-pane.component.html',
   styles: [],
-  providers: [RhythmicityJobDatasourceService]
+  providers: [RhythmicityJobFetcherService]
 })
 export class RhythmicityJobPaneComponent implements OnInit, OnChanges, OnDestroy {
 
@@ -59,7 +58,7 @@ export class RhythmicityJobPaneComponent implements OnInit, OnChanges, OnDestroy
 
 
   constructor(private rhythmicityService: RhythmicityService,
-              private rhythmicityJobDatasource: RhythmicityJobDatasourceService,
+              private rhythmicityJobDatasource: RhythmicityJobFetcherService,
               // private rhythmicityResultsDataSource: RhythmicityResultsMDTableDataSource,
               private feedback: FeedbackService) { }
 
@@ -94,7 +93,7 @@ export class RhythmicityJobPaneComponent implements OnInit, OnChanges, OnDestroy
     // value change (it starts as undefined then the widget emits the setting)
     const s = timer(1).subscribe( () => {
         this.statTestParams = params;
-        if (s) s.unsubscribe();
+        if (s) { s.unsubscribe(); }
     });
   }
 

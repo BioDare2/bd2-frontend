@@ -15,7 +15,7 @@ import {ModalModule} from 'ngx-bootstrap/modal';
 import {ExperimentComponentsDependencies} from './experiment-components.dependencies';
 import {CurrentExperimentService} from './current-experiment.service';
 import {AlertModule} from 'ngx-bootstrap/alert';
-import {CommonModule} from "@angular/common";
+import {CommonModule} from '@angular/common';
 
 
 export function fakeExperimentService() {

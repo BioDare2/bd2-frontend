@@ -1,16 +1,16 @@
 import {Observable} from 'rxjs';
-import {RhythmicityService} from '../../rhythmicity.service';
+import {RhythmicityService} from '../../../rhythmicity.service';
 import {tap} from 'rxjs/operators';
-import {RhythmicityJobSummary} from '../../rhythmicity-dom';
+import {RhythmicityJobSummary} from '../../../rhythmicity-dom';
 import {Inject, Injectable, Optional} from '@angular/core';
-import {RunnableFetcherService} from '../../../../fetching-services/runnable-fetcher.service';
-import {REMOVE_DEBOUNCE} from '../../../../shared/tokens';
-import {IntervalsKeeper} from '../../../../fetching-services/intervals-keeper';
+import {RunnableFetcherService} from '../../../../../fetching-services/runnable-fetcher.service';
+import {REMOVE_DEBOUNCE} from '../../../../../shared/tokens';
+import {IntervalsKeeper} from '../../../../../fetching-services/intervals-keeper';
 
 
 @Injectable()
 // tslint:disable-next-line:max-line-length
-export class RhythmicityJobDatasourceService extends RunnableFetcherService<[number, string], string, RhythmicityJobSummary> {
+export class RhythmicityJobFetcherService extends RunnableFetcherService<[number, string], string, RhythmicityJobSummary> {
 
 
   readonly allJob$: Observable<RhythmicityJobSummary>;

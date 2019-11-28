@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, OnDestroy, OnInit,} from '@angular/core';
+import {AfterViewInit, Component, OnDestroy, OnInit, } from '@angular/core';
 import {FormBuilder} from '@angular/forms';
 import {BaseTSDisplayParamsRForm} from './base-tsdisplay-params-rform';
 

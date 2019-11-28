@@ -1,7 +1,7 @@
 import {AfterViewInit, Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {PageEvent} from '@angular/material/paginator';
 import {Sort} from '@angular/material/sort';
-import {RhythmicityResultsMDTableDataSource} from '../rhythmicity-results-mdtable-datasource';
+import {RhythmicityResultsFetcherService} from '../services/rhythmicity-results-fetcher.service';
 import {RhythmicityJobSummary, StatTestOptions} from '../../../rhythmicity-dom';
 
 @Component({
@@ -13,7 +13,7 @@ import {RhythmicityJobSummary, StatTestOptions} from '../../../rhythmicity-dom';
     }
 
   `],
-  providers: [RhythmicityResultsMDTableDataSource]
+  providers: [RhythmicityResultsFetcherService]
 })
 export class RhythmicityResultsMDTableComponent implements AfterViewInit, OnInit, OnDestroy {
   // @ViewChild(MatPaginator, {static: false}) paginator: MatPaginator;
@@ -34,7 +34,7 @@ export class RhythmicityResultsMDTableComponent implements AfterViewInit, OnInit
     }
   }
 
-  constructor(private fetcher: RhythmicityResultsMDTableDataSource) {
+  constructor(private fetcher: RhythmicityResultsFetcherService) {
 
   }
 

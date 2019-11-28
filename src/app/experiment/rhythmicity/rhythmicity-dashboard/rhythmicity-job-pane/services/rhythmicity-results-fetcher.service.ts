@@ -1,16 +1,16 @@
 import {Sort} from '@angular/material/sort';
 import {tap} from 'rxjs/operators';
 import {Observable} from 'rxjs';
-import {BD2eJTKRes, JobResults, RhythmicityJobSummary, StatTestOptions, TSResult} from '../../rhythmicity-dom';
-import {RhythmicityService} from '../../rhythmicity.service';
+import {BD2eJTKRes, JobResults, RhythmicityJobSummary, StatTestOptions, TSResult} from '../../../rhythmicity-dom';
+import {RhythmicityService} from '../../../rhythmicity.service';
 import {Inject, Injectable, Optional} from '@angular/core';
-import {PageableSortableArraysFetcherService} from '../../../../fetching-services/pageable-sortable-arrays-fetcher.service';
-import {REMOVE_DEBOUNCE} from '../../../../shared/tokens';
+import {PageableSortableArraysFetcherService} from '../../../../../fetching-services/pageable-sortable-arrays-fetcher.service';
+import {REMOVE_DEBOUNCE} from '../../../../../shared/tokens';
 
 
 @Injectable()
 // tslint:disable-next-line:max-line-length
-export class RhythmicityResultsMDTableDataSource extends PageableSortableArraysFetcherService<RhythmicityJobSummary, StatTestOptions, JobResults<BD2eJTKRes>, TSResult<BD2eJTKRes>> {
+export class RhythmicityResultsFetcherService extends PageableSortableArraysFetcherService<RhythmicityJobSummary, StatTestOptions, JobResults<BD2eJTKRes>, TSResult<BD2eJTKRes>> {
 
   readonly results$: Observable<TSResult<BD2eJTKRes>[]>;
 

@@ -54,7 +54,7 @@ describe('PPAJobFetcherService', () => {
     expect(running).toBe(false);
 
     error2 = undefined;
-    let job = new PPAJobSummary();
+    const job = new PPAJobSummary();
     job.jobId = 34;
     job.state = 'SUBMITTED';
     ppaService.getPPAJob.and.returnValue(of(job));
@@ -98,7 +98,7 @@ describe('PPAJobFetcherService', () => {
     expect(running).toBe(false);
 
     error2 = undefined;
-    let job = new PPAJobSummary();
+    const job = new PPAJobSummary();
     job.jobId = 34;
     job.state = 'FINISHED';
     ppaService.getPPAJob.and.returnValue(of(job));

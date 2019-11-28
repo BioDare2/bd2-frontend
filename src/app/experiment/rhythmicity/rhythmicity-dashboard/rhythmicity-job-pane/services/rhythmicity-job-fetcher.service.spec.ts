@@ -1,13 +1,13 @@
-import {RhythmicityJobDatasourceService} from './rhythmicity-job-datasource.service';
+import {RhythmicityJobFetcherService} from './rhythmicity-job-fetcher.service';
 import {fakeAsync, tick} from '@angular/core/testing';
-import {JobStatus, RhythmicityJobSummary} from '../../rhythmicity-dom';
-import {ExperimentalAssayView} from '../../../../dom/repo/exp/experimental-assay-view';
+import {JobStatus, RhythmicityJobSummary} from '../../../rhythmicity-dom';
+import {ExperimentalAssayView} from '../../../../../dom/repo/exp/experimental-assay-view';
 import {EMPTY, of, throwError} from 'rxjs';
 
 describe('RhythmicityJobDatasourceService', () => {
 
   let rhythmicityService;
-  let service: RhythmicityJobDatasourceService;
+  let service: RhythmicityJobFetcherService;
 
   beforeEach(() => {
 
@@ -17,7 +17,7 @@ describe('RhythmicityJobDatasourceService', () => {
 
     rhythmicityService.getJob.and.returnValue(throwError('mock service not initialized'));
 
-    service = new RhythmicityJobDatasourceService(rhythmicityService, true);
+    service = new RhythmicityJobFetcherService(rhythmicityService, true);
   });
 
   it('complies', () => {
@@ -220,7 +220,7 @@ describe('RhythmicityJobDatasourceService', () => {
     // to clean reload timer
     rhythmicityService.getJob.and.returnValue(EMPTY);
 
-    tick(60*1000);
+    tick(60 * 1000);
 
   }));
 
@@ -293,7 +293,7 @@ describe('RhythmicityJobDatasourceService', () => {
     // to clean reload timer
     rhythmicityService.getJob.and.returnValue(EMPTY);
 
-    tick(60*1000);
+    tick(60 * 1000);
 
   }));
 
@@ -327,7 +327,7 @@ describe('RhythmicityJobDatasourceService', () => {
     job.jobStatus.state = 'SUCCESS';
     running = undefined;
 
-    tick(60*1000);
+    tick(60 * 1000);
     expect(running).toBeUndefined();
     expect(finished).toBe(job);
     expect(err).toBeUndefined();

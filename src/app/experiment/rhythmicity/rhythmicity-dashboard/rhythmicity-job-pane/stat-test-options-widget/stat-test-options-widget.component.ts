@@ -1,5 +1,5 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
-import {StatTestOptions} from "../../../rhythmicity-dom";
+import {StatTestOptions} from '../../../rhythmicity-dom';
 
 @Component({
   selector: 'bd2-stat-test-options-widget',

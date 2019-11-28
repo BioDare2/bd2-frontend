@@ -1,7 +1,7 @@
 import {Inject, Injectable, Optional} from '@angular/core';
-import {BehaviorSubject, combineLatest, merge, Observable, Subject, Subscription, timer} from 'rxjs';
+import {Observable} from 'rxjs';
 import {PPAJobSummary} from '../../../ppa-dom';
-import {distinctUntilChanged, filter, flatMap, map, take, tap} from 'rxjs/operators';
+import {tap} from 'rxjs/operators';
 import {PPAService} from '../../../ppa.service';
 import {IntervalsKeeper} from '../../../../../fetching-services/intervals-keeper';
 import {RunnableFetcherService} from '../../../../../fetching-services/runnable-fetcher.service';

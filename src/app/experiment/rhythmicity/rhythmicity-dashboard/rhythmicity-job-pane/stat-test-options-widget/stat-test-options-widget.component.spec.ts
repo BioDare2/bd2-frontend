@@ -1,6 +1,6 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { StatTestOptionsWidgetComponent } from './stat-test-options-widget.component';
+import {StatTestOptionsWidgetComponent} from './stat-test-options-widget.component';
 import {MaterialsModule} from '../../../../../shared/materials.module';
 import {NoopAnimationsModule} from '@angular/platform-browser/animations';
 import {PValueFormComponent} from '../pvalue-form/pvalue-form.component';

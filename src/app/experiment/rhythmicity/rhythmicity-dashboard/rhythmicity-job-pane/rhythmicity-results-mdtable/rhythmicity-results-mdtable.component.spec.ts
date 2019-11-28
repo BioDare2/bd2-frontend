@@ -1,12 +1,10 @@
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 import {NoopAnimationsModule} from '@angular/platform-browser/animations';
-import {MatPaginatorModule} from '@angular/material/paginator';
-import {MatSortModule} from '@angular/material/sort';
-import {MatTableModule} from '@angular/material/table';
 
 import {RhythmicityResultsMDTableComponent} from './rhythmicity-results-mdtable.component';
-import {RhythmicityResultsMDTableDataSource} from '../rhythmicity-results-mdtable-datasource';
-import {MaterialsModule} from "../../../../../shared/materials.module";
+import {RhythmicityResultsFetcherService} from '../services/rhythmicity-results-fetcher.service';
+import {MaterialsModule} from '../../../../../shared/materials.module';
+import {RhythmicityService} from '../../../rhythmicity.service';
 
 describe('RhythmicityResultsMDTableComponent', () => {
   let component: RhythmicityResultsMDTableComponent;
@@ -18,7 +16,7 @@ describe('RhythmicityResultsMDTableComponent', () => {
       'getResults'
     ]);
 
-    const dataSource = new RhythmicityResultsMDTableDataSource(rhythmicityService);
+    const dataSource = new RhythmicityResultsFetcherService(rhythmicityService);
 
     TestBed.configureTestingModule({
       declarations: [ RhythmicityResultsMDTableComponent ],
@@ -26,7 +24,8 @@ describe('RhythmicityResultsMDTableComponent', () => {
         NoopAnimationsModule, MaterialsModule
       ],
       providers: [
-        {provide: RhythmicityResultsMDTableDataSource, useValue: dataSource}
+        {provide: RhythmicityResultsFetcherService, useValue: dataSource},
+        {provide: RhythmicityService, useValue: rhythmicityService}
         ]
     }).compileComponents();
   }));

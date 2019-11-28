@@ -1,5 +1,5 @@
 import {AfterViewInit, Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
-import {LabelsToColors,} from '../data-sheet-mdtable/table-styling';
+import {LabelsToColors, } from '../data-sheet-mdtable/table-styling';
 import {CellSelection, Slice} from '../data-table-dom';
 import {DataTableDependentStep} from '../data-table-dependent-step';
 import {DataTableService} from '../data-table.service';

@@ -1,6 +1,6 @@
-import {BD2eJTKRes, JobResults, JTKPattern, TSResult} from '../../rhythmicity-dom';
+import {BD2eJTKRes, JobResults, JTKPattern, TSResult} from '../../../rhythmicity-dom';
 import {of} from 'rxjs';
-import {RhythmicityResultsMDTableDataSource} from './rhythmicity-results-mdtable-datasource';
+import {RhythmicityResultsFetcherService} from './rhythmicity-results-fetcher.service';
 import {Sort} from '@angular/material/sort';
 
 describe('RhythmicityResultsMDTableDataSource', () => {
@@ -10,7 +10,7 @@ describe('RhythmicityResultsMDTableDataSource', () => {
   let rhythmicityService;
   // let job$: Subject<[ExperimentalAssayView, RhythmicityJobSummary]>;
 
-  let service: RhythmicityResultsMDTableDataSource;
+  let service: RhythmicityResultsFetcherService;
 
   beforeEach(() => {
     jobRes = new JobResults<BD2eJTKRes>();
@@ -63,7 +63,7 @@ describe('RhythmicityResultsMDTableDataSource', () => {
 
     // job$ = new Subject<[ExperimentalAssayView, RhythmicityJobSummary]>();
 
-    service = new RhythmicityResultsMDTableDataSource(rhythmicityService, true);
+    service = new RhythmicityResultsFetcherService(rhythmicityService, true);
 
   });
 
