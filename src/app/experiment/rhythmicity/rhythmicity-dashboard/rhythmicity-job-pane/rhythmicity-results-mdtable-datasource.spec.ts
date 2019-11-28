@@ -137,6 +137,7 @@ describe('RhythmicityResultsMDTableDataSource', () => {
     expect(jobRes.results[0].result.patternLabel).toBeDefined();
   });
 
+  /*
   it('pValue emits input params', () => {
 
 
@@ -162,6 +163,8 @@ describe('RhythmicityResultsMDTableDataSource', () => {
     service.bhCorrection(true);
     expect(res).toEqual([undefined, [undefined, true]]);
   });
+
+   */
 
   it('rankResults ranks by pavalues', () => {
 

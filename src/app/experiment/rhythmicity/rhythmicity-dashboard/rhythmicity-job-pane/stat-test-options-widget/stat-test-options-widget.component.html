@@ -1,0 +1,13 @@
+<mat-card>
+  <mat-card-content>
+    <section>
+      <bd2-pvalue-form (pvalue$)="pValue($event)">
+      </bd2-pvalue-form>
+    </section>
+
+    <section style="margin-top: 0.5em; text-align: center;">
+      <mat-slide-toggle (change)="bhCorrection($event.checked)">Benjamini Hochberg correction</mat-slide-toggle>
+    </section>
+
+  </mat-card-content>
+</mat-card>

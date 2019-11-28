@@ -192,5 +192,9 @@ export class JobResults<R> {
   results: TSResult<R>[] = [];
 }
 
+export class StatTestOptions {
+  constructor(public pValue = 0, public bhCorrection = false) {
+  }
+}
 
 

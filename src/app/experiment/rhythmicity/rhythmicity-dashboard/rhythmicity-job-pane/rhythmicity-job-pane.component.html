@@ -48,22 +48,13 @@
 
           <ng-container *ngIf="rhythmicityJobDatasource.finishedJob$ | async as finishedJob">
 
-            <mat-card>
-              <mat-card-content>
-                <section>
-                <bd2-pvalue-form (pvalue$)="rhythmicityResultsDataSource.pvalue($event)">
-                </bd2-pvalue-form>
-                </section>
-
-                <section style="margin-top: 0.5em; text-align: center;">
-                  <mat-slide-toggle (change)="rhythmicityResultsDataSource.bhCorrection($event.checked)">Benjamini Hochberg correction</mat-slide-toggle>
-                </section>
-
-              </mat-card-content>
-            </mat-card>
+            <bd2-stat-test-options-widget (options)="statTestOptions = $event">
+            </bd2-stat-test-options-widget>
 
 
-            <bd2-rhythmicity-results-mdtable></bd2-rhythmicity-results-mdtable>
+            <bd2-rhythmicity-results-mdtable
+            [statTestOptions]="statTestOptions"
+            [job]="finishedJob"></bd2-rhythmicity-results-mdtable>
           </ng-container>
         </mat-card-content>
       </mat-card>

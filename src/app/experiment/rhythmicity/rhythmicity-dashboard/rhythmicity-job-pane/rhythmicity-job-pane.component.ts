@@ -3,7 +3,7 @@ import {ExperimentalAssayView} from '../../../../dom/repo/exp/experimental-assay
 import {FeedbackService} from '../../../../feedback/feedback.service';
 import {RhythmicityService} from '../../rhythmicity.service';
 import {BehaviorSubject} from 'rxjs';
-import {RhythmicityJobSummary} from '../../rhythmicity-dom';
+import {RhythmicityJobSummary, StatTestOptions} from '../../rhythmicity-dom';
 import {LocalDateTime} from '../../../../dom/repo/shared/dates';
 
 import * as FileSaver from 'file-saver';
@@ -39,13 +39,15 @@ export class RhythmicityJobPaneComponent implements OnInit, OnChanges, OnDestroy
     this.expandedToogleStream.next(val);
   }
 
-  private isExpanded = false;
+  isExpanded = false;
   expandedToogleStream = new BehaviorSubject<boolean>(false);
+
+  statTestOptions: StatTestOptions;
 
 
   constructor(private rhythmicityService: RhythmicityService,
               private rhythmicityJobDatasource: RhythmicityJobDatasourceService,
-              private rhythmicityResultsDataSource: RhythmicityResultsMDTableDataSource,
+              // private rhythmicityResultsDataSource: RhythmicityResultsMDTableDataSource,
               private feedback: FeedbackService) { }
 
   ngOnInit() {
@@ -57,7 +59,7 @@ export class RhythmicityJobPaneComponent implements OnInit, OnChanges, OnDestroy
   ngOnDestroy() {
 
     this.rhythmicityJobDatasource.close();
-    this.rhythmicityResultsDataSource.close();
+    // this.rhythmicityResultsDataSource.close();
 
     if (this.expandedToogleStream) {
       this.expandedToogleStream.complete();
@@ -91,7 +93,7 @@ export class RhythmicityJobPaneComponent implements OnInit, OnChanges, OnDestroy
 
   refresh() {
     this.rhythmicityJobDatasource.refresh();
-    this.rhythmicityResultsDataSource.refresh();
+    // this.rhythmicityResultsDataSource.refresh();
   }
 
   delete() {
@@ -118,14 +120,14 @@ export class RhythmicityJobPaneComponent implements OnInit, OnChanges, OnDestroy
     // always fetch a job to have something to display
     this.rhythmicityJobDatasource.on(true);
 
-    this.rhythmicityJobDatasource.finishedJob$.forEach(
+    /*this.rhythmicityJobDatasource.finishedJob$.forEach(
         job => this.rhythmicityResultsDataSource.input(job)
-    );
+    );*/
 
     this.expandedToogleStream.forEach( v => { this.rhythmicityResultsDataSource.on(v); } );
 
     this.rhythmicityJobDatasource.error$.forEach( reason => this.feedback.error(reason));
-    this.rhythmicityResultsDataSource.error$.forEach( reason => this.feedback.error(reason));
+    // this.rhythmicityResultsDataSource.error$.forEach( reason => this.feedback.error(reason));
 
   }
 

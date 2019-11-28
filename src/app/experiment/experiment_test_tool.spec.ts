@@ -15,6 +15,7 @@ import {ModalModule} from 'ngx-bootstrap/modal';
 import {ExperimentComponentsDependencies} from './experiment-components.dependencies';
 import {CurrentExperimentService} from './current-experiment.service';
 import {AlertModule} from 'ngx-bootstrap/alert';
+import {CommonModule} from "@angular/common";
 
 
 export function fakeExperimentService() {
@@ -35,7 +36,8 @@ export function fakeExperimentService() {
 
 @NgModule({
   declarations: [],
-  imports: [FormsModule, ReactiveFormsModule,
+  imports: [CommonModule,
+    FormsModule, ReactiveFormsModule,
     ButtonsModule.forRoot(), AlertModule.forRoot(),
     RouterTestingModule, ModalModule.forRoot(),
     RepoComponentsModule, SharedComponentsModule
@@ -47,7 +49,8 @@ export function fakeExperimentService() {
     {provide: AnalyticsService, useValue: fakeAnalyticsService()},
     CurrentExperimentService, ExperimentComponentsDependencies
   ],
-  exports: [FormsModule, ReactiveFormsModule,
+  exports: [CommonModule,
+    FormsModule, ReactiveFormsModule,
     ButtonsModule, AlertModule,
     RouterTestingModule,
     RepoComponentsModule, SharedComponentsModule
