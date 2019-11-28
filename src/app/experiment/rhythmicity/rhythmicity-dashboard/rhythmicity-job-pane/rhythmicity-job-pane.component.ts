@@ -1,8 +1,18 @@
-import {Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges} from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnChanges,
+  OnDestroy,
+  OnInit,
+  Output,
+  SimpleChanges,
+  ViewChild
+} from '@angular/core';
 import {ExperimentalAssayView} from '../../../../dom/repo/exp/experimental-assay-view';
 import {FeedbackService} from '../../../../feedback/feedback.service';
 import {RhythmicityService} from '../../rhythmicity.service';
-import {BehaviorSubject} from 'rxjs';
+import {BehaviorSubject, of, Subscription, timer} from 'rxjs';
 import {RhythmicityJobSummary, StatTestOptions} from '../../rhythmicity-dom';
 import {LocalDateTime} from '../../../../dom/repo/shared/dates';
 
@@ -10,15 +20,18 @@ import * as FileSaver from 'file-saver';
 import {RhythmicityResultsMDTableDataSource} from './rhythmicity-results-mdtable-datasource';
 import {ConfirmDialogComponent} from '../../../../shared/confirm-dialog.component';
 import {RhythmicityJobDatasourceService} from './rhythmicity-job-datasource.service';
+import {RhythmicityResultsMDTableComponent} from './rhythmicity-results-mdtable/rhythmicity-results-mdtable.component';
 
 @Component({
   selector: 'bd2-rhythmicity-job-pane',
   templateUrl: './rhythmicity-job-pane.component.html',
   styles: [],
-  providers: [RhythmicityJobDatasourceService, RhythmicityResultsMDTableDataSource]
+  providers: [RhythmicityJobDatasourceService]
 })
 export class RhythmicityJobPaneComponent implements OnInit, OnChanges, OnDestroy {
 
+  @ViewChild(RhythmicityResultsMDTableComponent, {static: false})
+  resultsTable: RhythmicityResultsMDTableComponent;
 
   @Input()
   jobId: string;
@@ -42,7 +55,7 @@ export class RhythmicityJobPaneComponent implements OnInit, OnChanges, OnDestroy
   isExpanded = false;
   expandedToogleStream = new BehaviorSubject<boolean>(false);
 
-  statTestOptions: StatTestOptions;
+  statTestParams: StatTestOptions;
 
 
   constructor(private rhythmicityService: RhythmicityService,
@@ -75,6 +88,16 @@ export class RhythmicityJobPaneComponent implements OnInit, OnChanges, OnDestroy
     }
   }
 
+  statTestOptions(params: StatTestOptions) {
+
+    // delayed passing as was getting error from angular
+    // value change (it starts as undefined then the widget emits the setting)
+    const s = timer(1).subscribe( () => {
+        this.statTestParams = params;
+        if (s) s.unsubscribe();
+    });
+  }
+
   export() {
 
       this.rhythmicityService.downloadJob(this.assay.id, this.jobId)
@@ -93,6 +116,10 @@ export class RhythmicityJobPaneComponent implements OnInit, OnChanges, OnDestroy
 
   refresh() {
     this.rhythmicityJobDatasource.refresh();
+    if (this.resultsTable) {
+      this.resultsTable.reload();
+    }
+
     // this.rhythmicityResultsDataSource.refresh();
   }
 
@@ -124,7 +151,7 @@ export class RhythmicityJobPaneComponent implements OnInit, OnChanges, OnDestroy
         job => this.rhythmicityResultsDataSource.input(job)
     );*/
 
-    this.expandedToogleStream.forEach( v => { this.rhythmicityResultsDataSource.on(v); } );
+    // this.expandedToogleStream.forEach( v => { this.rhythmicityResultsDataSource.on(v); } );
 
     this.rhythmicityJobDatasource.error$.forEach( reason => this.feedback.error(reason));
     // this.rhythmicityResultsDataSource.error$.forEach( reason => this.feedback.error(reason));

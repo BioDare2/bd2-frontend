@@ -48,12 +48,12 @@
 
           <ng-container *ngIf="rhythmicityJobDatasource.finishedJob$ | async as finishedJob">
 
-            <bd2-stat-test-options-widget (options)="statTestOptions = $event">
+            <bd2-stat-test-options-widget (options)="statTestOptions($event)">
             </bd2-stat-test-options-widget>
 
 
             <bd2-rhythmicity-results-mdtable
-            [statTestOptions]="statTestOptions"
+            [statTestParams]="statTestParams"
             [job]="finishedJob"></bd2-rhythmicity-results-mdtable>
           </ng-container>
         </mat-card-content>

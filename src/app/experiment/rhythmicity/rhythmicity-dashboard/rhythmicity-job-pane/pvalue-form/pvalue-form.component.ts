@@ -1,4 +1,4 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {AfterViewInit, Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {MatRadioChange} from '@angular/material';
 
 @Component({
@@ -10,7 +10,7 @@ import {MatRadioChange} from '@angular/material';
     }
   `]
 })
-export class PValueFormComponent implements OnInit {
+export class PValueFormComponent implements OnInit, AfterViewInit {
 
   constructor() { }
 
@@ -22,11 +22,16 @@ export class PValueFormComponent implements OnInit {
   pvalue$ = new EventEmitter<number>();
 
   ngOnInit() {
+  }
+
+  ngAfterViewInit(): void {
     this.pvalue$.emit(this.pvalue);
   }
 
   selected(change: MatRadioChange) {
     this.pvalue$.emit(change.value);
   }
+
+
 
 }

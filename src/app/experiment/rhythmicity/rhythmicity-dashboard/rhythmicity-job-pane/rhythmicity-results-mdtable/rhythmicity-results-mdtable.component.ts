@@ -1,9 +1,8 @@
-import {AfterViewInit, Component, Input, OnInit, ViewChild} from '@angular/core';
-import {MatPaginator, PageEvent} from '@angular/material/paginator';
-import {MatSort, Sort} from '@angular/material/sort';
-import {MatTable} from '@angular/material/table';
+import {AfterViewInit, Component, Input, OnDestroy, OnInit} from '@angular/core';
+import {PageEvent} from '@angular/material/paginator';
+import {Sort} from '@angular/material/sort';
 import {RhythmicityResultsMDTableDataSource} from '../rhythmicity-results-mdtable-datasource';
-import {BD2eJTKRes, RhythmicityJobSummary, StatTestOptions, TSResult} from '../../../rhythmicity-dom';
+import {RhythmicityJobSummary, StatTestOptions} from '../../../rhythmicity-dom';
 
 @Component({
   selector: 'bd2-rhythmicity-results-mdtable',
@@ -13,23 +12,26 @@ import {BD2eJTKRes, RhythmicityJobSummary, StatTestOptions, TSResult} from '../.
       width: 100%;
     }
 
-  `]
+  `],
+  providers: [RhythmicityResultsMDTableDataSource]
 })
-export class RhythmicityResultsMDTableComponent implements AfterViewInit, OnInit {
+export class RhythmicityResultsMDTableComponent implements AfterViewInit, OnInit, OnDestroy {
   // @ViewChild(MatPaginator, {static: false}) paginator: MatPaginator;
   // @ViewChild(MatSort, {static: false}) sort: MatSort;
   // @ViewChild(MatTable, {static: false}) table: MatTable<TSResult<BD2eJTKRes>>;
 
   @Input()
   set job(job: RhythmicityJobSummary) {
-    if (job)
+    if (job) {
       this.fetcher.input(job);
+    }
   }
 
   @Input()
-  set statTestOptions(options: StatTestOptions) {
-    if (options)
+  set statTestParams(options: StatTestOptions) {
+    if (options) {
       this.fetcher.params(options);
+    }
   }
 
   constructor(private fetcher: RhythmicityResultsMDTableDataSource) {
@@ -41,6 +43,17 @@ export class RhythmicityResultsMDTableComponent implements AfterViewInit, OnInit
   disablePaginator = false;
 
   ngOnInit() {
+
+    const firstPage = new PageEvent();
+    firstPage.pageSize = 25;
+    firstPage.pageIndex = 0;
+    this.fetcher.page(firstPage);
+
+    this.fetcher.on(true);
+  }
+
+  ngOnDestroy() {
+    this.fetcher.close();
   }
 
   ngAfterViewInit() {
@@ -51,12 +64,13 @@ export class RhythmicityResultsMDTableComponent implements AfterViewInit, OnInit
     // const firstSort: Sort = { active: this.sort.active, direction: this.sort.direction};
     // this.fetcher.sort(firstSort);
 
-    const firstPage = new PageEvent();
-    firstPage.pageSize = 25;
-    firstPage.pageIndex = 0;
-    this.fetcher.page(firstPage);
+
 
     // this.table.fetcher = this.fetcher;
+  }
+
+  reload() {
+    this.fetcher.refresh();
   }
 
   sortData(sort: Sort) {
