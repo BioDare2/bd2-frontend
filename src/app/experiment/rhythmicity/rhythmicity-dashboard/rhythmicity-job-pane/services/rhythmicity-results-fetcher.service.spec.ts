@@ -3,7 +3,7 @@ import {of} from 'rxjs';
 import {RhythmicityResultsFetcherService} from './rhythmicity-results-fetcher.service';
 import {Sort} from '@angular/material/sort';
 
-describe('RhythmicityResultsMDTableDataSource', () => {
+describe('RhythmicityResultsFetcherService', () => {
 
   let results: TSResult<BD2eJTKRes>[];
   let jobRes: JobResults<BD2eJTKRes>;
@@ -28,7 +28,8 @@ describe('RhythmicityResultsMDTableDataSource', () => {
     res.pattern = new JTKPattern();
     res.pattern.period = 24;
     res.pattern.peak = 25.11;
-    res.pattern.waveform = 'ASYM_COS';
+    res.pattern.trough = 12;
+    res.pattern.waveform = 'ASYM_COSINE';
     results.push(tsRes);
 
     tsRes = new TSResult<BD2eJTKRes>();
@@ -41,7 +42,8 @@ describe('RhythmicityResultsMDTableDataSource', () => {
     res.pattern = new JTKPattern();
     res.pattern.period = 24;
     res.pattern.peak = 26.12;
-    res.pattern.waveform = 'ASYM_COS';
+    res.pattern.trough = 12;
+    res.pattern.waveform = 'ASYM_COSINE';
     results.push(tsRes);
 
     tsRes = new TSResult<BD2eJTKRes>();
@@ -54,7 +56,8 @@ describe('RhythmicityResultsMDTableDataSource', () => {
     res.pattern = new JTKPattern();
     res.pattern.period = 24;
     res.pattern.peak = 27.13;
-    res.pattern.waveform = 'ASYM_COS';
+    res.pattern.trough = 12;
+    res.pattern.waveform = 'ASYM_COSINE';
     results.push(tsRes);
 
     rhythmicityService = jasmine.createSpyObj('RhythmicityService', [
@@ -110,6 +113,11 @@ describe('RhythmicityResultsMDTableDataSource', () => {
     // @ts-ignore
     ext = service.sortingKey(sort);
     expect(ext(tsRes)).toBe(0.01);
+
+    sort.active = 'period';
+    // @ts-ignore
+    ext = service.sortingKey(sort);
+    expect(ext(tsRes)).toBe(24);
   });
 
 
@@ -195,11 +203,26 @@ describe('RhythmicityResultsMDTableDataSource', () => {
     // @ts-ignore
     service.labelPatterns(jobRes);
     expect(jobRes.results.map(res => res.result.patternLabel)).toEqual([
-      'ASYM_COS 24:25.1', 'ASYM_COS 24:26.1', 'ASYM_COS 24:27.1']);
+      'ACOS\t24\t25.11\t12', 'ACOS\t24\t26.12\t12', 'ACOS\t24\t27.13\t12']);
 
   });
 
 
+  it('patternToShape simplifies', () => {
 
+    const pattern = new JTKPattern();
+    pattern.period = 24;
+    pattern.peak = 25.11;
+    pattern.waveform = 'ASYM_COSINE';
+
+    // @ts-ignore
+    let shape = service.patternToShape(pattern);
+    expect(shape).toEqual('ACOS');
+
+    pattern.waveform = 'ASYM_COS_SPIKE';
+    // @ts-ignore
+    shape = service.patternToShape(pattern);
+    expect(shape).toEqual('SPIKE');
+  });
 
 });

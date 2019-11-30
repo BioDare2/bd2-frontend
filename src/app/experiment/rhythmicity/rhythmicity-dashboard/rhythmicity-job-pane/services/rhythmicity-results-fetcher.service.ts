@@ -83,7 +83,7 @@ export class RhythmicityResultsFetcherService extends PageableSortableArraysFetc
 
     jobRes.results.forEach( res => {
       res.result.patternLabel = this.describePattern(res.result);
-      res.result.shapeLabel = this.patternToShape(res.result.pattern);
+      res.result.pattern.shapeLabel = this.patternToShape(res.result.pattern);
     } );
   }
 

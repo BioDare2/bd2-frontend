@@ -35,14 +35,19 @@ describe('StatTestOptionsWidgetComponent', () => {
     component.options.subscribe( o => res.push(o));
     fixture.detectChanges();
 
-    expect(res).toEqual([new StatTestOptions(0.001 )]);
+    expect(res).toEqual([new StatTestOptions(0.001, false, false, true )]);
 
     component.pValue(0.05);
-    expect(res).toEqual([new StatTestOptions(0.001 ), new StatTestOptions(0.05 )]);
+    expect(res).toEqual([
+      new StatTestOptions(0.001, false, false, true ),
+      new StatTestOptions(0.05, false, false, true )
+    ]);
 
     component.bhCorrection(true);
-    expect(res).toEqual([new StatTestOptions(0.001 ), new StatTestOptions(0.05 ),
-      new StatTestOptions(0.05, true )]);
+    expect(res).toEqual([
+      new StatTestOptions(0.001, false, false, true ),
+      new StatTestOptions(0.05, false, false, true ),
+      new StatTestOptions(0.05, true, false, true )]);
   });
 
   it('emits initial parameters', () => {
@@ -51,7 +56,7 @@ describe('StatTestOptionsWidgetComponent', () => {
     component.options.subscribe( o => res.push(o));
     fixture.detectChanges();
 
-    expect(res).toEqual([new StatTestOptions(0.001 )]);
+    expect(res).toEqual([new StatTestOptions(0.001, false, false, true )]);
 
   });
 });

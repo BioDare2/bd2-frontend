@@ -160,6 +160,7 @@ export class JTKPattern {
   trough: number;
   waveform: string;
   width: number;
+  shapeLabel: string;
 }
 
 export class BD2eJTKRes {
@@ -175,7 +176,7 @@ export class BD2eJTKRes {
   // tsCharacteristic: any;
   pattern: JTKPattern;
   patternLabel: string;
-  shapeLabel: string;
+
 }
 
 export class TSResult<R> {
