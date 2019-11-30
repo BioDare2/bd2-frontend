@@ -1,6 +1,15 @@
 <div class="mat-elevation-z8">
   <mat-progress-bar *ngIf="fetcher.isBusy$ | async" mode="indeterminate"></mat-progress-bar>
 
+  <mat-paginator #paginator [length]="fetcher.dataLength" [disabled]="disablePaginator"
+                 [pageSize]="fetcher.currentPage?.pageSize || 25"
+                 [pageIndex]="fetcher.currentPage?.pageIndex"
+                 [pageSizeOptions]="[10, 25, 50, 100, 250]"
+                 (page)="loadPage($event)"
+
+  >
+  </mat-paginator>
+
   <table mat-table class="full-width-table" matSort aria-label="Results"
          [dataSource]="fetcher.results$"
          matSort (matSortChange)="sortData($event)"
@@ -53,7 +62,7 @@
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>
 
-  <mat-paginator #paginator [length]="fetcher.dataLength" [disabled]="disablePaginator"
+  <mat-paginator #paginator2 [length]="fetcher.dataLength" [disabled]="disablePaginator"
                  [pageSize]="fetcher.currentPage?.pageSize || 25"
                  [pageIndex]="fetcher.currentPage?.pageIndex"
                  [pageSizeOptions]="[10, 25, 50, 100, 250]"
