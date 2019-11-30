@@ -31,6 +31,9 @@ export class RhythmicityResultsMDTableComponent implements AfterViewInit, OnInit
   set statTestParams(options: StatTestOptions) {
     if (options) {
       this.fetcher.params(options);
+      let cols = options.bhCorrection ? this.bhPColumns : this.normPColumns;
+      cols = options.showPattern ? cols.concat(this.patternColumns) : cols;
+      this.displayedColumns = cols;
     }
   }
 
@@ -38,8 +41,11 @@ export class RhythmicityResultsMDTableComponent implements AfterViewInit, OnInit
 
   }
 
-  /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
-  displayedColumns = ['id', 'label', 'rhythmic', 'empp', 'emppbh', 'tau', 'pattern'];
+
+  normPColumns = ['id', 'label', 'rhythmic', 'empp', 'tau'];
+  bhPColumns = ['id', 'label', 'rhythmic', 'emppbh', 'tau'];
+  patternColumns = ['shape', 'period', 'peak', 'trough'];
+  displayedColumns = this.normPColumns; // ['id', 'label', 'rhythmic', 'empp', 'emppbh', 'tau', 'pattern'];
   disablePaginator = false;
 
   ngOnInit() {

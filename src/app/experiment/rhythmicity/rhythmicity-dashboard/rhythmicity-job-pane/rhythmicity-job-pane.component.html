@@ -43,6 +43,9 @@
         <mat-card-content>
           <div *ngIf="rhythmicityJobDatasource.isReloading$ | async">
             <mat-spinner class="center-block"></mat-spinner>
+            <!--<div style="margin-top: 0.5em; text-align: center" >It may take up to 10 minutes to test for rhythmicity</div>-->
+          </div>
+          <div *ngIf="job.jobStatus.state === 'SUBMITTED'">
             <div style="margin-top: 0.5em; text-align: center" >It may take up to 10 minutes to test for rhythmicity</div>
           </div>
 

@@ -1,7 +1,7 @@
 import {Sort} from '@angular/material/sort';
 import {tap} from 'rxjs/operators';
 import {Observable} from 'rxjs';
-import {BD2eJTKRes, JobResults, RhythmicityJobSummary, StatTestOptions, TSResult} from '../../../rhythmicity-dom';
+import {BD2eJTKRes, JobResults, JTKPattern, RhythmicityJobSummary, StatTestOptions, TSResult} from '../../../rhythmicity-dom';
 import {RhythmicityService} from '../../../rhythmicity.service';
 import {Inject, Injectable, Optional} from '@angular/core';
 import {PageableSortableArraysFetcherService} from '../../../../../fetching-services/pageable-sortable-arrays-fetcher.service';
@@ -60,6 +60,9 @@ export class RhythmicityResultsFetcherService extends PageableSortableArraysFetc
       case 'empp': return s => +s.result.empP;
       case 'emppbh': return s => +s.result.empPBH;
       case 'tau': return s => +s.result.tau;
+      case 'period': return s => s.result.pattern.period;
+      case 'peak': return s => s.result.pattern.peak;
+      case 'trough': return s => s.result.pattern.trough;
       default: {
         console.error('Not implemented sorting for ' + sort.active);
         return s => 0;
@@ -78,13 +81,29 @@ export class RhythmicityResultsFetcherService extends PageableSortableArraysFetc
 
   protected labelPatterns(jobRes: JobResults<BD2eJTKRes>) {
 
-    jobRes.results.forEach( res => res.result.patternLabel = this.describePattern(res.result) );
+    jobRes.results.forEach( res => {
+      res.result.patternLabel = this.describePattern(res.result);
+      res.result.shapeLabel = this.patternToShape(res.result.pattern);
+    } );
   }
 
   protected describePattern(res: BD2eJTKRes) {
     const pattern = res.pattern;
-    const peak = Math.round(pattern.peak * 10) / 10;
-    return `${pattern.waveform} ${pattern.period}:${peak}`;
+    const period = Math.round(pattern.period * 10) / 10;
+    const peak = Math.round(pattern.peak * 100) / 100;
+    const trough = Math.round(pattern.trough * 100) / 100;
+    const shape = this.patternToShape(pattern);
+
+    return `${shape}\t${period}\t${peak}\t${trough}`;
+  }
+
+  protected patternToShape(pattern: JTKPattern) {
+    switch (pattern.waveform) {
+      case 'ASYM_COSINE': return 'ACOS';
+      case 'ASYM_COS_SPIKE': return 'SPIKE';
+      case 'ASYM_COS_SPIKE_NEG': return 'NPIKE';
+      default: return pattern.waveform;
+    }
   }
 
   protected rankResults(jobRes: TSResult<BD2eJTKRes>[], pvalue: number, bhCorrected: boolean) {

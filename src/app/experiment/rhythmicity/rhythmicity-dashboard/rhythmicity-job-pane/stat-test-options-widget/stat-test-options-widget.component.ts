@@ -11,7 +11,7 @@ export class StatTestOptionsWidgetComponent implements OnInit {
   @Output()
   options = new EventEmitter<StatTestOptions>();
 
-  currentOptions = new StatTestOptions();
+  currentOptions = new StatTestOptions(0, false, false, true);
 
   constructor() { }
 
@@ -20,13 +20,27 @@ export class StatTestOptionsWidgetComponent implements OnInit {
   }
 
   pValue(val: number) {
-
-    this.currentOptions = new StatTestOptions(val, this.currentOptions.bhCorrection);
+    this.currentOptions = this.currentOptions.clone();
+    this.currentOptions.pValue = val;
     this.options.next(this.currentOptions);
   }
 
   bhCorrection(val: boolean) {
-    this.currentOptions = new StatTestOptions(this.currentOptions.pValue, val);
+    this.currentOptions = this.currentOptions.clone();
+    this.currentOptions.bhCorrection = val;
     this.options.next(this.currentOptions);
   }
+
+  circadian(val: boolean) {
+    this.currentOptions = this.currentOptions.clone();
+    this.currentOptions.circadian = val;
+    this.options.next(this.currentOptions);
+  }
+
+  showPattern(val: boolean) {
+    this.currentOptions = this.currentOptions.clone();
+    this.currentOptions.showPattern = val;
+    this.options.next(this.currentOptions);
+  }
+
 }

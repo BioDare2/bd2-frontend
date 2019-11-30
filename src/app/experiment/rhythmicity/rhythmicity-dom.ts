@@ -175,6 +175,7 @@ export class BD2eJTKRes {
   // tsCharacteristic: any;
   pattern: JTKPattern;
   patternLabel: string;
+  shapeLabel: string;
 }
 
 export class TSResult<R> {
@@ -193,7 +194,12 @@ export class JobResults<R> {
 }
 
 export class StatTestOptions {
-  constructor(public pValue = 0, public bhCorrection = false) {
+  constructor(public pValue = 0, public bhCorrection = false,
+              public showPattern = false, public circadian = false) {
+  }
+
+  clone() {
+    return new StatTestOptions(this.pValue, this.bhCorrection, this.showPattern, this.circadian);
   }
 }
 
