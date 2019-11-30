@@ -32,7 +32,9 @@ export class RhythmicityResultsMDTableComponent implements AfterViewInit, OnInit
     if (options) {
       this.fetcher.params(options);
       let cols = options.bhCorrection ? this.bhPColumns : this.normPColumns;
-      cols = options.showPattern ? cols.concat(this.patternColumns) : cols;
+      if (options.showPattern) {
+          cols = options.circadian ? cols.concat(this.patternColumnsC) : cols.concat(this.patternColumns);
+      }
       this.displayedColumns = cols;
     }
   }
@@ -45,6 +47,7 @@ export class RhythmicityResultsMDTableComponent implements AfterViewInit, OnInit
   normPColumns = ['id', 'label', 'rhythmic', 'empp', 'tau'];
   bhPColumns = ['id', 'label', 'rhythmic', 'emppbh', 'tau'];
   patternColumns = ['shape', 'period', 'peak', 'trough'];
+  patternColumnsC = ['shape', 'period', 'peakc', 'troughc'];
   displayedColumns = this.normPColumns; // ['id', 'label', 'rhythmic', 'empp', 'emppbh', 'tau', 'pattern'];
   disablePaginator = false;
 

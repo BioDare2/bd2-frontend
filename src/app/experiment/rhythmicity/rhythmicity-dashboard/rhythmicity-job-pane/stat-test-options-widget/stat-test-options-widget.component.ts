@@ -11,7 +11,7 @@ export class StatTestOptionsWidgetComponent implements OnInit {
   @Output()
   options = new EventEmitter<StatTestOptions>();
 
-  currentOptions = new StatTestOptions(0, false, false, true);
+  currentOptions = new StatTestOptions(0, false, false, false);
 
   constructor() { }
 
