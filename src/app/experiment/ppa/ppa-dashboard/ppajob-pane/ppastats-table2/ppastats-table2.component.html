@@ -31,7 +31,7 @@
       <!-- Name Column -->
       <ng-container matColumnDef="label">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>Data</th>
-        <td mat-cell *matCellDef="let row">{{row.label}}</td>
+        <td mat-cell *matCellDef="let row" class="word_wrapping" style="max-width: 140px">{{row.label}}</td>
       </ng-container>
 
       <!-- N Column -->
