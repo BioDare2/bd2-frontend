@@ -3,6 +3,7 @@ import {PageEvent} from '@angular/material/paginator';
 import {Sort} from '@angular/material/sort';
 import {RhythmicityResultsFetcherService} from '../services/rhythmicity-results-fetcher.service';
 import {RhythmicityJobSummary, StatTestOptions} from '../../../rhythmicity-dom';
+import {FeedbackService} from "../../../../../feedback/feedback.service";
 
 @Component({
   selector: 'bd2-rhythmicity-results-mdtable',
@@ -39,7 +40,8 @@ export class RhythmicityResultsMDTableComponent implements AfterViewInit, OnInit
     }
   }
 
-  constructor(private fetcher: RhythmicityResultsFetcherService) {
+  constructor(private fetcher: RhythmicityResultsFetcherService,
+              private feedback: FeedbackService) {
 
   }
 
@@ -52,6 +54,8 @@ export class RhythmicityResultsMDTableComponent implements AfterViewInit, OnInit
   disablePaginator = false;
 
   ngOnInit() {
+
+    this.fetcher.error$.subscribe( err => this.feedback.error(err));
 
     const firstPage = new PageEvent();
     firstPage.pageSize = 25;

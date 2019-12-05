@@ -52,7 +52,8 @@ export class RhythmicityJobFetcherService extends RunnableFetcherService<[number
 
   protected fetchAsset([assayId, jobId]: [number, string]) {
 
-    return this.rhythmicityService.getJob(assayId, jobId).pipe(
+    return this.rhythmicityService.getJob(assayId, jobId);
+    /*.pipe(
       tap(job => {
         if (job) {
           job.parentId = job.parentId || assayId;
@@ -60,7 +61,7 @@ export class RhythmicityJobFetcherService extends RunnableFetcherService<[number
           console.warn('Loaded null job ', [assayId, jobId]);
         }
       })
-    );
+    );*/
   }
 
   hasFailed(job: RhythmicityJobSummary): boolean {
