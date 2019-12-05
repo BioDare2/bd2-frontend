@@ -64,7 +64,7 @@ export class RhythmicityStartFormComponent extends RhythmicityBaseComponent impl
           console.log('Error in TS subscription: ' + err);
           this.feedback.error(err);
         },
-        () => console.log('Timeseries stream finished')
+        // () => console.log('Timeseries stream finished')
       );
   }
 

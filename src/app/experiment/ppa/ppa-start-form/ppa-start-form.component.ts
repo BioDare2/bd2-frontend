@@ -65,7 +65,7 @@ export class PPAStartFormComponent extends PPABaseComponent implements OnInit, O
           console.log('Error in TS subscription: ' + err);
           this.feedback.error(err);
         },
-        () => console.log('Timeseries stream finished')
+        // () => console.log('Timeseries stream finished')
       );
   }
 

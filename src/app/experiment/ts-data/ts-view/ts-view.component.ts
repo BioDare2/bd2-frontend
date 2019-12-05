@@ -107,7 +107,7 @@ export class TSViewComponent extends ExperimentBaseComponent implements OnDestro
           console.log('Error in TS subscription: ' + err);
           this.feedback.error(err);
         },
-        () => console.log('Timeseries stream finished')
+        // () => console.log('Timeseries stream finished')
       );
   }
 

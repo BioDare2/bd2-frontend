@@ -54,7 +54,7 @@ export class PPAPlotsComponent implements OnInit, OnDestroy, Reloadable {
 
     const firstPage = new PageEvent();
     firstPage.pageIndex = 0;
-    firstPage.pageSize = 10;
+    firstPage.pageSize = 25;
     this.fetcher.page(firstPage);
 
     this.resultsSubscription = this.initResultsSubscription();

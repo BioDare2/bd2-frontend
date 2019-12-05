@@ -25,7 +25,7 @@ import {ExperimentalAssayView} from '../dom/repo/exp/experimental-assay-view';
           analysis</a>
         <a *ngIf="experiment.features.hasPPAJobs" [routerLink]="['ppa']" routerLinkActive="active"
            [routerLinkActiveOptions]="{exact: false}">Period analysis</a>
-        <a *ngIf="experiment.security.canWrite || experiment.features.hasRhythmicityJobs" [routerLink]="['rhythmicity']" routerLinkActive="active"
+        <a *ngIf="experiment.features.hasTSData" [routerLink]="['rhythmicity']" routerLinkActive="active"
            [routerLinkActiveOptions]="{exact: false}">Rhythmicity</a>
         <a *ngIf="experiment.security.canWrite" [routerLink]="['.','data','ts-import2']"
            routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">

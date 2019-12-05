@@ -27,7 +27,7 @@ export class TSImportDashboardComponent extends ExperimentBaseComponent implemen
 
 
   importData(importDetails: ImportDetails) {
-    console.log('Import data');
+    // console.log('Import data');
 
     if (this.importing) {
       return;

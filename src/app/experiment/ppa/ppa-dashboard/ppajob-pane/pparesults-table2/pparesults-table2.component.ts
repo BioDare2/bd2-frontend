@@ -57,7 +57,7 @@ export class PPAResultsTable2Component implements OnInit, OnDestroy, Reloadable 
   ngOnInit() {
     const firstPage = new PageEvent();
     firstPage.pageIndex = 0;
-    firstPage.pageSize = 25;
+    firstPage.pageSize = 50;
     this.fetcher.page(firstPage);
   }
 

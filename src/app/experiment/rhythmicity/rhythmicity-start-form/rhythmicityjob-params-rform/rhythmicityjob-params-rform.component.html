@@ -91,14 +91,16 @@
       <li>eJTK Classic is recommended for typical omics-like data for which eJTK method was developed. <br>
         It works well for short data (48h, 2h- 1h-sampled) when actual period is within range 22-26 hours.<br>
         The patterns are series of cosine-like waveforms with 24h period, phases by 2hours
-        and range of assymetries by 2h (see original paper).<br>
+        and range of asymmetries by 2h (see original paper).<br>
       </li>
       <li>BD2 Classic can detect non 24 periods and some forms of the spikes.<br>
-      As it compares against much more patterns it has a weaker power, it should be used for long data (3 days or more)
-      or if there is good reason to suspect periods outside 22-26h range.<br>
-      The patterns are series of cosine-like waverforms with periods from 18-35hours, for each period there are mulitiple
-        <b>circadian</b> phases with step 2h (so each period has same number of patterns) and range of assymetries by 2h
-        in circadian units (see original paper). There are also additional some spike patterns.
+        As it compares against much more patterns it has a weaker power.<br>
+        It should be used when there is a good reason
+        to suspect periods outside 22-26h range.<br>
+      The patterns are series of cosine-like waverforms with periods from 18-35hours, for each period there are multiple
+        <b>circadian</b> phases with step 2h (so each period value generates the same number of patterns
+        but the peaks in absolute units do not coincide) and a range of assymetries by 2h
+        in circadian units (see original paper). The preset contains also additional some spike patterns.
       </li>
       </ul>
     </alert>

@@ -27,9 +27,9 @@ export class Slice {
   static firstPage() {
     const slice = new Slice();
     slice.rowPage.pageIndex = 0;
-    slice.rowPage.pageSize = 25;
+    slice.rowPage.pageSize = 50;
     slice.colPage.pageIndex = 0;
-    slice.colPage.pageSize = 25;
+    slice.colPage.pageSize = 50;
     return slice;
   }
 
