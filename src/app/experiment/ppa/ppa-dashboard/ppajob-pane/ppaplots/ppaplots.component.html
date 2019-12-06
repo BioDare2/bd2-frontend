@@ -45,13 +45,17 @@
   ></bd2-simple-legend>
 
   <div #phasePlotDiv>
+    <div class="row">
+      <div class="col-md-8 col-md-offset-2">
   <bd2-ppaphase-plot [phaseParams]="phaseParams"
     [legend]="legend" [palette]="palette" [removed]="removed"
                      [groups]="this.fetcher.results$ | async"
   ></bd2-ppaphase-plot>
-  <bd2-ngx-svg-saver [fileName]="fetcher.currentInput?.parentId+'_'+fetcher.currentInput?.method+'.phases'"
-                     [refNode]="phasePlotDiv" class="pull-left"
-  ></bd2-ngx-svg-saver>
+      </div>
+    </div>
+    <bd2-ngx-svg-saver [fileName]="fetcher.currentInput?.parentId+'_'+fetcher.currentInput?.method+'.phases'"
+                       [refNode]="phasePlotDiv" class="pull-left"
+    ></bd2-ngx-svg-saver>
   </div>
   <!--
   <bd2-phases-options phaseType="ByFit" phaseUnit="circ" relativeTo="zero"
