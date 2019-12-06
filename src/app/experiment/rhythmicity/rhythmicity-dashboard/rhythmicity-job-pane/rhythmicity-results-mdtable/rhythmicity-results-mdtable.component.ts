@@ -3,7 +3,7 @@ import {PageEvent} from '@angular/material/paginator';
 import {Sort} from '@angular/material/sort';
 import {RhythmicityResultsFetcherService} from '../services/rhythmicity-results-fetcher.service';
 import {RhythmicityJobSummary, StatTestOptions} from '../../../rhythmicity-dom';
-import {FeedbackService} from "../../../../../feedback/feedback.service";
+import {FeedbackService} from '../../../../../feedback/feedback.service';
 
 @Component({
   selector: 'bd2-rhythmicity-results-mdtable',
@@ -40,7 +40,7 @@ export class RhythmicityResultsMDTableComponent implements AfterViewInit, OnInit
     }
   }
 
-  constructor(private fetcher: RhythmicityResultsFetcherService,
+  constructor(public fetcher: RhythmicityResultsFetcherService,
               private feedback: FeedbackService) {
 
   }

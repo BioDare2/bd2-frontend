@@ -58,7 +58,7 @@ export class RhythmicityJobPaneComponent implements OnInit, OnChanges, OnDestroy
 
 
   constructor(private rhythmicityService: RhythmicityService,
-              private rhythmicityJobDatasource: RhythmicityJobFetcherService,
+              public rhythmicityJobDatasource: RhythmicityJobFetcherService,
               // private rhythmicityResultsDataSource: RhythmicityResultsMDTableDataSource,
               private feedback: FeedbackService) { }
 

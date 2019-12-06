@@ -59,6 +59,10 @@ export class DataSheetMDTableComponent implements OnInit {
     }
   }
 
+  get dataSlice() {
+    return this._dataSlice;
+  }
+
 
   @Input()
   styler = new TableStyler();

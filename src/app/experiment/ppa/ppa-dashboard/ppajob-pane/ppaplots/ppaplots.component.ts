@@ -6,6 +6,7 @@ import {Subscription} from 'rxjs';
 import {PageEvent, Sort} from '@angular/material';
 import {PhaseParams} from '../phases-options-widget.component';
 import {Reloadable} from '../reloadable';
+import {FeedbackService} from '../../../../../feedback/feedback.service';
 
 @Component({
   selector: 'bd2-ppaplots',
@@ -26,7 +27,8 @@ export class PPAPlotsComponent implements OnInit, OnDestroy, Reloadable {
     this.fetcher.on(val);
   }
 
-  constructor(private fetcher: PPAGroupResultsFetcherService) {
+  constructor(public fetcher: PPAGroupResultsFetcherService,
+              private feedback: FeedbackService) {
   }
 
   @Input()
@@ -51,6 +53,8 @@ export class PPAPlotsComponent implements OnInit, OnDestroy, Reloadable {
   }
 
   ngOnInit() {
+
+    this.fetcher.error$.subscribe( err => this.feedback.error(err));
 
     const firstPage = new PageEvent();
     firstPage.pageIndex = 0;

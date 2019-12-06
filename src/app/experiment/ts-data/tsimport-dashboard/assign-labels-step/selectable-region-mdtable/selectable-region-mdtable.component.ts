@@ -77,6 +77,10 @@ export class SelectableRegionMDTableComponent implements OnInit {
     }
   }
 
+  get dataSlice() {
+    return this._dataSlice;
+  }
+
   @Input()
   set selectRows(val: boolean) {
     this.selectableRowHeader = val;

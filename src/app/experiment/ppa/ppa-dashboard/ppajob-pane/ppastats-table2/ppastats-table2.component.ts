@@ -4,6 +4,7 @@ import {phaseValuesFromOptions, PPAJobSummary, PPASimpleStats, valueFromPhaseNam
 import {PageEvent, Sort} from '@angular/material';
 import {PhaseParams} from '../phases-options-widget.component';
 import {Reloadable} from '../reloadable';
+import {FeedbackService} from '../../../../../feedback/feedback.service';
 
 @Component({
   selector: 'bd2-ppastats-table2',
@@ -48,9 +49,13 @@ export class PPAStatsTable2Component implements OnInit, OnDestroy, Reloadable {
   disablePaginator = false;
   displayedColumns = ['label', 'n', 'period', 'period.std', 'phase', 'phase.std', 'amplitude', 'amplitude.std'];
 
-  constructor(private fetcher: PPAStatsFetcherService) { }
+  constructor(public fetcher: PPAStatsFetcherService,
+              private feedback: FeedbackService) { }
 
   ngOnInit() {
+
+    this.fetcher.error$.subscribe( err => this.feedback.error(err));
+
     const firstPage = new PageEvent();
     firstPage.pageIndex = 0;
     firstPage.pageSize = 25;

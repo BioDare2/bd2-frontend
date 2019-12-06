@@ -5,6 +5,7 @@ import {phaseValuesFromOptions, PPAJobSummary, PPASimpleResultEntry, valueFromPh
 import {SelectableFitDialogComponent} from '../../../ppa-fit/selectable-fit-dialog.component';
 import {PhaseParams} from '../phases-options-widget.component';
 import {Reloadable} from '../reloadable';
+import {FeedbackService} from '../../../../../feedback/feedback.service';
 
 @Component({
   selector: 'bd2-pparesults-table2',
@@ -34,7 +35,8 @@ export class PPAResultsTable2Component implements OnInit, OnDestroy, Reloadable 
     this.fetcher.on(val);
   }
 
-  constructor(private fetcher: PPAResultsFetcherService) { }
+  constructor(public fetcher: PPAResultsFetcherService,
+              private feedback: FeedbackService) { }
 
   @Input()
   fitDialog: SelectableFitDialogComponent;
@@ -55,6 +57,9 @@ export class PPAResultsTable2Component implements OnInit, OnDestroy, Reloadable 
   }
 
   ngOnInit() {
+
+    this.fetcher.error$.subscribe( err => this.feedback.error(err));
+
     const firstPage = new PageEvent();
     firstPage.pageIndex = 0;
     firstPage.pageSize = 50;
