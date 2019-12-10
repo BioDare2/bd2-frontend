@@ -80,3 +80,36 @@ export const AlignOptions = [
   new TSOption('MEAN', 'mean'),
   new TSOption('SPREAD', 'spread')
 ];
+
+export class TimeSeriesMetrics {
+  public maxDuration: number;
+  public minDuration: number;
+  public avgDuration: number;
+
+  public maxPoints: number;
+  public minPoints: number;
+  public avgPoints: number;
+
+  public maxStep: number;
+  public minStep: number;
+  public avgStep: number;
+
+  public maxPointsPerHour: number;
+  public minPointsPerHour: number;
+  public avgPointsPerHour: number;
+
+  public maxFirstTime: number;
+  public minFirstTime: number;
+  public avgFirstTime: number;
+
+  public maxLastTime: number;
+  public minLastTime: number;
+  public avgLastTime: number;
+
+  public maxValue: number;
+  public minValue: number;
+  public avgValue: number;
+
+  public series: number;
+  public uniformMetrics: boolean;
+}

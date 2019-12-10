@@ -13,6 +13,7 @@ import {TSDataService} from '../../../tsdata/ts-data.service';
 import {debounceTime} from 'rxjs/operators';
 import * as FileSaver from 'file-saver';
 import {PageEvent} from '@angular/material';
+import {TimeSeriesMetrics} from '../../../tsdata/ts-data-dom';
 
 @Component({
   template: `
@@ -67,6 +68,8 @@ export class TSViewComponent extends ExperimentBaseComponent implements OnDestro
   blocked = false;
 
   disabledSecondary = false;
+
+  metrics: TimeSeriesMetrics;
 
 
   private timeSeriesSubsripction: Subscription;

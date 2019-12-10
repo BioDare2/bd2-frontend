@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {BioDareRestService} from '../backend/biodare-rest.service';
 import {ExperimentalAssayView} from '../dom/repo/exp/experimental-assay-view';
-import {DetrendingType} from './ts-data-dom';
+import {DetrendingType, TimeSeriesMetrics} from './ts-data-dom';
 import {TraceSet} from './plots/ts-plot.dom';
 import {DisplayParameters} from './plots/ts-display.dom';
 import {Observable} from 'rxjs';
@@ -24,6 +24,10 @@ export class TSDataService {
 
   exportURL(exp: ExperimentalAssayView, params: DisplayParameters): string {
     return this.BD2REST.tsdataExportURL(exp, params.detrending);
+  }
+
+  dataMetrics(exp: ExperimentalAssayView): Observable<TimeSeriesMetrics> {
+    return this.BD2REST.tsdataMetrics(exp);
   }
 
 }

@@ -207,6 +207,7 @@ export class BioDareRestService {
     return url;
   }
 
+
   tsdata(exp: ExperimentalAssayView, detrending: DetrendingType, page: PageEvent): Observable<any> {
 
     const options = this.makeOptions();
@@ -214,6 +215,13 @@ export class BioDareRestService {
     if (page) {
       (options as any).params = new HttpParams().set('pageIndex', '' + page.pageIndex).set('pageSize', '' + page.pageSize);
     }
+    return this.OKJson(this.http.get(url, options));
+  }
+
+  tsdataMetrics(exp: ExperimentalAssayView): Observable<any> {
+
+    const options = this.makeOptions();
+    const url = this.endPoints.experiment_url + '/' + exp.id + this.endPoints.ts_data + '/' + 'metrics';
     return this.OKJson(this.http.get(url, options));
   }
 
