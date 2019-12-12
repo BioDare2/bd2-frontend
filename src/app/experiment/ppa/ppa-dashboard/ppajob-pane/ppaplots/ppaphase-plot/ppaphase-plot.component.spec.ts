@@ -1,7 +1,7 @@
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
 import {PPAPhasePlotComponent} from './ppaphase-plot.component';
-import {PolarPlotModule} from 'bd2-ngx-polarplot';
+import {BD2NgxPolarplotModule} from 'bd2-ngx-polarplot';
 
 describe('PPAPhasePlotComponent', () => {
   let component: PPAPhasePlotComponent;
@@ -9,7 +9,7 @@ describe('PPAPhasePlotComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [PolarPlotModule],
+      imports: [BD2NgxPolarplotModule],
       declarations: [ PPAPhasePlotComponent ]
     })
     .compileComponents();

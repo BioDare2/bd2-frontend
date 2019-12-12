@@ -8,8 +8,8 @@ import {LegendModule} from '../../../../../graphic/legend/legend.module';
 import {PPAPeriodPlotComponent} from './ppaperiod-plot/ppaperiod-plot.component';
 import {PPASortWidgetComponent} from './ppasort-widget/ppasort-widget.component';
 import {PPAPhasePlotComponent} from './ppaphase-plot/ppaphase-plot.component';
-import {HboxPlotModule} from 'bd2-ngx-hboxplot';
-import {PolarPlotModule} from 'bd2-ngx-polarplot';
+import {BD2NgxPolarplotModule} from 'bd2-ngx-polarplot';
+import {BD2NgxHBoxplotModule} from 'bd2-ngx-hboxplot';
 import {SVGSaverModule} from '../../../../../graphic/svg-saver/svg-saver.module';
 import {ButtonsModule} from 'ngx-bootstrap';
 import {FormsModule} from '@angular/forms';
@@ -17,11 +17,11 @@ import {NgModule} from '@angular/core';
 
 @NgModule({
   imports: [MaterialsModule, NoopAnimationsModule, LegendModule,
-    HboxPlotModule,
-    PolarPlotModule, SVGSaverModule, ButtonsModule, FormsModule],
+    BD2NgxPolarplotModule,
+    BD2NgxHBoxplotModule, SVGSaverModule, ButtonsModule, FormsModule],
   exports: [MaterialsModule, NoopAnimationsModule, LegendModule,
-    HboxPlotModule,
-    PolarPlotModule, SVGSaverModule, ButtonsModule, FormsModule,
+    BD2NgxPolarplotModule,
+    BD2NgxHBoxplotModule, SVGSaverModule, ButtonsModule, FormsModule,
     PPAPlotsComponent
   ],
   declarations: [ PPAPlotsComponent, PPAPeriodPlotComponent, PPASortWidgetComponent, PPAPhasePlotComponent ]

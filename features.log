@@ -1,3 +1,7 @@
+2.4.1
+      updated box and polar plots to fix bugs with fast changing data
+2.4.0
+      in production with eJTK
 2.3.0
       pagination of ts data
       new UI for importing tables data including CSV

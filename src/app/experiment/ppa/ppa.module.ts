@@ -13,8 +13,8 @@ import {SelectableFitDialogComponent} from './ppa-fit/selectable-fit-dialog.comp
 import {PPAJobExportDialogComponent} from './ppa-dashboard/ppajob-pane/ppajob-export-dialog/ppajob-export-dialog.component';
 import {PPAJobPaneComponent} from './ppa-dashboard/ppajob-pane/ppajob-pane.component';
 import {PhasesOptionsWidgetComponent} from './ppa-dashboard/ppajob-pane/phases-options-widget.component';
-import {HboxPlotModule} from 'bd2-ngx-hboxplot';
-import {PolarPlotModule} from 'bd2-ngx-polarplot';
+import {BD2NgxHBoxplotModule} from 'bd2-ngx-hboxplot';
+import {BD2NgxPolarplotModule} from 'bd2-ngx-polarplot';
 import {LegendModule} from '../../graphic/legend/legend.module';
 import {SVGSaverModule} from '../../graphic/svg-saver/svg-saver.module';
 import {ModalModule} from 'ngx-bootstrap/modal';
@@ -51,8 +51,8 @@ import {PPASortWidgetComponent} from './ppa-dashboard/ppajob-pane/ppaplots/ppaso
     StaticContentModule,
     SharedComponentsModule,
     TSPlotModule,
-    HboxPlotModule,
-    PolarPlotModule,
+    BD2NgxHBoxplotModule,
+    BD2NgxPolarplotModule,
     LegendModule,
     SVGSaverModule,
     PPARoutingModule,
