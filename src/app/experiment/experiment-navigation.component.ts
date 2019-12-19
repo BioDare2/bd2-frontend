@@ -7,10 +7,9 @@ import {ExperimentalAssayView} from '../dom/repo/exp/experimental-assay-view';
   template: `
     <div *ngIf="experiment" style="margin-bottom: 2em;">
       <nav class="secondary">
-        <a [routerLink]="['/experiments']"><span class="glyphicon glyphicon-backward" aria-hidden="true"></span></a>
-        <a (click)="back()" class="shade"><span class="glyphicon glyphicon-step-backward" aria-hidden="true"></span></a>
-        <a role="button" (click)="refresh()" class="shade"><span class="glyphicon glyphicon-repeat"
-                                                                 aria-hidden="true"></span></a>
+        <a [routerLink]="['/experiments']"><i class="material-icons bd-icon">fast_rewind</i></a>
+        <a role="button" (click)="back()" class="shade"><i class="material-icons bd-icon">arrow_left</i></a>
+        <a role="button" (click)="refresh()" class="shade"><i class="material-icons bd-icon">refresh</i></a>
         <a [routerLink]="['.']" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Overview</a>
         <a *ngIf="experiment.security.canWrite" [routerLink]="['edit']" routerLinkActive="active"
            [routerLinkActiveOptions]="{exact: true}">Edit</a>

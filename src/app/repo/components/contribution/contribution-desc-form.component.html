@@ -12,8 +12,9 @@
       <p *ngIf="!(model.authors) || model.authors.length < 1">Please add an author</p>
       <ul class="list-unstyled">
         <li *ngFor="let author of model.authors">{{ author.name }}
-          <a (click)="removeAuthor(author)" role="button"><span aria-hidden="true"
-                                                                class="glyphicon glyphicon-remove"></span></a>
+          <a (click)="removeAuthor(author)" role="button">
+            <i class="material-icons bd-icon bd-primary">delete</i>
+          </a>
         </li>
       </ul>
     </div></div>
@@ -24,8 +25,9 @@
       <ul class="list-unstyled">
         <li *ngFor="let curator of model.curators">
           {{ curator.name }}
-          <a (click)="removeCurator(curator)" role="button"><span aria-hidden="true"
-                                                                  class="glyphicon glyphicon-remove"></span></a>
+          <a (click)="removeCurator(curator)" role="button">
+            <i class="material-icons bd-icon bd-primary">delete</i>
+          </a>
         </li>
       </ul>
     </div></div>
@@ -59,7 +61,7 @@
       </div>-->
     </div>
 
-    <button (click)="addAuthor()" [disabled]="!persForm.form.valid" class="btn btn-primary btn-sm mr-1" type="button">New
+    <button (click)="addAuthor()" [disabled]="!persForm.form.valid" class="btn btn-primary btn-sm mr-1 ml-1" type="button">New
       Author
     </button>
     <button (click)="addCurator()" [disabled]="!persForm.form.valid" class="btn btn-primary btn-sm" type="button">New
@@ -79,8 +81,9 @@
       <ul class="list-unstyled">
         <li *ngFor="let inst of model.institutions">
           {{ inst.name }}
-          <a (click)="removeInstitution(inst)" role="button"><span aria-hidden="true"
-                                                                   class="glyphicon glyphicon-remove"></span></a>
+          <a (click)="removeInstitution(inst)" role="button">
+            <i class="material-icons bd-icon bd-primary">delete</i>
+          </a>
         </li>
       </ul>
     </div></div>
@@ -101,7 +104,7 @@
       </div>-->
     </div>
 
-    <button (click)="addInstitution()" [disabled]="!instForm.form.valid" class="btn btn-primary btn-sm" type="button">
+    <button (click)="addInstitution()" [disabled]="!instForm.form.valid" class="btn btn-primary btn-sm ml-1" type="button">
       Add Institution
     </button>
 
@@ -117,8 +120,9 @@
       <ul class="list-unstyled">
         <li *ngFor="let fund of model.fundings">
           {{ fund.name }}
-          <a (click)="removeFunding(fund)" role="button"><span aria-hidden="true"
-                                                               class="glyphicon glyphicon-remove"></span></a>
+          <a (click)="removeFunding(fund)" role="button">
+            <i class="material-icons bd-icon bd-primary">delete</i>
+          </a>
         </li>
       </ul>
     </div></div>
@@ -153,8 +157,8 @@
       </div>-->
     </div>
 
-    <button (click)="addFunding()" [disabled]="!fundForm.form.valid" class="btn btn-primary btn-sm" type="button">Add
-      Funding
+    <button (click)="addFunding()" [disabled]="!fundForm.form.valid" class="btn btn-primary btn-sm ml-1" type="button">
+      Add Funding
     </button>
 
   </form>

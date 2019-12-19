@@ -218,4 +218,14 @@ a {
   color: #337ab7;
 }
 
+[role=button] {
+  cursor: pointer;
+}
 
+.bd-icon {
+  font-size: inherit;
+}
+
+.bd-primary {
+  color: #337ab7;
+}

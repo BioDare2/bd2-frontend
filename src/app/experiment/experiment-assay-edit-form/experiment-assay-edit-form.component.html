@@ -8,9 +8,9 @@
     </ul>
   </div>
 
-  <div class="panel panel-default">
-    <div class="panel-heading">General description</div>
-    <div class="panel-body">
+  <div class="card mb-2">
+    <div class="card-header">General description</div>
+    <div class="card-body">
       <bd2-general-desc-form
         (onAccepted)="saveEdits($event)"
         (onCancelled)="hideEdits($event)"
@@ -33,9 +33,9 @@
     </div>
   </div>
 
-  <div class="panel panel-default">
-    <div class="panel-heading">Contributions</div>
-    <div class="panel-body">
+  <div class="card mb-2">
+    <div class="card-header">Contributions</div>
+    <div class="card-body">
 
       <bd2-contr-desc-form
         (onAccepted)="saveEdits($event)"
@@ -59,9 +59,9 @@
 
   </div>
 
-  <div class="panel panel-default">
-    <div class="panel-heading">Biological details</div>
-    <div class="panel-body">
+  <div class="card mb-2">
+    <div class="card-header">Biological details</div>
+    <div class="card-body">
 
       <bd2-simple-bio-desc-form
         (onAccepted)="saveEdits($event)"
@@ -87,9 +87,9 @@
 
   </div>
 
-  <div class="panel panel-default" id="MeasurementSection">
-    <div class="panel-heading">Measurement details</div>
-    <div class="panel-body">
+  <div class="card mb-2" id="MeasurementSection">
+    <div class="card-header">Measurement details</div>
+    <div class="card-body">
 
       <bd2-measurement-desc-rform
         (onAccepted)="saveEdits($event)"

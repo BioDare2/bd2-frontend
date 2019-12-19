@@ -8,9 +8,9 @@ import {ExperimentComponentsDependencies} from '../experiment-components.depende
 
   <h3>Overview of experimental details</h3>
 
-  <div class="panel panel-default">
-    <div class="panel-heading">General description</div>
-    <div class="panel-body">
+  <div class="card mb-2">
+    <div class="card-header">General description</div>
+    <div class="card-body">
 
       <bd2-general-desc-view
         [model]="assay.generalDesc"
@@ -19,9 +19,9 @@ import {ExperimentComponentsDependencies} from '../experiment-components.depende
     </div>
   </div>
 
-  <div class="panel panel-default">
-    <div class="panel-heading">Contributions</div>
-    <div class="panel-body">
+  <div class="card mb-2">
+    <div class="card-header">Contributions</div>
+    <div class="card-body">
 
       <bd2-contr-desc-view
         [model]="assay.contributionDesc"
@@ -30,9 +30,9 @@ import {ExperimentComponentsDependencies} from '../experiment-components.depende
     </div>
   </div>
 
-  <div class="panel panel-default">
-    <div class="panel-heading">Biological details</div>
-    <div class="panel-body">
+  <div class="card mb-2">
+    <div class="card-header">Biological details</div>
+    <div class="card-body">
 
       <bd2-simple-bio-desc-view
         [model]="assay"
@@ -41,9 +41,9 @@ import {ExperimentComponentsDependencies} from '../experiment-components.depende
     </div>
   </div>
 
-  <div class="panel panel-default">
-    <div class="panel-heading">Measurement details</div>
-    <div class="panel-body">
+  <div class="card mb-2">
+    <div class="card-header">Measurement details</div>
+    <div class="card-body">
 
       <bd2-measurement-desc-view
         [model]="assay.experimentalDetails.measurementDesc"
