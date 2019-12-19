@@ -201,3 +201,14 @@ nav.secondary a {
 .tooltip-red {
   background: #b71c1c;
 }
+
+/* Bootstrap 4 migration */
+
+.bd-bg-primary {
+  background-color: #337ab7;
+  color: white;
+}
+
+a {
+  color: #337ab7;
+}
