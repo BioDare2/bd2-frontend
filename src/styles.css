@@ -209,6 +209,13 @@ nav.secondary a {
   color: white;
 }
 
+.btn-primary {
+  background-color: #337ab7;
+  border-color: #2e6da4;
+}
+
 a {
   color: #337ab7;
 }
+
+

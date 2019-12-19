@@ -7,9 +7,9 @@
   <h3>Create experiment</h3>
 
 
-  <div class="panel panel-default">
-    <div class="panel-heading">General description</div>
-    <div class="panel-body">
+  <div class="card mb-2">
+    <div class="card-header">General description</div>
+    <div class="card-body">
       <bd2-general-desc-form
         *ngIf="activeGeneralDescForm"
         [model]="assay.generalDesc"
@@ -32,9 +32,9 @@
     </div>
   </div>
 
-  <div class="panel panel-default">
-    <div class="panel-heading">Biological details</div>
-    <div class="panel-body">
+  <div class="card mb-2">
+    <div class="card-header">Biological details</div>
+    <div class="card-body">
 
       <bd2-simple-bio-desc-form
         *ngIf="activeSimpleBioDescForm"
@@ -60,9 +60,9 @@
 
   </div>
 
-  <div class="panel panel-default">
-    <div class="panel-heading">Contributions</div>
-    <div class="panel-body">
+  <div class="card mb-2">
+    <div class="card-header">Contributions</div>
+    <div class="card-body">
 
       <bd2-contr-desc-form
         *ngIf="activeContributionDescForm"
@@ -86,9 +86,9 @@
 
   </div>
 
-  <div class="panel panel-default">
-    <div class="panel-heading">Measurement details</div>
-    <div class="panel-body">
+  <div class="card mb-2">
+    <div class="card-header">Measurement details</div>
+    <div class="card-body">
 
       <bd2-measurement-desc-rform
         *ngIf="activeMeasurementDescForm"
