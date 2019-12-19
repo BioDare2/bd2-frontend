@@ -3,14 +3,13 @@ import {NgModule} from '@angular/core';
 
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
-import {PageModule} from './page/page.module';
-import {HttpClientModule} from '@angular/common/http';
-import {environment} from '../environments/environment';
-import {BioDareEndPoints, bioDareRestConfigurator} from './backend/biodare-rest.dom';
-import {ModalModule} from 'ngx-bootstrap/modal';
-import {TypeaheadModule} from 'ngx-bootstrap/typeahead';
-import {AlertModule} from 'ngx-bootstrap/alert';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {BootstrapRootModule} from './page/bootstrap.modules';
+import {PageModule} from './page/page.module';
+import {BioDareEndPoints, bioDareRestConfigurator} from './backend/biodare-rest.dom';
+import {environment} from '../environments/environment';
+import {HttpClientModule} from '@angular/common/http';
+import {FeedbackModule} from './feedback/feedback.module';
 
 const endPoints: BioDareEndPoints = bioDareRestConfigurator(environment);
 
@@ -21,19 +20,15 @@ const endPoints: BioDareEndPoints = bioDareRestConfigurator(environment);
   imports: [
     BrowserModule,
     HttpClientModule,
-    ModalModule.forRoot(),
-    TypeaheadModule.forRoot(),
-    AlertModule.forRoot(),
-    PageModule,
-    // AccountModule,
-    // DocumentsModule,
-    AppRoutingModule,
     BrowserAnimationsModule,
+    BootstrapRootModule,
+    PageModule,
+    FeedbackModule,
+    AppRoutingModule
   ],
   providers: [
     {provide: BioDareEndPoints, useValue: endPoints}
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule {
-}
+export class AppModule { }

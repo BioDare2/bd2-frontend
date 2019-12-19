@@ -1,7 +1,7 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
-import {WelcomeComponent} from './page/welcome/welcome.component';
 import {LoginFormComponent} from './auth/login-form/login-form.component';
+import {WelcomeComponent} from './page/welcome/welcome.component';
 
 const routes: Routes = [
   {
@@ -20,13 +20,12 @@ const routes: Routes = [
 
   {path: 'documents', loadChildren: () => import('./documents/documents.module').then(m => m.DocumentsModule)},
 
-  {path: '', component: WelcomeComponent, pathMatch: 'full'},
-  {path: '**', component: WelcomeComponent}
+  {path: 'welcome', component: WelcomeComponent},
+  {path: '', component: WelcomeComponent, pathMatch: 'full'}
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes, /*{enableTracing: true}*/)],
+  imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
-export class AppRoutingModule {
-}
+export class AppRoutingModule { }

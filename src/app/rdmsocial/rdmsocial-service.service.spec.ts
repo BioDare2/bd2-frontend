@@ -231,7 +231,7 @@ describe('RDMSocialServiceService', () => {
     service.registerMeasurementWarning(assay);
 
     tick();
-    expect(BD2REST.rdmRegisterWarning).toHaveBeenCalledWith(assay, 'MEASUREMENT');
+    expect(BD2REST.rdmRegisterWarning).toHaveBeenCalledWith(assay.id, 'MEASUREMENT');
 
 
   }));

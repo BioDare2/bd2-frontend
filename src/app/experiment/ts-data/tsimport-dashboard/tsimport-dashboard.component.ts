@@ -39,7 +39,7 @@ export class TSImportDashboardComponent extends ExperimentBaseComponent implemen
     request.importParameters = importDetails;
 
     this.importing = true;
-    this.BD2REST.experimentImportTS2(this.assay.id, request)
+    this.BD2REST.experimentImportTS(this.assay.id, request)
       .subscribe( res => {
           const msg = 'Imported ' + res.imported + ' timeseries';
           this.feedback.success(msg);

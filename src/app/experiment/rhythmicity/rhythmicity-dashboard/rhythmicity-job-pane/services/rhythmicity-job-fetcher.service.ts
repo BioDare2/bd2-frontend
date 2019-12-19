@@ -1,6 +1,5 @@
 import {Observable} from 'rxjs';
 import {RhythmicityService} from '../../../rhythmicity.service';
-import {tap} from 'rxjs/operators';
 import {RhythmicityJobSummary} from '../../../rhythmicity-dom';
 import {Inject, Injectable, Optional} from '@angular/core';
 import {RunnableFetcherService} from '../../../../../fetching-services/runnable-fetcher.service';

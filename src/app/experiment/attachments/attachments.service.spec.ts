@@ -3,6 +3,7 @@ import {BioDareRestService} from '../../backend/biodare-rest.service';
 import {TestBed} from '@angular/core/testing';
 import {fakeBioDareRestService} from '../../backend/biodare-rest_test_tool.spec';
 import {FileAsset} from '../../file-asset/dom/file-asset';
+import {ExperimentalAssayView} from '../../dom/repo/exp/experimental-assay-view';
 
 describe('AttachemtnsService', () => {
 
@@ -36,7 +37,9 @@ describe('AttachemtnsService', () => {
 
     let files = fakeFileAssets();
 
-    files = service.fillURLs(files, undefined);
+    const exp = new ExperimentalAssayView();
+    exp.id = 13;
+    files = service.fillURLs(files, exp);
 
     expect(files.length).toBe(2);
 
@@ -61,7 +64,9 @@ describe('AttachemtnsService', () => {
     file.id = 2;
     expect(file.versions.length).toBe(2);
 
-    file = service.fillURL(file, undefined);
+    const exp = new ExperimentalAssayView();
+    exp.id = 13;
+    file = service.fillURL(file, exp);
     expect(file.url).toBe('exp/file/2');
 
     file.versions.forEach(ver => {

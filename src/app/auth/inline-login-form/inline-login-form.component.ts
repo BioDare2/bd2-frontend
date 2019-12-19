@@ -6,40 +6,31 @@ import {Router} from '@angular/router';
 @Component({
   selector: 'bd2-inline-login-form',
   template: `
-    <form #loginForm="ngForm" class="navbar-form no-clues">
-      <div class="login-form">
-        <!-- the form is hidden by bootstrap on smal devices -->
-        <div *ngIf="!logged" class="hidden-sm hidden-xs">
-          <div class="form-group">
-            <input type="text" class="form-control"
-                   placeholder="Login"
-                   required
-                   [(ngModel)]="username"
-                   name="usernameF"
-            >
-          </div>
-          <div class="form-group">
-            <input type="password" class="form-control"
-                   placeholder="Password"
-                   required
-                   [(ngModel)]="password"
-                   name="passwordF"
-            >
-          </div>
-          <div class="form-group">
-            <button type="submit" class="btn btn-success"
-                    [disabled]="!loginForm.form.valid || loginForm.form.pristine" (click)="login()">Sign in
-            </button>
-          </div>
-        </div>
-        <!-- button to full screen login on small devices -->
-        <div *ngIf="!logged" class="visible-sm-block visible-xs-block">
-          <a routerLink="/login" routerLinkActive="active" class="btn btn-success" role="button"
-             (click)="navigated()">Sign in</a>
-        </div>
-        <div *ngIf="logged">
-          <button type="submit" class="btn btn-success" (click)="logout()">Logout</button>
-        </div>
+    <form #loginForm="ngForm" class="login-form form-inline">
+      <div *ngIf="!logged" class="d-none d-lg-block d-xl-block no-clues">
+        <input type="text" class="form-control mr-1"
+               placeholder="Login"
+               required
+               [(ngModel)]="username"
+               name="usernameF"
+        >
+        <input type="password" class="form-control mr-1"
+               placeholder="Password"
+               required
+               [(ngModel)]="password"
+               name="passwordF"
+        >
+        <button type="submit" class="btn btn-success"
+                [disabled]="!loginForm.form.valid || loginForm.form.pristine" (click)="login()">Sign in
+        </button>
+      </div>
+      <!-- button to full screen login on small devices -->
+      <div *ngIf="!logged" class="d-lg-none d-xl-none">
+        <a routerLink="/login" routerLinkActive="active" class="btn btn-success" role="button"
+           (click)="navigated()">Sign in</a>
+      </div>
+      <div *ngIf="logged">
+        <button type="submit" class="btn btn-success" (click)="logout()">Logout</button>
       </div>
     </form>
   `,

@@ -18,14 +18,14 @@ export class AttachmentsService {
       formData.append('file', files[i], files[i].name);
     }
 
-    return this.BD2REST.expFileUpload(exp, formData)
+    return this.BD2REST.expFileUpload(exp.id, formData)
       .then(jsonObj => jsonObj.data);
 
   }
 
   getFiles(assay: ExperimentalAssayView): Promise<FileAsset[]> {
 
-    return this.BD2REST.files(assay)
+    return this.BD2REST.files(assay.id)
       .then(jsonObj => jsonObj.data)
       .then(objs => this.json2AssetsList(objs))
       // return Promise.resolve(this.fakeFileAssets())
@@ -40,7 +40,7 @@ export class AttachmentsService {
 
   fillURL(file: FileAsset, exp: ExperimentalAssayView): FileAsset {
 
-    const url = this.BD2REST.fileURL(exp, file.id);
+    const url = this.BD2REST.fileURL(exp.id, file.id);
     file.url = url;
     file.versions.forEach(ver => {
       ver.url = url + '/' + ver.versionId;

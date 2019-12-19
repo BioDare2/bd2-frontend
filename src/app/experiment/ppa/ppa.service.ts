@@ -22,11 +22,11 @@ export class PPAService {
   }
 
   newPPA(exp: ExperimentalAssayView, request: PPARequest): Promise<any> {
-    return this.BD2REST.ppaNew(exp, request);
+    return this.BD2REST.ppaNew(exp.id, request);
   }
 
   getPPAJobs(exp: ExperimentalAssayView): Promise<PPAJobSummary[]> {
-    return this.BD2REST.ppaJobs(exp)
+    return this.BD2REST.ppaJobs(exp.id)
       .then(obj => obj.data);
   }
 
@@ -137,7 +137,7 @@ export class PPAService {
    }*/
 
   getPPAResults(exp: ExperimentalAssayView): Promise<PPAResultsGroup[]> {
-    return this.BD2REST.ppaResults(exp)
+    return this.BD2REST.ppaResults(exp.id)
       .then(obj => obj.data);
   }
 

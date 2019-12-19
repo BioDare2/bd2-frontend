@@ -1,11 +1,4 @@
-import {
-  arraysMatch,
-  pageObjectData,
-  removeItemFromArr,
-  shallowSet,
-  sortingMedian,
-  sortObjectData
-} from './collections-util';
+import {arraysMatch, pageObjectData, removeItemFromArr, shallowSet, sortingMedian, sortObjectData} from './collections-util';
 import {PageEvent} from '@angular/material';
 
 

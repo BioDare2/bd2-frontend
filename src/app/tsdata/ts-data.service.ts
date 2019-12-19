@@ -18,16 +18,16 @@ export class TSDataService {
 
   loadDataSet(exp: ExperimentalAssayView, detrending: DetrendingType, page: PageEvent): Observable<TraceSet> {
 
-    return this.BD2REST.tsdata(exp, detrending, page);
+    return this.BD2REST.tsdata(exp.id, detrending, page);
       // .then(jsonObj => jsonObj.data);
   }
 
   exportURL(exp: ExperimentalAssayView, params: DisplayParameters): string {
-    return this.BD2REST.tsdataExportURL(exp, params.detrending);
+    return this.BD2REST.tsdataExportURL(exp.id, params.detrending);
   }
 
   dataMetrics(exp: ExperimentalAssayView): Observable<TimeSeriesMetrics> {
-    return this.BD2REST.tsdataMetrics(exp);
+    return this.BD2REST.tsdataMetrics(exp.id);
   }
 
 }

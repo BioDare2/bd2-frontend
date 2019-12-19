@@ -18,7 +18,7 @@ export class RDMSocialServiceService {
 
   public getAssayGuiAspects(exp: ExperimentalAssayView): Promise<RDMAssayGUIAspects> {
 
-    return this.BD2REST.rdmAssayGuiAspects(exp)
+    return this.BD2REST.rdmAssayGuiAspects(exp.id)
       .then(aspects => {
         this.visited.add(exp.id);
         return aspects;
@@ -47,7 +47,7 @@ export class RDMSocialServiceService {
 
   public registerMeasurementWarning(exp: ExperimentalAssayView) {
 
-    this.BD2REST.rdmRegisterWarning(exp, 'MEASUREMENT')
+    this.BD2REST.rdmRegisterWarning(exp.id, 'MEASUREMENT')
       .then(resp => true);
   }
 

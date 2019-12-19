@@ -7,24 +7,22 @@ import {filter} from 'rxjs/operators';
 @Component({
   selector: 'bd2-top-bar',
   template: `
-    <nav class="navbar navbar-inverse navbar-fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
       <div class="container">
         <div class="navbar-header">
-          <button type="button" (click)="toggle()" class="navbar-toggle collapsed"
-                  data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
+          <button class="navbar-toggler" type="button" data-toggle="collapse"
+                  data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation"
+                  (click)="toggle()" >
+            <span class="navbar-toggler-icon"></span>
           </button>
           <a class="navbar-brand" routerLink="/" routerLinkActive="active">BioDare2</a>
         </div>
         <div id="navbar" class="navbar-collapse" [class.collapse]="collapsed">
-          <div>
+          <div class="mr-auto">
             <bd2-top-bar-menu [user]="user" (navigation)="collapse()"></bd2-top-bar-menu>
           </div>
 
-          <div class="navbar-right">
+          <div >
             <bd2-inline-login-form [user]="user" (navigation)="collapse()"></bd2-inline-login-form>
           </div>
 

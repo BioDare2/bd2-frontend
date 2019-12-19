@@ -7,7 +7,7 @@ import {AlertModule} from 'ngx-bootstrap/alert';
   declarations: [FeedbackListComponent],
   imports: [
     CommonModule,
-    AlertModule.forRoot()
+    AlertModule
   ],
   exports: [FeedbackListComponent]
 })

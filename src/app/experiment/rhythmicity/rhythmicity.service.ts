@@ -14,7 +14,7 @@ export class RhythmicityService {
   }
 
   newTest(exp: ExperimentalAssayView, request: RhythmicityRequest): Observable<any> {
-    return this.BD2REST.rhythmicityNew(exp, request);
+    return this.BD2REST.rhythmicityNew(exp.id, request);
   }
 
   getJob(assayId: number, jobId: string): Observable<RhythmicityJobSummary> {
@@ -22,7 +22,7 @@ export class RhythmicityService {
   }
 
   getJobs(exp: ExperimentalAssayView): Observable<RhythmicityJobSummary[]> {
-    return this.BD2REST.rhythmicityJobs(exp).pipe(
+    return this.BD2REST.rhythmicityJobs(exp.id).pipe(
       map(obj => obj.data)
     );
   }

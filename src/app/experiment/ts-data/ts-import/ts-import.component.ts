@@ -79,7 +79,7 @@ export class TSImportComponent extends ExperimentBaseComponent implements OnInit
       request.importFormat = this.format;
       request.importParameters = params;
 
-      this.experimentService.importTimeSeries(this.assay, request)
+      this.experimentService.importTimeSeries(this.assay, request).toPromise()
         .then((res: any) => {
           const msg = 'Imported ' + res.imported + ' timeseries';
           this.feedback.success(msg);

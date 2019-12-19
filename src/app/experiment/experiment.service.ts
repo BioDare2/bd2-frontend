@@ -3,6 +3,7 @@ import {BioDareRestService} from '../backend/biodare-rest.service';
 import {ExperimentSummary} from '../dom/repo/exp/experiment-summary';
 import {ExperimentalAssayView} from '../dom/repo/exp/experimental-assay-view';
 import {FileImportRequest} from './ts-data/import-dom';
+import {Observable} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -42,12 +43,12 @@ export class ExperimentService {
       .then(jsonObj => this.json2ExperimentalAssayView(jsonObj));
   }
 
-  importTimeSeries(exp: ExperimentalAssayView, request: FileImportRequest): Promise<any> {
-    return this.BD2REST.experimentImportTS(exp, request);
+  importTimeSeries(exp: ExperimentalAssayView, request: FileImportRequest): Observable<any> {
+    return this.BD2REST.experimentImportTS(exp.id, request);
   }
 
   publish(exp: ExperimentalAssayView, license: string): Promise<ExperimentalAssayView> {
-    return this.BD2REST.experimentPublish(exp, license)
+    return this.BD2REST.experimentPublish(exp.id, license)
       .then(jsonObj => this.json2ExperimentalAssayView(jsonObj));
   }
 

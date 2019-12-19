@@ -21,6 +21,7 @@ describe('TSViewComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(TSViewComponent);
     component = fixture.componentInstance;
+
     fixture.detectChanges();
   });
 

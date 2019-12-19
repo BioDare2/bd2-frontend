@@ -24,7 +24,7 @@ const routes: Routes = [
 
       {path: 'ppa', loadChildren: () => import('./ppa/ppa.module').then(m => m.PPAModule)},
 
-      {path: 'rhythmicity', loadChildren: () => import('./rhythmicity/rhythmicity.module').then(m => m.RhythmicityModule)},
+      {path: 'rhythmicity', loadChildren: () => import('./rhythmicity/rhythmicity.module').then(m => m.RhythmicityModule)}
     ]
   }
 ];

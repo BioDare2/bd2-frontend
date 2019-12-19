@@ -163,6 +163,7 @@ export class BioDareRestService {
 
   }
 
+
   experimentNewExperiment(exp: ExperimentalAssayView): Promise<any> {
     const options = this.makeOptions();
     const url = this.endPoints.experiment_new_experiment_url;
@@ -180,6 +181,7 @@ export class BioDareRestService {
 
   }
 
+
   experimentSave(exp: ExperimentalAssayView): Promise<any> {
     const options = this.makeOptions();
     const url = this.endPoints.experiment_url + '/' + exp.id;
@@ -189,9 +191,9 @@ export class BioDareRestService {
 
   }
 
-  experimentPublish(exp: ExperimentalAssayView, license: string): Promise<any> {
+  experimentPublish(expId: number, license: string): Promise<any> {
     const options = this.makeOptions();
-    const url = this.endPoints.experiment_url + '/' + exp.id + this.endPoints.publish;
+    const url = this.endPoints.experiment_url + '/' + expId + this.endPoints.publish;
     const body = JSON.stringify(license);
 
     return this.OKJson(this.http.put(url, body, options)).toPromise();
@@ -202,39 +204,42 @@ export class BioDareRestService {
 
   /* data */
 
-  tsdataExportURL(exp: ExperimentalAssayView, detrending: DetrendingType): string {
-    const url = this.endPoints.experiment_url + '/' + exp.id + this.endPoints.ts_data + '/' + detrending.name + '/export';
+
+  tsdataExportURL(expId: number, detrending: DetrendingType): string {
+    const url = this.endPoints.experiment_url + '/' + expId + this.endPoints.ts_data + '/' + detrending.name + '/export';
     return url;
   }
 
 
-  tsdata(exp: ExperimentalAssayView, detrending: DetrendingType, page: PageEvent): Observable<any> {
+  tsdata(expId: number, detrending: DetrendingType, page: PageEvent): Observable<any> {
 
     const options = this.makeOptions();
-    const url = this.endPoints.experiment_url + '/' + exp.id + this.endPoints.ts_data + '/' + detrending.name;
+    const url = this.endPoints.experiment_url + '/' + expId + this.endPoints.ts_data + '/' + detrending.name;
     if (page) {
       (options as any).params = new HttpParams().set('pageIndex', '' + page.pageIndex).set('pageSize', '' + page.pageSize);
     }
     return this.OKJson(this.http.get(url, options));
   }
 
-  tsdataMetrics(exp: ExperimentalAssayView): Observable<any> {
+  tsdataMetrics(expId: number): Observable<any> {
 
     const options = this.makeOptions();
-    const url = this.endPoints.experiment_url + '/' + exp.id + this.endPoints.ts_data + '/' + 'metrics';
+    const url = this.endPoints.experiment_url + '/' + expId + this.endPoints.ts_data + '/' + 'metrics';
     return this.OKJson(this.http.get(url, options));
   }
 
-  experimentImportTS(exp: ExperimentalAssayView, request: FileImportRequest): Promise<any> {
+  /*
+  experimentImportTS(expId: number, request: FileImportRequest): Promise<any> {
     const options = this.makeOptions();
-    const url = this.endPoints.experiment_url + '/' + exp.id + this.endPoints.ts_import;
+    const url = this.endPoints.experiment_url + '/' + expId + this.endPoints.ts_import;
     const body = request;
 
     return this.OKJson(this.http.post(url, body, options)).toPromise();
 
-  }
+  }*/
 
-  experimentImportTS2(expId: number, request: FileImportRequest): Observable<any> {
+
+  experimentImportTS(expId: number, request: FileImportRequest): Observable<any> {
     const options = this.makeOptions();
     const url = this.endPoints.experiment_url + '/' + expId + this.endPoints.ts_import;
     const body = request;
@@ -247,9 +252,10 @@ export class BioDareRestService {
 
   /* ppa */
 
-  ppaNew(exp: ExperimentalAssayView, request: PPARequest): Promise<any> {
+
+  ppaNew(expId: number, request: PPARequest): Promise<any> {
     const options = this.makeOptions();
-    const url = this.endPoints.experiment_url + '/' + exp.id + this.endPoints.ppa_new;
+    const url = this.endPoints.experiment_url + '/' + expId + this.endPoints.ppa_new;
     const body = request;
 
     return this.OKJson(this.http.put(url, body, options)).toPromise();
@@ -333,16 +339,16 @@ export class BioDareRestService {
   }
 
 
-  ppaJobs(exp: ExperimentalAssayView): Promise<any> {
+  ppaJobs(expId: number): Promise<any> {
     const options = this.makeOptions();
-    const url = this.endPoints.experiment_url + '/' + exp.id + this.endPoints.ppa_jobs;
+    const url = this.endPoints.experiment_url + '/' + expId + this.endPoints.ppa_jobs;
 
     return this.OKJson(this.http.get(url, options)).toPromise();
   }
 
-  ppaResults(exp: ExperimentalAssayView): Promise<any> {
+  ppaResults(expId: number): Promise<any> {
     const options = this.makeOptions();
-    const url = this.endPoints.experiment_url + '/' + exp.id + this.endPoints.ppa_results;
+    const url = this.endPoints.experiment_url + '/' + expId + this.endPoints.ppa_results;
 
     return this.OKJson(this.http.get(url, options)).toPromise();
   }
@@ -356,18 +362,19 @@ export class BioDareRestService {
 
   /* rhythmicity */
 
-  rhythmicityNew(exp: ExperimentalAssayView, request: RhythmicityRequest): Observable<any> {
+
+  rhythmicityNew(expId: number, request: RhythmicityRequest): Observable<any> {
     const options = this.makeOptions();
-    const url = this.endPoints.experiment_url + '/' + exp.id + this.endPoints.rhythmicity_new;
+    const url = this.endPoints.experiment_url + '/' + expId + this.endPoints.rhythmicity_new;
     const body = request;
 
     return this.OKJson(this.http.put(url, body, options));
 
   }
 
-  rhythmicityJobs(exp: ExperimentalAssayView): Observable<any> {
+  rhythmicityJobs(expId: number): Observable<any> {
     const options = this.makeOptions();
-    const url = this.endPoints.experiment_url + '/' + exp.id + this.endPoints.rhythmicity_jobs;
+    const url = this.endPoints.experiment_url + '/' + expId + this.endPoints.rhythmicity_jobs;
 
     return this.OKJson(this.http.get(url, options));
   }
@@ -412,25 +419,25 @@ export class BioDareRestService {
 
   /* files */
 
-  fileURL(parrent: ExperimentalAssayView, fileId: any): string {
-    const url = this.endPoints.experiment_url + '/' + parrent.id + this.endPoints.file_part + '/' + fileId;
+  fileURL(parrentId: number, fileId: any): string {
+    const url = this.endPoints.experiment_url + '/' + parrentId + this.endPoints.file_part + '/' + fileId;
     return url;
   }
 
-  files(parrent: ExperimentalAssayView): Promise<any> {
+  files(parrentId: number): Promise<any> {
 
     const options = this.makeOptions();
-    const url = this.endPoints.experiment_url + '/' + parrent.id + this.endPoints.file_part;
+    const url = this.endPoints.experiment_url + '/' + parrentId + this.endPoints.file_part;
 
     return this.OKJson(this.http.get(url, options)).toPromise();
 
   }
 
-  expFileUpload(exp: ExperimentalAssayView, formData: FormData): Promise<any> {
+  expFileUpload(expId: number, formData: FormData): Promise<any> {
 
     const options = this.makeOptions();
     options.headers = options.headers.delete('Content-Type');
-    const url = this.endPoints.experiment_url + '/' + exp.id + this.endPoints.file_part;
+    const url = this.endPoints.experiment_url + '/' + expId + this.endPoints.file_part;
     const body = formData;
 
     return this.OKJson(this.http.post(url, body, options)).toPromise();
@@ -466,6 +473,7 @@ export class BioDareRestService {
 
   }
 
+
   fileViewVerifyFormat(format: ImportFormat, fileId: string): Observable<boolean> {
     const options = this.makeOptions();
     const url = this.endPoints.file_url + '/' + fileId + this.endPoints.view_verify_format + format.name;
@@ -473,6 +481,7 @@ export class BioDareRestService {
     return this.OK(this.http.get(url, options));
 
   }
+
 
   fileViewTableSlice(fileId: string, format: string, slice: Slice): Observable<any> {
     const options = this.makeOptions();
@@ -482,22 +491,24 @@ export class BioDareRestService {
 
   }
 
+
+
   /* files */
 
   /* rdm aspects */
 
-  rdmAssayGuiAspects(exp: ExperimentalAssayView): Promise<any> {
+  rdmAssayGuiAspects(expId: number): Promise<any> {
 
     const options = this.makeOptions();
-    const url = this.endPoints.experiment_url + '/' + exp.id + this.endPoints.rdmSocial + '/gui-aspects';
+    const url = this.endPoints.experiment_url + '/' + expId + this.endPoints.rdmSocial + '/gui-aspects';
 
     return this.OKJson(this.http.get(url, options)).toPromise();
   }
 
-  rdmRegisterWarning(exp: ExperimentalAssayView, category: string): Promise<boolean> {
+  rdmRegisterWarning(expId: number, category: string): Promise<boolean> {
 
     const options = this.makeOptions();
-    const url = this.endPoints.experiment_url + '/' + exp.id + this.endPoints.rdmSocial + '/register/warning/' + category;
+    const url = this.endPoints.experiment_url + '/' + expId + this.endPoints.rdmSocial + '/register/warning/' + category;
 
     return this.OK(this.http.put(url, '', options)).toPromise();
 

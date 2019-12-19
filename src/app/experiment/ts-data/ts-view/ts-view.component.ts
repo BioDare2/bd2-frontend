@@ -94,6 +94,7 @@ export class TSViewComponent extends ExperimentBaseComponent implements OnDestro
       debounceTime(1000)) // debounced added to reduce screen flickering on updates
       .subscribe(
         (pack) => {
+          if (!this.assay) { return; }
 
           const data = pack.data;
           this.currentParams = pack.params;
@@ -103,7 +104,7 @@ export class TSViewComponent extends ExperimentBaseComponent implements OnDestro
           this.tracesPerPlot = Math.max(5, data.length / 20);
           this.totalTraces = pack.totalTraces;
           this.currentPage = pack.currentPage;
-          if (this.assay) { this.analytics.experimentDataViev(this.assay.id); }
+          this.analytics.experimentDataViev(this.assay.id);
 
         },
         (err) => {
@@ -143,6 +144,7 @@ export class TSViewComponent extends ExperimentBaseComponent implements OnDestro
   }
 
   protected updateModel(exp: ExperimentalAssayView) {
+    super.updateModel(exp);
 
     this.RDMSocial.canProceedByMeasurement(exp)
       .then(resp => {
@@ -155,7 +157,7 @@ export class TSViewComponent extends ExperimentBaseComponent implements OnDestro
 
     this.fetcher.experiment(exp);
 
-    super.updateModel(exp);
+
 
   }
 

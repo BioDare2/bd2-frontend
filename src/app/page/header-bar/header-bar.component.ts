@@ -20,11 +20,7 @@ import {BD2User} from '../../auth/user.dom';
         </div>
       </div>
       <div *ngIf="!isJumbo" class="bd2-page-header">
-        <div class="container">
-          <h1>BioDare2
-            <!--<small>beta</small>-->
-          </h1>
-        </div>
+        <div class="container">&nbsp;</div>
       </div>
     </div>
   `,

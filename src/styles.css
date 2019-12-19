@@ -1,8 +1,11 @@
 /* You can add global styles to this file, and also import other style files */
 
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
 /* Move down content because we have a fixed navbar that is 50px tall */
 body {
-  padding-top: 50px;
+  /*padding-top: 50px;*/
   padding-bottom: 20px;
 }
 
@@ -14,7 +17,7 @@ div.header-bar {
 
 div.bd2-page-header {
   background-color: #EEE;
-
+  margin-bottom: 1em;
 
 }
 
@@ -34,8 +37,6 @@ div.workspace {
   min-width: 6em;
   max-width: 10em;
 }
-
-
 
 /* visual clues for validation state of inputs */
 input.ng-valid[required] {
@@ -192,10 +193,6 @@ nav.secondary a {
 .bold {
   font-weight: bold;
 }
-
-/* added by angular materials */
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 .spaced mat-radio-button {
   margin-right: 1em;
