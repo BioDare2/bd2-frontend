@@ -72,8 +72,10 @@ import {ConfirmDialogComponent} from '../../../../shared/confirm-dialog.componen
             <ul class="list-group">
               <li *ngFor="let block of dataBlocks" (click)="editBlock(block)" class="list-group-item">
                 <span><strong>{{block.label}}</strong> : {{block.value}}</span>
-                <a (click)="deleteBlock(block)" role="button" class="pull-right"><span
-                  class="glyphicon glyphicon-remove" aria-hidden="true"></span></a>
+                <a (click)="deleteBlock(block)" role="button" class="float-right"><span
+                  class="glyphicon glyphicon-remove" aria-hidden="true">
+                  <i class="material-icons bd-icon bd-primary">delete_forever</i>
+                </span></a>
               </li>
             </ul>
           </div>

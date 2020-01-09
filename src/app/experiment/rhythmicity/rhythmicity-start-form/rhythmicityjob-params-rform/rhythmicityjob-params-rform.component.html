@@ -24,9 +24,10 @@
       </div>
     </div>
 
-    <div class="form-group">
-      <label class="col-sm-4" for="detrending">Input Data <a (click)="dataHelp = !dataHelp"><span
-        aria-hidden="true" class="glyphicon glyphicon-question-sign"></span></a></label>
+    <div class="form-group row">
+      <label class="col-sm-4" for="detrending">Input Data <a (click)="dataHelp = !dataHelp">
+        <i class="material-icons bd-icon bd-primary">help</i>
+      </a></label>
 
       <div class="col-sm-6">
         <select class="form-control" formControlName="detrending"
@@ -49,9 +50,10 @@
   </div>
 
 
-  <div class="form-group">
-    <label class="col-sm-4" for="method">Test Method <a (click)="methodHelp = !methodHelp"><span
-      aria-hidden="true" class="glyphicon glyphicon-question-sign"></span></a></label>
+  <div class="form-group row">
+    <label class="col-sm-4" for="method">Test Method <a (click)="methodHelp = !methodHelp">
+      <i class="material-icons bd-icon bd-primary">help</i>
+    </a></label>
 
     <div class="col-sm-6">
       <select class="form-control" formControlName="method"
@@ -71,9 +73,10 @@
   </div>
 
 
-  <div class="form-group">
-    <label class="col-sm-4" for="method">Analysis Presets <a (click)="presetsHelp = !presetsHelp"><span
-      aria-hidden="true" class="glyphicon glyphicon-question-sign"></span></a></label>
+  <div class="form-group row">
+    <label class="col-sm-4" for="method">Analysis Presets <a (click)="presetsHelp = !presetsHelp">
+      <i class="material-icons bd-icon bd-primary">help</i>
+    </a></label>
 
     <div class="col-sm-6">
       <select class="form-control" formControlName="preset"
@@ -106,7 +109,7 @@
     </alert>
   </div>
 
-  <div [hidden]="true" class="form-group" formGroupName="periodScale">
+  <div [hidden]="true" class="form-group row" formGroupName="periodScale">
     <label class="col-sm-4">Expected periods</label>
 
     <label class="col-sm-1" for="periodMin">from:</label>
@@ -130,7 +133,7 @@
     </div>
   </div>
 
-  <div class="form-group">
+  <div class="form-group row">
     <label class="col-sm-2"></label>
     <div class="col-sm-8">
 

@@ -125,7 +125,7 @@ import {NgForm} from '@angular/forms';
                 </button>
                 <button class="btn btn-primary btn-sm" [disabled]="!columnTypeForm.form.valid" (click)="accepted()">OK
                 </button>
-                <button class="btn btn-default btn-sm" (click)="hide()">Cancel</button>
+                <button class="btn btn-outline-secondary btn-sm" (click)="hide()">Cancel</button>
               </form>
             </div>
           </div>

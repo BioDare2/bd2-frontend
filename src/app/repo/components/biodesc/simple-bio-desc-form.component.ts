@@ -60,7 +60,7 @@ import {SpeciesService} from './species.service';
         </div>
 
         <button type="button" class="btn btn-primary" [disabled]="blocked || !sBioForm.form.valid" (click)="save()">{{okLabel}}</button>
-        <button type="button" class="btn btn-default" (click)="cancel()">Cancel</button>
+        <button type="button" class="btn btn-outline-secondary" (click)="cancel()">Cancel</button>
 
       </form>
     </div>

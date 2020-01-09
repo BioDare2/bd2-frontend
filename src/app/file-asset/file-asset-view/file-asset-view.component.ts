@@ -7,10 +7,12 @@ import {AnalyticsService} from '../../analytics/analytics.service';
   template: `
 
   <div *ngIf="file && file.last">
-    <div class="pull-right">
+    <div class="float-right">
       {{file.versions.length}} versions
       <a role="button" (click)="showVersions = !showVersions">
-        <span class="glyphicon glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
+        <span class="glyphicon glyphicon glyphicon-chevron-down" aria-hidden="true">
+          <i class="material-icons bd-icon">expand_more</i>
+        </span>
       </a>
     </div>
     <h5>

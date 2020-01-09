@@ -20,11 +20,11 @@
         New analysis
       </a>
 
-      <button (click)="refresh()" [disabled]="blocked" class="btn btn-light ml-1" type="button">Refresh
+      <button (click)="refresh()" [disabled]="blocked" class="btn btn-light btn-outline-secondary ml-1" type="button">Refresh
       </button>
 
       <div *ngIf="hasFinished" class="float-right">
-        <a class="btn btn-light" download href="{{exportURL}}" role="button">Download all</a>
+        <a class="btn btn-outline-secondary" download href="{{exportURL}}" role="button">Download all</a>
       </div>
 
     </div>

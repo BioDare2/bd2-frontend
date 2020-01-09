@@ -1,7 +1,7 @@
 <div>
   <div *ngIf="files.length > 0" class="clearfix" style="margin-bottom: 1em;">
     <div class=""><label>Files:</label></div>
-    <div *ngFor="let file of files" class="pull-left fileitem">
+    <div *ngFor="let file of files" class="float-left fileitem">
       {{file.name}}
       <button (click)="remove(file)" aria-label="Close" class="close" style="margin-left: 0.5em;" type="button"><span
         aria-hidden="true">&times;</span></button>
@@ -15,8 +15,7 @@
            class="uploader-zone"
            ondragover="return false;">
 
-      <span aria-hidden="true" class="glyphicon glyphicon-upload"
-            style="font-size: 400%; margin-right: 0.2em; color: grey;"></span>
+      <i class="material-icons bd-icon bd-primary" style="font-size: 400%;">cloud_upload</i>
       <p> Drag file(s) or click to select</p>
 
       <input #inputField (change)="handleFileSelect($event)" *ngIf="multiple" multiple name="inputField" type="file">

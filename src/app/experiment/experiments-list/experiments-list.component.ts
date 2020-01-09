@@ -8,10 +8,12 @@ import {ExperimentSummary} from '../../dom/repo/exp/experiment-summary';
   template: `
     <div>
       <h2>Experiments
-        <a (click)="refresh()" role="button" style="margin-left: 0.5em;"><span class="glyphicon glyphicon-repeat"
-                                                                               aria-hidden="true"></span></a>
+        <a (click)="refresh()" role="button" style="margin-left: 0.5em;">
+          <span class="glyphicon glyphicon-repeat" aria-hidden="true">
+            <i class="material-icons bd-icon bd-primary">refresh</i>
+          </span></a>
 
-        <div class="pull-right">
+        <div class="float-right">
           <small>Public</small>
           <div class="btn-group">
             <label class="btn btn-primary btn-sm" [(ngModel)]="showPublic" [btnRadio]="false">Off</label>
@@ -26,10 +28,10 @@ import {ExperimentSummary} from '../../dom/repo/exp/experiment-summary';
       </div>
 
       <div class="list-group">
-        <a *ngFor="let exp of experiments" [routerLink]="['/experiment',exp.id]" class="list-group-item">
-          <h4 class="list-group-item-heading">
+        <a *ngFor="let exp of experiments" [routerLink]="['/experiment',exp.id]" class="list-group-item list-group-item-action">
+          <h5 class="list-group-item-heading">
             <img *ngIf="exp.features.isOpenAccess" src="assets/Open_Access_logo_small.svg" style="height: 1.5em;">
-            {{exp.name}}</h4>
+            {{exp.name}}</h5>
           <p class="list-group-item-text">{{exp.generalDesc.purpose}}</p>
         </a>
       </div>

@@ -27,7 +27,7 @@ import {ModalDirective} from 'ngx-bootstrap/modal';
             </div>
             <div>
               <button class="btn btn-primary btn-sm" (click)="accepted()">Copy labels</button>
-              <button class="btn btn-default btn-sm" (click)="hide()">Cancel</button>
+              <button class="btn btn-outline-secondary btn-sm" (click)="hide()">Cancel</button>
             </div>
           </div>
         </div>
