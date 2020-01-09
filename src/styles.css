@@ -231,3 +231,6 @@ a {
   color: #337ab7;
 }
 
+label.btn {
+  margin-right: 0px;
+}

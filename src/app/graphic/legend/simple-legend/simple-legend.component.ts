@@ -14,10 +14,10 @@ class LegendItem {
   selector: 'bd2-simple-legend',
   template: `
     <div class="simple-legend clearfix">
-      <div *ngFor="let item of items" class="legend-item pull-left"
+      <div *ngFor="let item of items" class="legend-item float-left"
            [class.marked]="item.marked"
            (click)="toggleMark(item)">
-        <div class="color-box pull-left"
+        <div class="color-box float-left"
              [style.border-color]="item.borderColor"
              [style.background]="item.bcgColor"></div>
         <span>{{item.title}}</span>

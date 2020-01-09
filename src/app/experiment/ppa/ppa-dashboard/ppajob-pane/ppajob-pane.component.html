@@ -1,29 +1,32 @@
-<div *ngIf="job" class="panel panel-default">
-  <div class="panel-heading clearfix">
-    <div (click)="toggleExpanded()" role="button" class="pull-left">
+<div *ngIf="job" class="card mb-2">
+  <div class="card-header clearfix">
+    <div (click)="toggleExpanded()" role="button" class="float-left">
                   <span [style.color]="expanded ? 'green' : 'red'" [style.font-size.%]="120"
-                        class="glyphicon glyphicon-sort-by-attributes" aria-hidden="true"></span>
+                        class="glyphicon glyphicon-sort-by-attributes" aria-hidden="true">
+                  <i class="material-icons bd-icon">waves</i>
+                  </span>
       &nbsp;{{job.jobId}}. {{job.method}} ({{job.submitted | date}})
     </div>
-    <div class="pull-right">
+    <div class="float-right">
       {{simplifyJobState(job)}}
       <a (click)="reload()" role="button">
-        <span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>
+        <i class="material-icons bd-icon bd-primary">refresh</i>
       </a>
     </div>
 
   </div>
-  <div class="panel-body">
-    <div class="clearfix">
-      <div *ngIf="assay.security.canWrite" class="pull-right">
+  <div class="card-body">
+    <div class="clearfix mb-1">
+      <div *ngIf="assay.security.canWrite" class="float-right">
         <button type="button" class="btn btn-danger btn-sm" (click)="delete()">
-          <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+          <i class="material-icons bd-icon">delete_forever</i>
         </button>
-        <a *ngIf="isFinished(job)" [routerLink]="['.',job.jobId,'edit']"
-           class="btn btn-primary btn-sm">
+          <a *ngIf="isFinished(job)" [routerLink]="['.',job.jobId,'edit']"
+             class="btn btn-primary btn-sm mr-1 ml-1">
           Select periods</a>
+
         <button type="button" class="btn btn-primary btn-sm" (click)="export()">
-          <span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span>
+          <i class="material-icons bd-icon">save_alt</i>
         </button>
       </div>
       {{job.summary}}

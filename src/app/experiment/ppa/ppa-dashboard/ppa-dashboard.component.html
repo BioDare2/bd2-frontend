@@ -4,8 +4,8 @@
   <hr>
 
 
-  <div class="panel panel-default">
-    <div class="panel-heading">
+  <div class="card">
+    <div class="card-header">
       <div *ngIf="jobs && jobs.length > 0">
         <strong>Submitted jobs: {{jobs.length}}</strong>
         <span [hidden]="!queuing"><br>{{queuing}} jobs queuing</span>
@@ -14,17 +14,17 @@
         No jobs submitted, start new analysis.
       </div>
     </div>
-    <div class="panel-body">
+    <div class="card-body">
 
       <a *ngIf="assay.security.canWrite" [routerLink]="['new']" class="btn btn-primary">
         New analysis
       </a>
 
-      <button (click)="refresh()" [disabled]="blocked" class="btn btn-default" type="button">Refresh
+      <button (click)="refresh()" [disabled]="blocked" class="btn btn-light ml-1" type="button">Refresh
       </button>
 
-      <div *ngIf="hasFinished" class="pull-right">
-        <a class="btn btn-default" download href="{{exportURL}}" role="button">Download all</a>
+      <div *ngIf="hasFinished" class="float-right">
+        <a class="btn btn-light" download href="{{exportURL}}" role="button">Download all</a>
       </div>
 
     </div>
@@ -40,12 +40,12 @@
   <div>
     <h4>Options explained</h4>
     <div class="form-horizontal" style="margin-top: 1em;">
-      <div class="form-group">
+      <div class="form-group row">
       <!--<div class="form-group">-->
-        <label class="col-sm-3 col-sm-offset-1">
+        <label class="col-sm-3 offset-sm-1">
           Phase type
           <a (click)="help.show('phases')">
-            <span aria-hidden="true" class="glyphicon glyphicon-question-sign"></span>
+            <i class="material-icons bd-icon bd-primary">help</i>
           </a>
         </label>
         <!--<div class="btn-group col-sm-7">
@@ -60,9 +60,9 @@
         </div>-->
       <!-- </div> -->
 
-        <label class="col-sm-3 col-sm-offset-1">Phase relation
+        <label class="col-sm-3 offset-sm-1">Phase relation
           <a (click)="help.show('phases')">
-            <span aria-hidden="true" class="glyphicon glyphicon-question-sign"></span>
+            <i class="material-icons bd-icon bd-primary">help</i>
           </a>
         </label>
         <!--<div class="btn-group col-sm-7">
@@ -72,9 +72,10 @@
                  class="btn btn-success btn-xs">Window</label>
         </div>-->
 
-        <label class="col-sm-3 col-sm-offset-1">Phase unit <a
-          (click)="help.show('phases')"><span aria-hidden="true"
-                                              class="glyphicon glyphicon-question-sign"></span></a></label>
+        <label class="col-sm-3 offset-sm-1">Phase unit <a
+          (click)="help.show('phases')">
+          <i class="material-icons bd-icon bd-primary">help</i>
+        </a></label>
         <!--<div class="btn-group col-sm-7">
           <label [(ngModel)]="phaseUnit" btnRadio="circ"
                  class="btn btn-success btn-xs">Circadian</label>
@@ -82,9 +83,9 @@
                  class="btn btn-success btn-xs">Absolute</label>
         </div>-->
 
-        <label class="col-sm-6 col-sm-offset-1">
+        <label class="col-sm-6 offset-sm-1">
           Display
-          <button [(ngModel)]="expandAll" btnCheckbox class="btn btn-danger btn-xs"
+          <button [(ngModel)]="expandAll" btnCheckbox class="btn btn-danger btn-sm"
                   style="margin-left: 2em;" type="button">Expand all
           </button>
         </label>

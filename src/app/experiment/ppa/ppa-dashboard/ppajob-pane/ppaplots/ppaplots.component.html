@@ -7,9 +7,10 @@
   <mat-expansion-panel-header>
     <mat-panel-title>
       <span [style.color]="isOn ? 'green' : 'red'"
-            class="glyphicon glyphicon-object-align-vertical" aria-hidden="true"></span>
-      <span [style.color]="isOn ? 'green' : 'red'"
-            class="glyphicon glyphicon-dashboard" aria-hidden="true"></span> &nbsp;Results plots
+            class="glyphicon glyphicon-dashboard" aria-hidden="true">
+        <i class="material-icons bd-icon">bar_chart</i>
+        <i class="material-icons bd-icon">av_timer</i>
+      </span> &nbsp;Results plots
     </mat-panel-title>
   </mat-expansion-panel-header>
 
@@ -24,9 +25,9 @@
   </div>
 
   <bd2-ngx-svg-saver [fileName]="fetcher.currentInput?.parentId+'_'+fetcher.currentInput?.method+'.periods'"
-                     [refNode]="periodPlotDiv" class="pull-left"
+                     [refNode]="periodPlotDiv" class="float-left"
   ></bd2-ngx-svg-saver>
-  <bd2-ppasort-widget (sort)="sort($event)" class="pull-right"></bd2-ppasort-widget>
+  <bd2-ppasort-widget (sort)="sort($event)" class="float-right"></bd2-ppasort-widget>
   <div class="clearfix"></div>
 
 
@@ -46,7 +47,7 @@
 
   <div #phasePlotDiv>
     <div class="row">
-      <div class="col-md-8 col-md-offset-2">
+      <div class="col-md-8 offset-md-2">
   <bd2-ppaphase-plot [phaseParams]="phaseParams"
     [legend]="legend" [palette]="palette" [removed]="removed"
                      [groups]="this.fetcher.results$ | async"

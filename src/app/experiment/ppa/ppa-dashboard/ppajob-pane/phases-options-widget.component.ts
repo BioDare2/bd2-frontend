@@ -28,47 +28,41 @@ export class PhaseParams {
   selector: 'bd2-phases-options',
   template: `
 
-    <div class="spaced">
-      <label>Phases by &nbsp;</label>
-      <div class="btn-group spaced">
-        <label class="btn btn-success btn-xs" [(ngModel)]="phaseType"
+    <div class="mb-2 mt-2">
+      <label class="mr-2">Phases by</label>
+      <div class="btn-group mr-2">
+        <label class="btn btn-success btn-sm" [(ngModel)]="phaseType"
                btnRadio="ByFit">Fit</label>
-        <label class="btn btn-success btn-xs" [(ngModel)]="phaseType"
+        <label class="btn btn-success btn-sm" [(ngModel)]="phaseType"
                btnRadio="ByMethod">Method</label>
-        <label class="btn btn-success btn-xs" [(ngModel)]="phaseType"
+        <label class="btn btn-success btn-sm" [(ngModel)]="phaseType"
                btnRadio="ByFirstPeak">First</label>
-        <label class="btn btn-success btn-xs" [(ngModel)]="phaseType"
+        <label class="btn btn-success btn-sm" [(ngModel)]="phaseType"
                btnRadio="ByAvgMax">Avg.</label>
       </div>
 
-      <div class="btn-group spaced">
-        <label class="btn btn-success btn-xs" [(ngModel)]="relativeTo"
+      <div class="btn-group mr-2">
+        <label class="btn btn-success btn-sm" [(ngModel)]="relativeTo"
                btnRadio="zero">Zero</label>
-        <label class="btn btn-success btn-xs" [(ngModel)]="relativeTo"
+        <label class="btn btn-success btn-sm" [(ngModel)]="relativeTo"
                btnRadio="dw">Window</label>
       </div>
 
-      <div class="btn-group spaced">
-        <label class="btn btn-success btn-xs" [(ngModel)]="phaseUnit"
+      <div class="btn-group mr-2">
+        <label class="btn btn-success btn-sm" [(ngModel)]="phaseUnit"
                btnRadio="circ">Circadian</label>
-        <label class="btn btn-success btn-xs" [(ngModel)]="phaseUnit"
+        <label class="btn btn-success btn-sm" [(ngModel)]="phaseUnit"
                btnRadio="abs">Absolute</label>
       </div>
 
-      <div class="btn-group spaced">
-      <label class="btn btn-success btn-xs small"
+      <div class="btn-group">
+      <label class="btn btn-success btn-sm small"
              [(ngModel)]="showIndividuals" btnCheckbox
              btnCheckboxFalse="selected" btnCheckboxTrue="all">Ind.</label>
       </div>
     </div>
   `,
-  styles: [
-      `div.spaced {
-      padding-top: 0.5em;
-      padding-bottom: 0.5em;
-      padding-right: 1em;
-    }`
-  ]
+  styles: []
 })
 export class PhasesOptionsWidgetComponent implements OnInit, OnDestroy {
 

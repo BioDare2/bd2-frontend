@@ -21,7 +21,7 @@ import * as FileSaver from 'file-saver';
   selector: 'bd2-ngx-svg-saver',
   template: `
     <button (click)="save()" [disabled]="disabled"
-    class="btn btn-default btn-sm"><span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span>
+    class="btn btn-light btn-sm"><i class="material-icons bd-icon">save_alt</i>
     </button>
   `,
   styles: []

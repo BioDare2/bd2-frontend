@@ -2,7 +2,7 @@
 
   <div formGroupName="displayParams">
 
-    <div class="form-group" formGroupName="timeScale">
+    <div class="form-group row" formGroupName="timeScale">
       <label class="col-sm-4">Data window</label>
 
       <label class="col-sm-1" for="windowStart">from:</label>
@@ -24,9 +24,10 @@
       </div>
     </div>
 
-    <div class="form-group">
-      <label class="col-sm-4" for="detrending">Input Data <a (click)="help.show('detrending')"><span
-        aria-hidden="true" class="glyphicon glyphicon-question-sign"></span></a></label>
+    <div class="form-group row">
+      <label class="col-sm-4" for="detrending">Input Data <a (click)="help.show('detrending')">
+        <i class="material-icons bd-icon bd-primary">help</i>
+      </a></label>
 
       <div class="col-sm-6">
         <select class="form-control" formControlName="detrending"
@@ -41,7 +42,7 @@
   </div>
 
 
-  <div class="form-group" formGroupName="periodScale">
+  <div class="form-group row" formGroupName="periodScale">
     <label class="col-sm-4">Expected periods</label>
 
     <label class="col-sm-1" for="periodMin">from:</label>
@@ -65,9 +66,10 @@
     </div>
   </div>
 
-  <div class="form-group">
-    <label class="col-sm-4" for="method">Analysis Method <a (click)="help.show('period-methods')"><span
-      aria-hidden="true" class="glyphicon glyphicon-question-sign"></span></a></label>
+  <div class="form-group row">
+    <label class="col-sm-4" for="method">Analysis Method <a (click)="help.show('period-methods')">
+      <i class="material-icons bd-icon bd-primary">help</i>
+    </a></label>
 
     <div class="col-sm-6">
       <select class="form-control" formControlName="method"
@@ -79,7 +81,7 @@
     </div>
   </div>
 
-  <div class="form-group">
+  <div class="form-group row">
     <label class="col-sm-2"></label>
     <div class="col-sm-8">
 

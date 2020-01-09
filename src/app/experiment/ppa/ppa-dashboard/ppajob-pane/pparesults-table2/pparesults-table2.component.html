@@ -6,7 +6,9 @@
   <mat-expansion-panel-header>
     <mat-panel-title>
       <span [style.color]="isOn ? 'green' : 'red'"
-            class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>&nbsp; Individual results
+            class="glyphicon glyphicon-list-alt" aria-hidden="true">
+        <i class="material-icons-outlined bd-icon">table_chart</i>
+      </span>&nbsp; Individual results
     </mat-panel-title>
   </mat-expansion-panel-header>
 
@@ -85,7 +87,7 @@
     <!-- fit -->
     <ng-container matColumnDef="fit">
       <th mat-header-cell *matHeaderCellDef >Fit</th>
-      <td mat-cell *matCellDef="let row"><a role="button" (click)="showFit(row)">fit</a></td>
+      <td mat-cell *matCellDef="let row"><a role="button" (click)="showFit(row)" class="btn btn-light btn-sm">fit</a></td>
     </ng-container>
 
 
