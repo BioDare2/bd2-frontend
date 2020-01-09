@@ -1,10 +1,11 @@
 <mat-card class="mat-elevation-z4">
-    <p>{{importDetails?.importFormat?.label}} <label>{{importDetails?.fileName}}</label></p>
+    <p>{{importDetails?.importFormat?.label}}: <strong>{{importDetails?.fileName}}</strong></p>
 
     <p><label>Time series in {{importDetails?.inLabel+'s'}}</label></p>
 
-    <p *ngIf="showTime && firstTimeCell"><label>First time point</label> {{firstTimeCell.value}} {{importDetails.timeType?.unit}}
-        [{{firstTimeCell.colName+':'+firstTimeCell.rowName}}]
+    <p *ngIf="showTime && firstTimeCell"><label>First time point:</label>
+        <strong>{{firstTimeCell.value}} {{importDetails.timeType?.unit}}
+          [{{firstTimeCell.colName+':'+firstTimeCell.rowName}}]</strong>
         <span *ngIf="importDetails.timeType?.name === 'IMG_NUMBER'"> <label>Images every</label> {{importDetails.imgInterval}}h </span>
         <span *ngIf="importDetails.timeOffset != 0"> <label>Time offset</label> {{importDetails.timeOffset}}h </span>
     </p>
@@ -21,6 +22,6 @@
       <strong>{{importDetails.inRows ? dataStart.rowName : dataStart.colName}};</strong>
     </p>
     <p *ngIf="showLabelling && importDetails.containsBackgrounds && importDetails.backgroundsLabels">
-      <strong>Background noise as:</strong> {{importDetails.backgroundsLabels.join(", ")}}
+      Background noise as: {{importDetails.backgroundsLabels.join(", ")}}
     </p>
 </mat-card>

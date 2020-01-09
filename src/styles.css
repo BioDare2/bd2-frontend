@@ -223,9 +223,11 @@ a {
 }
 
 .bd-icon {
-  font-size: inherit;
+  /*font-size: inherit;*/
+  vertical-align: middle;
 }
 
 .bd-primary {
   color: #337ab7;
 }
+

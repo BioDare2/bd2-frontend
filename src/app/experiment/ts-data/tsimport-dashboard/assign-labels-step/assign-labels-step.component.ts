@@ -122,7 +122,7 @@ export class AssignLabelsStepComponent extends DataTableDependentStep implements
   }
 
   selected(selection: [CellSelection, CellSelection]) {
-    console.log('Selected', selection);
+    // console.log('Selected', selection);
     const s = selection[0].colName + selection[0].rowName;
     const e = selection[1].colName + selection[1].rowName;
 
@@ -138,7 +138,7 @@ export class AssignLabelsStepComponent extends DataTableDependentStep implements
       this.labelColumns(selection[0], selection[1]);
     }
 
-    console.log(s + '-' + e);
+    // console.log(s + '-' + e);
   }
 
   setUserLabel(realNumber: number, label: string) {

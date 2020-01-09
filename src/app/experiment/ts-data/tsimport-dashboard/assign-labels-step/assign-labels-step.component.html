@@ -1,5 +1,9 @@
 
 
+<alert type="info" [hidden]="importDetails?.userLabels?.length > 1">
+  Click and drag over {{importDetails?.inLabel}} headers to label the data.
+</alert>
+
 <div [hidden]="importDetails?.inRows">
 <mat-paginator #colPaginator [length]="dataSlice?.totalColumns" [disabled]="importDetails?.inRows"
                [pageSize]="currentPageSlice.colPage.pageSize"

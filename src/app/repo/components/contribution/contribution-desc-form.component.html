@@ -13,7 +13,7 @@
       <ul class="list-unstyled">
         <li *ngFor="let author of model.authors">{{ author.name }}
           <a (click)="removeAuthor(author)" role="button">
-            <i class="material-icons bd-icon bd-primary">delete</i>
+            <i class="material-icons bd-icon bd-primary">cancel</i>
           </a>
         </li>
       </ul>
@@ -26,7 +26,7 @@
         <li *ngFor="let curator of model.curators">
           {{ curator.name }}
           <a (click)="removeCurator(curator)" role="button">
-            <i class="material-icons bd-icon bd-primary">delete</i>
+            <i class="material-icons bd-icon bd-primary">cancel</i>
           </a>
         </li>
       </ul>
@@ -82,7 +82,7 @@
         <li *ngFor="let inst of model.institutions">
           {{ inst.name }}
           <a (click)="removeInstitution(inst)" role="button">
-            <i class="material-icons bd-icon bd-primary">delete</i>
+            <i class="material-icons bd-icon bd-primary">cancel</i>
           </a>
         </li>
       </ul>
@@ -121,7 +121,7 @@
         <li *ngFor="let fund of model.fundings">
           {{ fund.name }}
           <a (click)="removeFunding(fund)" role="button">
-            <i class="material-icons bd-icon bd-primary">delete</i>
+            <i class="material-icons bd-icon bd-primary">cancel</i>
           </a>
         </li>
       </ul>
