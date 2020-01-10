@@ -67,10 +67,10 @@ import {ColorCycler} from './color-cycler';
             <ul class="list-group">
               <li *ngFor="let block of dataBlocks" (click)="editBlock(block)" class="list-group-item">
                 <span><strong>{{block.topcountLabel}}</strong> : {{block.value}}</span>
-                <a (click)="deleteBlock(block)" role="button" class="float-right"><span
-                  class="glyphicon glyphicon-remove" aria-hidden="true">
+                <a (click)="deleteBlock(block)" role="button" class="float-right" aria-label="delete">
                   <i class="material-icons bd-icon bd-primary">delete_forever</i>
-                </span></a>
+                <!-- <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> -->
+                </a>
               </li>
             </ul>
           </div>

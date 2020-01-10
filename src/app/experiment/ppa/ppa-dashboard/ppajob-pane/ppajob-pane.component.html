@@ -1,15 +1,13 @@
 <div *ngIf="job" class="card mb-2">
   <div class="card-header clearfix">
     <div (click)="toggleExpanded()" role="button" class="float-left">
-                  <span [style.color]="expanded ? 'green' : 'red'" [style.font-size.%]="120"
-                        class="glyphicon glyphicon-sort-by-attributes" aria-hidden="true">
-                  <i class="material-icons bd-icon">waves</i>
-                  </span>
+      <i class="material-icons bd-icon" [style.color]="expanded ? 'green' : 'red'" [style.font-size.%]="150">waves</i>
+      <!-- <span class="glyphicon glyphicon-sort-by-attributes" aria-hidden="true"></span> -->
       &nbsp;{{job.jobId}}. {{job.method}} ({{job.submitted | date}})
     </div>
     <div class="float-right">
       {{simplifyJobState(job)}}
-      <a (click)="reload()" role="button">
+      <a (click)="reload()" role="button" aria-label="refresh">
         <i class="material-icons bd-icon bd-primary">refresh</i>
       </a>
     </div>
@@ -18,14 +16,14 @@
   <div class="card-body">
     <div class="clearfix mb-1">
       <div *ngIf="assay.security.canWrite" class="float-right">
-        <button type="button" class="btn btn-danger btn-sm" (click)="delete()">
+        <button type="button" class="btn btn-danger btn-sm" (click)="delete()" aria-label="delete">
           <i class="material-icons bd-icon">delete_forever</i>
         </button>
           <a *ngIf="isFinished(job)" [routerLink]="['.',job.jobId,'edit']"
              class="btn btn-primary btn-sm mr-1 ml-1">
           Select periods</a>
 
-        <button type="button" class="btn btn-primary btn-sm" (click)="export()">
+        <button type="button" class="btn btn-primary btn-sm" (click)="export()" aria-label="download">
           <i class="material-icons bd-icon">save_alt</i>
         </button>
       </div>

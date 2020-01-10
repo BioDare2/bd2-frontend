@@ -50,8 +50,11 @@ import {ConfirmDialogComponent} from '../../../../shared/confirm-dialog.componen
         <div *ngIf="timeColumnDescription">
           <p>
             <strong>Time parameters</strong>
-            <a (click)="editTime()" role="button"><span class="glyphicon glyphicon-pencil"
-                                                        aria-hidden="true"></span></a></p>
+            <a (click)="editTime()" role="button" aria-label="edit">
+              <i class="material-icons bd-icon bd-primary">edit</i>
+              <!-- <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>-->
+            </a>
+          </p>
           <p>
             {{timeColumnDescription.details.timeType.label}}<br>
             First time cell: {{timeColumnDescription.fullRangeLabel}}<br>
@@ -72,10 +75,10 @@ import {ConfirmDialogComponent} from '../../../../shared/confirm-dialog.componen
             <ul class="list-group">
               <li *ngFor="let block of dataBlocks" (click)="editBlock(block)" class="list-group-item">
                 <span><strong>{{block.label}}</strong> : {{block.value}}</span>
-                <a (click)="deleteBlock(block)" role="button" class="float-right"><span
-                  class="glyphicon glyphicon-remove" aria-hidden="true">
+                <a (click)="deleteBlock(block)" role="button" class="float-right" aria-label="delete">
                   <i class="material-icons bd-icon bd-primary">delete_forever</i>
-                </span></a>
+                </a>
+                <!-- <span  class="glyphicon glyphicon-remove" aria-hidden="true"></span> -->
               </li>
             </ul>
           </div>

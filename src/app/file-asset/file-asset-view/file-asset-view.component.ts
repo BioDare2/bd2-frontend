@@ -9,10 +9,9 @@ import {AnalyticsService} from '../../analytics/analytics.service';
   <div *ngIf="file && file.last">
     <div class="float-right">
       {{file.versions.length}} versions
-      <a role="button" (click)="showVersions = !showVersions">
-        <span class="glyphicon glyphicon glyphicon-chevron-down" aria-hidden="true">
+      <a role="button" (click)="showVersions = !showVersions" aria-label="expand">
           <i class="material-icons bd-icon">expand_more</i>
-        </span>
+        <!-- <span class="glyphicon glyphicon glyphicon-chevron-down" aria-hidden="true"></span> -->
       </a>
     </div>
     <h5>
