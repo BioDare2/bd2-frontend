@@ -33,7 +33,9 @@ import {ExperimentalAssayView} from '../dom/repo/exp/experimental-assay-view';
         <a [routerLink]="['file']" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Files</a>
         <a *ngIf="experiment.security.isOwner || experiment.security.isSuperOwner" [routerLink]="['publish']"
            routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
-          <img src="assets/Open_Access_logo_small.svg" style="height: 1em;" ></a>
+          <!-- <img src="assets/Open_Access_logo_small.svg" style="height: 1em;" >-->
+          <i class="material-icons bd-icon" style="color: green">lock_open</i>
+        </a>
       </nav>
     </div>
   `,

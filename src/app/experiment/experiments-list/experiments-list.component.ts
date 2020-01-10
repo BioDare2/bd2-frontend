@@ -26,7 +26,8 @@ import {ExperimentSummary} from '../../dom/repo/exp/experiment-summary';
       <div class="list-group">
         <a *ngFor="let exp of experiments" [routerLink]="['/experiment',exp.id]" class="list-group-item list-group-item-action">
           <h5 class="list-group-item-heading">
-            <img *ngIf="exp.features.isOpenAccess" src="assets/Open_Access_logo_small.svg" style="height: 1.5em;">
+            <i *ngIf="exp.features.isOpenAccess" class="material-icons bd-icon" style="color: green">lock_open</i>
+            <!-- <img *ngIf="exp.features.isOpenAccess" src="assets/Open_Access_logo_small.svg" style="height: 1.5em;"> -->
             {{exp.name}}</h5>
           <p class="list-group-item-text">{{exp.generalDesc.purpose}}</p>
         </a>
