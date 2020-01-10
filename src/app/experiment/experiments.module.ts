@@ -7,6 +7,7 @@ import {FormsModule} from '@angular/forms';
 import {ButtonsModule} from 'ngx-bootstrap/buttons';
 import {ExperimentAssayCreateFormComponent} from './experiment-assay-create-form/experiment-assay-create-form.component';
 import {RepoComponentsModule} from '../repo/components/repo-comp.module';
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 
 @NgModule({
   declarations: [ExperimentsListComponent, ExperimentAssayCreateFormComponent],
@@ -14,6 +15,7 @@ import {RepoComponentsModule} from '../repo/components/repo-comp.module';
     CommonModule,
     FormsModule,
     ButtonsModule,
+    MatSlideToggleModule,
     // RouterModule,
     RepoComponentsModule,
     ExperimentsRoutingModule

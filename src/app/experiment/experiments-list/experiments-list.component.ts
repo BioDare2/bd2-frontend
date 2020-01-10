@@ -7,21 +7,17 @@ import {ExperimentSummary} from '../../dom/repo/exp/experiment-summary';
 @Component({
   template: `
     <div>
-      <h2>Experiments
-        <a (click)="refresh()" role="button" style="margin-left: 0.5em;">
-          <span class="glyphicon glyphicon-repeat" aria-hidden="true">
-            <i class="material-icons bd-icon bd-primary">refresh</i>
-          </span></a>
-
-        <div class="float-right">
-          <small>Public</small>
-          <div class="btn-group">
-            <label class="btn btn-primary btn-sm" [(ngModel)]="showPublic" [btnRadio]="false">Off</label>
-            <label class="btn btn-primary btn-sm" [(ngModel)]="showPublic" [btnRadio]="true">On</label>
-          </div>
-        </div>
-
+      <h2 class="float-left">Experiments
+        <a (click)="refresh()" role="button" aria-label="refresh">
+            <i class="material-icons bd-icon-inh bd-primary" style="font-size: larger;">refresh</i>
+            <!--<span class="glyphicon glyphicon-repeat" aria-hidden="true"></span>-->
+        </a>
       </h2>
+      <div class="float-right">
+        <mat-slide-toggle [(ngModel)]="showPublic">Show public</mat-slide-toggle>
+      </div>
+
+      <div class="clearfix"></div>
 
       <div *ngIf="!experiments || experiments.length < 1" class="alert alert-info">
         There are no experiments visible to you.

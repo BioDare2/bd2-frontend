@@ -227,6 +227,11 @@ a {
   vertical-align: middle;
 }
 
+.bd-icon-inh {
+  font-size: inherit;
+  vertical-align: middle;
+}
+
 .bd-primary {
   color: #337ab7;
 }
