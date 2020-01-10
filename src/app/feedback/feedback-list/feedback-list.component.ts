@@ -3,6 +3,7 @@ import {FeedbackMessage, FeedbackMessageType} from '../feedback.dom';
 import {Subscription} from 'rxjs';
 import {FeedbackService} from '../feedback.service';
 import {removeItemFromArr} from '../../shared/collections-util';
+import {MatSnackBar} from '@angular/material';
 
 @Component({
   selector: 'bd2-feedback-list',
@@ -31,7 +32,8 @@ export class FeedbackListComponent implements OnInit, OnDestroy {
 
   private subscription: Subscription;
 
-  constructor(private feedbacks: FeedbackService, private changeDetector: ChangeDetectorRef) {
+  constructor(private feedbacks: FeedbackService, private changeDetector: ChangeDetectorRef,
+              private snackBar: MatSnackBar) {
   }
 
   ngOnInit(): void {
@@ -65,6 +67,9 @@ export class FeedbackListComponent implements OnInit, OnDestroy {
       if (delay > 0) {
         setTimeout(() => this.close(message), delay);
       }
+
+      this.snackBar.open(message.message + message.message +message.message , '',
+        {announcementMessage: 'Error', duration: 100*1000, panelClass: 'info'});
 
     }
   }

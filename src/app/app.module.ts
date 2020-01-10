@@ -10,7 +10,7 @@ import {BioDareEndPoints, bioDareRestConfigurator} from './backend/biodare-rest.
 import {environment} from '../environments/environment';
 import {HttpClientModule} from '@angular/common/http';
 import {FeedbackModule} from './feedback/feedback.module';
-
+import {MatSidenavModule} from '@angular/material/sidenav';
 const endPoints: BioDareEndPoints = bioDareRestConfigurator(environment);
 
 @NgModule({
@@ -22,6 +22,7 @@ const endPoints: BioDareEndPoints = bioDareRestConfigurator(environment);
     HttpClientModule,
     BrowserAnimationsModule,
     BootstrapRootModule,
+    MatSidenavModule,
     PageModule,
     FeedbackModule,
     AppRoutingModule

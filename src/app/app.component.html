@@ -5,27 +5,31 @@
 
 
 <div class="container-xl central-area">
-
-  <div class="row">
-
-    <div class="col-md-3 order-md-9 feedbacks">
+  <mat-sidenav-container>
+    <mat-sidenav #statusDrawer position="end" mode="side">
+      <h4>Messages</h4>
       <bd2-feedback-list errorDelay="45"></bd2-feedback-list>
-    </div>
+    </mat-sidenav>
 
-    <div class="col-md-9 main-area">
-      <div class="row">
-
-        <div class="col-sm-1 sidebar">
-        </div>
-
-        <div class="col-sm-11 workspace">
-          <router-outlet></router-outlet>
-        </div>
-
+    <mat-sidenav-content>
+      <div class="float-right">
+        <a role="button" (click)="statusDrawer.toggle()" aria-label="show messges">
+          <i class="material-icons bd-icon" style="font-size: 300%;">comment</i>
+        </a>
       </div>
-    </div>
-  </div>
 
+        <div class="row">
+
+              <div class="col-sm-1 sidebar">
+              </div>
+
+              <div class="col-sm-11 workspace">
+                    <router-outlet></router-outlet>
+              </div>
+
+        </div>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
 </div> <!-- /container -->
 
 <div class="container popup-area">
