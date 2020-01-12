@@ -5,15 +5,17 @@ import {AlertModule} from 'ngx-bootstrap/alert';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import { FlashMessagesComponent } from './flash-messages/flash-messages.component';
 import { FeedbackPanelComponent } from './feedback-panel/feedback-panel.component';
+import {MatCardModule} from '@angular/material';
 
 @NgModule({
   declarations: [FeedbackListComponent, FlashMessagesComponent, FeedbackPanelComponent],
   imports: [
     CommonModule,
     AlertModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatCardModule,
   ],
-  exports: [FeedbackListComponent, FlashMessagesComponent],
+  exports: [FlashMessagesComponent, FeedbackPanelComponent],
   providers: [  ]
 })
 export class FeedbackModule {

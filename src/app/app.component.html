@@ -6,14 +6,13 @@
 
 <div class="container-xl central-area">
   <mat-sidenav-container>
-    <mat-sidenav #statusDrawer position="end" mode="side" opened>
-      <h4>Messages</h4>
-      <bd2-feedback-list errorDelay="45"></bd2-feedback-list>
+    <mat-sidenav #statusDrawer position="end" mode="side">
+      <bd2-feedback-panel></bd2-feedback-panel>
     </mat-sidenav>
 
     <mat-sidenav-content>
       <div class="float-right">
-        <a role="button" (click)="statusDrawer.toggle()" aria-label="show messges">
+        <a role="button" (click)="statusDrawer.toggle()" aria-label="show messages">
           <i class="material-icons bd-icon" style="font-size: 300%;">comment</i>
         </a>
       </div>

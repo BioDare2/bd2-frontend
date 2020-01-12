@@ -9,12 +9,17 @@ import {removeItemFromArr} from '../../shared/collections-util';
   changeDetection: ChangeDetectionStrategy.OnPush, // manually handling to improve performance
   template: `
     <div class="bd2-feedback-list">
-      <alert *ngFor="let message of messages; let i = index"
-             [type]="message.alertType"
-             dismissible="true"
-             (close)="close(message)">
+      <mat-card *ngFor="let message of messages; let i = index"
+         class="mat-elevation-z4 mb-2 word_wrapping"
+            [class.success]="message.isSuccess()"
+            [class.error]="message.isError()"
+            [class.info]="message.isInfo()"
+      >
+        <button (click)="close(message)" class="float-right close" aria-label="Close">
+          <span aria-hidden="true">×</span><span class="sr-only">Close</span>
+        </button>
         {{ message?.message }}
-      </alert>
+      </mat-card>
     </div>
   `,
   styles: []
@@ -24,10 +29,10 @@ export class FeedbackListComponent implements OnInit, OnDestroy {
   messages: FeedbackMessage[] = [];
 
   @Input()
-  infoDelay = 10;
+  infoDelay = 30;
 
   @Input()
-  errorDelay = 0;
+  errorDelay = 120;
 
   private subscription: Subscription;
 
