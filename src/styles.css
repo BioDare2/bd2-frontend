@@ -259,3 +259,8 @@ mat-card.info, mat-card.success {
   color: #155724;
   background-color: #d4edda;;
 }
+
+snack-bar-container.mat-snack-bar-top {
+  margin-top: 70px; /* Cause of the nav bar */
+}
+

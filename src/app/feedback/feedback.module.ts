@@ -11,7 +11,6 @@ import {MatCardModule} from '@angular/material';
   declarations: [FeedbackListComponent, FlashMessagesComponent, FeedbackPanelComponent],
   imports: [
     CommonModule,
-    AlertModule,
     MatSnackBarModule,
     MatCardModule,
   ],

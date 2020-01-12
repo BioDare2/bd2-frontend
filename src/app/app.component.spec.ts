@@ -7,12 +7,14 @@ import {AnalyticsService} from './analytics/analytics.service';
 import {BioDareRestService} from './backend/biodare-rest.service';
 import {fakeAnalyticsService} from './analytics/analytics_test_tool.spec';
 import {fakeBioDareRestService} from './backend/biodare-rest_test_tool.spec';
+import {MatSidenavModule} from '@angular/material/sidenav';
 
 describe('AppComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
         RouterTestingModule,
+        MatSidenavModule,
         FeedbackModule,
         PageModule
       ],

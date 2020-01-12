@@ -55,7 +55,7 @@ export class FeedbackListComponent implements OnInit, OnDestroy {
 
   addMessage(message: FeedbackMessage) {
     if (message && message.message) {
-      this.messages.push(message);
+      this.messages.unshift(message);
       this.changeDetector.markForCheck(); // manually handling to improve performance
       let delay = 0;
       if (message.type === FeedbackMessageType.INFO || message.type === FeedbackMessageType.SUCCESS) {

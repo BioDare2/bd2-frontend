@@ -6,18 +6,23 @@
 
 <div class="container-xl central-area">
   <mat-sidenav-container>
-    <mat-sidenav #statusDrawer position="end" mode="side">
+    <mat-sidenav #statusDrawer position="end" mode="side" >
+      <div >
+        <a role="button" (click)="statusDrawer.toggle()" aria-label="show messages">
+          <i class="material-icons bd-icon" style="font-size: 300%;">chat</i>
+        </a>
+      </div>
       <bd2-feedback-panel></bd2-feedback-panel>
     </mat-sidenav>
 
     <mat-sidenav-content>
       <div class="float-right">
-        <a role="button" (click)="statusDrawer.toggle()" aria-label="show messages">
+        <a role="button" (click)="statusDrawer.toggle()" aria-label="show messages" [hidden]="statusDrawer.opened">
           <i class="material-icons bd-icon" style="font-size: 300%;">comment</i>
         </a>
       </div>
 
-        <div class="row">
+        <div class="row mr-1">
 
               <div class="col-sm-1 sidebar">
               </div>

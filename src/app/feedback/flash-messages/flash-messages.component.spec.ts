@@ -1,5 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
+import {MatSnackBarModule} from '@angular/material/snack-bar';
 import { FlashMessagesComponent } from './flash-messages.component';
 
 describe('FlashMessagesComponent', () => {
@@ -8,7 +8,8 @@ describe('FlashMessagesComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ FlashMessagesComponent ]
+      declarations: [ FlashMessagesComponent ],
+      imports: [MatSnackBarModule]
     })
     .compileComponents();
   }));

@@ -8,6 +8,7 @@ import {UserService} from '../../auth/user.service';
 import {fakeUserService} from '../../auth/auth_test_tool.spec';
 import {BioDareRestService} from '../../backend/biodare-rest.service';
 import {fakeBioDareRestService} from '../../backend/biodare-rest_test_tool.spec';
+import {MatSlideToggleModule} from '@angular/material';
 
 describe('ExperimentsListComponent', () => {
   let component: ExperimentsListComponent;
@@ -16,7 +17,7 @@ describe('ExperimentsListComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ExperimentsListComponent],
-      imports: [FormsModule, ButtonsModule, RouterTestingModule],
+      imports: [FormsModule, ButtonsModule, RouterTestingModule, MatSlideToggleModule],
       providers: [
         {provide: UserService, useValue: fakeUserService()},
         {provide: BioDareRestService, useValue: fakeBioDareRestService()}
