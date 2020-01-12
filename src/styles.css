@@ -239,3 +239,13 @@ a {
 label.btn {
   margin-right: 0px;
 }
+
+snack-bar-container.flash-error {
+  color: #721c24;
+  background-color: #f8d7da;
+}
+
+snack-bar-container.flash-info {
+  color: #155724;
+  background-color: #d4edda;;
+}

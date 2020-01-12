@@ -6,7 +6,7 @@
 
 <div class="container-xl central-area">
   <mat-sidenav-container>
-    <mat-sidenav #statusDrawer position="end" mode="side">
+    <mat-sidenav #statusDrawer position="end" mode="side" opened>
       <h4>Messages</h4>
       <bd2-feedback-list errorDelay="45"></bd2-feedback-list>
     </mat-sidenav>
@@ -32,19 +32,10 @@
   </mat-sidenav-container>
 </div> <!-- /container -->
 
-<div class="container popup-area">
-  <div class="row">
-    <div class="col-xs-8 col-sm-6 col-md-3 col-md-offset-8 col-sm-offset-6 col-xs-offset-4 popup-feedbacks" style="
-    word-wrap: break-word;
-    max-width: 250px;
-    position: fixed;
-    bottom: 50px;
-    z-index: 1030;
-    ">
-      <bd2-feedback-list errorDelay="8" infoDelay="5"></bd2-feedback-list>
-    </div>
-  </div>
-</div>
+<!-- for snack-bar messages -->
+<bd2-flash-messages></bd2-flash-messages>
+
+
 
 
 <div class="container-xl">
