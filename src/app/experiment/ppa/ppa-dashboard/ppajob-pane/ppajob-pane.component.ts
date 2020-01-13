@@ -225,6 +225,15 @@ export class PPAJobPaneComponent implements OnInit, OnChanges, OnDestroy {
     const exp = this.assay;
     const job = this.job;
 
+    this.dialogs.confirm('Do you want to delete analysis: ' + job.jobId,
+        job.summary
+      ).subscribe(ans => {
+        if (ans) {
+          this.doDelete(exp, job.jobId);
+        }
+    });
+
+    /*
     if (this.confirmDialog) {
       this.confirmDialog.ask('Do you want to delete analysis: ' + job.jobId,
         job.summary
@@ -236,7 +245,7 @@ export class PPAJobPaneComponent implements OnInit, OnChanges, OnDestroy {
     } else {
       console.log('Confirmation dialog missing on job pane');
       this.doDelete(exp, job.jobId);
-    }
+    } */
   }
 
   doDelete(exp: ExperimentalAssayView, jobId: number) {

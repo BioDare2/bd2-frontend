@@ -12,6 +12,7 @@ import {HttpClientModule} from '@angular/common/http';
 import {FeedbackModule} from './feedback/feedback.module';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {StaticContentModule} from './documents/static-content/static-content.module';
+import {SharedDialogsModule} from './shared/shared-dialogs/shared-dialogs.module';
 const endPoints: BioDareEndPoints = bioDareRestConfigurator(environment);
 
 @NgModule({
@@ -24,6 +25,7 @@ const endPoints: BioDareEndPoints = bioDareRestConfigurator(environment);
     BrowserAnimationsModule,
     BootstrapRootModule,
     MatSidenavModule,
+    SharedDialogsModule,
     StaticContentModule,
     PageModule,
     FeedbackModule,
