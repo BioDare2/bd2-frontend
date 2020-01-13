@@ -2,7 +2,7 @@ import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
 import {RhythmicityJobPaneComponent} from './rhythmicity-job-pane.component';
 import {ExperimentsTestToolModule} from '../../../experiment_test_tool.spec';
-import {StaticContentTestModule} from '../../../../documents/static-content_test_tool.spec';
+import {StaticContentTestModule} from '../../../../documents/static-content/static-content_test_tool.spec';
 import {PValueFormComponent} from './pvalue-form/pvalue-form.component';
 import {RhythmicityResultsMDTableComponent} from './rhythmicity-results-mdtable/rhythmicity-results-mdtable.component';
 import {MaterialsModule} from '../../../../shared/materials.module';

@@ -6,6 +6,7 @@ import {UserService} from '../../auth/user.service';
 import {FeedbackService} from '../../feedback/feedback.service';
 import {isValidEmail, isWeakPassword} from '../user.util';
 import {debounceTime, distinctUntilChanged} from 'rxjs/operators';
+import {StaticContentDialogService} from '../../documents/static-content/static-content-dialog.service';
 
 @Component({
   templateUrl: './registration-rform.component.html',
@@ -35,7 +36,8 @@ export class RegistrationRFormComponent implements OnInit {
 
   constructor(private userService: UserService,
               private feedback: FeedbackService,
-              private fb: FormBuilder) {
+              private fb: FormBuilder,
+              public helpDialog: StaticContentDialogService) {
 
     this.captchaSiteKey = environment.captchaSiteKey;
   }

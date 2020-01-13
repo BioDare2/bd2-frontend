@@ -5,8 +5,8 @@ import {ReactiveFormsModule} from '@angular/forms';
 import {fakeUserService} from '../../auth/auth_test_tool.spec';
 import {ReCaptchaModule} from '../../recaptcha/recaptcha.module';
 import {UserService} from '../../auth/user.service';
-import {StaticContentModule} from '../../documents/static-content.module';
-import {StaticContentService} from '../../documents/static-content.service';
+import {StaticContentModule} from '../../documents/static-content/static-content.module';
+import {StaticContentService} from '../../documents/static-content/static-content.service';
 import {ModalModule} from 'ngx-bootstrap/modal';
 
 describe('RegistrationRFormComponent', () => {

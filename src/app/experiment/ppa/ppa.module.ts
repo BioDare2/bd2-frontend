@@ -5,7 +5,7 @@ import {PPARoutingModule} from './ppa-routing.module';
 import {PPAStartFormComponent} from './ppa-start-form/ppa-start-form.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {PPAJobParamsRFormComponent} from './ppa-start-form/ppajob-params-rform/ppajob-params-rform.component';
-import {StaticContentModule} from '../../documents/static-content.module';
+import {StaticContentModule} from '../../documents/static-content/static-content.module';
 import {TSPlotModule} from '../../tsdata/plots/ts-plot.module';
 import {PPADashboardComponent} from './ppa-dashboard/ppa-dashboard.component';
 import {SelectableFitDialogComponent} from './ppa-fit/selectable-fit-dialog.component';

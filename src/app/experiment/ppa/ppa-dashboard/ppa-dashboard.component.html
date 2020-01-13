@@ -35,7 +35,6 @@
 
   <hr>
 
-  <bd2-static-pop-up #help></bd2-static-pop-up>
 
   <div>
     <h4>Options explained</h4>
@@ -44,7 +43,7 @@
       <!--<div class="form-group">-->
         <label class="col-sm-3 offset-sm-1">
           Phase type
-          <a (click)="help.show('phases')">
+          <a (click)="helpDialog.show('phases')">
             <i class="material-icons bd-icon bd-primary">help</i>
           </a>
         </label>
@@ -61,7 +60,7 @@
       <!-- </div> -->
 
         <label class="col-sm-3 offset-sm-1">Phase relation
-          <a (click)="help.show('phases')">
+          <a (click)="helpDialog.show('phases')">
             <i class="material-icons bd-icon bd-primary">help</i>
           </a>
         </label>
@@ -73,7 +72,7 @@
         </div>-->
 
         <label class="col-sm-3 offset-sm-1">Phase unit <a
-          (click)="help.show('phases')">
+          (click)="helpDialog.show('phases')">
           <i class="material-icons bd-icon bd-primary">help</i>
         </a></label>
         <!--<div class="btn-group col-sm-7">

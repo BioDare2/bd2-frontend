@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {HttpClient, HttpErrorResponse, HttpHeaders} from '@angular/common/http';
 import {Observable, throwError} from 'rxjs';
 import {catchError, map} from 'rxjs/operators';
-import {BioDareRestService} from '../backend/biodare-rest.service';
+import {BioDareRestService} from '../../backend/biodare-rest.service';
 
 @Injectable({
   providedIn: 'root'

@@ -8,6 +8,7 @@ import {PPAJobSummary} from '../ppa-dom';
 import {PPAService} from '../ppa.service';
 import {ExperimentComponentsDependencies} from '../../experiment-components.dependencies';
 import {ExperimentalAssayView} from '../../../dom/repo/exp/experimental-assay-view';
+import {StaticContentDialogService} from '../../../documents/static-content/static-content-dialog.service';
 
 @Component({
   templateUrl: './ppa-dashboard.component.html',
@@ -54,7 +55,8 @@ export class PPADashboardComponent extends PPABaseComponent {
 
 
   constructor(ppaService: PPAService,
-              serviceDependencies: ExperimentComponentsDependencies) {
+              serviceDependencies: ExperimentComponentsDependencies,
+              public helpDialog: StaticContentDialogService) {
     super(ppaService, serviceDependencies);
 
     this.phaseType = 'ByFit';

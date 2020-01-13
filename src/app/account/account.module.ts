@@ -9,7 +9,7 @@ import {PasswordResetComponent} from './password-reset/password-reset.component'
 import {AccountActivationComponent} from './account-activation/account-activation.component';
 import {RegistrationRFormComponent} from './registration-rform/registration-rform.component';
 import {AccountEditFormComponent} from './account-edit-form/account-edit-form.component';
-import {StaticContentModule} from '../documents/static-content.module';
+import {StaticContentModule} from '../documents/static-content/static-content.module';
 
 @NgModule({
   declarations: [ResetRequestComponent, PasswordResetComponent, AccountActivationComponent,

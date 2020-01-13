@@ -1,8 +1,8 @@
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
 import {DocumentsComponent} from './documents.component';
-import {StaticContentComponent} from '../static-content/static-content.component';
-import {StaticContentService} from '../static-content.service';
+import {StaticContentComponent} from '../static-content/static-content/static-content.component';
+import {StaticContentService} from '../static-content/static-content.service';
 import {RouterTestingModule} from '@angular/router/testing';
 
 describe('DocumentsComponent', () => {

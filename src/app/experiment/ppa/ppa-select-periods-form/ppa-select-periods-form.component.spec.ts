@@ -1,7 +1,7 @@
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 import {ExperimentsTestToolModule} from '../../experiment_test_tool.spec';
 import {TSPlotModule} from '../../../tsdata/plots/ts-plot.module';
-import {StaticContentTestModule} from '../../../documents/static-content_test_tool.spec';
+import {StaticContentTestModule} from '../../../documents/static-content/static-content_test_tool.spec';
 import {PPASelectPeriodsFormComponent} from './ppa-select-periods-form.component';
 import {SelectableFitDialogComponent} from '../ppa-fit/selectable-fit-dialog.component';
 import {RouterTestingModule} from '@angular/router/testing';
