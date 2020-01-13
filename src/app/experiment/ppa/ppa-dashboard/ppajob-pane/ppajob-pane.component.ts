@@ -1,8 +1,7 @@
-import {Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges, ViewChild} from '@angular/core';
+import {Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges, TemplateRef, ViewChild} from '@angular/core';
 import {ExperimentalAssayView} from '../../../../dom/repo/exp/experimental-assay-view';
 import {ConfirmDialogComponent} from '../../../../shared/confirm-dialog.component';
 import {SelectableFitDialogComponent} from '../../ppa-fit/selectable-fit-dialog.component';
-import {PPAJobExportDialogComponent} from './ppajob-export-dialog/ppajob-export-dialog.component';
 import {PPAJobSummary} from '../../ppa-dom';
 import {PhaseParams} from './phases-options-widget.component';
 import {PPAService} from '../../ppa.service';
@@ -10,6 +9,8 @@ import {FeedbackService} from '../../../../feedback/feedback.service';
 import * as FileSaver from 'file-saver';
 import {PPAJobFetcherService} from './services/ppajob-fetcher.service';
 import {Reloadable} from './reloadable';
+import {PPAJobExportDialog2Component} from '../../ppa-dialogs/ppajob-export-dialog2/ppajob-export-dialog2.component';
+import {PPADialogsService} from '../../ppa-dialogs/ppadialogs.service';
 
 @Component({
   selector: 'bd2-ppajob-pane',
@@ -62,8 +63,10 @@ export class PPAJobPaneComponent implements OnInit, OnChanges, OnDestroy {
   confirmDialog: ConfirmDialogComponent;
   @Input()
   fitDialog: SelectableFitDialogComponent;
-  @Input()
-  exportDialog: PPAJobExportDialogComponent;
+
+  // @Input()
+  // exportDialog: PPAJobExportDialogComponent;
+
   @Output()
   deleted = new EventEmitter<PPAJobSummary>();
   @Output()
@@ -79,7 +82,8 @@ export class PPAJobPaneComponent implements OnInit, OnChanges, OnDestroy {
 
   constructor(private ppaService: PPAService,
               private ppaJobFetcher: PPAJobFetcherService,
-              private feedback: FeedbackService) {
+              private feedback: FeedbackService,
+              private dialogs: PPADialogsService) {
 
     // console.log("JobPane created");
 
@@ -170,11 +174,25 @@ export class PPAJobPaneComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   export() {
-    if (!this.exportDialog) {
-      console.log('Missing export dialog');
-      return;
-    }
 
+    this.dialogs.exportJob(this.phaseParams.phaseType).subscribe(
+      resp => {
+        if (resp) {
+          // console.log("Exporting...");
+          this.ppaService.downloadPPAJob(this.assay.id, this.jobId, resp)
+            .then(blob => {
+              // console.log("ER", ans);
+              // let blob = new Blob([ans], {type: 'text/csv'});
+              // let blob = ans.blob();
+              // console.log("B", blob);
+              this.saveJobBlob(blob, this.assay.id, this.jobId);
+            });
+        } else {
+          // console.log("Cancelled");
+        }
+      }
+    );
+    /*
     this.exportDialog.show(this.phaseParams.phaseType)
       .then(resp => {
         if (resp) {
@@ -191,6 +209,8 @@ export class PPAJobPaneComponent implements OnInit, OnChanges, OnDestroy {
           // console.log("Cancelled");
         }
       });
+
+     */
   }
 
   saveJobBlob(blob: Blob, expId: number, jobId: number) {

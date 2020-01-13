@@ -24,8 +24,8 @@ export class PPADashboardComponent extends PPABaseComponent {
   @ViewChild(SelectableFitDialogComponent, { static: false })
   fitDialog: SelectableFitDialogComponent;
 
-  @ViewChild(PPAJobExportDialogComponent, { static: false })
-  exportDialog: PPAJobExportDialogComponent;
+  // @ViewChild(PPAJobExportDialogComponent, { static: false })
+  // exportDialog: PPAJobExportDialogComponent;
 
 
   @ViewChildren(PPAJobPaneComponent)

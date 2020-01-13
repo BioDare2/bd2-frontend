@@ -7,6 +7,9 @@ import {first} from 'rxjs/operators';
   selector: 'bd2-ppajob-export-dialog',
   template: `
 
+
+
+
     <div bsModal #exportDialog="bs-modal" (onHide)="hidden()" [config]="modalOptions"
          class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exportDialog" aria-hidden="true">
 

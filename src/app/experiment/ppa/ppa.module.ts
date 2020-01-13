@@ -9,7 +9,6 @@ import {StaticContentModule} from '../../documents/static-content/static-content
 import {TSPlotModule} from '../../tsdata/plots/ts-plot.module';
 import {PPADashboardComponent} from './ppa-dashboard/ppa-dashboard.component';
 import {SelectableFitDialogComponent} from './ppa-fit/selectable-fit-dialog.component';
-import {PPAJobExportDialogComponent} from './ppa-dashboard/ppajob-pane/ppajob-export-dialog/ppajob-export-dialog.component';
 import {PPAJobPaneComponent} from './ppa-dashboard/ppajob-pane/ppajob-pane.component';
 import {PhasesOptionsWidgetComponent} from './ppa-dashboard/ppajob-pane/phases-options-widget.component';
 import {BD2NgxHBoxplotModule} from 'bd2-ngx-hboxplot';
@@ -27,10 +26,12 @@ import {PPAPlotsComponent} from './ppa-dashboard/ppajob-pane/ppaplots/ppaplots.c
 import {PPAPhasePlotComponent} from './ppa-dashboard/ppajob-pane/ppaplots/ppaphase-plot/ppaphase-plot.component';
 import {PPAPeriodPlotComponent} from './ppa-dashboard/ppajob-pane/ppaplots/ppaperiod-plot/ppaperiod-plot.component';
 import {PPASortWidgetComponent} from './ppa-dashboard/ppajob-pane/ppaplots/ppasort-widget/ppasort-widget.component';
+import { PPAJobExportDialog2Component } from './ppa-dialogs/ppajob-export-dialog2/ppajob-export-dialog2.component';
+import {PPADialogsService} from './ppa-dialogs/ppadialogs.service';
 
 @NgModule({
   declarations: [PPAStartFormComponent, PPAJobParamsRFormComponent,
-    PPADashboardComponent, PPAJobExportDialogComponent, PPAJobPaneComponent,
+    PPADashboardComponent, PPAJobPaneComponent,
     PhasesOptionsWidgetComponent,
     SelectableFitDialogComponent,
     PPASelectPeriodsFormComponent,
@@ -39,7 +40,8 @@ import {PPASortWidgetComponent} from './ppa-dashboard/ppajob-pane/ppaplots/ppaso
     PPAPlotsComponent,
     PPAPhasePlotComponent,
     PPAPeriodPlotComponent,
-    PPASortWidgetComponent],
+    PPASortWidgetComponent,
+    PPAJobExportDialog2Component],
   imports: [
     CommonModule,
     FormsModule,
@@ -55,7 +57,9 @@ import {PPASortWidgetComponent} from './ppa-dashboard/ppajob-pane/ppaplots/ppaso
     SVGSaverModule,
     PPARoutingModule,
     MaterialsModule
-  ]
+  ],
+  entryComponents: [PPAJobExportDialog2Component],
+  providers: [PPADialogsService]
 })
 export class PPAModule {
 }
