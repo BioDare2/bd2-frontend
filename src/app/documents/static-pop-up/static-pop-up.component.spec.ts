@@ -4,7 +4,7 @@ import {StaticPopUpComponent} from './static-pop-up.component';
 import {StaticContentComponent} from '../static-content/static-content.component';
 import {StaticContentService} from '../static-content.service';
 import {CommonModule} from '@angular/common';
-import {AlertModule, ModalModule} from 'ngx-bootstrap';
+import {ModalModule} from 'ngx-bootstrap';
 
 
 describe('StaticPopUpComponent', () => {
@@ -20,7 +20,6 @@ describe('StaticPopUpComponent', () => {
       imports: [
         CommonModule,
         ModalModule.forRoot(),
-        AlertModule
       ],
       declarations: [StaticPopUpComponent, StaticContentComponent],
       providers: [

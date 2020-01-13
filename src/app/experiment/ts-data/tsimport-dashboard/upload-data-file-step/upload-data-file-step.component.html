@@ -13,7 +13,7 @@
       </mat-form-field>
 
    </div>
-    <alert *ngIf="importFormat.name == 'EXCEL_TABLE'" dismissible="true" style="font-size: smaller;" type="info">
+    <div *ngIf="importFormat.name == 'EXCEL_TABLE'" dismissible="true" style="font-size: smaller;" type="info" class="alert alert-info" role="alert">
       An Excel file in which one column contains time values while other columns contain measurements taken at the
       corresponding times.
       <ul>
@@ -37,8 +37,9 @@
           Values from one row can be used as data labels.
         </li>
       </ul>
-    </alert>
-    <alert *ngIf="importFormat.name == 'TAB_SEP' || importFormat.name == 'COMA_SEP'" dismissible="true" style="font-size: smaller;" type="info">
+    </div>
+    <div *ngIf="importFormat.name == 'TAB_SEP' || importFormat.name == 'COMA_SEP'" dismissible="true" style="font-size: smaller;" type="info"
+         class="alert alert-info" role="alert">
       A coma or tab separeted file in which one column or row contains time values while other columns or rows contain measurements taken at the
       corresponding times.
       <ul>
@@ -56,8 +57,9 @@
           Values from one row/column can be used as data labels.
         </li>
       </ul>
-    </alert>
-    <alert *ngIf="importFormat.name == 'TOPCOUNT'" dismissible="true" style="font-size: smaller;" type="info">
+    </div>
+    <div *ngIf="importFormat.name == 'TOPCOUNT'" dismissible="true" style="font-size: smaller;" type="info"
+         class="alert alert-info" role="alert">
       Topcount data can be uploaded in two forms:
       <ul>
         <li>Individual file which contains concatenated topcount data blocks in one file</li>
@@ -65,10 +67,10 @@
       </ul>
       Check the Dosc section for details about suported data layouts inside tomcats file, we can currently read
       ASCI content with "plate map" or "column" layouts.
-    </alert>
-    <alert *ngIf="formatWarning" type="danger">
+    </div>
+    <div *ngIf="formatWarning" type="danger" class="alert alert-danger" role="alert">
       {{formatWarning}}
-    </alert>
+    </div>
     <div class="form-group">
       <bd2-file-upload-widget #uploadWidget
                               (selectedFiles)="checkFormat($event)"

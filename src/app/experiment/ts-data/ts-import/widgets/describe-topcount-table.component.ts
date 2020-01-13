@@ -36,7 +36,7 @@ import {ColorCycler} from './color-cycler';
 
         <h4>Current Topcount import parameters </h4>
 
-        <alert *ngIf="!hasData()" type="danger">
+        <div *ngIf="!hasData()" type="danger" class="alert alert-danger" role="alert">
           <strong>Missing data labels. Please use one of the methods:</strong>
           <ul>
             <li>Click and draw over the headers of columns to select the range and
@@ -44,7 +44,7 @@ import {ColorCycler} from './color-cycler';
             </li>
             <li>Use the form below to manually provide the column range and the data label.</li>
           </ul>
-        </alert>
+        </div>
 
         <div *ngIf="timeColumnDescription">
           <div class="form-group">

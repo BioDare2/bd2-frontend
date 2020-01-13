@@ -9,19 +9,19 @@ import {ExperimentComponentsDependencies} from '../../experiment-components.depe
       <h3>Publish experiment</h3>
 
       <div *ngIf="assay.features.isOpenAccess">
-        <alert type="info">
+        <div type="info" class="alert alert-info" role="alert">
           Experiment is already publicly available under <strong>{{assay.features.licence}}</strong> licence.
-        </alert>
+        </div>
       </div>
       <div *ngIf="!assay.features.isOpenAccess">
-        <alert type="danger">
+        <div type="danger" class="alert alert-danger" role="alert">
           You are about to make the data public. Once they are public they cannot be made private again.
           <ul>
             <li>make sure you know what you are doing</li>
             <li>make sure all contributors agree to public sharing</li>
             <li>double check the description is correct, not all changes will be possible after the publishing</li>
           </ul>
-        </alert>
+        </div>
 
         <form #publishForm="ngForm">
 

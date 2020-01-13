@@ -5,15 +5,15 @@
       <p>Labels in {{importDetails.inLabelNeg}}
         <strong>{{importDetails.inRows ? labelsSelection.colName : labelsSelection.rowName}};</strong>
       </p>
-      <alert *ngIf="!importDetails.areLabelsAfterTime()" type="danger">
+      <div *ngIf="!importDetails.areLabelsAfterTime()" type="danger" class="alert alert-danger" role="alert">
         Labels {{importDetails.inLabelNeg}} must be before first time point.
-      </alert>
+      </div>
     </div>
 
     <div>
-      <alert [type]="labelsSelection ? 'info': 'danger'">
+      <div [class]="labelsSelection ? 'alert alert-info': 'alert alert-danger'" role="alert">
         Click on the {{importDetails.inLabelNeg}} containing labels.
-      </alert>
+      </div>
     </div>
 
     <bd2-data-sheet-mdtable (selected)="selectLabels($event)"
@@ -23,10 +23,10 @@
 
     <div>
       &nbsp;
-      <alert *ngIf="hasMoreLabels()" type="info" class="small">
+      <div *ngIf="hasMoreLabels()" type="info" class="alert alert-info small" role="alert">
         Even if only the top part of the data table is presented all labels from the selected {{importDetails.inLabelNeg}}
         will be imported
-      </alert>
+      </div>
     </div>
   </mat-card-content>
 </mat-card>

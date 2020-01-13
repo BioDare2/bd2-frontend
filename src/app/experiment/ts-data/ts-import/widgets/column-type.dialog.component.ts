@@ -118,7 +118,7 @@ import {NgForm} from '@angular/forms';
                 </div>
 
                 <div *ngIf="errors">
-                  <alert *ngFor="let err of errors" dismissOnTimeout="3000" dismissible="true">{{err}}</alert>
+                  <div *ngFor="let err of errors" dismissOnTimeout="3000" dismissible="true" class="alert alert-danger" role="alert">{{err}}</div>
                 </div>
                 <button class="btn btn-primary btn-sm" [disabled]="!columnTypeForm.form.valid"
                         (click)="acceptedAndNext()">OK and Next

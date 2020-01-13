@@ -5,15 +5,15 @@
       <p>Data starts in {{importDetails.inLabel}}
         <strong>{{importDetails.inRows ? dataStart.rowName : dataStart.colName}};</strong>
       </p>
-      <alert *ngIf="!importDetails.isDataAfterTime()" type="danger">
+      <div *ngIf="!importDetails.isDataAfterTime()" type="danger" class="alert alert-danger" role="alert">
         Data start {{importDetails.inLabel}} must be after time {{importDetails.inLabel}}.
-      </alert>
+      </div>
     </div>
 
     <div>
-      <alert [type]="dataStart ? 'info': 'danger'">
+      <div [class]="dataStart ? 'alert alert-info': 'alert alert-danger'">
         Click on the first data {{importDetails.inLabel}}.
-      </alert>
+      </div>
     </div>
 
     <bd2-data-sheet-mdtable (selected)="selectDataStart($event)"

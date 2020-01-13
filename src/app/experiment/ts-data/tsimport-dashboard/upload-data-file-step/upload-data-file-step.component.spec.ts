@@ -2,7 +2,6 @@ import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
 import {UploadDataFileStepComponent} from './upload-data-file-step.component';
 import {MaterialsModule} from '../../../../shared/materials.module';
-import {AlertModule} from 'ngx-bootstrap';
 import {FileAssetModule} from '../../../../file-asset/file-asset.module';
 import {NoopAnimationsModule} from '@angular/platform-browser/animations';
 
@@ -13,7 +12,7 @@ describe('UploadDataFileStepComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ UploadDataFileStepComponent ],
-      imports: [MaterialsModule, AlertModule.forRoot(), FileAssetModule, NoopAnimationsModule]
+      imports: [MaterialsModule, FileAssetModule, NoopAnimationsModule]
     })
     .compileComponents();
   }));

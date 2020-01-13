@@ -7,7 +7,6 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {PPAJobParamsRFormComponent} from './ppa-start-form/ppajob-params-rform/ppajob-params-rform.component';
 import {StaticContentModule} from '../../documents/static-content.module';
 import {TSPlotModule} from '../../tsdata/plots/ts-plot.module';
-import {AlertModule} from 'ngx-bootstrap/alert';
 import {PPADashboardComponent} from './ppa-dashboard/ppa-dashboard.component';
 import {SelectableFitDialogComponent} from './ppa-fit/selectable-fit-dialog.component';
 import {PPAJobExportDialogComponent} from './ppa-dashboard/ppajob-pane/ppajob-export-dialog/ppajob-export-dialog.component';
@@ -45,7 +44,6 @@ import {PPASortWidgetComponent} from './ppa-dashboard/ppajob-pane/ppaplots/ppaso
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    AlertModule,
     ButtonsModule,
     ModalModule,
     StaticContentModule,

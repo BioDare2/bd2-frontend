@@ -2,7 +2,6 @@ import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
 import {SelectBackgroundsLabelsStepComponent} from './select-backgrounds-labels-step.component';
 import {MaterialsModule} from '../../../../shared/materials.module';
-import {AlertModule} from 'ngx-bootstrap';
 import {NoopAnimationsModule} from '@angular/platform-browser/animations';
 import {ReactiveFormsModule} from '@angular/forms';
 import {TSFileService} from '../ts-file.service';
@@ -19,7 +18,7 @@ describe('SelectBackgroundsLabelsStepComponent', () => {
 
     TestBed.configureTestingModule({
       declarations: [ SelectBackgroundsLabelsStepComponent ],
-      imports: [MaterialsModule, AlertModule.forRoot(), NoopAnimationsModule, ReactiveFormsModule],
+      imports: [MaterialsModule, NoopAnimationsModule, ReactiveFormsModule],
       providers: [{provide: TSFileService, useValue: tsFileService}]
     })
     .compileComponents();

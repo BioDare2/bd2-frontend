@@ -2,7 +2,6 @@ import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
 import {TSImportDashboardComponent} from './tsimport-dashboard.component';
 import {MaterialsModule} from '../../../shared/materials.module';
-import {AlertModule} from 'ngx-bootstrap';
 import {FileAssetModule} from '../../../file-asset/file-asset.module';
 import {NoopAnimationsModule} from '@angular/platform-browser/animations';
 import {UploadDataFileStepComponent} from './upload-data-file-step/upload-data-file-step.component';
@@ -29,7 +28,7 @@ describe('TSImportDashboardComponent', () => {
       declarations: [ TSImportDashboardComponent, ImportStepsComponent, UploadDataFileStepComponent, ImportDetailsSummaryComponent,
       DefineTimeStepComponent, ImportLabelsStepComponent, DataSheetMDTableComponent, SelectDataStartStepComponent,
       AssignLabelsStepComponent, SelectableRegionMDTableComponent, SelectBackgroundsLabelsStepComponent],
-      imports: [MaterialsModule, AlertModule.forRoot(), FileAssetModule, NoopAnimationsModule,
+      imports: [MaterialsModule, FileAssetModule, NoopAnimationsModule,
         ExperimentsTestToolModule],
     })
     .compileComponents();

@@ -15,9 +15,9 @@
                   [tracesPerPlot]="tracesPerPlot"
     ></bd2-ts-plots>
   </div>
-  <alert *ngIf="disabled" type="danger">
+  <div *ngIf="disabled" type="danger" class="alert alert-danger" role="alert">
     Please complete <a (click)="goToExpEdit(assay.id,'MeasurementSection')">Measurement details</a> before starting a
     new analysis
-  </alert>
+  </div>
 </div>
 

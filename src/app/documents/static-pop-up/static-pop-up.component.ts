@@ -18,7 +18,7 @@ import {isKnownStaticDoc, StaticDocsOptions} from '../known-docs';
           </div>
           <div class="modal-body">
 
-            <alert type="danger" *ngIf="missing">{{missing}}</alert>
+            <div class="alert alert-danger" role="alert" type="danger" *ngIf="missing">{{missing}}</div>
             <bd2-static-content *ngIf="!missing" [docName]="docName"></bd2-static-content>
 
             <hr>

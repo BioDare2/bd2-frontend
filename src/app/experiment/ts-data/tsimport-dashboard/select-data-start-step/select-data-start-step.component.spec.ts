@@ -3,7 +3,6 @@ import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 import {SelectDataStartStepComponent} from './select-data-start-step.component';
 import {DataSheetMDTableComponent} from '../data-sheet-mdtable/data-sheet-mdtable.component';
 import {MaterialsModule} from '../../../../shared/materials.module';
-import {AlertModule} from 'ngx-bootstrap';
 import {NoopAnimationsModule} from '@angular/platform-browser/animations';
 import {FormsModule} from '@angular/forms';
 import {TSFileService} from '../ts-file.service';
@@ -20,7 +19,7 @@ describe('SelectDataStartStepComponent', () => {
     ]);
     TestBed.configureTestingModule({
       declarations: [ SelectDataStartStepComponent, DataSheetMDTableComponent ],
-      imports: [MaterialsModule, AlertModule.forRoot(), NoopAnimationsModule, FormsModule],
+      imports: [MaterialsModule, NoopAnimationsModule, FormsModule],
       providers: [{provide: TSFileService, useValue: tsFileService}, DataTableService]
     })
     .compileComponents();

@@ -32,11 +32,11 @@ import {ConfirmDialogComponent} from '../../../../shared/confirm-dialog.componen
 
         <h4>Current import parameters </h4>
 
-        <alert *ngIf="!hasTime()" type="danger">
+        <div *ngIf="!hasTime()" type="danger" class="alert alert-danger" role="alert">
           <strong>Missing time column parameters.</strong><br>
           Click on the header of the time column and set the time import parameters in the popup dialog.
-        </alert>
-        <alert *ngIf="!hasData()" type="danger">
+        </div>
+        <div *ngIf="!hasData()" type="danger" class="alert alert-dager" role="alert">
           <strong>Missing data labels. Please use one of the methods:</strong>
           <ul>
             <li>Click and draw over the headers of columns to select the range and
@@ -45,7 +45,7 @@ import {ConfirmDialogComponent} from '../../../../shared/confirm-dialog.componen
             <li>Click the header of a row which contains entries which could be used as data labels.</li>
             <li>Use the form below to manually provide the column range and the data label.</li>
           </ul>
-        </alert>
+        </div>
 
         <div *ngIf="timeColumnDescription">
           <p>

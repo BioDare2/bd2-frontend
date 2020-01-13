@@ -1,8 +1,8 @@
 
 
-<alert type="info" [hidden]="importDetails?.userLabels?.length > 1">
+<div class="alert alert-info" role="alert" type="info" [hidden]="importDetails?.userLabels?.length > 1">
   Click and drag over {{importDetails?.inLabel}} headers to label the data.
-</alert>
+</div>
 
 <div [hidden]="importDetails?.inRows">
 <mat-paginator #colPaginator [length]="dataSlice?.totalColumns" [disabled]="importDetails?.inRows"
@@ -29,9 +29,9 @@
 >
 </mat-paginator>
 </div>
-<alert *ngIf="!hasSeenAll()" type="danger" style="margin-top: 1em;">
+<div *ngIf="!hasSeenAll()" type="danger" class="alert alert-danger mt-2" role="alert">
   You have not seen yet all the available {{importDetails?.inLabel}}s for labelling
-</alert>
+</div>
 <div style="margin-top: 1em;">
   <label>Selected labels: </label>{{labelsSummary}}
 </div>

@@ -5,7 +5,6 @@ import {TsDataRoutingModule} from './ts-data-routing.module';
 import {UploadDataFileComponent} from './upload-data-file/upload-data-file.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {FileAssetModule} from '../../file-asset/file-asset.module';
-import {AlertModule} from 'ngx-bootstrap/alert';
 import {DescribeTSTableComponent} from './ts-import/widgets/describe-ts-table.component';
 import {TSImportComponent} from './ts-import/ts-import.component';
 import {DescribeTopcountTableComponent} from './ts-import/widgets/describe-topcount-table.component';
@@ -56,7 +55,6 @@ import {SelectBackgroundsLabelsStepComponent} from './tsimport-dashboard/select-
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    AlertModule,
     ModalModule,
     SharedComponentsModule,
     FileAssetModule,

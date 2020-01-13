@@ -4,7 +4,6 @@ import {DocumentsComponent} from './documents.component';
 import {StaticContentComponent} from '../static-content/static-content.component';
 import {StaticContentService} from '../static-content.service';
 import {RouterTestingModule} from '@angular/router/testing';
-import {AlertModule} from 'ngx-bootstrap/alert';
 
 describe('DocumentsComponent', () => {
   let component: DocumentsComponent;
@@ -18,7 +17,6 @@ describe('DocumentsComponent', () => {
 
     TestBed.configureTestingModule({
       imports: [
-        AlertModule,
         RouterTestingModule.withRoutes([]),
       ],
       declarations: [DocumentsComponent, StaticContentComponent],

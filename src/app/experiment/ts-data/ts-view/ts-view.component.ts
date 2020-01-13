@@ -27,18 +27,18 @@ import {TimeSeriesMetrics} from '../../../tsdata/ts-data-dom';
       [currentPage]="currentPage"
     ></bd2-tsdisplay-params-rform>
 
-    <alert *ngIf="disabledSecondary" type="danger"
+    <div *ngIf="disabledSecondary" type="danger" class="alert alert-danger" role="alert"
     >Please complete <a (click)="goToExpEdit(assay.id,'MeasurementSection')">Measurement details</a> to get access to
       the secondary data
-    </alert>
+    </div>
 
     <hr>
-    <alert
-      type="info"
+    <div
+      type="info" class="alert alert-info" role="alert"
       dismissible="true" dismissOnTimeout="20000"
     >
       Hint: You can click on trace label box to remove it from the plot.
-    </alert>
+    </div>
 
     <div *ngIf="timeseries && exportURL">
       <h4>Export data

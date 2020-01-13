@@ -14,7 +14,6 @@ import {fakeAnalyticsService} from '../analytics/analytics_test_tool.spec';
 import {ModalModule} from 'ngx-bootstrap/modal';
 import {ExperimentComponentsDependencies} from './experiment-components.dependencies';
 import {CurrentExperimentService} from './current-experiment.service';
-import {AlertModule} from 'ngx-bootstrap/alert';
 import {CommonModule} from '@angular/common';
 
 
@@ -38,7 +37,7 @@ export function fakeExperimentService() {
   declarations: [],
   imports: [CommonModule,
     FormsModule, ReactiveFormsModule,
-    ButtonsModule.forRoot(), AlertModule.forRoot(),
+    ButtonsModule.forRoot(),
     RouterTestingModule, ModalModule.forRoot(),
     RepoComponentsModule, SharedComponentsModule
   ],
@@ -51,7 +50,7 @@ export function fakeExperimentService() {
   ],
   exports: [CommonModule,
     FormsModule, ReactiveFormsModule,
-    ButtonsModule, AlertModule,
+    ButtonsModule,
     RouterTestingModule,
     RepoComponentsModule, SharedComponentsModule
   ]
