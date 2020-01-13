@@ -1,6 +1,5 @@
 import {Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges, TemplateRef, ViewChild} from '@angular/core';
 import {ExperimentalAssayView} from '../../../../dom/repo/exp/experimental-assay-view';
-import {ConfirmDialogComponent} from '../../../../shared/confirm-dialog.component';
 import {SelectableFitDialogComponent} from '../../ppa-fit/selectable-fit-dialog.component';
 import {PPAJobSummary} from '../../ppa-dom';
 import {PhaseParams} from './phases-options-widget.component';
@@ -9,7 +8,6 @@ import {FeedbackService} from '../../../../feedback/feedback.service';
 import * as FileSaver from 'file-saver';
 import {PPAJobFetcherService} from './services/ppajob-fetcher.service';
 import {Reloadable} from './reloadable';
-import {PPAJobExportDialog2Component} from '../../ppa-dialogs/ppajob-export-dialog2/ppajob-export-dialog2.component';
 import {PPADialogsService} from '../../ppa-dialogs/ppadialogs.service';
 
 @Component({
@@ -59,8 +57,7 @@ export class PPAJobPaneComponent implements OnInit, OnChanges, OnDestroy {
   relativeTo = 'zero';
   @Input()
   phaseUnit = 'circ';*/
-  @Input()
-  confirmDialog: ConfirmDialogComponent;
+
   @Input()
   fitDialog: SelectableFitDialogComponent;
 

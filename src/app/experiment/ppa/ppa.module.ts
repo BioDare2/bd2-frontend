@@ -16,7 +16,6 @@ import {BD2NgxPolarplotModule} from 'bd2-ngx-polarplot';
 import {LegendModule} from '../../graphic/legend/legend.module';
 import {SVGSaverModule} from '../../graphic/svg-saver/svg-saver.module';
 import {ModalModule} from 'ngx-bootstrap/modal';
-import {SharedComponentsModule} from '../../shared/shared-components.module';
 import {ButtonsModule} from 'ngx-bootstrap/buttons';
 import {PPASelectPeriodsFormComponent} from './ppa-select-periods-form/ppa-select-periods-form.component';
 import {MaterialsModule} from '../../shared/materials.module';
@@ -49,7 +48,6 @@ import {PPADialogsService} from './ppa-dialogs/ppadialogs.service';
     ButtonsModule,
     ModalModule,
     StaticContentModule,
-    SharedComponentsModule,
     TSPlotModule,
     BD2NgxHBoxplotModule,
     BD2NgxPolarplotModule,

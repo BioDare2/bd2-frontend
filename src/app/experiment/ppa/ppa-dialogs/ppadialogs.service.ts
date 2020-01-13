@@ -12,7 +12,7 @@ export class PPADialogsService {
 
   exportJob(phaseType: string): Observable<string> {
 
-    const dialog = this.dialogs.open(PPAJobExportDialog2Component, {data: {phaseType}});
+    const dialog = this.dialogs.open(PPAJobExportDialog2Component, {data: {phaseType}, autoFocus: false});
 
     return dialog.afterClosed();
 

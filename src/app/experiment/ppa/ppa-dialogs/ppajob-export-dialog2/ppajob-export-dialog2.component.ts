@@ -21,7 +21,7 @@ import {MAT_DIALOG_DATA} from '@angular/material';
       <hr>
     </div>
     <div mat-dialog-actions>
-      <button class="btn btn-primary btn-sm" mat-dialog-close>Cancel</button>
+      <button class="btn btn-primary btn-sm mr-1" mat-dialog-close>Cancel</button>
       <button class="btn btn-primary btn-sm" [mat-dialog-close]="phaseType">Export</button>
     </div>
   `,

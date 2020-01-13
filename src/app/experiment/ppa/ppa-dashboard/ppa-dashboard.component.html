@@ -29,7 +29,6 @@
 
     </div>
   </div>
-  <bd2-confirm-dialog #confirmDialog></bd2-confirm-dialog>
   <bd2-selectable-fit-dialog></bd2-selectable-fit-dialog>
 
   <hr>
@@ -111,7 +110,7 @@
 
   <div *ngFor="let jobId of jobsIds; let i=index">
     <bd2-ppajob-pane (deleted)="remove($event)" (finished)="refreshJob($event)" [assay]="assay"
-                     [confirmDialog]="confirmDialog" [expanded]="expandAll || i == 0"
+                     [expanded]="expandAll || i == 0"
 
                      [fitDialog]="fitDialog" [jobId]="jobId"
     ><!-- previously
