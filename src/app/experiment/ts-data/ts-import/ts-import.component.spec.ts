@@ -7,6 +7,7 @@ import {DescribeTopcountTableComponent} from './widgets/describe-topcount-table.
 import {ColumnTypeDialogComponent} from './widgets/column-type.dialog.component';
 import {ConfirmRowCopyDialogComponent} from './widgets/confirm-row-copy.dialog.component';
 import {SimpleAddDataFormComponent} from './widgets/simple-add-data.form.component';
+import {ModalModule} from 'ngx-bootstrap';
 
 describe('TSImportComponent', () => {
   let component: TSImportComponent;
@@ -16,7 +17,7 @@ describe('TSImportComponent', () => {
     TestBed.configureTestingModule({
       declarations: [TSImportComponent, DescribeTSTableComponent, DescribeTopcountTableComponent,
         ColumnTypeDialogComponent, ConfirmRowCopyDialogComponent, SimpleAddDataFormComponent],
-      imports: [ExperimentsTestToolModule, ]
+      imports: [ExperimentsTestToolModule, ModalModule]
     })
       .compileComponents();
   }));

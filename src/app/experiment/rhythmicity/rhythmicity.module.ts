@@ -4,7 +4,6 @@ import {RhythmicityDashboardComponent} from './rhythmicity-dashboard/rhythmicity
 import {RhythmicityRoutingModule} from './rhythmicity-routing.module';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {StaticContentModule} from '../../documents/static-content/static-content.module';
-import {SharedComponentsModule} from '../../shared/shared-components.module';
 import {RhythmicityStartFormComponent} from './rhythmicity-start-form/rhythmicity-start-form.component';
 import {RhythmicityjobParamsRformComponent} from './rhythmicity-start-form/rhythmicityjob-params-rform/rhythmicityjob-params-rform.component';
 import {TSPlotModule} from '../../tsdata/plots/ts-plot.module';
@@ -29,7 +28,6 @@ import {ButtonsModule, ModalModule} from 'ngx-bootstrap';
     ButtonsModule,
     ModalModule,
     StaticContentModule,
-    SharedComponentsModule,
     TSPlotModule,
 
     MaterialsModule,

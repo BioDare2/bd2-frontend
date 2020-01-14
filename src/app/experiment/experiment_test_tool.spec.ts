@@ -8,7 +8,6 @@ import {BioDareRestService} from '../backend/biodare-rest.service';
 import {fakeBioDareRestService} from '../backend/biodare-rest_test_tool.spec';
 import {RepoComponentsModule} from '../repo/components/repo-comp.module';
 import {ExperimentService} from './experiment.service';
-import {SharedComponentsModule} from '../shared/shared-components.module';
 import {AnalyticsService} from '../analytics/analytics.service';
 import {fakeAnalyticsService} from '../analytics/analytics_test_tool.spec';
 import {ModalModule} from 'ngx-bootstrap/modal';
@@ -39,7 +38,7 @@ export function fakeExperimentService() {
     FormsModule, ReactiveFormsModule,
     ButtonsModule.forRoot(),
     RouterTestingModule,
-    RepoComponentsModule, SharedComponentsModule
+    RepoComponentsModule
   ],
   providers: [
     {provide: ExperimentService, useValue: fakeExperimentService()},
@@ -52,7 +51,7 @@ export function fakeExperimentService() {
     FormsModule, ReactiveFormsModule,
     ButtonsModule,
     RouterTestingModule,
-    RepoComponentsModule, SharedComponentsModule
+    RepoComponentsModule
   ]
 })
 export class ExperimentsTestToolModule {

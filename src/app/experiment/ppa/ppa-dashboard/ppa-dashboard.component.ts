@@ -1,6 +1,5 @@
 import {Component, QueryList, ViewChild, ViewChildren} from '@angular/core';
 import {PPABaseComponent} from '../ppa-base.component';
-import {SelectableFitDialogComponent} from '../ppa-fit/selectable-fit-dialog.component';
 import {PPAJobPaneComponent} from './ppajob-pane/ppajob-pane.component';
 import {PPAJobSummary} from '../ppa-dom';
 import {PPAService} from '../ppa.service';

@@ -13,17 +13,16 @@ import {
 } from '../sheet-dom';
 import {ExcelTSImportParameters} from '../../import-dom';
 import {DataGridModel} from '../data-grid.model';
-import {ConfirmDialogComponent} from '../../../../shared/confirm-dialog.component';
 import {ColumnTypeDialogComponent} from './column-type.dialog.component';
 import {ConfirmRowCopyDialogComponent} from './confirm-row-copy.dialog.component';
 import {ColorCycler} from './color-cycler';
+import {SharedDialogsService} from '../../../../shared/shared-dialogs/shared-dialogs.service';
 
 @Component({
   selector: 'bd2-describe-topcount-table',
   template: `
     <div *ngIf="dataModel">
 
-      <bd2-confirm-dialog #confirmDialog></bd2-confirm-dialog>
       <bd2-column-type-dialog #columnTypeDialog (onAccepted)="setColumnType($event)"
                               [lastCol]="lastCol" [showTime]="false"
       ></bd2-column-type-dialog>
@@ -158,10 +157,8 @@ export class DescribeTopcountTableComponent {
   private columnTypeDialog: ColumnTypeDialogComponent;
   @ViewChild('rowCopyDialog', { static: false })
   private rowCopyDialog: ConfirmRowCopyDialogComponent;
-  @ViewChild('confirmDialog', { static: false })
-  private confirmDialog: ConfirmDialogComponent;
 
-  constructor() {
+  constructor(private dialogs: SharedDialogsService) {
 
     // this.dataTable = this.fakeData();
 
@@ -309,11 +306,11 @@ export class DescribeTopcountTableComponent {
     let gapP = Promise.resolve(true);
 
     if (this.containsDataGaps()) {
-      gapP = this.confirmDialog.ask(
+      gapP = this.dialogs.confirm(
         'Do you want to import partial data?',
         'Not all columns are described. Data columns without annotations will not be imported.' +
         '<br>Click OK if you want to proceed.'
-      );
+      ).toPromise();
     }
 
 
@@ -324,11 +321,11 @@ export class DescribeTopcountTableComponent {
       if (!this.confirmDataLoss) {
         return true;
       }
-      return this.confirmDialog.ask(
+      return this.dialogs.confirm(
         'Do you want to replace the existing data?',
         'It will also erase all analysis results. ' +
         '<br>Click OK if you want to proceed.'
-      );
+      ).toPromise();
     })
       .then(ans => {
         if (ans) {

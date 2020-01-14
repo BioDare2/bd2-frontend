@@ -8,7 +8,6 @@ import {FileAssetModule} from '../../file-asset/file-asset.module';
 import {DescribeTSTableComponent} from './ts-import/widgets/describe-ts-table.component';
 import {TSImportComponent} from './ts-import/ts-import.component';
 import {DescribeTopcountTableComponent} from './ts-import/widgets/describe-topcount-table.component';
-import {SharedComponentsModule} from '../../shared/shared-components.module';
 import {ColumnTypeDialogComponent} from './ts-import/widgets/column-type.dialog.component';
 import {ConfirmRowCopyDialogComponent} from './ts-import/widgets/confirm-row-copy.dialog.component';
 import {ModalModule} from 'ngx-bootstrap/modal';
@@ -56,7 +55,6 @@ import {SelectBackgroundsLabelsStepComponent} from './tsimport-dashboard/select-
     FormsModule,
     ReactiveFormsModule,
     ModalModule,
-    SharedComponentsModule,
     FileAssetModule,
     TSPlotModule,
     TsDataRoutingModule,

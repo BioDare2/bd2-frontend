@@ -10,6 +10,7 @@ import * as FileSaver from 'file-saver';
 import {ConfirmDialogComponent} from '../../../../shared/confirm-dialog.component';
 import {RhythmicityJobFetcherService} from './services/rhythmicity-job-fetcher.service';
 import {RhythmicityResultsMDTableComponent} from './rhythmicity-results-mdtable/rhythmicity-results-mdtable.component';
+import {SharedDialogsService} from '../../../../shared/shared-dialogs/shared-dialogs.service';
 
 @Component({
   selector: 'bd2-rhythmicity-job-pane',
@@ -27,9 +28,6 @@ export class RhythmicityJobPaneComponent implements OnInit, OnChanges, OnDestroy
 
   @Input()
   assay: ExperimentalAssayView;
-
-  @Input()
-  confirmDialog: ConfirmDialogComponent;
 
   @Output()
   deleted = new EventEmitter<RhythmicityJobSummary>();
@@ -50,7 +48,8 @@ export class RhythmicityJobPaneComponent implements OnInit, OnChanges, OnDestroy
   constructor(private rhythmicityService: RhythmicityService,
               public rhythmicityJobDatasource: RhythmicityJobFetcherService,
               // private rhythmicityResultsDataSource: RhythmicityResultsMDTableDataSource,
-              private feedback: FeedbackService) { }
+              private feedback: FeedbackService,
+              private dialogs: SharedDialogsService) { }
 
   ngOnInit() {
 
@@ -117,6 +116,14 @@ export class RhythmicityJobPaneComponent implements OnInit, OnChanges, OnDestroy
     const exp = this.assay;
     const job = this.rhythmicityJobDatasource.currentJob;
 
+    this.dialogs.confirm('Do you want to delete analysis: ' + job.jobId,
+        job.parameters.PARAMS_SUMMARY
+      ).subscribe(ans => {
+        if (ans) {
+          this.doDelete(exp, job.jobId);
+        }
+      });
+    /*
     if (this.confirmDialog) {
       this.confirmDialog.ask('Do you want to delete analysis: ' + job.jobId,
         job.parameters.PARAMS_SUMMARY
@@ -128,7 +135,7 @@ export class RhythmicityJobPaneComponent implements OnInit, OnChanges, OnDestroy
     } else {
       console.log('Confirmation dialog missing on job pane');
       this.doDelete(exp, job.jobId);
-    }
+    }*/
   }
 
   initSubscriptions() {

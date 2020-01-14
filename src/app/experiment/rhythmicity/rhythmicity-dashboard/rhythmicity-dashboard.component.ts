@@ -7,7 +7,6 @@ import {ExperimentalAssayView} from '../../../dom/repo/exp/experimental-assay-vi
 import {RhythmicityJobSummary} from '../rhythmicity-dom';
 
 import {RhythmicityJobPaneComponent} from './rhythmicity-job-pane/rhythmicity-job-pane.component';
-import {ConfirmDialogComponent} from '../../../shared/confirm-dialog.component';
 
 
 @Component({
@@ -16,9 +15,7 @@ import {ConfirmDialogComponent} from '../../../shared/confirm-dialog.component';
 })
 export class RhythmicityDashboardComponent extends RhythmicityBaseComponent {
 
-  // the dialogs are shared with the children jobs panes
-  @ViewChild('confirmDialog', { static: false })
-  confirmDialog: ConfirmDialogComponent;
+
 
   jobs: RhythmicityJobSummary[];
   jobsIds: string[];
