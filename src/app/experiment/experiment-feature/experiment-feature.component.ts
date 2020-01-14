@@ -8,8 +8,8 @@ import {AnalyticsService} from '../../analytics/analytics.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {filter, map} from 'rxjs/operators';
 import {CurrentExperimentService} from '../current-experiment.service';
-import {ConfirmDialogComponent} from '../../shared/confirm-dialog.component';
 import {ExperimentComponentsDependencies} from '../experiment-components.dependencies';
+import {SharedDialogsService} from '../../shared/shared-dialogs/shared-dialogs.service';
 
 @Component({
   templateUrl: './experiment-feature.component.html',
@@ -24,8 +24,8 @@ export class ExperimentFeatureComponent implements OnInit, OnDestroy {
   private expSubscription: Subscription;
   private paramsSubscription: Subscription;
 
-  @ViewChild('warningDialog', { static: true })
-  private warningDialog: ConfirmDialogComponent;
+  // @ViewChild('warningDialog', { static: true })
+  // private warningDialog: ConfirmDialogComponent;
 
   constructor(private experimentService: ExperimentService,
               private RDMSocial: RDMSocialServiceService,
@@ -33,7 +33,8 @@ export class ExperimentFeatureComponent implements OnInit, OnDestroy {
               private feedback: FeedbackService,
               private analytics: AnalyticsService,
               private route: ActivatedRoute,
-              private router: Router) {
+              private router: Router,
+              private dialogs: SharedDialogsService) {
 
   }
 
@@ -107,6 +108,25 @@ export class ExperimentFeatureComponent implements OnInit, OnDestroy {
   }
 
   showMetadataWarning() {
+
+      this.dialogs.confirm(
+        'Metadata reminder',
+        `
+        <p>
+        Please add measurements details, like technique, equipment and short description.
+        </p>
+        <p>
+        It will improve the metadata quality and it will help you when searching for the data.
+        </p>
+`,
+        'Not now'
+      ).subscribe(resp => {
+          this.RDMSocial.registerMeasurementWarning(this.model);
+          if (resp) {
+            this.router.navigate(['edit'], {relativeTo: this.route, fragment: 'MeasurementSection'});
+          }
+        });
+    /*
     if (this.warningDialog) {
       this.warningDialog.ask(
         'Metadata reminder',
@@ -125,7 +145,7 @@ export class ExperimentFeatureComponent implements OnInit, OnDestroy {
             this.router.navigate(['edit'], {relativeTo: this.route, fragment: 'MeasurementSection'});
           }
         });
-    }
+    }*/
   }
 
 }

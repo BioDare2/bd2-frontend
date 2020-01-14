@@ -58,11 +58,6 @@ export class PPAJobPaneComponent implements OnInit, OnChanges, OnDestroy {
   @Input()
   phaseUnit = 'circ';*/
 
-  @Input()
-  fitDialog: SelectableFitDialogComponent;
-
-  // @Input()
-  // exportDialog: PPAJobExportDialogComponent;
 
   @Output()
   deleted = new EventEmitter<PPAJobSummary>();

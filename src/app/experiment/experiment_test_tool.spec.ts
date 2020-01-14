@@ -38,7 +38,7 @@ export function fakeExperimentService() {
   imports: [CommonModule,
     FormsModule, ReactiveFormsModule,
     ButtonsModule.forRoot(),
-    RouterTestingModule, ModalModule.forRoot(),
+    RouterTestingModule,
     RepoComponentsModule, SharedComponentsModule
   ],
   providers: [

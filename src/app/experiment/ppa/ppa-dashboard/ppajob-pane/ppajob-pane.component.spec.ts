@@ -8,18 +8,23 @@ import {PPAStatsTable2Component} from './ppastats-table2/ppastats-table2.compone
 import {PPAResultsTable2Component} from './pparesults-table2/pparesults-table2.component';
 import {PPAPlotsComponentTestModule} from './ppaplots/ppaplots.component.spec';
 import {NgModule} from '@angular/core';
+import {PPADialogsService} from '../../ppa-dialogs/ppadialogs.service';
+import {MatDialogModule} from '@angular/material';
 
 @NgModule({
   imports: [
     RouterTestingModule,
-    PPAPlotsComponentTestModule],
+    PPAPlotsComponentTestModule,
+    MatDialogModule
+  ],
   exports: [
     RouterTestingModule,
     PPAPlotsComponentTestModule,
     PPAJobPaneComponent
   ],
   declarations: [ PPAJobPaneComponent, PPAStatsTable2Component, PPAResultsTable2Component,
-    PhasesOptionsWidgetComponent ]
+    PhasesOptionsWidgetComponent ],
+  providers: [PPADialogsService]
 })
 export class PPAJobPaneComponentTestModule {
 }

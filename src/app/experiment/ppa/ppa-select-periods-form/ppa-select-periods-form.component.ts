@@ -1,7 +1,6 @@
 import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {PPABaseComponent} from '../ppa-base.component';
 import {FitSelection, PPAJobSummary, PPASelectGroup} from '../ppa-dom';
-import {SelectableFitDialogComponent} from '../ppa-fit/selectable-fit-dialog.component';
 import {ActivatedRoute, Params} from '@angular/router';
 import {PPAService} from '../ppa.service';
 import {ExperimentComponentsDependencies} from '../../experiment-components.dependencies';
@@ -20,8 +19,6 @@ export class PPASelectPeriodsFormComponent extends PPABaseComponent implements O
   ppaGroups: PPASelectGroup[];
   blocked = false;
 
-  @ViewChild(SelectableFitDialogComponent, { static: false })
-  private fitDialog: SelectableFitDialogComponent;
   // hack to load data when experiment is known
   // private _jobId:number;
 

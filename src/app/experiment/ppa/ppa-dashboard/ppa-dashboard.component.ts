@@ -14,15 +14,6 @@ import {StaticContentDialogService} from '../../../documents/static-content/stat
 })
 export class PPADashboardComponent extends PPABaseComponent {
 
-
-
-
-  @ViewChild(SelectableFitDialogComponent, { static: false })
-  fitDialog: SelectableFitDialogComponent;
-
-
-
-
   @ViewChildren(PPAJobPaneComponent)
   panes: QueryList<PPAJobPaneComponent>;
 

@@ -1,9 +1,12 @@
 import { TestBed } from '@angular/core/testing';
 
 import { StaticContentDialogService } from './static-content-dialog.service';
+import {MatDialogModule} from '@angular/material';
 
 describe('StaticContentDialogService', () => {
-  beforeEach(() => TestBed.configureTestingModule({}));
+  beforeEach(() => TestBed.configureTestingModule({
+    imports: [MatDialogModule]
+  }));
 
   it('should be created', () => {
     const service: StaticContentDialogService = TestBed.get(StaticContentDialogService);

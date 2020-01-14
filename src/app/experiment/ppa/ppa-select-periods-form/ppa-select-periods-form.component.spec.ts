@@ -5,6 +5,7 @@ import {StaticContentTestModule} from '../../../documents/static-content/static-
 import {PPASelectPeriodsFormComponent} from './ppa-select-periods-form.component';
 import {SelectableFitDialogComponent} from '../ppa-fit/selectable-fit-dialog.component';
 import {RouterTestingModule} from '@angular/router/testing';
+import {PPADialogsService} from '../ppa-dialogs/ppadialogs.service';
 
 
 describe('PPASelectPeriodsFormComponent', () => {
@@ -15,7 +16,8 @@ describe('PPASelectPeriodsFormComponent', () => {
     TestBed.configureTestingModule({
       declarations: [PPASelectPeriodsFormComponent, SelectableFitDialogComponent],
       imports: [ExperimentsTestToolModule, StaticContentTestModule, TSPlotModule,
-        RouterTestingModule]
+        RouterTestingModule],
+      providers: [PPADialogsService]
     })
       .compileComponents();
   }));

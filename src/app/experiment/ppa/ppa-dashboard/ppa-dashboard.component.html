@@ -29,7 +29,6 @@
 
     </div>
   </div>
-  <bd2-selectable-fit-dialog></bd2-selectable-fit-dialog>
 
   <hr>
 
@@ -111,8 +110,7 @@
   <div *ngFor="let jobId of jobsIds; let i=index">
     <bd2-ppajob-pane (deleted)="remove($event)" (finished)="refreshJob($event)" [assay]="assay"
                      [expanded]="expandAll || i == 0"
-
-                     [fitDialog]="fitDialog" [jobId]="jobId"
+                     [jobId]="jobId"
     ><!-- previously
                      [periodsOn]="periodsOn"
                      [phaseType]="phaseType" [phaseUnit]="phaseUnit" [phasesOn]="phasesOn"

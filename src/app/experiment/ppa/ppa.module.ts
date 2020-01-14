@@ -8,14 +8,12 @@ import {PPAJobParamsRFormComponent} from './ppa-start-form/ppajob-params-rform/p
 import {StaticContentModule} from '../../documents/static-content/static-content.module';
 import {TSPlotModule} from '../../tsdata/plots/ts-plot.module';
 import {PPADashboardComponent} from './ppa-dashboard/ppa-dashboard.component';
-import {SelectableFitDialogComponent} from './ppa-fit/selectable-fit-dialog.component';
 import {PPAJobPaneComponent} from './ppa-dashboard/ppajob-pane/ppajob-pane.component';
 import {PhasesOptionsWidgetComponent} from './ppa-dashboard/ppajob-pane/phases-options-widget.component';
 import {BD2NgxHBoxplotModule} from 'bd2-ngx-hboxplot';
 import {BD2NgxPolarplotModule} from 'bd2-ngx-polarplot';
 import {LegendModule} from '../../graphic/legend/legend.module';
 import {SVGSaverModule} from '../../graphic/svg-saver/svg-saver.module';
-import {ModalModule} from 'ngx-bootstrap/modal';
 import {ButtonsModule} from 'ngx-bootstrap/buttons';
 import {PPASelectPeriodsFormComponent} from './ppa-select-periods-form/ppa-select-periods-form.component';
 import {MaterialsModule} from '../../shared/materials.module';
@@ -33,7 +31,6 @@ import { PPAFitDialogComponent } from './ppa-dialogs/ppa-fit-dialog/ppa-fit-dial
   declarations: [PPAStartFormComponent, PPAJobParamsRFormComponent,
     PPADashboardComponent, PPAJobPaneComponent,
     PhasesOptionsWidgetComponent,
-    SelectableFitDialogComponent,
     PPASelectPeriodsFormComponent,
     PPAStatsTable2Component,
     PPAResultsTable2Component,
@@ -48,7 +45,6 @@ import { PPAFitDialogComponent } from './ppa-dialogs/ppa-fit-dialog/ppa-fit-dial
     FormsModule,
     ReactiveFormsModule,
     ButtonsModule,
-    ModalModule,
     StaticContentModule,
     TSPlotModule,
     BD2NgxHBoxplotModule,
