@@ -3,6 +3,8 @@ import {MatDialog} from '@angular/material';
 import {Observable} from 'rxjs';
 import {PPAJobExportDialog2Component} from './ppajob-export-dialog2/ppajob-export-dialog2.component';
 import {SharedDialogsService} from '../../../shared/shared-dialogs/shared-dialogs.service';
+import {FitSelection} from '../ppa-dom';
+import {PPAFitDialogComponent, PPAFitDialogComponentParams} from './ppa-fit-dialog/ppa-fit-dialog.component';
 
 @Injectable()
 export class PPADialogsService {
@@ -20,5 +22,14 @@ export class PPADialogsService {
 
   confirm(question: string, details: string) {
     return this.sharedDialogs.confirm(question, details);
+  }
+
+  ppaFit(expId: number, jobId: number, dataId: number, selectable?: boolean, selection?: string): Observable<FitSelection> {
+
+    const data = new PPAFitDialogComponentParams(expId, jobId, dataId, selectable, selection);
+    const dialog = this.dialogs.open(PPAFitDialogComponent, {data, autoFocus: false, maxWidth: '90%', minWidth: '55%'});
+
+    return dialog.afterClosed();
+
   }
 }

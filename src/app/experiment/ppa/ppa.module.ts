@@ -27,6 +27,7 @@ import {PPAPeriodPlotComponent} from './ppa-dashboard/ppajob-pane/ppaplots/ppape
 import {PPASortWidgetComponent} from './ppa-dashboard/ppajob-pane/ppaplots/ppasort-widget/ppasort-widget.component';
 import { PPAJobExportDialog2Component } from './ppa-dialogs/ppajob-export-dialog2/ppajob-export-dialog2.component';
 import {PPADialogsService} from './ppa-dialogs/ppadialogs.service';
+import { PPAFitDialogComponent } from './ppa-dialogs/ppa-fit-dialog/ppa-fit-dialog.component';
 
 @NgModule({
   declarations: [PPAStartFormComponent, PPAJobParamsRFormComponent,
@@ -40,7 +41,8 @@ import {PPADialogsService} from './ppa-dialogs/ppadialogs.service';
     PPAPhasePlotComponent,
     PPAPeriodPlotComponent,
     PPASortWidgetComponent,
-    PPAJobExportDialog2Component],
+    PPAJobExportDialog2Component,
+    PPAFitDialogComponent],
   imports: [
     CommonModule,
     FormsModule,
@@ -56,7 +58,7 @@ import {PPADialogsService} from './ppa-dialogs/ppadialogs.service';
     PPARoutingModule,
     MaterialsModule
   ],
-  entryComponents: [PPAJobExportDialog2Component],
+  entryComponents: [PPAJobExportDialog2Component, PPAFitDialogComponent],
   providers: [PPADialogsService]
 })
 export class PPAModule {

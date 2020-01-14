@@ -8,6 +8,7 @@ import {ExperimentComponentsDependencies} from '../../experiment-components.depe
 import {combineLatest, Subscription} from 'rxjs';
 import {filter, map} from 'rxjs/operators';
 import {ExperimentalAssayView} from '../../../dom/repo/exp/experimental-assay-view';
+import {PPADialogsService} from '../ppa-dialogs/ppadialogs.service';
 
 @Component({
   templateUrl: './ppa-select-periods-form.component.html',
@@ -27,7 +28,8 @@ export class PPASelectPeriodsFormComponent extends PPABaseComponent implements O
   constructor(
     private route: ActivatedRoute,
     ppaService: PPAService,
-    serviceDependencies: ExperimentComponentsDependencies) {
+    serviceDependencies: ExperimentComponentsDependencies,
+    private dialogs: PPADialogsService) {
 
     super(ppaService, serviceDependencies);
 
@@ -136,9 +138,17 @@ export class PPASelectPeriodsFormComponent extends PPABaseComponent implements O
 
     // console.log("Showing fit for: "+dataId+";"+selection,selection);
 
-    if (this.fitDialog) {
+    /*if (this.fitDialog) {
       this.fitDialog.show(this.assay.id, this.job.jobId, group.dataId, true, group.selected);
-    }
+    }*/
+
+    this.dialogs.ppaFit(this.assay.id, this.job.jobId, group.dataId, true, group.selected).subscribe(
+      sel => {
+        if (sel) {
+          this.markSelection(sel);
+        }
+      }
+    );
   }
 
 }

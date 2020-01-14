@@ -1,0 +1,46 @@
+<h4 mat-dialog-title class="modal-title">Fit {{fitPack?.traces?.title}}
+  <button mat-dialog-close aria-label="Close" class="close float-right" type="button">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</h4>
+
+
+<div  mat-dialog-content class="modal-body modal-lg" >
+  <div *ngIf="fitPack" >
+    <bd2-ts-plot
+      [data]="fitPack.traces"
+    >
+    </bd2-ts-plot>
+    <hr>
+
+
+  </div>
+
+</div>
+
+<div mat-dialog-actions class="w-100">
+
+  <div *ngIf="fitPack && selectable"  >
+    <form>
+      <div class="form-group">
+        <label>Select period</label>
+        <ul class="list-inline">
+          <li *ngFor="let opt of fitPack.options">
+            <input #fPeriod="ngModel"
+                   [(ngModel)]="selectedPeriod"
+                   name="fPeriod"
+                   type="radio" value="{{opt.id}}">
+            {{opt.label}}
+          </li>
+        </ul>
+      </div>
+    </form>
+
+  </div>
+  <div >
+  <button (click)="accepted()" *ngIf="selectable" [disabled]="!selectedPeriod" class="btn btn-primary btn-sm mr-1">
+    Select
+  </button>
+  <button mat-dialog-close class="btn btn-primary btn-sm">Close</button>
+  </div>
+</div>

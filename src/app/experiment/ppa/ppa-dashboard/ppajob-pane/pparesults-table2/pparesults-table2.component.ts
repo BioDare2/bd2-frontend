@@ -6,6 +6,7 @@ import {SelectableFitDialogComponent} from '../../../ppa-fit/selectable-fit-dial
 import {PhaseParams} from '../phases-options-widget.component';
 import {Reloadable} from '../reloadable';
 import {FeedbackService} from '../../../../../feedback/feedback.service';
+import {PPADialogsService} from '../../../ppa-dialogs/ppadialogs.service';
 
 @Component({
   selector: 'bd2-pparesults-table2',
@@ -36,7 +37,8 @@ export class PPAResultsTable2Component implements OnInit, OnDestroy, Reloadable 
   }
 
   constructor(public fetcher: PPAResultsFetcherService,
-              private feedback: FeedbackService) { }
+              private feedback: FeedbackService,
+              private dialogs: PPADialogsService) { }
 
   @Input()
   fitDialog: SelectableFitDialogComponent;
@@ -98,9 +100,11 @@ export class PPAResultsTable2Component implements OnInit, OnDestroy, Reloadable 
 
   showFit(res: PPASimpleResultEntry) {
     // console.log("Showing fit for: "+res.dataId,this.fitDialog);
-    if (this.fitDialog) {
+    /*if (this.fitDialog) {
       this.fitDialog.show(this.fetcher.currentInput.parentId, res.jobId, res.dataId, false);
-    }
+    }*/
+    this.dialogs.ppaFit(this.fetcher.currentInput.parentId, res.jobId, res.dataId, false);
+
   }
 
   extractState(res: PPASimpleResultEntry) {
