@@ -3,7 +3,9 @@
 
     <div class="card asset-card">
       <div class="card-header">
-        <h3><img *ngIf="model.features.isOpenAccess" src="assets/Open_Access_logo_small.svg" style="height: 1.5em;">
+        <h3>
+          <!--<img *ngIf="model.features.isOpenAccess" src="assets/Open_Access_logo_small.svg" style="height: 1.5em;">-->
+          <i *ngIf="model.features.isOpenAccess" class="material-icons bd-icon" style="color: green; font-size: 1.5em;">lock_open</i>
           Experiment: {{model.id}}<br>
           <small>{{model.name}}</small>
         </h3>
