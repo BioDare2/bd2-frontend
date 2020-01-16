@@ -25,8 +25,8 @@ import {SelectableRegionMDTableComponent} from './tsimport-dashboard/assign-labe
 import {EditLabelDialogComponent} from './tsimport-dashboard/assign-labels-step/edit-label-dialog/edit-label-dialog.component';
 // tslint:disable-next-line:max-line-length
 import {SelectBackgroundsLabelsStepComponent} from './tsimport-dashboard/select-backgrounds-labels-step/select-backgrounds-labels-step.component';
-import { ColumnTypeMatDialogComponent } from './ts-import/widgets/column-type-mat-dialog/column-type-mat-dialog.component';
-import { ConfirmRowCopyMatDialogComponent } from './ts-import/widgets/confirm-row-copy-mat-dialog/confirm-row-copy-mat-dialog.component';
+import {ColumnTypeMatDialogComponent} from './ts-import/widgets/column-type-mat-dialog/column-type-mat-dialog.component';
+import {ConfirmRowCopyMatDialogComponent} from './ts-import/widgets/confirm-row-copy-mat-dialog/confirm-row-copy-mat-dialog.component';
 
 @NgModule({
   declarations: [UploadDataFileComponent,

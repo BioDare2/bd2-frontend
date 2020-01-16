@@ -1,6 +1,6 @@
-import { TestBed } from '@angular/core/testing';
+import {TestBed} from '@angular/core/testing';
 
-import { PPADialogsService } from './ppadialogs.service';
+import {PPADialogsService} from './ppadialogs.service';
 import {MatDialogModule} from '@angular/material';
 
 describe('PPADialogsService', () => {

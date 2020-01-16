@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {MatDialog} from '@angular/material';
 import {StaticContentDialogComponent} from './static-content-dialog/static-content-dialog.component';
 

@@ -1,6 +1,6 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { FeedbackPanelComponent } from './feedback-panel.component';
+import {FeedbackPanelComponent} from './feedback-panel.component';
 import {MatCardModule} from '@angular/material';
 import {FeedbackListComponent} from '../feedback-list/feedback-list.component';
 

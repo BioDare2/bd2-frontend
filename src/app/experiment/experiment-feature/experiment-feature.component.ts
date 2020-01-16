@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ExperimentalAssayView} from '../../dom/repo/exp/experimental-assay-view';
 import {Subscription} from 'rxjs';
 import {ExperimentService} from '../experiment.service';

@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges, TemplateRef, ViewChild} from '@angular/core';
+import {Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges, ViewChild} from '@angular/core';
 import {ExperimentalAssayView} from '../../../../dom/repo/exp/experimental-assay-view';
 import {PPAJobSummary} from '../../ppa-dom';
 import {PhaseParams} from './phases-options-widget.component';

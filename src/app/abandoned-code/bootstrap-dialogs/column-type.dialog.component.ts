@@ -8,7 +8,7 @@ import {
   DataColumnProperties,
   TimeColumnProperties,
   TimeColumnType
-} from '../sheet-dom';
+} from '../../experiment/ts-data/ts-import/sheet-dom';
 import {NgForm} from '@angular/forms';
 
 @Component({

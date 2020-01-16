@@ -1,6 +1,6 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { PPAJobExportDialog2Component } from './ppajob-export-dialog2.component';
+import {PPAJobExportDialog2Component} from './ppajob-export-dialog2.component';
 import {FormsModule} from '@angular/forms';
 import {MAT_DIALOG_DATA, MatDialogModule} from '@angular/material';
 

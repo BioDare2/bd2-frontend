@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
 import {PPAFitDialogComponent, PPAFitDialogComponentParams} from './ppa-fit-dialog.component';
 import {TSPlotModule} from '../../../../tsdata/plots/ts-plot.module';

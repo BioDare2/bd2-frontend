@@ -23,9 +23,9 @@ import {PPAPlotsComponent} from './ppa-dashboard/ppajob-pane/ppaplots/ppaplots.c
 import {PPAPhasePlotComponent} from './ppa-dashboard/ppajob-pane/ppaplots/ppaphase-plot/ppaphase-plot.component';
 import {PPAPeriodPlotComponent} from './ppa-dashboard/ppajob-pane/ppaplots/ppaperiod-plot/ppaperiod-plot.component';
 import {PPASortWidgetComponent} from './ppa-dashboard/ppajob-pane/ppaplots/ppasort-widget/ppasort-widget.component';
-import { PPAJobExportDialog2Component } from './ppa-dialogs/ppajob-export-dialog2/ppajob-export-dialog2.component';
+import {PPAJobExportDialog2Component} from './ppa-dialogs/ppajob-export-dialog2/ppajob-export-dialog2.component';
 import {PPADialogsService} from './ppa-dialogs/ppadialogs.service';
-import { PPAFitDialogComponent } from './ppa-dialogs/ppa-fit-dialog/ppa-fit-dialog.component';
+import {PPAFitDialogComponent} from './ppa-dialogs/ppa-fit-dialog/ppa-fit-dialog.component';
 
 @NgModule({
   declarations: [PPAStartFormComponent, PPAJobParamsRFormComponent,

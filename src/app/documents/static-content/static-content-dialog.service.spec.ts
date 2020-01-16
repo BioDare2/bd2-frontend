@@ -1,6 +1,6 @@
-import { TestBed } from '@angular/core/testing';
+import {TestBed} from '@angular/core/testing';
 
-import { StaticContentDialogService } from './static-content-dialog.service';
+import {StaticContentDialogService} from './static-content-dialog.service';
 import {MatDialogModule} from '@angular/material';
 
 describe('StaticContentDialogService', () => {

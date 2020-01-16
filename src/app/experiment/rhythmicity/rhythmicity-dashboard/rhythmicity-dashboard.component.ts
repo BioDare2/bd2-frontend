@@ -1,4 +1,4 @@
-import {Component, QueryList, ViewChild, ViewChildren} from '@angular/core';
+import {Component, QueryList, ViewChildren} from '@angular/core';
 import {RhythmicityBaseComponent} from '../rhythmicity-base.component';
 import {RhythmicityService} from '../rhythmicity.service';
 import {ExperimentComponentsDependencies} from '../../experiment-components.dependencies';

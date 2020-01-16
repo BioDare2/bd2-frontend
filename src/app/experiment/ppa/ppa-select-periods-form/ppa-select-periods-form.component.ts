@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {PPABaseComponent} from '../ppa-base.component';
 import {FitSelection, PPAJobSummary, PPASelectGroup} from '../ppa-dom';
 import {ActivatedRoute, Params} from '@angular/router';

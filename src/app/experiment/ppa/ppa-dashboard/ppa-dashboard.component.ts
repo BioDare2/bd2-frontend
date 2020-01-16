@@ -1,4 +1,4 @@
-import {Component, QueryList, ViewChild, ViewChildren} from '@angular/core';
+import {Component, QueryList, ViewChildren} from '@angular/core';
 import {PPABaseComponent} from '../ppa-base.component';
 import {PPAJobPaneComponent} from './ppajob-pane/ppajob-pane.component';
 import {PPAJobSummary} from '../ppa-dom';

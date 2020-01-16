@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Output, ViewChild} from '@angular/core';
-import {CellRangeDescription} from '../sheet-dom';
+import {CellRangeDescription} from '../../experiment/ts-data/ts-import/sheet-dom';
 import {ModalDirective} from 'ngx-bootstrap/modal';
 
 @Component({

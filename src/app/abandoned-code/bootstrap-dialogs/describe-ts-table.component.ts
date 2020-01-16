@@ -7,13 +7,13 @@ import {
   ColumnBlockEntry,
   ColumnBlocks,
   DataColumnProperties
-} from '../sheet-dom';
-import {DataGridModel} from '../data-grid.model';
-import {ColorCycler} from './color-cycler';
-import {ExcelTSImportParameters} from '../../import-dom';
+} from '../../experiment/ts-data/ts-import/sheet-dom';
+import {DataGridModel} from '../../experiment/ts-data/ts-import/data-grid.model';
+import {ColorCycler} from '../../experiment/ts-data/ts-import/widgets/color-cycler';
+import {ExcelTSImportParameters} from '../../experiment/ts-data/import-dom';
 import {ColumnTypeDialogComponent} from './column-type.dialog.component';
 import {ConfirmRowCopyDialogComponent} from './confirm-row-copy.dialog.component';
-import {SharedDialogsService} from '../../../../shared/shared-dialogs/shared-dialogs.service';
+import {SharedDialogsService} from '../../shared/shared-dialogs/shared-dialogs.service';
 
 @Component({
   selector: 'bd2-describe-ts-table',

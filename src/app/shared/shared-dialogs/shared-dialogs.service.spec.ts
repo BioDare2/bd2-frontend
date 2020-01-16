@@ -1,6 +1,6 @@
-import { TestBed } from '@angular/core/testing';
+import {TestBed} from '@angular/core/testing';
 
-import { SharedDialogsService } from './shared-dialogs.service';
+import {SharedDialogsService} from './shared-dialogs.service';
 import {MatDialogModule} from '@angular/material';
 
 describe('SharedDialogsService', () => {
