@@ -10,7 +10,7 @@ export class ConfirmRowCopyMatDialogComponent implements OnInit {
 
   rowNr: number;
   values: string;
-  private orgRange: CellRangeDescription;
+  orgRange: CellRangeDescription;
 
   constructor(@Inject(MAT_DIALOG_DATA) data: CellRangeDescription) {
 

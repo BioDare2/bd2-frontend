@@ -1,8 +1,8 @@
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
 import {StaticPopUpComponent} from './static-pop-up.component';
-import {StaticContentComponent} from '../../../documents/static-content/static-content/static-content.component';
-import {StaticContentService} from '../../../documents/static-content/static-content.service';
+import {StaticContentComponent} from '../../../src/app/documents/static-content/static-content/static-content.component';
+import {StaticContentService} from '../../../src/app/documents/static-content/static-content.service';
 import {CommonModule} from '@angular/common';
 import {ModalModule} from 'ngx-bootstrap';
 

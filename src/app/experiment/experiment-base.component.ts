@@ -100,7 +100,7 @@ export class ExperimentBaseComponent extends ValidableFormComponent<Experimental
     this.router.navigate(this.expHomePath(id));
   }
 
-  protected goToExpEdit(id?: number, section?: string) {
+  public goToExpEdit(id?: number, section?: string) {
     const nav = this.expHomePath(id);
     nav.push('edit');
     if (section) {

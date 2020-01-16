@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {phaseValuesFromOptions, PPAJobSimpleResults, PPASimpleResultEntry, valueFromPhaseName} from '../../../../ppa-dom';
-import {SelectableFitDialogComponent} from '../../../../../../abandoned-code/bootstrap-dialogs/selectable-fit-dialog/selectable-fit-dialog.component';
+import {phaseValuesFromOptions, PPAJobSimpleResults, PPASimpleResultEntry, valueFromPhaseName} from '../../../src/app/experiment/ppa/ppa-dom';
+import {SelectableFitDialogComponent} from '../../bootstrap-dialogs/selectable-fit-dialog/selectable-fit-dialog.component';
 
 @Component({
   selector: 'bd2-ppajob-results-table',

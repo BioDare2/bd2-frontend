@@ -126,13 +126,13 @@ export class SelectableRegionMDTableComponent implements OnInit {
   @Input()
   styler = new TableStyler();
 
-  private selectableColHeader = false;
+  selectableColHeader = false;
 
-  private selectableRowHeader = false;
+  selectableRowHeader = false;
 
-  private showColumnsLabels = false;
+  showColumnsLabels = false;
 
-  private showRowsLabels = false;
+  showRowsLabels = false;
 
 
   @Output()

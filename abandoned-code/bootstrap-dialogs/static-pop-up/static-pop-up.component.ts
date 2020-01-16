@@ -1,6 +1,6 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {ModalDirective} from 'ngx-bootstrap/modal';
-import {isKnownStaticDoc, StaticDocsOptions} from '../../../documents/known-docs';
+import {isKnownStaticDoc, StaticDocsOptions} from '../../../src/app/documents/known-docs';
 
 @Component({
   selector: 'bd2-static-pop-up',

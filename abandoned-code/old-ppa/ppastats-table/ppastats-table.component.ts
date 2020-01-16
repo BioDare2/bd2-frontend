@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {phaseValuesFromOptions, PPAJobSimpleStats, PPASimpleStats, valueFromPhaseName} from '../../../../ppa-dom';
+import {phaseValuesFromOptions, PPAJobSimpleStats, PPASimpleStats, valueFromPhaseName} from '../../../src/app/experiment/ppa/ppa-dom';
 
 
 @Component({

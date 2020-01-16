@@ -1,9 +1,9 @@
 import {Component} from '@angular/core';
-import {ExperimentBaseComponent} from '../../../experiment-base.component';
-import {ImportFormat, ImportFormatOptions} from '../../ts-import/import-dom';
-import {ExperimentComponentsDependencies} from '../../../experiment-components.dependencies';
-import {UploadService} from '../../../../file-asset/upload-service';
-import {FileViewService} from '../../file-view.service';
+import {ExperimentBaseComponent} from '../../src/app/experiment/experiment-base.component';
+import {ImportFormat, ImportFormatOptions} from '../../src/app/experiment/ts-data/ts-import/import-dom';
+import {ExperimentComponentsDependencies} from '../../src/app/experiment/experiment-components.dependencies';
+import {UploadService} from '../../src/app/file-asset/upload-service';
+import {FileViewService} from '../../src/app/experiment/ts-data/file-view.service';
 
 @Component({
   templateUrl: './upload-data-file.component.html',

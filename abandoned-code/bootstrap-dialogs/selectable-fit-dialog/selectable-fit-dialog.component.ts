@@ -1,9 +1,9 @@
 import {Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
 import {ModalDirective} from 'ngx-bootstrap/modal';
-import {FitSelection} from '../../../experiment/ppa/ppa-dom';
-import {PPAFitService} from '../../../experiment/ppa/ppa-fit/ppa-fit.service';
-import {PPAFitPack} from '../../../experiment/ppa/ppa-fit/ppa-fit.dom';
-import {FeedbackService} from '../../../feedback/feedback.service';
+import {FitSelection} from '../../../src/app/experiment/ppa/ppa-dom';
+import {PPAFitService} from '../../../src/app/experiment/ppa/ppa-fit/ppa-fit.service';
+import {PPAFitPack} from '../../../src/app/experiment/ppa/ppa-fit/ppa-fit.dom';
+import {FeedbackService} from '../../../src/app/feedback/feedback.service';
 
 @Component({
   selector: 'bd2-selectable-fit-dialog',

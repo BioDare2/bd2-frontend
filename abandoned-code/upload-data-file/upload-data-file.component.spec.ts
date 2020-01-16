@@ -1,8 +1,8 @@
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
 import {UploadDataFileComponent} from './upload-data-file.component';
-import {FileAssetModule} from '../../../../file-asset/file-asset.module';
-import {ExperimentsTestToolModule} from '../../../experiment_test_tool.spec';
+import {FileAssetModule} from '../../src/app/file-asset/file-asset.module';
+import {ExperimentsTestToolModule} from '../../src/app/experiment/experiment_test_tool.spec';
 
 describe('UploadDataFileComponent', () => {
   let component: UploadDataFileComponent;

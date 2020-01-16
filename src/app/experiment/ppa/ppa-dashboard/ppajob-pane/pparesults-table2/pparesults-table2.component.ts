@@ -2,7 +2,6 @@ import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {PPAResultsFetcherService} from '../services/pparesults-fetcher.service';
 import {PageEvent, Sort} from '@angular/material';
 import {phaseValuesFromOptions, PPAJobSummary, PPASimpleResultEntry, valueFromPhaseName} from '../../../ppa-dom';
-import {SelectableFitDialogComponent} from '../../../../../abandoned-code/bootstrap-dialogs/selectable-fit-dialog/selectable-fit-dialog.component';
 import {PhaseParams} from '../phases-options-widget.component';
 import {Reloadable} from '../reloadable';
 import {FeedbackService} from '../../../../../feedback/feedback.service';
@@ -40,8 +39,6 @@ export class PPAResultsTable2Component implements OnInit, OnDestroy, Reloadable 
               private feedback: FeedbackService,
               private dialogs: PPADialogsService) { }
 
-  @Input()
-  fitDialog: SelectableFitDialogComponent;
 
   // @Input()
   phaseType = 'ByFit';

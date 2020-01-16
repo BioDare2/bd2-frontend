@@ -72,7 +72,7 @@ export class PPAJobPaneComponent implements OnInit, OnChanges, OnDestroy {
   // expandedToogleStream = new BehaviorSubject<boolean>(false);
 
   constructor(private ppaService: PPAService,
-              private ppaJobFetcher: PPAJobFetcherService,
+              public ppaJobFetcher: PPAJobFetcherService,
               private feedback: FeedbackService,
               private dialogs: PPADialogsService) {
 

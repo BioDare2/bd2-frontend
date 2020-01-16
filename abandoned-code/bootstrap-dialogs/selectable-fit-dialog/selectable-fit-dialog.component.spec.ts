@@ -1,8 +1,8 @@
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 import {SelectableFitDialogComponent} from './selectable-fit-dialog.component';
-import {PPAFitService} from '../../../experiment/ppa/ppa-fit/ppa-fit.service';
+import {PPAFitService} from '../../../src/app/experiment/ppa/ppa-fit/ppa-fit.service';
 import {ModalModule} from 'ngx-bootstrap/modal';
-import {TSPlotModule} from '../../../tsdata/plots/ts-plot.module';
+import {TSPlotModule} from '../../../src/app/tsdata/plots/ts-plot.module';
 import {FormsModule} from '@angular/forms';
 
 
