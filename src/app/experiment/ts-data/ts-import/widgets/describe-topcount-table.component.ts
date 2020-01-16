@@ -13,20 +13,22 @@ import {
 } from '../sheet-dom';
 import {ExcelTSImportParameters} from '../../import-dom';
 import {DataGridModel} from '../data-grid.model';
-import {ColumnTypeDialogComponent} from './column-type.dialog.component';
-import {ConfirmRowCopyDialogComponent} from './confirm-row-copy.dialog.component';
 import {ColorCycler} from './color-cycler';
 import {SharedDialogsService} from '../../../../shared/shared-dialogs/shared-dialogs.service';
+import {MatDialog} from '@angular/material';
+import {ColumnTypeMatDialogComponent, ColumnTypeMatDialogComponentParams} from './column-type-mat-dialog/column-type-mat-dialog.component';
+import {ConfirmRowCopyMatDialogComponent} from './confirm-row-copy-mat-dialog/confirm-row-copy-mat-dialog.component';
 
 @Component({
   selector: 'bd2-describe-topcount-table',
   template: `
     <div *ngIf="dataModel">
 
-      <bd2-column-type-dialog #columnTypeDialog (onAccepted)="setColumnType($event)"
+      <!--<bd2-column-type-dialog #columnTypeDialog (onAccepted)="setColumnType($event)"
                               [lastCol]="lastCol" [showTime]="false"
-      ></bd2-column-type-dialog>
-      <bd2-confirm-row-copy-dialog #rowCopyDialog (onAccepted)="copyRowAsLabels($event)"></bd2-confirm-row-copy-dialog>
+      ></bd2-column-type-dialog>-->
+      <!--<bd2-confirm-row-copy-dialog #rowCopyDialog (onAccepted)="copyRowAsLabels($event)"></bd2-confirm-row-copy-dialog>
+      -->
 
 
       <hr>
@@ -153,12 +155,14 @@ export class DescribeTopcountTableComponent {
   @Input()
   confirmDataLoss = false;
   private columnBlocks: ColumnBlocks;
-  @ViewChild('columnTypeDialog', { static: false })
-  private columnTypeDialog: ColumnTypeDialogComponent;
-  @ViewChild('rowCopyDialog', { static: false })
-  private rowCopyDialog: ConfirmRowCopyDialogComponent;
 
-  constructor(private dialogs: SharedDialogsService) {
+  // @ViewChild('columnTypeDialog', { static: false })
+  // private columnTypeDialog: ColumnTypeDialogComponent;
+  // @ViewChild('rowCopyDialog', { static: false })
+  // private rowCopyDialog: ConfirmRowCopyDialogComponent;
+
+  constructor(private confDialogs: SharedDialogsService,
+              private matDialog: MatDialog) {
 
     // this.dataTable = this.fakeData();
 
@@ -236,8 +240,22 @@ export class DescribeTopcountTableComponent {
     const range = new CellRange(f, f);
 
     const rangeDescription = new CellRangeDescription(range, values);
-    this.rowCopyDialog.show(rangeDescription);
+    // this.rowCopyDialog.show(rangeDescription);
 
+    this.askCopyRow(rangeDescription);
+
+  }
+
+  askCopyRow(rangeDescription: CellRangeDescription) {
+
+
+    const ref = this.matDialog.open(ConfirmRowCopyMatDialogComponent, {data: rangeDescription, autoFocus: false});
+
+    ref.afterClosed().subscribe( (desc: CellRangeDescription) => {
+      if (desc) {
+        this.copyRowAsLabels(desc);
+      }
+    });
   }
 
   thSelectStart(colIx: number) {
@@ -249,7 +267,7 @@ export class DescribeTopcountTableComponent {
   thSelectEnd(colIx: number) {
     // console.log("MSelect end: "+colIx);
 
-    if (this.thSelectedCol != undefined && this.thSelectedCol != null) {
+    if (this.thSelectedCol !== undefined && this.thSelectedCol != null) {
       const f = new CellCoordinates(this.thSelectedCol + 1, 1);
       const l = new CellCoordinates(colIx + 1, 1);
       const range = new CellRange(f, l);
@@ -262,10 +280,33 @@ export class DescribeTopcountTableComponent {
         rangeDescription.details = existing.details;
       }
 
-      const label = this.rangeToTopcountLabel(rangeDescription);
+      // const label = this.rangeToTopcountLabel(rangeDescription);
       this.thSelectedCol = undefined;
-      this.columnTypeDialog.show(rangeDescription, label);
+      // this.columnTypeDialog.show(rangeDescription, label);
+      this.askColumnsDetails(rangeDescription);
     }
+  }
+
+  askColumnsDetails(rangeDescription: CellRangeDescription) {
+
+    const label = this.rangeToTopcountLabel(rangeDescription);
+    const data = new ColumnTypeMatDialogComponentParams(rangeDescription, this.lastCol,
+      false, label);
+
+    const ref = this.matDialog.open(ColumnTypeMatDialogComponent, {data, autoFocus: false});
+
+    ref.afterClosed().subscribe( (desc: CellRangeDescription) => {
+      if (desc) {
+        const next = desc.follow;
+        desc.follow = undefined;
+
+        this.setColumnType(desc);
+
+        if (next) {
+          this.askColumnsDetails(next);
+        }
+      }
+    });
   }
 
   rangeToTopcountLabel(rangeDescription: CellRangeDescription): string {
@@ -273,16 +314,13 @@ export class DescribeTopcountTableComponent {
     return colNrToTopCountWellName(range.firstCol) + '-' + colNrToTopCountWellName(range.lastCol);
   }
 
-  editTime() {
-    if (this.timeColumnDescription) {
-      this.columnTypeDialog.show(this.timeColumnDescription);
-    }
-  }
+
 
   editBlock(block: ColumnBlockEntry) {
     if (block) {
-      const label = this.rangeToTopcountLabel(block.details);
-      this.columnTypeDialog.show(block.details, label);
+      // const label = this.rangeToTopcountLabel(block.details);
+      // this.columnTypeDialog.show(block.details, label);
+      this.askColumnsDetails(block.details);
     }
   }
 
@@ -306,7 +344,7 @@ export class DescribeTopcountTableComponent {
     let gapP = Promise.resolve(true);
 
     if (this.containsDataGaps()) {
-      gapP = this.dialogs.confirm(
+      gapP = this.confDialogs.confirm(
         'Do you want to import partial data?',
         'Not all columns are described. Data columns without annotations will not be imported.' +
         '<br>Click OK if you want to proceed.'
@@ -321,7 +359,7 @@ export class DescribeTopcountTableComponent {
       if (!this.confirmDataLoss) {
         return true;
       }
-      return this.dialogs.confirm(
+      return this.confDialogs.confirm(
         'Do you want to replace the existing data?',
         'It will also erase all analysis results. ' +
         '<br>Click OK if you want to proceed.'
@@ -344,7 +382,7 @@ export class DescribeTopcountTableComponent {
     }
     let last = this.dataBlocks[0].start - 1;
     for (let ix = 0; ix < this.dataBlocks.length; ix++) {
-      if (this.dataBlocks[ix].start != (last + 1)) {
+      if (this.dataBlocks[ix].start !== (last + 1)) {
         return true;
       } else {
         last = this.dataBlocks[ix].end;

@@ -7,7 +7,6 @@ import {ReCaptchaModule} from '../../recaptcha/recaptcha.module';
 import {UserService} from '../../auth/user.service';
 import {StaticContentModule} from '../../documents/static-content/static-content.module';
 import {StaticContentService} from '../../documents/static-content/static-content.service';
-import {ModalModule} from 'ngx-bootstrap/modal';
 
 describe('RegistrationRFormComponent', () => {
   let component: RegistrationRFormComponent;
@@ -21,7 +20,7 @@ describe('RegistrationRFormComponent', () => {
     TestBed.configureTestingModule({
       imports: [
         ReactiveFormsModule, ReCaptchaModule, StaticContentModule,
-        ModalModule.forRoot() // cause it has model in the conditions popup
+
       ],
       declarations: [RegistrationRFormComponent],
       providers: [

@@ -10,7 +10,6 @@ import {RepoComponentsModule} from '../repo/components/repo-comp.module';
 import {ExperimentService} from './experiment.service';
 import {AnalyticsService} from '../analytics/analytics.service';
 import {fakeAnalyticsService} from '../analytics/analytics_test_tool.spec';
-import {ModalModule} from 'ngx-bootstrap/modal';
 import {ExperimentComponentsDependencies} from './experiment-components.dependencies';
 import {CurrentExperimentService} from './current-experiment.service';
 import {CommonModule} from '@angular/common';

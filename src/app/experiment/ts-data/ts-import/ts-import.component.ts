@@ -9,10 +9,10 @@ import {ExperimentComponentsDependencies} from '../../experiment-components.depe
   template: `
     <h3>Timeseries import</h3>
 
-
+    <!--
     <bd2-describe-ts-table *ngIf="format?.name === 'EXCEL_TABLE'" [dataTable]="dataTable"
                            [blocked]="blocked" [confirmDataLoss]="assay?.features.hasTSData"
-                           (onAccepted)="import($event)"></bd2-describe-ts-table>
+                           (onAccepted)="import($event)"></bd2-describe-ts-table>-->
     <bd2-describe-topcount-table *ngIf="format?.name === 'TOPCOUNT'" [dataTable]="dataTable"
                                  [blocked]="blocked" [confirmDataLoss]="assay?.features.hasTSData"
                                  (onAccepted)="import($event)"></bd2-describe-topcount-table>

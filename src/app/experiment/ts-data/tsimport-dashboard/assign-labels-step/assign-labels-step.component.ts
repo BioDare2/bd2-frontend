@@ -36,7 +36,7 @@ export class AssignLabelsStepComponent extends DataTableDependentStep implements
   rowPaginator: MatPaginator;
 
 
-  constructor(public dialog: MatDialog, dataService: DataTableService, feedback: FeedbackService) {
+  constructor(private dialog: MatDialog, dataService: DataTableService, feedback: FeedbackService) {
     super(dataService, feedback);
 
   }

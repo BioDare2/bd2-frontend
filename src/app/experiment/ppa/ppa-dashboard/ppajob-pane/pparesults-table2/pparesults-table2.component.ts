@@ -2,7 +2,7 @@ import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {PPAResultsFetcherService} from '../services/pparesults-fetcher.service';
 import {PageEvent, Sort} from '@angular/material';
 import {phaseValuesFromOptions, PPAJobSummary, PPASimpleResultEntry, valueFromPhaseName} from '../../../ppa-dom';
-import {SelectableFitDialogComponent} from '../../../ppa-fit/selectable-fit-dialog.component';
+import {SelectableFitDialogComponent} from '../../../../../abandoned-code/bootstrap-dialogs/selectable-fit-dialog/selectable-fit-dialog.component';
 import {PhaseParams} from '../phases-options-widget.component';
 import {Reloadable} from '../reloadable';
 import {FeedbackService} from '../../../../../feedback/feedback.service';

@@ -5,12 +5,8 @@ import {TsDataRoutingModule} from './ts-data-routing.module';
 import {UploadDataFileComponent} from './upload-data-file/upload-data-file.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {FileAssetModule} from '../../file-asset/file-asset.module';
-import {DescribeTSTableComponent} from './ts-import/widgets/describe-ts-table.component';
 import {TSImportComponent} from './ts-import/ts-import.component';
 import {DescribeTopcountTableComponent} from './ts-import/widgets/describe-topcount-table.component';
-import {ColumnTypeDialogComponent} from './ts-import/widgets/column-type.dialog.component';
-import {ConfirmRowCopyDialogComponent} from './ts-import/widgets/confirm-row-copy.dialog.component';
-import {ModalModule} from 'ngx-bootstrap/modal';
 import {SimpleAddDataFormComponent} from './ts-import/widgets/simple-add-data.form.component';
 import {TSPlotModule} from '../../tsdata/plots/ts-plot.module';
 import {TSViewComponent} from './ts-view/ts-view.component';
@@ -24,14 +20,18 @@ import {ImportLabelsStepComponent} from './tsimport-dashboard/import-labels-step
 import {SelectDataStartStepComponent} from './tsimport-dashboard/select-data-start-step/select-data-start-step.component';
 import {ImportStepsComponent} from './tsimport-dashboard/import-steps/import-steps.component';
 import {AssignLabelsStepComponent} from './tsimport-dashboard/assign-labels-step/assign-labels-step.component';
+// tslint:disable-next-line:max-line-length
 import {SelectableRegionMDTableComponent} from './tsimport-dashboard/assign-labels-step/selectable-region-mdtable/selectable-region-mdtable.component';
 import {EditLabelDialogComponent} from './tsimport-dashboard/assign-labels-step/edit-label-dialog/edit-label-dialog.component';
+// tslint:disable-next-line:max-line-length
 import {SelectBackgroundsLabelsStepComponent} from './tsimport-dashboard/select-backgrounds-labels-step/select-backgrounds-labels-step.component';
+import { ColumnTypeMatDialogComponent } from './ts-import/widgets/column-type-mat-dialog/column-type-mat-dialog.component';
+import { ConfirmRowCopyMatDialogComponent } from './ts-import/widgets/confirm-row-copy-mat-dialog/confirm-row-copy-mat-dialog.component';
 
 @NgModule({
   declarations: [UploadDataFileComponent,
     TSImportComponent,
-    DescribeTSTableComponent, DescribeTopcountTableComponent, ColumnTypeDialogComponent, ConfirmRowCopyDialogComponent,
+    DescribeTopcountTableComponent,
     SimpleAddDataFormComponent,
     TSViewComponent,
     TSImportDashboardComponent,
@@ -45,16 +45,19 @@ import {SelectBackgroundsLabelsStepComponent} from './tsimport-dashboard/select-
     AssignLabelsStepComponent,
     SelectableRegionMDTableComponent,
     EditLabelDialogComponent,
-    SelectBackgroundsLabelsStepComponent
+    SelectBackgroundsLabelsStepComponent,
+    ColumnTypeMatDialogComponent,
+    ConfirmRowCopyMatDialogComponent
   ],
   entryComponents: [
-    EditLabelDialogComponent
+    EditLabelDialogComponent,
+    ColumnTypeMatDialogComponent,
+    ConfirmRowCopyMatDialogComponent
   ],
   imports: [
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    ModalModule,
     FileAssetModule,
     TSPlotModule,
     TsDataRoutingModule,

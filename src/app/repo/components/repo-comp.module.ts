@@ -11,7 +11,6 @@ import {MeasurementDescViewComponent} from './measure/measurement-desc-view/meas
 import {CommonModule} from '@angular/common';
 import {ButtonsModule} from 'ngx-bootstrap/buttons';
 import {DatepickerModule} from 'ngx-bootstrap/datepicker';
-import {ModalModule} from 'ngx-bootstrap/modal';
 import {TypeaheadModule} from 'ngx-bootstrap/typeahead';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
@@ -21,7 +20,6 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
     FormsModule,
     ReactiveFormsModule,
     DatepickerModule,
-    ModalModule,
     TypeaheadModule,
     ButtonsModule
 

@@ -1,6 +1,5 @@
 import {Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges, TemplateRef, ViewChild} from '@angular/core';
 import {ExperimentalAssayView} from '../../../../dom/repo/exp/experimental-assay-view';
-import {SelectableFitDialogComponent} from '../../ppa-fit/selectable-fit-dialog.component';
 import {PPAJobSummary} from '../../ppa-dom';
 import {PhaseParams} from './phases-options-widget.component';
 import {PPAService} from '../../ppa.service';

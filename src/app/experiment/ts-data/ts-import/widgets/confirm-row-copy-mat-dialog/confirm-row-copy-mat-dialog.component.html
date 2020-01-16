@@ -1,0 +1,21 @@
+<h4 mat-dialog-title class="modal-title">Use row content as data labels(s)
+  <button mat-dialog-close aria-label="Close" class="close float-right" type="button">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</h4>
+
+
+<div mat-dialog-content class="modal-body">
+  <div>
+    <p>Use values from row <strong>[{{rowNr}}]</strong> as data labels</p>
+    <p>Existing labels and column types will be overwritten</p>
+  </div>
+  <div class="word_wrapping">
+    <p><strong>Labels: </strong>{{values}}</p>
+  </div>
+</div>
+<div mat-dialog-actions>
+  <button class="btn btn-primary btn-sm mr-1" [mat-dialog-close]="orgRange">Copy labels</button>
+  <button class="btn btn-outline-secondary btn-sm" mat-dialog-close>Cancel</button>
+</div>
+

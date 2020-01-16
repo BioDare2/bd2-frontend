@@ -1,0 +1,116 @@
+<h4 mat-dialog-title class="modal-title">Describe data column(s)
+  <button mat-dialog-close aria-label="Close" class="close float-right" type="button">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</h4>
+
+
+<div mat-dialog-content class="modal-body">
+
+  <p>
+    Columns <strong>[{{rangeLabel}}]</strong>
+  </p>
+
+  <form #columnTypeForm="ngForm">
+    <div class="form-group">
+      <label>Column type</label>
+      <ul class="list-unstyled">
+        <li *ngFor="let opt of cellRoles">
+          <input type="radio" required
+                 value="{{opt.name}}"
+                 [(ngModel)]="cellRole"
+                 name="fCellRole" #fCellRole="ngModel">
+          {{opt.label}}
+        </li>
+      </ul>
+    </div>
+
+    <div class="form-group" *ngIf="!isTime()">
+      <label for="size">Propagate until block size</label>
+      <input type="number" step="1" min="1" class="form-control"
+             id="size"
+             required
+             [(ngModel)]="rangeSize"
+             name="fSize" #fSize="ngModel"
+      >
+    </div>
+
+    <div class="form-group" *ngIf="isData()">
+      <label for="dataLabel">Label</label>
+      <input type="text" class="form-control"
+             id="dataLabel"
+             placeholder="e.g. TOC1 SD"
+             required minlength="2"
+             [(ngModel)]="dataLabel"
+             name="fDataLabel" #fDataLabel="ngModel"
+      >
+    </div>
+
+    <div *ngIf="isTime()">
+      <div class="form-group">
+        <label for="timeType">Type of time column</label>
+        <select class="form-control"
+                id="timeType"
+                required
+                [(ngModel)]="timeType"
+                name="fTimeType" #fTimeType="ngModel"
+        >
+          <option *ngFor="let opt of timeTypeOptions; let ix = index" value="{{opt.name}}">{{opt.label}}
+          </option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="firstRow">Row with first timepoint</label>
+        <input type="number" class="form-control"
+               id="firstRow"
+               step="1" min="1" required
+               placeholder="e.g. 2"
+               [(ngModel)]="firstRow"
+               name="fFirstRow" #fFirstRow="ngModel"
+        >
+      </div>
+
+      <div class="form-group">
+        <label for="timeOffset">Time offset (hours)</label>
+        <input type="number" class="form-control"
+               id="timeOffset"
+               step="any"
+               placeholder="e.g. -4"
+               [(ngModel)]="timeOffset"
+               name="fTimeOffset" #fTimeOffset="ngModel"
+        >
+      </div>
+
+      <div class="form-group" *ngIf="isImageBased()">
+        <label for="imgInterval">Time between images (hours)</label>
+        <input type="number" class="form-control"
+               id="imgInterval"
+               required step="any" min="0.01"
+               placeholder="e.g. 1.5"
+               [(ngModel)]="imgInterval"
+               name="fImgInterval" #fImgInterval="ngModel"
+        >
+      </div>
+    </div>
+
+    <div *ngIf="errors">
+      <div *ngFor="let err of errors" dismissOnTimeout="3000" dismissible="true" class="alert alert-danger" role="alert">{{err}}</div>
+    </div>
+
+  </form>
+</div>
+
+<div mat-dialog-actions>
+    <button class="btn btn-primary btn-sm mr-1" [disabled]="!columnTypeForm.form.valid"
+            (click)="acceptedAndNext()">OK and Next
+    </button>
+    <button class="btn btn-primary btn-sm m-1" [disabled]="!columnTypeForm.form.valid" (click)="accepted()">OK
+    </button>
+    <button mat-dialog-close class="btn btn-outline-secondary btn-sm" (click)="hide()">Cancel</button>
+
+</div>
+
+
+
+

@@ -303,6 +303,7 @@ export class CellRangeDescription {
 
   role: CellRole;
   details: any;
+  follow: CellRangeDescription;
 
   constructor(public range: CellRange, public content?: string) {
 

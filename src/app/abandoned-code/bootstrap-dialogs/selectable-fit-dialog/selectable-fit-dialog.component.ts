@@ -1,8 +1,8 @@
 import {Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
 import {ModalDirective} from 'ngx-bootstrap/modal';
-import {FitSelection} from '../ppa-dom';
-import {PPAFitService} from './ppa-fit.service';
-import {PPAFitPack} from './ppa-fit.dom';
+import {FitSelection} from '../../../experiment/ppa/ppa-dom';
+import {PPAFitService} from '../../../experiment/ppa/ppa-fit/ppa-fit.service';
+import {PPAFitPack} from '../../../experiment/ppa/ppa-fit/ppa-fit.dom';
 import {FeedbackService} from '../../../feedback/feedback.service';
 
 @Component({

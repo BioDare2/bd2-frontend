@@ -7,7 +7,7 @@ import {RhythmicityJobSummary, StatTestOptions} from '../../rhythmicity-dom';
 import {LocalDateTime} from '../../../../dom/repo/shared/dates';
 
 import * as FileSaver from 'file-saver';
-import {ConfirmDialogComponent} from '../../../../shared/confirm-dialog.component';
+import {ConfirmDialogComponent} from '../../../../abandoned-code/bootstrap-dialogs/confirm-dialog.component';
 import {RhythmicityJobFetcherService} from './services/rhythmicity-job-fetcher.service';
 import {RhythmicityResultsMDTableComponent} from './rhythmicity-results-mdtable/rhythmicity-results-mdtable.component';
 import {SharedDialogsService} from '../../../../shared/shared-dialogs/shared-dialogs.service';
