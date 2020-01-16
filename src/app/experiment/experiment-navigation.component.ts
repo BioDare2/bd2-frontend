@@ -27,7 +27,7 @@ import {ExperimentalAssayView} from '../dom/repo/exp/experimental-assay-view';
         <a *ngIf="(experiment.security.canWrite && experiment.features.hasTSData) || experiment.features.hasRhythmicityJobs"
            [routerLink]="['rhythmicity']" routerLinkActive="active"
            [routerLinkActiveOptions]="{exact: false}">Rhythmicity</a>
-        <a *ngIf="experiment.security.canWrite" [routerLink]="['.','data','ts-import2']"
+        <a *ngIf="experiment.security.canWrite" [routerLink]="['.','data','ts-import']"
            routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
           {{experiment.features.hasTSData ? 'Replace data' : 'Import data'}}</a>
         <a [routerLink]="['file']" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Files</a>

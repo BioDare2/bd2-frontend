@@ -1,6 +1,5 @@
 import {CellSelection} from '../../import-dom';
 
-
 export class TableStyler {
 
 

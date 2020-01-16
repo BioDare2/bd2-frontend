@@ -2,7 +2,6 @@ import {LabelsToColors, SelectionColorCycler, TableSelector, TableStyler} from '
 import {CellSelection} from '../../import-dom';
 
 
-
 describe( 'TableStyler', () => {
 
   let styler: TableStyler;

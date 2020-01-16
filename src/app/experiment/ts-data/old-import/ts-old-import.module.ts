@@ -32,5 +32,5 @@ import {TsOldImportRoutingModule} from './ts-old-import-routing.module';
   ],
   exports: []
 })
-export class TsDataModule {
+export class TsOldImportModule {
 }
