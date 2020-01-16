@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {BioDareRestService} from '../../backend/biodare-rest.service';
-import {ImportFormat} from './import-dom';
+import {ImportFormat} from './ts-import/import-dom';
 
 
 @Injectable({

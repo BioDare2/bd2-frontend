@@ -6,11 +6,11 @@ import {catchError, map} from 'rxjs/operators';
 import {SystemEventsService} from '../system/system-events.service';
 import {BD2User} from '../auth/user.dom';
 import {ExperimentalAssayView} from '../dom/repo/exp/experimental-assay-view';
-import {FileImportRequest, ImportFormat} from '../experiment/ts-data/import-dom';
+import {FileImportRequest, ImportFormat} from '../experiment/ts-data/ts-import/import-dom';
 import {DetrendingType} from '../tsdata/ts-data-dom';
 import {PPARequest} from '../experiment/ppa/ppa-dom';
 import {RhythmicityRequest} from '../experiment/rhythmicity/rhythmicity-dom';
-import {Slice} from '../experiment/ts-data/tsimport-dashboard/data-table-dom';
+import {Slice} from '../experiment/ts-data/ts-import/tsimport-dashboard/data-table-dom';
 import {PageEvent} from '@angular/material';
 
 @Injectable({

@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {BioDareRestService} from '../backend/biodare-rest.service';
 import {ExperimentSummary} from '../dom/repo/exp/experiment-summary';
 import {ExperimentalAssayView} from '../dom/repo/exp/experimental-assay-view';
-import {FileImportRequest} from './ts-data/import-dom';
+import {FileImportRequest} from './ts-data/ts-import/import-dom';
 import {Observable} from 'rxjs';
 
 @Injectable({

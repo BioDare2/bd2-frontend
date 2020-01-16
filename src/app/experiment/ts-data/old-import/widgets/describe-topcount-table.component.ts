@@ -1,69 +1,63 @@
-import {Component, EventEmitter, Input, Output, ViewChild} from '@angular/core';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {
   CellCoordinates,
   CellRange,
   CellRangeDescription,
   CellRole,
+  colNrToTopCountWellName,
   ColumnBlockEntry,
   ColumnBlocks,
-  DataColumnProperties
-} from '../../experiment/ts-data/ts-import/sheet-dom';
-import {DataGridModel} from '../../experiment/ts-data/old-import/data-grid.model';
-import {ColorCycler} from '../../experiment/ts-data/old-import/widgets/color-cycler';
-import {ExcelTSImportParameters} from '../../experiment/ts-data/ts-import/import-dom';
-import {ColumnTypeDialogComponent} from './column-type.dialog.component';
-import {ConfirmRowCopyDialogComponent} from './confirm-row-copy.dialog.component';
-import {SharedDialogsService} from '../../shared/shared-dialogs/shared-dialogs.service';
+  DataColumnProperties,
+  TimeColumnProperties,
+  TimeColumnType
+} from '../../ts-import/sheet-dom';
+import {ExcelTSImportParameters} from '../../ts-import/import-dom';
+import {DataGridModel} from '../data-grid.model';
+import {ColorCycler} from './color-cycler';
+import {SharedDialogsService} from '../../../../shared/shared-dialogs/shared-dialogs.service';
+import {MatDialog} from '@angular/material';
+import {ColumnTypeMatDialogComponent, ColumnTypeMatDialogComponentParams} from './column-type-mat-dialog/column-type-mat-dialog.component';
+import {ConfirmRowCopyMatDialogComponent} from './confirm-row-copy-mat-dialog/confirm-row-copy-mat-dialog.component';
 
 @Component({
-  selector: 'bd2-describe-ts-table',
+  selector: 'bd2-describe-topcount-table',
   template: `
     <div *ngIf="dataModel">
 
-      <bd2-column-type-dialog #columnTypeDialog (onAccepted)="setColumnType($event)"
-                              [lastCol]="lastCol"></bd2-column-type-dialog>
-      <bd2-confirm-row-copy-dialog #rowCopyDialog (onAccepted)="copyRowAsLabels($event)"></bd2-confirm-row-copy-dialog>
+      <!--<bd2-column-type-dialog #columnTypeDialog (onAccepted)="setColumnType($event)"
+                              [lastCol]="lastCol" [showTime]="false"
+      ></bd2-column-type-dialog>-->
+      <!--<bd2-confirm-row-copy-dialog #rowCopyDialog (onAccepted)="copyRowAsLabels($event)"></bd2-confirm-row-copy-dialog>
+      -->
 
 
       <hr>
 
       <div>
 
-        <h4>Current import parameters </h4>
+        <h4>Current Topcount import parameters </h4>
 
-        <div *ngIf="!hasTime()" type="danger" class="alert alert-danger" role="alert">
-          <strong>Missing time column parameters.</strong><br>
-          Click on the header of the time column and set the time import parameters in the popup dialog.
-        </div>
-        <div *ngIf="!hasData()" type="danger" class="alert alert-dager" role="alert">
+        <div *ngIf="!hasData()" type="danger" class="alert alert-danger" role="alert">
           <strong>Missing data labels. Please use one of the methods:</strong>
           <ul>
             <li>Click and draw over the headers of columns to select the range and
               assign the data labels in the popup dialog.
             </li>
-            <li>Click the header of a row which contains entries which could be used as data labels.</li>
             <li>Use the form below to manually provide the column range and the data label.</li>
           </ul>
         </div>
 
         <div *ngIf="timeColumnDescription">
-          <p>
-            <strong>Time parameters</strong>
-            <a (click)="editTime()" role="button" aria-label="edit">
-              <i class="material-icons bd-icon bd-primary">edit</i>
-              <!-- <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>-->
-            </a>
-          </p>
-          <p>
-            {{timeColumnDescription.details.timeType.label}}<br>
-            First time cell: {{timeColumnDescription.fullRangeLabel}}<br>
-            <span *ngIf="timeColumnDescription.details.timeOffset">
-        Time offset: {{timeColumnDescription.details.timeOffset}}[h]<br>
-       </span>
-            <span *ngIf="timeColumnDescription.details.imgInterval">
-        Image interval: {{timeColumnDescription.details.imgInterval}}[h]<br>
-        </span>
-          </p>
+          <div class="form-group">
+            <label for="timeOffset">Time parameter: offset (hours)</label>
+            <input type="number" class="form-control short-input"
+                   id="timeOffset"
+                   step="any"
+                   placeholder="e.g. -4"
+                   [(ngModel)]="timeColumnDescription.details.timeOffset"
+                   name="fTimeOffset" #fTimeOffset="ngModel"
+            >
+          </div>
         </div>
 
         <div *ngIf="dataBlocks && dataBlocks.length > 0" style="">
@@ -73,11 +67,11 @@ import {SharedDialogsService} from '../../shared/shared-dialogs/shared-dialogs.s
           <div style="max-height: 20em; overflow-y: auto; margin-bottom: 1em;">
             <ul class="list-group">
               <li *ngFor="let block of dataBlocks" (click)="editBlock(block)" class="list-group-item">
-                <span><strong>{{block.label}}</strong> : {{block.value}}</span>
+                <span><strong>{{block.topcountLabel}}</strong> : {{block.value}}</span>
                 <a (click)="deleteBlock(block)" role="button" class="float-right" aria-label="delete">
                   <i class="material-icons bd-icon bd-primary">delete_forever</i>
+                <!-- <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> -->
                 </a>
-                <!-- <span  class="glyphicon glyphicon-remove" aria-hidden="true"></span> -->
               </li>
             </ul>
           </div>
@@ -90,16 +84,18 @@ import {SharedDialogsService} from '../../shared/shared-dialogs/shared-dialogs.s
         </div>
 
       </div>
-      <hr>
 
+      <!--
+      <hr>
       <bd2-simple-add-data-form (onAccepted)="setColumnType($event)" [lastCol]="lastCol"></bd2-simple-add-data-form>
+      -->
 
       <hr>
 
       <h4>Data table
         <small>(only top rows)</small>
       </h4>
-      <p>Click on column/row headers for description options</p>
+      <p>Click on column headers for description options</p>
 
       <!--<div style="width: 100%;">-->
       <div style="overflow-x: auto;">
@@ -123,14 +119,16 @@ import {SharedDialogsService} from '../../shared/shared-dialogs/shared-dialogs.s
             <td class="rowh">{{dataModel.specialRowsLabels[rowIx]}}</td>
             <td *ngFor="let colIx of visibleColIx"
                 [style.background-color]="bgColors[colIx] ? bgColors[colIx]:'inherited'"
-            >{{row[colIx]}}</td>
+            >{{row[colIx]}}
+            </td>
           </tr>
 
           <tr *ngFor="let row of dataModel.rows; let rowIx = index">
-            <td class="rowh" (click)="rowSelected(rowIx)">{{dataModel.rowsLabels[rowIx]}}</td>
+            <td class="rowh">{{dataModel.rowsLabels[rowIx]}}</td>
             <td *ngFor="let colIx of visibleColIx"
                 [style.background-color]="bgColors[colIx] ? bgColors[colIx]:'inherited'"
-            >{{row[colIx]}}</td>
+            >{{row[colIx]}}
+            </td>
           </tr>
           </tbody>
         </table>
@@ -139,7 +137,7 @@ import {SharedDialogsService} from '../../shared/shared-dialogs/shared-dialogs.s
     </div>
   `
 })
-export class DescribeTSTableComponent {
+export class DescribeTopcountTableComponent {
 
   lastCol: number;
   dataModel: DataGridModel;
@@ -157,12 +155,14 @@ export class DescribeTSTableComponent {
   @Input()
   confirmDataLoss = false;
   private columnBlocks: ColumnBlocks;
-  @ViewChild('columnTypeDialog', { static: false })
-  private columnTypeDialog: ColumnTypeDialogComponent;
-  @ViewChild('rowCopyDialog', { static: false })
-  private rowCopyDialog: ConfirmRowCopyDialogComponent;
 
-  constructor(private dialogs: SharedDialogsService) {
+  // @ViewChild('columnTypeDialog', { static: false })
+  // private columnTypeDialog: ColumnTypeDialogComponent;
+  // @ViewChild('rowCopyDialog', { static: false })
+  // private rowCopyDialog: ConfirmRowCopyDialogComponent;
+
+  constructor(private confDialogs: SharedDialogsService,
+              private matDialog: MatDialog) {
 
     // this.dataTable = this.fakeData();
 
@@ -182,7 +182,7 @@ export class DescribeTSTableComponent {
       return;
     }
 
-    const grid = new DataGridModel(dataTable, undefined, undefined, [[]], ['L.']);
+    const grid = new DataGridModel(dataTable, this.topcountHeaders(), undefined, [[]], ['L.']);
     this.dataModel = grid;
     this.lastCol = grid.width;
 
@@ -195,14 +195,41 @@ export class DescribeTSTableComponent {
     // console.log("Cols: "+this.visibleColIx);
     // console.log("Model\n"+JSON.stringify(this.dataModel));
 
+    this.initTime();
+  }
+
+  topcountHeaders(): string[] {
+    const th = [];
+    const letters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'];
+    letters.forEach(letter => {
+      for (let i = 1; i < 13; i++) {
+        th.push(letter + i);
+      }
+    });
+    return th;
+  }
+
+  initTime() {
+    const range = new CellRange(new CellCoordinates(0, 0), new CellCoordinates(0, 0));
+
+    const details = new TimeColumnProperties();
+    details.timeType = TimeColumnType.TIME_IN_HOURS;
+    details.timeOffset = 0;
+    details.firstRow = 1;
+
+    const description = new CellRangeDescription(range);
+    description.role = CellRole.TIME;
+    description.details = details;
+
+    this.timeColumnDescription = description;
   }
 
   hasTime(): boolean {
-    return (this.timeColumnDescription && (this.timeColumnDescription.role == CellRole.TIME));
+    return (this.timeColumnDescription && (this.timeColumnDescription.role === CellRole.TIME));
   }
 
   hasData(): boolean {
-    return this.dataBlocks.some(entry => entry.details.role == CellRole.DATA);
+    return this.dataBlocks.some(entry => entry.details.role === CellRole.DATA);
   }
 
   rowSelected(rowIx: number) {
@@ -213,8 +240,22 @@ export class DescribeTSTableComponent {
     const range = new CellRange(f, f);
 
     const rangeDescription = new CellRangeDescription(range, values);
-    this.rowCopyDialog.show(rangeDescription);
+    // this.rowCopyDialog.show(rangeDescription);
 
+    this.askCopyRow(rangeDescription);
+
+  }
+
+  askCopyRow(rangeDescription: CellRangeDescription) {
+
+
+    const ref = this.matDialog.open(ConfirmRowCopyMatDialogComponent, {data: rangeDescription, autoFocus: false});
+
+    ref.afterClosed().subscribe( (desc: CellRangeDescription) => {
+      if (desc) {
+        this.copyRowAsLabels(desc);
+      }
+    });
   }
 
   thSelectStart(colIx: number) {
@@ -226,7 +267,7 @@ export class DescribeTSTableComponent {
   thSelectEnd(colIx: number) {
     // console.log("MSelect end: "+colIx);
 
-    if (this.thSelectedCol != undefined && this.thSelectedCol != null) {
+    if (this.thSelectedCol !== undefined && this.thSelectedCol != null) {
       const f = new CellCoordinates(this.thSelectedCol + 1, 1);
       const l = new CellCoordinates(colIx + 1, 1);
       const range = new CellRange(f, l);
@@ -239,20 +280,47 @@ export class DescribeTSTableComponent {
         rangeDescription.details = existing.details;
       }
 
+      // const label = this.rangeToTopcountLabel(rangeDescription);
       this.thSelectedCol = undefined;
-      this.columnTypeDialog.show(rangeDescription);
+      // this.columnTypeDialog.show(rangeDescription, label);
+      this.askColumnsDetails(rangeDescription);
     }
   }
 
-  editTime() {
-    if (this.timeColumnDescription) {
-      this.columnTypeDialog.show(this.timeColumnDescription);
-    }
+  askColumnsDetails(rangeDescription: CellRangeDescription) {
+
+    const label = this.rangeToTopcountLabel(rangeDescription);
+    const data = new ColumnTypeMatDialogComponentParams(rangeDescription, this.lastCol,
+      false, label);
+
+    const ref = this.matDialog.open(ColumnTypeMatDialogComponent, {data, autoFocus: false});
+
+    ref.afterClosed().subscribe( (desc: CellRangeDescription) => {
+      if (desc) {
+        const next = desc.follow;
+        desc.follow = undefined;
+
+        this.setColumnType(desc);
+
+        if (next) {
+          this.askColumnsDetails(next);
+        }
+      }
+    });
   }
+
+  rangeToTopcountLabel(rangeDescription: CellRangeDescription): string {
+    const range = rangeDescription.range;
+    return colNrToTopCountWellName(range.firstCol) + '-' + colNrToTopCountWellName(range.lastCol);
+  }
+
+
 
   editBlock(block: ColumnBlockEntry) {
     if (block) {
-      this.columnTypeDialog.show(block.details);
+      // const label = this.rangeToTopcountLabel(block.details);
+      // this.columnTypeDialog.show(block.details, label);
+      this.askColumnsDetails(block.details);
     }
   }
 
@@ -276,12 +344,13 @@ export class DescribeTSTableComponent {
     let gapP = Promise.resolve(true);
 
     if (this.containsDataGaps()) {
-      gapP = this.dialogs.confirm(
+      gapP = this.confDialogs.confirm(
         'Do you want to import partial data?',
         'Not all columns are described. Data columns without annotations will not be imported.' +
         '<br>Click OK if you want to proceed.'
       ).toPromise();
     }
+
 
     gapP.then(ans => {
       if (!ans) {
@@ -290,7 +359,7 @@ export class DescribeTSTableComponent {
       if (!this.confirmDataLoss) {
         return true;
       }
-      return this.dialogs.confirm(
+      return this.confDialogs.confirm(
         'Do you want to replace the existing data?',
         'It will also erase all analysis results. ' +
         '<br>Click OK if you want to proceed.'
@@ -313,7 +382,7 @@ export class DescribeTSTableComponent {
     }
     let last = this.dataBlocks[0].start - 1;
     for (let ix = 0; ix < this.dataBlocks.length; ix++) {
-      if (this.dataBlocks[ix].start != (last + 1)) {
+      if (this.dataBlocks[ix].start !== (last + 1)) {
         return true;
       } else {
         last = this.dataBlocks[ix].end;
@@ -325,7 +394,10 @@ export class DescribeTSTableComponent {
   emitParameters() {
     const params = new ExcelTSImportParameters();
     params.timeColumn = this.timeColumnDescription;
+
+    // console.log("cmp DB", this.dataBlocks);
     params.dataBlocks = this.dataBlocks.map(db => db.details);
+    // console.log("send DB", params.dataBlocks);
 
     this.onAccepted.emit(params);
   }
@@ -339,7 +411,7 @@ export class DescribeTSTableComponent {
   setColumnType(details: CellRangeDescription) {
     // this.unmarkThSelection();
 
-    if (details && details.role != undefined) {
+    if (details && details.role !== undefined) {
 
       // clearing existing time
       if (this.timeColumnDescription) {
@@ -501,6 +573,7 @@ export class DescribeTSTableComponent {
       }
       rows.push(row);
     }
+
 
     return rows;
   }
