@@ -11,17 +11,20 @@ import {PPAPhasePlotComponent} from './ppaphase-plot/ppaphase-plot.component';
 import {BD2NgxPolarplotModule} from 'bd2-ngx-polarplot';
 import {BD2NgxHBoxplotModule} from 'bd2-ngx-hboxplot';
 import {SVGSaverModule} from '../../../../../graphic/svg-saver/svg-saver.module';
-import {ButtonsModule} from 'ngx-bootstrap';
 import {FormsModule} from '@angular/forms';
 import {NgModule} from '@angular/core';
+import {ButtonsModule} from 'ngx-bootstrap';
 
 @NgModule({
   imports: [MaterialsModule, NoopAnimationsModule, LegendModule,
     BD2NgxPolarplotModule,
-    BD2NgxHBoxplotModule, SVGSaverModule, ButtonsModule, FormsModule],
+    BD2NgxHBoxplotModule, SVGSaverModule,
+    ButtonsModule,
+    FormsModule],
   exports: [MaterialsModule, NoopAnimationsModule, LegendModule,
     BD2NgxPolarplotModule,
-    BD2NgxHBoxplotModule, SVGSaverModule, ButtonsModule, FormsModule,
+    BD2NgxHBoxplotModule, SVGSaverModule,
+    FormsModule,
     PPAPlotsComponent
   ],
   declarations: [ PPAPlotsComponent, PPAPeriodPlotComponent, PPASortWidgetComponent, PPAPhasePlotComponent ]

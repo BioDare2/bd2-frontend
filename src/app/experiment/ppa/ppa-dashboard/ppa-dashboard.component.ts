@@ -167,5 +167,9 @@ export class PPADashboardComponent extends PPABaseComponent {
 
   }
 
+  toggleExpandAll() {
+    this.expandAll = !this.expandAll;
+  }
+
 
 }

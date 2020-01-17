@@ -1,6 +1,5 @@
 import {NgModule} from '@angular/core';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {ButtonsModule} from 'ngx-bootstrap/buttons';
 import {RouterTestingModule} from '@angular/router/testing';
 import {UserService} from '../auth/user.service';
 import {fakeUserService} from '../auth/auth_test_tool.spec';
@@ -35,7 +34,6 @@ export function fakeExperimentService() {
   declarations: [],
   imports: [CommonModule,
     FormsModule, ReactiveFormsModule,
-    ButtonsModule.forRoot(),
     RouterTestingModule,
     RepoComponentsModule
   ],
@@ -48,7 +46,6 @@ export function fakeExperimentService() {
   ],
   exports: [CommonModule,
     FormsModule, ReactiveFormsModule,
-    ButtonsModule,
     RouterTestingModule,
     RepoComponentsModule
   ]

@@ -10,7 +10,9 @@ describe('PPASortWidgetComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [FormsModule, ButtonsModule],
+      imports: [FormsModule,
+        ButtonsModule
+      ],
       declarations: [ PPASortWidgetComponent ]
     })
     .compileComponents();

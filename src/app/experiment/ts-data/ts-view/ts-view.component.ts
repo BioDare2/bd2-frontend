@@ -40,13 +40,16 @@ import {TimeSeriesMetrics} from '../../../tsdata/ts-data-dom';
       Hint: You can click on trace label box to remove it from the plot.
     </div>
 
-    <div *ngIf="timeseries && exportURL">
-      <h4>Export data
+    <div *ngIf="timeseries && exportURL" class="float-right">
+      <h5>export data
         <!--<a download href="{{exportURL}}" (click)="recordExport()" role="button" class="btn btn-primary">Download</a>-->
-        <a download (click)="exportData()" role="button" class="btn btn-primary">Download</a>
-      </h4>
-      <hr>
+        <a download (click)="exportData()" role="button" class="btn btn-primary" aria-label="download">
+          <i class="material-icons bd-icon">save_alt</i><span class="cdk-visually-hidden">Download</span></a>
+      </h5>
     </div>
+    <div class="clearfix">
+    </div>
+    <hr>
 
     <bd2-ts-plots *ngIf="timeseries"
                   [tracesPerPlot]="tracesPerPlot"

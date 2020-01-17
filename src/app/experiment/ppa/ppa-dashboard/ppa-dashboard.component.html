@@ -81,8 +81,8 @@
 
         <label class="col-sm-6 offset-sm-1">
           Display
-          <button [(ngModel)]="expandAll" btnCheckbox class="btn btn-danger btn-sm"
-                  style="margin-left: 2em;" type="button">Expand all
+          <button (click)="toggleExpandAll()" btnCheckbox class="btn btn-danger btn-sm"
+                  style="margin-left: 2em;" type="button">{{ expandAll ? 'Collapse' : 'Expand all'}}
           </button>
         </label>
           <!--

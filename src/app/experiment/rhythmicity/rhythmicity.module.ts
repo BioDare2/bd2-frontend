@@ -15,7 +15,6 @@ import {RhythmicityResultsMDTableComponent} from './rhythmicity-dashboard/rhythm
 import {MaterialsModule} from '../../shared/materials.module';
 // tslint:disable-next-line:max-line-length
 import {StatTestOptionsWidgetComponent} from './rhythmicity-dashboard/rhythmicity-job-pane/stat-test-options-widget/stat-test-options-widget.component';
-import {ButtonsModule} from 'ngx-bootstrap';
 
 @NgModule({
   declarations: [RhythmicityDashboardComponent, RhythmicityStartFormComponent, RhythmicityjobParamsRformComponent,
@@ -28,7 +27,6 @@ import {ButtonsModule} from 'ngx-bootstrap';
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    ButtonsModule,
     StaticContentModule,
     TSPlotModule,
 

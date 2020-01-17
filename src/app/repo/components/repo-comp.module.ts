@@ -9,7 +9,6 @@ import {SimpleBioDescViewComponent} from './biodesc/simple-bio-desc-view.compone
 import {MeasurementDescRFormComponent} from './measure/measurement-desc-rform/measurement-desc-rform.component';
 import {MeasurementDescViewComponent} from './measure/measurement-desc-view/measurement-desc-view.component';
 import {CommonModule} from '@angular/common';
-import {ButtonsModule} from 'ngx-bootstrap/buttons';
 import {DatepickerModule} from 'ngx-bootstrap/datepicker';
 import {TypeaheadModule} from 'ngx-bootstrap/typeahead';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
@@ -21,7 +20,6 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
     ReactiveFormsModule,
     DatepickerModule,
     TypeaheadModule,
-    ButtonsModule
 
   ],
   declarations: [

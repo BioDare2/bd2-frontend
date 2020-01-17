@@ -4,7 +4,6 @@ import {CommonModule} from '@angular/common';
 import {ExperimentsRoutingModule} from './experiments-routing.module';
 import {ExperimentsListComponent} from './experiments-list/experiments-list.component';
 import {FormsModule} from '@angular/forms';
-import {ButtonsModule} from 'ngx-bootstrap/buttons';
 import {ExperimentAssayCreateFormComponent} from './experiment-assay-create-form/experiment-assay-create-form.component';
 import {RepoComponentsModule} from '../repo/components/repo-comp.module';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
@@ -14,7 +13,6 @@ import {MatSlideToggleModule} from '@angular/material/slide-toggle';
   imports: [
     CommonModule,
     FormsModule,
-    ButtonsModule,
     MatSlideToggleModule,
     // RouterModule,
     RepoComponentsModule,
