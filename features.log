@@ -1,3 +1,8 @@
+2.5.0
+      reorganized ts module
+      replaced bootstrap modals with mat dialog
+      slider for the error panels
+      updated bootstrap to 4
 2.4.1
       updated box and polar plots to fix bugs with fast changing data
 2.4.0
