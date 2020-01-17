@@ -19,10 +19,10 @@ import {FeedbackMessage, FeedbackMessageType} from '../feedback.dom';
 export class FlashMessagesComponent implements OnInit, OnDestroy {
 
   @Input()
-  infoDelay = 5;
+  infoDelay = 4;
 
   @Input()
-  errorDelay = 10;
+  errorDelay = 8;
 
   private subscription: Subscription;
 
