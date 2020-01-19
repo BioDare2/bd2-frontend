@@ -12,7 +12,7 @@ export class SystemEventsService {
 
   private unauthorisedStream = new Subject<string>();
 
-  get unauthorised(): Observable<string> {
+  get unauthorised$(): Observable<string> {
     return this.unauthorisedStream.asObservable();
   }
 

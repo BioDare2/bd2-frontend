@@ -1,29 +1,46 @@
-import {Injectable} from '@angular/core';
-import {BehaviorSubject, Observable} from 'rxjs';
+import {Injectable, OnDestroy} from '@angular/core';
+import {BehaviorSubject, Observable, Subscription} from 'rxjs';
 import {BD2User, EmailSuitability} from './user.dom';
 import {FeedbackService} from '../feedback/feedback.service';
 import {AnalyticsService} from '../analytics/analytics.service';
 import {BioDareRestService} from '../backend/biodare-rest.service';
 import {map, switchMap, tap} from 'rxjs/operators';
+import {SystemEventsService} from '../system/system-events.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class UserService {
+export class UserService implements OnDestroy {
+
 
   private userStream: BehaviorSubject<BD2User>;
   private user: BD2User;
+  private unAuthSubsription: Subscription;
 
   constructor(
     private BD2REST: BioDareRestService,
     private analytics: AnalyticsService,
-    private feedback: FeedbackService) {
+    private feedback: FeedbackService,
+    private systemEvents: SystemEventsService) {
 
     this.user = this.makeAnonymous();
     this.userStream = new BehaviorSubject(this.user);
 
     console.log('User service created');
     this.refresh();
+
+    this.unAuthSubsription = this.systemEvents.unauthorised$.subscribe(
+      res => this.refresh()
+    );
+
+  }
+
+  ngOnDestroy(): void {
+    if (this.unAuthSubsription) {
+      this.unAuthSubsription.unsubscribe();
+    }
+
+    this.userStream.complete();
   }
 
   get currentUser(): BD2User {
