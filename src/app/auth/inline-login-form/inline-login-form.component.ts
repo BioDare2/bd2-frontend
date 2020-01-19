@@ -77,16 +77,19 @@ export class InlineLoginFormComponent implements OnInit {
   }
 
   refreshView() {
-    const path = window.location.pathname;
-    this.router.navigate(['/refresh', {path}]);
+    const path = this.router.url;
+    this.router
+      .navigate(['/']).then( res =>
+        this.router.navigateByUrl(path, )
+    );
   }
 
   logout() {
     this.userService.logout()
       .then(state => {
         this.clearForm();
-        this.router.navigate(['/']);
-        this.navigated();
+        this.router.navigate(['/'])
+          .then(res => this.navigated());
       });
   }
 
