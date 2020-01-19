@@ -5,7 +5,7 @@ export class LocalDate {
               private _day: number) {
   }
 
-  get date(): Date {
+  get date() {
     return new Date(this._year, this._month - 1, this._day);
   }
 
@@ -16,6 +16,10 @@ export class LocalDate {
       return null;
       // return new Date(jsonObj[0],jsonObj[1]-1,jsonObj[2]);
     }
+  }
+
+  static fromDate(date: Date) {
+    return new LocalDate(date.getFullYear(), date.getMonth()+1, date.getDate());
   }
 
   toJSON(): number[] {

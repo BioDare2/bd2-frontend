@@ -12,7 +12,8 @@ import {CommonModule} from '@angular/common';
 import {DatepickerModule} from 'ngx-bootstrap/datepicker';
 import {TypeaheadModule} from 'ngx-bootstrap/typeahead';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-
+import {MAT_DATE_LOCALE, MatDatepickerModule, MatFormFieldModule, MatInputModule, MatNativeDateModule} from '@angular/material';
+// import {MatMomentDateModule} from '@angular/material-moment-adapter';
 @NgModule({
   imports: [
     CommonModule,
@@ -20,6 +21,11 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
     ReactiveFormsModule,
     DatepickerModule,
     TypeaheadModule,
+    MatDatepickerModule,
+    MatFormFieldModule,
+    MatNativeDateModule,
+    //MatMomentDateModule,
+    MatInputModule
 
   ],
   declarations: [
@@ -42,7 +48,9 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
     MeasurementDescRFormComponent,
     MeasurementDescViewComponent
   ],
-  providers: []
+  providers: [
+    {provide: MAT_DATE_LOCALE, useValue: 'en-GB'}
+  ]
 })
 export class RepoComponentsModule {
 }

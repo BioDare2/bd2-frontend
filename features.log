@@ -1,3 +1,4 @@
+      improved login and unauthorised handling
       removed boostrap button module where not needed
 2.5.0
       reorganized ts module
