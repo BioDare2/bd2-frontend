@@ -264,3 +264,10 @@ snack-bar-container.mat-snack-bar-top {
   margin-top: 70px; /* Cause of the nav bar */
 }
 
+mat-form-field .form-control:focus {
+  box-shadow: none;
+}
+
+mat-form-field textarea.ng-valid, mat-form-field textarea.ng-valid[required], mat-form-field textarea.ng-invalid {
+  border-left: none;
+}

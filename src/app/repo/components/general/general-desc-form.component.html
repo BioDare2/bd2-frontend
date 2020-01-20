@@ -1,38 +1,48 @@
 <div *ngIf="model">
   <form #gDescForm="ngForm">
     <div class="form-group">
-      <label for="gName">Name</label>
-      <input #gName="ngModel" [(ngModel)]="model.name" class="form-control"
-             id="gName"
-             maxlength="100"
-             minlength="6"
-             name="gName"
-             placeholder="e.g. Testing robustness in low light (E12)"
-             required type="text">
-      <div [hidden]="gName.valid " class="alert alert-danger">
+      <mat-form-field class="w-100">
+        <mat-label for="gName">Name</mat-label>
+        <input matInput #gName="ngModel" [(ngModel)]="model.name" class="form-control"
+               id="gName"
+               maxlength="100"
+               minlength="6"
+               name="gName"
+               placeholder="e.g. Testing robustness in low light (E12)"
+               required type="text">
+        <mat-hint >Good name hints the data content</mat-hint>
+        <mat-error >Descriptive name is required</mat-error>
+      </mat-form-field>
+      <!--<div [hidden]="gName.valid " class="alert alert-danger">
         Descriptive name is required
       </div>
+      [style.color]="gName.invalid && !gName.pristine ? 'red' : ''"
+      -->
     </div>
 
     <div class="form-group">
-      <label for="gPurpose">Purpose/Hypothesis</label>
-      <textarea #gPurpose="ngModel" (input)="checkPurpose()" [(ngModel)]="model.purpose" class="form-control"
-                id="gPurpose"
-                minlength="55"
-                name="gPurpose"
-                placeholder=
-                  "Describe the main aim of the experiment. What you tried to achieve, test, verify, on what kind of samples."
-                required
-                rows="4" type="text">
-                 </textarea>
-      <div [hidden]="gPurpose.valid && sufficientPurpose" class="alert alert-danger">
-        Sensible description with more than few words is required
-      </div>
+      <mat-form-field class="w-100">
+        <mat-label for="gPurpose">Purpose/Hypothesis</mat-label>
+        <textarea matInput #gPurpose="ngModel" (input)="checkPurpose()" [(ngModel)]="model.purpose" class="form-control no-clues"
+                  id="gPurpose"
+                  minlength="55"
+                  name="gPurpose"
+                  placeholder=
+                    "Describe the main aim of the experiment. What you tried to achieve, test, verify, on what kind of samples."
+                  required
+                  rows="4" type="text">
+                   </textarea>
+        <mat-hint [style.color]="!sufficientPurpose && !gPurpose.pristine ? 'red' : ''">Sensible description with more than few words is required</mat-hint>
+        <!--<div [hidden]="gPurpose.valid && sufficientPurpose" class="alert alert-danger">
+          Sensible description with more than few words is required
+        </div>-->
+      </mat-form-field>
     </div>
 
     <div class="form-group">
-      <label for="gDescription">Description</label>
-      <textarea #gDescription="ngModel" [(ngModel)]="model.description" class="form-control"
+      <mat-form-field class="w-100">
+      <mat-label for="gDescription">Description</mat-label>
+      <textarea matInput #gDescription="ngModel" [(ngModel)]="model.description" class="form-control"
                 id="gDescription"
                 name="gDescription"
                 placeholder=
@@ -43,11 +53,13 @@ For example: seedlings were exposed to short day light regime (LD 6:18) at two t
       <!--<div [hidden]="gDescription.valid || gDescription.pristine" class="alert alert-danger">
           Valid description is required
       </div>-->
+      </mat-form-field>
     </div>
 
     <div class="form-group">
-      <label for="gComments">Comments</label>
-      <textarea #gComments="ngModel" [(ngModel)]="model.comments"
+      <mat-form-field class="w-100">
+      <mat-label for="gComments">Comments</mat-label>
+      <textarea  matInput #gComments="ngModel" [(ngModel)]="model.comments"
                 class="form-control"
                 id="gComments"
                 name="gComments"
@@ -57,6 +69,7 @@ For example: seedlings were exposed to short day light regime (LD 6:18) at two t
       <!--<div [hidden]="gComments.valid || gComments.pristine" class="alert alert-danger">
           Valid comments are required
       </div>-->
+      </mat-form-field>
     </div>
 
     <div class="form-group">
