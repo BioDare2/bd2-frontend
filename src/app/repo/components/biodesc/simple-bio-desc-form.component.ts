@@ -4,7 +4,7 @@ import {DataCategory} from '../../../dom/repo/biodesc/data-category';
 import {removeItemFromArr} from '../../../shared/collections-util';
 import {ValidableFormComponent} from '../../../shared/validable-form.component';
 import {SpeciesService} from './species.service';
-import {LocalDate} from '../../../dom/repo/shared/dates';
+
 
 
 @Component({
@@ -60,17 +60,6 @@ import {LocalDate} from '../../../dom/repo/shared/dates';
           </div>
         </div>
 
-        <div class="form-group">
-          <mat-form-field>
-            <input matInput [matDatepicker]="picker" [(ngModel)]="_model.executionDate"
-                   name="executionDate" placeholder="Exp. execution date"
-                [max]="maxDate" [min]="minDate" required>
-            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-            <mat-datepicker #picker></mat-datepicker>
-          </mat-form-field>
-          <br>
-        </div>
-
         <button type="button" class="btn btn-primary mr-1" [disabled]="blocked || !sBioForm.form.valid" (click)="save()">{{okLabel}}</button>
         <button type="button" class="btn btn-outline-secondary" (click)="cancel()">Cancel</button>
 
@@ -99,9 +88,7 @@ export class SimpleBioDescFormComponent extends ValidableFormComponent<any> impl
   knownSpecies: string[] = [];
   optionClass = '';
 
-  executionDate: Date;
-  maxDate: Date;
-  minDate: Date;
+
 
   experiment: ExperimentalAssayView;
 
@@ -110,17 +97,12 @@ export class SimpleBioDescFormComponent extends ValidableFormComponent<any> impl
     super();
     // super(SimpleBioDescValidator.INSTANCE);
 
-    // three weeks in advance
-    this.maxDate = new Date();
-    this.maxDate.setDate(this.maxDate.getDate() + 21);
 
-    this.minDate = new Date();
-    this.minDate.setFullYear(this.minDate.getFullYear() - 10);
   }
 
   // species:string;
 
-  _model = {species: null as string, category: null as string, executionDate: null as Date};
+  _model = {species: null as string, category: null as string};
 
   @Input()
   set model(exp: ExperimentalAssayView) {
@@ -130,7 +112,7 @@ export class SimpleBioDescFormComponent extends ValidableFormComponent<any> impl
 
       this._model.species = exp.species;
       this._model.category = exp.dataCategory ? exp.dataCategory.name : null;
-      this._model.executionDate = exp.experimentalDetails.executionDate.date;
+
     }
   }
 
@@ -156,7 +138,6 @@ export class SimpleBioDescFormComponent extends ValidableFormComponent<any> impl
     if (this.triggerValidation()) {
       this.experiment.dataCategory = DataCategory.get(this._model.category);
       this.experiment.species = this._model.species;
-      this.experiment.experimentalDetails.executionDate = LocalDate.fromDate(this._model.executionDate);
       this.onAccepted.emit(this.experiment);
       // console.log("Save emitted");
     } else {
@@ -175,9 +156,6 @@ export class SimpleBioDescFormComponent extends ValidableFormComponent<any> impl
     }
     if (!obj.category || obj.category == 'NONE') {
       err.push('Data category is required');
-    }
-    if (!obj.executionDate) {
-      err.push('Execution date is required');
     }
     if (err.length === 0) {
       return null;

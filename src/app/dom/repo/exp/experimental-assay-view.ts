@@ -1,4 +1,3 @@
-import {GeneralDesc} from '../shared/general-desc';
 import {ContributionDesc} from '../contribution/contribution-desc';
 import {ExperimentalDetails} from './experimental-details';
 import {SecuritySummary} from '../security/security-summary';
@@ -6,11 +5,12 @@ import {SimpleProvenance} from '../shared/simple-provenance';
 import {ExperimentalFeatures} from './experimental-features';
 import {SetAble} from '../../../shared/common-interfaces';
 import {DataCategory} from '../biodesc/data-category';
+import {ExperimentGeneralDescView} from './experiment-general-desc-view';
 
 export class ExperimentalAssayView implements SetAble<ExperimentalAssayView> {
 
   id: number;
-  generalDesc = new GeneralDesc();
+  generalDesc = new ExperimentGeneralDescView();
   contributionDesc = new ContributionDesc();
   experimentalDetails = new ExperimentalDetails();
 
@@ -32,7 +32,7 @@ export class ExperimentalAssayView implements SetAble<ExperimentalAssayView> {
 
     const obj = new ExperimentalAssayView();
     obj.id = jsonObj.id;
-    obj.generalDesc = GeneralDesc.deserialize(jsonObj.generalDesc);
+    obj.generalDesc = ExperimentGeneralDescView.deserialize(jsonObj.generalDesc);
     obj.contributionDesc = ContributionDesc.deserialize(jsonObj.contributionDesc);
     obj.experimentalDetails = ExperimentalDetails.deserialize(jsonObj.experimentalDetails);
     obj.features = ExperimentalFeatures.deserialize(jsonObj.features);

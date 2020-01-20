@@ -20,29 +20,10 @@
     <div>{{model.comments}}</div>
   </div>
 
-  <!--{{model | json }}-->
-
-  <!--
-
-  <h4>{{model.name}}</h4>
-  <hr>
-
-
-  <div class="well">
-      <strong>Purpose/Hypothesis</strong>
-      <div>{{model.purpose}}</div>
+  <div *ngIf="model.executionDate">
+    <hr>
+    <strong>Execution date</strong>
+    <div>{{model.executionDate.date | date}}</div>
   </div>
 
-  <div *ngIf="model.description" class="well">
-    <strong>Description</strong>
-    <div>{{model.description}}</div>
-  </div>
-
-  <div *ngIf="model.comments" class="well">
-      <strong>Comments</strong>
-      <div>{{model.comments}}</div>
-  </div>
-
-
-  -->
 </div>

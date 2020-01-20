@@ -1,11 +1,12 @@
 import {ExperimentalAssayView} from './experimental-assay-view';
 import {ContributionDesc} from '../contribution/contribution-desc';
-import {GeneralDesc} from '../shared/general-desc';
+
 import {ExperimentalDetails} from './experimental-details';
 import {ExperimentalFeatures} from './experimental-features';
 import {SimpleProvenance} from '../shared/simple-provenance';
 import {SecuritySummary} from '../security/security-summary';
 import {DataCategory} from '../biodesc/data-category';
+import {ExperimentGeneralDescView} from './experiment-general-desc-view';
 
 
 describe('ExperimentalAssayView', () => {
@@ -18,7 +19,8 @@ describe('ExperimentalAssayView', () => {
     "name" : "Test experiment",
     "purpose" : "To check code",
     "description" : "A description",
-    "comments" : "A commment"
+    "comments" : "A commment",
+    "executionDate" : [ 2020, 1, 20 ]
   },
   "contributionDesc" : {
     "authors" : [ {
@@ -130,7 +132,7 @@ describe('ExperimentalAssayView', () => {
     expect(ans).toBeDefined();
 
     expect(ans.id).toBe(2);
-    expect(ans.generalDesc.constructor).toBe(GeneralDesc);
+    expect(ans.generalDesc.constructor).toBe(ExperimentGeneralDescView);
     expect(ans.generalDesc.name).toBe('Test experiment');
     expect(ans.contributionDesc.constructor).toBe(ContributionDesc);
     expect(ans.experimentalDetails.constructor).toBe(ExperimentalDetails);
@@ -178,7 +180,7 @@ describe('ExperimentalAssayView', () => {
     const ans = ExperimentalAssayView.deserialize(jsonObj);
     expect(ans).toBeDefined();
 
-    expect(ans.generalDesc.constructor).toBe(GeneralDesc);
+    expect(ans.generalDesc.constructor).toBe(ExperimentGeneralDescView);
     expect(ans.contributionDesc.constructor).toBe(ContributionDesc);
     expect(ans.experimentalDetails.constructor).toBe(ExperimentalDetails);
     expect(ans.features.constructor).toBe(ExperimentalFeatures);

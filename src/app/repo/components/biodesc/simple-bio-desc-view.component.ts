@@ -14,9 +14,6 @@ import {ExperimentalAssayView} from '../../../dom/repo/exp/experimental-assay-vi
   <p>
   <strong>Data category: </strong> {{model.dataCategory?.longName}}
   </p>
-  <p>
-  <strong>Execution date: </strong> {{model.experimentalDetails.executionDate.date | date}}
-  </p>
 </div>
 `
 })

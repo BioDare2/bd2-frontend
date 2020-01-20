@@ -1,16 +1,17 @@
 import {Component, Input} from '@angular/core';
 
 import {RevertableFormComponent} from '../../../shared/revertable-form.component';
-import {GeneralDesc} from '../../../dom/repo/shared/general-desc';
 import {GeneralDescValidator} from '../../../dom/repo/shared/general-desc.validator';
 import {WorldCountValidator} from '../../../shared/validators/world-count.validator';
+import {ExperimentGeneralDescView} from '../../../dom/repo/exp/experiment-general-desc-view';
+import {LocalDate} from '../../../dom/repo/shared/dates';
 
 @Component({
   selector: 'bd2-general-desc-form',
   templateUrl: './general-desc-form.component.html',
   outputs: ['onAccepted', 'onCancelled']
 })
-export class GeneralDescFormComponent extends RevertableFormComponent<GeneralDesc> {
+export class GeneralDescFormComponent extends RevertableFormComponent<ExperimentGeneralDescView> {
 
   @Input()
   okLabel = 'Save';
@@ -18,21 +19,33 @@ export class GeneralDescFormComponent extends RevertableFormComponent<GeneralDes
   @Input()
   blocked: boolean;
 
+  executionDate: Date;
+  maxDate: Date;
+  minDate: Date;
+
   sufficientPurpose = false;
   purposeWorldValidator = new WorldCountValidator(5);
 
   constructor() {
     super(GeneralDescValidator.INSTANCE);
+
+    // three weeks in advance
+    this.maxDate = new Date();
+    this.maxDate.setDate(this.maxDate.getDate() + 21);
+
+    this.minDate = new Date();
+    this.minDate.setFullYear(this.minDate.getFullYear() - 10);
   }
 
-  get model(): GeneralDesc {
+  get model(): ExperimentGeneralDescView {
     return this._model;
   }
 
 
   @Input()
-  set model(model: GeneralDesc) {
+  set model(model: ExperimentGeneralDescView) {
     this.setModel(model);
+    this.executionDate = model.executionDate.date;
     this.checkPurpose();
   }
 
@@ -43,6 +56,12 @@ export class GeneralDescFormComponent extends RevertableFormComponent<GeneralDes
     } else {
       this.sufficientPurpose = false;
     }
+  }
+
+  save() {
+
+    this.model.executionDate = LocalDate.fromDate(this.executionDate);
+    super.save();
   }
 
 

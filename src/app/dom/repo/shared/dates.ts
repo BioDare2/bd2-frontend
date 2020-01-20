@@ -19,7 +19,7 @@ export class LocalDate {
   }
 
   static fromDate(date: Date) {
-    return new LocalDate(date.getFullYear(), date.getMonth()+1, date.getDate());
+    return new LocalDate(date.getFullYear(), date.getMonth() + 1, date.getDate());
   }
 
   toJSON(): number[] {
