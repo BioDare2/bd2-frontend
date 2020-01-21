@@ -1,5 +1,4 @@
 import {Component, Input} from '@angular/core';
-import {GeneralDesc} from '../../../dom/repo/shared/general-desc';
 import {ExperimentGeneralDescView} from '../../../dom/repo/exp/experiment-general-desc-view';
 
 
@@ -10,7 +9,7 @@ import {ExperimentGeneralDescView} from '../../../dom/repo/exp/experiment-genera
 export class GeneralDescViewComponent {
 
   @Input()
-  model: GeneralDesc | ExperimentGeneralDescView;
+  model: ExperimentGeneralDescView;
 
 
 }

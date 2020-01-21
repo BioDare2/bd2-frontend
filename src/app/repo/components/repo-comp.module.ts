@@ -9,11 +9,12 @@ import {SimpleBioDescViewComponent} from './biodesc/simple-bio-desc-view.compone
 import {MeasurementDescRFormComponent} from './measure/measurement-desc-rform/measurement-desc-rform.component';
 import {MeasurementDescViewComponent} from './measure/measurement-desc-view/measurement-desc-view.component';
 import {CommonModule} from '@angular/common';
-import {DatepickerModule} from 'ngx-bootstrap/datepicker';
-import {TypeaheadModule} from 'ngx-bootstrap/typeahead';
+// import {DatepickerModule} from 'ngx-bootstrap/datepicker';
+// import {TypeaheadModule} from 'ngx-bootstrap/typeahead';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {
   MAT_DATE_LOCALE,
+  MatAutocompleteModule,
   MatCardModule,
   MatChipsModule,
   MatDatepickerModule,
@@ -31,8 +32,8 @@ import {
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    DatepickerModule,
-    TypeaheadModule,
+    // DatepickerModule,
+    // TypeaheadModule,
     MatDatepickerModule,
     MatFormFieldModule,
     MatNativeDateModule,
@@ -42,7 +43,8 @@ import {
     MatIconModule,
     MatDividerModule,
     MatCardModule,
-    MatSelectModule
+    MatSelectModule,
+    MatAutocompleteModule
   ],
   declarations: [
     GeneralDescFormComponent,

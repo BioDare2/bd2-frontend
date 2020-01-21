@@ -2,6 +2,65 @@
 
   <form [formGroup]="formModel">
 
+    <mat-hint class="mb-2">Please email us if you don't see suitable terms in the value lists</mat-hint>
+
+    <div class="form-group">
+      <mat-form-field class="w-100">
+        <mat-label for="mTechNameA">Technique</mat-label>
+        <input matInput #mTechNameA [matAutocomplete]="techniqueAuto"
+               class=""
+               formControlName="technique"
+               id="mTechNameA"
+               placeholder="Type to select technique (backspace for all available)"
+               required
+        >
+        <mat-hint>Type to select technique (backspace for all available)</mat-hint>
+        <mat-error *ngIf="formModel.get('technique').errors?.validTechnique">Known technique must be selected</mat-error>
+      </mat-form-field>
+
+      <mat-autocomplete #techniqueAuto="matAutocomplete" (optionSelected)="techniqueSelected($event)">
+        <mat-option *ngFor="let option of filteredTechniques | async" [value]="option">
+          {{ option }}
+        </mat-option>
+      </mat-autocomplete>
+    </div>
+
+    <div class="form-group">
+      <mat-form-field class="w-100">
+        <mat-label for="mEquipNameA">Equipment</mat-label>
+        <input matInput #mEquipNameA [matAutocomplete]="equipmentAuto"
+               class=""
+               formControlName="equipment"
+               id="mEquipNameA"
+               placeholder="Type to choose or define equipment"
+        >
+        <mat-hint>Type define your equipment or choose from the list (backspace for all known)</mat-hint>
+      </mat-form-field>
+
+      <mat-autocomplete #equipmentAuto="matAutocomplete" >
+        <mat-option *ngFor="let option of filteredEquipments | async" [value]="option">
+          {{ option }}
+        </mat-option>
+      </mat-autocomplete>
+    </div>
+
+    <div class="form-group">
+      <mat-form-field class="w-100">
+      <mat-label for="mDescription">Description</mat-label>
+      <textarea matInput class="" formControlName="description" id="mDescription"
+                placeholder=
+                  "Describe how the measurement was conducted, used technical tricks etc...
+For example: plants were sprayed with luciferase two ours before measurement. Images were taken every two ours."
+                rows="5"
+                type="text"
+      >
+     </textarea>
+      <mat-hint>Describe how the measurement was conducted</mat-hint>
+      </mat-form-field>
+    </div>
+
+    <!-- autocomplete with boostrap typeahead
+
     <div class="form-group">
       <div class="alert alert-success" role="alert">
         Please email us if you don't see suitable terms in the value lists
@@ -39,26 +98,15 @@
       >
 
 
-    </div>
+    </div> -->
 
-    <div class="form-group">
-      <label for="mDescription">Description</label>
-      <textarea class="form-control" formControlName="description" id="mDescription"
-                placeholder=
-                  "Describe how the measurement was conducted, used technical tricks etc...
-For example: plants were sprayed with luciferase two ours before measurement. Images were taken every two ours."
-                rows="5"
-                type="text"
-      >
-                 </textarea>
 
-    </div>
 
     <button (click)="save()" [disabled]="blocked || !formModel.valid" class="btn btn-primary mr-1"
             type="button">{{okLabel}}</button>
     <button (click)="cancel()" class="btn btn-outline-secondary" type="button">Cancel</button>
 
-
+    {{formModel.value | json }}
   </form>
 </div>
 

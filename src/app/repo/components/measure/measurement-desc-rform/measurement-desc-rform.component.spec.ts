@@ -3,7 +3,8 @@ import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 import {MeasurementDescRFormComponent} from './measurement-desc-rform.component';
 import {TechniqueService} from '../technique.service';
 import {ReactiveFormsModule} from '@angular/forms';
-import {TypeaheadModule} from 'ngx-bootstrap/typeahead';
+import {MaterialsModule} from '../../../../shared/materials.module';
+import {NoopAnimationsModule} from '@angular/platform-browser/animations';
 
 describe('MeasurementDescRFormComponent', () => {
   let component: MeasurementDescRFormComponent;
@@ -16,7 +17,7 @@ describe('MeasurementDescRFormComponent', () => {
     (techniqueService as any).getEquipments.and.returnValue(Promise.resolve(['Eq1', 'Eq2']));
 
     TestBed.configureTestingModule({
-      imports: [ReactiveFormsModule, TypeaheadModule],
+      imports: [ReactiveFormsModule, MaterialsModule, NoopAnimationsModule],
       declarations: [MeasurementDescRFormComponent],
       providers: [
         {provide: TechniqueService, useValue: techniqueService},

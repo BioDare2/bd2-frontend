@@ -1,9 +1,11 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {MeasurementDesc} from '../../../../dom/repo/measure/measurement-desc';
 import {AbstractControl, FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {TypeaheadMatch} from 'ngx-bootstrap';
 import {TechniqueService} from '../technique.service';
 import {FeedbackService} from '../../../../feedback/feedback.service';
+import {Observable, of} from 'rxjs';
+import {map, startWith} from 'rxjs/operators';
+import {MatAutocompleteSelectedEvent} from '@angular/material';
 
 @Component({
   selector: 'bd2-measurement-desc-rform',
@@ -29,8 +31,10 @@ export class MeasurementDescRFormComponent /*extends RevertableFormComponent<Mea
   _orgModel: MeasurementDesc;
 
   techniques: string[] = [];
+  filteredTechniques: Observable<string[]> = of([]);
 
   equipments: string[] = [];
+  filteredEquipments: Observable<string[]> = of([]);
 
   constructor(private techniqueService: TechniqueService, private feedback: FeedbackService, private fb: FormBuilder) {
     // super();
@@ -43,7 +47,17 @@ export class MeasurementDescRFormComponent /*extends RevertableFormComponent<Mea
     // asynchronous so that the known techniques are loaded once form is validated with initial data
     this.updateTechniques()
       .then(res => this.updateEquipments(model.technique))
-      .then(res => this.formModel = this.buildMainForm(model));
+      .then(res => this.formModel = this.buildMainForm(model))
+      .then(res => {
+        this.filteredTechniques = this.formModel.get('technique').valueChanges.pipe(
+          startWith(''),
+          map( value => this.filter(this.techniques, value))
+        );
+        this.filteredEquipments = this.formModel.get('equipment').valueChanges.pipe(
+          startWith(''),
+          map( value => this.filter(this.equipments, value))
+        );
+      });
 
 
   }
@@ -54,6 +68,13 @@ export class MeasurementDescRFormComponent /*extends RevertableFormComponent<Mea
 
   ngOnInit() {
     this.updateTechniques();
+  }
+
+
+  filter(list: string[], value: string): string[] {
+    const filterValue = value.toLowerCase();
+
+    return list.filter(option => option.toLowerCase().includes(filterValue));
   }
 
   buildMainForm(model: MeasurementDesc): FormGroup {
@@ -77,10 +98,17 @@ export class MeasurementDescRFormComponent /*extends RevertableFormComponent<Mea
     return null;
   }
 
+  /*
   public techniqueOnSelect(e: TypeaheadMatch): void {
     // console.log('Selected technique: ', e.value);
     if (e.value) {
       this.updateEquipments(e.value);
+    }
+  }*/
+
+  public techniqueSelected(e: MatAutocompleteSelectedEvent) {
+    if (e.option.value) {
+      this.updateEquipments(e.option.value);
     }
   }
 
