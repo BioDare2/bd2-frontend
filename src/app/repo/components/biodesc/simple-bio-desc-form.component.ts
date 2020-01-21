@@ -13,57 +13,56 @@ import {SpeciesService} from './species.service';
     <div *ngIf="experiment">
       <form #sBioForm="ngForm">
 
-        <div class="alert alert-success" role="alert">
+        <!--<div class="alert alert-success" role="alert">
           Please email us if you don't see suitable terms in the value lists
-        </div>
+        </div>-->
         <div class="form-group">
-          <label for="species">Species</label>
-          <!--<input type="text" class="form-control" required
-                 id="species"
-                 placeholder="e.g. Arabidopsis thaliana"
-                 minlength="6"
-                 maxlength="100"
-                 [(ngModel)]="_model.species"
-                 name="species"  #species="ngModel" >-->
-          <select class="form-control"
+          <mat-form-field class="w-100">
+          <mat-label for="species">Species</mat-label>
+
+          <mat-select  class=""
                   id="species"
                   required
                   placeholder="Select species"
                   [(ngModel)]="_model.species"
                   name="species" #species="ngModel"
           >
-            <option *ngFor="let opt of knownSpecies; let ix = index" [value]="opt" class="{{optionClass}}">{{opt}}
-            </option>
-          </select>
-          <div [hidden]="species.valid " class="alert alert-danger">
+            <mat-option *ngFor="let opt of knownSpecies; let ix = index" [value]="opt" >{{opt}}
+            </mat-option>
+          </mat-select>
+          <mat-hint>Please email us if you don't see suitable terms in the value lists</mat-hint>
+          <!--<div [hidden]="species.valid " class="alert alert-danger">
             Species is required
-          </div>
+          </div>-->
+          </mat-form-field>
         </div>
 
         <div class="form-group">
-          <label for="dataCategory">Data category</label>
+          <mat-form-field class="w-100">
+          <mat-label for="dataCategory">Data category</mat-label>
 
-          <select class="form-control"
+          <mat-select class=""
                   id="dataCategory"
                   required
                   placeholder="Select category"
                   [(ngModel)]="_model.category"
                   name="dataCategory" #dataCategory="ngModel"
           >
-            <option *ngFor="let opt of categories; let ix = index" [value]="opt.name" class="{{optionClass}}">
+            <mat-option *ngFor="let opt of categories; let ix = index" [value]="opt.name">
               {{opt.longName}}
-            </option>
-          </select>
-          <div [hidden]="dataCategory.valid " class="alert alert-danger">
+            </mat-option>
+          </mat-select>
+          <!--<div [hidden]="dataCategory.valid " class="alert alert-danger">
             Data category is required
-          </div>
+          </div>-->
+          <mat-hint>Please email us if you don't see suitable terms in the value lists</mat-hint>
+          </mat-form-field>
         </div>
 
         <button type="button" class="btn btn-primary mr-1" [disabled]="blocked || !sBioForm.form.valid" (click)="save()">{{okLabel}}</button>
         <button type="button" class="btn btn-outline-secondary" (click)="cancel()">Cancel</button>
 
       </form>
-      <div>{{experiment | json}}</div>
     </div>
 
   `,
@@ -78,14 +77,16 @@ export class SimpleBioDescFormComponent extends ValidableFormComponent<any> impl
   blocked = false;
 
 
+  // tslint:disable-next-line:no-output-on-prefix
   @Output()
   onAccepted = new EventEmitter<ExperimentalAssayView>();
+  // tslint:disable-next-line:no-output-on-prefix
   @Output()
   onCancelled = new EventEmitter<boolean>();
 
   categories: DataCategory[] = [];
   knownSpecies: string[] = [];
-  optionClass = '';
+  // optionClass = '';
 
 
 
@@ -147,13 +148,13 @@ export class SimpleBioDescFormComponent extends ValidableFormComponent<any> impl
 
   validate(obj: any): string[] {
     const err: string[] = [];
-    if (!obj.species || obj.species.trim() == '') {
+    if (!obj.species || obj.species.trim() === '') {
       err.push('Species cannot be empty');
     }
     if (obj.species && this.knownSpecies.indexOf(obj.species) < 0) {
       err.push('Unknown species: ' + obj.species);
     }
-    if (!obj.category || obj.category == 'NONE') {
+    if (!obj.category || obj.category === 'NONE') {
       err.push('Data category is required');
     }
     if (err.length === 0) {

@@ -3,7 +3,7 @@
     <div class="form-group">
       <mat-form-field class="w-100">
         <mat-label for="gName">Name</mat-label>
-        <input matInput #gName="ngModel" [(ngModel)]="model.name" class="form-control"
+        <input matInput #gName="ngModel" [(ngModel)]="model.name" class=""
                id="gName"
                maxlength="100"
                minlength="6"
@@ -23,7 +23,7 @@
     <div class="form-group">
       <mat-form-field class="w-100">
         <mat-label for="gPurpose">Purpose/Hypothesis</mat-label>
-        <textarea matInput #gPurpose="ngModel" (input)="checkPurpose()" [(ngModel)]="model.purpose" class="form-control no-clues"
+        <textarea matInput #gPurpose="ngModel" (input)="checkPurpose()" [(ngModel)]="model.purpose" class=""
                   id="gPurpose"
                   minlength="55"
                   name="gPurpose"
@@ -42,7 +42,7 @@
     <div class="form-group">
       <mat-form-field class="w-100">
       <mat-label for="gDescription">Description</mat-label>
-      <textarea matInput #gDescription="ngModel" [(ngModel)]="model.description" class="form-control"
+      <textarea matInput #gDescription="ngModel" [(ngModel)]="model.description" class=""
                 id="gDescription"
                 name="gDescription"
                 placeholder=
@@ -60,7 +60,7 @@ For example: seedlings were exposed to short day light regime (LD 6:18) at two t
       <mat-form-field class="w-100">
       <mat-label for="gComments">Comments</mat-label>
       <textarea  matInput #gComments="ngModel" [(ngModel)]="model.comments"
-                class="form-control"
+                class=""
                 id="gComments"
                 name="gComments"
                 placeholder="Optional remarks, for example technical issues during the experiment, discrepancies/simplifications of in the following sections"

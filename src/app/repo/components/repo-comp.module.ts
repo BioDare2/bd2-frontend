@@ -21,7 +21,8 @@ import {
   MatFormFieldModule,
   MatIconModule,
   MatInputModule,
-  MatNativeDateModule
+  MatNativeDateModule,
+  MatSelectModule
 } from '@angular/material';
 
 // import {MatMomentDateModule} from '@angular/material-moment-adapter';
@@ -40,7 +41,8 @@ import {
     MatChipsModule,
     MatIconModule,
     MatDividerModule,
-    MatCardModule
+    MatCardModule,
+    MatSelectModule
   ],
   declarations: [
     GeneralDescFormComponent,
