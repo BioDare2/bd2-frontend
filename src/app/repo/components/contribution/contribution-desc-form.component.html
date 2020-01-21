@@ -1,64 +1,83 @@
 <div *ngIf="model">
 
   <div *ngIf="errors" class="alert alert-danger">
-    <ul>
+    <ul class="mb-0">
       <li *ngFor="let err of errors">{{err}}</li>
     </ul>
   </div>
 
+  <mat-card><mat-card-content> <!-- Authors -->
   <div class="form-group">
-    <div class="card"><div class="card-body">
+    <!--<mat-card ><mat-card-content >-->
       <label><strong>Authors</strong></label>
       <p *ngIf="!(model.authors) || model.authors.length < 1">Please add an author</p>
-      <ul class="list-unstyled">
+      <!--<ul class="list-unstyled">
         <li *ngFor="let author of model.authors">{{ author.name }}
           <a (click)="removeAuthor(author)" role="button">
             <i class="material-icons bd-icon bd-primary">cancel</i>
           </a>
         </li>
-      </ul>
-    </div></div>
+      </ul>-->
+      <mat-chip-list>
+        <mat-chip *ngFor="let author of model.authors" (removed)="removeAuthor(author)">
+          {{ author.name }}
+          <mat-icon matChipRemove>cancel</mat-icon>
+        </mat-chip>
+      </mat-chip-list>
+    <mat-divider inset class="mt-2"></mat-divider>
+    <!--</mat-card-content></mat-card>-->
   </div>
   <div *ngIf="model.curators.length > 0" class="form-group">
-    <div class="card"><div class="card-body">
+    <!--<mat-card ><mat-card-content >-->
       <label><strong>Data curators</strong></label>
-      <ul class="list-unstyled">
+      <mat-chip-list>
+        <mat-chip *ngFor="let curator of model.curators" (removed)="removeCurator(curator)">
+          {{ curator.name }}
+          <mat-icon matChipRemove>cancel</mat-icon>
+        </mat-chip>
+      </mat-chip-list>
+      <!-- <ul class="list-unstyled">
         <li *ngFor="let curator of model.curators">
           {{ curator.name }}
           <a (click)="removeCurator(curator)" role="button">
             <i class="material-icons bd-icon bd-primary">cancel</i>
           </a>
         </li>
-      </ul>
-    </div></div>
+      </ul> -->
+    <mat-divider inset class="mt-2"></mat-divider>
+    <!--</mat-card-content></mat-card>-->
   </div>
 
-  <form #persForm="ngForm" class="form-inline  no-clues">
-    <div class="form-group">
-      <!--<label for="pFirst">Name</label>-->
-      <input #pFirst="ngModel" [(ngModel)]="firstName" class="form-control short-input"
-             id="pFirst"
-             maxlength="100"
-             minlength="2"
-             name="pFirst"
-             placeholder="Name (John)"
-             required type="text">
-      <!--<div [hidden]="pFirst.valid || pLast.pristine" class="alert alert-danger">
-        Valid first name is required
-      </div>-->
+  <form #persForm="ngForm" class="form-inline">
+    <div class="form-group mr-1">
+      <mat-form-field >
+        <mat-label for="pFirst">Name</mat-label>
+        <input matInput #pFirst="ngModel" [(ngModel)]="firstName"
+               id="pFirst"
+               maxlength="100"
+               minlength="2"
+               name="pFirst"
+               placeholder="e.g. John)"
+               required type="text">
+        <!--<div [hidden]="pFirst.valid || pLast.pristine" class="alert alert-danger">
+          Valid first name is required
+        </div>-->
+      </mat-form-field>
     </div>
     <div class="form-group">
-      <!--<label for="pLast">Surname</label>-->
-      <input #pLast="ngModel" [(ngModel)]="lastName" class="form-control  short-input"
-             id="pLast"
-             maxlength="100"
-             minlength="2"
-             name="pLast"
-             placeholder="Surname (Smith)"
-             required type="text">
-      <!--<div [hidden]="pLast.valid || pLast.pristine" class="alert alert-danger">
-        Valid last name is required
-      </div>-->
+      <mat-form-field >
+        <mat-label for="pLast">Surname</mat-label>
+        <input matInput #pLast="ngModel" [(ngModel)]="lastName"
+               id="pLast"
+               maxlength="100"
+               minlength="2"
+               name="pLast"
+               placeholder="e.g. Smith"
+               required type="text">
+        <!--<div [hidden]="pLast.valid || pLast.pristine" class="alert alert-danger">
+          Valid last name is required
+        </div>-->
+      </mat-form-field>
     </div>
 
     <button (click)="addAuthor()" [disabled]="!persForm.form.valid" class="btn btn-primary btn-sm mr-1 ml-1" type="button">New
@@ -70,29 +89,31 @@
 
   </form>
 
-  <hr>
+  </mat-card-content></mat-card>
+  <mat-divider class="mb-1"></mat-divider>
 
 
+  <mat-card><mat-card-content> <!-- Insitution/Funding -->
   <div class="form-group">
 
-    <div class="card"><div class="card-body">
+    <!--<mat-card><mat-card-content> -->
       <label><strong>Institutions</strong></label>
       <p *ngIf="!(model.institutions) || model.institutions.length < 1">Please add an institution</p>
-      <ul class="list-unstyled">
-        <li *ngFor="let inst of model.institutions">
+      <mat-chip-list>
+        <mat-chip *ngFor="let inst of model.institutions" (removed)="removeInstitution(inst)">
           {{ inst.name }}
-          <a (click)="removeInstitution(inst)" role="button">
-            <i class="material-icons bd-icon bd-primary">cancel</i>
-          </a>
-        </li>
-      </ul>
-    </div></div>
+          <mat-icon matChipRemove>cancel</mat-icon>
+        </mat-chip>
+      </mat-chip-list>
+    <!--</mat-card-content></mat-card>-->
+    <mat-divider inset class="mt-2"></mat-divider>
   </div>
 
-  <form #instForm="ngForm" class="form-inline  no-clues">
+  <form #instForm="ngForm" class="form-inline">
     <div class="form-group">
-      <label for="iName">Institution</label>
-      <input #iName="ngModel" [(ngModel)]="institutionName" class="form-control"
+      <mat-form-field>
+      <mat-label for="iName">Institution</mat-label>
+      <input matInput #iName="ngModel" [(ngModel)]="institutionName" class=""
              id="iName"
              maxlength="100"
              minlength="3"
@@ -102,36 +123,39 @@
       <!--<div [hidden]="iName.valid || iName.pristine" class="alert alert-danger">
         Institution name is required
       </div>-->
+      </mat-form-field>
     </div>
 
     <button (click)="addInstitution()" [disabled]="!instForm.form.valid" class="btn btn-primary btn-sm ml-1" type="button">
       Add Institution
     </button>
-
+    <mat-divider inset class="mt-1 mb-2"></mat-divider>
   </form>
 
-  <hr>
+
 
 
   <div *ngIf="model.fundings.length > 0" class="form-group">
 
-    <div class="card"><div class="card-body">
+    <!--<mat-card><mat-card-content>-->
       <label><strong>Fundings</strong></label>
-      <ul class="list-unstyled">
-        <li *ngFor="let fund of model.fundings">
+      <mat-chip-list>
+        <mat-chip *ngFor="let fund of model.fundings" (removed)="removeFunding(fund)">
           {{ fund.name }}
-          <a (click)="removeFunding(fund)" role="button">
-            <i class="material-icons bd-icon bd-primary">cancel</i>
-          </a>
-        </li>
-      </ul>
-    </div></div>
+          <mat-icon matChipRemove>cancel</mat-icon>
+        </mat-chip>
+      </mat-chip-list>
+    <!--</mat-card-content></mat-card>-->
+    <mat-divider inset class="mt-2"></mat-divider>
   </div>
 
-  <form #fundForm="ngForm" class="form-inline no-clues">
+
+
+  <form #fundForm="ngForm" class="form-inline">
     <div class="form-group">
-      <label for="fName">Funder</label>
-      <input #fName="ngModel" [(ngModel)]="funderName" class="form-control"
+      <mat-form-field class="mr-1">
+      <mat-label for="fName">Funder</mat-label>
+      <input matInput #fName="ngModel" [(ngModel)]="funderName" class=""
              id="fName"
              maxlength="100"
              minlength="3"
@@ -141,12 +165,14 @@
       <!--<div [hidden]="fName.valid || fName.pristine" class="alert alert-danger">
         Funder name is required
       </div>-->
+      </mat-form-field>
     </div>
 
     <div class="form-group">
-      <label for="fGrant">Grant</label>
-      <input #fGrant="ngModel" [(ngModel)]="grantNr"
-             class="form-control short-input"
+      <mat-form-field>
+      <mat-label for="fGrant">Grant</mat-label>
+      <input matInput #fGrant="ngModel" [(ngModel)]="grantNr"
+             class=""
              id="fGrant"
              maxlength="100"
              minlength="3"
@@ -155,6 +181,7 @@
       <!--<div [hidden]="fGrant.valid || fGrant.pristine" class="alert alert-danger">
         Invalid grant info
       </div>-->
+      </mat-form-field>
     </div>
 
     <button (click)="addFunding()" [disabled]="!fundForm.form.valid" class="btn btn-primary btn-sm ml-1" type="button">
@@ -162,11 +189,17 @@
     </button>
 
   </form>
+  </mat-card-content></mat-card>
 
-  <hr>
+  <!--<mat-card><mat-card-actions>-->
 
-  <button (click)="save()" [disabled]="blocked || errors" class="btn btn-primary mr-1" type="button">{{okLabel}}</button>
-  <button (click)="cancel()" class="btn btn-outline-secondary" type="button">Cancel</button>
+  <div class="mt-2">
+    <button (click)="save()" [disabled]="blocked || errors" class="btn btn-primary mr-1" type="button">{{okLabel}}</button>
+    <button (click)="cancel()" class="btn btn-outline-secondary" type="button">Cancel</button>
+  </div>
+  <!--</mat-card-actions></mat-card>-->
+
+
 
   <!-- {{ model | json }} -->
 

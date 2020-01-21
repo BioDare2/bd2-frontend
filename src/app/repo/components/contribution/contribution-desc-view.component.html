@@ -7,7 +7,7 @@
   <div *ngIf="model.curators.length > 0">
     <hr>
     <strong>Data curators: </strong>
-    <span *ngFor="let curator of model.curators">{{ curator.name }} (data curator), </span>
+    <span *ngFor="let curator of model.curators">{{ curator.name }}, </span>
   </div>
 
   <div *ngIf="model.institutions.length > 0 || model.fundings.length > 0">

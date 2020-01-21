@@ -6,7 +6,6 @@ import {ValidableFormComponent} from '../../../shared/validable-form.component';
 import {SpeciesService} from './species.service';
 
 
-
 @Component({
   selector: 'bd2-simple-bio-desc-form',
   template: `

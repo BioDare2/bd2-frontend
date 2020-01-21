@@ -2,6 +2,8 @@ import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 import {ContributionDescFormComponent} from './contribution-desc-form.component';
 import {ContributionDesc} from '../../../dom/repo/contribution/contribution-desc';
 import {FormsModule} from '@angular/forms';
+import {MaterialsModule} from '../../../shared/materials.module';
+import {NoopAnimationsModule} from '@angular/platform-browser/animations';
 // import { By } from '@angular/platform-browser';
 // import { DebugElement } from '@angular/core';
 
@@ -14,7 +16,7 @@ describe('ContributionDescFormComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [FormsModule],
+      imports: [FormsModule, MaterialsModule, NoopAnimationsModule],
       declarations: [ContributionDescFormComponent]
     })
       .compileComponents();

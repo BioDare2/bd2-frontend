@@ -12,7 +12,18 @@ import {CommonModule} from '@angular/common';
 import {DatepickerModule} from 'ngx-bootstrap/datepicker';
 import {TypeaheadModule} from 'ngx-bootstrap/typeahead';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {MAT_DATE_LOCALE, MatDatepickerModule, MatFormFieldModule, MatInputModule, MatNativeDateModule} from '@angular/material';
+import {
+  MAT_DATE_LOCALE,
+  MatCardModule,
+  MatChipsModule,
+  MatDatepickerModule,
+  MatDividerModule,
+  MatFormFieldModule,
+  MatIconModule,
+  MatInputModule,
+  MatNativeDateModule
+} from '@angular/material';
+
 // import {MatMomentDateModule} from '@angular/material-moment-adapter';
 @NgModule({
   imports: [
@@ -25,8 +36,11 @@ import {MAT_DATE_LOCALE, MatDatepickerModule, MatFormFieldModule, MatInputModule
     MatFormFieldModule,
     MatNativeDateModule,
     // MatMomentDateModule,
-    MatInputModule
-
+    MatInputModule,
+    MatChipsModule,
+    MatIconModule,
+    MatDividerModule,
+    MatCardModule
   ],
   declarations: [
     GeneralDescFormComponent,
