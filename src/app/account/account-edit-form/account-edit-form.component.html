@@ -1,100 +1,120 @@
-<div *ngIf="user && !user.anonymous">
+<mat-card *ngIf="user && !user.anonymous">
 
+  <mat-card-title>
   <h3>Edit user: {{user.name}}</h3>
+  </mat-card-title>
 
+  <mat-card-content>
   <form #userEditForm="ngForm">
 
     <div class="form-group">
-      <label for="username">Login</label>
-      <input #fUsername="ngModel" [ngModel]="user.login" class="form-control"
+      <mat-form-field class="w-100">
+      <mat-label for="username">Login</mat-label>
+      <input matInput #fUsername="ngModel" [ngModel]="user.login" class=""
              disabled
              id="username"
              name="fUsername" type="text"
       >
+      </mat-form-field>
     </div>
 
     <div class="form-group">
-      <label for="email">Email</label>
-      <input #fEmail="ngModel" [(ngModel)]="email" class="form-control"
+      <mat-form-field class="w-100">
+      <mat-label for="email">Email</mat-label>
+      <input matInput #fEmail="ngModel" [(ngModel)]="email" class=""
              id="email"
              name="fEmail"
              placeholder="your email"
              required type="text">
-      <div [hidden]="fEmail.pristine || validEmail()" class="alert alert-danger">
-        Email is not valid
-      </div>
+      </mat-form-field>
+    </div>
+    <div [hidden]="fEmail.pristine || validEmail()" class="alert alert-danger">
+      Email is not valid
     </div>
 
     <div class="form-group">
-      <label for="password">Password</label>
-      <input #fPassword="ngModel" [(ngModel)]="password"
-             class="form-control"
+      <mat-form-field class="w-100">
+      <mat-label for="password">Password</mat-label>
+      <input matInput #fPassword="ngModel" [(ngModel)]="password"
+             class=""
              id="password"
              name="fPassword"
              placeholder="new password or leave empty" type="password">
-      <div [hidden]="fPassword.pristine || !weakPassword()" class="alert alert-danger">
-        Password must be at least 8 long, containing a digit, symbol or cappital letter
-      </div>
+        <mat-hint>Password must be at least 8 long, containing a digit or symbol or capital letter</mat-hint>
+      </mat-form-field>
 
+    </div>
+    <div [hidden]="fPassword.pristine || !weakPassword()" class="alert alert-danger">
+      Password must be at least 8 long, containing a digit, symbol or cappital letter
     </div>
 
     <div class="form-group">
-      <label for="password2">Repeat password</label>
-      <input #fPassword2="ngModel" [(ngModel)]="password2"
-             class="form-control"
+      <mat-form-field class="w-100">
+      <mat-label for="password2">Repeat password</mat-label>
+      <input matInput #fPassword2="ngModel" [(ngModel)]="password2"
+             class=""
              id="password2"
              name="fPassword2"
              placeholder="password" type="password">
-      <div [hidden]="matching()" class="alert alert-danger">
-        Passwords do not match
-      </div>
+      </mat-form-field>
+    </div>
+    <div [hidden]="matching()" class="alert alert-danger">
+      Passwords do not match
     </div>
 
     <div class="form-group">
-      <label for="firstName">First Name</label>
-      <input #fFirstName="ngModel" [(ngModel)]="firstName" class="form-control"
+      <mat-form-field class="w-100">
+      <mat-label for="firstName">First Name</mat-label>
+      <input matInput #fFirstName="ngModel" [(ngModel)]="firstName" class=""
              id="firstName"
              minlength="2"
              name="fFirstName"
              placeholder="your first name"
              required type="text">
-      <div [hidden]="fFirstName.valid || fFirstName.pristine" class="alert alert-danger">
+      </mat-form-field>
+      <!--<div [hidden]="fFirstName.valid || fFirstName.pristine" class="alert alert-danger">
         First name is required
-      </div>
+      </div>-->
     </div>
 
     <div class="form-group">
-      <label for="lastName">Family Name</label>
-      <input #fLastName="ngModel" [(ngModel)]="lastName" class="form-control"
+      <mat-form-field class="w-100">
+      <mat-label for="lastName">Family Name</mat-label>
+      <input matInput #fLastName="ngModel" [(ngModel)]="lastName" class=""
              id="lastName"
              minlength="3"
              name="fLastName"
              placeholder="your surname"
              required type="text">
-      <div [hidden]="fLastName.valid || fLastName.pristine" class="alert alert-danger">
+      </mat-form-field>
+      <!--<div [hidden]="fLastName.valid || fLastName.pristine" class="alert alert-danger">
         Last name is required
-      </div>
+      </div>-->
     </div>
 
     <div class="form-group">
-      <label for="institution">Institution</label>
-      <input #fInstitution="ngModel" [(ngModel)]="institution" class="form-control"
+      <mat-form-field class="w-100">
+      <mat-label for="institution">Institution</mat-label>
+      <input matInput #fInstitution="ngModel" [(ngModel)]="institution" class=""
              id="institution"
              name="fInstitution"
              placeholder="e.g. University of Edinburgh"
              required type="text">
-      <div [hidden]="fInstitution.valid || fInstitution.pristine" class="alert alert-danger">
+      </mat-form-field>
+      <!--<div [hidden]="fInstitution.valid || fInstitution.pristine" class="alert alert-danger">
         Institution name is required
-      </div>
+      </div>-->
     </div>
 
     <div class="form-group">
-      <label for="password">Your current password</label>
-      <input #fCurrentPassword="ngModel" [(ngModel)]="currentPassword" class="form-control"
+      <mat-form-field class="w-100">
+      <mat-label for="password">Your current password</mat-label>
+      <input matInput #fCurrentPassword="ngModel" [(ngModel)]="currentPassword" class=""
              id="currentPassword"
              name="fCurrentPassword"
              placeholder="current password"
              required type="password">
+      </mat-form-field>
     </div>
 
     <button (click)="save()" [disabled]="!userEditForm.form.valid ||
@@ -102,5 +122,6 @@
     </button>
 
   </form>
+  </mat-card-content>
 
-</div>
+</mat-card>
