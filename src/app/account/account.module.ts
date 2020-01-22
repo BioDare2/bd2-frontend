@@ -10,6 +10,7 @@ import {AccountActivationComponent} from './account-activation/account-activatio
 import {RegistrationRFormComponent} from './registration-rform/registration-rform.component';
 import {AccountEditFormComponent} from './account-edit-form/account-edit-form.component';
 import {StaticContentModule} from '../documents/static-content/static-content.module';
+import {MatCardModule, MatCheckboxModule, MatDividerModule, MatFormFieldModule, MatIconModule, MatInputModule} from '@angular/material';
 
 @NgModule({
   declarations: [ResetRequestComponent, PasswordResetComponent, AccountActivationComponent,
@@ -20,7 +21,13 @@ import {StaticContentModule} from '../documents/static-content/static-content.mo
     ReactiveFormsModule,
     ReCaptchaModule,
     StaticContentModule,
-    AccountRoutingModule
+    AccountRoutingModule,
+    MatCardModule,
+    MatDividerModule,
+    MatFormFieldModule,
+    MatIconModule,
+    MatInputModule,
+    MatCheckboxModule
   ]
 })
 export class AccountModule {

@@ -1,95 +1,120 @@
-<div>
+<mat-card class="mb-2">
 
+  <mat-card-title>
   <h2>User registration</h2>
+  </mat-card-title>
 
+  <mat-card-content>
   <div *ngIf="registered" class="alert alert-success">
     <h4>Your registration was successful.</h4>
     We sent you the activation link to <strong>{{registeredMsg}}</strong>, please use that link before logging in
   </div>
 
-  <div *ngIf="!registered">
+  <div *ngIf="!registered" class="mb-4">
     <form #registrationForm [formGroup]="userForm">
       <div class="form-group">
-        <label for="username">Login</label>
-        <input class="form-control" formControlName="username" id="username"
+        <mat-form-field class="w-100">
+        <mat-label for="username">Login</mat-label>
+        <input matInput class="" formControlName="username" id="username"
                minlength="5"
                pattern="[0-9|a-z|\._]+"
                placeholder="choose login"
                required
                type="text"
         >
-        <div [hidden]="!userNameError" [innerHTML]="userNameError" class="alert alert-danger">
-        </div>
+        <mat-hint>Alphanumerical login, min length 5</mat-hint>
+        <mat-error *ngIf="userNameError" [innerHTML]="userNameError"></mat-error>
+        </mat-form-field>
+
       </div>
+      <!--<div [hidden]="!userNameError" [innerHTML]="userNameError" class="alert alert-danger">
+      </div>-->
 
       <div class="form-group">
-        <label for="email">Email</label>
-        <input class="form-control" formControlName="email" id="email"
+        <mat-form-field class="w-100">
+        <mat-label for="email">Email</mat-label>
+        <input matInput class="" formControlName="email" id="email"
                placeholder="your email"
                required
                type="text"
         >
-        <div [hidden]="!emailError" [innerHTML]="emailError" class="alert alert-danger">
-        </div>
+        <mat-error *ngIf="emailError" [innerHTML]="emailError"></mat-error>
+        </mat-form-field>
       </div>
+
+      <!--<div [hidden]="!emailError" [innerHTML]="emailError" class="alert alert-danger">
+      </div>-->
 
       <div formGroupName="passwords">
         <div class="form-group">
-          <label for="password">Password</label>
-          <input class="form-control" formControlName="password" id="password"
+          <mat-form-field class="w-100">
+          <mat-label for="password">Password</mat-label>
+          <input matInput class="" formControlName="password" id="password"
                  minlength="8"
                  placeholder="password"
                  required
                  type="password"
-
           >
-          <div [hidden]="passwordField.pristine || passwordField.valid" class="alert alert-danger">
+            <mat-hint>Password must be at least 8 long, containing a digit or symbol or capital letter</mat-hint>
+            <mat-error>Password must be at least 8 long, containing a digit or symbol or capital letter</mat-error>
+          </mat-form-field>
+
+          <!--<div [hidden]="passwordField.pristine || passwordField.valid" class="alert alert-danger">
             Password must be at least 8 long, containing a digit or symbol or capital letter
-          </div>
+          </div>-->
         </div>
 
         <div class="form-group">
-          <label for="password2">Repeat password</label>
-          <input class="form-control" formControlName="password2" id="password2"
+          <mat-form-field class="w-100">
+          <mat-label for="password2">Repeat password</mat-label>
+          <input matInput class="" formControlName="password2" id="password2"
                  minlength="8"
                  placeholder="password"
                  required
                  type="password"
           >
-          <div [hidden]="passwordField.pristine || userForm.get('passwords').valid || passwordField.invalid"
+            <mat-error>Passwords do not match</mat-error>
+          </mat-form-field>
+          <!-- <div [hidden]="passwordField.pristine || userForm.get('passwords').valid || passwordField.invalid"
                class="alert alert-danger">
             Passwords do not match
-          </div>
+          </div> -->
         </div>
       </div>
 
       <div class="form-group">
-        <label for="firstName">First Name</label>
-        <input class="form-control" formControlName="firstName" id="firstName"
+        <mat-form-field class="w-100">
+        <mat-label for="firstName">First Name</mat-label>
+        <input matInput class="" formControlName="firstName" id="firstName"
                minlength="2"
-               placeholder="your first name"
+               placeholder="e.g. Charles"
                required
                type="text"
         >
+        </mat-form-field>
       </div>
 
       <div class="form-group">
-        <label for="lastName">Family Name</label>
-        <input class="form-control" formControlName="lastName" id="lastName"
+        <mat-form-field class="w-100">
+        <mat-label for="lastName">Family Name</mat-label>
+        <input matInput class="" formControlName="lastName" id="lastName"
                minlength="2"
-               placeholder="your surname"
+               placeholder="e.g. Darwin"
                required
                type="text"
         >
+        </mat-form-field>
       </div>
 
       <div class="form-group">
-        <label for="institution">Institution</label>
-        <input class="form-control" formControlName="institution" id="institution"
+        <mat-form-field class="w-100">
+        <mat-label for="institution">Institution</mat-label>
+        <input matInput class="" formControlName="institution" id="institution"
                placeholder="e.g. University of Edinburgh"
                required
                type="text"
         >
+        </mat-form-field>
       </div>
 
       <div class="form-group">
@@ -104,13 +129,14 @@
 
 
       <div class="form-group">
-        <label><input formControlName="terms" id="terms"
+        <mat-checkbox formControlName="terms" id="terms"
                       required
                       type="checkbox"
-        > I agree to conditions of </label>
+        > I agree to conditions of
         <span style="font-weight: bold; text-decoration: underline;"><a (click)="helpDialog.show('service')" role="button">service</a></span>.
         And I understand that unless changed
         my data will be shared 3 years after their registration.
+        </mat-checkbox>
       </div>
 
       <button (click)="register()" [disabled]="blocked || userForm.invalid" class="btn btn-primary" type="button">
@@ -121,5 +147,5 @@
     </form>
   </div>
 
-
-</div>
+  </mat-card-content>
+</mat-card>
