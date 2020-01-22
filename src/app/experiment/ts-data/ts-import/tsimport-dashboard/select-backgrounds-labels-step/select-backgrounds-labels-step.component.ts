@@ -57,15 +57,16 @@ export class SelectBackgroundsLabelsStepComponent implements OnInit {
     */
 
     this.allLabels = [];
-    this.filteredLabels = this.backgroundCtrl.valueChanges.pipe(
-      startWith(null),
-      map((label: string | null) => label ? this._filter(label) : this.allLabels.slice(0, 7)));
+
 
   }
 
   ngOnInit() {
 
     // this.loadLabels();
+    this.filteredLabels = this.backgroundCtrl.valueChanges.pipe(
+      startWith(null),
+      map((label: string | null) => label ? this.filter(label) : this.allLabels));
   }
 
   loadLabels() {
@@ -88,7 +89,7 @@ export class SelectBackgroundsLabelsStepComponent implements OnInit {
   }
 
   updateAllLabels(labels: string[]) {
-    this.allLabels = labels;
+    this.allLabels = labels.slice().sort();
     const old = this.backgrounds || [];
     this.backgrounds = [];
     old.forEach(v => this.addBackground(v));
@@ -145,11 +146,11 @@ export class SelectBackgroundsLabelsStepComponent implements OnInit {
     this.backgroundCtrl.setValue(null);
   }
 
-  private _filter(value: string): string[] {
+  filter(value: string): string[] {
     const filterValue = value.toLowerCase();
 
     return this.allLabels
-      .filter(label => label.toLowerCase().indexOf(filterValue) === 0)
+      .filter(label => label.toLowerCase().includes(filterValue))
       .slice(0, 7);
   }
 

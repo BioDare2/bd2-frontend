@@ -67,6 +67,8 @@ import {
     MeasurementDescViewComponent
   ],
   providers: [
+    /* To get rid of us weird data format, but still, the input when edited manually interprets it in us way
+    * even if showin in GB */
     {provide: MAT_DATE_LOCALE, useValue: 'en-GB'}
   ]
 })
