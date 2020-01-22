@@ -8,13 +8,14 @@ import {ReCaptchaModule} from '../recaptcha/recaptcha.module';
 import {PasswordResetComponent} from './password-reset/password-reset.component';
 import {AccountActivationComponent} from './account-activation/account-activation.component';
 import {RegistrationRFormComponent} from './registration-rform/registration-rform.component';
-import {AccountEditFormComponent} from './account-edit-form/account-edit-form.component';
 import {StaticContentModule} from '../documents/static-content/static-content.module';
 import {MatCardModule, MatCheckboxModule, MatDividerModule, MatFormFieldModule, MatIconModule, MatInputModule} from '@angular/material';
+import { AccountEditRFormComponent } from './account-edit-rform/account-edit-rform.component';
+import { PasswordChangeRFormComponent } from './password-change-rform/password-change-rform.component';
 
 @NgModule({
   declarations: [ResetRequestComponent, PasswordResetComponent, AccountActivationComponent,
-    RegistrationRFormComponent, AccountEditFormComponent],
+    RegistrationRFormComponent, AccountEditRFormComponent, PasswordChangeRFormComponent],
   imports: [
     CommonModule,
     FormsModule,

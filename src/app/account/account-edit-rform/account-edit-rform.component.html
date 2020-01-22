@@ -1,0 +1,95 @@
+<mat-card *ngIf="user && !user.anonymous" class="mb-2">
+
+  <mat-card-title>
+    <h2>Edit user: {{user.name}}</h2>
+  </mat-card-title>
+
+  <mat-card-content>
+      <div *ngIf="updated" class="alert alert-success">Account has been updated</div>
+
+      <form #registrationForm [formGroup]="userForm">
+        <div class="form-group">
+          <mat-form-field class="w-100">
+            <mat-label for="username">Login</mat-label>
+            <input matInput class="" formControlName="username" id="username"
+                   required
+                   type="text"
+            >
+          </mat-form-field>
+        </div>
+
+        <div class="form-group">
+          <a routerLink="/account/password">Change password</a>
+        </div>
+
+        <div class="form-group">
+          <mat-form-field class="w-100">
+            <mat-label for="email">Email</mat-label>
+            <input matInput class="" formControlName="email" id="email"
+                   placeholder="your email"
+                   required
+                   type="text"
+            >
+            <mat-error>Not valid email format</mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="form-group">
+          <mat-form-field class="w-100">
+            <mat-label for="firstName">First Name</mat-label>
+            <input matInput class="" formControlName="firstName" id="firstName"
+                   minlength="2"
+                   placeholder="e.g. Charles"
+                   required
+                   type="text"
+            >
+          </mat-form-field>
+        </div>
+
+        <div class="form-group">
+          <mat-form-field class="w-100">
+            <mat-label for="lastName">Family Name</mat-label>
+            <input matInput class="" formControlName="lastName" id="lastName"
+                   minlength="2"
+                   placeholder="e.g. Darwin"
+                   required
+                   type="text"
+            >
+          </mat-form-field>
+        </div>
+
+        <div class="form-group">
+          <mat-form-field class="w-100">
+            <mat-label for="institution">Institution</mat-label>
+            <input matInput class="" formControlName="institution" id="institution"
+                   placeholder="e.g. University of Edinburgh"
+                   required
+                   type="text"
+            >
+          </mat-form-field>
+        </div>
+
+        <div class="form-group">
+          <mat-form-field class="w-100">
+            <mat-label for="cPassword">Current password</mat-label>
+            <input matInput class="" formControlName="currentPassword" id="cPassword"
+                   placeholder="current password"
+                   required
+                   type="password"
+            >
+          </mat-form-field>
+
+        </div>
+
+
+
+        <button (click)="save()" [disabled]="userForm.invalid" class="btn btn-primary" type="button">
+          Update
+        </button>
+
+
+      </form>
+
+
+  </mat-card-content>
+</mat-card>

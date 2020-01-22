@@ -74,5 +74,26 @@ export function isWeakPassword(password: string): boolean {
   return false;
 }
 
+export function validPasswordStrength(val: string): { [key: string]: any } {
+  if (isWeakPassword(val)) {
+    return {'password-weak': true};
+  } else {
+    return null;
+  }
+}
 
+export function passwordMatching(val: any) {
+  if (val.password === val.password2) {
+    return null;
+  }
+  return {'password-mismatch': true};
+}
 
+export function validEmail(val: string): { [key: string]: any } {
+  // console.log("VP "+val,val);
+  if (!isValidEmail(val)) {
+    return {pattern: 'Not valid email format'};
+  } else {
+    return null;
+  }
+}

@@ -4,7 +4,8 @@ import {ResetRequestComponent} from './reset-request/reset-request.component';
 import {PasswordResetComponent} from './password-reset/password-reset.component';
 import {AccountActivationComponent} from './account-activation/account-activation.component';
 import {RegistrationRFormComponent} from './registration-rform/registration-rform.component';
-import {AccountEditFormComponent} from './account-edit-form/account-edit-form.component';
+import {AccountEditRFormComponent} from './account-edit-rform/account-edit-rform.component';
+import {PasswordChangeRFormComponent} from './password-change-rform/password-change-rform.component';
 
 const routes: Routes = [
   {
@@ -12,11 +13,17 @@ const routes: Routes = [
     children: [
       {
         path: 'edit',
-        component: AccountEditFormComponent,
-      }, {
+        component: AccountEditRFormComponent,
+      },
+      {
+        path: 'password',
+        component: PasswordChangeRFormComponent,
+      },
+      {
         path: 'register',
         component: RegistrationRFormComponent
-      }, {
+      },
+      {
         path: 'activate',
         component: AccountActivationComponent
       },

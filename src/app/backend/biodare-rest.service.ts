@@ -100,28 +100,28 @@ export class BioDareRestService {
 
   }
 
-  userAvailableLogin(login: string): Promise<boolean> {
+  userAvailableLogin(login: string): Observable<boolean> {
     const options = this.makeOptions();
     const url = this.endPoints.user_available_login_url;
     const body = login;
 
-    return this.OKBoolean(this.http.post<string>(url, login, options)).toPromise();
+    return this.OKBoolean(this.http.post<string>(url, login, options));
   }
 
-  userAcademicEmail(email: string): Promise<boolean> {
+  userAcademicEmail(email: string): Observable<boolean> {
     const options = this.makeOptions();
     const url = this.endPoints.user_academic_email_url;
     const body = email;
 
-    return this.OKBoolean(this.http.post<string>(url, body, options)).toPromise();
+    return this.OKBoolean(this.http.post<string>(url, body, options));
   }
 
-  userSuitableEmail(email: string): Promise<any> {
+  userSuitableEmail(email: string): Observable<any> {
     const options = this.makeOptions();
     const url = this.endPoints.user_suitable_email_url;
     const body = email;
 
-    return this.OKJson(this.http.post(url, body, options)).toPromise();
+    return this.OKJson(this.http.post(url, body, options));
   }
 
 
@@ -137,6 +137,15 @@ export class BioDareRestService {
   userUpdate(user: any): Observable<any> {
     const options = this.makeOptions();
     const url = this.endPoints.user_update_url;
+    const body = user;
+
+    return this.OKJson(this.http.post(url, body, options));
+
+  }
+
+  passwordUpdate(user: any): Observable<any> {
+    const options = this.makeOptions();
+    const url = this.endPoints.user_update_url + '/password';
     const body = user;
 
     return this.OKJson(this.http.post(url, body, options));

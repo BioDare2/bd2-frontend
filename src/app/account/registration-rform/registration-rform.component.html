@@ -23,12 +23,11 @@
                type="text"
         >
         <mat-hint>Alphanumerical login, min length 5</mat-hint>
-        <mat-error *ngIf="userNameError" [innerHTML]="userNameError"></mat-error>
+        <mat-error *ngIf="userNameField.errors && !userNameField.errors['login-taken']">Alphanumerical login, min length 5, only numbers, small letters and ._</mat-error>
+        <mat-error *ngIf="userNameField.errors && userNameField.errors['login-taken']">Such login already exists</mat-error>
         </mat-form-field>
 
       </div>
-      <!--<div [hidden]="!userNameError" [innerHTML]="userNameError" class="alert alert-danger">
-      </div>-->
 
       <div class="form-group">
         <mat-form-field class="w-100">
@@ -38,12 +37,15 @@
                required
                type="text"
         >
-        <mat-error *ngIf="emailError" [innerHTML]="emailError"></mat-error>
+          <mat-error *ngIf="emailField.errors && emailField.errors['pattern']">Not valid email format</mat-error>
+          <mat-error *ngIf="emailField.errors && emailField.errors['email-taken']">Address is already being used</mat-error>
+          <mat-error *ngIf="emailField.errors && emailField.errors['email-nonacademic']">
+            Academic email is required for the registration. Contact us if your email is not recognized as academic.
+          </mat-error>
         </mat-form-field>
       </div>
 
-      <!--<div [hidden]="!emailError" [innerHTML]="emailError" class="alert alert-danger">
-      </div>-->
+
 
       <div formGroupName="passwords">
         <div class="form-group">
@@ -59,9 +61,6 @@
             <mat-error>Password must be at least 8 long, containing a digit or symbol or capital letter</mat-error>
           </mat-form-field>
 
-          <!--<div [hidden]="passwordField.pristine || passwordField.valid" class="alert alert-danger">
-            Password must be at least 8 long, containing a digit or symbol or capital letter
-          </div>-->
         </div>
 
         <div class="form-group">
@@ -73,12 +72,9 @@
                  required
                  type="password"
           >
-            <mat-error>Passwords do not match</mat-error>
+            <mat-error *ngIf="passwordsGroup.errors">Passwords do not match</mat-error>
           </mat-form-field>
-          <!-- <div [hidden]="passwordField.pristine || userForm.get('passwords').valid || passwordField.invalid"
-               class="alert alert-danger">
-            Passwords do not match
-          </div> -->
+
         </div>
       </div>
 
@@ -110,6 +106,7 @@
         <mat-form-field class="w-100">
         <mat-label for="institution">Institution</mat-label>
         <input matInput class="" formControlName="institution" id="institution"
+               minlength="3"
                placeholder="e.g. University of Edinburgh"
                required
                type="text"

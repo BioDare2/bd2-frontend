@@ -52,7 +52,7 @@ export class FlashMessagesComponent implements OnInit, OnDestroy {
         panelClass = 'flash-error';
       }
 
-      this.snackBar.open(message.message, '', {duration, panelClass, verticalPosition: 'top'});
+      this.snackBar.open(message.message, 'X', {duration, panelClass, verticalPosition: 'top'});
 
     }
   }

@@ -1,9 +1,9 @@
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
 import {AccountEditFormComponent} from './account-edit-form.component';
-import {fakeUserService} from '../../auth/auth_test_tool.spec';
+import {fakeUserService} from '../../src/app/auth/auth_test_tool.spec';
 import {FormsModule} from '@angular/forms';
-import {UserService} from '../../auth/user.service';
+import {UserService} from '../../src/app/auth/user.service';
 
 describe('UserEditFormComponent', () => {
   let component: AccountEditFormComponent;

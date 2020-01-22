@@ -147,16 +147,16 @@ export class UserService implements OnDestroy {
       .then(jsonObj => jsonObj.login);
   }
 
-  availableLogin(login: string): Promise<boolean> {
+  availableLogin(login: string): Observable<boolean> {
     return this.BD2REST.userAvailableLogin(login);
     // .then( txt => ('true' === txt));
   }
 
-  isAcademicEmail(email: string): Promise<boolean> {
+  /*isAcademicEmail(email: string): Observable<boolean> {
     return this.BD2REST.userAcademicEmail(email);
-  }
+  }*/
 
-  suitableEmail(email: string): Promise<EmailSuitability> {
+  suitableEmail(email: string): Observable<EmailSuitability> {
 
     return this.BD2REST.userSuitableEmail(email);
   }
@@ -164,15 +164,15 @@ export class UserService implements OnDestroy {
   register(user: any): Promise<BD2User> {
 
     return this.BD2REST.userRegister(user)
-      .then(user => {
-        user = BD2User.deserialize(user);
-        this.analytics.userRegistration(user.login);
-        return user;
+      .then(registered => {
+        registered = BD2User.deserialize(registered);
+        this.analytics.userRegistration(registered.login);
+        return registered;
       });
 
   }
 
-  update(userDsc: any): Promise<BD2User> {
+  update(userDsc: any): Observable<BD2User> {
 
     return this.BD2REST.userUpdate(userDsc)
       .pipe(
@@ -186,8 +186,25 @@ export class UserService implements OnDestroy {
             }
           }
         ),
-      ).toPromise();
+      );
 
+  }
+
+  passwordUpdate(userDsc: any): Observable<BD2User> {
+
+    return this.BD2REST.passwordUpdate(userDsc)
+      .pipe(
+        map(user => BD2User.deserialize(user)),
+        tap(
+          user => {
+            if (user.login === this.currentUser.login) {
+              // edited myself have to update the current user
+              // this.BD2REST.refreshUser().subscribe( u => this.setUser(BD2User.deserialize(u)));
+              this.setUser(user);
+            }
+          }
+        ),
+      );
   }
 
   protected refresh() {

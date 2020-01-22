@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
-import {BD2User} from '../../auth/user.dom';
-import {UserService} from '../../auth/user.service';
-import {FeedbackService} from '../../feedback/feedback.service';
-import {isValidEmail, isWeakPassword} from '../user.util';
+import {BD2User} from '../../src/app/auth/user.dom';
+import {UserService} from '../../src/app/auth/user.service';
+import {FeedbackService} from '../../src/app/feedback/feedback.service';
+import {isValidEmail, isWeakPassword} from '../../src/app/account/user.util';
 
 @Component({
   templateUrl: './account-edit-form.component.html',

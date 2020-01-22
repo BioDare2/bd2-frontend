@@ -4,9 +4,11 @@ import {environment} from '../../../environments/environment';
 import {ReCaptchaComponent} from '../../recaptcha/recaptcha.component';
 import {UserService} from '../../auth/user.service';
 import {FeedbackService} from '../../feedback/feedback.service';
-import {isValidEmail, isWeakPassword} from '../user.util';
-import {debounceTime, distinctUntilChanged} from 'rxjs/operators';
+import {passwordMatching, validEmail, validPasswordStrength} from '../user.util';
+
 import {StaticContentDialogService} from '../../documents/static-content/static-content-dialog.service';
+import {Observable, of} from 'rxjs';
+import {catchError, map} from 'rxjs/operators';
 
 @Component({
   templateUrl: './registration-rform.component.html',
@@ -19,16 +21,16 @@ export class RegistrationRFormComponent implements OnInit {
   emailField: FormControl;
   passwordField: FormControl;
   password2Field: FormControl;
+  passwordsGroup: FormGroup;
 
   registered: boolean;
   registeredMsg: string;
 
-  userNameError: string;
-  emailError: string;
+
 
   blocked = false;
   missingCaptcha = false;
-  g_recaptcha_response: string;
+  gRecaptchaResponse: string;
 
   @ViewChild('recaptcha', { static: false })
   private recaptcha: ReCaptchaComponent;
@@ -45,12 +47,20 @@ export class RegistrationRFormComponent implements OnInit {
   ngOnInit() {
 
     this.userForm = this.fb.group({
-      username: [undefined, [Validators.required], []],
-      email: [undefined, [Validators.required], []],
+      username: [undefined, {
+        validators: [Validators.required],
+        asyncValidators: (control: AbstractControl) => this.availableLogin(control.value),
+        updateOn: 'blur'
+      }],
+      email: [undefined, {
+        validators: [Validators.required, (control: AbstractControl) => validEmail(control.value)],
+        asyncValidators: (control: AbstractControl) => this.suitableEmail(control.value),
+        updateOn: 'blur'
+      }],
       passwords: this.fb.group({
-        password: [undefined, [Validators.required, (control: AbstractControl) => this.validPasswordStrength(control.value)]],
+        password: [undefined, [Validators.required, (control: AbstractControl) => validPasswordStrength(control.value)]],
         password2: [undefined, [Validators.required]],
-      }, {validator: (control: AbstractControl) => this.passwordMatching(control.value)}),
+      }, {validator: (control: AbstractControl) => passwordMatching(control.value)}),
       firstName: [undefined, [Validators.required]],
       lastName: [undefined, [Validators.required]],
       institution: [undefined, [Validators.required]],
@@ -61,11 +71,12 @@ export class RegistrationRFormComponent implements OnInit {
     this.emailField = this.userForm.get('email') as FormControl;
     this.passwordField = this.userForm.get('passwords.password') as FormControl;
     this.password2Field = this.userForm.get('passwords.password2') as FormControl;
+    this.passwordsGroup = this.userForm.get('passwords') as FormGroup;
 
-    this.subscribeValidationMessages();
+    // this.subscribeValidationMessages();
   }
 
-
+  /*
   subscribeValidationMessages() {
 
     this.userNameField.valueChanges.pipe(
@@ -88,6 +99,7 @@ export class RegistrationRFormComponent implements OnInit {
         }
       );
 
+
     this.emailField.valueChanges.pipe(
       debounceTime(500),
       distinctUntilChanged((prev: any, next: any) => prev === next)
@@ -107,9 +119,11 @@ export class RegistrationRFormComponent implements OnInit {
         }
       });
 
-  }
+  } */
 
+  /*
   decodeEmailErrors(errors: any): string {
+    console.log("Decode error", errors);
     let msg = '';
     if (errors) {
       for (const key in errors) {
@@ -122,8 +136,9 @@ export class RegistrationRFormComponent implements OnInit {
 
     // console.log(""+msg,errors);
     return msg;
-  }
+  } */
 
+  /*
   decodeUserNameErrors(errors: any): string {
 
     if (errors) {
@@ -144,10 +159,10 @@ export class RegistrationRFormComponent implements OnInit {
     } else {
       return undefined;
     }
-  }
+  }*/
 
   captcha(value: string) {
-    this.g_recaptcha_response = value;
+    this.gRecaptchaResponse = value;
     if (value) {
       this.missingCaptcha = false;
     }
@@ -155,60 +170,41 @@ export class RegistrationRFormComponent implements OnInit {
   }
 
   captchaExpired() {
-    this.g_recaptcha_response = null;
+    this.gRecaptchaResponse = null;
     // console.log('Captcha expired');
   }
 
-  validEmail(val: string): { [key: string]: any } {
-    // console.log("V "+val,val);
-    if (isValidEmail(val)) {
-      return null;
-    } else {
-      return {email: 'Not valid format'};
-    }
-  }
-
-  validPasswordStrength(val: string): { [key: string]: any } {
-    // console.log("VP "+val,val);
-    if (isWeakPassword(val)) {
-      return {'password-weak': true};
-    } else {
-      return null;
-    }
-  }
-
-  passwordMatching(val: any) {
-    // console.log("PM: "+val,val);
-    if (val.password === val.password2) {
-      return null;
-    }
-    return {'password-mismatch': true};
-  }
 
 
-  availableLogin(val: string): Promise<{ [key: string]: any }> {
+
+
+
+
+
+  availableLogin(val: string): Observable<{ [key: string]: any }> {
+
     if (!val || val.length < 5) {
-      return Promise.resolve({'too-short': true});
+      return of({'too-short': true});
     }
 
-    return this.userService.availableLogin(val)
-      .then(resp => {
-        if (resp) {
-          return Promise.resolve<{ [key: string]: any }>(null);
-        } else {
-          return Promise.resolve({'login-taken': 'User ' + val + ' already exists'});
-        }
+    return this.userService.availableLogin(val).pipe(
+      map(resp => {
+          if (resp) {
+            return null;
+          } else {
+            return {'login-taken': 'User ' + val + ' already exists'};
+          }}),
+      catchError( reason => {
+        this.feedback.error(reason);
+        return of({ 'cannot-connect': true});
       })
-      .catch(reason => this.feedback.error(reason));
+    );
   }
 
-  suitableEmail(val: string): Promise<{ [key: string]: any }> {
-    if (!isValidEmail(val)) {
-      return Promise.resolve({pattern: 'Not valid email format'});
-    }
+  suitableEmail(val: string): Observable<{ [key: string]: any }> {
 
-    return this.userService.suitableEmail(val)
-      .then(suitability => {
+    return this.userService.suitableEmail(val).pipe(
+      map(suitability => {
         if (suitability.isFree && suitability.isAcademic) {
           return null;
         }
@@ -222,15 +218,19 @@ export class RegistrationRFormComponent implements OnInit {
             'Contact us if your email is not recognized as academic.';
         }
         return problems;
+      }),
+      catchError( reason => {
+        this.feedback.error(reason);
+        return of({ 'cannot-connect': true});
       })
-      .catch(reason => this.feedback.error(reason));
+    );
   }
 
   register() {
-    console.log('Register');
+    // console.log('Register');
 
     if (this.userForm.valid) {
-      if (!this.g_recaptcha_response) {
+      if (!this.gRecaptchaResponse) {
         if (!this.emailField.value.endsWith('.cn') && !this.emailField.value.endsWith('.tw')) {
           this.missingCaptcha = true;
           return;
@@ -242,17 +242,20 @@ export class RegistrationRFormComponent implements OnInit {
       // user.login = user.username;
       // user.g_recaptcha_response = this.g_recaptcha_response;
 
+      this.triggerRegistration(user);
+
+      /*
       this.dblCheckValidity(user)
         .then(
           resp => {
             if (resp) {
               this.triggerRegistration(user);
             } else {
-              this.feedback.error('From submitted before validation');
+              this.feedback.error('Form submitted before validation');
             }
           }
         );
-
+      */
     }
   }
 
@@ -265,12 +268,12 @@ export class RegistrationRFormComponent implements OnInit {
       lastName: form.lastName,
       institution: form.institution,
       terms: form.terms,
-      g_recaptcha_response: this.g_recaptcha_response
+      g_recaptcha_response: this.gRecaptchaResponse
     };
     return user;
   }
 
-  dblCheckValidity(user: any): Promise<boolean> {
+  /*dblCheckValidity(user: any): Promise<boolean> {
     return this.availableLogin(user.login)
       .then(resp => {
         if (resp) {
@@ -279,19 +282,19 @@ export class RegistrationRFormComponent implements OnInit {
         return this.suitableEmail(user.email)
           .then(resp => resp ? false : true);
       });
-  }
+  }*/
 
   triggerRegistration(user: any) {
 
     this.userService.register(user)
-      .then(user => {
+      .then(registered => {
         this.registered = true;
-        this.registeredMsg = user.email;
+        this.registeredMsg = registered.email;
         this.feedback.success('Registration successful');
       })
       .catch(reason => {
         this.feedback.error(reason);
-        this.g_recaptcha_response = undefined;
+        this.gRecaptchaResponse = undefined;
         if (this.recaptcha) {
           this.recaptcha.reset();
         }
