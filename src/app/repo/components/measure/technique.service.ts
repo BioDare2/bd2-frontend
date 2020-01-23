@@ -72,6 +72,7 @@ export class TechniqueService {
         'Immunoprecipitation',
         'Biomass Assay',
         'Gas exchange',
+        'Oxygen concentration',
         'Other'
       ]);
 
@@ -94,7 +95,7 @@ export class TechniqueService {
     this.techniques.forEach(v => this.equipments.set(v, ['', 'Unknown']));
     imgTech.forEach(v => this.equipments.set(v, imagingEq));
     this.equipments.set('qRT-PCR', ['', 'Robot + Light Cycler 480', 'Light Cycler 480', 'Unknown']);
-
+    this.equipments.set('Oxygen concentration', ['', 'Galvanic Clarck\'s probe', 'Unknown']);
 
     const imgParams: Parameter[] = [];
     imgParams.push(new Parameter('exposure_time', undefined, 'Exposure time', 'min'));
