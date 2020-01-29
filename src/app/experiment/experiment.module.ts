@@ -10,10 +10,11 @@ import {RepoComponentsModule} from '../repo/components/repo-comp.module';
 import {ExperimentAssayEditFormComponent} from './experiment-assay-edit-form/experiment-assay-edit-form.component';
 import {AttachmentsModule} from './attachments/attachments.module';
 import {PublishModule} from './publish/publish.module';
+import {ExperimentAssayCreateFormComponent} from './experiment-assay-create-form/experiment-assay-create-form.component';
 
 @NgModule({
   declarations: [ExperimentFeatureComponent, ExperimentNavigationComponent, ExperimentBasicInfoViewComponent,
-    ExperimentAssayOverviewComponent, ExperimentAssayEditFormComponent],
+    ExperimentAssayOverviewComponent, ExperimentAssayEditFormComponent, ExperimentAssayCreateFormComponent],
   imports: [
     CommonModule,
     RepoComponentsModule,

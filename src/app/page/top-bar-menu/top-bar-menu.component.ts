@@ -14,7 +14,7 @@ import {BD2User} from '../../auth/user.dom';
            class="nav-link" (click)="navigated()">Experiments</a>
       </li>
       <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
-        <a *ngIf="logged" routerLink="/experiments/new" routerLinkActive="active"
+        <a *ngIf="logged" routerLink="/experiment/new" routerLinkActive="active"
            [routerLinkActiveOptions]="{exact: true}"
            class="nav-link" (click)="navigated()">New Experiment</a>
       </li>

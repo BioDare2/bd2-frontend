@@ -5,8 +5,10 @@ import {ExperimentAssayOverviewComponent} from './experiment-assay-overview/expe
 import {ExperimentAssayEditFormComponent} from './experiment-assay-edit-form/experiment-assay-edit-form.component';
 import {AttachmentsDashboardComponent} from './attachments/attachments-dashboard/attachments-dashboard.component';
 import {PublishFormComponent} from './publish/publish-form/publish-form.component';
+import {ExperimentAssayCreateFormComponent} from './experiment-assay-create-form/experiment-assay-create-form.component';
 
 const routes: Routes = [
+  {path: 'new', pathMatch: 'full', component: ExperimentAssayCreateFormComponent},
   {
     path: ':id',
     component: ExperimentFeatureComponent,
