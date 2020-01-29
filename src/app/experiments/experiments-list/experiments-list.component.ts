@@ -1,7 +1,7 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {UserService} from '../../auth/user.service';
 import {FeedbackService} from '../../feedback/feedback.service';
-import {ExperimentService} from '../experiment.service';
+import {ExperimentService} from '../../experiment/experiment.service';
 import {ExperimentSummary} from '../../dom/repo/exp/experiment-summary';
 
 @Component({
@@ -24,13 +24,8 @@ import {ExperimentSummary} from '../../dom/repo/exp/experiment-summary';
       </div>
 
       <div class="list-group">
-        <a *ngFor="let exp of experiments" [routerLink]="['/experiment',exp.id]" class="list-group-item list-group-item-action">
-          <h5 class="list-group-item-heading">
-            <i *ngIf="exp.features.isOpenAccess" class="material-icons bd-icon" style="color: green">lock_open</i>
-            <!-- <img *ngIf="exp.features.isOpenAccess" src="assets/Open_Access_logo_small.svg" style="height: 1.5em;"> -->
-            {{exp.name}}</h5>
-          <p class="list-group-item-text">{{exp.generalDesc.purpose}}</p>
-        </a>
+        <bd2-experiment-summary *ngFor="let exp of experiments" [exp]="exp" >
+        </bd2-experiment-summary>
       </div>
 
     </div>

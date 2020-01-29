@@ -4,17 +4,17 @@ import {CommonModule} from '@angular/common';
 import {ExperimentsRoutingModule} from './experiments-routing.module';
 import {ExperimentsListComponent} from './experiments-list/experiments-list.component';
 import {FormsModule} from '@angular/forms';
-import {ExperimentAssayCreateFormComponent} from './experiment-assay-create-form/experiment-assay-create-form.component';
 import {RepoComponentsModule} from '../repo/components/repo-comp.module';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+import { ExperimentSummaryComponent } from './experiments-list/experiment-summary/experiment-summary.component';
+import {ExperimentAssayCreateFormComponent} from '../experiment/experiment-assay-create-form/experiment-assay-create-form.component';
 
 @NgModule({
-  declarations: [ExperimentsListComponent, ExperimentAssayCreateFormComponent],
+  declarations: [ExperimentsListComponent, ExperimentAssayCreateFormComponent, ExperimentSummaryComponent],
   imports: [
     CommonModule,
     FormsModule,
     MatSlideToggleModule,
-    // RouterModule,
     RepoComponentsModule,
     ExperimentsRoutingModule
   ]

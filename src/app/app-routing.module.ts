@@ -12,7 +12,7 @@ const routes: Routes = [
     path: 'logout',
     component: LoginFormComponent
   },
-  {path: 'experiments', loadChildren: () => import('./experiment/experiments.module').then(m => m.ExperimentsModule)},
+  {path: 'experiments', loadChildren: () => import('./experiments/experiments.module').then(m => m.ExperimentsModule)},
 
   {path: 'experiment', loadChildren: () => import('./experiment/experiment.module').then(m => m.ExperimentModule)},
 
