@@ -154,13 +154,16 @@ export class BioDareRestService {
 
   /* experiments */
 
-  experiments(onlyOwned = true): Promise<any> {
+  experiments(onlyOwned = true, page: PageEvent): Observable<any> {
     const options = this.makeOptions() as any;
     options.params = options.params || new HttpParams();
     options.params = options.params.set('onlyOwned', '' + onlyOwned);
+    if (page) {
+      options.params = options.params.set('pageIndex', '' + page.pageIndex).set('pageSize', '' + page.pageSize);
+    }
     const url = this.endPoints.experiments_url;
 
-    return this.OKJson(this.http.get(url, options)).toPromise();
+    return this.OKJson(this.http.get(url, options));
 
   }
 

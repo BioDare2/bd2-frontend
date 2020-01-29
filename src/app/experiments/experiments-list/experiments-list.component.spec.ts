@@ -7,8 +7,9 @@ import {UserService} from '../../auth/user.service';
 import {fakeUserService} from '../../auth/auth_test_tool.spec';
 import {BioDareRestService} from '../../backend/biodare-rest.service';
 import {fakeBioDareRestService} from '../../backend/biodare-rest_test_tool.spec';
-import {MatSlideToggleModule} from '@angular/material';
+import {MatPaginatorModule, MatSlideToggleModule} from '@angular/material';
 import {ExperimentSummaryComponent} from './experiment-summary/experiment-summary.component';
+import {NoopAnimationsModule} from '@angular/platform-browser/animations';
 
 describe('ExperimentsListComponent', () => {
   let component: ExperimentsListComponent;
@@ -18,7 +19,7 @@ describe('ExperimentsListComponent', () => {
     TestBed.configureTestingModule({
       declarations: [ExperimentsListComponent, ExperimentSummaryComponent],
       imports: [FormsModule,
-        RouterTestingModule, MatSlideToggleModule],
+        RouterTestingModule, MatSlideToggleModule, MatPaginatorModule, NoopAnimationsModule],
       providers: [
         {provide: UserService, useValue: fakeUserService()},
         {provide: BioDareRestService, useValue: fakeBioDareRestService()}

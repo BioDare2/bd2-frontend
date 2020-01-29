@@ -4,6 +4,9 @@ import {ExperimentSummary} from '../dom/repo/exp/experiment-summary';
 import {ExperimentalAssayView} from '../dom/repo/exp/experimental-assay-view';
 import {FileImportRequest} from './ts-data/ts-import/import-dom';
 import {Observable} from 'rxjs';
+import {ListWrapper} from '../shared/common-interfaces';
+import {tap} from 'rxjs/operators';
+import {PageEvent} from '@angular/material';
 
 @Injectable({
   providedIn: 'root'
@@ -14,10 +17,13 @@ export class ExperimentService {
     console.log('ExperimentService created');
   }
 
-  getExperiments(onlyOwned = true): Promise<ExperimentSummary[]> {
+  getExperiments(onlyOwned = true, page: PageEvent): Observable<ListWrapper<ExperimentSummary>> {
 
-    return this.BD2REST.experiments(onlyOwned)
-      .then(jsonObj => this.json2ExperimentSummaryList(jsonObj.data));
+    return this.BD2REST.experiments(onlyOwned, page).pipe(
+      tap((wrapper: ListWrapper<ExperimentSummary>) => {
+        wrapper.data = this.json2ExperimentSummaryList(wrapper.data);
+      })
+    );
   }
 
   newDraft(): Promise<ExperimentalAssayView> {

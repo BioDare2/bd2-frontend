@@ -29,7 +29,7 @@ export function fakeBioDareRestService() {
   ser.logout.and.returnValue(of(true));
   ser.refreshUser.and.returnValue(of(unlogged));
 
-  ser.experiments.and.returnValue(Promise.resolve([]));
+  ser.experiments.and.returnValue(of({ data: []}));
 
   function f(exp: ExperimentalAssayView, id: any): string {
     return 'exp/file/' + id;

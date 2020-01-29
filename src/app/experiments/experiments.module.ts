@@ -8,6 +8,7 @@ import {RepoComponentsModule} from '../repo/components/repo-comp.module';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import { ExperimentSummaryComponent } from './experiments-list/experiment-summary/experiment-summary.component';
 import {ExperimentAssayCreateFormComponent} from '../experiment/experiment-assay-create-form/experiment-assay-create-form.component';
+import {MatPaginatorModule} from '@angular/material';
 
 @NgModule({
   declarations: [ExperimentsListComponent, ExperimentAssayCreateFormComponent, ExperimentSummaryComponent],
@@ -15,6 +16,7 @@ import {ExperimentAssayCreateFormComponent} from '../experiment/experiment-assay
     CommonModule,
     FormsModule,
     MatSlideToggleModule,
+    MatPaginatorModule,
     RepoComponentsModule,
     ExperimentsRoutingModule
   ]
