@@ -271,3 +271,7 @@ mat-form-field .form-control:focus {
 mat-form-field textarea.ng-valid, mat-form-field textarea.ng-valid[required], mat-form-field textarea.ng-invalid {
   border-left: none;
 }
+
+div.searchpanel .mat-button-toggle-appearance-standard .mat-button-toggle-label-content {
+  line-height: 250%;
+}

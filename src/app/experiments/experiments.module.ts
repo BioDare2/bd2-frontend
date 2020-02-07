@@ -3,20 +3,22 @@ import {CommonModule} from '@angular/common';
 
 import {ExperimentsRoutingModule} from './experiments-routing.module';
 import {ExperimentsListComponent} from './experiments-list/experiments-list.component';
-import {FormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {RepoComponentsModule} from '../repo/components/repo-comp.module';
-import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import { ExperimentSummaryComponent } from './experiments-list/experiment-summary/experiment-summary.component';
-// import {ExperimentAssayCreateFormComponent} from '../experiment/experiment-assay-create-form/experiment-assay-create-form.component';
-import {MatPaginatorModule} from '@angular/material';
+import {MatPaginatorModule, MatTableModule, MatButtonToggleModule, MatSlideToggleModule, MatButtonModule} from '@angular/material';
+import { SearchAndSortPanelComponent } from './search-and-sort-panel/search-and-sort-panel.component';
 
 @NgModule({
-  declarations: [ExperimentsListComponent, ExperimentSummaryComponent],
+  declarations: [ExperimentsListComponent, ExperimentSummaryComponent, SearchAndSortPanelComponent],
   imports: [
     CommonModule,
-    FormsModule,
+    FormsModule, ReactiveFormsModule,
+    MatButtonModule,
+    MatButtonToggleModule,
     MatSlideToggleModule,
     MatPaginatorModule,
+    MatTableModule,
     RepoComponentsModule,
     ExperimentsRoutingModule
   ]

@@ -7,6 +7,7 @@ import {PageEvent} from '@angular/material';
 import {ActivatedRoute} from '@angular/router';
 import {filter, map} from 'rxjs/operators';
 import {Subscription} from 'rxjs';
+import {SearchAndSortOptions} from '../search-and-sort-panel/search-and-sort-panel.component';
 
 @Component({
   template: `
@@ -28,6 +29,9 @@ import {Subscription} from 'rxjs';
       </div>
 
       <div>
+
+        <bd2-search-and-sort-panel [options]="initialSearchOptions" (search)="search($event)"></bd2-search-and-sort-panel>
+
         <mat-paginator #paginator [length]="currentPage?.length"
                        [pageSize]="currentPage?.pageSize || 25"
                        [pageIndex]="currentPage?.pageIndex"
@@ -36,6 +40,11 @@ import {Subscription} from 'rxjs';
 
         >
         </mat-paginator>
+
+
+
+
+
         <div class="list-group">
           <bd2-experiment-summary *ngFor="let exp of experiments" [exp]="exp" >
           </bd2-experiment-summary>
@@ -63,7 +72,7 @@ export class ExperimentsListComponent implements OnInit, OnDestroy {
 
   experiments: ExperimentSummary[];
   currentPage: PageEvent;
-
+  initialSearchOptions: SearchAndSortOptions;
 
   constructor(private experimentService: ExperimentService,
               private feedback: FeedbackService,
@@ -90,6 +99,13 @@ export class ExperimentsListComponent implements OnInit, OnDestroy {
     this.currentPage = firstPage;
     this._showPublic = !this.userService.isLoggedIn();
 
+    this.initialSearchOptions = {
+      sorting: 'modified',
+      direction: 'desc',
+      showPublic: !this.userService.isLoggedIn(),
+      query: ''
+    };
+
     this.loadExperiments(this.currentPage);
 
     this.subscribeRoute();
@@ -99,6 +115,10 @@ export class ExperimentsListComponent implements OnInit, OnDestroy {
     if (this.routeSubscription) {
       this.routeSubscription.unsubscribe();
     }
+  }
+
+  search(options: SearchAndSortOptions) {
+    console.log("Searching for", options);
   }
 
   firstPage() {
