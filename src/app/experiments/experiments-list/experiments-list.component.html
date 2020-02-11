@@ -1,0 +1,48 @@
+<div>
+  <h2 class="float-left">Experiments
+    <a (click)="refresh()" role="button" aria-label="refresh">
+      <i class="material-icons bd-icon-inh bd-primary" style="font-size: larger;">refresh</i>
+      <!--<span class="glyphicon glyphicon-repeat" aria-hidden="true"></span>-->
+    </a>
+  </h2>
+
+
+  <div class="clearfix"></div>
+
+  <div *ngIf="!experiments || experiments.length < 1" class="alert alert-info">
+    There are no visible experiments.
+  </div>
+
+  <div>
+
+    <bd2-search-and-sort-panel [options]="initialSearchOptions" (search)="search($event)" (sort)="sort($event)"></bd2-search-and-sort-panel>
+
+    <mat-paginator #paginator [length]="fetcher.dataLength"
+                   [pageSize]="fetcher.currentPage?.pageSize || 25"
+                   [pageIndex]="fetcher.currentPage?.pageIndex"
+                   [pageSizeOptions]="[10, 25, 50, 100, 200]"
+                   (page)="page($event)"
+
+    >
+    </mat-paginator>
+
+    <div class="list-group">
+      <bd2-experiment-summary *ngFor="let exp of experiments" [exp]="exp" >
+      </bd2-experiment-summary>
+    </div>
+
+    <mat-paginator #paginator2 [hidden]="experiments?.length < 1"
+                   [length]="fetcher.dataLength"
+                   [pageSize]="fetcher.currentPage?.pageSize || 25"
+                   [pageIndex]="fetcher.currentPage?.pageIndex"
+                   [pageSizeOptions]="[10, 25, 50, 100, 200]"
+                   (page)="page($event)"
+    >
+    </mat-paginator>
+    <div class="float-left">
+      <a *ngIf="paginator.hasNextPage()"
+         [routerLink]="[]" [queryParams]="{pageIndex: fetcher.currentPage?.pageIndex+1, pageSize: fetcher.currentPage?.pageSize}"
+         style="color: rgba(0,0,0,.54);" >Next</a>
+    </div>
+  </div>
+</div>

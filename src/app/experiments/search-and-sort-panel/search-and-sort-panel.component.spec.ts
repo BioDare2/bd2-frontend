@@ -1,6 +1,8 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { SearchAndSortPanelComponent } from './search-and-sort-panel.component';
+import {SearchAndSortPanelComponent} from './search-and-sort-panel.component';
+import {ReactiveFormsModule} from '@angular/forms';
+import {MaterialsModule} from '../../shared/materials.module';
 
 describe('SearchAndSortPanelComponent', () => {
   let component: SearchAndSortPanelComponent;
@@ -8,7 +10,8 @@ describe('SearchAndSortPanelComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ SearchAndSortPanelComponent ]
+      declarations: [ SearchAndSortPanelComponent ],
+      imports: [ReactiveFormsModule, MaterialsModule]
     })
     .compileComponents();
   }));

@@ -1,13 +1,18 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {FormControl, FormGroup, Validators} from '@angular/forms';
-import { FormBuilder } from '@angular/forms';
+import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {Sort} from '@angular/material';
 
-export interface SearchAndSortOptions {
-  sorting: string;
-  direction: string;
+export interface SearchOptions {
   showPublic: boolean;
   query: string;
 }
+
+export interface SearchAndSortOptions {
+  showPublic: boolean;
+  query: string;
+  sorting: Sort;
+}
+
 @Component({
   selector: 'bd2-search-and-sort-panel',
   templateUrl: './search-and-sort-panel.component.html',
@@ -15,67 +20,88 @@ export interface SearchAndSortOptions {
 })
 export class SearchAndSortPanelComponent implements OnInit {
 
-  displayOptionsF: FormGroup;
+  sortOptionsF: FormGroup;
   queryF: FormControl;
+  showPublicF: FormControl;
 
   // options: SearchAndSortOptions;
-  currentDisplayOptions: SearchAndSortOptions;
-  currentQuery: string;
+  // currentDisplayOptions: SearchAndSortOptions;
+  // currentQuery: string;
 
   @Output()
-  search = new EventEmitter<SearchAndSortOptions>();
+  search = new EventEmitter<SearchOptions>();
+
+  @Output()
+  sort = new EventEmitter<Sort>();
+
+  currentSort: Sort = {active: 'id', direction: 'asc'};
+
+  currentQuery = '';
+  currentShowPublic = false;
+
 
   @Input()
   set options(val: SearchAndSortOptions) {
+
     if (val) {
-      this.currentDisplayOptions = val;
       this.currentQuery = val.query;
-      this.updateOptions();
+      this.currentShowPublic = val.showPublic;
+      this.currentSort = val.sorting;
     }
   }
 
   constructor(private fb: FormBuilder) {
 
-    this.currentDisplayOptions = { sorting: 'modified', direction: 'desc', showPublic: false, query: ''};
-    this.currentQuery = '';
+    // this.currentDisplayOptions = { sorting: 'modified', direction: 'desc', showPublic: false, query: ''};
+    // this.currentQuery = '';
   }
 
 
 
   ngOnInit() {
 
-    this.displayOptionsF = this.fb.group({
-      sorting: [this.currentDisplayOptions.sorting],
-      direction: [this.currentDisplayOptions.direction],
-      showPublic: [this.currentDisplayOptions.showPublic],
+    this.sortOptionsF = this.fb.group({
+      sorting: [this.currentSort.active],
+      direction: [this.currentSort.direction]
     });
 
-    this.queryF = this.fb.control('', [Validators.required, Validators.minLength(3)]);
+    this.showPublicF = this.fb.control(this.currentShowPublic);
+    this.queryF = this.fb.control(this.currentQuery, [Validators.required, Validators.minLength(3)]);
 
-    this.displayOptionsF.valueChanges.subscribe( val => {
-      this.currentDisplayOptions = val;
-      this.updateOptions();
+
+    this.sortOptionsF.valueChanges.subscribe( val => this.updateSort(val.sorting, val.direction));
+
+    this.showPublicF.valueChanges.subscribe( val => {
+      this.currentShowPublic = val;
+      this.emitSearch();
     });
+
+
   }
 
-  updateOptions() {
-
-    const opt = Object.assign({}, this.currentDisplayOptions) as SearchAndSortOptions;
-    opt.query = this.currentQuery;
-
-    this.search.next(opt);
+  updateSort(active: string, direction: string) {
+    const sort = {active, direction} as Sort;
+    this.currentSort = sort;
+    this.sort.next(sort);
   }
+
+  emitSearch() {
+    const search = { showPublic: this.currentShowPublic, query: this.currentQuery } as SearchOptions;
+    this.search.next(search);
+  }
+
+
 
   find() {
     if (this.queryF.valid) {
       this.currentQuery = this.queryF.value;
-      this.updateOptions();
+      this.emitSearch();
     }
   }
 
   all() {
     this.queryF.setValue('');
     this.currentQuery = '';
-    this.updateOptions();
+    this.emitSearch();
   }
 }

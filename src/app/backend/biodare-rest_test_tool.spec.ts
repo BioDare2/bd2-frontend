@@ -1,6 +1,7 @@
 import {BD2User} from '../auth/user.dom';
 import {of} from 'rxjs';
 import {ExperimentalAssayView} from '../dom/repo/exp/experimental-assay-view';
+import {PageEvent} from '@angular/material';
 
 export const testUserData = {
   firstName: 'Test',
@@ -29,7 +30,7 @@ export function fakeBioDareRestService() {
   ser.logout.and.returnValue(of(true));
   ser.refreshUser.and.returnValue(of(unlogged));
 
-  ser.experiments.and.returnValue(of({ data: []}));
+  ser.experiments.and.returnValue(of({ data: [], currentPage: new PageEvent()}));
 
   function f(exp: ExperimentalAssayView, id: any): string {
     return 'exp/file/' + id;

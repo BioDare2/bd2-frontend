@@ -3,7 +3,8 @@
 
     <small>
 
-      <div [formGroup]="displayOptionsF" class="float-left">
+      <div [formGroup]="sortOptionsF" class="float-left">
+
       <mat-button-toggle-group name="sorting" aria-label="sorting" class="mr-1" formControlName="sorting" >
         <mat-button-toggle value="rank"><i class="material-icons">cancel</i></mat-button-toggle>
         <!--<mat-button-toggle value="id">Id</mat-button-toggle>-->
@@ -18,12 +19,13 @@
         <mat-button-toggle value="desc"><i class="material-icons">arrow_upward</i></mat-button-toggle>
       </mat-button-toggle-group>
 
-      <mat-slide-toggle class="mr-2" formControlName="showPublic">Show public</mat-slide-toggle>
 
       </div>
 
+      <mat-slide-toggle class="mr-2" [formControl]="showPublicF">Show public</mat-slide-toggle>
+
       <div class="no-clues float-right">
-      <input class="form-control-sm mr-1" name="search" [formControl]="queryF" required minlength="3">
+      <input class="form-control-sm mr-1" name="search" [formControl]="queryF" required minlength="3" placeholder="e.g. PRR9 temperature">
       <button mat-mini-fab mat-icon-button aria-label="search"class="mr-2" [disabled]="queryF.invalid" (click)="find()">
         <i class="material-icons">search</i>
       </button>

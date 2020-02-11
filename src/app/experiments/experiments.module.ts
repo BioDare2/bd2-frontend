@@ -5,9 +5,9 @@ import {ExperimentsRoutingModule} from './experiments-routing.module';
 import {ExperimentsListComponent} from './experiments-list/experiments-list.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {RepoComponentsModule} from '../repo/components/repo-comp.module';
-import { ExperimentSummaryComponent } from './experiments-list/experiment-summary/experiment-summary.component';
-import {MatPaginatorModule, MatTableModule, MatButtonToggleModule, MatSlideToggleModule, MatButtonModule} from '@angular/material';
-import { SearchAndSortPanelComponent } from './search-and-sort-panel/search-and-sort-panel.component';
+import {ExperimentSummaryComponent} from './experiments-list/experiment-summary/experiment-summary.component';
+import {MatButtonModule, MatButtonToggleModule, MatPaginatorModule, MatSlideToggleModule, MatTableModule} from '@angular/material';
+import {SearchAndSortPanelComponent} from './search-and-sort-panel/search-and-sort-panel.component';
 
 @NgModule({
   declarations: [ExperimentsListComponent, ExperimentSummaryComponent, SearchAndSortPanelComponent],
