@@ -25,7 +25,7 @@
       <mat-slide-toggle class="mr-2" [formControl]="showPublicF">Show public</mat-slide-toggle>
 
       <div class="no-clues float-right">
-      <input class="form-control-sm mr-1" name="search" [formControl]="queryF" required minlength="3" placeholder="e.g. PRR9 temperature">
+      <input class="form-control-sm mr-1" name="search" [formControl]="queryF" required minlength="3" placeholder="e.g. prr9 temperature">
       <button mat-mini-fab mat-icon-button aria-label="search"class="mr-2" [disabled]="queryF.invalid" (click)="find()">
         <i class="material-icons">search</i>
       </button>
