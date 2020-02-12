@@ -1,7 +1,7 @@
 import {TestBed} from '@angular/core/testing';
 import {BioDareRestService} from './biodare-rest.service';
 import {HttpClientTestingModule, HttpTestingController} from '@angular/common/http/testing';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpParams} from '@angular/common/http';
 import {BioDareEndPoints, bioDareRestConfigurator} from './biodare-rest.dom';
 
 
@@ -146,6 +146,25 @@ describe('BioDareRestService', () => {
     expect(req.request.method).toEqual('GET');
     req.flush(respData);
     httpTestingController.verify();
+  });
+
+  it('objToParams works', () => {
+
+    let obj = {};
+    let exp = new HttpParams();
+    let res = service.objectToParams(obj);
+    expect(res).toEqual(exp);
+
+    obj = { query: 'all', size: 1};
+    exp = (new HttpParams()).set('query', 'all').set('size', '1');
+    res = service.objectToParams(obj);
+    expect(res).toEqual(exp);
+
+    obj = { query: 'all', size: 1};
+    exp = (new HttpParams()).set('exist', 'true').set('query', 'all').set('size', '1');
+    res = service.objectToParams(obj, (new HttpParams()).set('exist', 'true'));
+    expect(res).toEqual(exp);
+
   });
 
 });

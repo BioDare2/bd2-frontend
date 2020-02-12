@@ -6,7 +6,7 @@ import {FileImportRequest} from './ts-data/ts-import/import-dom';
 import {Observable} from 'rxjs';
 import {ListWrapper} from '../shared/common-interfaces';
 import {tap} from 'rxjs/operators';
-import {PageEvent} from '@angular/material';
+import {PageEvent, Sort} from '@angular/material';
 
 @Injectable({
   providedIn: 'root'
@@ -17,9 +17,27 @@ export class ExperimentService {
     console.log('ExperimentService created');
   }
 
-  getExperiments(onlyOwned = true, page: PageEvent): Observable<ListWrapper<ExperimentSummary>> {
+  getExperiments(showPublic: boolean, sort: Sort, page: PageEvent): Observable<ListWrapper<ExperimentSummary>> {
 
-    return this.BD2REST.experiments(onlyOwned, page).pipe(
+    const options = {showPublic,
+                     sorting: sort.active, direction: sort.direction,
+                     pageIndex: page.pageIndex, pageSize: page.pageSize};
+
+    return this.BD2REST.experiments(options).pipe(
+      tap((wrapper: ListWrapper<ExperimentSummary>) => {
+        wrapper.data = this.json2ExperimentSummaryList(wrapper.data);
+      })
+    );
+  }
+
+  searchExperiments(query: string, showPublic: boolean, sort: Sort, page: PageEvent): Observable<ListWrapper<ExperimentSummary>> {
+
+    const options = {query,
+      showPublic,
+      sorting: sort.active, direction: sort.direction,
+      pageIndex: page.pageIndex, pageSize: page.pageSize};
+
+    return this.BD2REST.searchExperiments(options).pipe(
       tap((wrapper: ListWrapper<ExperimentSummary>) => {
         wrapper.data = this.json2ExperimentSummaryList(wrapper.data);
       })

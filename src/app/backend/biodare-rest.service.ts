@@ -154,14 +154,24 @@ export class BioDareRestService {
 
   /* experiments */
 
-  experiments(onlyOwned = true, page: PageEvent): Observable<any> {
+  experiments(listOptions: { [index: string]: any; }): Observable<any> {
     const options = this.makeOptions() as any;
-    options.params = options.params || new HttpParams();
+    /*options.params = options.params || new HttpParams();
     options.params = options.params.set('onlyOwned', '' + onlyOwned);
     if (page) {
       options.params = options.params.set('pageIndex', '' + page.pageIndex).set('pageSize', '' + page.pageSize);
-    }
+    }*/
+    options.params = this.objectToParams(listOptions, options.params);
     const url = this.endPoints.experiments_url;
+
+    return this.OKJson(this.http.get(url, options));
+
+  }
+
+  searchExperiments(listOptions: { [index: string]: any; }): Observable<any> {
+    const options = this.makeOptions() as any;
+    options.params = this.objectToParams(listOptions, options.params);
+    const url = this.endPoints.experiments_url + '/search';
 
     return this.OKJson(this.http.get(url, options));
 
@@ -535,6 +545,14 @@ export class BioDareRestService {
 
     return this.OKJson(this.http.get<string[]>(url, options));
 
+  }
+
+  public objectToParams(obj: { [index: string]: any; }, params?: HttpParams): HttpParams {
+    params = params || new HttpParams();
+    Object.entries(obj).forEach( ([param, value]) => {
+      params = params.set(param, '' + value);
+    });
+    return params;
   }
 
   protected makeOptions() {
