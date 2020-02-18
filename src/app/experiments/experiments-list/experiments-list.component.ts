@@ -66,17 +66,17 @@ export class ExperimentsListComponent implements OnInit, OnDestroy {
   }
 
   search(options: SearchOptions) {
-    console.log('Searching for', options);
+    // console.log('L Searching for', options);
     this.fetcher.input(options);
   }
 
   sort(sort: Sort) {
-    console.log('Sort', sort);
+    // console.log('L Sort', sort);
     this.fetcher.sort(sort);
   }
 
   page(page: PageEvent) {
-    console.log('Page', page);
+    // console.log('Page', page);
     this.fetcher.page(page);
   }
 

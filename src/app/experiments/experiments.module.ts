@@ -8,12 +8,14 @@ import {RepoComponentsModule} from '../repo/components/repo-comp.module';
 import {ExperimentSummaryComponent} from './experiments-list/experiment-summary/experiment-summary.component';
 import {MatButtonModule, MatButtonToggleModule, MatPaginatorModule, MatSlideToggleModule, MatTableModule} from '@angular/material';
 import {SearchAndSortPanelComponent} from './search-and-sort-panel/search-and-sort-panel.component';
+import { SortSwitchComponent } from './search-and-sort-panel/sort-switch/sort-switch.component';
 
 @NgModule({
-  declarations: [ExperimentsListComponent, ExperimentSummaryComponent, SearchAndSortPanelComponent],
+  declarations: [ExperimentsListComponent, ExperimentSummaryComponent, SearchAndSortPanelComponent, SortSwitchComponent],
   imports: [
     CommonModule,
-    FormsModule, ReactiveFormsModule,
+    FormsModule,
+    ReactiveFormsModule,
     MatButtonModule,
     MatButtonToggleModule,
     MatSlideToggleModule,

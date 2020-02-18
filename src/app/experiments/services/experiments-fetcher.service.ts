@@ -25,8 +25,9 @@ export class ExperimentsFetcherService
 
 
   protected fetchAsset(search: SearchOptions, sort: Sort, page: PageEvent): Observable<ListWrapper<ExperimentSummary>> {
-    console.log('Fetching experiments s', search);
-    console.log('Fetching experiments p', page);
+    // console.log('Fetching experiments q', search);
+    // console.log('Fetching experiments sort', sort);
+    // console.log('Fetching experiments p', page);
     const query = (search.query || '').trim();
     if (query === '') {
       return this.experimentService.getExperiments(search.showPublic, sort, page);
