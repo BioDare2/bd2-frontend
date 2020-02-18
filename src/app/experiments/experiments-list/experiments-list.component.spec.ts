@@ -11,6 +11,7 @@ import {ExperimentSummaryComponent} from './experiment-summary/experiment-summar
 import {NoopAnimationsModule} from '@angular/platform-browser/animations';
 import {SearchAndSortPanelComponent} from '../search-and-sort-panel/search-and-sort-panel.component';
 import {MaterialsModule} from '../../shared/materials.module';
+import {SortSwitchComponent} from '../search-and-sort-panel/sort-switch/sort-switch.component';
 
 describe('ExperimentsListComponent', () => {
   let component: ExperimentsListComponent;
@@ -18,7 +19,7 @@ describe('ExperimentsListComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ExperimentsListComponent, ExperimentSummaryComponent, SearchAndSortPanelComponent],
+      declarations: [ExperimentsListComponent, ExperimentSummaryComponent, SearchAndSortPanelComponent, SortSwitchComponent],
       imports: [FormsModule, ReactiveFormsModule,
         RouterTestingModule, MaterialsModule, NoopAnimationsModule],
       providers: [

@@ -21,7 +21,7 @@ export class ExperimentsListComponent implements OnInit, OnDestroy {
   initialSearchOptions: SearchAndSortOptions;
 
   constructor(private experimentService: ExperimentService,
-              private fetcher: ExperimentsFetcherService,
+              public fetcher: ExperimentsFetcherService,
               private feedback: FeedbackService,
               private userService: UserService,
               private route: ActivatedRoute) {

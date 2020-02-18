@@ -39,34 +39,39 @@ div.workspace {
 }
 
 /* visual clues for validation state of inputs */
-input.ng-valid[required] {
+.clues input.ng-valid[required] {
   border-left: 5px solid #42A948; /* green */
 }
 
-textarea.ng-valid[required] {
+.clues textarea.ng-valid[required] {
   border-left: 5px solid #42A948; /* green */
 }
 
+/*
 .no-clues .ng-valid[required] {
   border-left: 1px solid #ccc;
-}
+}*/
 
-input.ng-invalid, div.ng-invalid input, div.ng-invalid input.ng-valid {
+.clues input.ng-invalid, .clues div.ng-invalid input, .clues div.ng-invalid input.ng-valid {
   border-left: 5px solid #a94442; /* red */
 }
 
-textarea.ng-invalid {
+.clues textarea.ng-invalid {
   border-left: 5px solid #a94442; /* red */
 }
 
+/*
 .no-clues .ng-invalid {
   border-left: 1px solid #ccc;
 }
+
+ */
 /* visual clues for validation state of inputs -- end */
 
+/*
 mat-form-field input.ng-valid[required], mat-form-field input.ng-invalid {
   border-left: none;
-}
+}*/
 
 input.short-input {
   min-width: 6em;
@@ -268,9 +273,11 @@ mat-form-field .form-control:focus {
   box-shadow: none;
 }
 
+/*
 mat-form-field textarea.ng-valid, mat-form-field textarea.ng-valid[required], mat-form-field textarea.ng-invalid {
   border-left: none;
 }
+*/
 
 div.searchpanel .mat-button-toggle-appearance-standard .mat-button-toggle-label-content {
   line-height: 250%;
