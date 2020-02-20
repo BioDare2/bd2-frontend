@@ -24,10 +24,10 @@ export class SelectBackgroundsLabelsStepComponent implements OnInit {
   filteredLabels: Observable<string[]>;
   allLabels: string[];
 
-  @ViewChild('backgroundInput', {static: false})
+  @ViewChild('backgroundInput')
   backgroundInput: ElementRef<HTMLInputElement>;
 
-  @ViewChild('auto', {static: false})
+  @ViewChild('auto')
   matAutocomplete: MatAutocomplete;
 
 

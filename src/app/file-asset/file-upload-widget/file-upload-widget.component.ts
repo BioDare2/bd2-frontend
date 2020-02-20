@@ -46,7 +46,7 @@ export class FileUploadWidgetComponent implements OnInit {
   sizeError = false;
   files: File[] = [];
 
-  @ViewChild('inputFieldM', { static: false }) inputField: ElementRef;
+  @ViewChild('inputFieldM') inputField: ElementRef;
 
 
   constructor() {

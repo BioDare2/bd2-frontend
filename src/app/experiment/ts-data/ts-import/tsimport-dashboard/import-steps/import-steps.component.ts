@@ -25,17 +25,17 @@ export class ImportStepsComponent implements OnInit, OnDestroy {
   @Input()
   blocked = false;
 
-  @ViewChild('stepper', { static: false })
+  @ViewChild('stepper')
   stepper: MatVerticalStepper;
 
-  @ViewChild('importLabelsStep', { static: false })
+  @ViewChild('importLabelsStep')
   importLabelsStep: DataTableDependentStep;
 
 
-  @ViewChild('assignLabelsStep', { static: false })
+  @ViewChild('assignLabelsStep')
   assignLabelsStep: DataTableDependentStep;
 
-  @ViewChild('selectBackgroundsStep', { static: false })
+  @ViewChild('selectBackgroundsStep')
   selectBackgroundsStep: SelectBackgroundsLabelsStepComponent;
 
   importDetails: ImportDetails;

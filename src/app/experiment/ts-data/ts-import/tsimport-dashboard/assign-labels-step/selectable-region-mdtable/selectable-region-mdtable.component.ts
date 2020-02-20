@@ -113,7 +113,7 @@ export class SelectableRegionMDTableComponent implements OnInit {
   hasMoreColumns = false;
   hasMoreRows = false;
 
-  @ViewChild('table', { static: false })
+  @ViewChild('table')
   matTable: MatTable<(string | number)[]>;
 
   // tslint:disable-next-line:variable-name

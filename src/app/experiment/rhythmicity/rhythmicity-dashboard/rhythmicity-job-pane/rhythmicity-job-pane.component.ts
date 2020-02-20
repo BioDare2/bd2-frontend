@@ -19,7 +19,7 @@ import {SharedDialogsService} from '../../../../shared/shared-dialogs/shared-dia
 })
 export class RhythmicityJobPaneComponent implements OnInit, OnChanges, OnDestroy {
 
-  @ViewChild(RhythmicityResultsMDTableComponent, {static: false})
+  @ViewChild(RhythmicityResultsMDTableComponent)
   resultsTable: RhythmicityResultsMDTableComponent;
 
   @Input()

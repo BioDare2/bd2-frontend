@@ -51,7 +51,7 @@ export class ResetRequestComponent implements OnInit {
   errMsg: string;
   requested = false;
 
-  @ViewChild('recaptcha', { static: false })
+  @ViewChild('recaptcha')
   recaptcha: ReCaptchaComponent;
 
   constructor(private userService: UserService) {

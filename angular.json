@@ -22,7 +22,7 @@
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.app.json",
-            "aot": false,
+            "aot": true,
             "assets": [
               "src/favicon.ico",
               "src/assets"
@@ -48,7 +48,6 @@
               "sourceMap": false,
               "extractCss": true,
               "namedChunks": false,
-              "aot": true,
               "extractLicenses": true,
               "vendorChunk": false,
               "buildOptimizer": true,
@@ -132,5 +131,8 @@
       }
     }
   },
-  "defaultProject": "biodare2-ui"
+  "defaultProject": "biodare2-ui",
+  "cli": {
+    "analytics": "eff62628-386b-4237-84e1-07302ed07391"
+  }
 }

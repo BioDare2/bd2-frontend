@@ -35,11 +35,11 @@ import {PPADialogsService} from '../../ppa-dialogs/ppadialogs.service';
 })
 export class PPAJobPaneComponent implements OnInit, OnChanges, OnDestroy {
 
-  @ViewChild('ppaStats', {static: false})
+  @ViewChild('ppaStats')
   ppaStatsComponent: Reloadable;
-  @ViewChild('ppaResults', {static: false})
+  @ViewChild('ppaResults')
   ppaResultsComponent: Reloadable;
-  @ViewChild('ppaPlots', {static: false})
+  @ViewChild('ppaPlots')
   ppaPlotsComponent: Reloadable;
 
 

@@ -22,14 +22,14 @@ export class ContributionDescFormComponent extends RevertableFormComponent<Contr
   @Input()
   blocked = false;
 
-  @ViewChild('persForm', { static: false }) persForm: NgForm;
+  @ViewChild('persForm') persForm: NgForm;
   firstName: string;
   lastName: string;
 
-  @ViewChild('instForm', { static: false }) instForm: NgForm;
+  @ViewChild('instForm') instForm: NgForm;
   institutionName: string;
 
-  @ViewChild('fundForm', { static: false }) fundForm: NgForm;
+  @ViewChild('fundForm') fundForm: NgForm;
   funderName: string;
   grantNr: string;
 

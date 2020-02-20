@@ -78,7 +78,7 @@ export class DataSheetMDTableComponent implements OnInit {
   @Output()
   selected = new EventEmitter<CellSelection>();
 
-  @ViewChild('table', { static: false })
+  @ViewChild('table')
   matTable: MatTable<(string | number)[]>;
 
 
