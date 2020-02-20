@@ -1,5 +1,5 @@
 import {AfterViewInit, Component, EventEmitter, OnInit, Output} from '@angular/core';
-import {MatRadioChange} from '@angular/material';
+import { MatRadioChange } from '@angular/material/radio';
 
 @Component({
   selector: 'bd2-pvalue-form',

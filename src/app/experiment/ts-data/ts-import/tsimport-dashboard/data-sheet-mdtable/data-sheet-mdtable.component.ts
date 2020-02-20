@@ -1,6 +1,6 @@
 import {Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
 import {DataTableSlice} from '../data-table-dom';
-import {MatTable} from '@angular/material';
+import { MatTable } from '@angular/material/table';
 import {TableStyler} from './table-styling';
 import {CellSelection} from '../../import-dom';
 

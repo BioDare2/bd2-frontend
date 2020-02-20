@@ -12,7 +12,7 @@ import {CSVExporter} from '../../../tsdata/export/csv-exporter';
 import {TSDataService} from '../../../tsdata/ts-data.service';
 import {debounceTime} from 'rxjs/operators';
 import * as FileSaver from 'file-saver';
-import {PageEvent} from '@angular/material';
+import { PageEvent } from '@angular/material/paginator';
 import {TimeSeriesMetrics} from '../../../tsdata/ts-data-dom';
 
 @Component({

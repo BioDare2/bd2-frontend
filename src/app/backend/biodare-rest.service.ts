@@ -11,7 +11,7 @@ import {DetrendingType} from '../tsdata/ts-data-dom';
 import {PPARequest} from '../experiment/ppa/ppa-dom';
 import {RhythmicityRequest} from '../experiment/rhythmicity/rhythmicity-dom';
 import {Slice} from '../experiment/ts-data/ts-import/tsimport-dashboard/data-table-dom';
-import {PageEvent} from '@angular/material';
+import { PageEvent } from '@angular/material/paginator';
 
 @Injectable({
   providedIn: 'root'

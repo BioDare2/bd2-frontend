@@ -1,5 +1,6 @@
 import {Observable, of} from 'rxjs';
-import {PageEvent, Sort} from '@angular/material';
+import { PageEvent } from '@angular/material/paginator';
+import { Sort } from '@angular/material/sort';
 import {pageObjectData, sortObjectData} from '../shared/collections-util';
 import {PageableSortableFetcherService} from './pageable-sortable-fetcher.service';
 

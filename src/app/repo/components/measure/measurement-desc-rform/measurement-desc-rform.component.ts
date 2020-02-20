@@ -5,7 +5,7 @@ import {TechniqueService} from '../technique.service';
 import {FeedbackService} from '../../../../feedback/feedback.service';
 import {Observable, of} from 'rxjs';
 import {map, startWith} from 'rxjs/operators';
-import {MatAutocompleteSelectedEvent} from '@angular/material';
+import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 
 @Component({
   selector: 'bd2-measurement-desc-rform',

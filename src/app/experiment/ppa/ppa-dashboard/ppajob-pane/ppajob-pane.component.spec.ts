@@ -9,7 +9,7 @@ import {PPAResultsTable2Component} from './pparesults-table2/pparesults-table2.c
 import {PPAPlotsComponentTestModule} from './ppaplots/ppaplots.component.spec';
 import {NgModule} from '@angular/core';
 import {PPADialogsService} from '../../ppa-dialogs/ppadialogs.service';
-import {MatDialogModule} from '@angular/material';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
   imports: [

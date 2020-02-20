@@ -15,7 +15,7 @@ import {ExcelTSImportParameters} from '../../ts-import/import-dom';
 import {DataGridModel} from '../data-grid.model';
 import {ColorCycler} from './color-cycler';
 import {SharedDialogsService} from '../../../../shared/shared-dialogs/shared-dialogs.service';
-import {MatDialog} from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
 import {ColumnTypeMatDialogComponent, ColumnTypeMatDialogComponentParams} from './column-type-mat-dialog/column-type-mat-dialog.component';
 import {ConfirmRowCopyMatDialogComponent} from './confirm-row-copy-mat-dialog/confirm-row-copy-mat-dialog.component';
 

@@ -1,6 +1,6 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-import {Sort} from '@angular/material';
+import { Sort } from '@angular/material/sort';
 
 export interface SearchOptions {
   showPublic: boolean;

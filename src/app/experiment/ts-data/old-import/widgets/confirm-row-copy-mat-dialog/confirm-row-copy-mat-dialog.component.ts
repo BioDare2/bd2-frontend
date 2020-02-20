@@ -1,6 +1,6 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {CellRangeDescription} from '../../../ts-import/sheet-dom';
-import {MAT_DIALOG_DATA} from '@angular/material';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 @Component({
   templateUrl: './confirm-row-copy-mat-dialog.component.html',

@@ -12,19 +12,16 @@ import {CommonModule} from '@angular/common';
 // import {DatepickerModule} from 'ngx-bootstrap/datepicker';
 // import {TypeaheadModule} from 'ngx-bootstrap/typeahead';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {
-  MAT_DATE_LOCALE,
-  MatAutocompleteModule,
-  MatCardModule,
-  MatChipsModule,
-  MatDatepickerModule,
-  MatDividerModule,
-  MatFormFieldModule,
-  MatIconModule,
-  MatInputModule,
-  MatNativeDateModule,
-  MatSelectModule
-} from '@angular/material';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatCardModule } from '@angular/material/card';
+import { MatChipsModule } from '@angular/material/chips';
+import { MAT_DATE_LOCALE, MatNativeDateModule } from '@angular/material/core';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
 
 // import {MatMomentDateModule} from '@angular/material-moment-adapter';
 @NgModule({

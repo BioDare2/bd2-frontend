@@ -4,7 +4,8 @@ import {Slice} from '../data-table-dom';
 import {DataTableDependentStep} from '../data-table-dependent-step';
 import {DataTableService} from '../data-table.service';
 import {FeedbackService} from '../../../../../feedback/feedback.service';
-import {MatDialog, MatPaginator, MatPaginatorIntl, PageEvent} from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
+import { MatPaginator, MatPaginatorIntl, PageEvent } from '@angular/material/paginator';
 import {EditLabelDialogComponent, EditLabelDialogData} from './edit-label-dialog/edit-label-dialog.component';
 import {CellSelection} from '../../import-dom';
 

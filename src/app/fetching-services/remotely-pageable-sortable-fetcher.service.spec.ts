@@ -1,6 +1,7 @@
 import {fakeAsync, tick} from '@angular/core/testing';
 import {of} from 'rxjs';
-import {PageEvent, Sort} from '@angular/material';
+import { PageEvent } from '@angular/material/paginator';
+import { Sort } from '@angular/material/sort';
 import {arraysMatch} from '../shared/collections-util';
 import {RemotelyPageableSortableFetcher} from './remotely-pageable-sortable-fetcher.service';
 import {ListWrapper} from '../shared/common-interfaces';

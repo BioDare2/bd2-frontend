@@ -6,7 +6,8 @@ import {FileImportRequest} from './ts-data/ts-import/import-dom';
 import {Observable} from 'rxjs';
 import {ListWrapper} from '../shared/common-interfaces';
 import {tap} from 'rxjs/operators';
-import {PageEvent, Sort} from '@angular/material';
+import { PageEvent } from '@angular/material/paginator';
+import { Sort } from '@angular/material/sort';
 
 @Injectable({
   providedIn: 'root'

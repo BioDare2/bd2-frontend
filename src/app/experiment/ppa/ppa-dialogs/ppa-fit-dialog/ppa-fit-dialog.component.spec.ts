@@ -3,7 +3,7 @@ import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 import {PPAFitDialogComponent, PPAFitDialogComponentParams} from './ppa-fit-dialog.component';
 import {TSPlotModule} from '../../../../tsdata/plots/ts-plot.module';
 import {FormsModule} from '@angular/forms';
-import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import {PPAFitService} from '../../ppa-fit/ppa-fit.service';
 import {of} from 'rxjs';
 

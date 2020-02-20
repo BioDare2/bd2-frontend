@@ -1,7 +1,7 @@
 import {BD2User} from '../auth/user.dom';
 import {of} from 'rxjs';
 import {ExperimentalAssayView} from '../dom/repo/exp/experimental-assay-view';
-import {PageEvent} from '@angular/material';
+import { PageEvent } from '@angular/material/paginator';
 
 export const testUserData = {
   firstName: 'Test',

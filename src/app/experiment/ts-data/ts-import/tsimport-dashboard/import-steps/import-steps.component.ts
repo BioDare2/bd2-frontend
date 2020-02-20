@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild} from '@angular/core';
-import {MatVerticalStepper} from '@angular/material';
+import { MatVerticalStepper } from '@angular/material/stepper';
 import {DataTableDependentStep} from '../data-table-dependent-step';
 import {DataTableImportParameters, ImportDetails, ImportFormat} from '../../import-dom';
 import {TimeColumnType} from '../../sheet-dom';

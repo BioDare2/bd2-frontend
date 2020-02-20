@@ -4,7 +4,7 @@ import {FeedbackListComponent} from './feedback-list/feedback-list.component';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {FlashMessagesComponent} from './flash-messages/flash-messages.component';
 import {FeedbackPanelComponent} from './feedback-panel/feedback-panel.component';
-import {MatCardModule} from '@angular/material';
+import { MatCardModule } from '@angular/material/card';
 
 @NgModule({
   declarations: [FeedbackListComponent, FlashMessagesComponent, FeedbackPanelComponent],

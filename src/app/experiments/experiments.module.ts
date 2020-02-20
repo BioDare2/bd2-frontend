@@ -6,7 +6,11 @@ import {ExperimentsListComponent} from './experiments-list/experiments-list.comp
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {RepoComponentsModule} from '../repo/components/repo-comp.module';
 import {ExperimentSummaryComponent} from './experiments-list/experiment-summary/experiment-summary.component';
-import {MatButtonModule, MatButtonToggleModule, MatPaginatorModule, MatSlideToggleModule, MatTableModule} from '@angular/material';
+import { MatButtonModule } from '@angular/material/button';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatTableModule } from '@angular/material/table';
 import {SearchAndSortPanelComponent} from './search-and-sort-panel/search-and-sort-panel.component';
 import { SortSwitchComponent } from './search-and-sort-panel/sort-switch/sort-switch.component';
 
