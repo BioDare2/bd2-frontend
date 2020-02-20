@@ -2,11 +2,11 @@ import {Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
 import {ImportDetails} from '../../import-dom';
 import {Observable} from 'rxjs';
 import {FormControl} from '@angular/forms';
-import { MatAutocomplete } from '@angular/material/autocomplete';
+import {MatAutocomplete, MatAutocompleteSelectedEvent} from '@angular/material/autocomplete';
 import { MatChipInputEvent } from '@angular/material/chips';
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
 import {map, startWith} from 'rxjs/operators';
-import {MatAutocompleteSelectedEvent} from '@angular/material/typings/esm5/autocomplete';
+
 import {TSFileService} from '../ts-file.service';
 
 
