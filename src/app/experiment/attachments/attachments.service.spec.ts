@@ -19,8 +19,8 @@ describe('AttachemtnsService', () => {
 
     });
 
-    service = TestBed.get(AttachmentsService);
-    BD2REST = TestBed.get(BioDareRestService);
+    service = TestBed.inject(AttachmentsService);
+    BD2REST = TestBed.inject(BioDareRestService)  as any;
 
   });
 

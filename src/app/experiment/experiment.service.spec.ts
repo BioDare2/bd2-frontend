@@ -17,8 +17,8 @@ describe('ExperimentService', () => {
 
     });
 
-    service = TestBed.get(ExperimentService);
-    BD2REST = TestBed.get(BioDareRestService);
+    service = TestBed.inject(ExperimentService);
+    BD2REST = TestBed.inject(BioDareRestService) as any;
 
   });
 

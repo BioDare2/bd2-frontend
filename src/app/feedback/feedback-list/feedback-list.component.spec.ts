@@ -21,7 +21,7 @@ describe('FeedbackListComponent', () => {
     fixture = TestBed.createComponent(FeedbackListComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
-    feedbackService = TestBed.get(FeedbackService);
+    feedbackService = TestBed.inject(FeedbackService);
   });
 
   it('should create', () => {

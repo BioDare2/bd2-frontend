@@ -7,7 +7,7 @@ describe('FeedbackService', () => {
   let service: FeedbackService;
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.get(FeedbackService);
+    service = TestBed.inject(FeedbackService);
   });
 
   it('should be created', () => {

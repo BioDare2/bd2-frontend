@@ -16,9 +16,9 @@ describe('StaticContentService', () => {
       ]
     });
 
-    httpClient = TestBed.get(HttpClient);
-    httpTestingController = TestBed.get(HttpTestingController);
-    service = TestBed.get(StaticContentService);
+    httpClient = TestBed.inject(HttpClient);
+    httpTestingController = TestBed.inject(HttpTestingController);
+    service = TestBed.inject(StaticContentService);
   });
 
   it('should be created', () => {

@@ -18,10 +18,6 @@ import {TsOldImportRoutingModule} from './ts-old-import-routing.module';
     ColumnTypeMatDialogComponent,
     ConfirmRowCopyMatDialogComponent
   ],
-  entryComponents: [
-    ColumnTypeMatDialogComponent,
-    ConfirmRowCopyMatDialogComponent
-  ],
   imports: [
     CommonModule,
     FormsModule,

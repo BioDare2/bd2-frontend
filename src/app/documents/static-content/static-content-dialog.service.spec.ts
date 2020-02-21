@@ -9,7 +9,7 @@ describe('StaticContentDialogService', () => {
   }));
 
   it('should be created', () => {
-    const service: StaticContentDialogService = TestBed.get(StaticContentDialogService);
+    const service: StaticContentDialogService = TestBed.inject(StaticContentDialogService);
     expect(service).toBeTruthy();
   });
 });

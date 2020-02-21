@@ -23,9 +23,9 @@ describe('BioDareRestService', () => {
       ]
     });
 
-    httpClient = TestBed.get(HttpClient);
-    httpTestingController = TestBed.get(HttpTestingController);
-    service = TestBed.get(BioDareRestService);
+    httpClient = TestBed.inject(HttpClient);
+    httpTestingController = TestBed.inject(HttpTestingController);
+    service = TestBed.inject(BioDareRestService);
   });
 
   it('should be created', () => {

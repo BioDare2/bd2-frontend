@@ -13,9 +13,6 @@ import {MaterialsModule} from '../../shared/materials.module';
     TSViewComponent
 
   ],
-  entryComponents: [
-
-  ],
   imports: [
     CommonModule,
     FormsModule,

@@ -41,7 +41,7 @@ describe('ExperimentGeneralDescView', () => {
     expect(ans.executionDate).toEqual(new LocalDate(2016, 9, 23));
   });
 
-  it('correctly serializes', ()=> {
+  it('correctly serializes', () => {
     const txt = JSON.stringify(desc);
     expect(txt).toBeTruthy();
 

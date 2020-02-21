@@ -9,7 +9,7 @@ describe('SharedDialogsService', () => {
   }));
 
   it('should be created', () => {
-    const service: SharedDialogsService = TestBed.get(SharedDialogsService);
+    const service: SharedDialogsService = TestBed.inject(SharedDialogsService);
     expect(service).toBeTruthy();
   });
 });

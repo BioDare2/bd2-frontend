@@ -12,7 +12,7 @@ describe('RhythmicityService', () => {
   }));
 
   it('should be created', () => {
-    const service: RhythmicityService = TestBed.get(RhythmicityService);
+    const service: RhythmicityService = TestBed.inject(RhythmicityService);
     expect(service).toBeTruthy();
   });
 });

@@ -10,7 +10,7 @@ describe('PPADialogsService', () => {
   }));
 
   it('should be created', () => {
-    const service: PPADialogsService = TestBed.get(PPADialogsService);
+    const service: PPADialogsService = TestBed.inject(PPADialogsService);
     expect(service).toBeTruthy();
   });
 });

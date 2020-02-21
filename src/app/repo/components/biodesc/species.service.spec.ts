@@ -16,9 +16,9 @@ describe('SpeciesService', () => {
       ]
     });
 
-    BD2REST = TestBed.get(BioDareRestService);
+    BD2REST = TestBed.inject(BioDareRestService) as any;
     BD2REST.species.and.returnValue(of([]));
-    service = TestBed.get(SpeciesService);
+    service = TestBed.inject(SpeciesService);
   });
 
   it('should be created', () => {

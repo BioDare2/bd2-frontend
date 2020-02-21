@@ -43,7 +43,7 @@ describe('ExperimentSummary', () => {
     expect(ans.generalDesc.executionDate).toBeTruthy();
     expect(ans.provenance.constructor).toBe(SimpleProvenance);
     expect(ans.features.constructor).toBe(ExperimentalFeatures);
-    expect(ans.authors).toBe("Lets  Add, Johny Macarony");
+    expect(ans.authors).toBe('Lets  Add, Johny Macarony');
 
   });
 });

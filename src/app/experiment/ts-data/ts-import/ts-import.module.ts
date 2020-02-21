@@ -35,9 +35,6 @@ import {MaterialsModule} from '../../../shared/materials.module';
     EditLabelDialogComponent,
     SelectBackgroundsLabelsStepComponent,
   ],
-  entryComponents: [
-    EditLabelDialogComponent,
-  ],
   imports: [
     CommonModule,
     FormsModule,

@@ -28,7 +28,7 @@ describe('PPAJobFetcherService', () => {
       PPAJobFetcherService,
       {provide: PPAService, useValue: ppaService}]}
     );
-    const service1: PPAJobFetcherService = TestBed.get(PPAJobFetcherService);
+    const service1: PPAJobFetcherService = TestBed.inject(PPAJobFetcherService);
     expect(service1).toBeTruthy();
 
     expect(service).toBeTruthy();

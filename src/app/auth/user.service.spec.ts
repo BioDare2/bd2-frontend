@@ -24,8 +24,8 @@ describe('UserService', () => {
       ]
     });
 
-    service = TestBed.get(UserService);
-    BD2REST = TestBed.get(BioDareRestService);
+    service = TestBed.inject(UserService);
+    BD2REST = TestBed.inject(BioDareRestService) as any;
   });
 
   it('should be created', () => {

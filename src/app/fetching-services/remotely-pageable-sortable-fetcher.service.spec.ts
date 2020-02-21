@@ -238,7 +238,7 @@ describe('RemotelyPageableSortableFetcher', () => {
     service.data$.subscribe( v =>  vals.push(v), err => error = err);
 
     service.on(true);
-    service.input([2,4]);
+    service.input([2, 4]);
     const s = {active: 'id', direction: 'asc'} as Sort;
     service.sort(s);
     const p = new PageEvent();
@@ -313,8 +313,8 @@ describe('RemotelyPageableSortableFetcher', () => {
     expect(val).toBeUndefined();
     expect(error).toBeUndefined();
 
-    const a = new ListWrapper<string>()
-    a.data = ['A']
+    const a = new ListWrapper<string>();
+    a.data = ['A'];
     a.currentPage.pageIndex = 1;
     a.currentPage.pageSize = 10;
     a.currentPage.length = 100;
@@ -722,7 +722,7 @@ describe('RemotelyPageableSortableFetcher', () => {
     expect(val).toEqual([false, true, false]);
 
 
-    service.params("a");
+    service.params('a');
     tick();
     expect(error).toBeUndefined();
     expect(val).toEqual([false, true, false, true, false]);

@@ -27,8 +27,8 @@ describe('RDMSocialServiceService', () => {
         {provide: BioDareRestService, useValue: fakeBioDareRestService()}
       ]
     });
-    service = TestBed.get(RDMSocialServiceService);
-    BD2REST = TestBed.get(BioDareRestService);
+    service = TestBed.inject(RDMSocialServiceService);
+    BD2REST = TestBed.inject(BioDareRestService) as any;
   });
 
   it('should be created', () => {
@@ -227,7 +227,7 @@ describe('RDMSocialServiceService', () => {
 
     (BD2REST as any).rdmRegisterWarning.and.returnValue(Promise.resolve(true));
 
-    let should: boolean;
+
     service.registerMeasurementWarning(assay);
 
     tick();

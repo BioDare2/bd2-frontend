@@ -10,6 +10,5 @@ import { MatDialogModule } from '@angular/material/dialog';
     CommonModule,
     MatDialogModule
   ],
-  entryComponents: [ConfirmDialogComponentComponent]
 })
 export class SharedDialogsModule { }

@@ -54,7 +54,6 @@ import {PPAFitDialogComponent} from './ppa-dialogs/ppa-fit-dialog/ppa-fit-dialog
     PPARoutingModule,
     MaterialsModule
   ],
-  entryComponents: [PPAJobExportDialog2Component, PPAFitDialogComponent],
   providers: [PPADialogsService]
 })
 export class PPAModule {
