@@ -24,6 +24,7 @@ export class TimeSeriesPack {
 @Injectable()
 export class TSFetcher implements OnInit, OnDestroy {
 
+  public current: TimeSeriesPack;
   public seriesPackStream: Observable<TimeSeriesPack>;
 
   public readonly error$ = new Subject<any>();
@@ -133,16 +134,19 @@ export class TSFetcher implements OnInit, OnDestroy {
     );
 
     return combineLatest([datasets, parameter$]).pipe(
-      // tap( p => console.log('DS' + p[0], p)),
+      // tap( p => console.log('fetchers pack DS' + p[0], p)),
       map(([dataSet, params]) => {
         // console.log('In map ' + dataSet);
         if (dataSet) {
             const traces = this.processData(dataSet.traces, params);
+            params = params.clone();
+            params.detrending = dataSet.detrending;
             return new TimeSeriesPack(params, traces, dataSet.totalTraces, dataSet.currentPage);
           } else {
             return new TimeSeriesPack(params, [], 0, DisplayParameters.firstPage());
           }
       }),
+      tap( pack => this.current = pack)
       // tap( p => console.log('After map' + p, p))
     );
 
@@ -155,7 +159,9 @@ export class TSFetcher implements OnInit, OnDestroy {
 
   protected loadDataSet(exp: ExperimentalAssayView, detrending: DetrendingType, page: PageEvent): Observable<TraceSet> {
 
-    return this.tsDataService.loadDataSet(exp, detrending, page);
+    return this.tsDataService.loadDataSet(exp, detrending, page).pipe(
+      tap(ds => ds.detrending = detrending)
+    );
   }
 
   protected processData(data: Trace[], params: DisplayParameters): Trace[] {

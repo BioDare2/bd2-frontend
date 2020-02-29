@@ -2,14 +2,15 @@ import {Trace} from '../plots/ts-plot.dom';
 import {DisplayParameters} from '../plots/ts-display.dom';
 import {ExperimentalAssayView} from '../../dom/repo/exp/experimental-assay-view';
 import {ColumnMap} from './column-map';
+import {PageEvent} from '@angular/material/paginator';
 
 export class CSVExporter {
 
   SEP = ',';
 
-  renderCSVTable(timeseries: Trace[], params: DisplayParameters, exp: ExperimentalAssayView): string {
+  renderCSVTable(timeseries: Trace[], params: DisplayParameters, page: PageEvent, exp: ExperimentalAssayView): string {
 
-    const headers = this.prepareHeaders(exp, params);
+    const headers = this.prepareHeaders(exp, params, page, timeseries.length);
     this.appendDataLabels(headers, timeseries);
 
     const data = this.prepareDataTable(timeseries);
@@ -20,9 +21,10 @@ export class CSVExporter {
     return txt;
   }
 
-  prepareHeaders(exp: ExperimentalAssayView, params: DisplayParameters): ColumnMap<string, string> {
+  prepareHeaders(exp: ExperimentalAssayView, params: DisplayParameters, page: PageEvent, traces: number): ColumnMap<string, string> {
     const headers = this.prepareExpHeaders(exp);
-    this.appendDataProperties(headers, params);
+    this.appendDisplayProperties(headers, params);
+    this.appendDataProperties(headers, traces, page);
     return headers;
   }
 
@@ -41,11 +43,17 @@ export class CSVExporter {
 
   }
 
-  appendDataProperties(headers: ColumnMap<string, string>, params: DisplayParameters) {
+  appendDisplayProperties(headers: ColumnMap<string, string>, params: DisplayParameters) {
 
     headers.put('Detrending:', params.detrending.label, 0);
     headers.put('Normalization:', params.normalisation, 0);
     headers.put('Align:', params.align, 0);
+  }
+
+  appendDataProperties(headers: ColumnMap<string, string>, traces: number, page: PageEvent) {
+    headers.put('Traces', traces + ' of ' + page.length, 0);
+    const pages = Math.floor(page.length / page.pageSize) + ( (page.length % page.pageSize) === 0 ? 0 : 1);
+    headers.put('Data Page', (page.pageIndex + 1) + ' of ' + pages, 0 );
 
   }
 

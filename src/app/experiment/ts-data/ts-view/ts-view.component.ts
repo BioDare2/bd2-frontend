@@ -41,11 +41,17 @@ import {TimeSeriesMetrics} from '../../../tsdata/ts-data-dom';
     </div>
 
     <div *ngIf="timeseries && exportURL" class="float-right">
-      <h5>export data
-        <!--<a download href="{{exportURL}}" (click)="recordExport()" role="button" class="btn btn-primary">Download</a>-->
-        <a download (click)="exportData()" role="button" class="btn btn-primary" aria-label="download">
+      <label class="mr-4">
+        <a download (click)="exportData()" role="button" class="btn btn-primary" aria-label="download" style="color: white;">
           <i class="material-icons bd-icon">save_alt</i><span class="cdk-visually-hidden">Download</span></a>
-      </h5>
+        the current view
+      </label>
+      <label>
+        <a download href="{{exportURL}}" (click)="recordExport()" role="button" class="btn btn-primary">
+          <i class="material-icons bd-icon">save_alt</i><span class="cdk-visually-hidden">Download</span></a>
+        the detrended dataset
+      </label>
+
     </div>
     <div class="clearfix">
     </div>
@@ -135,9 +141,12 @@ export class TSViewComponent extends ExperimentBaseComponent implements OnDestro
 
   exportData() {
 
-    const csv = this.csvExporter.renderCSVTable(this.timeseries, this.currentParams, this.assay);
+    const data = this.fetcher.current;
+    if (!data) { return; }
+    const csv = this.csvExporter.renderCSVTable(data.data, data.params, data.currentPage, this.assay);
     const blob = new Blob([csv], {type: 'text/csv'});
-    FileSaver.saveAs(blob, this.assay.id + '_data.' + this.currentParams.detrending.name + '.csv');
+    const page = data.currentPage.pageIndex + 1;
+    FileSaver.saveAs(blob, this.assay.id + '_data.' + this.currentParams.detrending.name + '.page' + page + '.csv');
     // console.log(csv);
     this.recordExport();
   }
