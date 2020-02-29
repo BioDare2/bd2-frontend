@@ -28,7 +28,7 @@ describe('CSVExporter', () => {
       DisplayParameters.firstPage());
     const table = new ColumnMap<string, string>();
 
-    exporter.appendDataProperties(table, params);
+    exporter.appendDisplayProperties(table, params);
     expect(table.getRow('Detrending:')).toEqual(['linear dtr']);
     expect(table.getRow('Normalization:')).toEqual(['MEAN_NORM']);
     expect(table.getRow('Align:')).toEqual(['NONE']);

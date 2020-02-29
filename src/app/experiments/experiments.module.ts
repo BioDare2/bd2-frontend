@@ -13,6 +13,7 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatTableModule } from '@angular/material/table';
 import {SearchAndSortPanelComponent} from './search-and-sort-panel/search-and-sort-panel.component';
 import { SortSwitchComponent } from './search-and-sort-panel/sort-switch/sort-switch.component';
+import {MatProgressBarModule} from '@angular/material/progress-bar';
 
 @NgModule({
   declarations: [ExperimentsListComponent, ExperimentSummaryComponent, SearchAndSortPanelComponent, SortSwitchComponent],
@@ -25,6 +26,7 @@ import { SortSwitchComponent } from './search-and-sort-panel/sort-switch/sort-sw
     MatSlideToggleModule,
     MatPaginatorModule,
     MatTableModule,
+    MatProgressBarModule,
     RepoComponentsModule,
     ExperimentsRoutingModule
   ]

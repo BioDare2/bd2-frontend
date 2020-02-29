@@ -29,7 +29,8 @@
 
 
       <div class="no-clues float-right">
-      <input class="form-control-sm mr-1" name="search" [formControl]="queryF" minlength="3" placeholder="e.g. prr9 temp*">
+      <input class="form-control-sm mr-1" name="search" [formControl]="queryF" minlength="3" placeholder="e.g. prr9 temp*"
+       (keydown.enter)="find()" >
       <button mat-mini-fab mat-icon-button aria-label="search"class="mr-2" [disabled]="queryF.invalid" (click)="find()">
         <i class="material-icons">search</i>
       </button>

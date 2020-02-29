@@ -1,5 +1,6 @@
 2.8.1
       fixed downloading of paged ts data
+      added progress bar to exp listing
 2.8.0
       ng9 update
 2.7.0

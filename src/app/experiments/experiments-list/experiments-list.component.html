@@ -25,6 +25,7 @@
 
     >
     </mat-paginator>
+    <mat-progress-bar *ngIf="fetcher.isBusy$ | async" mode="indeterminate"></mat-progress-bar>
 
     <div class="list-group">
       <bd2-experiment-summary *ngFor="let exp of experiments" [exp]="exp" >

@@ -102,7 +102,7 @@ describe('TSFetcher', () => {
     });
 
     const resp: TraceSet = {title: null, traces: [{label: '1.[B2] label0', fill: false, data: [{x: 0.0, y: 0.6601664510356472}, {x: 1.0, y: 0.6457065838504816}, {x: 2.0, y: 0.5562073136309738}, {x: 3.0, y: 0.9154962961556643}, {x: 4.0, y: 0.525271594883056}], min: 0.525271594883056, max: 0.9154962961556643, mean: 0.6605696479111645}, {label: '2.[C2] label0', fill: false, data: [{x: 0.0, y: 0.261667957678592}, {x: 1.0, y: 0.2784320544123843}, {x: 2.0, y: 0.42835207355286326}, {x: 3.0, y: 0.35304368617291276}, {x: 4.0, y: 0.22436214179832786}], min: 0.22436214179832786, max: 0.42835207355286326, mean: 0.30917158272301604}], totalTraces: 2,
-      currentPage: {pageIndex: 0, pageSize: 100, length: 0, previousPageIndex: 0}};
+      currentPage: {pageIndex: 0, pageSize: 100, length: 0, previousPageIndex: 0}, detrending: DetrendingType.LIN_DTR};
 
     tsDataService.loadDataSet.and.returnValue(of(resp));
     service.experiment(assay);
@@ -137,7 +137,7 @@ describe('TSFetcher', () => {
     });
 
     const resp: TraceSet = {title: null, traces: [{label: '1.[B2] label0', fill: false, data: [{x: 0.0, y: 0.6601664510356472}, {x: 1.0, y: 0.6457065838504816}, {x: 2.0, y: 0.5562073136309738}, {x: 3.0, y: 0.9154962961556643}, {x: 4.0, y: 0.525271594883056}], min: 0.525271594883056, max: 0.9154962961556643, mean: 0.6605696479111645}, {label: '2.[C2] label0', fill: false, data: [{x: 0.0, y: 0.261667957678592}, {x: 1.0, y: 0.2784320544123843}, {x: 2.0, y: 0.42835207355286326}, {x: 3.0, y: 0.35304368617291276}, {x: 4.0, y: 0.22436214179832786}], min: 0.22436214179832786, max: 0.42835207355286326, mean: 0.30917158272301604}], totalTraces: 2,
-      currentPage: {pageIndex: 0, pageSize: 100, length: 0, previousPageIndex: 0}};
+      currentPage: {pageIndex: 0, pageSize: 100, length: 0, previousPageIndex: 0}, detrending: DetrendingType.LIN_DTR};
 
     tsDataService.loadDataSet.and.returnValue(of(resp));
     service.experiment(assay);
