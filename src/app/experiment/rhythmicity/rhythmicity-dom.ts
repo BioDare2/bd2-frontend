@@ -4,14 +4,17 @@ import {DetrendingType} from '../../tsdata/ts-data-dom';
 export class RhythmicityMethod {
 
   static BD2EJTK = new RhythmicityMethod('BD2EJTK', 'BD2 eJTK');
-
+  static BD2JTK = new RhythmicityMethod('BD2JTK', 'simple JTK');
 
   private static values = [
+    RhythmicityMethod.BD2JTK,
     RhythmicityMethod.BD2EJTK
+
   ];
 
   private static valuesMap: Map<string, RhythmicityMethod>;
 
+  // tslint:disable-next-line:variable-name
   protected constructor(private _name: string, private _label: string) {
   }
 
@@ -47,7 +50,7 @@ export class RhythmicityMethod {
 }
 
 export const EnabledRhythmicityMethodOptions = [
-  RhythmicityMethod.BD2EJTK,
+  RhythmicityMethod.BD2JTK, RhythmicityMethod.BD2EJTK,
 ];
 
 
@@ -56,9 +59,15 @@ export class EJTPreset {
   static EJTK_CLASSIC = new EJTPreset('EJTK_CLASSIC', 'eJTK Classic');
   static BD2_CLASSIC = new EJTPreset('BD2_CLASSIC', 'BD2 Classic');
   static BD2_SPREAD = new EJTPreset('BD2_SPREAD', 'Period range');
+  static COS_1H = new EJTPreset('COS_1H', 'Cosine 24h 1h');
+  static COS_2H = new EJTPreset('COS_2H', 'Cosine 24h 2h');
+  static COS_4H = new EJTPreset('COS_4H', 'Cosine 24h 4h');
 
 
   private static values = [
+    EJTPreset.COS_1H,
+    EJTPreset.COS_2H,
+    EJTPreset.COS_4H,
     EJTPreset.EJTK_CLASSIC,
     EJTPreset.BD2_CLASSIC,
     EJTPreset.BD2_SPREAD,
@@ -66,6 +75,7 @@ export class EJTPreset {
 
   private static valuesMap: Map<string, EJTPreset>;
 
+  // tslint:disable-next-line:variable-name
   protected constructor(private _name: string, private _label: string) {
   }
 
@@ -101,6 +111,9 @@ export class EJTPreset {
 }
 
 export const EnabledEJTPresetOptions = [
+  EJTPreset.COS_1H,
+  EJTPreset.COS_2H,
+  EJTPreset.COS_4H,
   EJTPreset.EJTK_CLASSIC,
   EJTPreset.BD2_CLASSIC
 ];
@@ -168,7 +181,9 @@ export class BD2eJTKRes {
   rhythmic: boolean;
   tau: number;
   p: number;
+  pBH: number;
   bfP: number;
+  bfPBH: number;
   empP: number;
   empPBH: number;
   // gammaP: number;
@@ -196,7 +211,8 @@ export class JobResults<R> {
 
 export class StatTestOptions {
   constructor(public pValue = 0, public bhCorrection = false,
-              public showPattern = false, public circadian = false) {
+              public showPattern = false, public circadian = false
+              ) {
   }
 
   clone() {

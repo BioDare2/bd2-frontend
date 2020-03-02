@@ -51,6 +51,19 @@
       <td mat-cell *matCellDef="let row">{{row.result.tau | number:'1.0-2'}}</td>
     </ng-container>
 
+    <!-- P Column -->
+    <ng-container matColumnDef="p">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>p</th>
+      <td mat-cell *matCellDef="let row">{{row.result.p | number:'1.0-5'}}</td>
+    </ng-container>
+
+    <!-- BH corrected P Column -->
+    <ng-container matColumnDef="pbh">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>BH p</th>
+      <td mat-cell *matCellDef="let row">{{row.result.pBH | number:'1.0-5'}}</td>
+    </ng-container>
+
+
     <!-- Pattern Column -->
     <ng-container matColumnDef="pattern">
       <th mat-header-cell *matHeaderCellDef >Pattern</th>

@@ -32,7 +32,10 @@ export class RhythmicityResultsMDTableComponent implements AfterViewInit, OnInit
   set statTestParams(options: StatTestOptions) {
     if (options) {
       this.fetcher.params(options);
-      let cols = options.bhCorrection ? this.bhPColumns : this.normPColumns;
+      let cols = options.bhCorrection ? this.bhEmpPColumns : this.normEmpPColumns;
+      if (this.fetcher.isClassicJob()) {
+        cols = options.bhCorrection ? this.bhClsPColumns : this.normClsPColumns;
+      }
       if (options.showPattern) {
           cols = options.circadian ? cols.concat(this.patternColumnsC) : cols.concat(this.patternColumns);
       }
@@ -46,11 +49,13 @@ export class RhythmicityResultsMDTableComponent implements AfterViewInit, OnInit
   }
 
 
-  normPColumns = ['id', 'label', 'rhythmic', 'empp', 'tau'];
-  bhPColumns = ['id', 'label', 'rhythmic', 'emppbh', 'tau'];
+  normEmpPColumns = ['id', 'label', 'rhythmic', 'empp', 'tau'];
+  normClsPColumns = ['id', 'label', 'rhythmic', 'p', 'tau'];
+  bhEmpPColumns = ['id', 'label', 'rhythmic', 'emppbh', 'tau'];
+  bhClsPColumns = ['id', 'label', 'rhythmic', 'pbh', 'tau'];
   patternColumns = ['shape', 'period', 'peak', 'trough'];
   patternColumnsC = ['shape', 'period', 'peakc', 'troughc'];
-  displayedColumns = this.normPColumns; // ['id', 'label', 'rhythmic', 'empp', 'emppbh', 'tau', 'pattern'];
+  displayedColumns = this.normEmpPColumns; // ['id', 'label', 'rhythmic', 'empp', 'emppbh', 'tau', 'pattern'];
   disablePaginator = false;
 
   ngOnInit() {

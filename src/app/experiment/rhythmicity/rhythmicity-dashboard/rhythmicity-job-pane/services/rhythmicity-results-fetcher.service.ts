@@ -22,7 +22,9 @@ export class RhythmicityResultsFetcherService extends PageableSortableArraysFetc
     this.results$ = this.data$;
   }
 
-
+  public isClassicJob() {
+    return this.currentInput?.parameters?.METHOD === 'BD2JTK';
+  }
   /*
   pvalue(val: number) {
     if (val != null && val !== undefined) {
@@ -59,6 +61,8 @@ export class RhythmicityResultsFetcherService extends PageableSortableArraysFetc
       case 'id': return s => +s.id;
       case 'empp': return s => +s.result.empP;
       case 'emppbh': return s => +s.result.empPBH;
+      case 'p': return s => +s.result.p;
+      case 'pbh': return s => +s.result.pBH;
       case 'tau': return s => +s.result.tau;
       case 'period': return s => s.result.pattern.period;
       case 'peak': return s => s.result.pattern.peak;
@@ -70,12 +74,14 @@ export class RhythmicityResultsFetcherService extends PageableSortableArraysFetc
     }
   }
 
+
+
   protected processData(data: TSResult<BD2eJTKRes>[], params: StatTestOptions) {
     if (!params) { return data; }
     // const pValue = params[0] || 0;
     // const bhCorrected = params[1];
 
-    this.rankResults(data, params.pValue, params.bhCorrection);
+    this.rankResults(data, params.pValue, params.bhCorrection, this.isClassicJob());
     return data;
   }
 
@@ -99,17 +105,27 @@ export class RhythmicityResultsFetcherService extends PageableSortableArraysFetc
 
   protected patternToShape(pattern: JTKPattern) {
     switch (pattern.waveform) {
-      case 'ASYM_COSINE': return 'ACOS';
+      case 'ASYM_COSINE': {
+        if (pattern.leftPortion === 0.5) { return 'COS';
+        } else {
+          return 'ACOS';
+        }
+      }
       case 'ASYM_COS_SPIKE': return 'SPIKE';
       case 'ASYM_COS_SPIKE_NEG': return 'NPIKE';
       default: return pattern.waveform;
     }
   }
 
-  protected rankResults(jobRes: TSResult<BD2eJTKRes>[], pvalue: number, bhCorrected: boolean) {
+  protected rankResults(jobRes: TSResult<BD2eJTKRes>[], pvalue: number, bhCorrected: boolean, classic: boolean) {
     jobRes.forEach( res => {
       const ejtkR = res.result;
-      const p = bhCorrected ? ejtkR.empPBH : ejtkR.empP;
+      let p: number;
+      if (classic) {
+        p = bhCorrected ? ejtkR.pBH : ejtkR.p;
+      } else {
+        p = bhCorrected ? ejtkR.empPBH : ejtkR.empP;
+      }
       ejtkR.rhythmic = p < pvalue;
     });
   }
