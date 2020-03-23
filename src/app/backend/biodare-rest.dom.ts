@@ -85,12 +85,12 @@ export function bioDareRestConfigurator(environment: any): BioDareEndPoints {
   endPoints.ts_import = '/data/ts-import';
   endPoints.ts_data = '/data';
 
-  endPoints.ppa_new = '/ppa';
-  endPoints.ppa_job = '/ppa/job';
-  endPoints.ppa_jobs = '/ppa/jobs';
-  endPoints.ppa_stats = '/ppa/stats';
-  endPoints.ppa_results = '/ppa/results';
-  endPoints.ppa_results_export = '/ppa/export';
+  endPoints.ppa_new = '/ppa2';
+  endPoints.ppa_job = '/ppa2/job';
+  endPoints.ppa_jobs = '/ppa2/jobs';
+  endPoints.ppa_stats = '/ppa2/stats';
+  endPoints.ppa_results = '/ppa2/results';
+  endPoints.ppa_results_export = '/ppa2/export';
 
   endPoints.rhythmicity_new = '/rhythmicity';
   endPoints.rhythmicity_jobs = '/rhythmicity/jobs';
