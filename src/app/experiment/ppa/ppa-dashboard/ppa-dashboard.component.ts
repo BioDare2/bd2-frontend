@@ -17,7 +17,7 @@ export class PPADashboardComponent extends PPABaseComponent {
   panes: QueryList<PPAJobPaneComponent>;
 
   jobs: PPAJobSummary[];
-  jobsIds: number[];
+  jobsIds: string[];
 
   // jobsStats: PPAJobStats[];
   // ppaResults: PPAResultsGroup[];

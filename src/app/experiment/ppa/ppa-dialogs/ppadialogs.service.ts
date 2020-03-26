@@ -24,7 +24,7 @@ export class PPADialogsService {
     return this.sharedDialogs.confirm(question, details);
   }
 
-  ppaFit(expId: number, jobId: number, dataId: number, selectable?: boolean, selection?: string): Observable<FitSelection> {
+  ppaFit(expId: number, jobId: string, dataId: number, selectable?: boolean, selection?: string): Observable<FitSelection> {
 
     const data = new PPAFitDialogComponentParams(expId, jobId, dataId, selectable, selection);
     const dialog = this.dialogs.open(PPAFitDialogComponent, {data, autoFocus: false, maxWidth: '90%', minWidth: '55%'});

@@ -87,7 +87,7 @@ describe('PPAStatsFetcherService', () => {
 
   it('sorts by label and period', () => {
 
-      const stats = makePPAStats(123).stats;
+      const stats = makePPAStats('123').stats;
 
       const orgOrder = stats.map( s => s.memberDataId);
 
@@ -143,7 +143,7 @@ describe('PPAStatsFetcherService', () => {
 
   it('sorts preserves the original if applied', () => {
 
-    const stats = makePPAStats(123).stats;
+    const stats = makePPAStats('123').stats;
 
     const orgOrder = stats.map( s => s.memberDataId);
 
@@ -171,7 +171,7 @@ describe('PPAStatsFetcherService', () => {
 
   it('page preserves original if applied', () => {
 
-    const stats = makePPAStats(123).stats;
+    const stats = makePPAStats('123').stats;
 
     const orgOrder = stats.map( s => s.memberDataId);
 
@@ -201,7 +201,7 @@ describe('PPAStatsFetcherService', () => {
 
   it('page pages', () => {
 
-    const stats = makePPAStats(123).stats;
+    const stats = makePPAStats('123').stats;
 
     const orgOrder = stats.map( s => s.memberDataId);
 

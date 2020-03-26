@@ -25,7 +25,7 @@ describe('PpaFitDialogComponent', () => {
       declarations: [ PPAFitDialogComponent ],
       imports: [TSPlotModule, FormsModule],
       providers: [
-        {provide: MAT_DIALOG_DATA, useValue: new PPAFitDialogComponentParams(1, 2, 3)},
+        {provide: MAT_DIALOG_DATA, useValue: new PPAFitDialogComponentParams(1, '2', 3)},
         {provide: PPAFitService, useValue: fitService},
         {provide: MatDialogRef, useValue: ref}
         ]

@@ -10,6 +10,7 @@ import * as FileSaver from 'file-saver';
 import {RhythmicityJobFetcherService} from './services/rhythmicity-job-fetcher.service';
 import {RhythmicityResultsMDTableComponent} from './rhythmicity-results-mdtable/rhythmicity-results-mdtable.component';
 import {SharedDialogsService} from '../../../../shared/shared-dialogs/shared-dialogs.service';
+import {shortUUID} from '../../../../shared/collections-util';
 
 @Component({
   selector: 'bd2-rhythmicity-job-pane',
@@ -175,13 +176,7 @@ export class RhythmicityJobPaneComponent implements OnInit, OnChanges, OnDestroy
   }
 
   shortUUID(id: string) {
-    if (id) {
-      const ix = id.indexOf('-');
-      if (ix > 1) {
-        return id.substring(0, ix);
-      }
-    }
-    return id;
+    return shortUUID(id);
   }
 
 }

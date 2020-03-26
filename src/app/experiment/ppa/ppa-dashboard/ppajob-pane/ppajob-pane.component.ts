@@ -8,7 +8,8 @@ import * as FileSaver from 'file-saver';
 import {PPAJobFetcherService} from './services/ppajob-fetcher.service';
 import {Reloadable} from './reloadable';
 import {PPADialogsService} from '../../ppa-dialogs/ppadialogs.service';
-
+import {shortUUID} from '../../../../shared/collections-util';
+import {LocalDateTime} from '../../../../dom/repo/shared/dates';
 @Component({
   selector: 'bd2-ppajob-pane',
   templateUrl: './ppajob-pane.component.html',
@@ -44,7 +45,7 @@ export class PPAJobPaneComponent implements OnInit, OnChanges, OnDestroy {
 
 
   @Input()
-  jobId: number;
+  jobId: string;
 
   @Input()
   assay: ExperimentalAssayView;
@@ -204,7 +205,7 @@ export class PPAJobPaneComponent implements OnInit, OnChanges, OnDestroy {
      */
   }
 
-  saveJobBlob(blob: Blob, expId: number, jobId: number) {
+  saveJobBlob(blob: Blob, expId: number, jobId: string) {
     FileSaver.saveAs(blob, expId + '_job' + jobId + '.ppa.csv');
     // let url= window.URL.createObjectURL(blob);
     // console.log("U",url);
@@ -239,7 +240,7 @@ export class PPAJobPaneComponent implements OnInit, OnChanges, OnDestroy {
     } */
   }
 
-  doDelete(exp: ExperimentalAssayView, jobId: number) {
+  doDelete(exp: ExperimentalAssayView, jobId: string) {
     // console.log("Delete");
     this.ppaService.deletePPAJob(exp, jobId)
       .then(job => {
@@ -322,6 +323,15 @@ export class PPAJobPaneComponent implements OnInit, OnChanges, OnDestroy {
     return this.ppaJobFetcher.isFinished(job);
 
   }
+
+  shortUUID(id: string) {
+    return shortUUID(id);
+  }
+
+  toLocalDateTime(val: any) {
+    return LocalDateTime.deserialize(val).date;
+  }
+
 
 
 }

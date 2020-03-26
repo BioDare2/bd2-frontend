@@ -9,7 +9,7 @@ import {REMOVE_DEBOUNCE} from '../../../../../shared/tokens';
 
 
 @Injectable()
-export class PPAJobFetcherService extends RunnableFetcherService<[number, number], number, PPAJobSummary> {
+export class PPAJobFetcherService extends RunnableFetcherService<[number, string], string, PPAJobSummary> {
 
 
   readonly allJob$: Observable<PPAJobSummary>;
@@ -43,11 +43,11 @@ export class PPAJobFetcherService extends RunnableFetcherService<[number, number
 
 
   initIntervalsKeeper() {
-    return new IntervalsKeeper<number>(500, 20 * 1000, 5 * 60 * 1000, 1.4);
+    return new IntervalsKeeper<string>(500, 20 * 1000, 5 * 60 * 1000, 1.4);
   }
 
 
-  assayJobId( ids: [number,  number]) {
+  assayJobId( ids: [number,  string]) {
     this.input(ids);
   }
 
@@ -90,15 +90,15 @@ export class PPAJobFetcherService extends RunnableFetcherService<[number, number
     );
   }
 
-  protected assetToId(asset: PPAJobSummary): number {
+  protected assetToId(asset: PPAJobSummary): string {
     return asset.jobId;
   }
 
-  protected assetToInput(asset: PPAJobSummary): [number, number] {
+  protected assetToInput(asset: PPAJobSummary): [number, string] {
     return [asset.parentId, asset.jobId];
   }
 
-  protected sameInput(def1: [number, number], def2: [number, number]): boolean {
+  protected sameInput(def1: [number, string], def2: [number, string]): boolean {
     if (!def1 || !def2 ) { return false; }
     return (def1[0] === def2[0]) && (def1[1] === def2[1]);
   }

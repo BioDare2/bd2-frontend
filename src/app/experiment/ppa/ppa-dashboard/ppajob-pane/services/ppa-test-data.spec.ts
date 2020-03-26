@@ -1,10 +1,10 @@
 import {PPAJobResultsGroups, PPAJobSimpleResults, PPAJobSimpleStats} from '../../../ppa-dom';
 
 
-export function makePPAStats(jobId: number): PPAJobSimpleStats {
+export function makePPAStats(jobId: string): PPAJobSimpleStats {
 
   const stats =  {
-    jobId: 16134,
+    jobId: '16134',
     stats: [
     {
       memberDataId: 1,
@@ -616,10 +616,10 @@ export function makePPAStats(jobId: number): PPAJobSimpleStats {
 export function makePPASimpleResults(): PPAJobSimpleResults {
 
 const res = {
-  jobId: 866,
+  jobId: '866',
   results: [
     {
-      jobId: 866,
+      jobId: '866',
       dataId: 1,
       rawId: 1,
       bioId: 1,
@@ -1059,7 +1059,7 @@ return res;
 export function makePPAGroupResults(): PPAJobResultsGroups {
 
   const res = {
-    jobId: 867,
+    jobId: '867',
     periodMin: 18.0,
     periodMax: 34.0,
     groups: [

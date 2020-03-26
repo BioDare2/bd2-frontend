@@ -7,7 +7,7 @@ import {FitSelection} from '../../ppa-dom';
 
 export class PPAFitDialogComponentParams {
 
-  constructor(public expId: number, public jobId: number, public dataId: number,
+  constructor(public expId: number, public jobId: string, public dataId: number,
               public selectable?: boolean, public selection?: string) {
 
   }
@@ -21,7 +21,7 @@ export class PPAFitDialogComponent implements OnInit {
 
   selectable = false;
 
-  jobId: number;
+  jobId: string;
   dataId: number;
   fitPack: PPAFitPack;
   selectedPeriod: string;
@@ -35,7 +35,7 @@ export class PPAFitDialogComponent implements OnInit {
   ngOnInit() {
   }
 
-  show(expId: number, jobId: number, dataId: number, selectable?: boolean, selection?: string) {
+  show(expId: number, jobId: string, dataId: number, selectable?: boolean, selection?: string) {
 
     this.jobId = jobId;
     this.dataId = dataId;

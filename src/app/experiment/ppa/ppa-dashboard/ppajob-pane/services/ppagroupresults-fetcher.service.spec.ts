@@ -183,7 +183,7 @@ describe('PPAGroupResultsFetcherService', () => {
     ppaService.getPPAJobResultsGrouped.and.returnValue(of(groups));
 
     const job = new PPAJobSummary();
-    job.jobId = 1;
+    job.jobId = '1';
     job.parentId = 2;
 
     let val;

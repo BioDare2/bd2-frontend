@@ -12,7 +12,7 @@ export class PPAFitService {
   constructor(private BD2REST: BioDareRestService) {
   }
 
-  getFit(expId: number, jobId: number, dataId: number, selectable: boolean): Promise<PPAFitPack> {
+  getFit(expId: number, jobId: string, dataId: number, selectable: boolean): Promise<PPAFitPack> {
 
     // return Promise.resolve(this.fakeFit());
     return this.BD2REST.ppaFit(expId, jobId, dataId, selectable);

@@ -61,7 +61,7 @@ describe('PPAJobPaneComponent', () => {
 
   describe('initilizations', () => {
 
-    const jobId = 2;
+    const jobId = '2';
     const assayId = 3;
     let job: PPAJobSummary;
 

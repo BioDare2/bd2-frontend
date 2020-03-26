@@ -97,7 +97,7 @@ export class PPARequest {
 
 export class PPAJobSummary {
 
-  jobId: number;
+  jobId: string;
   parentId: number;
   reloaded: boolean;
 
@@ -195,7 +195,7 @@ export class PPASimpleStats {
 }
 
 export class PPASimpleResultEntry {
-  jobId: number;
+  jobId: string;
 
   dataId: number;
   rawId: number;
@@ -271,18 +271,18 @@ export class PPAStatsGroup {
 }
 
 export class PPAJobSimpleStats {
-  jobId: number;
+  jobId: string;
   stats: PPASimpleStats[] = [];
 }
 
 export class PPAJobStats {
-  jobId: number;
+  jobId: string;
   label: string;
   groups: PPAStatsGroup[];
 }
 
 export class PPAResultEntry {
-  jobId: number;
+  jobId: string;
   dataId: number;
   dataRef: string;
   jobSummary: string;
@@ -316,7 +316,7 @@ export class PPAResultsGroup {
 }
 
 export class PPAJobSimpleResults {
-  jobId: number;
+  jobId: string;
   results: PPASimpleResultEntry[];
 }
 
@@ -347,7 +347,7 @@ export class PPASelectGroup {
 }
 
 export class FitSelection {
-  jobId: number;
+  jobId: string;
   dataId: number;
   selected: string;
 }
@@ -377,7 +377,7 @@ export class PPAResultsGroupSummary {
 }
 
 export class PPAJobResultsGroups {
-  jobId: number;
+  jobId: string;
   periodMin: number;
   periodMax: number;
   groups: PPAResultsGroupSummary[];

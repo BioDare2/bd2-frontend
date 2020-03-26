@@ -57,3 +57,13 @@ export function sortingMedian(data: number[]) {
   data = data.slice().sort();
   return data[Math.floor(data.length / 2)];
 }
+
+export function shortUUID(id: string) {
+  if (id) {
+    const ix = id.indexOf('-');
+    if (ix > 1) {
+      return id.substring(0, ix);
+    }
+  }
+  return id;
+}

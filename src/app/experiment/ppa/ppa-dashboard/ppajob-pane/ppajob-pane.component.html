@@ -3,7 +3,7 @@
     <div (click)="toggleExpanded()" role="button" class="float-left">
       <i class="material-icons bd-icon" [style.color]="expanded ? 'green' : 'red'" [style.font-size.%]="150">waves</i>
       <!-- <span class="glyphicon glyphicon-sort-by-attributes" aria-hidden="true"></span> -->
-      &nbsp;{{job.jobId}}. {{job.method}} <!--({{job.submitted | date}})-->
+      &nbsp;{{shortUUID(job.jobId)}} {{job.method}} ({{toLocalDateTime(job.submitted) | date}})
     </div>
     <div class="float-right">
       {{simplifyJobState(job)}}

@@ -46,7 +46,7 @@ describe('PPAJobFetcherService', () => {
     service.isReloading$.subscribe(v => running = v);
 
     // @ts-ignore
-    service.loadAsset([12, 34]);
+    service.loadAsset([12, '34']);
     tick();
     expect(val).toBeUndefined();
     expect(error1).toBeUndefined();
@@ -55,18 +55,18 @@ describe('PPAJobFetcherService', () => {
 
     error2 = undefined;
     const job = new PPAJobSummary();
-    job.jobId = 34;
+    job.jobId = '34';
     job.state = 'SUBMITTED';
     ppaService.getPPAJob.and.returnValue(of(job));
 
     // @ts-ignore
-    service.loadAsset([12, 34]);
+    service.loadAsset([12, '34']);
     tick();
     expect(val).toBe(job);
     expect(error1).toBeUndefined();
     expect(error2).toBeUndefined();
 
-    expect(service.currentAssayJobId).toEqual([12, 34]);
+    expect(service.currentAssayJobId).toEqual([12, '34']);
     expect(service.currentJob).toBe(job);
     expect(running).toBe(true);
 
@@ -90,7 +90,7 @@ describe('PPAJobFetcherService', () => {
     service.isReloading$.subscribe(v => running = v);
 
     // @ts-ignore
-    service.loadAsset([12, 34]);
+    service.loadAsset([12, '34']);
     tick();
     expect(val).toBeUndefined();
     expect(error1).toBeUndefined();
@@ -99,18 +99,18 @@ describe('PPAJobFetcherService', () => {
 
     error2 = undefined;
     const job = new PPAJobSummary();
-    job.jobId = 34;
+    job.jobId = '34';
     job.state = 'FINISHED';
     ppaService.getPPAJob.and.returnValue(of(job));
 
     // @ts-ignore
-    service.loadAsset([12, 340]);
+    service.loadAsset([12, '340']);
     tick();
     expect(val).toBe(job);
     expect(error1).toBeUndefined();
     expect(error2).toBeUndefined();
 
-    expect(service.currentAssayJobId).toEqual([12, 340]);
+    expect(service.currentAssayJobId).toEqual([12, '340']);
     expect(service.currentJob).toBe(job);
     expect(running).toBe(false);
 
@@ -129,13 +129,13 @@ describe('PPAJobFetcherService', () => {
     ppaService.getPPAJob.and.returnValue(of(job));
 
     // @ts-ignore
-    service.loadAsset([12, 34]);
+    service.loadAsset([12, '34']);
     tick();
     expect(val).toBe(job);
     expect(job.parentId).toBe(12);
 
     // @ts-ignore
-    service.loadAsset([13, 34]);
+    service.loadAsset([13, '34']);
     tick();
     expect(val).toBe(job);
     expect(job.parentId).toBe(12);
@@ -168,24 +168,24 @@ describe('PPAJobFetcherService', () => {
     expect(val).toBeUndefined();
     expect(error).toBeUndefined();
 
-    service.assayJobId([12, 34]);
+    service.assayJobId([12, '34']);
     tick();
     expect(val).toBeUndefined();
     expect(error).toBeUndefined();
 
     service.on(true);
     tick();
-    expect(val).toEqual([12, 34]);
+    expect(val).toEqual([12, '34']);
     expect(error).toBeUndefined();
 
-    service.assayJobId([120, 340]);
+    service.assayJobId([120, '340']);
     tick();
-    expect(val).toEqual([120, 340]);
+    expect(val).toEqual([120, '340']);
     expect(error).toBeUndefined();
 
     val = undefined;
     service.on(false);
-    service.assayJobId([1200, 3400]);
+    service.assayJobId([1200, '3400']);
     tick();
     expect(val).toBeUndefined();
     expect(error).toBeUndefined();
@@ -194,7 +194,7 @@ describe('PPAJobFetcherService', () => {
 
   it('initAssetsInput gives only distinct ids', fakeAsync( () => {
 
-    let val = [1, 1];
+    let val = [1, '1'];
     let error;
 
     // @ts-ignore
@@ -202,47 +202,47 @@ describe('PPAJobFetcherService', () => {
     service.on(true);
 
     tick();
-    expect(val).toEqual([1, 1]);
+    expect(val).toEqual([1, '1']);
     expect(error).toBeUndefined();
 
 
-    service.assayJobId([12, 34]);
+    service.assayJobId([12, '34']);
     tick();
-    expect(val).toEqual([12, 34]);
+    expect(val).toEqual([12, '34']);
     expect(error).toBeUndefined();
 
     val = undefined;
-    service.assayJobId([12, 34]);
+    service.assayJobId([12, '34']);
     tick();
     expect(val).toBeUndefined();
     expect(error).toBeUndefined();
 
-    service.assayJobId([12, 340]);
+    service.assayJobId([12, '340']);
     tick();
-    expect(val).toEqual([12, 340]);
+    expect(val).toEqual([12, '340']);
     expect(error).toBeUndefined();
 
-    service.assayJobId([12, 341]);
+    service.assayJobId([12, '341']);
     tick();
-    expect(val).toEqual([12, 341]);
+    expect(val).toEqual([12, '341']);
     expect(error).toBeUndefined();
 
     val = undefined;
-    service.assayJobId([12, 341]);
+    service.assayJobId([12, '341']);
     tick();
     expect(val).toBeUndefined();
     expect(error).toBeUndefined();
 
-    service.assayJobId([1, 341]);
+    service.assayJobId([1, '341']);
     tick();
-    expect(val).toEqual([1, 341]);
+    expect(val).toEqual([1, '341']);
     expect(error).toBeUndefined();
 
   }));
 
   it('initAssetsInput gives last on refresh', fakeAsync( () => {
 
-    let val = [1, 1];
+    let val = [1, '1'];
     let error;
 
     // @ts-ignore
@@ -250,35 +250,35 @@ describe('PPAJobFetcherService', () => {
     service.on(true);
 
     tick();
-    expect(val).toEqual([1, 1]);
+    expect(val).toEqual([1, '1']);
     expect(error).toBeUndefined();
 
     service.refresh();
     tick();
-    expect(val).toEqual([1, 1]);
+    expect(val).toEqual([1, '1']);
     expect(error).toBeUndefined();
 
-    service.assayJobId([12, 34]);
+    service.assayJobId([12, '34']);
     tick();
 
     val = undefined;
 
     service.refresh();
     tick();
-    expect(val).toEqual([12, 34]);
+    expect(val).toEqual([12, '34']);
     expect(error).toBeUndefined();
 
     val = undefined;
     service.refresh();
     tick();
-    expect(val).toEqual([12, 34]);
+    expect(val).toEqual([12, '34']);
     expect(error).toBeUndefined();
 
-    service.assayJobId([120, 34]);
+    service.assayJobId([120, '34']);
     tick();
     service.refresh();
     tick();
-    expect(val).toEqual([120, 34]);
+    expect(val).toEqual([120, '34']);
     expect(error).toBeUndefined();
 
   }));

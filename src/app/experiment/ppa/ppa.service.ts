@@ -30,27 +30,27 @@ export class PPAService {
       .then(obj => obj.data);
   }
 
-  getPPAJob(expId: number, jobId: number): Observable<PPAJobSummary> {
+  getPPAJob(expId: number, jobId: string | number): Observable<PPAJobSummary> {
     return this.BD2REST.ppaJob(expId, jobId);
   }
 
-  downloadPPAJob(expId: number, jobId: number, phaseType: string): Promise<Blob> {
+  downloadPPAJob(expId: number, jobId: string| number, phaseType: string): Promise<Blob> {
     return this.BD2REST.ppaExportJob(expId, jobId, phaseType);
       // .then(resp => resp.blob());
   }
 
 
-  deletePPAJob(exp: ExperimentalAssayView, jobId: number): Promise<PPAJobSummary> {
+  deletePPAJob(exp: ExperimentalAssayView, jobId: string | number): Promise<PPAJobSummary> {
     return this.BD2REST.ppaDeleteJob(exp.id, jobId);
   }
 
-  getPPAJobResultsGrouped(expId: number, jobId: number): Observable<PPAJobResultsGroups> {
+  getPPAJobResultsGrouped(expId: number, jobId: string | number): Observable<PPAJobResultsGroups> {
 
     return this.BD2REST.ppaJobResultsGrouped(expId, jobId);
 
   }
 
-  getPPAJobSimpleResults(expId: number, jobId: number): Observable<PPAJobSimpleResults> {
+  getPPAJobSimpleResults(expId: number, jobId: string | number): Observable<PPAJobSimpleResults> {
     return this.BD2REST.ppaJobSimpleResults(expId, jobId);
   }
 
@@ -59,7 +59,7 @@ export class PPAService {
       .then(obj => obj.data);
   }
 
-  getPPAJobSimpleStats(expId: number, jobId: number): Observable<PPAJobSimpleStats> {
+  getPPAJobSimpleStats(expId: number, jobId: string | number): Observable<PPAJobSimpleStats> {
     return this.BD2REST.ppaJobSimpleStat(expId, jobId);
   }
 
@@ -141,7 +141,7 @@ export class PPAService {
       .then(obj => obj.data);
   }
 
-  doPPASelection(expId: number, jobId: number, selection: any): Promise<any> {
+  doPPASelection(expId: number, jobId: string | number, selection: any): Promise<any> {
     return this.BD2REST.ppaDoSelection(expId, jobId, selection);
   }
 

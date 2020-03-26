@@ -284,14 +284,14 @@ export class BioDareRestService {
 
   }
 
-  ppaJob(expId: number, jobId: number): Observable<any> {
+  ppaJob(expId: number, jobId: string | number): Observable<any> {
     const options = this.makeOptions();
     const url = this.endPoints.experiment_url + '/' + expId + this.endPoints.ppa_job + '/' + jobId;
 
     return this.OKJson(this.http.get(url, options));
   }
 
-  ppaExportJob(expId: number, jobId: number, phaseType: string): Promise<any> {
+  ppaExportJob(expId: number, jobId: string | number, phaseType: string): Promise<any> {
     const options = this.makeOptions();
     options.headers = options.headers.delete('Content-Type');
     (options as any).responseType  = 'blob'; // ResponseContentType.Blob;
@@ -306,7 +306,7 @@ export class BioDareRestService {
       .toPromise();
   }
 
-  ppaDeleteJob(expId: number, jobId: number): Promise<any> {
+  ppaDeleteJob(expId: number, jobId: string | number): Promise<any> {
     const options = this.makeOptions();
     const url = this.endPoints.experiment_url + '/' + expId + this.endPoints.ppa_job + '/' + jobId;
 
@@ -314,7 +314,7 @@ export class BioDareRestService {
   }
 
 
-  ppaJobResultsGrouped(expId: number, jobId: number): Observable<any> {
+  ppaJobResultsGrouped(expId: number, jobId: string | number): Observable<any> {
     const options = this.makeOptions();
     const url = this.endPoints.experiment_url + '/' + expId + this.endPoints.ppa_job + '/' + jobId + '/results/grouped';
 
@@ -322,14 +322,14 @@ export class BioDareRestService {
 
   }
 
-  ppaJobSimpleResults(expId: number, jobId: number): Observable<any> {
+  ppaJobSimpleResults(expId: number, jobId: string | number): Observable<any> {
     const options = this.makeOptions();
     const url = this.endPoints.experiment_url + '/' + expId + this.endPoints.ppa_job + '/' + jobId + '/results/simple';
 
     return this.OKJson(this.http.get(url, options));
   }
 
-  ppaJobSimpleStat(expId: number, jobId: number): Observable<any> {
+  ppaJobSimpleStat(expId: number, jobId: string | number): Observable<any> {
     const options = this.makeOptions();
     const url = this.endPoints.experiment_url + '/' + expId + this.endPoints.ppa_job + '/' + jobId + '/stats/simple';
 
@@ -337,14 +337,14 @@ export class BioDareRestService {
 
   }
 
-  ppaForSelect(expId: number, jobId: number): Promise<any> {
+  ppaForSelect(expId: number, jobId: string | number): Promise<any> {
     const options = this.makeOptions();
     const url = this.endPoints.experiment_url + '/' + expId + this.endPoints.ppa_job + '/' + jobId + '/results/select';
 
     return this.OKJson(this.http.get(url, options)).toPromise();
   }
 
-  ppaDoSelection(expId: number, jobId: number, selection: any): Promise<any> {
+  ppaDoSelection(expId: number, jobId: string | number, selection: any): Promise<any> {
     const options = this.makeOptions();
     const url = this.endPoints.experiment_url + '/' + expId + this.endPoints.ppa_job + '/' + jobId + '/results/select';
     const body = selection;
@@ -353,7 +353,7 @@ export class BioDareRestService {
 
   }
 
-  ppaFit(expId: number, jobId: number, dataId: number, selectable: boolean): Promise<any> {
+  ppaFit(expId: number, jobId: string | number, dataId: number, selectable: boolean): Promise<any> {
     const options = this.makeOptions();
     const url = this.endPoints.experiment_url + '/' + expId + this.endPoints.ppa_job + '/' + jobId + '/fits/' + dataId + '/' + selectable;
 

@@ -37,7 +37,7 @@ describe('PPAResultsFetcherService', () => {
   it('sortingKey gets correct extractor', () => {
 
     const stat =     {
-        jobId: 866,
+        jobId: '866',
         dataId: 1,
         rawId: 1,
         bioId: 1,
