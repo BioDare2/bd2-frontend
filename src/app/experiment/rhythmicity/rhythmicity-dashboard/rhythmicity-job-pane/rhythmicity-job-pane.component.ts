@@ -179,4 +179,10 @@ export class RhythmicityJobPaneComponent implements OnInit, OnChanges, OnDestroy
     return shortUUID(id);
   }
 
+  friendlyMethod(method: string) {
+    if (method == 'BD2JTK') { return 'Classic JTK'; }
+    if (method == 'BD2EJTK') { return 'BD2 eJTK'; }
+    return method;
+  }
+
 }

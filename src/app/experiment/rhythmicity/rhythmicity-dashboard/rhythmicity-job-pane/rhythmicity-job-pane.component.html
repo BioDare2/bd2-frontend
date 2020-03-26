@@ -4,7 +4,7 @@
       <i class="material-icons bd-icon" [style.color]="isExpanded ? 'green' : 'red'" [style.font-size.%]="150">waves</i>
       <!--<span class="glyphicon glyphicon-sort-by-attributes" aria-hidden="true"></span>-->
       &nbsp;{{shortUUID(job.jobId)}} ({{toLocalDateTime(job.jobStatus.submitted) | date}}) <br>
-      {{job.parameters.METHOD}} {{job.parameters.PRESET}}
+      {{friendlyMethod(job.parameters.METHOD)}}; &nbsp; waveforms: {{job.parameters.PRESET}}
     </div>
     <div class="float-right">
       {{job.jobStatus.state}}
