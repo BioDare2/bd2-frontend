@@ -66,9 +66,17 @@
   </div>
   <div *ngIf="methodHelp"  class="col-sm-12">
     <div class="alert alert-info" role="alert" type="info">
-      BD2 eJTK is the BioDare2 implementation of Empirical JTK_CYCLE with asymmetry search
+      <p><b>Classic JTK</b> is the implementation of JTK_CYCLE from
+        <a href="https://dx.doi.org/10.1177%2F0748730410379711">Michael E. Hughes et al. 2010</a>
+        a standard method for detecting rhythmicity in genome-scale datasets.
+        <br>The method is fast but it is reliable only when it tests against small set of patterns, we provide patterns
+        of 24h cosines with different phases.</p>
+      <p><b>BD2 eJTK</b> is the BioDare2 implementation of Empirical JTK_CYCLE with asymmetry search
       from <a href=" https://doi.org/10.1371/journal.pcbi.1004094" target="_blank">Alan L. Hutchison et al. 2015</a>.
-      It is a classic JTK method but with p values empirically calculated against set of random noise data.
+        It is similar to the classic JTK method but with p values empirically calculated against set of random noise data.
+      <br>This modification permits using larger sets of test patterns and it provides better accuracy.
+      However, this method is much slower so it can only analyze timeseries only up to 5 days of data (though the Classic
+      JTK method was never intended to be used with such a long data).</p>
     </div>
   </div>
 
@@ -91,6 +99,8 @@
     <div class="alert alert-info" role="alert" type="info">
       Presets determine set of pattern curves against the comparison test is run.<br>
       <ul>
+      <li>Cosine 24h 1/2/4h are set of cosine curves of 24h periods, and phases spread every 1, 2, or 4 hours.
+      To be used mainly with Classic JTK.</li>
       <li>eJTK Classic is recommended for typical omics-like data for which eJTK method was developed. <br>
         It works well for short data (48h, 2h- 1h-sampled) when actual period is within range 22-26 hours.<br>
         The patterns are series of cosine-like waveforms with 24h period, phases by 2hours

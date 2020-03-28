@@ -1,10 +1,10 @@
 import {AfterViewInit, Component, EventEmitter, OnDestroy, OnInit} from '@angular/core';
 
-import {AbstractControl, FormBuilder, Validators} from '@angular/forms';
+import {AbstractControl, FormBuilder, FormControl, Validators} from '@angular/forms';
 import {DetrendingType} from '../../../../tsdata/ts-data-dom';
 import {
-  EJTPreset,
-  EnabledEJTPresetOptions,
+  EJTKPreset, EnabledEJTKPresetOptions,
+  EnabledJTKPresetOptions,
   EnabledRhythmicityMethodOptions,
   RhythmicityMethod,
   RhythmicityRequest
@@ -23,11 +23,14 @@ import {BaseTSDisplayParamsRForm} from '../../../../tsdata/plots/tsdisplay-param
 export class RhythmicityjobParamsRformComponent extends BaseTSDisplayParamsRForm implements OnInit, OnDestroy, AfterViewInit {
 
   methodOptions = EnabledRhythmicityMethodOptions;
-  presetOptions = EnabledEJTPresetOptions;
+  presetOptions = EnabledEJTKPresetOptions;
 
   dataHelp = false;
   presetsHelp = false;
   methodHelp = false;
+
+  methodForm: FormControl;
+  presetForm: FormControl;
 
   rhythmicityRequests = new EventEmitter<RhythmicityRequest>();
 
@@ -35,6 +38,9 @@ export class RhythmicityjobParamsRformComponent extends BaseTSDisplayParamsRForm
     super(fb);
 
     this.detrendingOptions = [ DetrendingType.NO_DTR, DetrendingType.LIN_DTR];
+
+    this.methodForm = this.mainForm.get('method') as FormControl;
+    this.presetForm = this.mainForm.get('preset') as FormControl;
   }
 
 
@@ -48,10 +54,33 @@ export class RhythmicityjobParamsRformComponent extends BaseTSDisplayParamsRForm
         periodMax: [34, [Validators.required]]
       }, {validator: (control: AbstractControl) => this.validPeriodScale(control.value)}),
       method: [RhythmicityMethod.BD2EJTK.name, [Validators.required]],
-      preset: [EJTPreset.EJTK_CLASSIC.name, [Validators.required]],
+      preset: [EJTKPreset.EJTK_CLASSIC.name, [Validators.required]],
     });
 
     return form;
+  }
+
+  ngOnInit() {
+    super.ngOnInit();
+
+    this.methodForm.valueChanges.subscribe( value => this.setPresetOptions(value));
+  }
+
+  ngOnDestroy(): void {
+    super.ngOnDestroy();
+  }
+
+  setPresetOptions(method: any) {
+
+    if (method === RhythmicityMethod.BD2EJTK.name) {
+      this.presetOptions = EnabledEJTKPresetOptions;
+      this.presetForm.setValue(EJTKPreset.EJTK_CLASSIC.name)
+    } else if (method === RhythmicityMethod.BD2JTK.name) {
+      this.presetOptions = EnabledJTKPresetOptions;
+      this.presetForm.setValue(EJTKPreset.COS_2H.name)
+    } else {
+      this.presetOptions = [];
+    }
   }
 
   defaultDetrending() {
@@ -86,7 +115,7 @@ export class RhythmicityjobParamsRformComponent extends BaseTSDisplayParamsRForm
     const req = new RhythmicityRequest();
     req.detrending = DetrendingType.get(value.displayParams.detrending);
     req.method = RhythmicityMethod.get(value.method);
-    req.preset = EJTPreset.get(value.preset);
+    req.preset = EJTKPreset.get(value.preset);
     req.periodMax = value.periodScale.periodMax;
     req.periodMin = value.periodScale.periodMin;
     req.windowEnd = value.displayParams.timeScale.timeEnd;
