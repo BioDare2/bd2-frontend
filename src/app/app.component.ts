@@ -1,4 +1,5 @@
 import {Component} from '@angular/core';
+import {ShutdownEventsService} from './system/shutdown-events.service';
 
 @Component({
   selector: 'bd2-root',
@@ -8,6 +9,6 @@ import {Component} from '@angular/core';
 export class AppComponent {
   title = 'Welcome to BioDare2!';
 
-  constructor() {
+  constructor(private shutdowsn: ShutdownEventsService) {
   }
 }

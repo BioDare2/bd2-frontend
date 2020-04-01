@@ -547,6 +547,14 @@ export class BioDareRestService {
 
   }
 
+  shutdownStatus(): Observable<any> {
+
+    const options = this.makeOptions();
+    const url = this.endPoints.shutdown_url;
+
+    return this.OKJson(this.http.get<any>(url, options));
+  }
+
   public objectToParams(obj: { [index: string]: any; }, params?: HttpParams): HttpParams {
     params = params || new HttpParams();
     Object.entries(obj).forEach( ([param, value]) => {

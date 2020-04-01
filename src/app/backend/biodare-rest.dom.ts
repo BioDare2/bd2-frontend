@@ -1,3 +1,5 @@
+import {entryPointKeyFor} from '@angular/compiler-cli/src/ngtsc/routing';
+
 export class BioDareEndPoints {
 
   login_url: string;
@@ -46,6 +48,8 @@ export class BioDareEndPoints {
 
   ontology_url: string;
   ontology_species_url: string;
+
+  shutdown_url: string;
 }
 
 export function bioDareRestConfigurator(environment: any): BioDareEndPoints {
@@ -109,6 +113,8 @@ export function bioDareRestConfigurator(environment: any): BioDareEndPoints {
 
   endPoints.ontology_url = backendRoot + '/onto';
   endPoints.ontology_species_url = endPoints.ontology_url + '/species';
+
+  endPoints.shutdown_url = backendRoot + '/status/shutdown';
   return endPoints;
 
 }
