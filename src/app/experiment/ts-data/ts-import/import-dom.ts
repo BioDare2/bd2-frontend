@@ -149,9 +149,9 @@ export class ImportDetails {
   areLabelsAfterTime() {
     if (this.firstTimeCell && this.labelsSelection) {
       if (this.inRows) {
-        return this.labelsSelection.colNumber < this.firstTimeCell.colNumber;
+        return (this.labelsSelection.colNumber < this.firstTimeCell.colNumber) && (this.labelsSelection.colNumber >= 0);
       } else {
-        return this.labelsSelection.rowNumber < this.firstTimeCell.rowNumber;
+        return (this.labelsSelection.rowNumber < this.firstTimeCell.rowNumber) && (this.labelsSelection.rowNumber >= 0);
       }
     }
     return false;
