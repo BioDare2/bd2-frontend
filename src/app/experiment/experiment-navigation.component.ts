@@ -15,6 +15,8 @@ import {ExperimentalAssayView} from '../dom/repo/exp/experimental-assay-view';
            [routerLinkActiveOptions]="{exact: true}">Edit</a>
         <a *ngIf="experiment.features.hasTSData" [routerLink]="['.','data','view','ts']" routerLinkActive="active"
            [routerLinkActiveOptions]="{exact: true}">Show data</a>
+        <a *ngIf="experiment.features.hasTSData" [routerLink]="['.','data','view','heatmap']" routerLinkActive="active"
+           [routerLinkActiveOptions]="{exact: true}">Heatmap</a>
         <!-- we start at new upload<a *ngIf="experiment.security.canWrite && !experiment.features.hasTSData" [routerLink]="['.','data','upload']"
            routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Import data</a>
         <a *ngIf="experiment.security.canWrite && experiment.features.hasTSData" [routerLink]="['.','data','upload']"

@@ -1,3 +1,4 @@
+      heatmap
 2.8.2
       ng 9.1 update
       period analysis with jc2
@@ -13,6 +14,7 @@
       new routing for experiment
       experiment pagination
       detailed experiment list
+
 2.5.1
       material desing plus reactive in account
       material design foms in experimet

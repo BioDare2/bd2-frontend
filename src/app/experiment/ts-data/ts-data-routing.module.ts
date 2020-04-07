@@ -1,6 +1,7 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {TSViewComponent} from './ts-view/ts-view.component';
+import {TsHeatmapViewComponent} from './ts-heatmap/ts-heatmap-view/ts-heatmap-view.component';
 
 const routes: Routes = [{
   path: '',
@@ -9,6 +10,8 @@ const routes: Routes = [{
 
     // {path: 'ts-import/:format/:fileId', component: TSOldImportComponent},
     {path: 'view/ts', component: TSViewComponent},
+
+    {path: 'view/heatmap', component: TsHeatmapViewComponent},
 
     {path: 'ts-old-import', loadChildren: () => import('./old-import/ts-old-import.module').then(m => m.TsOldImportModule)},
 

@@ -36,7 +36,7 @@ export class TSFetcher implements OnInit, OnDestroy {
   private slowParameters$: Observable<DisplayParameters>;
   // private seriesPack$ = new BehaviorSubject<TimeSeriesPack>(undefined);
 
-  constructor(private tsDataService: TSDataService, @Inject(REMOVE_DEBOUNCE) @Optional() removeDebounce = false) {
+  constructor(protected tsDataService: TSDataService, @Inject(REMOVE_DEBOUNCE) @Optional() removeDebounce = false) {
 
     const par = new DisplayParameters(0, 0, DetrendingType.LIN_DTR,
       NormalisationOptions[0].name, AlignOptions[0].name, DisplayParameters.firstPage());

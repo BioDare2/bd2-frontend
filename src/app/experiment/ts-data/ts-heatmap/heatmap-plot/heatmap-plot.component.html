@@ -1,0 +1,16 @@
+
+<div style="text-align:center">
+  <apx-chart
+    [series]="series"
+    [chart]="chart"
+    [xaxis]="xaxis"
+    [title]="plotTitle"
+    [colors]="['#008FFB']"
+    [plotOptions] ="plotOptions"
+    [dataLabels]="{enabled: false}"
+    [stroke]="{width: 1}"
+  ></apx-chart>
+</div>
+
+
+{{ series | json}}
