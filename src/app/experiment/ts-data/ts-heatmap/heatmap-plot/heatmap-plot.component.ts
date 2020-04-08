@@ -1,11 +1,13 @@
-import { Component, OnInit, Input } from '@angular/core';
+import {Component, OnInit, Input, ViewChild} from '@angular/core';
 import {Trace} from '../../../../tsdata/plots/ts-plot.dom';
-import {ApexAxisChartSeries,
+import {
+  ApexAxisChartSeries,
   ApexChart,
   ApexXAxis,
   ApexTitleSubtitle,
-  ApexPlotOptions
-} from 'ng-apexcharts'
+  ApexPlotOptions, ChartComponent
+} from 'ng-apexcharts';
+import {HeatmapScale} from '../heatmap-scale';
 
 @Component({
   selector: 'bd2-heatmap-plot',
@@ -15,19 +17,27 @@ import {ApexAxisChartSeries,
 })
 export class HeatmapPlotComponent implements OnInit {
 
+
+
+  scales = new HeatmapScale();
+
   series: ApexAxisChartSeries = [];
-  chart: ApexChart = { type: 'heatmap',
+
+  chart: ApexChart = {
+    type: 'heatmap',
     animations: {
-    speed: 400,
-    animateGradually: {enabled: false}
+      enabled: false,
+    //speed: 400,
+    //animateGradually: {enabled: false}
     }
   };
+
   xaxis: ApexXAxis = {};
   plotTitle = { text: 'Heatmap'};
 
   plotOptions: ApexPlotOptions = {
     heatmap: {
-      distributed: true,
+      distributed: false,
       useFillColorAsStroke: false,
       radius: 0
     }
@@ -45,13 +55,42 @@ export class HeatmapPlotComponent implements OnInit {
 
   mapToHeatMapData(traces: Trace[]) {
 
+
+
+    const [min, max] = this.minMax(traces);
+
+    const scale = this.scales.customScale(min, max);
+
+    this.plotOptions = {
+      heatmap: {
+        distributed: false,
+        useFillColorAsStroke: false,
+        radius: 0,
+        colorScale: {ranges: scale}
+      }
+    };
+
+    this.chart.height = 'auto';
+
     this.series = traces.map( trace => {
       return {
         name: trace.label,
         data: trace.data
       }
+    }).reverse();
+
+  }
+
+  minMax(traces: Trace[]) {
+    if (traces.length === 0) return [NaN, NaN];
+    let min = traces[0].min;
+    let max = traces[0].max;
+
+    traces.forEach( tr => {
+      min = Math.min(min, tr.min);
+      max = Math.max(max, tr.max);
     });
 
-    this.chart.height = 'auto';
+    return [min, max];
   }
 }

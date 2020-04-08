@@ -1,11 +1,11 @@
 
 <div style="text-align:center">
   <apx-chart
-    [series]="series"
     [chart]="chart"
     [xaxis]="xaxis"
     [title]="plotTitle"
-    [colors]="['#008FFB']"
+    [series]="series"
+    [legend]="{show: false}"
     [plotOptions] ="plotOptions"
     [dataLabels]="{enabled: false}"
     [stroke]="{width: 1}"
@@ -13,4 +13,6 @@
 </div>
 
 
+
+<!--     -->
 {{ series | json}}
