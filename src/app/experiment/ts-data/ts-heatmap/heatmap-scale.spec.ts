@@ -1,7 +1,7 @@
 import {HeatmapScale} from './heatmap-scale';
 
 
-fdescribe('HeatmapScale', () => {
+describe('HeatmapScale', () => {
   let scales: HeatmapScale;
 
   beforeEach(() => {

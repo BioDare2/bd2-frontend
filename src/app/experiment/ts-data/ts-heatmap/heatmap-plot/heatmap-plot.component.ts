@@ -1,5 +1,5 @@
 import {Component, OnInit, Input, ViewChild} from '@angular/core';
-import {Trace} from '../../../../tsdata/plots/ts-plot.dom';
+import {Timepoint, Trace} from '../../../../tsdata/plots/ts-plot.dom';
 import {
   ApexAxisChartSeries,
   ApexChart,
@@ -27,8 +27,8 @@ export class HeatmapPlotComponent implements OnInit {
     type: 'heatmap',
     animations: {
       enabled: false,
-    //speed: 400,
-    //animateGradually: {enabled: false}
+    // speed: 400,
+    // animateGradually: {enabled: false}
     }
   };
 
@@ -38,6 +38,8 @@ export class HeatmapPlotComponent implements OnInit {
   plotOptions: ApexPlotOptions = {
     heatmap: {
       distributed: false,
+      enableShades: false,
+      shadeIntensity: 1,
       useFillColorAsStroke: false,
       radius: 0
     }
@@ -72,13 +74,34 @@ export class HeatmapPlotComponent implements OnInit {
 
     this.chart.height = 'auto';
 
-    this.series = traces.map( trace => {
+    this.series = this.mapTracesToPaddedSeries(traces).reverse();
+
+  }
+
+  mapTracesToPaddedSeries(traces: Trace[]) {
+
+    const startX = Math.min(...traces.filter( t => t.data.length > 0)
+      .map( t => t.data[0].x));
+
+    return traces.map( trace => {
       return {
         name: trace.label,
-        data: trace.data
+        data: this.padData(trace.data, startX)
       }
-    }).reverse();
+    });
+  }
 
+  padData(data: Timepoint[], startX: number) {
+    if (data.length === 0) return data;
+    if (data[0].x === startX) return data;
+
+    const firstX = data[0].x;
+    const firstY = data[0].y;
+    const padding: Timepoint[] = [];
+    for (let i = startX; i< firstX; i++) {
+      padding.push(new Timepoint(i, firstY));
+    }
+    return padding.concat(data);
   }
 
   minMax(traces: Trace[]) {

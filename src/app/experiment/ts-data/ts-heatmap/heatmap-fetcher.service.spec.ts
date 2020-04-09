@@ -4,7 +4,7 @@ import { HeatmapFetcher} from './heatmap-fetcher.service';
 import {Timepoint, Trace} from '../../../tsdata/plots/ts-plot.dom';
 import {throwError} from 'rxjs';
 
-fdescribe('HeatmapFetcher', () => {
+describe('HeatmapFetcher', () => {
   let service: HeatmapFetcher;
   let tsDataService;
 
