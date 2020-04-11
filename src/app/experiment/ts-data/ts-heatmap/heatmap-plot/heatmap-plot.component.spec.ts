@@ -3,9 +3,8 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { HeatmapPlotComponent } from './heatmap-plot.component';
 import {NgApexchartsModule} from 'ng-apexcharts';
 import {Timepoint, Trace} from '../../../../tsdata/plots/ts-plot.dom';
-import {serialize} from 'v8';
 
-fdescribe('HeatmapPlotComponent', () => {
+describe('HeatmapPlotComponent', () => {
   let component: HeatmapPlotComponent;
   let fixture: ComponentFixture<HeatmapPlotComponent>;
 

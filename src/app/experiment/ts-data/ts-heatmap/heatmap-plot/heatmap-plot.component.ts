@@ -5,9 +5,22 @@ import {
   ApexChart,
   ApexXAxis,
   ApexTitleSubtitle,
-  ApexPlotOptions, ChartComponent
+  ApexPlotOptions, ChartComponent, ApexLegend, ApexDataLabels, ApexStroke
 } from 'ng-apexcharts';
 import {HeatmapScale} from '../heatmap-scale';
+
+/*
+Uses Apex Charts heatmap.
+
+https://apexcharts.com/
+https://github.com/apexcharts/ng-apexcharts
+https://apexcharts.com/docs/angular-charts/
+https://apexcharts.com/docs/chart-types/heatmap-chart/
+https://apexcharts.com/docs/options/plotoptions/heatmap/#
+
+https://github.com/apexcharts/apexcharts.js
+ */
+
 
 @Component({
   selector: 'bd2-heatmap-plot',
@@ -27,23 +40,17 @@ export class HeatmapPlotComponent implements OnInit {
     type: 'heatmap',
     animations: {
       enabled: false,
-    // speed: 400,
-    // animateGradually: {enabled: false}
     }
   };
 
-  xaxis: ApexXAxis = {};
-  plotTitle = { text: 'Heatmap'};
+  legend: ApexLegend = {show: false};
+  dataLabels: ApexDataLabels = {enabled: false};
+  stroke: ApexStroke = {width: 1};
+  xaxis: ApexXAxis = {type: 'numeric'};
 
-  plotOptions: ApexPlotOptions = {
-    heatmap: {
-      distributed: false,
-      enableShades: false,
-      shadeIntensity: 1,
-      useFillColorAsStroke: false,
-      radius: 0
-    }
-  }
+  // plotTitle = { text: 'Heatmap'};
+
+  plotOptions: ApexPlotOptions = {  }
 
   @Input()
   set traces(traces: Trace[]) {
@@ -72,10 +79,18 @@ export class HeatmapPlotComponent implements OnInit {
       }
     };
 
-    this.chart.height = 'auto';
+    this.chart.height = this.heightPerSeries(traces.length);
 
     this.series = this.mapTracesToPaddedSeries(traces).reverse();
 
+  }
+
+  heightPerSeries(series: number) {
+    if (series <=50) {
+      return 40*series+50;
+    } else {
+      return 20*series+50;
+    }
   }
 
   mapTracesToPaddedSeries(traces: Trace[]) {

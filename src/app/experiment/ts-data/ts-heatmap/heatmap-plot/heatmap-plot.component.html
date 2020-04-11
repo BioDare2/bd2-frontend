@@ -3,16 +3,12 @@
   <apx-chart
     [chart]="chart"
     [xaxis]="xaxis"
-    [title]="plotTitle"
     [series]="series"
-    [legend]="{show: false}"
+    [legend]="legend"
     [plotOptions] ="plotOptions"
-    [dataLabels]="{enabled: false}"
-    [stroke]="{width: 1}"
+    [dataLabels]="dataLabels"
+    [stroke]="stroke"
   ></apx-chart>
 </div>
 
 
-
-<!--     -->
-{{ series | json}}

@@ -17,6 +17,7 @@ import {TimeSeriesMetrics} from '../../../tsdata/ts-data-dom';
 
 @Component({
   template: `
+    <div *ngIf="assay">
     <h3>Show timeseries</h3>
     <hr>
 
@@ -40,6 +41,7 @@ import {TimeSeriesMetrics} from '../../../tsdata/ts-data-dom';
       Hint: You can click on trace label box to remove it from the plot.
     </div>
 
+    <div class="clearfix">
     <div *ngIf="timeseries && exportURL" class="float-right">
       <label class="mr-4">
         <a download (click)="exportData()" role="button" class="btn btn-primary" aria-label="download" style="color: white;">
@@ -53,7 +55,6 @@ import {TimeSeriesMetrics} from '../../../tsdata/ts-data-dom';
       </label>
 
     </div>
-    <div class="clearfix">
     </div>
     <hr>
 
@@ -61,6 +62,7 @@ import {TimeSeriesMetrics} from '../../../tsdata/ts-data-dom';
                   [tracesPerPlot]="tracesPerPlot"
                   [data]="timeseries"
     ></bd2-ts-plots>
+    </div>
   `,
   providers: [TSFetcher]
 })
