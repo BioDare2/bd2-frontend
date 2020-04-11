@@ -7,7 +7,6 @@ import {FileAssetModule} from '../../file-asset/file-asset.module';
 import {TSPlotModule} from '../../tsdata/plots/ts-plot.module';
 import {TSViewComponent} from './ts-view/ts-view.component';
 import {MaterialsModule} from '../../shared/materials.module';
-import {TsHeatmapModule} from './ts-heatmap/ts-heatmap.module';
 
 @NgModule({
   declarations: [
@@ -21,7 +20,6 @@ import {TsHeatmapModule} from './ts-heatmap/ts-heatmap.module';
     FileAssetModule,
     TSPlotModule,
     TsDataRoutingModule,
-    TsHeatmapModule,
     MaterialsModule
   ],
   exports: []

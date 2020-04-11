@@ -6,6 +6,7 @@ import {ReactiveFormsModule} from '@angular/forms';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import { HeatmapPlotComponent } from './heatmap-plot/heatmap-plot.component';
 import {NgApexchartsModule} from 'ng-apexcharts';
+import {TsHeatmapRoutingModule} from './ts-heatmap-routing.module';
 
 
 
@@ -15,7 +16,8 @@ import {NgApexchartsModule} from 'ng-apexcharts';
     CommonModule,
     ReactiveFormsModule,
     MatPaginatorModule,
-    NgApexchartsModule
+    NgApexchartsModule,
+    TsHeatmapRoutingModule
   ]
 })
 export class TsHeatmapModule { }

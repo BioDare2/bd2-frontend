@@ -5,7 +5,7 @@ import {ReactiveFormsModule} from '@angular/forms';
 import {MaterialsModule} from '../../../../shared/materials.module';
 import {NoopAnimationsModule} from '@angular/platform-browser/animations';
 
-fdescribe('HeatmapDisplayParamsRformComponent', () => {
+describe('HeatmapDisplayParamsRformComponent', () => {
   let component: HeatmapDisplayParamsRformComponent;
   let fixture: ComponentFixture<HeatmapDisplayParamsRformComponent>;
 
