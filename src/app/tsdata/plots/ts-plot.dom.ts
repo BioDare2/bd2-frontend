@@ -11,6 +11,9 @@ export class Timepoint {
 
 export class Trace {
 
+  traceNr?: number;
+  dataId?: number;
+  traceRef?: number;
   label: string;
   fill = false;
   data: Timepoint[] = [];

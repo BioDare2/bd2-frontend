@@ -70,13 +70,15 @@ describe('HeatmapPlotComponent', () => {
     expect(component.mapTracesToPaddedSeries(traces)).toEqual([]);
 
     let tr = new Trace();
-    tr.label = '1';
+    tr.traceNr = 1;
+    tr.label = 'A';
     tr.data.push(new Timepoint(1, 1));
     tr.data.push(new Timepoint(2, 2));
     traces.push(tr);
 
     tr = new Trace();
-    tr.label = '2';
+    tr.traceNr = 2;
+    tr.label = 'B';
     tr.data.push(new Timepoint(0, 2));
     tr.data.push(new Timepoint(1, 3));
     traces.push(tr);
@@ -88,10 +90,10 @@ describe('HeatmapPlotComponent', () => {
     d.push(new Timepoint(2, 2));
 
     exp.push( {
-      name: '1', data: d
+      name: '1. A', data: d
     });
     exp.push( {
-      name: '2', data: tr.data
+      name: '2. B', data: tr.data
     });
 
     expect(component.mapTracesToPaddedSeries(traces)).toEqual(exp);

@@ -100,7 +100,7 @@ export class HeatmapPlotComponent implements OnInit {
 
     return traces.map( trace => {
       return {
-        name: trace.label,
+        name: `${trace.traceNr}. ${trace.label}`,
         data: this.padData(trace.data, startX)
       }
     });
