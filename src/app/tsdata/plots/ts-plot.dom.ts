@@ -11,6 +11,7 @@ export class Timepoint {
 
 export class Trace {
 
+  key?: any;
   traceNr?: number;
   dataId?: number;
   traceRef?: number;

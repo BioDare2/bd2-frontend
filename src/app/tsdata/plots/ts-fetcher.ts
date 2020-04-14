@@ -201,13 +201,15 @@ export class TSFetcher implements OnInit, OnDestroy {
   }
 
   protected copyTrace(org: Trace): Trace {
-    const c = new Trace();
+    const c = Object.assign(new Trace(), org);
+    /*
     c.data = org.data;
     c.fill = org.fill;
     c.label = org.label;
     c.max = org.max;
     c.min = org.min;
     c.mean = org.mean;
+     */
     return c;
   }
 
