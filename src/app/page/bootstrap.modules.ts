@@ -1,5 +1,5 @@
 import {NgModule} from '@angular/core';
-import {TypeaheadModule} from 'ngx-bootstrap';
+import {TypeaheadModule} from 'ngx-bootstrap/typeahead';
 
 
 @NgModule({

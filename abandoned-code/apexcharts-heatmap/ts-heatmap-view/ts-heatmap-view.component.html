@@ -1,0 +1,18 @@
+<div *ngIf="assay">
+  <h3>Show data heatmap</h3>
+  <hr>
+
+
+  <bd2-heatmap-display-params-rform
+    (displayParams)="displayChanged($event)"
+    [disabled]="disabledSecondary"
+    [totalTraces]="totalTraces"
+    [currentPage]="currentPage"
+  ></bd2-heatmap-display-params-rform>
+
+  <hr>
+  <bd2-heatmap-plot *ngIf="timeseries" [traces]="timeseries"></bd2-heatmap-plot>
+
+  <p>Timeseries: </p>
+  <p>{{ timeseries | json }}</p>
+</div>

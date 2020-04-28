@@ -13,7 +13,7 @@ import {BD2NgxHBoxplotModule} from 'bd2-ngx-hboxplot';
 import {SVGSaverModule} from '../../../../../graphic/svg-saver/svg-saver.module';
 import {FormsModule} from '@angular/forms';
 import {NgModule} from '@angular/core';
-import {ButtonsModule} from 'ngx-bootstrap';
+import {ButtonsModule} from 'ngx-bootstrap/buttons';
 
 @NgModule({
   imports: [MaterialsModule, NoopAnimationsModule, LegendModule,

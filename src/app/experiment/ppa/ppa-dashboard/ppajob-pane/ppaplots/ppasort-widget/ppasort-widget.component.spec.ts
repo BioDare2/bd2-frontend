@@ -2,7 +2,7 @@ import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
 import {PPASortWidgetComponent} from './ppasort-widget.component';
 import {FormsModule} from '@angular/forms';
-import {ButtonsModule} from 'ngx-bootstrap';
+import {ButtonsModule} from 'ngx-bootstrap/buttons';
 
 describe('PPASortWidgetComponent', () => {
   let component: PPASortWidgetComponent;
