@@ -1,0 +1,53 @@
+<div class="mat-paginator">
+
+  <div class="mat-paginator-outer-container">
+    <div class="mat-paginator-container">
+
+      <div class="mat-paginator-page-size">
+        <div class="mat-paginator-page-size-label">
+          Items per page:
+        </div>
+
+        <div *ngIf="_displayedPageSizeOptions.length > 1">
+          <select class="mat-paginator-page-size-select" required [(ngModel)]="pageSize"
+                  style="font-size: 12px;" (ngModelChange)="_changePageSize($event)"
+          >
+            <option *ngFor="let pageSizeOption of _displayedPageSizeOptions" [value]="pageSizeOption">
+              {{pageSizeOption}}</option>
+          </select>
+        </div>
+
+        <div class="mat-paginator-page-size-value"
+          *ngIf="_displayedPageSizeOptions.length <= 1">{{pageSize}}
+        </div>
+      </div>
+
+    <div class="mat-paginator-range-actions">
+
+      <div class="mat-paginator-range-label">
+        {{getRangeLabel(pageIndex, pageSize, length)}}
+      </div>
+
+      <button mat-icon-button type="button"
+              class="mat-paginator-navigation-previous"
+              (click)="previousPage()"
+              [attr.aria-label]="'previous page'"
+              [disabled]="_previousButtonsDisabled()">
+        <svg class="mat-paginator-icon" viewBox="0 0 24 24" focusable="false">
+          <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/>
+        </svg>
+      </button>
+      <button mat-icon-button type="button"
+              class="mat-paginator-navigation-next"
+              (click)="nextPage()"
+              [attr.aria-label]="'next page'"
+              [disabled]="_nextButtonsDisabled()">
+        <svg class="mat-paginator-icon" viewBox="0 0 24 24" focusable="false">
+          <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/>
+        </svg>
+      </button>
+
+    </div>
+    </div>
+  </div>
+</div>
