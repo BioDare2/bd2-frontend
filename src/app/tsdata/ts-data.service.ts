@@ -22,9 +22,9 @@ export class TSDataService {
       // .then(jsonObj => jsonObj.data);
   }
 
-  loadBinnedDataSet(exp: ExperimentalAssayView, detrending: DetrendingType, page: PageEvent): Observable<TraceSet> {
+  loadHourlyDataSet(exp: ExperimentalAssayView, detrending: DetrendingType, page: PageEvent): Observable<TraceSet> {
 
-    return this.BD2REST.tsBinnedData(exp.id, detrending, page);
+    return this.BD2REST.tsHourlyData(exp.id, detrending, page);
     // .then(jsonObj => jsonObj.data);
   }
 

@@ -243,10 +243,10 @@ export class BioDareRestService {
     return this.OKJson(this.http.get(url, options));
   }
 
-  tsBinnedData(expId: number, detrending: DetrendingType, page: PageEvent): Observable<any> {
+  tsHourlyData(expId: number, detrending: DetrendingType, page: PageEvent): Observable<any> {
 
     const options = this.makeOptions();
-    const url = this.endPoints.experiment_url + '/' + expId + this.endPoints.ts_data + '/' + detrending.name + '/binned';
+    const url = this.endPoints.experiment_url + '/' + expId + this.endPoints.ts_data + '/' + detrending.name + '/hourly';
     if (page) {
       (options as any).params = new HttpParams().set('pageIndex', '' + page.pageIndex).set('pageSize', '' + page.pageSize);
     }

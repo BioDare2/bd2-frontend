@@ -20,7 +20,7 @@ export class HeatmapFetcher extends TSFetcher {
 
   protected loadDataSet(exp: ExperimentalAssayView, detrending: DetrendingType, page: PageEvent): Observable<TraceSet> {
 
-    return this.tsDataService.loadBinnedDataSet(exp, detrending, page).pipe(
+    return this.tsDataService.loadHourlyDataSet(exp, detrending, page).pipe(
       tap(ds => ds.detrending = detrending)
     );
   }
