@@ -8,7 +8,7 @@ import {DisplayParameters} from './ts-display.dom';
 import {AlignOptions, DetrendingType, NormalisationOptions} from '../ts-data-dom';
 
 
-describe('TSFetcher', () => {
+fdescribe('TSFetcher', () => {
 
   let tsDataService;
   let service: TSFetcher;
@@ -262,6 +262,128 @@ describe('TSFetcher', () => {
 
   });
 
+  it('normalizes to range positives', () => {
+    const trace = new Trace();
+    trace.data.push(new Timepoint(0, 0.5));
+    trace.data.push(new Timepoint(1, 1));
+    trace.data.push(new Timepoint(2, 3));
+    trace.data.push(new Timepoint(3, 2.5));
+    trace.data.push(new Timepoint(4, 3));
+    trace.min = 0.5;
+    trace.max = 3;
+    trace.mean = 2;
+
+    // @ts-ignore
+    const res = service.normalizeTraceToRange(trace);
+    expect(res.min).toBe(-1);
+    expect(res.max).toBe(1/1.5);
+    expect(res.mean).toBe(0);
+
+    expect(res.data[0]).toEqual(new Timepoint(0, -1));
+    expect(res.data[4]).toEqual(new Timepoint(4, 1/1.5));
+
+  });
+
+  it('normalizes to range negative', () => {
+    const trace = new Trace();
+    trace.data.push(new Timepoint(0, -2));
+    trace.data.push(new Timepoint(1, 1));
+    trace.data.push(new Timepoint(2, -1));
+    trace.data.push(new Timepoint(3, 2));
+    trace.min = -2;
+    trace.max = 2;
+    trace.mean = 0;
+
+    // @ts-ignore
+    const res = service.normalizeTraceToRange(trace);
+    expect(res.min).toBe(-1);
+    expect(res.max).toBe(1);
+    expect(res.mean).toBe(0);
+
+    expect(res.data[0]).toEqual(new Timepoint(0, -1));
+    expect(res.data[2]).toEqual(new Timepoint(2, -0.5));
+    expect(res.data[3]).toEqual(new Timepoint(3, 1));
+
+  });
+
+  it('normalizes to fold positives', () => {
+    const trace = new Trace();
+    trace.data.push(new Timepoint(0, 0.5));
+    trace.data.push(new Timepoint(1, 1));
+    trace.data.push(new Timepoint(2, 3));
+    trace.data.push(new Timepoint(3, 2.5));
+    trace.data.push(new Timepoint(4, 3));
+    trace.min = 0.5;
+    trace.max = 3;
+    trace.mean = 2;
+
+    // @ts-ignore
+    const res = service.normalizeTraceToFoldChange(trace);
+    expect(res.min).toBe(1);
+    expect(res.max).toBe(6);
+    expect(res.mean).toBe(4);
+
+    expect(res.data[0]).toEqual(new Timepoint(0, 1));
+    expect(res.data[4]).toEqual(new Timepoint(4, 6));
+
+  });
+
+  it('fold change is empty for non positive min', () => {
+    const trace = new Trace();
+    trace.data.push(new Timepoint(0, -2));
+    trace.data.push(new Timepoint(1, 1));
+    trace.data.push(new Timepoint(2, -1));
+    trace.data.push(new Timepoint(3, 2));
+    trace.min = -2;
+    trace.max = 2;
+    trace.mean = 0;
+
+    // @ts-ignore
+    const res = service.normalizeTraceToFoldChange(trace);
+    expect(res.data).toEqual([]);
+    expect(res.min).toEqual(NaN);
+    expect(res.max).toEqual(NaN);
+    expect(res.mean).toEqual(NaN);
+
+  });
+
+  it('normalizes to factor divides', () => {
+    const trace = new Trace();
+    trace.data.push(new Timepoint(0, -2));
+    trace.data.push(new Timepoint(1, 1));
+    trace.data.push(new Timepoint(2, -1));
+    trace.data.push(new Timepoint(3, 3));
+    trace.min = -2;
+    trace.max = 3;
+    trace.mean = 1/4;
+
+    // @ts-ignore
+    const res = service.normalizeTraceToFactor(trace,2);
+    expect(res.min).toBe(-1);
+    expect(res.max).toBe(1.5);
+    expect(res.mean).toBe(0.5/4);
+
+    expect(res.data[0]).toEqual(new Timepoint(0, -1));
+    expect(res.data[2]).toEqual(new Timepoint(2, -0.5));
+    expect(res.data[3]).toEqual(new Timepoint(3, 1.5));
+
+  });
+
+  it('normalizes to factor returns org if factor is zero', () => {
+    const trace = new Trace();
+    trace.data.push(new Timepoint(0, -2));
+    trace.data.push(new Timepoint(1, 1));
+    trace.data.push(new Timepoint(2, -1));
+    trace.data.push(new Timepoint(3, 3));
+    trace.min = -2;
+    trace.max = 2;
+    trace.mean = 1/4;
+
+    // @ts-ignore
+    const res = service.normalizeTraceToFactor(trace,0);
+    expect(res).toBe(trace);
+
+  });
 
 });
 

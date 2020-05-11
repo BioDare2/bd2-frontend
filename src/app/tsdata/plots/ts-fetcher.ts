@@ -178,26 +178,77 @@ export class TSFetcher implements OnInit, OnDestroy {
     return data.map(trace => this.normalizeTrace(trace, params));
   }
 
+
+
   protected normalizeTrace(trace: Trace, params: DisplayParameters): Trace {
 
-    if (params.normalisation !== 'MEAN_NORM' && params.normalisation !== 'MAX_NORM') {
-      return trace;
+    switch (params.normalisation) {
+      case 'MEAN_NORM':
+        return this.normalizeTraceToMean(trace);
+      case 'MAX_NORM':
+        return this.normalizeTraceToMax(trace);
+      case 'RANGE':
+        return this.normalizeTraceToRange(trace);
+      case 'FOLD':
+        return this.normalizeTraceToFoldChange(trace);
+      default:
+        return trace;
     }
+  }
+
+  protected normalizeTraceToMean(trace: Trace): Trace {
+
+    return this.normalizeTraceToFactor(trace, trace.mean);
+
+  }
+
+  protected normalizeTraceToMax(trace: Trace): Trace {
+
+    return this.normalizeTraceToFactor(trace, Math.max(trace.max, -trace.min));
+  }
+
+  protected normalizeTraceToFactor(trace: Trace, f: number): Trace {
+
+    if (f === 0) return trace;
 
     const p = this.copyTrace(trace);
-    let f = 1;
-    if (params.normalisation === 'MEAN_NORM') {
-      f = trace.mean !== 0 ? trace.mean : 1;
-      f = f < 0 ? -f : f;
-    } else if (params.normalisation === 'MAX_NORM') {
-      f = Math.max(trace.max, -trace.min);
-      f = f !== 0 ? f : 1;
-    }
-
     p.data = trace.data.map(tp => new Timepoint(tp.x, tp.y / f));
     p.min = trace.min / f;
     p.max = trace.max / f;
     p.mean = trace.mean / f;
+    return p;
+  }
+
+  protected normalizeTraceToRange(trace: Trace): Trace {
+
+    const p = this.copyTrace(trace);
+    const b = trace.mean;
+    const f = Math.max(trace.max-trace.mean, Math.abs(trace.min-trace.mean));
+
+    p.data = trace.data.map(tp => new Timepoint(tp.x, (tp.y-b) / f));
+    p.min = (trace.min-b) / f;
+    p.max = (trace.max-b) / f;
+    p.mean = 0;
+    return p;
+  }
+
+  protected normalizeTraceToFoldChange(trace: Trace): Trace {
+
+    if (trace.min > 0) {
+      return this.normalizeTraceToFactor(trace, trace.min);
+    }
+
+    return this.emptyTrace(trace);
+  }
+
+  protected emptyTrace(trace: Trace): Trace {
+
+    const p = this.copyTrace(trace);
+    p.data = [];
+
+    p.min = NaN;
+    p.max = NaN;
+    p.mean = NaN;
     return p;
   }
 

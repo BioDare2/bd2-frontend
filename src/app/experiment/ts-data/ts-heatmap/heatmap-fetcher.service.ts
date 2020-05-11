@@ -26,47 +26,7 @@ export class HeatmapFetcher extends TSFetcher {
     );
   }
 
-  protected normalizeTrace(trace: Trace, params: DisplayParameters): Trace {
 
-    switch (params.normalisation) {
-      case 'MEAN_NORM':
-        return super.normalizeTrace(trace, params);
-      case 'MAX_NORM':
-        return super.normalizeTrace(trace, params);
-      case 'RANGE':
-        return this.normalizeTraceToRange(trace);
-      case 'FOLD':
-        return this.normalizeTraceToFoldChange(trace);
-      default:
-        return trace;
-    }
-  }
-
-  protected normalizeTraceToRange(trace: Trace): Trace {
-
-    const p = this.copyTrace(trace);
-    const b = trace.mean;
-    const f = Math.max(trace.max-trace.mean, Math.abs(trace.min-trace.mean));
-
-    p.data = trace.data.map(tp => new Timepoint(tp.x, (tp.y-b) / f));
-    p.min = (trace.min-b) / f;
-    p.max = (trace.max-b) / f;
-    p.mean = 0;
-    return p;
-  }
-
-  protected normalizeTraceToFoldChange(trace: Trace): Trace {
-
-    const p = this.copyTrace(trace);
-    const b = trace.min <= 0 ? 1 - trace.min : 0;
-    const f = trace.min <= 0 ? 1 : trace.min;
-
-    p.data = trace.data.map(tp => new Timepoint(tp.x, (tp.y+b) / f));
-    p.min = 1;
-    p.max = (trace.max+b) / f;
-    p.mean = (trace.mean+b) / f;
-    return p;
-  }
 
 
 }
