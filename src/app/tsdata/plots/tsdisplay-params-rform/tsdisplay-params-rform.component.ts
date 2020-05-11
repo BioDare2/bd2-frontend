@@ -29,7 +29,7 @@ import {BaseTSDisplayParamsRForm} from './base-tsdisplay-params-rform';
     </div>
 
     <div class="form-group row">
-      <label class="col-sm-2"  for="detrending">Processing</label>
+      <label class="col-sm-2"  >Processing</label>
       <label class="col-sm-2"  for="detrending">Detrending</label>
 
       <div class="col-sm-6">
@@ -40,10 +40,16 @@ import {BaseTSDisplayParamsRForm} from './base-tsdisplay-params-rform';
         <option *ngFor="let opt of detrendingOptions; let ix = index" [value]="opt.name" >{{opt.label}}</option>
       </select>
       </div>
+
+
     </div>
 
+
+
     <div class="form-group row">
-      <label class="col-sm-2"></label>
+      <div class="col-sm-2">
+        <mat-slide-toggle formControlName="log2">log2</mat-slide-toggle>
+      </div>
       <label class="col-sm-1">Norm.</label>
 
       <div class="col-sm-3">
@@ -81,7 +87,6 @@ import {BaseTSDisplayParamsRForm} from './base-tsdisplay-params-rform';
         </mat-paginator>
       </div>
     </div>
-    <!--{{paramsForm.value | json }}-->
   </form>
 
 `,

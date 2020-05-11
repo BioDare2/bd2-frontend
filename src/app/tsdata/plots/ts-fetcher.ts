@@ -167,6 +167,7 @@ export class TSFetcher implements OnInit, OnDestroy {
   protected processData(data: Trace[], params: DisplayParameters): Trace[] {
 
     data = this.trimData(data, params);
+    data = this.logData(data, params);
     data = this.normalizeData(data, params);
     data = this.alignData(data, params);
     return data;
@@ -212,6 +213,34 @@ export class TSFetcher implements OnInit, OnDestroy {
      */
     return c;
   }
+
+  protected logData(data: Trace[], params: DisplayParameters): Trace[] {
+
+    if (params.log2) {
+      return data.map(trace => this.logTrace(trace));
+    }
+    return data;
+  }
+
+  protected logTrace(trace: Trace): Trace {
+
+    const zeroShift = 0.015625; // 2^-6
+
+    const p = this.copyTrace(trace);
+
+    p.data = trace.data
+      .filter( tp => tp.y >= 0)
+      .map(tp => new Timepoint(tp.x, Math.log2(tp.y + zeroShift)));
+
+    const minMaxMean = this.minMaxMean(p.data);
+
+    p.min = minMaxMean.min;
+    p.max = minMaxMean.max;
+    p.mean = minMaxMean.mean;
+    return p;
+  }
+
+
 
   protected alignData(data: Trace[], params: DisplayParameters): Trace[] {
 
@@ -313,7 +342,7 @@ export class TSFetcher implements OnInit, OnDestroy {
 
     minMaxMean.min = series[0].y;
     minMaxMean.max = series[0].y;
-    minMaxMean.mean = series[0].y;
+    minMaxMean.mean = 0;
 
     series.forEach(tp => {
       const y = tp.y;

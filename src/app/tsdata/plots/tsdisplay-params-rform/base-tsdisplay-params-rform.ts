@@ -74,6 +74,9 @@ export class BaseTSDisplayParamsRForm implements OnInit, OnDestroy, AfterViewIni
     if (this.displayParamsSubscription) {
       this.displayParamsSubscription.unsubscribe();
     }
+    if (this.displayParams) {
+      this.displayParams.complete();
+    }
   }
 
 
@@ -99,7 +102,8 @@ export class BaseTSDisplayParamsRForm implements OnInit, OnDestroy, AfterViewIni
           val.timeScale.timeEnd,
           DetrendingType.get(val.detrending),
           val.normalisation,
-          val.align, page
+          val.align, page,
+          val.log2
         );
         return params;
       }),
@@ -126,6 +130,7 @@ export class BaseTSDisplayParamsRForm implements OnInit, OnDestroy, AfterViewIni
       detrending: [this.defaultDetrending(), [Validators.required]],
       normalisation: [NormalisationOptions[0].name, [Validators.required]],
       align: [AlignOptions[0].name, [Validators.required]],
+      log2: [false]
     });
   }
 

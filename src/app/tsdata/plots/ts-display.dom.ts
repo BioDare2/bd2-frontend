@@ -22,7 +22,7 @@ export function validTimeScale(timeScale: any): { [key: string]: any } {
 export class DisplayParameters {
 
   constructor(timeStart: number, timeEnd: number, detrending: DetrendingType,
-              normalisation: string, align: string, page: PageEvent
+              normalisation: string, align: string, page: PageEvent, log2 = false
   ) {
     this.timeScale = {
       timeStart,
@@ -31,8 +31,9 @@ export class DisplayParameters {
     this.detrending = detrending;
     this.normalisation = normalisation;
     this.align = align;
-
+    this.log2 = log2;
     this.page = page || DisplayParameters.firstPage();
+
   }
 
   get timeStart(): number {
@@ -50,6 +51,7 @@ export class DisplayParameters {
   detrending: DetrendingType;
   normalisation: string;
   align: string;
+  log2: boolean;
   page: PageEvent;
 
   static firstPage() {
@@ -116,6 +118,9 @@ export class DisplayParameters {
     if (this.align !== other.align) {
       return false;
     }
+    if (this.log2 !== other.log2) {
+      return false;
+    }
     return true;
   }
 
@@ -125,7 +130,7 @@ export class DisplayParameters {
 
   clone(): DisplayParameters {
     const other = new DisplayParameters(this.timeStart, this.timeEnd, this.detrending,
-      this.normalisation, this.align, this.page);
+      this.normalisation, this.align, this.page, this.log2);
     return other;
   }
 
@@ -136,6 +141,7 @@ export class DisplayParameters {
     this.normalisation = other.normalisation;
     this.align = other.align;
     this.page = other.page;
+    this.log2 = other.log2;
   }
 
 }

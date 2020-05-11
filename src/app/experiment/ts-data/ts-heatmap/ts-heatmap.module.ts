@@ -10,7 +10,7 @@ import {Bd2NgxHeatmapModule} from 'bd2-ngx-heatmap';
 import { SimplePaginatorComponent } from './simple-paginator/simple-paginator.component';
 import {MatIconModule} from '@angular/material/icon';
 import {MatButtonModule} from '@angular/material/button';
-
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 
 @NgModule({
   declarations: [TsHeatmapViewComponent, HeatmapDisplayParamsRformComponent, HeatmapPlotComponent, SimplePaginatorComponent],
@@ -21,6 +21,7 @@ import {MatButtonModule} from '@angular/material/button';
     MatPaginatorModule,
     MatIconModule,
     MatButtonModule,
+    MatSlideToggleModule,
     Bd2NgxHeatmapModule,
     TsHeatmapRoutingModule
   ]
