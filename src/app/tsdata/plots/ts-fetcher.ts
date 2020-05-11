@@ -191,6 +191,8 @@ export class TSFetcher implements OnInit, OnDestroy {
         return this.normalizeTraceToRange(trace);
       case 'FOLD':
         return this.normalizeTraceToFoldChange(trace);
+      case 'Z_SCORE':
+        return this.normalizeTraceToZScore(trace);
       default:
         return trace;
     }
@@ -241,6 +243,24 @@ export class TSFetcher implements OnInit, OnDestroy {
     return this.emptyTrace(trace);
   }
 
+  protected normalizeTraceToZScore(trace: Trace): Trace {
+
+    if (trace.data.length < 2) return trace;
+
+
+    const mean = trace.data.reduce( (sum,b) => sum+b.y, 0) / trace.data.length;
+
+    const sqe = trace.data.reduce( (sum, b) => sum + Math.pow((b.y-mean),2), 0);
+    const std = Math.sqrt(sqe/(trace.data.length-1));
+
+    const p = this.copyTrace(trace);
+    p.data = trace.data.map(tp => new Timepoint(tp.x, (tp.y-mean) / std));
+
+    this.updateMinMax(p);
+
+    return p;
+  }
+
   protected emptyTrace(trace: Trace): Trace {
 
     const p = this.copyTrace(trace);
@@ -283,11 +303,7 @@ export class TSFetcher implements OnInit, OnDestroy {
       .filter( tp => tp.y >= 0)
       .map(tp => new Timepoint(tp.x, Math.log2(tp.y + zeroShift)));
 
-    const minMaxMean = this.minMaxMean(p.data);
-
-    p.min = minMaxMean.min;
-    p.max = minMaxMean.max;
-    p.mean = minMaxMean.mean;
+    this.updateMinMax(p);
     return p;
   }
 
@@ -356,10 +372,7 @@ export class TSFetcher implements OnInit, OnDestroy {
     eIx++;
 
     trimmed.data = trace.data.slice(sIx, eIx);
-    const minMaxMean = this.minMaxMean(trimmed.data);
-    trimmed.min = minMaxMean.min;
-    trimmed.max = minMaxMean.max;
-    trimmed.mean = minMaxMean.mean;
+    this.updateMinMax(trimmed);
     return trimmed;
   }
 
@@ -381,6 +394,13 @@ export class TSFetcher implements OnInit, OnDestroy {
       lastM = newMean;
     });
     return res;
+  }
+
+  updateMinMax(trace: Trace) {
+    const minMaxMean = this.minMaxMean(trace.data);
+    trace.min = minMaxMean.min;
+    trace.max = minMaxMean.max;
+    trace.mean = minMaxMean.mean;
   }
 
   minMaxMean(series: Timepoint[]): { min: number, max: number, mean: number } {

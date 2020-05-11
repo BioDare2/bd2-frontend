@@ -385,5 +385,36 @@ fdescribe('TSFetcher', () => {
 
   });
 
+  it('normalizes to Z-Score gives org if only one point', () => {
+    const trace = new Trace();
+    trace.data.push(new Timepoint(0, -2));
+
+    // @ts-ignore
+    const res = service.normalizeTraceToZScore(trace);
+    expect(res).toBe(trace);
+
+  });
+
+  it('normalizes to Z-Score shifts by calculate mean and divides by std', () => {
+    const trace = new Trace();
+    trace.data.push(new Timepoint(0, 0));
+    trace.data.push(new Timepoint(1, 2));
+    trace.data.push(new Timepoint(2, 2));
+    trace.data.push(new Timepoint(3, 4));
+
+    // @ts-ignore
+    const res = service.normalizeTraceToZScore(trace);
+
+
+    const std = Math.sqrt((4+0+0+4)/3);
+    expect(res.data[0]).toEqual(new Timepoint(0, -2/std));
+    expect(res.data[2]).toEqual(new Timepoint(2, 0));
+    expect(res.data[3]).toEqual(new Timepoint(3, 2/std));
+
+    expect(res.min).toBe(-2/std);
+    expect(res.max).toBe(2/std);
+    expect(res.mean).toBe(0);
+
+  });
 });
 
