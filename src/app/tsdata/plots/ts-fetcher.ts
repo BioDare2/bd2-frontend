@@ -141,14 +141,7 @@ export class TSFetcher implements OnInit, OnDestroy {
       // tap( p => console.log('fetchers pack DS' + p[0], p)),
       map(([dataSet, params]) => {
         // console.log('In map ' + dataSet);
-        if (dataSet) {
-            const traces = this.processData(dataSet.traces, params);
-            params = params.clone();
-            params.detrending = dataSet.detrending;
-            return new TimeSeriesPack(params, traces, dataSet.totalTraces, dataSet.currentPage);
-          } else {
-            return new TimeSeriesPack(params, [], 0, DisplayParameters.firstPage());
-          }
+        return this.processDataSet(dataSet, params);
       }),
       tap( pack => this.current = pack)
       // tap( p => console.log('After map' + p, p))
@@ -160,6 +153,8 @@ export class TSFetcher implements OnInit, OnDestroy {
       this.seriesPack$.next(ds);
     }, err => console.log("Error in ds", err));*/
   }
+
+
 
   protected loadDataSet(exp: ExperimentalAssayView, detrending: DetrendingType, hourly: boolean, page: PageEvent): Observable<TraceSet> {
 
@@ -175,7 +170,30 @@ export class TSFetcher implements OnInit, OnDestroy {
     }
   }
 
-  protected processData(data: Trace[], params: DisplayParameters): Trace[] {
+  public getFullDataSet(exp: ExperimentalAssayView, params: DisplayParameters): Observable<TimeSeriesPack> {
+    const page = {pageIndex: 0, pageSize: 50000} as PageEvent;
+    params = params.clone();
+    params.timeScale.timeStart = 0;
+    params.timeScale.timeEnd = 0;
+
+    return this.loadDataSet(exp, params.detrending, params.hourly, page).pipe(
+      map( data => this.processDataSet(data, params))
+    )
+
+  }
+
+  protected processDataSet(dataSet: TraceSet, params: DisplayParameters): TimeSeriesPack {
+    if (dataSet) {
+      const traces = this.processDataTraces(dataSet.traces, params);
+      params = params.clone();
+      params.detrending = dataSet.detrending;
+      return new TimeSeriesPack(params, traces, dataSet.totalTraces, dataSet.currentPage);
+    } else {
+      return new TimeSeriesPack(params, [], 0, DisplayParameters.firstPage());
+    }
+  }
+
+  protected processDataTraces(data: Trace[], params: DisplayParameters): Trace[] {
 
     if (params.trimFirst) {
       data = this.trimData(data, params);

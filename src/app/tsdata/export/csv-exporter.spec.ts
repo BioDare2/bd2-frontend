@@ -25,13 +25,15 @@ describe('CSVExporter', () => {
   it('appends correct data headers', () => {
 
     const params = new DisplayParameters(0, 0, DetrendingType.LIN_DTR, 'MEAN_NORM', 'NONE',
-      DisplayParameters.firstPage());
+      DisplayParameters.firstPage(), true, true, true);
     const table = new ColumnMap<string, string>();
 
     exporter.appendDisplayProperties(table, params);
     expect(table.getRow('Detrending:')).toEqual(['linear dtr']);
-    expect(table.getRow('Normalization:')).toEqual(['MEAN_NORM']);
+    expect(table.getRow('Hourly binned:')).toEqual(['true']);
+    expect(table.getRow('Normalization:')).toEqual(['MEAN_NORM','within range']);
     expect(table.getRow('Align:')).toEqual(['NONE']);
+    expect(table.getRow('Log2 transform:')).toEqual(['true']);
 
   });
 

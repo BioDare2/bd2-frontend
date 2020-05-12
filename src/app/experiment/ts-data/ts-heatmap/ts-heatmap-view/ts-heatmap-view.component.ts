@@ -12,7 +12,9 @@ import {Trace} from '../../../../tsdata/plots/ts-plot.dom';
 import {PageEvent} from '@angular/material/paginator';
 import {TimeSeriesMetrics} from '../../../../tsdata/ts-data-dom';
 import {ExperimentalAssayView} from '../../../../dom/repo/exp/experimental-assay-view';
-import {TSFetcher} from '../../../../tsdata/plots/ts-fetcher';
+import {TimeSeriesPack, TSFetcher} from '../../../../tsdata/plots/ts-fetcher';
+import * as FileSaver from 'file-saver';
+import {CSVExporter} from '../../../../tsdata/export/csv-exporter';
 
 @Component({
   selector: 'bd2-ts-heatmap-view',
@@ -23,7 +25,6 @@ import {TSFetcher} from '../../../../tsdata/plots/ts-fetcher';
 })
 export class TsHeatmapViewComponent extends ExperimentBaseComponent implements OnDestroy, OnInit {
 
-  exportURL: string;
   currentParams: DisplayParameters;
 
   timeseries: Trace[] = [];
@@ -37,9 +38,9 @@ export class TsHeatmapViewComponent extends ExperimentBaseComponent implements O
 
   metrics: TimeSeriesMetrics;
   private timeSeriesSubsripction: Subscription;
+  private csvExporter = new CSVExporter();
 
   constructor(private fetcher: TSFetcher,
-              private tsdataService: TSDataService,
               private RDMSocial: RDMSocialServiceService,
               private analytics: AnalyticsService,
               serviceDependencies: ExperimentComponentsDependencies) {
@@ -60,7 +61,6 @@ export class TsHeatmapViewComponent extends ExperimentBaseComponent implements O
 
           const data = pack.data;
           this.currentParams = pack.params;
-          this.exportURL = this.tsdataService.exportURL(this.assay, pack.params);
           // console.log("P: "+pack.params.detrending.name+"; "+this.exportURL);
           this.timeseries = data;
           this.tracesPerPlot = Math.max(5, data.length / 20);
@@ -90,6 +90,37 @@ export class TsHeatmapViewComponent extends ExperimentBaseComponent implements O
   displayChanged(params: DisplayParameters) {
     // console.log("New params",params);
     this.fetcher.changeDisplayParams(params);
+  }
+
+  exportDataView() {
+
+    const data = this.fetcher.current;
+    this.exportSeriesPack(data);
+  }
+
+  exportFullData() {
+
+    this.fetcher.getFullDataSet(this.assay, this.fetcher.current.params).subscribe( data => {
+
+      this.exportSeriesPack(data, true);
+    });
+  }
+
+  protected exportSeriesPack(data: TimeSeriesPack, full = false) {
+
+    if (!data) { return; }
+    const csv = this.csvExporter.renderCSVTable(data.data, data.params, data.currentPage, this.assay);
+    const blob = new Blob([csv], {type: 'text/csv'});
+
+    const pageSuffix = full ? '.full' : `.page${data.currentPage.pageIndex + 1}`;
+    const fileName = `${this.assay.id}_data.${data.params.detrending.name}${pageSuffix}.csv`;
+    FileSaver.saveAs(blob, fileName);
+    // console.log(csv);
+    this.recordExport();
+  }
+
+  recordExport() {
+    this.analytics.experimentDataExport(this.assay.id);
   }
 
   protected updateModel(exp: ExperimentalAssayView) {

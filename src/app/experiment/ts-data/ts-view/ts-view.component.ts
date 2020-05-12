@@ -7,7 +7,7 @@ import {Subscription} from 'rxjs';
 import {AnalyticsService} from '../../../analytics/analytics.service';
 import {DisplayParameters} from '../../../tsdata/plots/ts-display.dom';
 import {Trace} from '../../../tsdata/plots/ts-plot.dom';
-import {TSFetcher} from '../../../tsdata/plots/ts-fetcher';
+import {TimeSeriesPack, TSFetcher} from '../../../tsdata/plots/ts-fetcher';
 import {CSVExporter} from '../../../tsdata/export/csv-exporter';
 import {TSDataService} from '../../../tsdata/ts-data.service';
 import {debounceTime} from 'rxjs/operators';
@@ -42,17 +42,25 @@ import {TimeSeriesMetrics} from '../../../tsdata/ts-data-dom';
     </div>
 
     <div class="clearfix">
-    <div *ngIf="timeseries && exportURL" class="float-right">
+    <div *ngIf="timeseries" class="float-right">
       <label class="mr-4">
-        <a download (click)="exportData()" role="button" class="btn btn-primary" aria-label="download" style="color: white;">
+        <a download (click)="exportDataView()" role="button" class="btn btn-primary" aria-label="download" style="color: white;">
           <i class="material-icons bd-icon">save_alt</i><span class="cdk-visually-hidden">Download</span></a>
-        the current view
+        current view
       </label>
+      <label class="mr-4">
+        <a download (click)="exportFullData()" role="button" class="btn btn-primary" aria-label="download whole" style="color: white;">
+          <i class="material-icons bd-icon">save_alt</i><span class="cdk-visually-hidden">Download</span></a>
+        full
+      </label>
+
+      <!--
       <label>
         <a download href="{{exportURL}}" (click)="recordExport()" role="button" class="btn btn-primary">
           <i class="material-icons bd-icon">save_alt</i><span class="cdk-visually-hidden">Download</span></a>
         the detrended dataset
       </label>
+      -->
 
     </div>
     </div>
@@ -68,7 +76,7 @@ import {TimeSeriesMetrics} from '../../../tsdata/ts-data-dom';
 })
 export class TSViewComponent extends ExperimentBaseComponent implements OnDestroy, OnInit {
 
-  exportURL: string;
+  // exportURL: string;
   currentParams: DisplayParameters;
 
   timeseries: Trace[] = [];
@@ -88,7 +96,6 @@ export class TSViewComponent extends ExperimentBaseComponent implements OnDestro
 
 
   constructor(private fetcher: TSFetcher,
-              private tsdataService: TSDataService,
               private RDMSocial: RDMSocialServiceService,
               private analytics: AnalyticsService,
               serviceDependencies: ExperimentComponentsDependencies) {
@@ -109,7 +116,7 @@ export class TSViewComponent extends ExperimentBaseComponent implements OnDestro
 
           const data = pack.data;
           this.currentParams = pack.params;
-          this.exportURL = this.tsdataService.exportURL(this.assay, pack.params);
+          // this.exportURL = this.tsdataService.exportURL(this.assay, pack.params);
           // console.log("P: "+pack.params.detrending.name+"; "+this.exportURL);
           this.timeseries = data;
           this.tracesPerPlot = Math.max(5, data.length / 20);
@@ -141,14 +148,29 @@ export class TSViewComponent extends ExperimentBaseComponent implements OnDestro
     this.fetcher.changeDisplayParams(params);
   }
 
-  exportData() {
+  exportDataView() {
 
     const data = this.fetcher.current;
+    this.exportSeriesPack(data);
+  }
+
+  exportFullData() {
+
+    this.fetcher.getFullDataSet(this.assay, this.fetcher.current.params).subscribe( data => {
+
+      this.exportSeriesPack(data, true);
+    });
+  }
+
+  protected exportSeriesPack(data: TimeSeriesPack, full = false) {
+
     if (!data) { return; }
     const csv = this.csvExporter.renderCSVTable(data.data, data.params, data.currentPage, this.assay);
     const blob = new Blob([csv], {type: 'text/csv'});
-    const page = data.currentPage.pageIndex + 1;
-    FileSaver.saveAs(blob, this.assay.id + '_data.' + this.currentParams.detrending.name + '.page' + page + '.csv');
+
+    const pageSuffix = full ? '.full' : `.page${data.currentPage.pageIndex + 1}`;
+    const fileName = `${this.assay.id}_data.${data.params.detrending.name}${pageSuffix}.csv`;
+    FileSaver.saveAs(blob, fileName);
     // console.log(csv);
     this.recordExport();
   }

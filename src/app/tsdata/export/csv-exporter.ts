@@ -45,8 +45,16 @@ export class CSVExporter {
 
   appendDisplayProperties(headers: ColumnMap<string, string>, params: DisplayParameters) {
 
+    headers.put('Time range:', params.timeScaleLabel, 0);
     headers.put('Detrending:', params.detrending.label, 0);
+    if (params.hourly) {
+      headers.put('Hourly binned:', 'true', 0);
+    }
+    if (params.log2) {
+      headers.put('Log2 transform:', '' + params.log2, 0);
+    }
     headers.put('Normalization:', params.normalisation, 0);
+    headers.put('Normalization:', params.trimFirst ? 'within range' : 'whole serie', 1);
     headers.put('Align:', params.align, 0);
   }
 

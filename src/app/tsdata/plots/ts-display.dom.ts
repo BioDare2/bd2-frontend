@@ -46,6 +46,14 @@ export class DisplayParameters {
     timeEnd: number;
   };
 
+  get timeScaleLabel() {
+    let s = ''+this.timeStart;
+    if (s === '0') s='min';
+    let e = ''+this.timeEnd;
+    if (e === '0') e='max';
+    return `${s} to ${e}`;
+  }
+
   static firstPage() {
     const page = new PageEvent();
     page.pageIndex = 0;

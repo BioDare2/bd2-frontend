@@ -11,6 +11,24 @@
   ></bd2-heatmap-display-params-rform>
 
   <hr>
+
+  <div class="clearfix">
+    <div *ngIf="timeseries" class="float-right">
+      <label class="mr-4">
+        <a download (click)="exportDataView()" role="button" class="btn btn-primary" aria-label="download" style="color: white;">
+          <i class="material-icons bd-icon">save_alt</i><span class="cdk-visually-hidden">Download</span></a>
+        current view
+      </label>
+      <label class="mr-4">
+        <a download (click)="exportFullData()" role="button" class="btn btn-primary" aria-label="download whole" style="color: white;">
+          <i class="material-icons bd-icon">save_alt</i><span class="cdk-visually-hidden">Download</span></a>
+        full
+      </label>
+
+    </div>
+  </div>
+  <hr>
+
   <bd2-heatmap-plot *ngIf="timeseries" [traces]="timeseries"></bd2-heatmap-plot>
 
   <!--
