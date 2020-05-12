@@ -21,19 +21,14 @@ export function validTimeScale(timeScale: any): { [key: string]: any } {
 
 export class DisplayParameters {
 
-  constructor(timeStart: number, timeEnd: number, detrending: DetrendingType,
-              normalisation: string, align: string, page: PageEvent, log2 = false,
-              trimFirst = false
-  ) {
+  constructor(timeStart: number, timeEnd: number, public detrending: DetrendingType,
+              public normalisation: string, public align: string, public page: PageEvent,
+              public log2 = false, public trimFirst = false, public hourly = false) {
+
     this.timeScale = {
       timeStart,
       timeEnd
     };
-    this.detrending = detrending;
-    this.normalisation = normalisation;
-    this.align = align;
-    this.log2 = log2;
-    this.trimFirst = trimFirst;
     this.page = page || DisplayParameters.firstPage();
 
   }
@@ -50,12 +45,6 @@ export class DisplayParameters {
     timeStart: number;
     timeEnd: number;
   };
-  detrending: DetrendingType;
-  normalisation: string;
-  align: string;
-  log2: boolean;
-  trimFirst: boolean;
-  page: PageEvent;
 
   static firstPage() {
     const page = new PageEvent();
@@ -127,6 +116,9 @@ export class DisplayParameters {
     if (this.trimFirst !== other.trimFirst) {
       return false;
     }
+    if (this.hourly !== other.hourly) {
+      return false;
+    }
     return true;
   }
 
@@ -136,19 +128,22 @@ export class DisplayParameters {
 
   clone(): DisplayParameters {
     const other = new DisplayParameters(this.timeStart, this.timeEnd, this.detrending,
-      this.normalisation, this.align, this.page, this.log2, this.trimFirst);
+      this.normalisation, this.align, this.page, this.log2, this.trimFirst, this.hourly);
     return other;
   }
 
   setAll(other: any) {
+    Object.assign(this, other);
+
     this.timeScale.timeStart = other.timeScale ? other.timeScale.timeStart : other.timeStart;
     this.timeScale.timeEnd = other.timeScale ? other.timeScale.timeEnd : other.timeEnd;
-    this.detrending = other.detrending;
+
+    /*this.detrending = other.detrending;
     this.normalisation = other.normalisation;
     this.align = other.align;
     this.page = other.page;
     this.log2 = other.log2;
-    this.trimFirst = other.trimFirst;
+    this.trimFirst = other.trimFirst;*/
   }
 
 }

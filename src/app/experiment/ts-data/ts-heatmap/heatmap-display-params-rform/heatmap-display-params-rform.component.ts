@@ -27,6 +27,8 @@ export class HeatmapDisplayParamsRformComponent extends BaseTSDisplayParamsRForm
     const range = this.normalisationOptions.find( o => o.name === 'RANGE');
 
     this.displayParamsForm.get('normalisation').setValue(range?.name);
+    this.displayParamsForm.get('hourly').setValue(true);
+
     /*this.normalisationOptions = [
       new TSOption('NO_NORM', 'none'),
       new TSOption('RANGE', 'to [-1,1]'),

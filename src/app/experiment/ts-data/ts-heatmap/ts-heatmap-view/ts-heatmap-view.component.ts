@@ -12,13 +12,14 @@ import {Trace} from '../../../../tsdata/plots/ts-plot.dom';
 import {PageEvent} from '@angular/material/paginator';
 import {TimeSeriesMetrics} from '../../../../tsdata/ts-data-dom';
 import {ExperimentalAssayView} from '../../../../dom/repo/exp/experimental-assay-view';
+import {TSFetcher} from '../../../../tsdata/plots/ts-fetcher';
 
 @Component({
   selector: 'bd2-ts-heatmap-view',
   templateUrl: './ts-heatmap-view.component.html',
   styles: [
   ],
-  providers: [HeatmapFetcher]
+  providers: [TSFetcher]
 })
 export class TsHeatmapViewComponent extends ExperimentBaseComponent implements OnDestroy, OnInit {
 
@@ -37,7 +38,7 @@ export class TsHeatmapViewComponent extends ExperimentBaseComponent implements O
   metrics: TimeSeriesMetrics;
   private timeSeriesSubsripction: Subscription;
 
-  constructor(private fetcher: HeatmapFetcher,
+  constructor(private fetcher: TSFetcher,
               private tsdataService: TSDataService,
               private RDMSocial: RDMSocialServiceService,
               private analytics: AnalyticsService,

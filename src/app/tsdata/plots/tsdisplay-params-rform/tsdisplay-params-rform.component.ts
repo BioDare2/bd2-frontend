@@ -7,24 +7,31 @@ import {BaseTSDisplayParamsRForm} from './base-tsdisplay-params-rform';
   template: `
   <form [formGroup]="mainForm" class="form-horizontal container" role="form">
 
-    <div formGroupName="timeScale" class="form-group row">
-      <label class="col-sm-2">Time range</label>
+    <div class="row">
+      <div class="col-md-8 col-sm-10">
+      <div formGroupName="timeScale" class="form-group row">
+        <label class="col-md-3 col-sm-3">Time range</label>
 
-      <label class="col-sm-1" for="timeStart">from:</label>
-      <div class="col-sm-3">
-      <input type="number" step="any" min="0" size="5" class="form-control"
-             id="timeStart"
-             required
-             formControlName="timeStart"
-      >
-      </div>
-      <label class="col-sm-1" for="timeEnd">to:</label>
-      <div class="col-sm-3">
-      <input type="number" step="any" min="0" size="5"  class="form-control"
-             required
-             id="timeEnd"
-             formControlName="timeEnd"
-      >
+        <label class="col-md-1 col-sm-2" for="timeStart">from:</label>
+        <div class="col-md-3 col-sm-3">
+        <input type="number" step="any" min="0" size="5" class="form-control"
+               id="timeStart"
+               required
+               formControlName="timeStart"
+        >
+        </div>
+        <label class="col-md-1 col-sm-1" for="timeEnd">to:</label>
+        <div class="col-md-3 col-sm-3">
+        <input type="number" step="any" min="0" size="5"  class="form-control"
+               required
+               id="timeEnd"
+               formControlName="timeEnd"
+        >
+        </div>
+      </div></div>
+
+      <div class="col-md-2 col-sm-4">
+        <mat-slide-toggle formControlName="hourly" class="mr-3">hourly</mat-slide-toggle>
       </div>
     </div>
 

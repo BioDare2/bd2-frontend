@@ -112,10 +112,14 @@ export class TSFetcher implements OnInit, OnDestroy {
       distinctUntilChanged((prev: DetrendingType, next: DetrendingType) => next.equals(prev))
     );
 
-    combineLatest([exp$, trend$, page$]).pipe(
+    const hourly$ = this.slowParameters$.pipe(
+      map(params => params.hourly),
+      distinctUntilChanged()
+    );
+    combineLatest([exp$, trend$, hourly$, page$]).pipe(
       // tap( v => console.log('DataSets combine', v)),
       tap( p => this.loading$.next(true)),
-      switchMap(([exp, detrending, page]) => this.loadDataSet(exp, detrending, page)),
+      switchMap(([exp, detrending, hourly, page]) => this.loadDataSet(exp, detrending, hourly, page)),
       catchError( err => {
         console.log('Caught error', err);
         this.error$.next(err);
@@ -157,11 +161,18 @@ export class TSFetcher implements OnInit, OnDestroy {
     }, err => console.log("Error in ds", err));*/
   }
 
-  protected loadDataSet(exp: ExperimentalAssayView, detrending: DetrendingType, page: PageEvent): Observable<TraceSet> {
+  protected loadDataSet(exp: ExperimentalAssayView, detrending: DetrendingType, hourly: boolean, page: PageEvent): Observable<TraceSet> {
 
-    return this.tsDataService.loadDataSet(exp, detrending, page).pipe(
-      tap(ds => ds.detrending = detrending)
-    );
+    if (hourly) {
+      return this.tsDataService.loadHourlyDataSet(exp, detrending, page).pipe(
+        tap(ds => ds.detrending = detrending),
+        tap( ds => ds.traces.forEach( trace => trace.label =`${trace.traceNr}. ${trace.label}`))
+      );
+    } else {
+      return this.tsDataService.loadDataSet(exp, detrending, page).pipe(
+        tap(ds => ds.detrending = detrending)
+      );
+    }
   }
 
   protected processData(data: Trace[], params: DisplayParameters): Trace[] {

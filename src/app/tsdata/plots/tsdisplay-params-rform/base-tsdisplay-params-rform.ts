@@ -104,7 +104,8 @@ export class BaseTSDisplayParamsRForm implements OnInit, OnDestroy, AfterViewIni
           val.normalisation,
           val.align, page,
           val.log2,
-          val.trimFirst
+          val.trimFirst,
+          val.hourly
         );
         return params;
       }),
@@ -133,6 +134,7 @@ export class BaseTSDisplayParamsRForm implements OnInit, OnDestroy, AfterViewIni
       align: [AlignOptions[0].name, [Validators.required]],
       log2: [false],
       trimFirst: [true],
+      hourly: [false]
     });
   }
 

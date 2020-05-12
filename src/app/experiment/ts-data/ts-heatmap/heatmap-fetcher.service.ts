@@ -18,13 +18,13 @@ export class HeatmapFetcher extends TSFetcher {
 
   }
 
-  protected loadDataSet(exp: ExperimentalAssayView, detrending: DetrendingType, page: PageEvent): Observable<TraceSet> {
+  /*protected loadDataSet(exp: ExperimentalAssayView, hourly: boolean, detrending: DetrendingType, page: PageEvent): Observable<TraceSet> {
 
     return this.tsDataService.loadHourlyDataSet(exp, detrending, page).pipe(
       tap(ds => ds.detrending = detrending),
       tap( ds => ds.traces.forEach( trace => trace.label =`${trace.traceNr}. ${trace.label}`))
     );
-  }
+  }*/
 
 
 
