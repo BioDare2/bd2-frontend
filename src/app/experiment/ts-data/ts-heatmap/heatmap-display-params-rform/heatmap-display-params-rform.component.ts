@@ -24,11 +24,14 @@ export class HeatmapDisplayParamsRformComponent extends BaseTSDisplayParamsRForm
       new TSOption('MEAN', 'mean')
     ];
 
-    this.normalisationOptions = [
+    const range = this.normalisationOptions.find( o => o.name === 'RANGE');
+
+    this.displayParamsForm.get('normalisation').setValue(range?.name);
+    /*this.normalisationOptions = [
       new TSOption('NO_NORM', 'none'),
       new TSOption('RANGE', 'to [-1,1]'),
       new TSOption('FOLD', 'fold change')
-    ]
+    ]*/
   }
 
 

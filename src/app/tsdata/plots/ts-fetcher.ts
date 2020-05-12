@@ -166,9 +166,17 @@ export class TSFetcher implements OnInit, OnDestroy {
 
   protected processData(data: Trace[], params: DisplayParameters): Trace[] {
 
-    data = this.trimData(data, params);
+    if (params.trimFirst) {
+      data = this.trimData(data, params);
+    }
+
     data = this.logData(data, params);
     data = this.normalizeData(data, params);
+
+    if (!params.trimFirst) {
+      data = this.trimData(data, params);
+    }
+
     data = this.alignData(data, params);
     return data;
   }

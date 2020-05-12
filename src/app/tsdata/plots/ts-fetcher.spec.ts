@@ -8,7 +8,7 @@ import {DisplayParameters} from './ts-display.dom';
 import {AlignOptions, DetrendingType, NormalisationOptions} from '../ts-data-dom';
 
 
-fdescribe('TSFetcher', () => {
+describe('TSFetcher', () => {
 
   let tsDataService;
   let service: TSFetcher;

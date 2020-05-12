@@ -5,10 +5,10 @@ import {BaseTSDisplayParamsRForm} from './base-tsdisplay-params-rform';
 @Component({
   selector: 'bd2-tsdisplay-params-rform',
   template: `
-  <form [formGroup]="mainForm" class="form-horizontal" role="form">
+  <form [formGroup]="mainForm" class="form-horizontal container" role="form">
 
     <div formGroupName="timeScale" class="form-group row">
-      <label class="col-sm-2">Time scale</label>
+      <label class="col-sm-2">Time range</label>
 
       <label class="col-sm-1" for="timeStart">from:</label>
       <div class="col-sm-3">
@@ -29,10 +29,9 @@ import {BaseTSDisplayParamsRForm} from './base-tsdisplay-params-rform';
     </div>
 
     <div class="form-group row">
-      <label class="col-sm-2"  >Processing</label>
       <label class="col-sm-2"  for="detrending">Detrending</label>
 
-      <div class="col-sm-6">
+      <div class="col-sm-3">
       <select class="form-control" required
               id="detrending"
               formControlName="detrending"
@@ -41,36 +40,47 @@ import {BaseTSDisplayParamsRForm} from './base-tsdisplay-params-rform';
       </select>
       </div>
 
+      <div class="col-sm-1"></div>
+      <label class="col-sm-1" for="align">Align</label>
+
+      <div class="col-sm-3">
+        <select class="form-control" required
+                id="align"
+                formControlName="align"
+        >
+          <option *ngFor="let opt of alignOptions; let ix = index" [value]="opt.name" >{{opt.label}}</option>
+        </select>
+      </div>
 
     </div>
 
-
-
     <div class="form-group row">
       <div class="col-sm-2">
-        <mat-slide-toggle formControlName="log2">log2</mat-slide-toggle>
+        <label for="normalisation">Normalize</label>
       </div>
-      <label class="col-sm-1">Norm.</label>
 
       <div class="col-sm-3">
-      <select class="form-control" required
-              id="normalisation"
-              formControlName="normalisation"
-      >
-        <option *ngFor="let opt of normalisationOptions; let ix = index" [value]="opt.name" >{{opt.label}}</option>
-      </select>
+        <select class="form-control" required
+                id="normalisation"
+                formControlName="normalisation"
+        >
+          <option *ngFor="let opt of normalisationOptions; let ix = index" [value]="opt.name" >{{opt.label}}</option>
+        </select>
       </div>
 
-      <label class="col-sm-1">Align</label>
-
-      <div class="col-sm-3">
-      <select class="form-control" required
-              id="align"
-              formControlName="align"
-      >
-        <option *ngFor="let opt of alignOptions; let ix = index" [value]="opt.name" >{{opt.label}}</option>
-      </select>
+      <div class="col-sm">
+        <mat-slide-toggle formControlName="trimFirst" class="mr-3">within range</mat-slide-toggle>
+        <mat-slide-toggle formControlName="log2">log2 transf.</mat-slide-toggle>
       </div>
+
+
+    </div>
+
+    <div class="form-group row">
+
+
+
+
     </div>
 
     <div class="form-group row">

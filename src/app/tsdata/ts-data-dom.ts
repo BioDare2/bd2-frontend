@@ -71,8 +71,11 @@ export class TSOption {
 
 export const NormalisationOptions = [
   new TSOption('NO_NORM', 'none'),
-  new TSOption('MEAN_NORM', 'to mean'),
-  new TSOption('MAX_NORM', 'to max')
+  // new TSOption('MEAN_NORM', 'to mean'),
+  new TSOption('RANGE', 'to [-1,1]'),
+  new TSOption('FOLD', 'fold change'),
+  new TSOption('Z_SCORE', 'Z-Score'),
+  new TSOption('MAX_NORM', 'to extreme')
 ];
 
 export const AlignOptions = [
