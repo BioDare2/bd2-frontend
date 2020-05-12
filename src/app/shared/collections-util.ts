@@ -1,5 +1,5 @@
-import { PageEvent } from '@angular/material/paginator';
-import { SortDirection } from '@angular/material/sort';
+import {PageEvent} from '@angular/material/paginator';
+import {SortDirection} from '@angular/material/sort';
 
 export function removeItemFromArr<V>(item: V, arr: V[]): boolean {
   const ix = arr.indexOf(item);

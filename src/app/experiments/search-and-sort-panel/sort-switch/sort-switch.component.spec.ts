@@ -1,6 +1,6 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { SortSwitchComponent } from './sort-switch.component';
+import {SortSwitchComponent} from './sort-switch.component';
 
 describe('SortSwitchComponent', () => {
   let component: SortSwitchComponent;

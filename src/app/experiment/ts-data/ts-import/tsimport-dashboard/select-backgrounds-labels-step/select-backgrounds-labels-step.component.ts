@@ -3,7 +3,7 @@ import {ImportDetails} from '../../import-dom';
 import {Observable} from 'rxjs';
 import {FormControl} from '@angular/forms';
 import {MatAutocomplete, MatAutocompleteSelectedEvent} from '@angular/material/autocomplete';
-import { MatChipInputEvent } from '@angular/material/chips';
+import {MatChipInputEvent} from '@angular/material/chips';
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
 import {map, startWith} from 'rxjs/operators';
 

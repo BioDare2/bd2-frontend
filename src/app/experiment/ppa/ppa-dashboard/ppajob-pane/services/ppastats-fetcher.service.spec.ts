@@ -6,8 +6,8 @@ import {throwError} from 'rxjs';
 import {PPAService} from '../../../ppa.service';
 import {PPASimpleStats} from '../../../ppa-dom';
 import {makePPAStats} from './ppa-test-data.spec';
-import { PageEvent } from '@angular/material/paginator';
-import { Sort } from '@angular/material/sort';
+import {PageEvent} from '@angular/material/paginator';
+import {Sort} from '@angular/material/sort';
 
 describe('PPAStatsFetcherService', () => {
 

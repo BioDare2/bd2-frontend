@@ -1,6 +1,6 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { HeatmapDisplayParamsRformComponent } from './heatmap-display-params-rform.component';
+import {HeatmapDisplayParamsRformComponent} from './heatmap-display-params-rform.component';
 import {ReactiveFormsModule} from '@angular/forms';
 import {MaterialsModule} from '../../../../shared/materials.module';
 import {NoopAnimationsModule} from '@angular/platform-browser/animations';

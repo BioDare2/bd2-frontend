@@ -1,5 +1,5 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
-import { Sort } from '@angular/material/sort';
+import {Sort} from '@angular/material/sort';
 
 @Component({
   selector: 'bd2-ppasort-widget',

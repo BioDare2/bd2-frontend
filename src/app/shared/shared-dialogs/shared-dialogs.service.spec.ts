@@ -1,7 +1,7 @@
 import {TestBed} from '@angular/core/testing';
 
 import {SharedDialogsService} from './shared-dialogs.service';
-import { MatDialogModule } from '@angular/material/dialog';
+import {MatDialogModule} from '@angular/material/dialog';
 
 describe('SharedDialogsService', () => {
   beforeEach(() => TestBed.configureTestingModule({

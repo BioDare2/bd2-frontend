@@ -1,6 +1,6 @@
-import {fakeAsync, TestBed, tick} from '@angular/core/testing';
+import {fakeAsync, tick} from '@angular/core/testing';
 
-import { ShutdownEventsService } from './shutdown-events.service';
+import {ShutdownEventsService} from './shutdown-events.service';
 import {of} from 'rxjs';
 
 describe('ShutdownEventsService', () => {

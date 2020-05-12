@@ -2,7 +2,7 @@ import {Injectable, OnDestroy} from '@angular/core';
 import {BioDareRestService} from '../backend/biodare-rest.service';
 import {FeedbackService} from '../feedback/feedback.service';
 import {Subscription, timer} from 'rxjs';
-import {switchMap, map, tap} from 'rxjs/operators';
+import {map, switchMap} from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'

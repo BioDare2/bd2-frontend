@@ -1,6 +1,6 @@
 import {BehaviorSubject, combineLatest, merge, Observable, of, Subject} from 'rxjs';
-import { PageEvent } from '@angular/material/paginator';
-import { Sort } from '@angular/material/sort';
+import {PageEvent} from '@angular/material/paginator';
+import {Sort} from '@angular/material/sort';
 import {catchError, debounceTime, distinctUntilChanged, filter, map, switchMap, take, tap} from 'rxjs/operators';
 
 export abstract class RemotelyPageableSortableFetcher<I, P, A, D> {

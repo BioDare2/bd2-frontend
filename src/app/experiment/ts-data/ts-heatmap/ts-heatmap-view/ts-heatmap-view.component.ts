@@ -1,10 +1,8 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ExperimentBaseComponent} from '../../../experiment-base.component';
-import {TSDataService} from '../../../../tsdata/ts-data.service';
 import {RDMSocialServiceService} from '../../../../rdmsocial/rdmsocial-service.service';
 import {AnalyticsService} from '../../../../analytics/analytics.service';
 import {ExperimentComponentsDependencies} from '../../../experiment-components.dependencies';
-import {HeatmapFetcher} from '../heatmap-fetcher.service';
 import {debounceTime} from 'rxjs/operators';
 import {Subscription} from 'rxjs';
 import {DisplayParameters} from '../../../../tsdata/plots/ts-display.dom';

@@ -1,7 +1,4 @@
-import { TestBed } from '@angular/core/testing';
-
-import { HeatmapFetcher} from './heatmap-fetcher.service';
-import {Timepoint, Trace} from '../../../tsdata/plots/ts-plot.dom';
+import {HeatmapFetcher} from './heatmap-fetcher.service';
 import {throwError} from 'rxjs';
 
 describe('HeatmapFetcher', () => {

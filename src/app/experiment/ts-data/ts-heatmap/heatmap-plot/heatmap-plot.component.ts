@@ -1,6 +1,5 @@
-import {Component, OnInit, Input, ViewChild} from '@angular/core';
-import {Timepoint, Trace} from '../../../../tsdata/plots/ts-plot.dom';
-
+import {Component, Input, OnInit} from '@angular/core';
+import {Trace} from '../../../../tsdata/plots/ts-plot.dom';
 
 
 @Component({

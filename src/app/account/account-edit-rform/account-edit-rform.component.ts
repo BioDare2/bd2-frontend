@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {UserService} from '../../auth/user.service';
 import {FeedbackService} from '../../feedback/feedback.service';
 import {BD2User} from '../../auth/user.dom';
 import {AbstractControl, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-import {isValidEmail, validEmail} from '../user.util';
+import {validEmail} from '../user.util';
 import {timer} from 'rxjs';
 
 @Component({

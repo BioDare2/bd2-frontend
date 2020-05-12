@@ -1,5 +1,3 @@
-import {entryPointKeyFor} from '@angular/compiler-cli/src/ngtsc/routing';
-
 export class BioDareEndPoints {
 
   login_url: string;

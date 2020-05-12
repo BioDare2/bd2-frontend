@@ -1,7 +1,7 @@
 import {fakeAsync, TestBed, tick} from '@angular/core/testing';
 import {of, throwError} from 'rxjs';
 import {PPAService} from '../../../ppa.service';
-import { Sort } from '@angular/material/sort';
+import {Sort} from '@angular/material/sort';
 import {PPAGroupResultsFetcherService} from './ppagroupresults-fetcher.service';
 import {PPAJobSummary, PPAResultsGroupSummary} from '../../../ppa-dom';
 import {makePPAGroupResults} from './ppa-test-data.spec';

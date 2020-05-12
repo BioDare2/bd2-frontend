@@ -1,4 +1,4 @@
-import { PageEvent } from '@angular/material/paginator';
+import {PageEvent} from '@angular/material/paginator';
 
 export interface SetAble<V> {
 

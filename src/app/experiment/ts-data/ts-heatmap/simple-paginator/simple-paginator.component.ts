@@ -214,7 +214,7 @@ export class SimplePaginatorComponent implements OnInit {
    * that the 10th item will still be displayed.
    */
   _changePageSize(pageSize: any) {
-    //console.log("PS", pageSize);
+    // console.log("PS", pageSize);
     // Current page needs to be updated to reflect the new page size. Navigate to the page
     // containing the previous page's first item.
     const startIndex = this.pageIndex * this.pageSize;

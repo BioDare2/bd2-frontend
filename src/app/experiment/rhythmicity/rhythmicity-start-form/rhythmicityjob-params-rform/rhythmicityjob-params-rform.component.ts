@@ -3,7 +3,8 @@ import {AfterViewInit, Component, EventEmitter, OnDestroy, OnInit} from '@angula
 import {AbstractControl, FormBuilder, FormControl, Validators} from '@angular/forms';
 import {DetrendingType} from '../../../../tsdata/ts-data-dom';
 import {
-  EJTKPreset, EnabledEJTKPresetOptions,
+  EJTKPreset,
+  EnabledEJTKPresetOptions,
   EnabledJTKPresetOptions,
   EnabledRhythmicityMethodOptions,
   RhythmicityMethod,

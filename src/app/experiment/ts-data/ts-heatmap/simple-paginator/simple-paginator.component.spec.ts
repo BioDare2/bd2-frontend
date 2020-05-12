@@ -1,6 +1,6 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { SimplePaginatorComponent } from './simple-paginator.component';
+import {SimplePaginatorComponent} from './simple-paginator.component';
 
 describe('SimplePaginatorComponent', () => {
   let component: SimplePaginatorComponent;

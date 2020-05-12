@@ -6,7 +6,7 @@ import {TSDataService} from '../ts-data.service';
 import {AlignOptions, DetrendingType, NormalisationOptions} from '../ts-data-dom';
 import {catchError, debounceTime, distinctUntilChanged, filter, map, switchMap, tap} from 'rxjs/operators';
 import {ExperimentalAssayView} from '../../dom/repo/exp/experimental-assay-view';
-import { PageEvent } from '@angular/material/paginator';
+import {PageEvent} from '@angular/material/paginator';
 import {REMOVE_DEBOUNCE} from '../../shared/tokens';
 
 

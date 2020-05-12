@@ -1,6 +1,6 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { HeatmapPlotComponent } from './heatmap-plot.component';
+import {HeatmapPlotComponent} from './heatmap-plot.component';
 import {Bd2NgxHeatmapModule} from 'bd2-ngx-heatmap';
 
 describe('HeatmapPlotComponent', () => {

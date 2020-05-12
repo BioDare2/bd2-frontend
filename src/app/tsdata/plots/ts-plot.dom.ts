@@ -1,4 +1,4 @@
-import { PageEvent } from '@angular/material/paginator';
+import {PageEvent} from '@angular/material/paginator';
 import {DetrendingType} from '../ts-data-dom';
 
 export class Timepoint {

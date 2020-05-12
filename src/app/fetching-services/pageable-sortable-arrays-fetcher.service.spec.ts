@@ -1,7 +1,7 @@
 import {fakeAsync, tick} from '@angular/core/testing';
 import {Observable, of} from 'rxjs';
-import { PageEvent } from '@angular/material/paginator';
-import { Sort } from '@angular/material/sort';
+import {PageEvent} from '@angular/material/paginator';
+import {Sort} from '@angular/material/sort';
 import {PageableSortableArraysFetcherService} from './pageable-sortable-arrays-fetcher.service';
 import {arraysMatch} from '../shared/collections-util';
 

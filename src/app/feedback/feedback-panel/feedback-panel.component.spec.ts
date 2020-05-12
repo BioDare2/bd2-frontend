@@ -1,7 +1,7 @@
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
 import {FeedbackPanelComponent} from './feedback-panel.component';
-import { MatCardModule } from '@angular/material/card';
+import {MatCardModule} from '@angular/material/card';
 import {FeedbackListComponent} from '../feedback-list/feedback-list.component';
 
 describe('FeedbackPanelComponent', () => {

@@ -3,7 +3,7 @@ import {REMOVE_DEBOUNCE} from '../../../../../shared/tokens';
 import {PPAJobSimpleStats, PPAJobSummary, PPASimpleStats} from '../../../ppa-dom';
 import {PPAService} from '../../../ppa.service';
 import {Observable} from 'rxjs';
-import { Sort } from '@angular/material/sort';
+import {Sort} from '@angular/material/sort';
 import {PageableSortableArraysFetcherService} from '../../../../../fetching-services/pageable-sortable-arrays-fetcher.service';
 
 @Injectable()

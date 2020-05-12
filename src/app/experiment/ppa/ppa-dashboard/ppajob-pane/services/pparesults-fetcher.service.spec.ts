@@ -3,10 +3,10 @@ import {TestBed} from '@angular/core/testing';
 import {PPAResultsFetcherService} from './pparesults-fetcher.service';
 import {throwError} from 'rxjs';
 import {PPAService} from '../../../ppa.service';
-import {PPASimpleResultEntry, } from '../../../ppa-dom';
-import { PageEvent } from '@angular/material/paginator';
-import { Sort } from '@angular/material/sort';
-import {makePPASimpleResults, } from './ppa-test-data.spec';
+import {PPASimpleResultEntry,} from '../../../ppa-dom';
+import {PageEvent} from '@angular/material/paginator';
+import {Sort} from '@angular/material/sort';
+import {makePPASimpleResults,} from './ppa-test-data.spec';
 
 describe('PPAResultsFetcherService', () => {
   let ppaService;

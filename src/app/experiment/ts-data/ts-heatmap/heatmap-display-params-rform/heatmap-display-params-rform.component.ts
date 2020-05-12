@@ -1,7 +1,7 @@
 import {AfterViewInit, Component, OnDestroy, OnInit} from '@angular/core';
 import {BaseTSDisplayParamsRForm} from '../../../../tsdata/plots/tsdisplay-params-rform/base-tsdisplay-params-rform';
 import {FormBuilder} from '@angular/forms';
-import {AlignOptions, TSOption} from '../../../../tsdata/ts-data-dom';
+import {TSOption} from '../../../../tsdata/ts-data-dom';
 
 @Component({
   selector: 'bd2-heatmap-display-params-rform',

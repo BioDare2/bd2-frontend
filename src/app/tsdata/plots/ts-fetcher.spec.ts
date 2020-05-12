@@ -214,7 +214,7 @@ describe('TSFetcher', () => {
 
   it('logTrace preserves attributes', ()=>{
     const trace = new Trace();
-    trace.label = "x";
+    trace.label = 'x';
     trace.dataId = 2;
     trace.traceNr = 3;
 
