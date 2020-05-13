@@ -17,6 +17,9 @@ export class HeatmapPlotComponent implements OnInit {
     this.series = traces;
   }
 
+  @Input()
+  middleZero = false;
+
   constructor() { }
 
   ngOnInit(): void {

@@ -30,6 +30,8 @@ export class TsHeatmapViewComponent extends ExperimentBaseComponent implements O
   currentPage: PageEvent = DisplayParameters.firstPage();
   tracesPerPlot = 5;
 
+  middleZero = false;
+
   blocked = false;
 
   disabledSecondary = false;
@@ -59,6 +61,7 @@ export class TsHeatmapViewComponent extends ExperimentBaseComponent implements O
 
           const data = pack.data;
           this.currentParams = pack.params;
+          this.middleZero = this.isRangeSimetrical(pack.params);
           // console.log("P: "+pack.params.detrending.name+"; "+this.exportURL);
           this.timeseries = data;
           this.tracesPerPlot = Math.max(5, data.length / 20);
@@ -136,4 +139,13 @@ export class TsHeatmapViewComponent extends ExperimentBaseComponent implements O
     this.fetcher.experiment(exp);
   }
 
+  protected isRangeSimetrical(params: DisplayParameters) {
+    if (params.normalisation === 'RANGE' || params.normalisation === 'Z_SCORE') {
+      return true;
+    }
+    if (params.align === 'MEAN') {
+      return true;
+    }
+    return false;
+  }
 }
