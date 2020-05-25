@@ -1,0 +1,59 @@
+
+<div class="container">
+    <mat-radio-group aria-label="Sorting options" [(ngModel)]="sortBy">
+
+      <div class="row mb-1">
+        <label class="col-lg-2">Sort</label>
+        <div class="col-lg-4">
+          <mat-slide-toggle>asc.</mat-slide-toggle>
+        </div>
+        <div class="col-lg-5">
+          <mat-radio-button value="id">id</mat-radio-button>
+          <mat-radio-button  value="label">label</mat-radio-button>
+          <mat-radio-button  value="cluster">cluster</mat-radio-button>
+        </div>
+      </div>
+
+      <div class="row mb-1">
+        <label class="col-lg-2">PPA Analysis</label>
+        <div class="col-lg-4">
+        <select id="ppa" class="form-control" aria-label="Select period analysis" [disabled]="noPPA"
+
+        >
+          <option>xyzd FFT NLLS 2020-05-13</option>
+          <option>dfs FFT NLLS 2020-03-13</option>
+          <option>dsfsfa FFT NLLS 2020-06-13</option>
+          <option>fgggaa FFT NLLS 2020-06-13</option>
+        </select>
+        </div>
+        <div class="col-lg-5">
+          <mat-radio-button value="period" [disabled]="noPPA">period</mat-radio-button>
+          <mat-radio-button  value="phase" [disabled]="noPPA">phase</mat-radio-button>
+          <mat-radio-button value="amp" [disabled]="noPPA">amp.</mat-radio-button>
+          <mat-radio-button  value="err" [disabled]="noPPA">err</mat-radio-button>
+        </div>
+      </div>
+
+      <div class="row  mb-1">
+        <label class="col-lg-2">Rhythm test</label>
+        <div class="col-lg-4">
+          <select id="rhythm" class="form-control" aria-label="Select rhythmicity test" [disabled]="noRhythm"
+
+          >
+            <option>xyzd FFT NLLS 2020-05-13</option>
+            <option>dfs FFT NLLS 2020-03-13</option>
+            <option>dsfsfa FFT NLLS 2020-06-13</option>
+            <option>fgggaa FFT NLLS 2020-06-13</option>
+          </select>
+        </div>
+        <div class="col-lg-5">
+          <mat-radio-button  value="pvalue" [disabled]="noRhythm">pValue</mat-radio-button>
+          <mat-radio-button value="ppeak" [disabled]="noRhythm">peak</mat-radio-button>
+          <mat-radio-button  value="pperiod" [disabled]="noRhythm">length</mat-radio-button>
+        </div>
+      </div>
+
+
+    </mat-radio-group>
+</div>
+

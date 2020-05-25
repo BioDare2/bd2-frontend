@@ -8,6 +8,7 @@ import {CommonModule} from '@angular/common';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {ChartsModule} from 'ng2-charts';
 import {MaterialsModule} from '../../shared/materials.module';
+import { TSSortParamsRFormComponent } from './tssort-params-rform/tssort-params-rform.component';
 
 @NgModule({
   imports: [
@@ -20,12 +21,14 @@ import {MaterialsModule} from '../../shared/materials.module';
   declarations: [
     TSPlotComponent,
     TSPlotsComponent,
-    TSDisplayParamsRFormComponent
+    TSDisplayParamsRFormComponent,
+    TSSortParamsRFormComponent
   ],
   exports: [
     TSPlotComponent,
     TSPlotsComponent,
-    TSDisplayParamsRFormComponent
+    TSDisplayParamsRFormComponent,
+    TSSortParamsRFormComponent
   ],
   providers: []
 })
