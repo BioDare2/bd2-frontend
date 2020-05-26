@@ -3,7 +3,7 @@ import {Timepoint, Trace, TraceSet} from './ts-plot.dom';
 import {Inject, Injectable, OnDestroy, OnInit, Optional} from '@angular/core';
 import {BehaviorSubject, combineLatest, Observable, of, Subject} from 'rxjs';
 import {TSDataService} from '../ts-data.service';
-import {AlignOptions, DetrendingType, NormalisationOptions} from '../ts-data-dom';
+import {AlignOptions, DetrendingType, equalSort, NormalisationOptions, TSSort} from '../ts-data-dom';
 import {catchError, debounceTime, distinctUntilChanged, filter, map, switchMap, tap} from 'rxjs/operators';
 import {ExperimentalAssayView} from '../../dom/repo/exp/experimental-assay-view';
 import {PageEvent} from '@angular/material/paginator';
@@ -13,7 +13,8 @@ import {REMOVE_DEBOUNCE} from '../../shared/tokens';
 export class TimeSeriesPack {
 
   constructor(public params: DisplayParameters, public data: Trace[],
-              public totalTraces = 0, public currentPage: PageEvent = DisplayParameters.firstPage()) {
+              public totalTraces = 0, public currentPage: PageEvent = DisplayParameters.firstPage(),
+              public sorting?: TSSort) {
   }
 
 }
@@ -22,7 +23,7 @@ export class TimeSeriesPack {
 
 
 @Injectable()
-export class TSFetcher implements OnInit, OnDestroy {
+export class TSFetcher implements OnDestroy {
 
   public current: TimeSeriesPack;
   public seriesPackStream: Observable<TimeSeriesPack>;
@@ -32,6 +33,7 @@ export class TSFetcher implements OnInit, OnDestroy {
 
   private dataSetsStream = new BehaviorSubject<TraceSet>(undefined);
   private displayParamsStream: Subject<DisplayParameters>;
+  private sortStream = new BehaviorSubject<TSSort>({} as TSSort);
   private experiment$ = new BehaviorSubject<ExperimentalAssayView>(undefined);
   private slowParameters$: Observable<DisplayParameters>;
   // private seriesPack$ = new BehaviorSubject<TimeSeriesPack>(undefined);
@@ -70,12 +72,18 @@ export class TSFetcher implements OnInit, OnDestroy {
     this.experiment$.next(exp);
   }
 
-
-  ngOnInit(): any {
+  public sort(sort: TSSort) {
+    if (sort) {
+      this.sortStream.next(sort);
+    }
   }
+
+
+
 
   ngOnDestroy(): void {
     this.displayParamsStream.complete();
+    this.sortStream.complete();
     this.dataSetsStream.complete();
     this.error$.complete();
     this.experiment$.complete();
@@ -116,10 +124,15 @@ export class TSFetcher implements OnInit, OnDestroy {
       map(params => params.hourly),
       distinctUntilChanged()
     );
-    combineLatest([exp$, trend$, hourly$, page$]).pipe(
+
+    const sort$ = this.sortStream.pipe(
+      distinctUntilChanged(equalSort)
+    );
+
+    combineLatest([exp$, trend$, hourly$, page$, sort$]).pipe(
       // tap( v => console.log('DataSets combine', v)),
       tap( p => this.loading$.next(true)),
-      switchMap(([exp, detrending, hourly, page]) => this.loadDataSet(exp, detrending, hourly, page)),
+      switchMap(([exp, detrending, hourly, page, sort]) => this.loadDataSet(exp, detrending, hourly, page, sort)),
       catchError( err => {
         console.log('Caught error', err);
         this.error$.next(err);
@@ -156,16 +169,23 @@ export class TSFetcher implements OnInit, OnDestroy {
 
 
 
-  protected loadDataSet(exp: ExperimentalAssayView, detrending: DetrendingType, hourly: boolean, page: PageEvent): Observable<TraceSet> {
+  protected loadDataSet(exp: ExperimentalAssayView, detrending: DetrendingType, hourly: boolean,
+                        page: PageEvent, sort: TSSort): Observable<TraceSet> {
 
     if (hourly) {
-      return this.tsDataService.loadHourlyDataSet(exp, detrending, page).pipe(
-        tap(ds => ds.detrending = detrending),
+      return this.tsDataService.loadHourlyDataSet(exp, detrending, page, sort).pipe(
+        tap(ds => {
+          ds.detrending = detrending;
+          ds.sort = ds.sort || sort;
+        }),
         tap( ds => ds.traces.forEach( trace => trace.label =`${trace.traceNr}. ${trace.label}`))
       );
     } else {
-      return this.tsDataService.loadDataSet(exp, detrending, page).pipe(
-        tap(ds => ds.detrending = detrending)
+      return this.tsDataService.loadDataSet(exp, detrending, page, sort).pipe(
+        tap(ds => {
+          ds.detrending = detrending;
+          ds.sort = ds.sort || sort;
+        }),
       );
     }
   }
@@ -176,7 +196,7 @@ export class TSFetcher implements OnInit, OnDestroy {
     params.timeScale.timeStart = 0;
     params.timeScale.timeEnd = 0;
 
-    return this.loadDataSet(exp, params.detrending, params.hourly, page).pipe(
+    return this.loadDataSet(exp, params.detrending, params.hourly, page, {} as TSSort).pipe(
       map( data => this.processDataSet(data, params))
     )
 
@@ -187,10 +207,11 @@ export class TSFetcher implements OnInit, OnDestroy {
       const traces = this.processDataTraces(dataSet.traces, params);
       params = params.clone();
       params.detrending = dataSet.detrending;
-      return new TimeSeriesPack(params, traces, dataSet.totalTraces, dataSet.currentPage);
+      return new TimeSeriesPack(params, traces, dataSet.totalTraces, dataSet.currentPage, dataSet.sort);
     } else {
-      return new TimeSeriesPack(params, [], 0, DisplayParameters.firstPage());
-    }
+      return new TimeSeriesPack(params, [], 0, DisplayParameters.firstPage(), {} as TSSort);
+    };
+
   }
 
   protected processDataTraces(data: Trace[], params: DisplayParameters): Trace[] {

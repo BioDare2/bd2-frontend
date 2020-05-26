@@ -128,4 +128,25 @@ export interface TSSort extends Sort {
               public direction: SortDirection,
               public ppaJobId?: string, public rhythmJobId?: string) {
   }*/
+
+}
+
+const ppaSorting = ['PERIOD','PHASE','AMP','ERR'];
+const rhythmSorting = ['PVALUE','P_PEAK','P_PERIOD'];
+
+export function equalSort(prev: TSSort, next: TSSort): boolean {
+  if (!prev || !next) {
+    return false;
+  }
+
+  if (prev.active !== next.active) return false;
+  if (prev.direction !== next.direction) return false;
+
+  if (ppaSorting.includes(prev.active)) {
+    if (prev.ppaJobId !== next.ppaJobId) return false;
+  }
+  if (rhythmSorting.includes(prev.active)) {
+    if (prev.rhythmJobId !== next.rhythmJobId) return false;
+  }
+  return true;
 }

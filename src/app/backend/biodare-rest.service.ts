@@ -7,7 +7,7 @@ import {SystemEventsService} from '../system/system-events.service';
 import {BD2User} from '../auth/user.dom';
 import {ExperimentalAssayView} from '../dom/repo/exp/experimental-assay-view';
 import {FileImportRequest, ImportFormat} from '../experiment/ts-data/ts-import/import-dom';
-import {DetrendingType} from '../tsdata/ts-data-dom';
+import {DetrendingType, TSSort} from '../tsdata/ts-data-dom';
 import {PPARequest} from '../experiment/ppa/ppa-dom';
 import {RhythmicityRequest} from '../experiment/rhythmicity/rhythmicity-dom';
 import {Slice} from '../experiment/ts-data/ts-import/tsimport-dashboard/data-table-dom';
@@ -233,24 +233,37 @@ export class BioDareRestService {
   }
 
 
-  tsdata(expId: number, detrending: DetrendingType, page: PageEvent): Observable<any> {
+  tsdata(expId: number, detrending: DetrendingType, page: PageEvent, sort: TSSort): Observable<any> {
 
     const options = this.makeOptions();
     const url = this.endPoints.experiment_url + '/' + expId + this.endPoints.ts_data + '/' + detrending.name;
-    if (page) {
-      (options as any).params = new HttpParams().set('pageIndex', '' + page.pageIndex).set('pageSize', '' + page.pageSize);
-    }
+
+    (options as any).params = this.pageAndSortToParams(page,sort);
     return this.OKJson(this.http.get(url, options));
   }
 
-  tsHourlyData(expId: number, detrending: DetrendingType, page: PageEvent): Observable<any> {
+  tsHourlyData(expId: number, detrending: DetrendingType, page: PageEvent, sort: TSSort): Observable<any> {
 
     const options = this.makeOptions();
     const url = this.endPoints.experiment_url + '/' + expId + this.endPoints.ts_data + '/' + detrending.name + '/hourly';
-    if (page) {
-      (options as any).params = new HttpParams().set('pageIndex', '' + page.pageIndex).set('pageSize', '' + page.pageSize);
-    }
+    (options as any).params = this.pageAndSortToParams(page,sort);
     return this.OKJson(this.http.get(url, options));
+  }
+
+  pageAndSortToParams(page: PageEvent, sort: TSSort) {
+    let params = new HttpParams();
+    if (page) {
+      params = params.set('pageIndex', '' + page.pageIndex)
+        .set('pageSize', '' + page.pageSize);
+    }
+    if (sort) {
+      if (sort.active) params = params.set('sort', sort.active);
+      if (sort.direction) params = params.set('direction', sort.direction);
+      if (sort.ppaJobId) params = params.set('ppaJobId', sort.ppaJobId);
+      if (sort.rhythmJobId) params = params.set('rhythmJobId', sort.rhythmJobId);
+    }
+    return params;
+
   }
 
   tsdataMetrics(expId: number): Observable<any> {

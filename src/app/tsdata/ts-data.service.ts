@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {BioDareRestService} from '../backend/biodare-rest.service';
 import {ExperimentalAssayView} from '../dom/repo/exp/experimental-assay-view';
-import {DetrendingType, TimeSeriesMetrics} from './ts-data-dom';
+import {DetrendingType, TimeSeriesMetrics, TSSort} from './ts-data-dom';
 import {TraceSet} from './plots/ts-plot.dom';
 import {DisplayParameters} from './plots/ts-display.dom';
 import {Observable} from 'rxjs';
@@ -16,15 +16,15 @@ export class TSDataService {
 
   }
 
-  loadDataSet(exp: ExperimentalAssayView, detrending: DetrendingType, page: PageEvent): Observable<TraceSet> {
+  loadDataSet(exp: ExperimentalAssayView, detrending: DetrendingType, page: PageEvent, sort: TSSort): Observable<TraceSet> {
 
-    return this.BD2REST.tsdata(exp.id, detrending, page);
+    return this.BD2REST.tsdata(exp.id, detrending, page, sort);
       // .then(jsonObj => jsonObj.data);
   }
 
-  loadHourlyDataSet(exp: ExperimentalAssayView, detrending: DetrendingType, page: PageEvent): Observable<TraceSet> {
+  loadHourlyDataSet(exp: ExperimentalAssayView, detrending: DetrendingType, page: PageEvent, sort: TSSort): Observable<TraceSet> {
 
-    return this.BD2REST.tsHourlyData(exp.id, detrending, page);
+    return this.BD2REST.tsHourlyData(exp.id, detrending, page, sort);
     // .then(jsonObj => jsonObj.data);
   }
 

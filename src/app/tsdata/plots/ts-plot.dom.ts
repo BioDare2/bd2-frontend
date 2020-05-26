@@ -1,5 +1,5 @@
 import {PageEvent} from '@angular/material/paginator';
-import {DetrendingType} from '../ts-data-dom';
+import {DetrendingType, TSSort} from '../ts-data-dom';
 
 export class Timepoint {
 
@@ -32,4 +32,5 @@ export class TraceSet {
   totalTraces = 0;
   currentPage: PageEvent;
   detrending: DetrendingType;
+  sort: TSSort;
 }

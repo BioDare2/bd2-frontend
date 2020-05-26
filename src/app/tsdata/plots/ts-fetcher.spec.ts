@@ -5,7 +5,7 @@ import {fakeAsync, tick} from '@angular/core/testing';
 import {ExperimentalAssayView} from '../../dom/repo/exp/experimental-assay-view';
 import {Timepoint, Trace, TraceSet} from './ts-plot.dom';
 import {DisplayParameters} from './ts-display.dom';
-import {AlignOptions, DetrendingType, NormalisationOptions} from '../ts-data-dom';
+import {AlignOptions, DetrendingType, NormalisationOptions, TSSort} from '../ts-data-dom';
 
 
 describe('TSFetcher', () => {
@@ -101,8 +101,9 @@ describe('TSFetcher', () => {
       errors = err;
     });
 
+    // tslint:disable-next-line:max-line-length
     const resp: TraceSet = {title: null, traces: [{label: '1.[B2] label0', fill: false, data: [{x: 0.0, y: 0.6601664510356472}, {x: 1.0, y: 0.6457065838504816}, {x: 2.0, y: 0.5562073136309738}, {x: 3.0, y: 0.9154962961556643}, {x: 4.0, y: 0.525271594883056}], min: 0.525271594883056, max: 0.9154962961556643, mean: 0.6605696479111645}, {label: '2.[C2] label0', fill: false, data: [{x: 0.0, y: 0.261667957678592}, {x: 1.0, y: 0.2784320544123843}, {x: 2.0, y: 0.42835207355286326}, {x: 3.0, y: 0.35304368617291276}, {x: 4.0, y: 0.22436214179832786}], min: 0.22436214179832786, max: 0.42835207355286326, mean: 0.30917158272301604}], totalTraces: 2,
-      currentPage: {pageIndex: 0, pageSize: 100, length: 0, previousPageIndex: 0}, detrending: DetrendingType.LIN_DTR};
+      currentPage: {pageIndex: 0, pageSize: 100, length: 0, previousPageIndex: 0}, detrending: DetrendingType.LIN_DTR, sort: {} as TSSort};
 
     tsDataService.loadDataSet.and.returnValue(of(resp));
     service.experiment(assay);
@@ -136,8 +137,9 @@ describe('TSFetcher', () => {
       errors = err;
     });
 
+    // tslint:disable-next-line:max-line-length
     const resp: TraceSet = {title: null, traces: [{label: '1.[B2] label0', fill: false, data: [{x: 0.0, y: 0.6601664510356472}, {x: 1.0, y: 0.6457065838504816}, {x: 2.0, y: 0.5562073136309738}, {x: 3.0, y: 0.9154962961556643}, {x: 4.0, y: 0.525271594883056}], min: 0.525271594883056, max: 0.9154962961556643, mean: 0.6605696479111645}, {label: '2.[C2] label0', fill: false, data: [{x: 0.0, y: 0.261667957678592}, {x: 1.0, y: 0.2784320544123843}, {x: 2.0, y: 0.42835207355286326}, {x: 3.0, y: 0.35304368617291276}, {x: 4.0, y: 0.22436214179832786}], min: 0.22436214179832786, max: 0.42835207355286326, mean: 0.30917158272301604}], totalTraces: 2,
-      currentPage: {pageIndex: 0, pageSize: 100, length: 0, previousPageIndex: 0}, detrending: DetrendingType.LIN_DTR};
+      currentPage: {pageIndex: 0, pageSize: 100, length: 0, previousPageIndex: 0}, detrending: DetrendingType.LIN_DTR, sort: {} as TSSort};
 
     tsDataService.loadDataSet.and.returnValue(of(resp));
     service.experiment(assay);
@@ -190,6 +192,7 @@ describe('TSFetcher', () => {
 
   it('makes log2Data if asked', ()=>{
 
+    // tslint:disable-next-line:max-line-length
     const traces = [{label: '1.[B2] label0', fill: false, data: [{x: 0.0, y: 0.6601664510356472}, {x: 1.0, y: 0.6457065838504816}, {x: 2.0, y: 0.5562073136309738}, {x: 3.0, y: 0.9154962961556643}, {x: 4.0, y: 0.525271594883056}], min: 0.525271594883056, max: 0.9154962961556643, mean: 0.6605696479111645}, {label: '2.[C2] label0', fill: false, data: [{x: 0.0, y: 0.261667957678592}, {x: 1.0, y: 0.2784320544123843}, {x: 2.0, y: 0.42835207355286326}, {x: 3.0, y: 0.35304368617291276}, {x: 4.0, y: 0.22436214179832786}], min: 0.22436214179832786, max: 0.42835207355286326, mean: 0.30917158272301604}];
 
     const p = new DisplayParameters(0, 0, DetrendingType.LIN_DTR,
