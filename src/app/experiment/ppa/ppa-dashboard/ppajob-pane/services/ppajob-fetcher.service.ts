@@ -53,27 +53,39 @@ export class PPAJobFetcherService extends RunnableFetcherService<[number, string
 
 
   hasFailed(job: PPAJobSummary): boolean {
+    return this.ppaService.hasFailed(job);
+    /*
     if (!job) { return false; }
     if (this.isFinished(job)) { return false; }
     if (this.isRunning(job)) { return false; }
     return true;
+
+     */
   }
 
   isFinished(job: PPAJobSummary): boolean {
+    return this.ppaService.isFinished(job);
 
+    /*
     if (job && job.state && (job.state === 'FINISHED' || job.state === 'SUCCESS')) {
       return true;
     }
     return false;
+
+     */
   }
 
   isRunning(job: PPAJobSummary): boolean {
+    return this.ppaService.isRunning(job);
 
+    /*
     if (job && job.state && (job.state === 'SUBMITTED' || job.state === 'PROCESSING')) {
       return true;
     }
 
     return false;
+
+     */
   }
 
 

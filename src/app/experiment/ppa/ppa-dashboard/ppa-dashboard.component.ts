@@ -6,6 +6,7 @@ import {PPAService} from '../ppa.service';
 import {ExperimentComponentsDependencies} from '../../experiment-components.dependencies';
 import {ExperimentalAssayView} from '../../../dom/repo/exp/experimental-assay-view';
 import {StaticContentDialogService} from '../../../documents/static-content/static-content-dialog.service';
+import {Observable} from 'rxjs';
 
 @Component({
   templateUrl: './ppa-dashboard.component.html',
@@ -75,14 +76,18 @@ export class PPADashboardComponent extends PPABaseComponent {
 
   refresh() {
     // this.blocked = true;
-    this.loadPPA(this.assay)
+    this.loadPPA(this.assay, true);
+    /*
       .then(() => {
         // this.blocked = false;
         if (this.panes) {
           this.panes.forEach(pane => pane.refresh());
         }
       });
+     */
   }
+
+
 
   simplifyJobState(job: PPAJobSummary) {
     if (job.state === 'SUCCESS') {
@@ -99,17 +104,45 @@ export class PPADashboardComponent extends PPABaseComponent {
     }
   }
 
-  protected loadPPA(exp: ExperimentalAssayView): Promise<any> {
+  protected loadPPA(exp: ExperimentalAssayView, refresh = false) {
     // console.log("Dashboard loading jobs");
+    this.blocked = true;
+
+    this.ppaService.getPPAJobs(exp).subscribe(
+      jobs => {
+        this.jobs = jobs;
+        this.refreshJobs(jobs);
+        this.exportURL = this.ppaService.exportURL(exp);
+        if (refresh) {
+          this.refreshPanes();
+        }
+        this.blocked = false;
+      },
+      error => {
+        this.blocked = false;
+        this.feedback.error(error);
+      }
+    );
+
+    /*
     return this.loadJobs(exp)
       .then(() => this.exportURL = this.ppaService.exportURL(exp))
       .catch(reason => {
         this.blocked = false;
         this.feedback.error(reason);
       });
+
+     */
   }
 
-  protected loadJobs(exp: ExperimentalAssayView): Promise<PPAJobSummary[]> {
+  refreshPanes() {
+    if (this.panes) {
+      this.panes.forEach(pane => pane.refresh());
+    }
+  }
+
+  /*
+  protected loadJobs(exp: ExperimentalAssayView): Observable<PPAJobSummary[]> {
     return this.ppaService.getPPAJobs(exp)
       .then(jobs => {
         this.jobs = jobs;
@@ -117,7 +150,7 @@ export class PPADashboardComponent extends PPABaseComponent {
         return jobs;
       });
 
-  }
+  }*/
 
   protected refreshJobs(jobs: PPAJobSummary[]) {
     this.jobsIds = jobs.map(j => j.jobId);

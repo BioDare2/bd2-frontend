@@ -371,11 +371,11 @@ export class BioDareRestService {
   }
 
 
-  ppaJobs(expId: number): Promise<any> {
+  ppaJobs(expId: number): Observable<any> {
     const options = this.makeOptions();
     const url = this.endPoints.experiment_url + '/' + expId + this.endPoints.ppa_jobs;
 
-    return this.OKJson(this.http.get(url, options)).toPromise();
+    return this.OKJson(this.http.get(url, options));
   }
 
   ppaResults(expId: number): Promise<any> {

@@ -42,4 +42,29 @@ export class RhythmicityService {
   downloadJob(expId: number, jobId: string): Observable<Blob> {
     return this.BD2REST.rhythmicityExportJob(expId, jobId);
   }
+
+  hasFailed(job: RhythmicityJobSummary): boolean {
+    if (!job) { return false; }
+    if (this.isFinished(job)) { return false; }
+    if (this.isRunning(job)) { return false; }
+    return true;
+  }
+
+  isFinished(job: RhythmicityJobSummary): boolean {
+
+    if (job && job.jobStatus && (job.jobStatus.state === 'FINISHED' || job.jobStatus.state === 'SUCCESS')) {
+      return true;
+    }
+    return false;
+  }
+
+  isRunning(job: RhythmicityJobSummary): boolean {
+    if (!job) {
+      return false;
+    }
+    if (job && job.jobStatus && (job.jobStatus.state === 'SUBMITTED' || job.jobStatus.state === 'PROCESSING')) {
+      return true;
+    }
+    return false;
+  }
 }

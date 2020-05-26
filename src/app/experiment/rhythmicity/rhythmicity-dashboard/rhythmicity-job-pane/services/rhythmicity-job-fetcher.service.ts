@@ -64,21 +64,32 @@ export class RhythmicityJobFetcherService extends RunnableFetcherService<[number
   }
 
   hasFailed(job: RhythmicityJobSummary): boolean {
+    return this.rhythmicityService.hasFailed(job);
+    /*
     if (!job) { return false; }
     if (this.isFinished(job)) { return false; }
     if (this.isRunning(job)) { return false; }
     return true;
+
+     */
   }
 
   isFinished(job: RhythmicityJobSummary): boolean {
+    return this.rhythmicityService.isFinished(job);
 
+    /*
     if (job && job.jobStatus && (job.jobStatus.state === 'FINISHED' || job.jobStatus.state === 'SUCCESS')) {
       return true;
     }
     return false;
+
+     */
   }
 
   isRunning(job: RhythmicityJobSummary): boolean {
+    return this.rhythmicityService.isRunning(job);
+
+    /*
     if (!job) {
       return false;
     }
@@ -86,6 +97,7 @@ export class RhythmicityJobFetcherService extends RunnableFetcherService<[number
       return true;
     }
     return false;
+     */
   }
 
   protected assetToId(asset: RhythmicityJobSummary): string {

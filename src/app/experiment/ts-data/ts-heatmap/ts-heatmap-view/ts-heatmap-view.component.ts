@@ -53,7 +53,7 @@ export class TsHeatmapViewComponent extends ExperimentBaseComponent implements O
   sort(val: any) {
     console.log("Sorting ",val);
   }
-  
+
   ngOnInit(): void {
     super.ngOnInit();
 
