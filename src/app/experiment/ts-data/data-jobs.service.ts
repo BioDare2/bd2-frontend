@@ -35,7 +35,7 @@ export class DataJobsService implements OnDestroy {
     this.rhythmJobs.complete();
   }
 
-  exp(exp: ExperimentalAssayView) {
+  experiment(exp: ExperimentalAssayView) {
 
     this.fetchPPA(exp);
     this.fetchRhythm(exp);

@@ -13,13 +13,14 @@ import {ExperimentalAssayView} from '../../../../dom/repo/exp/experimental-assay
 import {TimeSeriesPack, TSFetcher} from '../../../../tsdata/plots/ts-fetcher';
 import * as FileSaver from 'file-saver';
 import {CSVExporter} from '../../../../tsdata/export/csv-exporter';
+import {DataJobsService} from '../../data-jobs.service';
 
 @Component({
   selector: 'bd2-ts-heatmap-view',
   templateUrl: './ts-heatmap-view.component.html',
   styles: [
   ],
-  providers: [TSFetcher]
+  providers: [TSFetcher, DataJobsService]
 })
 export class TsHeatmapViewComponent extends ExperimentBaseComponent implements OnDestroy, OnInit {
 
@@ -40,13 +41,16 @@ export class TsHeatmapViewComponent extends ExperimentBaseComponent implements O
   private timeSeriesSubsripction: Subscription;
   private csvExporter = new CSVExporter();
 
-  constructor(private fetcher: TSFetcher,
+  constructor(public analysis: DataJobsService,
+              private fetcher: TSFetcher,
               private RDMSocial: RDMSocialServiceService,
               private analytics: AnalyticsService,
               serviceDependencies: ExperimentComponentsDependencies) {
 
     super(serviceDependencies);
 
+    analysis.allowedPPAMethods = ['NLLS'];
+    
     this.titlePart = ' Data';
   }
 
@@ -141,6 +145,7 @@ export class TsHeatmapViewComponent extends ExperimentBaseComponent implements O
       });
 
     this.fetcher.experiment(exp);
+    this.analysis.experiment(exp);
   }
 
   protected isRangeSimetrical(params: DisplayParameters) {
