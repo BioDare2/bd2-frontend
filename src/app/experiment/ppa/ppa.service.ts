@@ -22,6 +22,8 @@ export class PPAService {
   constructor(private BD2REST: BioDareRestService) {
   }
 
+
+
   newPPA(exp: ExperimentalAssayView, request: PPARequest): Promise<any> {
     return this.BD2REST.ppaNew(exp.id, request);
   }
@@ -63,30 +65,6 @@ export class PPAService {
 
   getPPAJobSimpleStats(expId: number, jobId: string | number): Observable<PPAJobSimpleStats> {
     return this.BD2REST.ppaJobSimpleStat(expId, jobId);
-  }
-
-  hasFailed(job: PPAJobSummary): boolean {
-    if (!job) { return false; }
-    if (this.isFinished(job)) { return false; }
-    if (this.isRunning(job)) { return false; }
-    return true;
-  }
-
-  isFinished(job: PPAJobSummary): boolean {
-
-    if (job && job.state && (job.state === 'FINISHED' || job.state === 'SUCCESS')) {
-      return true;
-    }
-    return false;
-  }
-
-  isRunning(job: PPAJobSummary): boolean {
-
-    if (job && job.state && (job.state === 'SUBMITTED' || job.state === 'PROCESSING')) {
-      return true;
-    }
-
-    return false;
   }
 
   /*

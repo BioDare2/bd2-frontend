@@ -64,7 +64,7 @@ export class RhythmicityJobFetcherService extends RunnableFetcherService<[number
   }
 
   hasFailed(job: RhythmicityJobSummary): boolean {
-    return this.rhythmicityService.hasFailed(job);
+    return RhythmicityJobSummary.hasFailed(job);
     /*
     if (!job) { return false; }
     if (this.isFinished(job)) { return false; }
@@ -75,7 +75,7 @@ export class RhythmicityJobFetcherService extends RunnableFetcherService<[number
   }
 
   isFinished(job: RhythmicityJobSummary): boolean {
-    return this.rhythmicityService.isFinished(job);
+    return RhythmicityJobSummary.isFinished(job);
 
     /*
     if (job && job.jobStatus && (job.jobStatus.state === 'FINISHED' || job.jobStatus.state === 'SUCCESS')) {
@@ -87,7 +87,7 @@ export class RhythmicityJobFetcherService extends RunnableFetcherService<[number
   }
 
   isRunning(job: RhythmicityJobSummary): boolean {
-    return this.rhythmicityService.isRunning(job);
+    return RhythmicityJobSummary.isRunning(job);
 
     /*
     if (!job) {

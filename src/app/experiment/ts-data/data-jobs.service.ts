@@ -45,7 +45,7 @@ export class DataJobsService implements OnDestroy {
   protected fetchPPA(exp: ExperimentalAssayView) {
       this.ppa.getPPAJobs(exp).subscribe(
         jobs => {
-          jobs = jobs.filter( job => this.ppa.isFinished(job));
+          jobs = jobs.filter( job => PPAJobSummary.isFinished(job));
           if (this.allowedPPAMethods) {
             jobs = jobs.filter( job => this.allowedPPAMethods.includes(job.method))
           }
@@ -61,7 +61,7 @@ export class DataJobsService implements OnDestroy {
   protected fetchRhythm(exp: ExperimentalAssayView) {
     this.rhythmicity.getJobs(exp).subscribe(
       jobs => {
-        jobs = jobs.filter( job => this.rhythmicity.isFinished(job));
+        jobs = jobs.filter( job => RhythmicityJobSummary.isFinished(job));
         if (this.allowedRhythmMethods) {
           jobs = jobs.filter( job => this.allowedRhythmMethods.includes(job.parameters.METHOD))
         }

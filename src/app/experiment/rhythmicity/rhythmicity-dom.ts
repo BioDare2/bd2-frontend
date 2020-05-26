@@ -170,6 +170,31 @@ export class RhythmicityJobSummary {
 
     return def1.jobId === def2.jobId && def1.parentId === def2.parentId;
   }
+
+  static hasFailed(job: RhythmicityJobSummary): boolean {
+    if (!job) { return false; }
+    if (this.isFinished(job)) { return false; }
+    if (this.isRunning(job)) { return false; }
+    return true;
+  }
+
+  static isFinished(job: RhythmicityJobSummary): boolean {
+
+    if (job && job.jobStatus && (job.jobStatus.state === 'FINISHED' || job.jobStatus.state === 'SUCCESS')) {
+      return true;
+    }
+    return false;
+  }
+
+  static isRunning(job: RhythmicityJobSummary): boolean {
+    if (!job) {
+      return false;
+    }
+    if (job && job.jobStatus && (job.jobStatus.state === 'SUBMITTED' || job.jobStatus.state === 'PROCESSING')) {
+      return true;
+    }
+    return false;
+  }
 }
 
 export class JTKPattern {

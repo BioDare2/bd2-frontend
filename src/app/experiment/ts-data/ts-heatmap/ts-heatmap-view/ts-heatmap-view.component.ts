@@ -50,7 +50,7 @@ export class TsHeatmapViewComponent extends ExperimentBaseComponent implements O
     super(serviceDependencies);
 
     analysis.allowedPPAMethods = ['NLLS'];
-    
+
     this.titlePart = ' Data';
   }
 

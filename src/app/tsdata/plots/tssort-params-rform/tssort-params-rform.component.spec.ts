@@ -1,14 +1,17 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { TSSortParamsRFormComponent } from './tssort-params-rform.component';
+import {ReactiveFormsModule} from '@angular/forms';
+import {MaterialsModule} from '../../../shared/materials.module';
 
-describe('TssortParamsRformComponent', () => {
+describe('TSSortParamsRFormComponent', () => {
   let component: TSSortParamsRFormComponent;
   let fixture: ComponentFixture<TSSortParamsRFormComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ TSSortParamsRFormComponent ]
+      declarations: [ TSSortParamsRFormComponent ],
+      imports: [ReactiveFormsModule, MaterialsModule]
     })
     .compileComponents();
   }));

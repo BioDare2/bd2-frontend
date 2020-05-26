@@ -132,6 +132,30 @@ export class PPAJobSummary {
     return def1.jobId === def2.jobId && def1.parentId === def2.parentId;
   }
 
+  static hasFailed(job: PPAJobSummary): boolean {
+    if (!job) { return false; }
+    if (this.isFinished(job)) { return false; }
+    if (this.isRunning(job)) { return false; }
+    return true;
+  }
+
+  static isFinished(job: PPAJobSummary): boolean {
+
+    if (job && job.state && (job.state === 'FINISHED' || job.state === 'SUCCESS')) {
+      return true;
+    }
+    return false;
+  }
+
+  static isRunning(job: PPAJobSummary): boolean {
+
+    if (job && job.state && (job.state === 'SUBMITTED' || job.state === 'PROCESSING')) {
+      return true;
+    }
+
+    return false;
+  }
+
 }
 
 export class ValuesByPhase {

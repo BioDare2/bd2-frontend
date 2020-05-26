@@ -17,16 +17,16 @@ describe('DataJobsService', () => {
   beforeEach(() => {
 
     rhythmicityService = jasmine.createSpyObj('RhythmicityService', [
-      'getJobs','isFinished'
+      'getJobs'
     ]);
     rhythmicityService.getJobs.and.returnValue(throwError('mock service not initialized'));
-    rhythmicityService.isFinished.and.callFake( (job: RhythmicityJobSummary) => job.jobStatus.state === 'FINISHED');
+    // rhythmicityService.isFinished.and.callFake( (job: RhythmicityJobSummary) => job.jobStatus.state === 'FINISHED');
 
     ppaService = jasmine.createSpyObj('PPAService', [
-      'getPPAJobs','isFinished'
+      'getPPAJobs'
     ]);
     ppaService.getPPAJobs.and.returnValue(throwError('mock service not initialized'));
-    ppaService.isFinished.and.callFake( (job: PPAJobSummary) => job.state === 'FINISHED');
+    // ppaService.isFinished.and.callFake( (job: PPAJobSummary) => job.state === 'FINISHED');
 
     service = new DataJobsService(ppaService, rhythmicityService);
 
