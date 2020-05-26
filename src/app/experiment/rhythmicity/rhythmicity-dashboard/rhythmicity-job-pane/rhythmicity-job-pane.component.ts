@@ -180,8 +180,8 @@ export class RhythmicityJobPaneComponent implements OnInit, OnChanges, OnDestroy
   }
 
   friendlyMethod(method: string) {
-    if (method == 'BD2JTK') { return 'Classic JTK'; }
-    if (method == 'BD2EJTK') { return 'BD2 eJTK'; }
+    if (method === 'BD2JTK') { return 'Classic JTK'; }
+    if (method === 'BD2EJTK') { return 'BD2 eJTK'; }
     return method;
   }
 

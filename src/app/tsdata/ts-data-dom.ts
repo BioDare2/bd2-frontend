@@ -1,3 +1,6 @@
+import {SortDirection} from '@angular/material/sort/sort-direction';
+import {Sort} from '@angular/material/sort';
+
 export class DetrendingType {
 
   static NO_DTR = new DetrendingType('NO_DTR', 'no dtr');
@@ -115,4 +118,14 @@ export class TimeSeriesMetrics {
 
   public series: number;
   public uniformMetrics: boolean;
+}
+
+export interface TSSort extends Sort {
+
+  ppaJobId?: string;
+  rhythmJobId?: string;
+  /*constructor(public active: string,
+              public direction: SortDirection,
+              public ppaJobId?: string, public rhythmJobId?: string) {
+  }*/
 }

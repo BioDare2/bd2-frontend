@@ -1,59 +1,61 @@
 
 <div class="container">
-    <mat-radio-group aria-label="Sorting options" [(ngModel)]="sortBy">
 
-      <div class="row mb-1">
-        <label class="col-lg-2">Sort</label>
-        <div class="col-lg-4">
-          <mat-slide-toggle>asc.</mat-slide-toggle>
+    <form [formGroup]="mainForm" role="form">
+      <mat-radio-group aria-label="Sorting options" formControlName="active">
+
+        <div class="row mb-1">
+          <label class="col-lg-2">Sort</label>
+          <div class="col-lg-4">
+            <mat-slide-toggle formControlName="isAscending">asc.</mat-slide-toggle>
+          </div>
+          <div class="col-lg-5">
+            <mat-radio-button value="ID">id</mat-radio-button>
+            <mat-radio-button  value="LABEL">label</mat-radio-button>
+            <mat-radio-button  value="CLUSTER">cluster</mat-radio-button>
+          </div>
         </div>
-        <div class="col-lg-5">
-          <mat-radio-button value="id">id</mat-radio-button>
-          <mat-radio-button  value="label">label</mat-radio-button>
-          <mat-radio-button  value="cluster">cluster</mat-radio-button>
-        </div>
-      </div>
 
-      <div class="row mb-1">
-        <label class="col-lg-2">PPA Analysis</label>
-        <div class="col-lg-4">
-        <select id="ppa" class="form-control" aria-label="Select period analysis" [disabled]="noPPA"
-
-        >
-          <option>xyzd FFT NLLS 2020-05-13</option>
-          <option>dfs FFT NLLS 2020-03-13</option>
-          <option>dsfsfa FFT NLLS 2020-06-13</option>
-          <option>fgggaa FFT NLLS 2020-06-13</option>
-        </select>
-        </div>
-        <div class="col-lg-5">
-          <mat-radio-button value="period" [disabled]="noPPA">period</mat-radio-button>
-          <mat-radio-button  value="phase" [disabled]="noPPA">phase</mat-radio-button>
-          <mat-radio-button value="amp" [disabled]="noPPA">amp.</mat-radio-button>
-          <mat-radio-button  value="err" [disabled]="noPPA">err</mat-radio-button>
-        </div>
-      </div>
-
-      <div class="row  mb-1">
-        <label class="col-lg-2">Rhythm test</label>
-        <div class="col-lg-4">
-          <select id="rhythm" class="form-control" aria-label="Select rhythmicity test" [disabled]="noRhythm"
-
+        <div class="row mb-1">
+          <label class="col-lg-2">PPA Analysis</label>
+          <div class="col-lg-4">
+          <select id="ppa" class="form-control" aria-label="Select period analysis"
+                  formControlName="ppaJobId"
           >
-            <option>xyzd FFT NLLS 2020-05-13</option>
-            <option>dfs FFT NLLS 2020-03-13</option>
-            <option>dsfsfa FFT NLLS 2020-06-13</option>
-            <option>fgggaa FFT NLLS 2020-06-13</option>
+            <option *ngFor="let job of ppaJobs" [value]="job.jobId">
+              {{job.method}}: {{shortUUID(job.jobId)}} ({{toLocalDateTime(job.submitted) | date}})
+            </option>
           </select>
+          </div>
+          <div class="col-lg-5">
+            <mat-radio-button value="PERIOD" [disabled]="noPPA">period</mat-radio-button>
+            <mat-radio-button  value="PHASE" [disabled]="noPPA">phase</mat-radio-button>
+            <mat-radio-button value="AMP" [disabled]="noPPA">amp.</mat-radio-button>
+            <mat-radio-button  value="ERR" [disabled]="noPPA">err</mat-radio-button>
+          </div>
         </div>
-        <div class="col-lg-5">
-          <mat-radio-button  value="pvalue" [disabled]="noRhythm">pValue</mat-radio-button>
-          <mat-radio-button value="ppeak" [disabled]="noRhythm">peak</mat-radio-button>
-          <mat-radio-button  value="pperiod" [disabled]="noRhythm">length</mat-radio-button>
+
+        <div class="row  mb-1">
+          <label class="col-lg-2">Rhythmicity Test</label>
+          <div class="col-lg-4">
+            <select id="rhythm" class="form-control" aria-label="Select rhythmicity test"
+                    formControlName="rhythmJobId"
+            >
+              <option *ngFor="let job of rhythmJobs" [value]="job.jobId">
+                {{friendlyRhythmMethod(job.parameters.METHOD)}}: {{shortUUID(job.jobId)}} ({{toLocalDateTime(job.jobStatus.submitted) | date}})
+              </option>
+            </select>
+          </div>
+          <div class="col-lg-5">
+            <mat-radio-button  value="PVALUE" [disabled]="noRhythm">pValue</mat-radio-button>
+            <mat-radio-button value="P_PEAK" [disabled]="noRhythm">peak</mat-radio-button>
+            <mat-radio-button  value="P_PERIOD" [disabled]="noRhythm">length</mat-radio-button>
+          </div>
         </div>
-      </div>
 
 
-    </mat-radio-group>
+      </mat-radio-group>
+    </form>
+  {{ mainForm.value | json }}
 </div>
 
