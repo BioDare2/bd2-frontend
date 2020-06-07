@@ -26,16 +26,24 @@ export class BioDareRestService {
 
   // it is static as the this was missinging in handleBadResponse
   public static extractMessage(resp: HttpErrorResponse, def: string): string {
+
+    // console.log("R:", resp);
+
     if (!resp) {
-      return '' + def;
+      return ''+def;
     }
 
-    if (resp.error && resp.error.message) {
-      return resp.error.message;
+    if (resp.error) {
+      let msg = resp.error.message || '';
+      if (resp.error.error) {
+        msg += ` (${resp.error.error})`
+      }
+      msg = msg || ''+def;
+      return msg;
     }
 
     if (resp.message) {
-      return resp.message + ':' + def;
+      return `${def}: ${resp.message}`;
     }
 
     return def;
@@ -662,6 +670,10 @@ export class BioDareRestService {
       }
       case 400: {
         message = BioDareRestService.extractMessage(resp, 'Handling error');
+        break;
+      }
+      case 500: {
+        message = BioDareRestService.extractMessage(resp, 'Server error');
         break;
       }
       default: {

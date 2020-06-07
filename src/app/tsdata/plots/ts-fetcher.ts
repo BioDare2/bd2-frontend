@@ -73,6 +73,7 @@ export class TSFetcher implements OnDestroy {
   }
 
   public sort(sort: TSSort) {
+    // console.log('Fetcher sort', sort);
     if (sort) {
       this.sortStream.next(sort);
     }
@@ -133,14 +134,12 @@ export class TSFetcher implements OnDestroy {
       // tap( v => console.log('DataSets combine', v)),
       tap( p => this.loading$.next(true)),
       switchMap(([exp, detrending, hourly, page, sort]) => this.loadDataSet(exp, detrending, hourly, page, sort)),
-      catchError( err => {
-        console.log('Caught error', err);
-        this.error$.next(err);
-        return of(undefined);
-      }),
       tap( p => this.loading$.next(false)),
       // tap( v => console.log('After switch map DataSets combine', v)),
-    ).subscribe( ds => this.dataSetsStream.next(ds));
+    ).subscribe( ds => this.dataSetsStream.next(ds),
+        err => console.log('Error should not propagate here', err),
+        () => console.log('Fetcher ds stream should not complete')
+    );
   }
 
 
@@ -172,22 +171,27 @@ export class TSFetcher implements OnDestroy {
   protected loadDataSet(exp: ExperimentalAssayView, detrending: DetrendingType, hourly: boolean,
                         page: PageEvent, sort: TSSort): Observable<TraceSet> {
 
+    let set$: Observable<TraceSet>;
+
     if (hourly) {
-      return this.tsDataService.loadHourlyDataSet(exp, detrending, page, sort).pipe(
-        tap(ds => {
-          ds.detrending = detrending;
-          ds.sort = ds.sort || sort;
-        }),
-        tap( ds => ds.traces.forEach( trace => trace.label =`${trace.traceNr}. ${trace.label}`))
-      );
+      set$ = this.tsDataService.loadHourlyDataSet(exp, detrending, page, sort);
     } else {
-      return this.tsDataService.loadDataSet(exp, detrending, page, sort).pipe(
+      set$ = this.tsDataService.loadDataSet(exp, detrending, page, sort);
+    }
+
+    return set$.pipe(
         tap(ds => {
-          ds.detrending = detrending;
+          ds.detrending = ds.detrending || detrending;
           ds.sort = ds.sort || sort;
         }),
-      );
-    }
+        tap( ds => ds.traces.forEach( trace => trace.label =`${trace.traceNr}. ${trace.label}`)),
+        catchError( err => {
+          console.log('Caught error', err);
+          this.error$.next(err);
+          return of(undefined);
+        })
+    );
+
   }
 
   public getFullDataSet(exp: ExperimentalAssayView, params: DisplayParameters): Observable<TimeSeriesPack> {

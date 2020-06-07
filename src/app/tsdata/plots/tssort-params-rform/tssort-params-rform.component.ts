@@ -113,7 +113,7 @@ export class TSSortParamsRFormComponent implements OnInit, OnDestroy {
   }
 
   defaultSorting() {
-    return 'ID';
+    return 'NR';
   }
 
   shortUUID(id: string) {

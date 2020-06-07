@@ -84,6 +84,8 @@ export class TsHeatmapViewComponent extends ExperimentBaseComponent implements O
         },
         // () => console.log('Timeseries stream finished')
       );
+
+    this.fetcher.error$.subscribe( err => this.feedback.error(err));
   }
 
   ngOnDestroy(): void {
