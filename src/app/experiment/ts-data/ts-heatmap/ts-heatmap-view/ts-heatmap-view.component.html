@@ -10,11 +10,18 @@
     [currentPage]="currentPage"
   ></bd2-heatmap-display-params-rform>
 
-  <bd2-tssort-params-rform (sorting)="sort($event)"
-                           [ppaJobs]="analysis.ppaJobs$ | async"
-                           [rhythmJobs]="analysis.rhythmJobs$ | async"
-  >
-  </bd2-tssort-params-rform>
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        Sorting
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+    <bd2-tssort-params-rform
+                             [ppaJobs]="analysis.ppaJobs$ | async"
+                             [rhythmJobs]="analysis.rhythmJobs$ | async"
+    >
+    </bd2-tssort-params-rform>
+  </mat-expansion-panel>
   <hr>
 
   <div class="clearfix">

@@ -31,6 +31,9 @@ export class TSFetcher implements OnDestroy {
   public readonly error$ = new Subject<any>();
   public readonly loading$ = new Subject<boolean>();
 
+  public addTraceNr = true;
+  public addTraceRef = true;
+
   private dataSetsStream = new BehaviorSubject<TraceSet>(undefined);
   private displayParamsStream: Subject<DisplayParameters>;
   private sortStream = new BehaviorSubject<TSSort>({} as TSSort);
@@ -138,7 +141,7 @@ export class TSFetcher implements OnDestroy {
       // tap( v => console.log('After switch map DataSets combine', v)),
     ).subscribe( ds => this.dataSetsStream.next(ds),
         err => console.log('Error should not propagate here', err),
-        () => console.log('Fetcher ds stream should not complete')
+        // () => console.log('Fetcher ds stream should not complete')
     );
   }
 
@@ -182,9 +185,9 @@ export class TSFetcher implements OnDestroy {
     return set$.pipe(
         tap(ds => {
           ds.detrending = ds.detrending || detrending;
-          ds.sort = ds.sort || sort;
+          ds.sort = sort;
         }),
-        tap( ds => ds.traces.forEach( trace => trace.label =`${trace.traceNr}. ${trace.label}`)),
+        tap( ds => ds.traces.forEach( trace => this.enrichLabel(trace, this.addTraceNr, this.addTraceRef))),
         catchError( err => {
           console.log('Caught error', err);
           this.error$.next(err);
@@ -194,13 +197,21 @@ export class TSFetcher implements OnDestroy {
 
   }
 
-  public getFullDataSet(exp: ExperimentalAssayView, params: DisplayParameters): Observable<TimeSeriesPack> {
+  protected enrichLabel(trace: Trace, addTraceNr: boolean, addTraceRef: boolean) {
+    if (addTraceNr && addTraceRef) {
+      trace.label =`${trace.traceNr}.${trace.traceRef} ${trace.label}`
+    } else if(addTraceNr) {
+      trace.label =`${trace.traceNr}. ${trace.label}`
+    }
+  }
+
+  public getFullDataSet(exp: ExperimentalAssayView, params: DisplayParameters, sorting: TSSort): Observable<TimeSeriesPack> {
     const page = {pageIndex: 0, pageSize: 50000} as PageEvent;
     params = params.clone();
     params.timeScale.timeStart = 0;
     params.timeScale.timeEnd = 0;
 
-    return this.loadDataSet(exp, params.detrending, params.hourly, page, {} as TSSort).pipe(
+    return this.loadDataSet(exp, params.detrending, params.hourly, page, sorting).pipe(
       map( data => this.processDataSet(data, params))
     )
 

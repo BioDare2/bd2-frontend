@@ -14,7 +14,7 @@ export class Trace {
   key?: any;
   traceNr?: number;
   dataId?: number;
-  traceRef?: number;
+  traceRef?: string;
   label: string;
   fill = false;
   data: Timepoint[] = [];

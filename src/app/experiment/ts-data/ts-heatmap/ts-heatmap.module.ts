@@ -11,6 +11,7 @@ import {SimplePaginatorComponent} from './simple-paginator/simple-paginator.comp
 import {MatIconModule} from '@angular/material/icon';
 import {MatButtonModule} from '@angular/material/button';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+import {MatExpansionModule} from '@angular/material/expansion';
 import {TSPlotModule} from '../../../tsdata/plots/ts-plot.module';
 
 @NgModule({
@@ -23,6 +24,7 @@ import {TSPlotModule} from '../../../tsdata/plots/ts-plot.module';
     MatIconModule,
     MatButtonModule,
     MatSlideToggleModule,
+    MatExpansionModule,
     Bd2NgxHeatmapModule,
     TSPlotModule,
     TsHeatmapRoutingModule

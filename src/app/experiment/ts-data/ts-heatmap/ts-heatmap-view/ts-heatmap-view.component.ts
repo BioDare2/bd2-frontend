@@ -50,12 +50,11 @@ export class TsHeatmapViewComponent extends ExperimentBaseComponent implements O
     super(serviceDependencies);
 
     analysis.allowedPPAMethods = ['NLLS'];
+    fetcher.addTraceNr = true;
+    fetcher.addTraceRef = false;
 
     this.titlePart = ' Data';
-  }
 
-  sort(val: any) {
-    console.log("Sorting ",val);
   }
 
   ngOnInit(): void {
@@ -111,16 +110,16 @@ export class TsHeatmapViewComponent extends ExperimentBaseComponent implements O
 
   exportFullData() {
 
-    this.fetcher.getFullDataSet(this.assay, this.fetcher.current.params).subscribe( data => {
-
-      this.exportSeriesPack(data, true);
+    this.fetcher.getFullDataSet(this.assay, this.fetcher.current.params, this.fetcher.current.sorting)
+      .subscribe( data => {
+        this.exportSeriesPack(data, true);
     });
   }
 
   protected exportSeriesPack(data: TimeSeriesPack, full = false) {
 
     if (!data) { return; }
-    const csv = this.csvExporter.renderCSVTable(data.data, data.params, data.currentPage, this.assay);
+    const csv = this.csvExporter.renderCSVTable(data.data, data.params, data.currentPage, data.sorting, this.assay);
     const blob = new Blob([csv], {type: 'text/csv'});
 
     const pageSuffix = full ? '.full' : `.page${data.currentPage.pageIndex + 1}`;

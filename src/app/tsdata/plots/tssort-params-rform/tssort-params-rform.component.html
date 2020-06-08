@@ -47,7 +47,7 @@
             </select>
           </div>
           <div class="col-lg-5">
-            <mat-radio-button  value="R_PVALUE" [disabled]="noRhythm">pValue</mat-radio-button>
+            <mat-radio-button  value="R_TAU" [disabled]="noRhythm">signif.</mat-radio-button>
             <mat-radio-button value="R_PEAK" [disabled]="noRhythm">peak</mat-radio-button>
             <mat-radio-button  value="R_PERIOD" [disabled]="noRhythm">length</mat-radio-button>
           </div>
@@ -56,6 +56,6 @@
 
       </mat-radio-group>
     </form>
-  {{ mainForm.value | json }}
+  <!--{{ mainForm.value | json }}-->
 </div>
 

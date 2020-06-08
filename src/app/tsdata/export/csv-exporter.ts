@@ -3,14 +3,15 @@ import {DisplayParameters} from '../plots/ts-display.dom';
 import {ExperimentalAssayView} from '../../dom/repo/exp/experimental-assay-view';
 import {ColumnMap} from './column-map';
 import {PageEvent} from '@angular/material/paginator';
+import {TSSort} from '../ts-data-dom';
 
 export class CSVExporter {
 
   SEP = ',';
 
-  renderCSVTable(timeseries: Trace[], params: DisplayParameters, page: PageEvent, exp: ExperimentalAssayView): string {
+  renderCSVTable(timeseries: Trace[], params: DisplayParameters, page: PageEvent, sorting: TSSort, exp: ExperimentalAssayView): string {
 
-    const headers = this.prepareHeaders(exp, params, page, timeseries.length);
+    const headers = this.prepareHeaders(exp, params, page, sorting, timeseries.length);
     this.appendDataLabels(headers, timeseries);
 
     const data = this.prepareDataTable(timeseries);
@@ -21,9 +22,11 @@ export class CSVExporter {
     return txt;
   }
 
-  prepareHeaders(exp: ExperimentalAssayView, params: DisplayParameters, page: PageEvent, traces: number): ColumnMap<string, string> {
+  prepareHeaders(exp: ExperimentalAssayView, params: DisplayParameters, page: PageEvent,
+                 sorting: TSSort, traces: number): ColumnMap<string, string> {
     const headers = this.prepareExpHeaders(exp);
     this.appendDisplayProperties(headers, params);
+    this.appendSortingProperties(headers, sorting);
     this.appendDataProperties(headers, traces, page);
     return headers;
   }
@@ -56,6 +59,12 @@ export class CSVExporter {
     headers.put('Normalization:', params.normalisation, 0);
     headers.put('Normalization:', params.trimFirst ? 'within range' : 'whole serie', 1);
     headers.put('Align:', params.align, 0);
+  }
+
+  appendSortingProperties(headers: ColumnMap<string, string>, sorting: TSSort) {
+
+    headers.put('Sorting:', `${sorting.active} ${sorting.direction}`, 0);
+    headers.put('Sorting jobs:', `${sorting.ppaJobId} ${sorting.rhythmJobId}`, 0);
   }
 
   appendDataProperties(headers: ColumnMap<string, string>, traces: number, page: PageEvent) {

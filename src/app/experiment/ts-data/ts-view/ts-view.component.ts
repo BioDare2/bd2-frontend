@@ -13,6 +13,7 @@ import {debounceTime} from 'rxjs/operators';
 import * as FileSaver from 'file-saver';
 import {PageEvent} from '@angular/material/paginator';
 import {TimeSeriesMetrics} from '../../../tsdata/ts-data-dom';
+import {DataJobsService} from '../data-jobs.service';
 
 @Component({
   template: `
@@ -26,6 +27,19 @@ import {TimeSeriesMetrics} from '../../../tsdata/ts-data-dom';
       [totalTraces]="totalTraces"
       [currentPage]="currentPage"
     ></bd2-tsdisplay-params-rform>
+
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Sorting
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <bd2-tssort-params-rform
+                               [ppaJobs]="analysis.ppaJobs$ | async"
+                               [rhythmJobs]="analysis.rhythmJobs$ | async"
+      >
+      </bd2-tssort-params-rform>
+    </mat-expansion-panel>
 
     <div *ngIf="disabledSecondary" type="danger" class="alert alert-danger" role="alert"
     >Please complete <a (click)="goToExpEdit(assay.id,'MeasurementSection')">Measurement details</a> to get access to
@@ -71,7 +85,7 @@ import {TimeSeriesMetrics} from '../../../tsdata/ts-data-dom';
     ></bd2-ts-plots>
     </div>
   `,
-  providers: [TSFetcher]
+  providers: [TSFetcher, DataJobsService]
 })
 export class TSViewComponent extends ExperimentBaseComponent implements OnDestroy, OnInit {
 
@@ -94,7 +108,8 @@ export class TSViewComponent extends ExperimentBaseComponent implements OnDestro
   private csvExporter = new CSVExporter();
 
 
-  constructor(private fetcher: TSFetcher,
+  constructor(public analysis: DataJobsService,
+              private fetcher: TSFetcher,
               private RDMSocial: RDMSocialServiceService,
               private analytics: AnalyticsService,
               serviceDependencies: ExperimentComponentsDependencies) {
@@ -130,6 +145,8 @@ export class TSViewComponent extends ExperimentBaseComponent implements OnDestro
         },
         // () => console.log('Timeseries stream finished')
       );
+
+    this.fetcher.error$.subscribe( err => this.feedback.error(err));
   }
 
   ngOnDestroy(): void {
@@ -155,16 +172,16 @@ export class TSViewComponent extends ExperimentBaseComponent implements OnDestro
 
   exportFullData() {
 
-    this.fetcher.getFullDataSet(this.assay, this.fetcher.current.params).subscribe( data => {
-
-      this.exportSeriesPack(data, true);
+    this.fetcher.getFullDataSet(this.assay, this.fetcher.current.params, this.fetcher.current.sorting)
+      .subscribe( data => {
+        this.exportSeriesPack(data, true);
     });
   }
 
   protected exportSeriesPack(data: TimeSeriesPack, full = false) {
 
     if (!data) { return; }
-    const csv = this.csvExporter.renderCSVTable(data.data, data.params, data.currentPage, this.assay);
+    const csv = this.csvExporter.renderCSVTable(data.data, data.params, data.currentPage, data.sorting, this.assay);
     const blob = new Blob([csv], {type: 'text/csv'});
 
     const pageSuffix = full ? '.full' : `.page${data.currentPage.pageIndex + 1}`;
@@ -191,7 +208,7 @@ export class TSViewComponent extends ExperimentBaseComponent implements OnDestro
       });
 
     this.fetcher.experiment(exp);
-
+    this.analysis.experiment(exp);
 
 
   }
