@@ -87,9 +87,14 @@ export class AnalyticsService {
     this.experimentStream.next(new AnalEvent('experiment', 'view', '' + id));
   }
 
-  public experimentDataViev(id: number) {
+  public experimentDataView(id: number) {
     this.dataStream.next(new AnalEvent('data', 'view', '' + id));
   }
+
+  public experimentHeatmapView(id: number) {
+    this.dataStream.next(new AnalEvent('data', 'heatmap', '' + id));
+  }
+
 
   public experimentDataExport(id: number) {
     this.dataStream.next(new AnalEvent('data', 'export', '' + id));

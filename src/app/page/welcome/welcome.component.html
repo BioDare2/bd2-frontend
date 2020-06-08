@@ -13,18 +13,23 @@
       <h4>Recently added features</h4>
       <div class="clearfix">
         <div class="alert alert-info" role="alert">
+          <h5 class="list-group-item-heading">Heatmap charts</h5>
+          <p class="list-group-item-text">You can now easily compare multiple timeseries
+            using a heatmap view.</p>
+        </div>
+        <div class="alert alert-info" role="alert">
+          <h5 class="list-group-item-heading">Sorting on charts</h5>
+          <p class="list-group-item-text">Both line plots and heatmap charts can be now sorted 
+          by nr, labels or even periods from the analysis results.</p>
+        </div>
+        <div class="alert alert-info" role="alert">
           <h5 class="list-group-item-heading">Rhythmicity Test</h5>
-          <p class="list-group-item-text">We have added the eJTK method
+          <p class="list-group-item-text">We have added the eJTK and classic JTK methods
             (<a href=" https://doi.org/10.1371/journal.pcbi.1004094">A.L. Hutchison et al. 2015</a>) for rhythmicity tests</p>
         </div>
         <div class="alert alert-info" role="alert">
           <h5 class="list-group-item-heading">CSV and TSV files import</h5>
           <p class="list-group-item-text">You can now import the timeseries data from text files</p>
-        </div>
-        <div class="alert alert-info" role="alert">
-          <h5 class="list-group-item-heading">Better handling of large data sets</h5>
-          <p class="list-group-item-text">Data views are now paginated so the large datasets will can be
-          displayed without crashing your browser.</p>
         </div>
         <div class="alert alert-success" role="alert">
           <h5 class="list-group-item-heading">BioDare YouTube channel with tutorials</h5>
@@ -38,6 +43,11 @@
           <button class="btn btn-primary">see more</button>
         </div>
         <div *ngIf="moreFeatures">
+          <div class="alert alert-info" role="alert">
+            <h5 class="list-group-item-heading">Better handling of large data sets</h5>
+            <p class="list-group-item-text">Data views are now paginated so the large datasets will can be
+              displayed without crashing your browser.</p>
+          </div>
           <div class="alert alert-info" role="alert">
             <h5 class="list-group-item-heading">Publishing data</h5>
             <p class="list-group-item-text">You can now make your data public, choose the padlock icon and follow the

@@ -116,6 +116,8 @@ export class TSViewComponent extends ExperimentBaseComponent implements OnDestro
 
     super(serviceDependencies);
 
+    analysis.allowedPPAMethods = ['NLLS','MESA'];
+
     this.titlePart = ' Data';
   }
 
@@ -136,7 +138,7 @@ export class TSViewComponent extends ExperimentBaseComponent implements OnDestro
           this.tracesPerPlot = Math.max(5, data.length / 20);
           this.totalTraces = pack.totalTraces;
           this.currentPage = pack.currentPage;
-          this.analytics.experimentDataViev(this.assay.id);
+          this.analytics.experimentDataView(this.assay.id);
 
         },
         (err) => {

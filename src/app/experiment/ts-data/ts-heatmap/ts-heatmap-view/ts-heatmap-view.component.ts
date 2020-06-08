@@ -49,7 +49,7 @@ export class TsHeatmapViewComponent extends ExperimentBaseComponent implements O
 
     super(serviceDependencies);
 
-    analysis.allowedPPAMethods = ['NLLS'];
+    analysis.allowedPPAMethods = ['NLLS','MESA'];
     fetcher.addTraceNr = true;
     fetcher.addTraceRef = false;
 
@@ -74,7 +74,7 @@ export class TsHeatmapViewComponent extends ExperimentBaseComponent implements O
           this.tracesPerPlot = Math.max(5, data.length / 20);
           this.totalTraces = pack.totalTraces;
           this.currentPage = pack.currentPage;
-          this.analytics.experimentDataViev(this.assay.id);
+          this.analytics.experimentHeatmapView(this.assay.id);
 
         },
         (err) => {

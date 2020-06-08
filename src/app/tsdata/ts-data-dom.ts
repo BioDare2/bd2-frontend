@@ -132,7 +132,7 @@ export interface TSSort extends Sort {
 }
 
 const ppaSorting = ['PERIOD','PHASE','AMP','ERR'];
-const rhythmSorting = ['PVALUE','P_PEAK','P_PERIOD'];
+const rhythmSorting = ['R_TAU','R_PVALUE','R_PEAK','R_PERIOD'];
 
 export function equalSort(prev: TSSort, next: TSSort): boolean {
   if (!prev || !next) {
