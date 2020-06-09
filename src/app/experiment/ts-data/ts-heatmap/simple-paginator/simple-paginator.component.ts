@@ -220,13 +220,16 @@ export class SimplePaginatorComponent implements OnInit {
     const startIndex = this.pageIndex * this.pageSize;
     const previousPageIndex = this.pageIndex;
 
+
     this.pageIndex = Math.floor(startIndex / pageSize) || 0;
     this.pageSize = pageSize;
+    // console.log('PS: '+pageSize+' StartIndex: '+startIndex+' prevI: '+previousPageIndex+' newP:'+this.pageIndex);
     this._emitPageEvent(previousPageIndex);
   }
 
   /** Emits an event notifying that a change of the paginator's properties has been triggered. */
   private _emitPageEvent(previousPageIndex: number) {
+    // console.log("Emiting"+this.pageIndex+":"+this.pageSize );
     this.page.emit({
       previousPageIndex,
       pageIndex: this.pageIndex,

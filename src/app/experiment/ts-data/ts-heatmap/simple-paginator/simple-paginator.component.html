@@ -9,7 +9,7 @@
         </div>
 
         <div *ngIf="_displayedPageSizeOptions.length > 1">
-          <select class="mat-paginator-page-size-select" required [(ngModel)]="pageSize"
+          <select class="mat-paginator-page-size-select" required [ngModel]="pageSize"
                   style="font-size: 12px;" (ngModelChange)="_changePageSize($event)"
           >
             <option *ngFor="let pageSizeOption of _displayedPageSizeOptions" [value]="pageSizeOption">
