@@ -1,6 +1,6 @@
 import {DisplayParameters} from './ts-display.dom';
 import {Timepoint, Trace, TraceSet} from './ts-plot.dom';
-import {Inject, Injectable, OnDestroy, OnInit, Optional} from '@angular/core';
+import {Inject, Injectable, OnDestroy, Optional} from '@angular/core';
 import {BehaviorSubject, combineLatest, Observable, of, Subject} from 'rxjs';
 import {TSDataService} from '../ts-data.service';
 import {AlignOptions, DetrendingType, equalSort, NormalisationOptions, TSSort} from '../ts-data-dom';

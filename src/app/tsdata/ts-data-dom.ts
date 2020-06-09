@@ -1,4 +1,3 @@
-import {SortDirection} from '@angular/material/sort/sort-direction';
 import {Sort} from '@angular/material/sort';
 
 export class DetrendingType {

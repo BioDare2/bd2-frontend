@@ -6,7 +6,6 @@ import {PPAService} from '../ppa.service';
 import {ExperimentComponentsDependencies} from '../../experiment-components.dependencies';
 import {ExperimentalAssayView} from '../../../dom/repo/exp/experimental-assay-view';
 import {StaticContentDialogService} from '../../../documents/static-content/static-content-dialog.service';
-import {Observable} from 'rxjs';
 
 @Component({
   templateUrl: './ppa-dashboard.component.html',

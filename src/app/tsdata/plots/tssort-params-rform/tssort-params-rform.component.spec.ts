@@ -1,6 +1,6 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { TSSortParamsRFormComponent } from './tssort-params-rform.component';
+import {TSSortParamsRFormComponent} from './tssort-params-rform.component';
 import {ReactiveFormsModule} from '@angular/forms';
 import {MaterialsModule} from '../../../shared/materials.module';
 

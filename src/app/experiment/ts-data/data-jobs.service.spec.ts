@@ -1,6 +1,4 @@
-
-
-import { DataJobsService } from './data-jobs.service';
+import {DataJobsService} from './data-jobs.service';
 import {of, throwError} from 'rxjs';
 import {RhythmicityService} from '../rhythmicity/rhythmicity.service';
 import {PPAService} from '../ppa/ppa.service';

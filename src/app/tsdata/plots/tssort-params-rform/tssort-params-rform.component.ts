@@ -2,7 +2,7 @@ import {Component, EventEmitter, Input, OnDestroy, OnInit, Optional, Output} fro
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {RhythmicityJobSummary} from '../../../experiment/rhythmicity/rhythmicity-dom';
 import {PPAJobSummary} from '../../../experiment/ppa/ppa-dom';
-import { shortUUID } from 'src/app/shared/collections-util';
+import {shortUUID} from 'src/app/shared/collections-util';
 import {LocalDateTime} from '../../../dom/repo/shared/dates';
 import {TSSort} from '../../ts-data-dom';
 import {Subscription} from 'rxjs';

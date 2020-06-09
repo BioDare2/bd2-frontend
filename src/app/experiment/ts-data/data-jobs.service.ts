@@ -7,7 +7,6 @@ import {RhythmicityJobSummary} from '../rhythmicity/rhythmicity-dom';
 import {ExperimentalAssayView} from '../../dom/repo/exp/experimental-assay-view';
 
 
-
 @Injectable()
 export class DataJobsService implements OnDestroy {
 
