@@ -28,18 +28,19 @@ export class BioDareRestService {
   public static extractMessage(resp: HttpErrorResponse, def: string): string {
 
     // console.log("R:", resp);
+    def = ''+def;
 
     if (!resp) {
-      return ''+def;
+      return def;
     }
 
     if (resp.error) {
-      let msg = resp.error.message || '';
-      if (resp.error.error) {
-        msg += ` (${resp.error.error})`
+      if (resp.error.message) {
+        return resp.error.message;
       }
-      msg = msg || ''+def;
-      return msg;
+      if (resp.error.error) {
+        return resp.error.error;
+      }
     }
 
     if (resp.message) {
