@@ -1,3 +1,5 @@
+2.10.0
+      ts sorting
 2.9.0
       export of processed data for both view and full set
       range and z-score normalization, log2, hourly data
