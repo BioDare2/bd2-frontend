@@ -1,8 +1,7 @@
 import {Injectable} from '@angular/core';
 import {BioDareRestService} from '../../../backend/biodare-rest.service';
 import {catchError, tap, timeout} from 'rxjs/operators';
-import {Observable} from 'rxjs';
-import {of} from 'rxjs/internal/observable/of';
+import {Observable, of} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
