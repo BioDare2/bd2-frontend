@@ -1,6 +1,6 @@
 {
   "name": "biodare2-ui",
-  "version": "2.10.0",
+  "version": "2.11.0",
   "license": "MIT",
   "keywords": [
     "BioDare",
@@ -37,7 +37,7 @@
     "@angular/platform-browser-dynamic": "~10.1.2",
     "@angular/router": "~10.1.2",
     "bd2-ngx-hboxplot": "^1.11.1",
-    "bd2-ngx-heatmap": "^1.1.0",
+    "bd2-ngx-heatmap": "^1.1.1",
     "bd2-ngx-polarplot": "^1.11.0",
     "bootstrap": "^4.5.2",
     "chart.js": "^2.9.3",

@@ -10,6 +10,8 @@ import {Trace} from '../../../tsdata/plots/ts-plot.dom';
 import {TimeSeriesPack, TSFetcher} from '../../../tsdata/plots/ts-fetcher';
 import {CSVExporter} from '../../../tsdata/export/csv-exporter';
 import {debounceTime} from 'rxjs/operators';
+// a explanation how to save files https://nils-mehlhorn.de/posts/angular-file-download-progress
+// in case I want to remove filesaver
 import * as FileSaver from 'file-saver';
 import {PageEvent} from '@angular/material/paginator';
 import {TimeSeriesMetrics} from '../../../tsdata/ts-data-dom';

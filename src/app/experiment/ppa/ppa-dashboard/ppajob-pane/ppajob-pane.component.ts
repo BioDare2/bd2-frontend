@@ -4,6 +4,8 @@ import {PPAJobSummary} from '../../ppa-dom';
 import {PhaseParams} from './phases-options-widget.component';
 import {PPAService} from '../../ppa.service';
 import {FeedbackService} from '../../../../feedback/feedback.service';
+// a explanation how to save files https://nils-mehlhorn.de/posts/angular-file-download-progress
+// in case I want to remove filesaver
 import * as FileSaver from 'file-saver';
 import {PPAJobFetcherService} from './services/ppajob-fetcher.service';
 import {Reloadable} from './reloadable';

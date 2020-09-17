@@ -6,6 +6,8 @@ import {BehaviorSubject, timer} from 'rxjs';
 import {RhythmicityJobSummary, StatTestOptions} from '../../rhythmicity-dom';
 import {LocalDateTime} from '../../../../dom/repo/shared/dates';
 
+// a explanation how to save files https://nils-mehlhorn.de/posts/angular-file-download-progress
+// in case I want to remove filesaver
 import * as FileSaver from 'file-saver';
 import {RhythmicityJobFetcherService} from './services/rhythmicity-job-fetcher.service';
 import {RhythmicityResultsMDTableComponent} from './rhythmicity-results-mdtable/rhythmicity-results-mdtable.component';

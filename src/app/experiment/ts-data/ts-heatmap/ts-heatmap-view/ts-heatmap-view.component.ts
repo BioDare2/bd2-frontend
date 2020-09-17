@@ -11,6 +11,8 @@ import {PageEvent} from '@angular/material/paginator';
 import {TimeSeriesMetrics} from '../../../../tsdata/ts-data-dom';
 import {ExperimentalAssayView} from '../../../../dom/repo/exp/experimental-assay-view';
 import {TimeSeriesPack, TSFetcher} from '../../../../tsdata/plots/ts-fetcher';
+// a explanation how to save files https://nils-mehlhorn.de/posts/angular-file-download-progress
+// in case I want to remove filesaver
 import * as FileSaver from 'file-saver';
 import {CSVExporter} from '../../../../tsdata/export/csv-exporter';
 import {DataJobsService} from '../../data-jobs.service';
