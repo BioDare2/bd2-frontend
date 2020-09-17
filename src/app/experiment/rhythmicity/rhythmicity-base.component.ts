@@ -1,8 +1,10 @@
 import {ExperimentBaseComponent} from '../experiment-base.component';
 import {ExperimentComponentsDependencies} from '../experiment-components.dependencies';
 import {RhythmicityService} from './rhythmicity.service';
+import { Directive } from "@angular/core";
 
 
+@Directive()
 export class RhythmicityBaseComponent extends ExperimentBaseComponent {
 
   constructor(

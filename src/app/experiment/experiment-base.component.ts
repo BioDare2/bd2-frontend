@@ -1,4 +1,4 @@
-import {OnDestroy, OnInit} from '@angular/core';
+import { OnDestroy, OnInit, Directive } from '@angular/core';
 import {ExperimentalAssayView} from '../dom/repo/exp/experimental-assay-view';
 import {FeedbackService} from '../feedback/feedback.service';
 import {CurrentExperimentService} from './current-experiment.service';
@@ -10,6 +10,7 @@ import {TitleSetterService} from '../core/titlesetter.service';
 import {Subscription} from 'rxjs';
 import {filter} from 'rxjs/operators';
 
+@Directive()
 export class ExperimentBaseComponent extends ValidableFormComponent<ExperimentalAssayView> implements OnInit, OnDestroy {
 
   assay: ExperimentalAssayView;

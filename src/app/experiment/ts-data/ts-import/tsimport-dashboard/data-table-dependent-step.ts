@@ -1,4 +1,4 @@
-import {OnDestroy, OnInit} from '@angular/core';
+import { OnDestroy, OnInit, Directive } from '@angular/core';
 import {CellSelection, ImportDetails} from '../import-dom';
 import {SelectionColorCycler, TableSelector} from './data-sheet-mdtable/table-styling';
 import {DataTableSlice, Slice} from './data-table-dom';
@@ -7,6 +7,7 @@ import {FeedbackService} from '../../../../feedback/feedback.service';
 import {Subscription} from 'rxjs';
 
 
+@Directive()
 export class DataTableDependentStep implements OnInit, OnDestroy {
 
   importDetails: ImportDetails;

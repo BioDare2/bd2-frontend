@@ -1,8 +1,10 @@
 import {ExperimentBaseComponent} from '../experiment-base.component';
 import {ExperimentComponentsDependencies} from '../experiment-components.dependencies';
 import {PPAService} from './ppa.service';
+import { Directive } from "@angular/core";
 
 
+@Directive()
 export class PPABaseComponent extends ExperimentBaseComponent {
 
   constructor(
