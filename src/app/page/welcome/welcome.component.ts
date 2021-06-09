@@ -47,4 +47,9 @@ export class WelcomeComponent implements OnInit, OnDestroy {
     }
   }
 
+  showMaintenance(): boolean {
+    console.log("",new Date());
+    return ((new Date()) < (new Date(2021, 5, 14)));
+  }
+
 }
