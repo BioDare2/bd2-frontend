@@ -7,8 +7,8 @@
   <mat-card-content>
   <div *ngIf="registered" class="alert alert-success">
     <h4>Your registration was successful.</h4>
-	Try to login now or check your email (<strong>{{registeredMsg}}</strong>) for the activation link. 
-    <!-- We sent you the activation link to <strong>{{registeredMsg}}</strong>, please use that link before logging in -->
+	<!-- Try to login now or check your email (<strong>{{registeredMsg}}</strong>) for the activation link. -->
+    We have sent you the activation link to <strong>{{registeredMsg}}</strong>, please use that link before logging in 
   </div>
 
   <div *ngIf="!registered" class="mb-4">
