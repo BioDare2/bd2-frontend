@@ -71,6 +71,10 @@ describe('PPAJobPaneComponent', () => {
 
     });
 
+    it('should be true', () => {
+      expect(true).toBeTruthy();
+    })
+
     /*
     it('loadJob takes job from service', () => {
 
