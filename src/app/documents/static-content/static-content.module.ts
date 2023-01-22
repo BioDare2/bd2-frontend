@@ -5,15 +5,12 @@ import {StaticContentDialogComponent} from './static-content-dialog/static-conte
 import {MatDialogModule} from '@angular/material/dialog';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    MatDialogModule
-  ],
-  declarations: [StaticContentComponent, StaticContentDialogComponent],
-  exports: [ StaticContentComponent],
-  entryComponents: [
-    StaticContentDialogComponent
-  ]
+    imports: [
+        CommonModule,
+        MatDialogModule
+    ],
+    declarations: [StaticContentComponent, StaticContentDialogComponent],
+    exports: [StaticContentComponent]
 })
 export class StaticContentModule {
 }

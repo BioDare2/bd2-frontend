@@ -26,18 +26,16 @@
   },
   "private": true,
   "dependencies": {
-    "@angular/animations": "~12.2.17",
+    "@angular/animations": "~13.3.12",
     "@angular/cdk": "~12.2.13",
-    "@angular/common": "~12.2.17",
-    "@angular/compiler": "~12.2.17",
-    "@angular/core": "~12.2.17",
-    "@angular/forms": "~12.2.17",
+    "@angular/common": "~13.3.12",
+    "@angular/compiler": "~13.3.12",
+    "@angular/core": "~13.3.12",
+    "@angular/forms": "~13.3.12",
     "@angular/material": "^12.2.13",
-    "@angular/platform-browser": "~12.2.17",
-    "@angular/platform-browser-dynamic": "~12.2.17",
-    "@angular/router": "~12.2.17",
-
-
+    "@angular/platform-browser": "~13.3.12",
+    "@angular/platform-browser-dynamic": "~13.3.12",
+    "@angular/router": "~13.3.12",
     "bootstrap": "^4.5.2",
     "chart.js": "^2.9.3",
     "file-saver": "^2.0.2",
@@ -47,11 +45,11 @@
     "zone.js": "~0.11.4"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "~12.2.18",
-    "@angular-devkit/core": "12.2.18",
-    "@angular/cli": "~12.2.18",
-    "@angular/compiler-cli": "~12.2.17",
-    "@angular/language-service": "~12.2.17",
+    "@angular-devkit/build-angular": "~13.3.10",
+    "@angular-devkit/core": "13.3.10",
+    "@angular/cli": "~13.3.10",
+    "@angular/compiler-cli": "~13.3.12",
+    "@angular/language-service": "~13.3.12",
     "@types/file-saver": "^2.0.1",
     "@types/node": "^13.13.5",
     "@types/jasmine": "~3.8.0",
@@ -66,6 +64,6 @@
     "protractor": "~7.0.0",
     "ts-node": "~8.10.1",
     "tslint": "~6.1.0",
-    "typescript": "~4.3.5"
+    "typescript": "~4.6.4"
   }
 }
