@@ -7,7 +7,7 @@ import {TraceSet} from './ts-plot.dom';
 
     <div *ngIf="dataset" style="display: block;">
     <canvas baseChart width="auto" height="200"
-                [chartType]="'line'"
+                [type]="'line'"
                 [datasets]="dataset.traces"
                 [options]="scatterOptions"
                 ></canvas>

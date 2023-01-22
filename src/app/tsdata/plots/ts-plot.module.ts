@@ -6,7 +6,7 @@ import {TSPlotsComponent} from './ts-plots-component';
 import {TSDisplayParamsRFormComponent} from './tsdisplay-params-rform/tsdisplay-params-rform.component';
 import {CommonModule} from '@angular/common';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {ChartsModule} from 'ng2-charts';
+import {NgChartsModule} from 'ng2-charts';
 import {MaterialsModule} from '../../shared/materials.module';
 import {TSSortParamsRFormComponent} from './tssort-params-rform/tssort-params-rform.component';
 
@@ -15,7 +15,7 @@ import {TSSortParamsRFormComponent} from './tssort-params-rform/tssort-params-rf
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    ChartsModule,
+    NgChartsModule,
     MaterialsModule
   ],
   declarations: [
