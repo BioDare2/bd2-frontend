@@ -38,7 +38,6 @@
     "@angular/router": "~11.2.14",
     "bd2-ngx-hboxplot": "^1.11.1",
     "bd2-ngx-heatmap": "^1.1.1",
-    "bd2-ngx-polarplot": "^1.11.0",
     "bootstrap": "^4.5.2",
     "chart.js": "^2.9.3",
     "file-saver": "^2.0.2",
