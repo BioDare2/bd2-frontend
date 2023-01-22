@@ -1,7 +1,7 @@
 import {Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
 import {ImportDetails} from '../../import-dom';
 import {Observable} from 'rxjs';
-import {FormControl} from '@angular/forms';
+import {UntypedFormControl} from '@angular/forms';
 import {MatAutocomplete, MatAutocompleteSelectedEvent} from '@angular/material/autocomplete';
 import {MatChipInputEvent} from '@angular/material/chips';
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
@@ -21,7 +21,7 @@ export class SelectBackgroundsLabelsStepComponent implements OnInit {
   removable = true;
   addOnBlur = false;
   separatorKeysCodes: number[] = [ENTER, COMMA];
-  backgroundCtrl = new FormControl();
+  backgroundCtrl = new UntypedFormControl();
   filteredLabels: Observable<string[]>;
   allLabels: string[];
 

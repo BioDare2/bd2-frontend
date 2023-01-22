@@ -1,6 +1,6 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {MeasurementDesc} from '../../../../dom/repo/measure/measurement-desc';
-import {AbstractControl, FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {AbstractControl, UntypedFormBuilder, UntypedFormGroup, Validators} from '@angular/forms';
 import {TechniqueService} from '../technique.service';
 import {FeedbackService} from '../../../../feedback/feedback.service';
 import {Observable, of} from 'rxjs';
@@ -27,7 +27,7 @@ export class MeasurementDescRFormComponent /*extends RevertableFormComponent<Mea
   onCancelled = new EventEmitter<boolean>();
 
 
-  formModel: FormGroup;
+  formModel: UntypedFormGroup;
   _orgModel: MeasurementDesc;
 
   techniques: string[] = [];
@@ -36,7 +36,7 @@ export class MeasurementDescRFormComponent /*extends RevertableFormComponent<Mea
   equipments: string[] = [];
   filteredEquipments: Observable<string[]> = of([]);
 
-  constructor(private techniqueService: TechniqueService, private feedback: FeedbackService, private fb: FormBuilder) {
+  constructor(private techniqueService: TechniqueService, private feedback: FeedbackService, private fb: UntypedFormBuilder) {
     // super();
   }
 
@@ -77,7 +77,7 @@ export class MeasurementDescRFormComponent /*extends RevertableFormComponent<Mea
     return list.filter(option => option.toLowerCase().includes(filterValue));
   }
 
-  buildMainForm(model: MeasurementDesc): FormGroup {
+  buildMainForm(model: MeasurementDesc): UntypedFormGroup {
     return this.fb.group({
       technique: [model.technique, [Validators.required, (control: AbstractControl) => this.knownTechnique(control.value)]],
       equipment: [model.equipment],

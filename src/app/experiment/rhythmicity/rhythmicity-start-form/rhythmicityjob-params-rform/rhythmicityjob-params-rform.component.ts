@@ -1,6 +1,6 @@
 import {AfterViewInit, Component, EventEmitter, OnDestroy, OnInit} from '@angular/core';
 
-import {AbstractControl, FormBuilder, FormControl, Validators} from '@angular/forms';
+import {AbstractControl, UntypedFormBuilder, UntypedFormControl, Validators} from '@angular/forms';
 import {DetrendingType} from '../../../../tsdata/ts-data-dom';
 import {
   EJTKPreset,
@@ -30,18 +30,18 @@ export class RhythmicityjobParamsRformComponent extends BaseTSDisplayParamsRForm
   presetsHelp = false;
   methodHelp = false;
 
-  methodForm: FormControl;
-  presetForm: FormControl;
+  methodForm: UntypedFormControl;
+  presetForm: UntypedFormControl;
 
   rhythmicityRequests = new EventEmitter<RhythmicityRequest>();
 
-  constructor(fb: FormBuilder) {
+  constructor(fb: UntypedFormBuilder) {
     super(fb);
 
     this.detrendingOptions = [ DetrendingType.NO_DTR, DetrendingType.LIN_DTR];
 
-    this.methodForm = this.mainForm.get('method') as FormControl;
-    this.presetForm = this.mainForm.get('preset') as FormControl;
+    this.methodForm = this.mainForm.get('method') as UntypedFormControl;
+    this.presetForm = this.mainForm.get('preset') as UntypedFormControl;
   }
 
 

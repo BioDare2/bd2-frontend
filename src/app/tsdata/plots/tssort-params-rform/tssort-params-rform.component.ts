@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, OnDestroy, OnInit, Optional, Output} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {UntypedFormBuilder, UntypedFormGroup, Validators} from '@angular/forms';
 import {RhythmicityJobSummary} from '../../../experiment/rhythmicity/rhythmicity-dom';
 import {PPAJobSummary} from '../../../experiment/ppa/ppa-dom';
 import {shortUUID} from 'src/app/shared/collections-util';
@@ -50,15 +50,15 @@ export class TSSortParamsRFormComponent implements OnInit, OnDestroy {
   noPPA = true;
   noRhythm = true;
 
-  mainForm: FormGroup;
-  sortParamsForm: FormGroup;
+  mainForm: UntypedFormGroup;
+  sortParamsForm: UntypedFormGroup;
 
   private _rhythmJobs: RhythmicityJobSummary[] = [];
   private _ppaJobs: PPAJobSummary[] = [];
   private valuesSubscription: Subscription;
 
 
-  constructor(protected fb: FormBuilder, @Optional() protected fetcher: TSFetcher) {
+  constructor(protected fb: UntypedFormBuilder, @Optional() protected fetcher: TSFetcher) {
 
     this.sortParamsForm = this.buildSortParamsForm(fb);
     this.mainForm = this.buildMainForm(this.sortParamsForm, fb);
@@ -99,7 +99,7 @@ export class TSSortParamsRFormComponent implements OnInit, OnDestroy {
   }
 
 
-  buildSortParamsForm(fb: FormBuilder) {
+  buildSortParamsForm(fb: UntypedFormBuilder) {
     return fb.group({
       active: [this.defaultSorting(), [Validators.required]],
       isAscending: [true, [Validators.required]],
@@ -108,7 +108,7 @@ export class TSSortParamsRFormComponent implements OnInit, OnDestroy {
     });
   }
 
-  buildMainForm(sortParamsForm: FormGroup, fb: FormBuilder) {
+  buildMainForm(sortParamsForm: UntypedFormGroup, fb: UntypedFormBuilder) {
     return sortParamsForm;
   }
 

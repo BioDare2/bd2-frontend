@@ -1,5 +1,5 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {AbstractControl, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {AbstractControl, UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, Validators} from '@angular/forms';
 import {environment} from '../../../environments/environment';
 import {ReCaptchaComponent} from '../../recaptcha/recaptcha.component';
 import {UserService} from '../../auth/user.service';
@@ -16,12 +16,12 @@ import {catchError, map} from 'rxjs/operators';
 export class RegistrationRFormComponent implements OnInit {
 
   captchaSiteKey: string;
-  userForm: FormGroup;
-  userNameField: FormControl;
-  emailField: FormControl;
-  passwordField: FormControl;
-  password2Field: FormControl;
-  passwordsGroup: FormGroup;
+  userForm: UntypedFormGroup;
+  userNameField: UntypedFormControl;
+  emailField: UntypedFormControl;
+  passwordField: UntypedFormControl;
+  password2Field: UntypedFormControl;
+  passwordsGroup: UntypedFormGroup;
 
   registered: boolean;
   registeredMsg: string;
@@ -38,7 +38,7 @@ export class RegistrationRFormComponent implements OnInit {
 
   constructor(private userService: UserService,
               private feedback: FeedbackService,
-              private fb: FormBuilder,
+              private fb: UntypedFormBuilder,
               public helpDialog: StaticContentDialogService) {
 
     this.captchaSiteKey = environment.captchaSiteKey;
@@ -67,11 +67,11 @@ export class RegistrationRFormComponent implements OnInit {
       terms: [undefined, [Validators.required]],
     });
 
-    this.userNameField = this.userForm.get('username') as FormControl;
-    this.emailField = this.userForm.get('email') as FormControl;
-    this.passwordField = this.userForm.get('passwords.password') as FormControl;
-    this.password2Field = this.userForm.get('passwords.password2') as FormControl;
-    this.passwordsGroup = this.userForm.get('passwords') as FormGroup;
+    this.userNameField = this.userForm.get('username') as UntypedFormControl;
+    this.emailField = this.userForm.get('email') as UntypedFormControl;
+    this.passwordField = this.userForm.get('passwords.password') as UntypedFormControl;
+    this.password2Field = this.userForm.get('passwords.password2') as UntypedFormControl;
+    this.passwordsGroup = this.userForm.get('passwords') as UntypedFormGroup;
 
     // this.subscribeValidationMessages();
   }

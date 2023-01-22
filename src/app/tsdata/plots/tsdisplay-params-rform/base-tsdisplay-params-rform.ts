@@ -2,7 +2,7 @@ import {AfterViewInit, Directive, EventEmitter, OnDestroy, OnInit, ViewChild} fr
 import {DisplayParameters, validTimeScale} from '../ts-display.dom';
 import {AlignOptions, DetrendingType, DetrendingTypeOptions, NormalisationOptions, TSOption} from '../../ts-data-dom';
 import {BehaviorSubject, combineLatest, Subscription, zip} from 'rxjs';
-import {AbstractControl, FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {AbstractControl, UntypedFormBuilder, UntypedFormGroup, Validators} from '@angular/forms';
 import {distinctUntilChanged, filter, map, startWith} from 'rxjs/operators';
 import {MatPaginator, MatPaginatorIntl, PageEvent} from '@angular/material/paginator';
 
@@ -40,15 +40,15 @@ export class BaseTSDisplayParamsRForm implements OnInit, OnDestroy, AfterViewIni
   normalisationOptions: TSOption[];
   alignOptions: TSOption[];
 
-  mainForm: FormGroup;
-  displayParamsForm: FormGroup;
+  mainForm: UntypedFormGroup;
+  displayParamsForm: UntypedFormGroup;
   disabledPagination = false;
 
   page$ = new BehaviorSubject<PageEvent>(DisplayParameters.firstPage());
 
   private displayParamsSubscription: Subscription;
 
-  constructor(protected fb: FormBuilder) {
+  constructor(protected fb: UntypedFormBuilder) {
 
     this.displayParamsForm = this.buildDisplayParamsForm();
 

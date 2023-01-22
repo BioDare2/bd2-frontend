@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {UserService} from '../../auth/user.service';
 import {FeedbackService} from '../../feedback/feedback.service';
 import {BD2User} from '../../auth/user.dom';
-import {AbstractControl, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {AbstractControl, UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, Validators} from '@angular/forms';
 import {validEmail} from '../user.util';
 import {timer} from 'rxjs';
 
@@ -14,14 +14,14 @@ export class AccountEditRFormComponent implements OnInit {
 
   user: BD2User;
 
-  userForm: FormGroup;
-  userNameField: FormControl;
-  emailField: FormControl;
-  currentPasswordField: FormControl;
+  userForm: UntypedFormGroup;
+  userNameField: UntypedFormControl;
+  emailField: UntypedFormControl;
+  currentPasswordField: UntypedFormControl;
 
   updated = false;
 
-  constructor(private userService: UserService, protected feedback: FeedbackService, private fb: FormBuilder) {
+  constructor(private userService: UserService, protected feedback: FeedbackService, private fb: UntypedFormBuilder) {
 
   }
 
@@ -38,9 +38,9 @@ export class AccountEditRFormComponent implements OnInit {
       currentPassword: [undefined, [Validators.required]],
     });
 
-    this.userNameField = this.userForm.get('username') as FormControl;
-    this.emailField = this.userForm.get('email') as FormControl;
-    this.currentPasswordField = this.userForm.get('currentPassword') as FormControl;
+    this.userNameField = this.userForm.get('username') as UntypedFormControl;
+    this.emailField = this.userForm.get('email') as UntypedFormControl;
+    this.currentPasswordField = this.userForm.get('currentPassword') as UntypedFormControl;
   }
 
   save() {

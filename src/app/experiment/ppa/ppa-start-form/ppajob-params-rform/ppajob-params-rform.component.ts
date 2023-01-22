@@ -1,6 +1,6 @@
 import {AfterViewInit, Component, EventEmitter, OnDestroy, OnInit} from '@angular/core';
 import {EnabledPPAMethodOptions, PPAMethod, PPARequest} from '../../ppa-dom';
-import {AbstractControl, FormBuilder, Validators} from '@angular/forms';
+import {AbstractControl, UntypedFormBuilder, Validators} from '@angular/forms';
 import {DetrendingType} from '../../../../tsdata/ts-data-dom';
 import {BaseTSDisplayParamsRForm} from '../../../../tsdata/plots/tsdisplay-params-rform/base-tsdisplay-params-rform';
 import {StaticContentDialogService} from '../../../../documents/static-content/static-content-dialog.service';
@@ -20,7 +20,7 @@ export class PPAJobParamsRFormComponent extends BaseTSDisplayParamsRForm impleme
   ppaRequests = new EventEmitter<PPARequest>();
 
 
-  constructor(fb: FormBuilder, public helpDialog: StaticContentDialogService) {
+  constructor(fb: UntypedFormBuilder, public helpDialog: StaticContentDialogService) {
     super(fb);
 
 

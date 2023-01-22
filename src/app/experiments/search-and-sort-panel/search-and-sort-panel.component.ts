@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, Validators} from '@angular/forms';
 import {Sort} from '@angular/material/sort';
 
 export interface SearchOptions {
@@ -20,9 +20,9 @@ export interface SearchAndSortOptions {
 })
 export class SearchAndSortPanelComponent implements OnInit {
 
-  sortOptionsF: FormGroup;
-  queryF: FormControl;
-  showPublicF: FormControl;
+  sortOptionsF: UntypedFormGroup;
+  queryF: UntypedFormControl;
+  showPublicF: UntypedFormControl;
 
   // options: SearchAndSortOptions;
   // currentDisplayOptions: SearchAndSortOptions;
@@ -50,7 +50,7 @@ export class SearchAndSortPanelComponent implements OnInit {
     }
   }
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: UntypedFormBuilder) {
 
     // this.currentDisplayOptions = { sorting: 'modified', direction: 'desc', showPublic: false, query: ''};
     // this.currentQuery = '';

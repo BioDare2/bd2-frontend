@@ -1,5 +1,5 @@
 import {AfterViewInit, Component, OnDestroy, OnInit,} from '@angular/core';
-import {FormBuilder} from '@angular/forms';
+import {UntypedFormBuilder} from '@angular/forms';
 import {BaseTSDisplayParamsRForm} from './base-tsdisplay-params-rform';
 
 @Component({
@@ -116,7 +116,7 @@ import {BaseTSDisplayParamsRForm} from './base-tsdisplay-params-rform';
 export class TSDisplayParamsRFormComponent extends BaseTSDisplayParamsRForm implements OnInit, OnDestroy, AfterViewInit {
 
 
-  constructor(fb: FormBuilder) {
+  constructor(fb: UntypedFormBuilder) {
     super(fb);
 
   }

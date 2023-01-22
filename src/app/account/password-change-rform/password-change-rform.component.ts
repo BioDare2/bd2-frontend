@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {BD2User} from '../../auth/user.dom';
-import {AbstractControl, FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {AbstractControl, UntypedFormBuilder, UntypedFormGroup, Validators} from '@angular/forms';
 import {UserService} from '../../auth/user.service';
 import {FeedbackService} from '../../feedback/feedback.service';
 import {timer} from 'rxjs';
@@ -14,13 +14,13 @@ export class PasswordChangeRFormComponent implements OnInit {
 
   user: BD2User;
 
-  userForm: FormGroup;
+  userForm: UntypedFormGroup;
   // currentPasswordField: FormControl;
-  passwordsGroup: FormGroup;
+  passwordsGroup: UntypedFormGroup;
 
   updated = false;
 
-  constructor(private userService: UserService, protected feedback: FeedbackService, private fb: FormBuilder) {
+  constructor(private userService: UserService, protected feedback: FeedbackService, private fb: UntypedFormBuilder) {
 
   }
 
@@ -38,7 +38,7 @@ export class PasswordChangeRFormComponent implements OnInit {
     });
 
     // this.currentPasswordField = this.userForm.get('currentPassword') as FormControl;
-    this.passwordsGroup = this.userForm.get('passwords') as FormGroup;
+    this.passwordsGroup = this.userForm.get('passwords') as UntypedFormGroup;
   }
 
   save() {
