@@ -1,4 +1,4 @@
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import {StaticContentComponent} from './static-content.component';
 import {StaticContentService} from '../static-content.service';
@@ -9,7 +9,7 @@ describe('StaticContentComponent', () => {
   let fixture: ComponentFixture<StaticContentComponent>;
   let contentService: jasmine.SpyObj<StaticContentService>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     contentService = jasmine.createSpyObj('contentService', ['getDocs']);
     contentService.getDocs.and.returnValue(Promise.resolve('Interesting document'));
 

@@ -1,4 +1,4 @@
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import {PPAFitDialogComponent, PPAFitDialogComponentParams} from './ppa-fit-dialog.component';
 import {TSPlotModule} from '../../../../tsdata/plots/ts-plot.module';
@@ -12,7 +12,7 @@ describe('PpaFitDialogComponent', () => {
   let fixture: ComponentFixture<PPAFitDialogComponent>;
   let fitService: PPAFitService;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
 
     const mockFitService = jasmine.createSpyObj('PPAFitService', [
       'getFit'

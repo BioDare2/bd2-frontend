@@ -1,4 +1,4 @@
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import {ExperimentsTestToolModule} from '../../experiment_test_tool.spec';
 
 import {StaticContentTestModule} from '../../../documents/static-content/static-content_test_tool.spec';
@@ -11,7 +11,7 @@ describe('PPADashboardComponent', () => {
   let component: PPADashboardComponent;
   let fixture: ComponentFixture<PPADashboardComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [PPADashboardComponent
 

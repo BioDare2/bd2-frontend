@@ -1,4 +1,4 @@
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import {EditLabelDialogComponent} from './edit-label-dialog.component';
 import {MaterialsModule} from '../../../../../../shared/materials.module';
@@ -10,7 +10,7 @@ describe('EditLabelDialogComponent', () => {
   let component: EditLabelDialogComponent;
   let fixture: ComponentFixture<EditLabelDialogComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ EditLabelDialogComponent ],
       imports: [MaterialsModule, FormsModule, NoopAnimationsModule],

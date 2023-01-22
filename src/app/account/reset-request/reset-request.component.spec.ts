@@ -1,4 +1,4 @@
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import {ResetRequestComponent} from './reset-request.component';
 import {FormsModule} from '@angular/forms';
@@ -10,7 +10,7 @@ describe('ResetRequestComponent', () => {
   let component: ResetRequestComponent;
   let fixture: ComponentFixture<ResetRequestComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ResetRequestComponent],
       imports: [FormsModule, ReCaptchaModule],

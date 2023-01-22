@@ -1,4 +1,4 @@
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import {SimpleLegendComponent} from './simple-legend.component';
 
@@ -6,7 +6,7 @@ describe('SimpleLegendComponent', () => {
   let component: SimpleLegendComponent;
   let fixture: ComponentFixture<SimpleLegendComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [SimpleLegendComponent]
     })

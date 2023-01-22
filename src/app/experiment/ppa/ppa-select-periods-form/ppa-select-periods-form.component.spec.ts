@@ -1,4 +1,4 @@
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import {ExperimentsTestToolModule} from '../../experiment_test_tool.spec';
 import {TSPlotModule} from '../../../tsdata/plots/ts-plot.module';
 import {StaticContentTestModule} from '../../../documents/static-content/static-content_test_tool.spec';
@@ -11,7 +11,7 @@ describe('PPASelectPeriodsFormComponent', () => {
   let component: PPASelectPeriodsFormComponent;
   let fixture: ComponentFixture<PPASelectPeriodsFormComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [PPASelectPeriodsFormComponent],
       imports: [ExperimentsTestToolModule, StaticContentTestModule, TSPlotModule,

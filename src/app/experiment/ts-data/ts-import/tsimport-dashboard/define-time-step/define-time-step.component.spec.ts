@@ -1,4 +1,4 @@
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import {DefineTimeStepComponent} from './define-time-step.component';
 import {MaterialsModule} from '../../../../../shared/materials.module';
@@ -12,7 +12,7 @@ describe('DefineTimeStepComponent', () => {
   let component: DefineTimeStepComponent;
   let fixture: ComponentFixture<DefineTimeStepComponent>;
   let tsFileService;
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
 
     tsFileService = jasmine.createSpyObj('TSFileService', [
       'getTableSlice'

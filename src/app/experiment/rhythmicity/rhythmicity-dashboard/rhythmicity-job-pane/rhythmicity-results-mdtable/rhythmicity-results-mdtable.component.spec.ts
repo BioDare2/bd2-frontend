@@ -1,4 +1,4 @@
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import {NoopAnimationsModule} from '@angular/platform-browser/animations';
 
 import {RhythmicityResultsMDTableComponent} from './rhythmicity-results-mdtable.component';
@@ -10,7 +10,7 @@ describe('RhythmicityResultsMDTableComponent', () => {
   let component: RhythmicityResultsMDTableComponent;
   let fixture: ComponentFixture<RhythmicityResultsMDTableComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
 
     const rhythmicityService = jasmine.createSpyObj('RhythmicityService', [
       'getResults'

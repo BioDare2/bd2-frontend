@@ -1,4 +1,4 @@
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import {HeatmapPlotComponent} from './heatmap-plot.component';
 import {Bd2NgxHeatmapModule} from 'bd2-ngx-heatmap';
@@ -7,7 +7,7 @@ describe('HeatmapPlotComponent', () => {
   let component: HeatmapPlotComponent;
   let fixture: ComponentFixture<HeatmapPlotComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [Bd2NgxHeatmapModule],
       declarations: [ HeatmapPlotComponent ]

@@ -1,4 +1,4 @@
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import {PPASortWidgetComponent} from './ppasort-widget.component';
 import {FormsModule} from '@angular/forms';
@@ -8,7 +8,7 @@ describe('PPASortWidgetComponent', () => {
   let component: PPASortWidgetComponent;
   let fixture: ComponentFixture<PPASortWidgetComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [FormsModule,
         ButtonsModule

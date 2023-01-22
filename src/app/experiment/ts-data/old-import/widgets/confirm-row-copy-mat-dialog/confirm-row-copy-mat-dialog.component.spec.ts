@@ -1,4 +1,4 @@
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import {ConfirmRowCopyMatDialogComponent} from './confirm-row-copy-mat-dialog.component';
 import {MAT_DIALOG_DATA, MatDialogModule} from '@angular/material/dialog';
@@ -8,7 +8,7 @@ describe('ConfirmRowCopyMatDialogComponent', () => {
   let component: ConfirmRowCopyMatDialogComponent;
   let fixture: ComponentFixture<ConfirmRowCopyMatDialogComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
 
     const f = new CellCoordinates(2, 1);
     const l = new CellCoordinates(2, 1);

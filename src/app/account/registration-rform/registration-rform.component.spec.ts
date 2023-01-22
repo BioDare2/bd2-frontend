@@ -1,4 +1,4 @@
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import {RegistrationRFormComponent} from './registration-rform.component';
 import {ReactiveFormsModule} from '@angular/forms';
@@ -14,7 +14,7 @@ describe('RegistrationRFormComponent', () => {
   let component: RegistrationRFormComponent;
   let fixture: ComponentFixture<RegistrationRFormComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
 
     const contentService = jasmine.createSpyObj('contentService', ['getDocs']);
     contentService.getDocs.and.returnValue(Promise.resolve('Interesting document'));

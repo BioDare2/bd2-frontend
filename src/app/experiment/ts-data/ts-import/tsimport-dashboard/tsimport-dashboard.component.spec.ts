@@ -1,4 +1,4 @@
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import {TSImportDashboardComponent} from './tsimport-dashboard.component';
 import {MaterialsModule} from '../../../../shared/materials.module';
@@ -20,7 +20,7 @@ describe('TSImportDashboardComponent', () => {
   let component: TSImportDashboardComponent;
   let fixture: ComponentFixture<TSImportDashboardComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     /*  let tsFileService = jasmine.createSpyObj('TSFileService', [
       'getTableSlice'
     ]); */

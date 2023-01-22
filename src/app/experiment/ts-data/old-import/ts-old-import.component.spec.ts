@@ -1,4 +1,4 @@
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import {ExperimentsTestToolModule} from '../../experiment_test_tool.spec';
 import {TSOldImportComponent} from './ts-old-import.component';
@@ -9,7 +9,7 @@ describe('TSImportComponent', () => {
   let component: TSOldImportComponent;
   let fixture: ComponentFixture<TSOldImportComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [TSOldImportComponent, DescribeTopcountTableComponent,
         SimpleAddDataFormComponent],

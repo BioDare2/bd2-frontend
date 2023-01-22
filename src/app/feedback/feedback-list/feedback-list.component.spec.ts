@@ -1,4 +1,4 @@
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import {FeedbackListComponent} from './feedback-list.component';
 import {FeedbackService} from '../feedback.service';
@@ -9,7 +9,7 @@ describe('FeedbackListComponent', () => {
   let fixture: ComponentFixture<FeedbackListComponent>;
   let feedbackService: FeedbackService;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [FeedbackListComponent],
       imports: [MatCardModule]

@@ -1,4 +1,4 @@
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import {ImportStepsComponent} from './import-steps.component';
 import {UploadDataFileStepComponent} from '../upload-data-file-step/upload-data-file-step.component';
@@ -20,7 +20,7 @@ describe('ImportStepsComponent', () => {
   let component: ImportStepsComponent;
   let fixture: ComponentFixture<ImportStepsComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ ImportStepsComponent, UploadDataFileStepComponent, ImportDetailsSummaryComponent,
         DefineTimeStepComponent, ImportLabelsStepComponent, DataSheetMDTableComponent, SelectDataStartStepComponent,

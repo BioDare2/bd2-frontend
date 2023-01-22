@@ -1,4 +1,4 @@
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import {UploadDataFileStepComponent} from './upload-data-file-step.component';
 import {MaterialsModule} from '../../../../../shared/materials.module';
@@ -9,7 +9,7 @@ describe('UploadDataFileStepComponent', () => {
   let component: UploadDataFileStepComponent;
   let fixture: ComponentFixture<UploadDataFileStepComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ UploadDataFileStepComponent ],
       imports: [MaterialsModule, FileAssetModule, NoopAnimationsModule]

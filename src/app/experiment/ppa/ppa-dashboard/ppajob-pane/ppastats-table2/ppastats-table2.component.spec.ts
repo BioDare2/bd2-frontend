@@ -1,4 +1,4 @@
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import {PPAStatsTable2Component} from './ppastats-table2.component';
 import {PPAService} from '../../../ppa.service';
@@ -12,7 +12,7 @@ describe('PPAStatsTable2Component', () => {
   let component: PPAStatsTable2Component;
   let fixture: ComponentFixture<PPAStatsTable2Component>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     ppaService = jasmine.createSpyObj('ppaService', ['getPPAJob']);
 
     TestBed.configureTestingModule({

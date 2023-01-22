@@ -1,4 +1,4 @@
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import {SearchAndSortPanelComponent} from './search-and-sort-panel.component';
 import {ReactiveFormsModule} from '@angular/forms';
@@ -9,7 +9,7 @@ describe('SearchAndSortPanelComponent', () => {
   let component: SearchAndSortPanelComponent;
   let fixture: ComponentFixture<SearchAndSortPanelComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ SearchAndSortPanelComponent, SortSwitchComponent ],
       imports: [ReactiveFormsModule, MaterialsModule]

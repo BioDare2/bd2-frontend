@@ -1,4 +1,4 @@
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import {StatTestOptionsWidgetComponent} from './stat-test-options-widget.component';
 import {MaterialsModule} from '../../../../../shared/materials.module';
@@ -10,7 +10,7 @@ describe('StatTestOptionsWidgetComponent', () => {
   let component: StatTestOptionsWidgetComponent;
   let fixture: ComponentFixture<StatTestOptionsWidgetComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ StatTestOptionsWidgetComponent, PValueFormComponent  ],
       imports: [MaterialsModule, NoopAnimationsModule]

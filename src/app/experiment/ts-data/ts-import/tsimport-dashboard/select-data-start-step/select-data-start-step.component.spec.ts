@@ -1,4 +1,4 @@
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import {SelectDataStartStepComponent} from './select-data-start-step.component';
 import {DataSheetMDTableComponent} from '../data-sheet-mdtable/data-sheet-mdtable.component';
@@ -13,7 +13,7 @@ describe('SelectDataStartStepComponent', () => {
   let fixture: ComponentFixture<SelectDataStartStepComponent>;
   let tsFileService;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     tsFileService = jasmine.createSpyObj('TSFileService', [
       'getTableSlice'
     ]);

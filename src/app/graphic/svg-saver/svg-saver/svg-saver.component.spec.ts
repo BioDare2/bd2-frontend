@@ -1,4 +1,4 @@
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import {SVGSaverComponent} from './svg-saver.component';
 
@@ -6,7 +6,7 @@ describe('SVGSaverComponent', () => {
   let component: SVGSaverComponent;
   let fixture: ComponentFixture<SVGSaverComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [SVGSaverComponent]
     })

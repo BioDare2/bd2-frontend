@@ -1,4 +1,4 @@
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import {PPAJobPaneComponent} from './ppajob-pane.component';
 import {PPAService} from '../../ppa.service';
 import {PhasesOptionsWidgetComponent} from './phases-options-widget.component';
@@ -34,7 +34,7 @@ describe('PPAJobPaneComponent', () => {
   let fixture: ComponentFixture<PPAJobPaneComponent>;
   let ppaService: PPAService;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     ppaService = jasmine.createSpyObj('ppaService', ['getPPAJob']);
 
     TestBed.configureTestingModule({

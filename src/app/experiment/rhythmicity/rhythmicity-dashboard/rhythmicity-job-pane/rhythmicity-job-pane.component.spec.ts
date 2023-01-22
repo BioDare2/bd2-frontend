@@ -1,4 +1,4 @@
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import {RhythmicityJobPaneComponent} from './rhythmicity-job-pane.component';
 import {ExperimentsTestToolModule} from '../../../experiment_test_tool.spec';
@@ -24,7 +24,7 @@ describe('RhythmicityJobPaneComponent', () => {
   let component: RhythmicityJobPaneComponent;
   let fixture: ComponentFixture<RhythmicityJobPaneComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [],
       imports: [RhythmicityJobPaneComponentTestModule]

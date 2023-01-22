@@ -1,4 +1,4 @@
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import {ColumnTypeMatDialogComponent, ColumnTypeMatDialogComponentParams} from './column-type-mat-dialog.component';
 import {MAT_DIALOG_DATA, MatDialogModule, MatDialogRef} from '@angular/material/dialog';
@@ -9,7 +9,7 @@ describe('ColumnTypeMatDialogComponent', () => {
   let component: ColumnTypeMatDialogComponent;
   let fixture: ComponentFixture<ColumnTypeMatDialogComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
 
     const ref = {};
 

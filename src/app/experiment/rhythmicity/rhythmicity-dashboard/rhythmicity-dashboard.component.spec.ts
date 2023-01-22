@@ -1,4 +1,4 @@
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import {RhythmicityDashboardComponent} from './rhythmicity-dashboard.component';
 import {ExperimentsTestToolModule} from '../../experiment_test_tool.spec';
@@ -10,7 +10,7 @@ describe('RhythmicityDashboardComponent', () => {
   let component: RhythmicityDashboardComponent;
   let fixture: ComponentFixture<RhythmicityDashboardComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [RhythmicityDashboardComponent],
       imports: [ExperimentsTestToolModule, MaterialsModule,

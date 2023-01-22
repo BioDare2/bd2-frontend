@@ -1,4 +1,4 @@
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import {StaticContentDialogComponent} from './static-content-dialog.component';
 import {StaticContentComponent} from '../static-content/static-content.component';
@@ -8,7 +8,7 @@ describe('StaticContentDialogComponent', () => {
   let component: StaticContentDialogComponent;
   let fixture: ComponentFixture<StaticContentDialogComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ StaticContentDialogComponent, StaticContentComponent ],
       providers: [{provide: MAT_DIALOG_DATA, useValue: undefined}]

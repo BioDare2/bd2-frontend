@@ -1,4 +1,4 @@
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import {PPAStartFormComponent} from './ppa-start-form.component';
 import {ExperimentsTestToolModule} from '../../experiment_test_tool.spec';
 import {PPAJobParamsRFormComponent} from './ppajob-params-rform/ppajob-params-rform.component';
@@ -12,7 +12,7 @@ describe('PPAStartFormComponent', () => {
   let component: PPAStartFormComponent;
   let fixture: ComponentFixture<PPAStartFormComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [PPAStartFormComponent, PPAJobParamsRFormComponent],
       imports: [ExperimentsTestToolModule, StaticContentTestModule, TSPlotModule, MaterialsModule, NoopAnimationsModule]

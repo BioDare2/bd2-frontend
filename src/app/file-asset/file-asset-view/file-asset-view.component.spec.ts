@@ -1,4 +1,4 @@
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import {FileAssetViewComponent} from './file-asset-view.component';
 import {AnalyticsService} from '../../analytics/analytics.service';
@@ -9,7 +9,7 @@ describe('FileAssetViewComponent', () => {
   let component: FileAssetViewComponent;
   let fixture: ComponentFixture<FileAssetViewComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [FileAssetViewComponent],
       imports: [FileAssetTestModule],

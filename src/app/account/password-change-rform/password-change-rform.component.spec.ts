@@ -1,4 +1,4 @@
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import {PasswordChangeRFormComponent} from './password-change-rform.component';
 import {ReactiveFormsModule} from '@angular/forms';
@@ -11,7 +11,7 @@ describe('PasswordChangeRformComponent', () => {
   let component: PasswordChangeRFormComponent;
   let fixture: ComponentFixture<PasswordChangeRFormComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [ReactiveFormsModule, MaterialsModule, NoopAnimationsModule],
       declarations: [ PasswordChangeRFormComponent ],

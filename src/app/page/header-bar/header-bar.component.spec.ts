@@ -1,4 +1,4 @@
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import {fakeUserService, MockUserService} from '../../auth/auth_test_tool.spec';
 import {HeaderBarComponent} from './header-bar.component';
@@ -9,7 +9,7 @@ describe('HeaderBarComponent', () => {
   let fixture: ComponentFixture<HeaderBarComponent>;
   let mockedUserService: MockUserService;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
 
     mockedUserService = fakeUserService();
 

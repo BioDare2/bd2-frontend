@@ -1,4 +1,4 @@
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import {ContributionDescFormComponent} from './contribution-desc-form.component';
 import {ContributionDesc} from '../../../dom/repo/contribution/contribution-desc';
 import {FormsModule} from '@angular/forms';
@@ -14,7 +14,7 @@ describe('ContributionDescFormComponent', () => {
   let orgModel: ContributionDesc;
   let fixture: ComponentFixture<ContributionDescFormComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [FormsModule, MaterialsModule, NoopAnimationsModule],
       declarations: [ContributionDescFormComponent]

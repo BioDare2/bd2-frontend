@@ -1,4 +1,4 @@
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import {MeasurementDescRFormComponent} from './measurement-desc-rform.component';
 import {TechniqueService} from '../technique.service';
@@ -11,7 +11,7 @@ describe('MeasurementDescRFormComponent', () => {
   let fixture: ComponentFixture<MeasurementDescRFormComponent>;
   let techniqueService: TechniqueService;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     techniqueService = jasmine.createSpyObj('techniqueService', ['getTechniques', 'getEquipments', 'getParameters']);
     (techniqueService as any).getTechniques.and.returnValue(Promise.resolve(['Luc', 'Tech1', 'Tech2']));
     (techniqueService as any).getEquipments.and.returnValue(Promise.resolve(['Eq1', 'Eq2']));

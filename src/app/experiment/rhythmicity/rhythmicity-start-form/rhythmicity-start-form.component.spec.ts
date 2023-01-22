@@ -1,4 +1,4 @@
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import {RhythmicityStartFormComponent} from './rhythmicity-start-form.component';
 import {ExperimentsTestToolModule} from '../../experiment_test_tool.spec';
@@ -11,7 +11,7 @@ describe('RhythmicityStartFormComponent', () => {
   let component: RhythmicityStartFormComponent;
   let fixture: ComponentFixture<RhythmicityStartFormComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ RhythmicityStartFormComponent, RhythmicityjobParamsRformComponent ],
       imports: [ExperimentsTestToolModule, StaticContentTestModule, TSPlotModule, MaterialsModule]

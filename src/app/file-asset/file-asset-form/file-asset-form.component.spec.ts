@@ -1,4 +1,4 @@
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import {FileAssetFormComponent} from './file-asset-form.component';
 import {FileAssetTestModule} from '../file-asset_test_tool.spec';
@@ -7,7 +7,7 @@ describe('FileAssetFormComponent', () => {
   let component: FileAssetFormComponent;
   let fixture: ComponentFixture<FileAssetFormComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [FileAssetFormComponent],
       imports: [FileAssetTestModule]

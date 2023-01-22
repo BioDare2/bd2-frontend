@@ -1,4 +1,4 @@
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import {InlineLoginFormComponent} from './inline-login-form.component';
 import {FormsModule} from '@angular/forms';
@@ -11,7 +11,7 @@ describe('InlineLoginFormComponent', () => {
   let fixture: ComponentFixture<InlineLoginFormComponent>;
   let mockedUserService: MockUserService;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     mockedUserService = fakeUserService();
     TestBed.configureTestingModule({
       declarations: [InlineLoginFormComponent],

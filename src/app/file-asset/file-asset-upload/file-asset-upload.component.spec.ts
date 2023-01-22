@@ -1,4 +1,4 @@
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import {FileAssetUploadComponent} from './file-asset-upload.component';
 import {FileAssetTestModule} from '../file-asset_test_tool.spec';
@@ -7,7 +7,7 @@ describe('FileAssetUploadComponent', () => {
   let component: FileAssetUploadComponent;
   let fixture: ComponentFixture<FileAssetUploadComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [FileAssetUploadComponent],
       imports: [FileAssetTestModule]

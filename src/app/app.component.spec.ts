@@ -1,4 +1,4 @@
-import {async, TestBed} from '@angular/core/testing';
+import { TestBed, waitForAsync } from '@angular/core/testing';
 import {RouterTestingModule} from '@angular/router/testing';
 import {AppComponent} from './app.component';
 import {PageModule} from './page/page.module';
@@ -10,7 +10,7 @@ import {fakeBioDareRestService} from './backend/biodare-rest_test_tool.spec';
 import {MatSidenavModule} from '@angular/material/sidenav';
 
 describe('AppComponent', () => {
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [
         RouterTestingModule,

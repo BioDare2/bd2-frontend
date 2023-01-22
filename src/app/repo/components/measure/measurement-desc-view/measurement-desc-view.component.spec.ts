@@ -1,5 +1,5 @@
 /* tslint:disable:no-unused-variable */
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import {MeasurementDescViewComponent} from './measurement-desc-view.component';
 
@@ -7,7 +7,7 @@ describe('MeasurementDescViewComponent', () => {
   let component: MeasurementDescViewComponent;
   let fixture: ComponentFixture<MeasurementDescViewComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [MeasurementDescViewComponent]
     })

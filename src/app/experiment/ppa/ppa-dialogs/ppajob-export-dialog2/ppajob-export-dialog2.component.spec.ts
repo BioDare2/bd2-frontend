@@ -1,4 +1,4 @@
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import {PPAJobExportDialog2Component} from './ppajob-export-dialog2.component';
 import {FormsModule} from '@angular/forms';
@@ -8,7 +8,7 @@ describe('PPAJobExportDialog2Component', () => {
   let component: PPAJobExportDialog2Component;
   let fixture: ComponentFixture<PPAJobExportDialog2Component>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ PPAJobExportDialog2Component ],
       imports: [FormsModule, MatDialogModule],

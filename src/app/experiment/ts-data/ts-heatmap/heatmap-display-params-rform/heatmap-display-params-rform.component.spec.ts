@@ -1,4 +1,4 @@
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import {HeatmapDisplayParamsRformComponent} from './heatmap-display-params-rform.component';
 import {ReactiveFormsModule} from '@angular/forms';
@@ -9,7 +9,7 @@ describe('HeatmapDisplayParamsRformComponent', () => {
   let component: HeatmapDisplayParamsRformComponent;
   let fixture: ComponentFixture<HeatmapDisplayParamsRformComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [ReactiveFormsModule, MaterialsModule, NoopAnimationsModule],
       declarations: [ HeatmapDisplayParamsRformComponent ]

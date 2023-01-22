@@ -1,4 +1,4 @@
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import {TSDisplayParamsRFormComponent} from './tsdisplay-params-rform.component';
 import {ReactiveFormsModule} from '@angular/forms';
 import {MaterialsModule} from '../../../shared/materials.module';
@@ -8,7 +8,7 @@ describe('TSDisplayParamsRFormComponent', () => {
   let component: TSDisplayParamsRFormComponent;
   let fixture: ComponentFixture<TSDisplayParamsRFormComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [ReactiveFormsModule, MaterialsModule, NoopAnimationsModule],
       declarations: [TSDisplayParamsRFormComponent]

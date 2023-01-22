@@ -1,4 +1,4 @@
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import {ReactiveFormsModule} from '@angular/forms';
 import {PPAJobParamsRFormComponent} from './ppajob-params-rform.component';
 import {StaticContentTestModule} from '../../../../documents/static-content/static-content_test_tool.spec';
@@ -10,7 +10,7 @@ describe('PPAJobParamsRFormComponent', () => {
   let component: PPAJobParamsRFormComponent;
   let fixture: ComponentFixture<PPAJobParamsRFormComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [
         // StaticContentModule,
