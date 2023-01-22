@@ -36,10 +36,7 @@
     "@angular/platform-browser": "~11.2.14",
     "@angular/platform-browser-dynamic": "~11.2.14",
     "@angular/router": "~11.2.14",
-    "bd2-ngx-polarplot": "^1.11.0",
-    "bd2-ngx-hboxplot": "^1.11.1",
-    "bd2-ngx-heatmap": "^1.1.1",
-    "ng2-charts": "^2.4.1",
+
 
     "bootstrap": "^4.5.2",
     "chart.js": "^2.9.3",
