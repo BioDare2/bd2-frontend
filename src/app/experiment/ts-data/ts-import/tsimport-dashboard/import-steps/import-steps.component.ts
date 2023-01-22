@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild} from '@angular/core';
-import {MatVerticalStepper} from '@angular/material/stepper';
+import {MatStepper} from '@angular/material/stepper';
 import {DataTableDependentStep} from '../data-table-dependent-step';
 import {DataTableImportParameters, ImportDetails, ImportFormat} from '../../import-dom';
 import {TimeColumnType} from '../../sheet-dom';
@@ -26,7 +26,7 @@ export class ImportStepsComponent implements OnInit, OnDestroy {
   blocked = false;
 
   @ViewChild('stepper')
-  stepper: MatVerticalStepper;
+  stepper: MatStepper;
 
   @ViewChild('importLabelsStep')
   importLabelsStep: DataTableDependentStep;
