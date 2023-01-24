@@ -37,7 +37,7 @@ export class FileAssetViewComponent implements OnInit {
   @Input()
   canEdit = true;
   @Input()
-  parentId: string;
+  parentId: string | number;
   file: FileAsset;
   showVersions = false;
   edit = false;
@@ -86,7 +86,7 @@ export class FileAssetViewComponent implements OnInit {
 
   recordDownload() {
     // console.log("File download");
-    this.analytics.fileDownload(this.parentId, this.file.id);
+    this.analytics.fileDownload(this.parentId.toString(), this.file.id);
   }
 
 }
