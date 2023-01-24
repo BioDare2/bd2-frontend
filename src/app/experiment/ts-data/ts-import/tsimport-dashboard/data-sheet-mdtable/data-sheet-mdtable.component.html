@@ -13,7 +13,7 @@
       <th mat-header-cell *matHeaderCellDef [style.background-color]="colBackground(colIx)"
           (click)="selectCell(colIx,-1)"> {{col}} </th>
       <td mat-cell *matCellDef="let row; let rowIx = index"
-          matRipple matRippleCentered="true" [style.background-color]="cellBackground(colIx, rowIx)"
+          matRipple [matRippleCentered]="true" [style.background-color]="cellBackground(colIx, rowIx)"
           (click)="selectCell(colIx,rowIx)"> {{row[colIx]}} </td>
     </ng-container>
 

@@ -1,9 +1,10 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import {HeatmapDisplayParamsRformComponent} from './heatmap-display-params-rform.component';
-import {ReactiveFormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MaterialsModule} from '../../../../shared/materials.module';
 import {NoopAnimationsModule} from '@angular/platform-browser/animations';
+import {SimplePaginatorComponent} from "../simple-paginator/simple-paginator.component";
 
 describe('HeatmapDisplayParamsRformComponent', () => {
   let component: HeatmapDisplayParamsRformComponent;
@@ -11,8 +12,8 @@ describe('HeatmapDisplayParamsRformComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [ReactiveFormsModule, MaterialsModule, NoopAnimationsModule],
-      declarations: [ HeatmapDisplayParamsRformComponent ]
+      imports: [FormsModule, ReactiveFormsModule, MaterialsModule, NoopAnimationsModule],
+      declarations: [ HeatmapDisplayParamsRformComponent, SimplePaginatorComponent ]
     })
     .compileComponents();
   }));

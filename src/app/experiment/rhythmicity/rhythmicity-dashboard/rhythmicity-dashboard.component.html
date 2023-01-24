@@ -35,7 +35,7 @@
 
 
   <div *ngFor="let jobId of jobsIds; let i=index">
-    <bd2-rhythmicity-job-pane (deleted)="remove($event)" (finished)="refreshJob($event)" [assay]="assay"
+    <bd2-rhythmicity-job-pane (deleted)="remove($event)" [assay]="assay"
                               [jobId]="jobId"
                               [expanded]="expandAll || i == 0"
 

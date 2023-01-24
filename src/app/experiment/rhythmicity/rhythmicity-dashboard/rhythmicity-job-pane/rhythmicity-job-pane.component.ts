@@ -71,7 +71,7 @@ export class RhythmicityJobPaneComponent implements OnInit, OnChanges, OnDestroy
 
   ngOnChanges(changes: SimpleChanges) {
 
-    if (changes.jobId || changes.assay) {
+    if (changes['jobId'] || changes['assay']) {
       if (this.jobId && this.assay) {
         this.rhythmicityJobDatasource.assayJob([this.assay.id, this.jobId]);
       }

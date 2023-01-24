@@ -42,8 +42,8 @@ export class TSOldImportComponent extends ExperimentBaseComponent implements OnI
     this.route.params.forEach((params: Params) => {
 
       // console.log("Params: "+JSON.stringify(params));
-      const fileId = params.fileId; // (+) converts string 'id' to a number
-      const format = params.format;
+      const fileId = params['fileId']; // (+) converts string 'id' to a number
+      const format = params['format'];
       if (fileId && format) {
         this.loadData(format, fileId);
       } else {
