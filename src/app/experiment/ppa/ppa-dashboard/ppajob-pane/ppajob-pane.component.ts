@@ -153,7 +153,7 @@ export class PPAJobPaneComponent implements OnInit, OnChanges, OnDestroy {
 
     // console.log("Changes", changes);
 
-    if (changes.jobId || changes.assay) {
+    if (changes['jobId'] || changes['assay']) {
       if (this.jobId && this.assay) {
         // this.loadJob(this.jobId, this.assay.id);
         this.ppaJobFetcher.assayJobId([this.assay.id, this.jobId]);

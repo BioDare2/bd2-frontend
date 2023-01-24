@@ -10,13 +10,15 @@ import {PPAPlotsComponentTestModule} from './ppaplots/ppaplots.component.spec';
 import {NgModule} from '@angular/core';
 import {PPADialogsService} from '../../ppa-dialogs/ppadialogs.service';
 import {MatDialogModule} from '@angular/material/dialog';
+import {ButtonsModule} from "ngx-bootstrap/buttons";
 
 @NgModule({
-  imports: [
-    RouterTestingModule,
-    PPAPlotsComponentTestModule,
-    MatDialogModule
-  ],
+    imports: [
+        RouterTestingModule,
+        PPAPlotsComponentTestModule,
+        MatDialogModule,
+        ButtonsModule
+    ],
   exports: [
     RouterTestingModule,
     PPAPlotsComponentTestModule,
