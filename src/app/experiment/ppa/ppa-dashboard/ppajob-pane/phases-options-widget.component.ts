@@ -58,7 +58,7 @@ export class PhaseParams {
       <div class="btn-group">
       <label class="btn btn-success btn-sm small"
              [(ngModel)]="showIndividuals" btnCheckbox
-             btnCheckboxFalse="selected" btnCheckboxTrue="all">Ind.</label>
+             [btnCheckboxFalse]="$any('selected')" [btnCheckboxTrue]="$any('all')">Ind.</label>
       </div>
     </div>
   `,
