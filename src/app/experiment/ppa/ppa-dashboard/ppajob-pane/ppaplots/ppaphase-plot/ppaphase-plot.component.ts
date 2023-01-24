@@ -1,6 +1,7 @@
 import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
 import {PPAResultsGroupSummary, valueFromPhaseName} from '../../../../ppa-dom';
 import {PhaseParams} from '../../phases-options-widget.component';
+import {ShowIndividualsOptions} from "bd2-ngx-polarplot/lib/polar-plot/polar-plot.dom";
 
 @Component({
   selector: 'bd2-ppaphase-plot',
@@ -24,9 +25,9 @@ export class PPAPhasePlotComponent implements OnInit, OnChanges {
   @Input()
   removed: number[] = [];
 
-  showIndividuals: string;
+  showIndividuals: ShowIndividualsOptions;
   phases: number[][];
-  phaseDomain: number[] = [0, 24];
+  phaseDomain: [number,number] = [0, 24];
 
   constructor() { }
 
@@ -46,7 +47,7 @@ export class PPAPhasePlotComponent implements OnInit, OnChanges {
     const phaseType = params.phaseType;
 
     let phases: number[][];
-    let domain: number[];
+    let domain: [number,number];
 
     if (params.phaseUnit === 'circ') {
       phases = groups.map(set =>
@@ -62,7 +63,7 @@ export class PPAPhasePlotComponent implements OnInit, OnChanges {
 
     this.phases = phases;
     this.phaseDomain = domain;
-    this.showIndividuals = params.showIndividuals;
+    this.showIndividuals = params.showIndividuals as ShowIndividualsOptions;
   }
 
 }
