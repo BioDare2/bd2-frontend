@@ -47,7 +47,7 @@ export class PPASelectPeriodsFormComponent extends PPABaseComponent implements O
       filter( exp => (exp ? true : false)));
 
     const params = this.route.params.pipe(
-      map( (p: Params) => p.jobId),
+      map( (p: Params) => p['jobId']),
       filter( id => ( id ? true : false)));
 
     const joined = combineLatest(exps, params, (exp, job) => ({ assay: exp, jobId: job}));
