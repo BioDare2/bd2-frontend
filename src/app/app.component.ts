@@ -1,5 +1,6 @@
 import {Component} from '@angular/core';
 import {ShutdownEventsService} from './system/shutdown-events.service';
+import { environment } from './../environments/environment';
 
 @Component({
   selector: 'bd2-root',
@@ -9,7 +10,8 @@ import {ShutdownEventsService} from './system/shutdown-events.service';
 export class AppComponent {
   title = 'Welcome to BioDare2!';
 
-  constructor(private shutdowsn: ShutdownEventsService) {
+  constructor(private shutdowns: ShutdownEventsService) {
+    console.log("Is on production: "+environment.production);
   }
 
 
