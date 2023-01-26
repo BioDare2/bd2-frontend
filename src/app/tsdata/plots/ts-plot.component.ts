@@ -31,13 +31,13 @@ export class TSPlotComponent implements OnInit {
     // console.log("Created P: "+this.id+":"+this.ix);
     this.scatterOptions = {
       scales: {
-        xAxes: [{
+        xAxes: {
           type: 'linear',
           position: 'bottom',
           /*ticks: {
               fixedStepSize: 24
           }*/
-        }]
+        }
       },
       legend: {
         display: true,
