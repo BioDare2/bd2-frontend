@@ -1,5 +1,5 @@
 import {arraysMatch, pageObjectData, removeItemFromArr, shallowSet, sortingMedian, sortObjectData} from './collections-util';
-import {PageEvent} from '@angular/material/paginator';
+import {LegacyPageEvent as PageEvent} from '@angular/material/legacy-paginator';
 
 
 describe('collections-util removeItemFromArr', () => {

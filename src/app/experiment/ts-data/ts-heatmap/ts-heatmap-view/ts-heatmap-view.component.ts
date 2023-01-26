@@ -7,7 +7,7 @@ import {debounceTime} from 'rxjs/operators';
 import {Subscription} from 'rxjs';
 import {DisplayParameters} from '../../../../tsdata/plots/ts-display.dom';
 import {Trace} from '../../../../tsdata/plots/ts-plot.dom';
-import {PageEvent} from '@angular/material/paginator';
+import {LegacyPageEvent as PageEvent} from '@angular/material/legacy-paginator';
 import {TimeSeriesMetrics} from '../../../../tsdata/ts-data-dom';
 import {ExperimentalAssayView} from '../../../../dom/repo/exp/experimental-assay-view';
 import {TimeSeriesPack, TSFetcher} from '../../../../tsdata/plots/ts-fetcher';

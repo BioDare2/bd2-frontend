@@ -16,7 +16,7 @@ import {debounceTime} from 'rxjs/operators';
 
 import {  fileSave } from 'browser-fs-access';
 
-import {PageEvent} from '@angular/material/paginator';
+import {LegacyPageEvent as PageEvent} from '@angular/material/legacy-paginator';
 import {TimeSeriesMetrics} from '../../../tsdata/ts-data-dom';
 import {DataJobsService} from '../data-jobs.service';
 

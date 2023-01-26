@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import {ColumnTypeMatDialogComponent, ColumnTypeMatDialogComponentParams} from './column-type-mat-dialog.component';
-import {MAT_DIALOG_DATA, MatDialogModule, MatDialogRef} from '@angular/material/dialog';
+import {MAT_LEGACY_DIALOG_DATA as MAT_DIALOG_DATA, MatLegacyDialogModule as MatDialogModule, MatLegacyDialogRef as MatDialogRef} from '@angular/material/legacy-dialog';
 import {FormsModule} from '@angular/forms';
 import {CellCoordinates, CellRange, CellRangeDescription} from '../../../ts-import/sheet-dom';
 

@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import {ConfirmRowCopyMatDialogComponent} from './confirm-row-copy-mat-dialog.component';
-import {MAT_DIALOG_DATA, MatDialogModule} from '@angular/material/dialog';
+import {MAT_LEGACY_DIALOG_DATA as MAT_DIALOG_DATA, MatLegacyDialogModule as MatDialogModule} from '@angular/material/legacy-dialog';
 import {CellCoordinates, CellRange, CellRangeDescription} from '../../../ts-import/sheet-dom';
 
 describe('ConfirmRowCopyMatDialogComponent', () => {

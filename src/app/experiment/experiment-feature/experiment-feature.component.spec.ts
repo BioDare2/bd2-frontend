@@ -4,7 +4,7 @@ import {ExperimentFeatureComponent} from './experiment-feature.component';
 import {ExperimentsTestToolModule} from '../experiment_test_tool.spec';
 import {ExperimentNavigationComponent} from '../experiment-navigation.component';
 import {ExperimentBasicInfoViewComponent} from '../experiment-basic-info-view.component';
-import {MatDialogModule} from '@angular/material/dialog';
+import {MatLegacyDialogModule as MatDialogModule} from '@angular/material/legacy-dialog';
 
 describe('ExperimentFeatureComponent', () => {
   let component: ExperimentFeatureComponent;

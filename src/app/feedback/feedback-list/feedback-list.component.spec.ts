@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import {FeedbackListComponent} from './feedback-list.component';
 import {FeedbackService} from '../feedback.service';
-import {MatCardModule} from '@angular/material/card';
+import {MatLegacyCardModule as MatCardModule} from '@angular/material/legacy-card';
 
 describe('FeedbackListComponent', () => {
   let component: FeedbackListComponent;
