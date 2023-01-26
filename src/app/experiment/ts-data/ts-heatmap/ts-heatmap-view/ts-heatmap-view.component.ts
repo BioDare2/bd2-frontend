@@ -13,7 +13,9 @@ import {ExperimentalAssayView} from '../../../../dom/repo/exp/experimental-assay
 import {TimeSeriesPack, TSFetcher} from '../../../../tsdata/plots/ts-fetcher';
 // a explanation how to save files https://nils-mehlhorn.de/posts/angular-file-download-progress
 // in case I want to remove filesaver
-import * as FileSaver from 'file-saver';
+//import * as FileSaver from 'file-saver';
+
+import {  fileSave } from 'browser-fs-access';
 import {CSVExporter} from '../../../../tsdata/export/csv-exporter';
 import {DataJobsService} from '../../data-jobs.service';
 
@@ -126,9 +128,21 @@ export class TsHeatmapViewComponent extends ExperimentBaseComponent implements O
 
     const pageSuffix = full ? '.full' : `.page${data.currentPage.pageIndex + 1}`;
     const fileName = `${this.assay.id}_data.${data.params.detrending.name}${pageSuffix}.csv`;
-    FileSaver.saveAs(blob, fileName);
-    // console.log(csv);
-    this.recordExport();
+
+    // FileSaver.saveAs(blob, fileName);
+
+    const opt = {
+      fileName: fileName,
+      extensions: ['.csv']
+    }
+
+    fileSave(blob, opt)
+      .then( v => {
+        //console.log('Saved export');
+        this.recordExport();
+      })
+      .catch( v => console.log('could not save export', v));
+
   }
 
   recordExport() {

@@ -6,7 +6,9 @@ import {PPAService} from '../../ppa.service';
 import {FeedbackService} from '../../../../feedback/feedback.service';
 // a explanation how to save files https://nils-mehlhorn.de/posts/angular-file-download-progress
 // in case I want to remove filesaver
-import * as FileSaver from 'file-saver';
+//import * as FileSaver from 'file-saver';
+
+import {  fileSave } from 'browser-fs-access';
 import {PPAJobFetcherService} from './services/ppajob-fetcher.service';
 import {Reloadable} from './reloadable';
 import {PPADialogsService} from '../../ppa-dialogs/ppadialogs.service';
@@ -209,10 +211,21 @@ export class PPAJobPaneComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   saveJobBlob(blob: Blob, expId: number, jobId: string) {
-    FileSaver.saveAs(blob, expId + '_job' + jobId + '.ppa.csv');
+    // FileSaver.saveAs(blob, expId + '_job' + jobId + '.ppa.csv');
     // let url= window.URL.createObjectURL(blob);
     // console.log("U",url);
     // window.open(url);
+
+    const opt = {
+      fileName: expId + '_job' + jobId + '.ppa.csv',
+      extensions: ['.csv']
+    }
+
+    fileSave(blob, opt)
+      .then( v => {
+        //console.log('Saved export');
+      })
+      .catch( v => console.log('could not save export', v));
   }
 
   delete() {

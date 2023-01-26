@@ -12,7 +12,10 @@ import {CSVExporter} from '../../../tsdata/export/csv-exporter';
 import {debounceTime} from 'rxjs/operators';
 // a explanation how to save files https://nils-mehlhorn.de/posts/angular-file-download-progress
 // in case I want to remove filesaver
-import * as FileSaver from 'file-saver';
+// import * as FileSaver from 'file-saver';
+
+import {  fileSave } from 'browser-fs-access';
+
 import {PageEvent} from '@angular/material/paginator';
 import {TimeSeriesMetrics} from '../../../tsdata/ts-data-dom';
 import {DataJobsService} from '../data-jobs.service';
@@ -190,9 +193,23 @@ export class TSViewComponent extends ExperimentBaseComponent implements OnDestro
 
     const pageSuffix = full ? '.full' : `.page${data.currentPage.pageIndex + 1}`;
     const fileName = `${this.assay.id}_data.${data.params.detrending.name}${pageSuffix}.csv`;
-    FileSaver.saveAs(blob, fileName);
+
+    //FileSaver.saveAs(blob, fileName);
+
+    const opt = {
+      fileName: fileName,
+      extensions: ['.csv']
+    }
+
+    fileSave(blob, opt)
+      .then( v => {
+        //console.log('Saved export as '+v.name);
+        this.recordExport();
+      })
+      .catch( v => console.log('could not save export', v));
+
     // console.log(csv);
-    this.recordExport();
+
   }
 
   recordExport() {

@@ -8,7 +8,9 @@ import {LocalDateTime} from '../../../../dom/repo/shared/dates';
 
 // a explanation how to save files https://nils-mehlhorn.de/posts/angular-file-download-progress
 // in case I want to remove filesaver
-import * as FileSaver from 'file-saver';
+//import * as FileSaver from 'file-saver';
+
+import {  fileSave } from 'browser-fs-access';
 import {RhythmicityJobFetcherService} from './services/rhythmicity-job-fetcher.service';
 import {RhythmicityResultsMDTableComponent} from './rhythmicity-results-mdtable/rhythmicity-results-mdtable.component';
 import {SharedDialogsService} from '../../../../shared/shared-dialogs/shared-dialogs.service';
@@ -98,10 +100,24 @@ export class RhythmicityJobPaneComponent implements OnInit, OnChanges, OnDestroy
   }
 
   saveJobBlob(blob: Blob, expId: number, jobId: string) {
-    FileSaver.saveAs(blob, expId + '_job' + this.shortUUID(jobId) + '.rhythmicity.csv');
+
+
+    //FileSaver.saveAs(blob, expId + '_job' + this.shortUUID(jobId) + '.rhythmicity.csv');
     // let url= window.URL.createObjectURL(blob);
     // console.log("U",url);
     // window.open(url);
+
+
+    const opt = {
+      fileName: expId + '_job' + this.shortUUID(jobId) + '.rhythmicity.csv',
+      extensions: ['.csv']
+    }
+
+    fileSave(blob, opt)
+      .then( v => {
+        //console.log('Saved export');
+      })
+      .catch( v => console.log('could not save export', v));
   }
 
   refresh() {

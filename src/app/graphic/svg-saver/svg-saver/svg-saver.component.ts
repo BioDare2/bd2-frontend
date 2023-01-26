@@ -2,7 +2,7 @@ import {Component, ElementRef, Input, OnInit} from '@angular/core';
 // a explanation how to save files https://nils-mehlhorn.de/posts/angular-file-download-progress
 // in case I want to remove filesaver
 
-import * as FileSaver from 'file-saver';
+import {  fileSave } from 'browser-fs-access';
 
 /**
  Some docs how to do it properly with styles and embedded graphic
@@ -63,7 +63,7 @@ export class SVGSaverComponent implements OnInit {
 
   save() {
     if (!this.refNode || !this.refNode.querySelector) {
-      console.error('The refNode misses querySelector functio, probably not a native element, got', this.refNode);
+      console.error('The refNode misses querySelector function, probably not a native element, got', this.refNode);
       return;
     }
     const svgNode = this.refNode.querySelector(this.svgSelector);
@@ -74,7 +74,20 @@ export class SVGSaverComponent implements OnInit {
       const svgXML = this.serializer.serializeToString(svgNode);
       // console.log("S",svgXML);
       const blob = new Blob([svgXML], {type: 'image/svg+xml'});
-      FileSaver.saveAs(blob, this.fileName + '.svg');
+
+      //old impl
+      //FileSaver.saveAs(blob, this.fileName + '.svg');
+
+      const opt = {
+        fileName: this.fileName + '.svg',
+        extensions: ['.svg']
+      }
+
+      fileSave(blob, opt)
+        .then( v => { console.log('Saved svg')})
+        .catch( v => console.log('could not save svg', v));
+
+
     }
   }
 
