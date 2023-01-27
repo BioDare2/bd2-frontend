@@ -80,8 +80,9 @@
   <div class="form-group row">
     <label class="col-sm-2"></label>
     <div class="col-sm-8">
+<!-- removed custom paginator as did not render with mat15 upgrade. The materials paginator seems to be working fine
 
-      <bd2-simple-paginator #dataPaginator [length]="totalTraces" [disabled]="disabledPagination"
+      <bd2-simple-paginator #dataPaginator2 [length]="totalTraces" [disabled]="disabledPagination"
                      [pageSize]="currentPage.pageSize"
                      [pageIndex]="currentPage.pageIndex"
                      [pageSizeOptions]="[10, 25, 50, 100, 200, 500]"
@@ -89,9 +90,8 @@
 
       >
       </bd2-simple-paginator>
+-->
 
-      <!--
-      <br>
 
       <mat-paginator #dataPaginator [length]="totalTraces" [disabled]="disabledPagination"
                      [pageSize]="currentPage.pageSize"
@@ -101,7 +101,8 @@
 
       >
       </mat-paginator>
-      -->
+
+      <br>
 
     </div>
   </div>

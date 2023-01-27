@@ -1,5 +1,5 @@
 import {BehaviorSubject, combineLatest, merge, Observable, of, Subject} from 'rxjs';
-import {LegacyPageEvent as PageEvent} from '@angular/material/legacy-paginator';
+import {PageEvent} from '@angular/material/paginator';
 import {Sort} from '@angular/material/sort';
 import {catchError, debounceTime, distinctUntilChanged, filter, map, switchMap, take, tap} from 'rxjs/operators';
 

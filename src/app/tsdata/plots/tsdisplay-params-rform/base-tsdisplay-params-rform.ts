@@ -4,7 +4,7 @@ import {AlignOptions, DetrendingType, DetrendingTypeOptions, NormalisationOption
 import {BehaviorSubject, combineLatest, Subscription, zip} from 'rxjs';
 import {AbstractControl, UntypedFormBuilder, UntypedFormGroup, Validators} from '@angular/forms';
 import {distinctUntilChanged, filter, map, startWith} from 'rxjs/operators';
-import {MatLegacyPaginator as MatPaginator, MatLegacyPaginatorIntl as MatPaginatorIntl, LegacyPageEvent as PageEvent} from '@angular/material/legacy-paginator';
+import {MatPaginator, MatPaginatorIntl, PageEvent} from '@angular/material/paginator';
 
 @Directive()
 export class BaseTSDisplayParamsRForm implements OnInit, OnDestroy, AfterViewInit {

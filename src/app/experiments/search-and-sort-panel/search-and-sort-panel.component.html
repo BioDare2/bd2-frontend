@@ -22,20 +22,28 @@
       </mat-button-toggle-group>
       -->
 
-
+        <mat-slide-toggle class="mr-2" [formControl]="showPublicF">Show public</mat-slide-toggle>
       </div>
-
-      <mat-slide-toggle class="mr-2" [formControl]="showPublicF">Show public</mat-slide-toggle>
 
 
       <div class="no-clues float-right">
-      <input class="form-control-sm mr-1" name="search" [formControl]="queryF" minlength="3" placeholder="e.g. prr9 temp*"
-       (keydown.enter)="find()" >
-      <button mat-mini-fab mat-icon-button aria-label="search"class="mr-2" [disabled]="queryF.invalid" (click)="find()">
-        <i class="material-icons">search</i>
-      </button>
-      <button mat-mini-fab color="primary" aria-label="all" (click)="all()" >all</button>
+        <button mat-mini-fab color="primary" aria-label="all" (click)="all()" >
+          All
+        </button>
       </div>
+
+
+      <div class="no-clues float-right form-group">
+
+      <input class="form-control-sm mr-1 border-light" name="search" [formControl]="queryF" minlength="3" placeholder="e.g. prr9 temp*"
+       (keydown.enter)="find()" >
+
+      <button mat-mini-fab aria-label="search" class="mr-2" [disabled]="queryF.invalid" (click)="find()">
+        <mat-icon>search</mat-icon>
+      </button>
+      </div>
+
+
     </small>
 
   <div class="clearfix"></div>

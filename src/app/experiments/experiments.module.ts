@@ -6,14 +6,15 @@ import {ExperimentsListComponent} from './experiments-list/experiments-list.comp
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {RepoComponentsModule} from '../repo/components/repo-comp.module';
 import {ExperimentSummaryComponent} from './experiments-list/experiment-summary/experiment-summary.component';
-import {MatLegacyButtonModule as MatButtonModule} from '@angular/material/legacy-button';
+import {MatButtonModule} from '@angular/material/button';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
-import {MatLegacyPaginatorModule as MatPaginatorModule} from '@angular/material/legacy-paginator';
-import {MatLegacySlideToggleModule as MatSlideToggleModule} from '@angular/material/legacy-slide-toggle';
-import {MatLegacyTableModule as MatTableModule} from '@angular/material/legacy-table';
+import {MatPaginatorModule} from '@angular/material/paginator';
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+import {MatTableModule} from '@angular/material/table';
 import {SearchAndSortPanelComponent} from './search-and-sort-panel/search-and-sort-panel.component';
 import {SortSwitchComponent} from './search-and-sort-panel/sort-switch/sort-switch.component';
-import {MatLegacyProgressBarModule as MatProgressBarModule} from '@angular/material/legacy-progress-bar';
+import {MatProgressBarModule} from '@angular/material/progress-bar';
+import {MatIconModule} from '@angular/material/icon';
 
 @NgModule({
   declarations: [ExperimentsListComponent, ExperimentSummaryComponent, SearchAndSortPanelComponent, SortSwitchComponent],
@@ -27,6 +28,7 @@ import {MatLegacyProgressBarModule as MatProgressBarModule} from '@angular/mater
     MatPaginatorModule,
     MatTableModule,
     MatProgressBarModule,
+    MatIconModule,
     RepoComponentsModule,
     ExperimentsRoutingModule
   ]

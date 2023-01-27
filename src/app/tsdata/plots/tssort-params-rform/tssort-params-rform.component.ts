@@ -13,10 +13,11 @@ import {TSFetcher} from '../ts-fetcher';
   templateUrl: './tssort-params-rform.component.html',
   styles: [
     `
-      mat-radio-button {
-        margin-right: 0.5em;
-      }
-    `
+           /* TODO(mdc-migration): The following rule targets internal classes of radio that may no longer apply for the MDC version. */
+           mat-radio-button {
+             margin-right: 0.5em;
+           }
+         `
   ]
 })
 export class TSSortParamsRFormComponent implements OnInit, OnDestroy {

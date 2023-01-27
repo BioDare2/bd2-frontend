@@ -1,8 +1,8 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import {PValueFormComponent} from './pvalue-form.component';
-import {MatLegacyFormFieldModule as MatFormFieldModule} from '@angular/material/legacy-form-field';
-import {MatLegacyRadioModule as MatRadioModule} from '@angular/material/legacy-radio';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatRadioModule} from '@angular/material/radio';
 
 describe('PValueFormComponent', () => {
   let component: PValueFormComponent;

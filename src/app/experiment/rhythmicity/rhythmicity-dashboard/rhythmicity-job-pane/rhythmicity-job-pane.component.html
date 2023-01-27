@@ -16,7 +16,7 @@
 
   </div>
   <div class="card-body">
-    <mat-card>
+    <mat-card appearance="outlined">
       <mat-card-content>
 
       <div class="clearfix">
@@ -41,7 +41,7 @@
     <div *ngIf="isExpanded">
       <mat-divider></mat-divider>
           <div *ngIf="rhythmicityJobDatasource.isReloading$ | async">
-            <mat-card>
+            <mat-card appearance="outlined">
               <mat-card-content>
             <mat-spinner class="center-block"></mat-spinner>
             <!--<div style="margin-top: 0.5em; text-align: center" >It may take up to 10 minutes to test for rhythmicity</div>-->
@@ -49,7 +49,7 @@
             </mat-card>
           </div>
           <div *ngIf="job.jobStatus.state === 'SUBMITTED'">
-            <mat-card>
+            <mat-card appearance="outlined">
               <mat-card-content>
                 <div style="margin-top: 0.5em; text-align: center" >It may take up to 10 minutes to test for rhythmicity</div>
               </mat-card-content>

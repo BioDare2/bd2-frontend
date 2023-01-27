@@ -1,6 +1,6 @@
 import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {PPAResultsFetcherService} from '../services/pparesults-fetcher.service';
-import {LegacyPageEvent as PageEvent} from '@angular/material/legacy-paginator';
+import {PageEvent} from '@angular/material/paginator';
 import {Sort} from '@angular/material/sort';
 import {phaseValuesFromOptions, PPAJobSummary, PPASimpleResultEntry, valueFromPhaseName} from '../../../ppa-dom';
 import {PhaseParams} from '../phases-options-widget.component';

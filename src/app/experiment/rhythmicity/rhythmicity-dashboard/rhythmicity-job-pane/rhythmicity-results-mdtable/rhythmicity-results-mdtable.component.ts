@@ -1,5 +1,5 @@
 import {AfterViewInit, Component, Input, OnDestroy, OnInit} from '@angular/core';
-import {LegacyPageEvent as PageEvent} from '@angular/material/legacy-paginator';
+import {PageEvent} from '@angular/material/paginator';
 import {Sort} from '@angular/material/sort';
 import {RhythmicityResultsFetcherService} from '../services/rhythmicity-results-fetcher.service';
 import {RhythmicityJobSummary, StatTestOptions} from '../../../rhythmicity-dom';

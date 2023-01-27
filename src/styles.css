@@ -279,6 +279,7 @@ mat-form-field textarea.ng-valid, mat-form-field textarea.ng-valid[required], ma
 }
 */
 
+/* TODO(mdc-migration): The following rule targets internal classes of button that may no longer apply for the MDC version. */
 div.searchpanel .mat-button-toggle-appearance-standard .mat-button-toggle-label-content {
   line-height: 250%;
 }

@@ -1,5 +1,5 @@
 import {DetrendingType} from '../ts-data-dom';
-import {LegacyPageEvent as PageEvent} from '@angular/material/legacy-paginator';
+import {PageEvent} from '@angular/material/paginator';
 
 export function validTimeScale(timeScale: any): { [key: string]: any } {
   // console.log("Validator called: "+JSON.stringify(control.value));

@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {MatLegacyDialog as MatDialog} from '@angular/material/legacy-dialog';
+import {MatDialog} from '@angular/material/dialog';
 import {Observable} from 'rxjs';
 import {PPAJobExportDialog2Component} from './ppajob-export-dialog2/ppajob-export-dialog2.component';
 import {SharedDialogsService} from '../../../shared/shared-dialogs/shared-dialogs.service';

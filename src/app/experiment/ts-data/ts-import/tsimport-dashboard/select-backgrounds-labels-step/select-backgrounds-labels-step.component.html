@@ -1,5 +1,5 @@
 <div *ngIf="importDetails?.containsBackgrounds">
-  <mat-card class="mat-elevation-z4">
+  <mat-card appearance="outlined" class="mat-elevation-z4">
     <mat-card-content>
 
     <div type="info" class="alert alert-info" role="alert">
@@ -7,15 +7,14 @@
     </div>
 
       <mat-form-field style="width: 100%">
-        <mat-chip-list #chipList aria-label="Backgrounds selection">
-          <mat-chip
+        <mat-chip-grid #chipList aria-label="Backgrounds selection">
+          <mat-chip-row
             *ngFor="let background of backgrounds"
-            [selectable]="selectable"
             [removable]="removable"
             (removed)="remove(background)">
             {{background}}
             <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
-          </mat-chip>
+          </mat-chip-row>
           <input
             placeholder="Type to select background label..."
             #backgroundInput
@@ -25,7 +24,7 @@
             [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
             [matChipInputAddOnBlur]="addOnBlur"
             (matChipInputTokenEnd)="add($event)">
-        </mat-chip-list>
+        </mat-chip-grid>
         <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
           <mat-option *ngFor="let label of filteredLabels | async" [value]="label">
             {{label}}

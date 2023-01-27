@@ -14,7 +14,7 @@
 
       <bd2-import-details-summary [importDetails]="importDetails"></bd2-import-details-summary>
 
-      <mat-card class="mat-elevation-z4">
+      <mat-card appearance="outlined" class="mat-elevation-z4">
         <mat-card-content>
           <p>
           <mat-radio-group [(ngModel)]="importDetails.inRows" name="inRows" class="spaced">
@@ -141,7 +141,7 @@
     <bd2-import-details-summary [importDetails]="importDetails" [showTime]="true" [showLabelling]="true"
                                 [showDataStart]="true"></bd2-import-details-summary>
 
-    <mat-card class="mat-elevation-z4">
+    <mat-card appearance="outlined" class="mat-elevation-z4">
       <mat-card-content>
         <div type="info" class="alert alert-info" role="alert">You can now import the timeseries</div>
       </mat-card-content>

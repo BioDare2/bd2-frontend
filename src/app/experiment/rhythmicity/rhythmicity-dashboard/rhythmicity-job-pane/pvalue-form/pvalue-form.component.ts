@@ -1,11 +1,11 @@
 import {AfterViewInit, Component, EventEmitter, OnInit, Output} from '@angular/core';
-import {MatLegacyRadioChange as MatRadioChange} from '@angular/material/legacy-radio';
+import {MatRadioChange} from '@angular/material/radio';
 
 @Component({
   selector: 'bd2-pvalue-form',
   templateUrl: './pvalue-form.component.html',
   styles: [`
-    .mat-radio-button  {
+    .mat-mdc-radio-button  {
       margin-right: 15px;
     }
   `]
