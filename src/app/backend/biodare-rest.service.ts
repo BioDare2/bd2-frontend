@@ -460,7 +460,7 @@ export class BioDareRestService {
     options.headers = options.headers.delete('Content-Type');
     (options as any).responseType  = 'blob'; // ResponseContentType.Blob;
 
-    const url = this.endPoints.experiment_url + '/' + expId + this.endPoints.rhythmicity_job + '/' + jobId + '/export/';
+    const url = this.endPoints.experiment_url + '/' + expId + this.endPoints.rhythmicity_job + '/' + jobId + '/export';
 
     // return this.OK(this.http.get(url, options).toPromise());
 
