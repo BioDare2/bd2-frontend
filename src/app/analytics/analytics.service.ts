@@ -4,7 +4,9 @@ import {merge, Observable, Subject, Subscription} from 'rxjs';
 // import {UserService} from '../auth/user.service';
 import {distinctUntilChanged, filter} from 'rxjs/operators';
 
-declare var ga: any;
+//declare var ga: any;
+//declare var gtag: Function;
+declare let gtag: Function;
 
 class AnalEvent {
   constructor(public category: string,
@@ -50,8 +52,8 @@ export class AnalyticsService {
         'AnalyticsService is already loaded. Activate it in the AppModule only');
     }
 
-    if (!ga) {
-      throw new Error('Missing glabal ga function');
+    if (!gtag) {
+      throw new Error('Missing global gtag function');
     }
 
     router.events.pipe(
@@ -59,27 +61,35 @@ export class AnalyticsService {
       distinctUntilChanged((previous: NavigationEnd, current: NavigationEnd) => {
         return previous.url === current.url;
       })
-    ).subscribe(
-      (x: NavigationEnd) => {
+    ).subscribe({
+      next: (x: NavigationEnd) => {
         // console.log('router.change', x);
-        ga('send', 'pageview', x.urlAfterRedirects);
+        // ga('send', 'pageview', x.urlAfterRedirects);
+        gtag('event', 'page_view', {
+            page_path: x.urlAfterRedirects,
+            // page_location: this.document.location.href
+        })
       },
-      err => {
+      error: err => {
         console.log('Error in router streem');
       },
-      () => console.log('Router streem end')
+      complete: () => console.log('Router streem end')
+    }
     );
 
     this.events = this.initEventsObservable();
 
-    this.eventsSubscription = this.events.subscribe(
-      (event) => {
+    this.eventsSubscription = this.events.subscribe( {
+      next: (event) => {
         // console.log("ga",event);
-        ga('send', 'event', event.category, event.action, event.label);
+        //ga('send', 'event', event.category, event.action, event.label);
+        gtag('event', event.action, {
+          'event_category': event.category,
+          'event_label': event.label});
       },
-      (err) => console.error('Events error: ', err),
-      () => console.log('Events finished')
-    );
+      error: (err) => console.error('Events error: ', err),
+      complete: () => console.log('Events finished')
+    });
 
   }
 
