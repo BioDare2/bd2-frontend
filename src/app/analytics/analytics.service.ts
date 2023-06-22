@@ -4,8 +4,6 @@ import {merge, Observable, Subject, Subscription} from 'rxjs';
 // import {UserService} from '../auth/user.service';
 import {distinctUntilChanged, filter} from 'rxjs/operators';
 
-//declare var ga: any;
-//declare var gtag: Function;
 declare let gtag: Function;
 
 class AnalEvent {
@@ -64,7 +62,6 @@ export class AnalyticsService {
     ).subscribe({
       next: (x: NavigationEnd) => {
         // console.log('router.change', x);
-        // ga('send', 'pageview', x.urlAfterRedirects);
         gtag('event', 'page_view', {
             page_path: x.urlAfterRedirects,
             // page_location: this.document.location.href
@@ -82,7 +79,6 @@ export class AnalyticsService {
     this.eventsSubscription = this.events.subscribe( {
       next: (event) => {
         // console.log("ga",event);
-        //ga('send', 'event', event.category, event.action, event.label);
         gtag('event', event.action, {
           'event_category': event.category,
           'event_label': event.label});
