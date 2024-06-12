@@ -5,7 +5,7 @@ import {DetrendingType, TimeSeriesMetrics, TSSort} from './ts-data-dom';
 import {TraceSet} from './plots/ts-plot.dom';
 import {DisplayParameters} from './plots/ts-display.dom';
 import {Observable} from 'rxjs';
-import {PageEvent} from '@angular/material/paginator';
+import {LegacyPageEvent as PageEvent} from '@angular/material/legacy-paginator';
 
 @Injectable({
   providedIn: 'root'

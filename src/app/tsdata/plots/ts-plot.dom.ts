@@ -1,4 +1,4 @@
-import {PageEvent} from '@angular/material/paginator';
+import {LegacyPageEvent as PageEvent} from '@angular/material/legacy-paginator';
 import {DetrendingType, TSSort} from '../ts-data-dom';
 
 export class Timepoint {

@@ -9,7 +9,7 @@ import {PPAResultsTable2Component} from './pparesults-table2/pparesults-table2.c
 import {PPAPlotsComponentTestModule} from './ppaplots/ppaplots.component.spec';
 import {NgModule} from '@angular/core';
 import {PPADialogsService} from '../../ppa-dialogs/ppadialogs.service';
-import {MatDialogModule} from '@angular/material/dialog';
+import {MatLegacyDialogModule as MatDialogModule} from '@angular/material/legacy-dialog';
 import {ButtonsModule} from "ngx-bootstrap/buttons";
 
 @NgModule({

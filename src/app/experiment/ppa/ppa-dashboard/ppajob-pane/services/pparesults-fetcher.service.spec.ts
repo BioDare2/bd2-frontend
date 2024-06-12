@@ -4,7 +4,7 @@ import {PPAResultsFetcherService} from './pparesults-fetcher.service';
 import {throwError} from 'rxjs';
 import {PPAService} from '../../../ppa.service';
 import {PPASimpleResultEntry,} from '../../../ppa-dom';
-import {PageEvent} from '@angular/material/paginator';
+import {LegacyPageEvent as PageEvent} from '@angular/material/legacy-paginator';
 import {Sort} from '@angular/material/sort';
 import {makePPASimpleResults,} from './ppa-test-data.spec';
 

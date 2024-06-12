@@ -3,7 +3,7 @@ import {PPAGroupResultsFetcherService} from '../services/ppagroupresults-fetcher
 import {PPAJobSummary, PPAResultsGroupSummary} from '../../../ppa-dom';
 import {BD2ColorPalette} from '../../../../../graphic/color/color-palette';
 import {Subscription} from 'rxjs';
-import {PageEvent} from '@angular/material/paginator';
+import {LegacyPageEvent as PageEvent} from '@angular/material/legacy-paginator';
 import {Sort} from '@angular/material/sort';
 import {PhaseParams} from '../phases-options-widget.component';
 import {Reloadable} from '../reloadable';

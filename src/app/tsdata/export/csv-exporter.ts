@@ -2,7 +2,7 @@ import {Trace} from '../plots/ts-plot.dom';
 import {DisplayParameters} from '../plots/ts-display.dom';
 import {ExperimentalAssayView} from '../../dom/repo/exp/experimental-assay-view';
 import {ColumnMap} from './column-map';
-import {PageEvent} from '@angular/material/paginator';
+import {LegacyPageEvent as PageEvent} from '@angular/material/legacy-paginator';
 import {TSSort} from '../ts-data-dom';
 
 export class CSVExporter {

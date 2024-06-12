@@ -1,7 +1,7 @@
 import {TestBed} from '@angular/core/testing';
 
 import {PPADialogsService} from './ppadialogs.service';
-import {MatDialogModule} from '@angular/material/dialog';
+import {MatLegacyDialogModule as MatDialogModule} from '@angular/material/legacy-dialog';
 
 describe('PPADialogsService', () => {
   beforeEach(() => TestBed.configureTestingModule({
