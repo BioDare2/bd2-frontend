@@ -69,10 +69,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "biodare2-ui:build:production"
+              "buildTarget": "biodare2-ui:build:production"
             },
             "development": {
-              "browserTarget": "biodare2-ui:build:development"
+              "buildTarget": "biodare2-ui:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -80,7 +80,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "biodare2-ui:build"
+            "buildTarget": "biodare2-ui:build"
           }
         },
         "test": {
