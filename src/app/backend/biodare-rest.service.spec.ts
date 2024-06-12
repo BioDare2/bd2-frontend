@@ -1,7 +1,7 @@
 import {TestBed} from '@angular/core/testing';
 import {BioDareRestService} from './biodare-rest.service';
-import {HttpClientTestingModule, HttpTestingController} from '@angular/common/http/testing';
-import {HttpClient, HttpParams} from '@angular/common/http';
+import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
+import { HttpClient, HttpParams, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import {BioDareEndPoints, bioDareRestConfigurator} from './biodare-rest.dom';
 
 
@@ -15,13 +15,13 @@ describe('BioDareRestService', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [
-        HttpClientTestingModule
-      ],
-      providers: [
-        {provide: BioDareEndPoints, useValue: endPoints}
-      ]
-    });
+    imports: [],
+    providers: [
+        { provide: BioDareEndPoints, useValue: endPoints },
+        provideHttpClient(withInterceptorsFromDi()),
+        provideHttpClientTesting()
+    ]
+});
 
     httpClient = TestBed.inject(HttpClient);
     httpTestingController = TestBed.inject(HttpTestingController);

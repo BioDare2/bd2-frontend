@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {BioDareEndPoints} from './biodare-rest.dom';
-import {HttpClient, HttpErrorResponse, HttpHeaders, HttpParams} from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular/common/http';
 import {Observable, throwError} from 'rxjs';
 import {catchError, map} from 'rxjs/operators';
 import {SystemEventsService} from '../system/system-events.service';
