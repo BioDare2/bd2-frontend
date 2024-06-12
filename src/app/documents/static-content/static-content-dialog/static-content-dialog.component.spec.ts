@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import {StaticContentDialogComponent} from './static-content-dialog.component';
 import {StaticContentComponent} from '../static-content/static-content.component';
-import {MAT_LEGACY_DIALOG_DATA as MAT_DIALOG_DATA} from '@angular/material/legacy-dialog';
+import {MAT_DIALOG_DATA} from '@angular/material/dialog';
 
 describe('StaticContentDialogComponent', () => {
   let component: StaticContentDialogComponent;

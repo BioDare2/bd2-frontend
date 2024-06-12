@@ -9,7 +9,7 @@ import {removeItemFromArr} from '../../shared/collections-util';
   changeDetection: ChangeDetectionStrategy.OnPush, // manually handling to improve performance
   template: `
     <div class="bd2-feedback-list">
-      <mat-card *ngFor="let message of messages; let i = index"
+      <mat-card appearance="outlined" *ngFor="let message of messages; let i = index"
          class="mat-elevation-z4 mb-2 word_wrapping"
             [class.success]="message.isSuccess()"
             [class.error]="message.isError()"

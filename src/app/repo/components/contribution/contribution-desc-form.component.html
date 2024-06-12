@@ -6,7 +6,7 @@
     </ul>
   </div>
 
-  <mat-card><mat-card-content> <!-- Authors -->
+  <mat-card appearance="outlined"><mat-card-content> <!-- Authors -->
   <div class="form-group">
     <!--<mat-card ><mat-card-content >-->
       <label><strong>Authors</strong></label>
@@ -18,24 +18,24 @@
           </a>
         </li>
       </ul>-->
-      <mat-chip-list>
-        <mat-chip *ngFor="let author of model.authors" (removed)="removeAuthor(author)">
+      <mat-chip-listbox>
+        <mat-chip-option *ngFor="let author of model.authors" (removed)="removeAuthor(author)">
           {{ author.name }}
           <mat-icon matChipRemove>cancel</mat-icon>
-        </mat-chip>
-      </mat-chip-list>
+        </mat-chip-option>
+      </mat-chip-listbox>
     <mat-divider inset class="mt-2"></mat-divider>
     <!--</mat-card-content></mat-card>-->
   </div>
   <div *ngIf="model.curators.length > 0" class="form-group">
     <!--<mat-card ><mat-card-content >-->
       <label><strong>Data curators</strong></label>
-      <mat-chip-list>
-        <mat-chip *ngFor="let curator of model.curators" (removed)="removeCurator(curator)">
+      <mat-chip-listbox>
+        <mat-chip-option *ngFor="let curator of model.curators" (removed)="removeCurator(curator)">
           {{ curator.name }}
           <mat-icon matChipRemove>cancel</mat-icon>
-        </mat-chip>
-      </mat-chip-list>
+        </mat-chip-option>
+      </mat-chip-listbox>
       <!-- <ul class="list-unstyled">
         <li *ngFor="let curator of model.curators">
           {{ curator.name }}
@@ -93,18 +93,18 @@
   <mat-divider class="mb-1"></mat-divider>
 
 
-  <mat-card><mat-card-content> <!-- Insitution/Funding -->
+  <mat-card appearance="outlined"><mat-card-content> <!-- Insitution/Funding -->
   <div class="form-group">
 
     <!--<mat-card><mat-card-content> -->
       <label><strong>Institutions</strong></label>
       <p *ngIf="!(model.institutions) || model.institutions.length < 1">Please add an institution</p>
-      <mat-chip-list>
-        <mat-chip *ngFor="let inst of model.institutions" (removed)="removeInstitution(inst)">
+      <mat-chip-listbox>
+        <mat-chip-option *ngFor="let inst of model.institutions" (removed)="removeInstitution(inst)">
           {{ inst.name }}
           <mat-icon matChipRemove>cancel</mat-icon>
-        </mat-chip>
-      </mat-chip-list>
+        </mat-chip-option>
+      </mat-chip-listbox>
     <!--</mat-card-content></mat-card>-->
     <mat-divider inset class="mt-2"></mat-divider>
   </div>
@@ -139,12 +139,12 @@
 
     <!--<mat-card><mat-card-content>-->
       <label><strong>Fundings</strong></label>
-      <mat-chip-list>
-        <mat-chip *ngFor="let fund of model.fundings" (removed)="removeFunding(fund)">
+      <mat-chip-listbox>
+        <mat-chip-option *ngFor="let fund of model.fundings" (removed)="removeFunding(fund)">
           {{ fund.name }}
           <mat-icon matChipRemove>cancel</mat-icon>
-        </mat-chip>
-      </mat-chip-list>
+        </mat-chip-option>
+      </mat-chip-listbox>
     <!--</mat-card-content></mat-card>-->
     <mat-divider inset class="mt-2"></mat-divider>
   </div>

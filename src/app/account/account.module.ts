@@ -9,12 +9,12 @@ import {PasswordResetComponent} from './password-reset/password-reset.component'
 import {AccountActivationComponent} from './account-activation/account-activation.component';
 import {RegistrationRFormComponent} from './registration-rform/registration-rform.component';
 import {StaticContentModule} from '../documents/static-content/static-content.module';
-import {MatLegacyCardModule as MatCardModule} from '@angular/material/legacy-card';
-import {MatLegacyCheckboxModule as MatCheckboxModule} from '@angular/material/legacy-checkbox';
+import {MatCardModule} from '@angular/material/card';
+import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatDividerModule} from '@angular/material/divider';
-import {MatLegacyFormFieldModule as MatFormFieldModule} from '@angular/material/legacy-form-field';
+import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatIconModule} from '@angular/material/icon';
-import {MatLegacyInputModule as MatInputModule} from '@angular/material/legacy-input';
+import {MatInputModule} from '@angular/material/input';
 import {AccountEditRFormComponent} from './account-edit-rform/account-edit-rform.component';
 import {PasswordChangeRFormComponent} from './password-change-rform/password-change-rform.component';
 

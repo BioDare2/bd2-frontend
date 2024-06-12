@@ -1,6 +1,6 @@
 
 <bd2-import-steps (import)="importData($event)" (oldImport)="goToOldImport($event)"></bd2-import-steps>
-<mat-card *ngIf="importing">
+<mat-card appearance="outlined" *ngIf="importing">
   <mat-card-content>
     <mat-spinner class="center-block"></mat-spinner>
     <div style="margin-top: 0.5em; text-align: center" >Importing ....</div>

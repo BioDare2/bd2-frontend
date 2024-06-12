@@ -1,4 +1,4 @@
-import {LegacyPageEvent as PageEvent} from '@angular/material/legacy-paginator';
+import {PageEvent} from '@angular/material/paginator';
 import {SortDirection} from '@angular/material/sort';
 
 export function removeItemFromArr<V>(item: V, arr: V[]): boolean {

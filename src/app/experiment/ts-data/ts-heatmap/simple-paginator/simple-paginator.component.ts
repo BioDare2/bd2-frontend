@@ -1,6 +1,6 @@
 import {ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {coerceNumberProperty} from '@angular/cdk/coercion';
-import {LegacyPageEvent as PageEvent} from '@angular/material/legacy-paginator';
+import {PageEvent} from '@angular/material/paginator';
 
 /** The default page size if there is no page size and there are no provided page size options. */
 const DEFAULT_PAGE_SIZE = 50;
@@ -10,55 +10,56 @@ const DEFAULT_PAGE_SIZE = 50;
   templateUrl: './simple-paginator.component.html',
   styles: [
     `
-      .mat-paginator-icon {
-        width: 28px;
-        fill: currentColor;
-
-      }
-
-      .mat-paginator-range-actions {
-        display: flex;
-        align-items: center;
-      }
-
-      .mat-paginator {
-        display: block;
-      }
-
-      .mat-paginator-outer-container {
-        display: flex;
-      }
-
-      .mat-paginator-container {
-        display: flex;
-        align-items: center;
-        justify-content: flex-end;
-        min-height: 56px;
-        padding: 0 8px;
-        flex-wrap: wrap-reverse;
-        width: 100%;
-      }
-
-      .mat-paginator-page-size {
-        display: flex;
-        align-items: baseline;
-        margin-right: 8px;
-      }
-
-      .mat-paginator-page-size-label {
-        margin: 0 4px;
-      }
-
-      .mat-paginator-page-size-select {
-        margin: 6px 4px 0 4px;
-        width: 70px;
-
-      }
-
-      .mat-paginator-range-label {
-        margin:  0 32px 0 24px;
-      }
-    `
+                     .mat-mdc-paginator-icon {
+                       width: 28px;
+                       fill: currentColor;
+               
+                     }
+               
+                     .mat-mdc-paginator-range-actions {
+                       display: flex;
+                       align-items: center;
+                     }
+               
+                     .mat-mdc-paginator {
+                       display: block;
+                     }
+               
+                     .mat-mdc-paginator-outer-container {
+                       display: flex;
+                     }
+               
+                     .mat-mdc-paginator-container {
+                       display: flex;
+                       align-items: center;
+                       justify-content: flex-end;
+                       min-height: 56px;
+                       padding: 0 8px;
+                       flex-wrap: wrap-reverse;
+                       width: 100%;
+                     }
+               
+                     .mat-mdc-paginator-page-size {
+                       display: flex;
+                       align-items: baseline;
+                       margin-right: 8px;
+                     }
+               
+                     .mat-mdc-paginator-page-size-label {
+                       margin: 0 4px;
+                     }
+               
+                     /* TODO(mdc-migration): The following rule targets internal classes of paginator that may no longer apply for the MDC version. */
+                     .mat-paginator-page-size-select {
+                       margin: 6px 4px 0 4px;
+                       width: 70px;
+               
+                     }
+               
+                     .mat-mdc-paginator-range-label {
+                       margin:  0 32px 0 24px;
+                     }
+                   `
   ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })

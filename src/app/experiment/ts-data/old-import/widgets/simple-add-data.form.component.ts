@@ -18,7 +18,7 @@ import {
       <input type="text" class="form-control short-input" style="max-width: 6em;"
              id="colRange"
              placeholder="e.g. B-D"
-             required minlength="3" pattern="[A-Za-z][A-Za-z]?\-[A-Za-z][A-Za-z]?"
+             required minlength="3" pattern="[A-Za-z][A-Za-z]?-[A-Za-z][A-Za-z]?"
              [(ngModel)]="colRange"
              name="fColRange" #fColRange="ngModel"
       >

@@ -5,7 +5,7 @@ import {SearchOptions} from '../search-and-sort-panel/search-and-sort-panel.comp
 import {ExperimentSummary} from '../../dom/repo/exp/experiment-summary';
 import {Observable, of} from 'rxjs';
 import {REMOVE_DEBOUNCE} from '../../shared/tokens';
-import {LegacyPageEvent as PageEvent} from '@angular/material/legacy-paginator';
+import {PageEvent} from '@angular/material/paginator';
 import {Sort} from '@angular/material/sort';
 import {ExperimentService} from '../../experiment/experiment.service';
 

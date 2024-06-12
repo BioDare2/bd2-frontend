@@ -3,7 +3,7 @@ import {UserService} from '../../auth/user.service';
 import {FeedbackService} from '../../feedback/feedback.service';
 import {ExperimentService} from '../../experiment/experiment.service';
 import {ExperimentSummary} from '../../dom/repo/exp/experiment-summary';
-import {LegacyPageEvent as PageEvent} from '@angular/material/legacy-paginator';
+import {PageEvent} from '@angular/material/paginator';
 import {Sort} from '@angular/material/sort';
 import {ActivatedRoute} from '@angular/router';
 import {filter, map} from 'rxjs/operators';

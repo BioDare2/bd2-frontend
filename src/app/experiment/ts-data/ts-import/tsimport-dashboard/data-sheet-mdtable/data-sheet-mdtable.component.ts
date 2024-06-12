@@ -1,6 +1,6 @@
 import {Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
 import {DataTableSlice} from '../data-table-dom';
-import {MatLegacyTable as MatTable} from '@angular/material/legacy-table';
+import {MatTable} from '@angular/material/table';
 import {TableStyler} from './table-styling';
 import {CellSelection} from '../../import-dom';
 
@@ -13,13 +13,13 @@ import {CellSelection} from '../../import-dom';
       overflow: auto;
     }
 
-    .mat-table-sticky:first-child {
+    .mat-mdc-table-sticky:first-child {
       border-right: 1px solid #e0e0e0;
       padding-right: 1em;
     }
 
 
-    .mat-header-cell, .mat-cell {
+    .mat-mdc-header-cell, .mat-mdc-cell {
       padding-left: 0.5em;
       padding-right: 0.5em;
     }

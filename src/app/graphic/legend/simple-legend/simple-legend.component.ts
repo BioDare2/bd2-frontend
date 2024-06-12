@@ -27,27 +27,27 @@ class LegendItem {
   styles: [
 
       `
-      div.marked {
-        text-decoration: line-through;
-      }
-
-      div.legend-item {
-        margin-right: 1.5em;
-      }
-
-      div.color-box {
-        width: 2.5em;
-        height: 1.1em;
-        margin-right: 0.5em;
-        border-width: 3px;
-        border-style: solid;
-      }
-
-      div.legend-item span {
-        word-wrap: break-word; /* All browsers since IE 5.5+ */
-        overflow-wrap: break-word; /* Renamed property in CSS3 draft spec */
-      }
-    `
+                                 div.marked {
+                                   text-decoration: line-through;
+                                 }
+                           
+                                 div.legend-item {
+                                   margin-right: 1.5em;
+                                 }
+                           
+                                 div.color-box {
+                                   width: 2.5em;
+                                   height: 1.1em;
+                                   margin-right: 0.5em;
+                                   border-width: 3px;
+                                   border-style: solid;
+                                 }
+                           
+                                 div.legend-item span {
+                                   word-wrap: break-word; /* All browsers since IE 5.5+ */
+                                   overflow-wrap: break-word; /* Renamed property in CSS3 draft spec */
+                                 }
+                               `
   ]
 })
 export class SimpleLegendComponent implements OnInit, OnChanges {

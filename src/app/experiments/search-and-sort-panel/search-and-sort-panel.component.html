@@ -7,13 +7,17 @@
         <bd2-sort-switch formControlName="direction" class="mr-1"></bd2-sort-switch>
 
         <mat-button-toggle-group name="sorting" aria-label="sorting" class="mr-4" formControlName="sorting" >
-          <!--<mat-button-toggle value="rank"><i class="material-icons">cancel</i></mat-button-toggle>-->
-          <mat-button-toggle value="id">Id</mat-button-toggle>
-          <mat-button-toggle value="name">Title</mat-button-toggle>
-          <mat-button-toggle value="author">Author</mat-button-toggle>
-          <mat-button-toggle value="executed">Exec.</mat-button-toggle>
-          <mat-button-toggle value="modified">Mod.</mat-button-toggle>
+
+            <mat-button-toggle value="id">Id</mat-button-toggle>
+            <mat-button-toggle value="name">Title</mat-button-toggle>
+            <mat-button-toggle value="author">Author</mat-button-toggle>
+            <mat-button-toggle value="executed">Exec.</mat-button-toggle>
+            <mat-button-toggle value="modified">Mod.</mat-button-toggle>
+
+
         </mat-button-toggle-group>
+
+          <!--<mat-button-toggle value="rank"><i class="material-icons">cancel</i></mat-button-toggle>-->
 
       <!--
       <mat-button-toggle-group name="direction" aria-label="direction" class="mr-2" >
@@ -31,7 +35,7 @@
       <div class="no-clues float-right">
       <input class="form-control-sm mr-1" name="search" [formControl]="queryF" minlength="3" placeholder="e.g. prr9 temp*"
        (keydown.enter)="find()" >
-      <button mat-mini-fab mat-icon-button aria-label="search"class="mr-2" [disabled]="queryF.invalid" (click)="find()">
+      <button mat-mini-fab aria-label="search"class="mr-2" [disabled]="queryF.invalid" (click)="find()">
         <i class="material-icons">search</i>
       </button>
       <button mat-mini-fab color="primary" aria-label="all" (click)="all()" >all</button>
