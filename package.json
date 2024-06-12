@@ -47,6 +47,8 @@
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^17.3.8",
+    "@angular-eslint/schematics": "17.5.2",
+    "@angular-eslint/template-parser": "17.5.2",
     "@angular/cli": "~17.3.8",
     "@angular/compiler-cli": "^17.3.11",
     "@types/gtag.js": "^0.0.12",
