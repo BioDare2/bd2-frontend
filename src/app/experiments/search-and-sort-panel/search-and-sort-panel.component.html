@@ -8,7 +8,7 @@
         <bd2-sort-switch formControlName="direction" class="mr-1"></bd2-sort-switch>
         -->
 
-        <button mat-mini-fab aria-label="Sort order"  (click)="changeDirection()">
+        <button mat-mini-fab aria-label="sort direction"  (click)="changeDirection()" class="mr-1" style="vertical-align: bottom;">
           <mat-icon [class]="sortOrderClass">sort</mat-icon>
         </button>
 
@@ -37,16 +37,15 @@
 
       </div>
 
-      <mat-slide-toggle class="mr-2" [formControl]="showPublicF">Show public</mat-slide-toggle>
+      <mat-slide-toggle class="mr-2 mt-2" [formControl]="showPublicF" >Show public</mat-slide-toggle>
 
-
-      <div class="no-clues float-right">
+      <div class="no-clues float-right" >
       <input class="form-control-sm mr-1" name="search" [formControl]="queryF" minlength="3" placeholder="e.g. prr9 temp*"
        (keydown.enter)="find()" >
       <button mat-mini-fab aria-label="search" class="mr-2" [disabled]="queryF.invalid" (click)="find()">
-        <i class="material-icons">search</i>
+        <mat-icon>search</mat-icon>
       </button>
-      <button mat-mini-fab color="primary" aria-label="all" (click)="all()" >all</button>
+      <button mat-mini-fab color="primary" aria-label="all" (click)="all()" style="vertical-align: bottom;">all</button>
       </div>
     </small>
 
