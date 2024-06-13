@@ -8,7 +8,7 @@
   <div *ngIf="registered" class="alert alert-success">
     <h4>Your registration was successful.</h4>
 	<!-- Try to login now or check your email (<strong>{{registeredMsg}}</strong>) for the activation link. -->
-    We have sent you the activation link to <strong>{{registeredMsg}}</strong>, please use that link before logging in 
+    We have sent you the activation link to <strong>{{registeredMsg}}</strong>, please use that link before logging in
   </div>
 
   <div *ngIf="!registered" class="mb-4">
@@ -18,7 +18,7 @@
         <mat-label for="username">Login</mat-label>
         <input matInput class="" formControlName="username" id="username"
                minlength="5"
-               pattern="[0-9|a-z|\._]+"
+               pattern="[0-9a-z._]+"
                placeholder="choose login"
                required
                type="text"
