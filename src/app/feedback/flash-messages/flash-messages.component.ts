@@ -51,15 +51,13 @@ export class FlashMessagesComponent implements OnInit, OnDestroy {
         duration = this.errorDelay * 1000;
         panelClass = 'flash-error';
       }
-      console.log("snackCalled", message)
+      //console.log("snackCalled", message)
 
       /* settign colors of messages by applying styles does not work with new material
       https://github.com/angular/components/issues/26928
 
        */
       this.snackBar.open(message.message, 'X', {duration: duration, panelClass: panelClass, verticalPosition: 'top'});
-      //this.snackBar.open(message.message, 'X', {duration: duration, panelClass: panelClass});
-      //this.snackBar.open(message.message, 'X', {duration: 80000, panelClass: 'xx', verticalPosition: 'top'});
 
     }
   }
