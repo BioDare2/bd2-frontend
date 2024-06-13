@@ -1,4 +1,4 @@
-import {Component, Input, OnDestroy, OnInit} from '@angular/core';
+import {Component, Input, NgZone, OnDestroy, OnInit} from '@angular/core';
 import {Subscription} from 'rxjs';
 import {FeedbackService} from '../feedback.service';
 import {MatSnackBar} from '@angular/material/snack-bar';
@@ -51,8 +51,15 @@ export class FlashMessagesComponent implements OnInit, OnDestroy {
         duration = this.errorDelay * 1000;
         panelClass = 'flash-error';
       }
+      console.log("snackCalled", message)
 
-      this.snackBar.open(message.message, 'X', {duration, panelClass, verticalPosition: 'top'});
+      /* settign colors of messages by applying styles does not work with new material
+      https://github.com/angular/components/issues/26928
+
+       */
+      this.snackBar.open(message.message, 'X', {duration: duration, panelClass: panelClass, verticalPosition: 'top'});
+      //this.snackBar.open(message.message, 'X', {duration: duration, panelClass: panelClass});
+      //this.snackBar.open(message.message, 'X', {duration: 80000, panelClass: 'xx', verticalPosition: 'top'});
 
     }
   }

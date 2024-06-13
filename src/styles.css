@@ -245,12 +245,18 @@ label.btn {
   margin-right: 0px;
 }
 
-snack-bar-container.flash-error {
+/* added so it is not under top bar */
+mat-snack-bar-container {
+  margin-top: 75px !important;
+}
+
+/* those do not work with material update */
+mat-snack-bar-container.flash-error {
   color: #721c24;
   background-color: #f8d7da;
 }
 
-snack-bar-container.flash-info {
+mat-snack-bar-container.flash-info {
   color: #155724;
   background-color: #d4edda;;
 }

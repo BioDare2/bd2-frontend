@@ -15,10 +15,12 @@ import {removeItemFromArr} from '../../shared/collections-util';
             [class.error]="message.isError()"
             [class.info]="message.isInfo()"
       >
+        <mat-card-content>
         <button (click)="close(message)" class="float-right close" aria-label="Close">
           <span aria-hidden="true">×</span><span class="sr-only">Close</span>
         </button>
         {{ message?.message }}
+        </mat-card-content>
       </mat-card>
     </div>
   `,
