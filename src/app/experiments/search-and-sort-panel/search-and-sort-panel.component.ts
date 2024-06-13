@@ -23,6 +23,9 @@ export class SearchAndSortPanelComponent implements OnInit {
   sortOptionsF: UntypedFormGroup;
   queryF: UntypedFormControl;
   showPublicF: UntypedFormControl;
+  sortingF: UntypedFormControl;
+
+  sortOrderClass = '';
 
   // options: SearchAndSortOptions;
   // currentDisplayOptions: SearchAndSortOptions;
@@ -34,7 +37,7 @@ export class SearchAndSortPanelComponent implements OnInit {
   @Output()
   sort = new EventEmitter<Sort>();
 
-  currentSort: Sort = {active: 'id', direction: 'asc'};
+  currentSort: Sort = {active: 'modified', direction: 'desc'};
 
   currentQuery = '';
   currentShowPublic = false;
@@ -69,7 +72,7 @@ export class SearchAndSortPanelComponent implements OnInit {
     this.queryF = this.fb.control(this.currentQuery, [Validators.required, Validators.minLength(3)]);
 
 
-    this.sortOptionsF.valueChanges.subscribe( val => this.updateSort(val.sorting, val.direction));
+    this.sortOptionsF.valueChanges.subscribe( val => this.updateSort(val.sorting, this.currentSort.direction));
 
     this.showPublicF.valueChanges.subscribe( val => {
       this.currentShowPublic = val;
@@ -80,6 +83,7 @@ export class SearchAndSortPanelComponent implements OnInit {
   }
 
   updateSort(active: string, direction: string) {
+    console.log('UpdateSort', {active, direction, class: this.sortOrderClass});
     const sort = {active, direction} as Sort;
     this.currentSort = sort;
     this.sort.next(sort);
@@ -90,7 +94,19 @@ export class SearchAndSortPanelComponent implements OnInit {
     this.search.next(search);
   }
 
+  changeDirection() {
+    let direction = this.currentSort.direction == 'asc' ? 'desc' : 'asc';
+    //console.log("direction flipped", direction);
 
+    this.sortOrderClass = direction == 'asc' ? 'icon-flipped-h' : null;
+    /*if (direction === 'asc') {
+      this.sortOrderClass = 'icon-flipped-h';
+    } else {
+      this.sortOrderClass = null;
+    }*/
+
+    this.updateSort(this.currentSort.active, direction);
+  }
 
   find() {
     if (this.queryF.valid) {

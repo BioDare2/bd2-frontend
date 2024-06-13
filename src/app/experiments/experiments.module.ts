@@ -8,6 +8,7 @@ import {RepoComponentsModule} from '../repo/components/repo-comp.module';
 import {ExperimentSummaryComponent} from './experiments-list/experiment-summary/experiment-summary.component';
 import {MatButtonModule} from '@angular/material/button';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
+import {MatIconModule} from '@angular/material/icon';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import {MatTableModule} from '@angular/material/table';
@@ -23,6 +24,7 @@ import {MatProgressBarModule} from '@angular/material/progress-bar';
     ReactiveFormsModule,
     MatButtonModule,
     MatButtonToggleModule,
+    MatIconModule,
     MatSlideToggleModule,
     MatPaginatorModule,
     MatTableModule,
