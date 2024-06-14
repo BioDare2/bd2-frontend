@@ -1,0 +1,31 @@
+<div class="bd2hm-heatmap" [hidden]="hidden">
+  <svg *ngIf="graphic" width="100%" [attr.viewBox]="graphic.viewBox">
+    <defs>
+      <filter id="bd2hm-shadow">
+        <feDropShadow dx="1" dy="1" stdDeviation="1"/>
+      </filter>
+      <pattern id="bd2hm-pattern-diagonal" width="10" height="10" patternTransform="rotate(45 0 0)"
+               patternUnits="userSpaceOnUse">
+        <line x1="0" y1="0" x2="0" y2="10" style="stroke:lightgrey; stroke-width:1"/>
+      </pattern>
+    </defs>
+
+    <g class="bd2hm-mainPane" [attr.transform]="graphic.mainPaneTransform">
+
+      <g bd2hm-pane-back [graphic]="graphic" class="bd2hm-paneBack"></g>
+
+
+      <g bd2hm-axis-box [graphic]="graphic"></g>
+
+
+
+      <g bd2hm-series-box [graphic]="graphic" [series]="series" class="bd2hm-seriesBox"></g>
+
+
+      <g bd2hm-labels [graphic]="graphic" [data]="series" [alwaysOn]="labelsAlwaysOn"></g>
+
+      <g bd2hm-tooltip [graphic]="graphic"></g>
+    </g>
+  </svg>
+  <!--{{ series | json }}-->
+</div>

@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import {HeatmapPlotComponent} from './heatmap-plot.component';
-import {Bd2NgxHeatmapModule} from 'bd2-ngx-heatmap';
+import {Bd2NgxHeatmapModule} from "../../../../bd2-ngx-heatmap/bd2-ngx-heatmap.module";
 
 describe('HeatmapPlotComponent', () => {
   let component: HeatmapPlotComponent;
