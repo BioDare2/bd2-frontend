@@ -34,7 +34,6 @@
     "@angular/platform-browser": "^18.0.3",
     "@angular/platform-browser-dynamic": "^18.0.3",
     "@angular/router": "^18.0.3",
-    "bd2-ngx-hboxplot": "^18.0.0",
     "bd2-ngx-heatmap": "^18.0.0",
     "bd2-ngx-polarplot": "^18.0.0",
     "bootstrap": "^4.6.2",

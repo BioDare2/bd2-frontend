@@ -10,7 +10,7 @@ import {TSPlotModule} from '../../tsdata/plots/ts-plot.module';
 import {PPADashboardComponent} from './ppa-dashboard/ppa-dashboard.component';
 import {PPAJobPaneComponent} from './ppa-dashboard/ppajob-pane/ppajob-pane.component';
 import {PhasesOptionsWidgetComponent} from './ppa-dashboard/ppajob-pane/phases-options-widget.component';
-import {BD2NgxHBoxplotModule} from 'bd2-ngx-hboxplot';
+import {BD2NgxHBoxplotModule} from '../../bd2-ngx-hboxplot/bd2-ngx-hboxplot.module';
 import {BD2NgxPolarplotModule} from 'bd2-ngx-polarplot';
 import {LegendModule} from '../../graphic/legend/legend.module';
 import {SVGSaverModule} from '../../graphic/svg-saver/svg-saver.module';

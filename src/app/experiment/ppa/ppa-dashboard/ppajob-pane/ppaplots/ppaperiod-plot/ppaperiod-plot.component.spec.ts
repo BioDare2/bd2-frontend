@@ -1,7 +1,8 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import {PPAPeriodPlotComponent} from './ppaperiod-plot.component';
-import {BD2NgxHBoxplotModule} from 'bd2-ngx-hboxplot';
+import {BD2NgxHBoxplotModule} from "../../../../../../bd2-ngx-hboxplot/bd2-ngx-hboxplot.module";
+
 
 describe('PPAPeriodPlotComponent', () => {
   let component: PPAPeriodPlotComponent;
