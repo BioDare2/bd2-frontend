@@ -83,7 +83,7 @@ export class SearchAndSortPanelComponent implements OnInit {
   }
 
   updateSort(active: string, direction: string) {
-    console.log('UpdateSort', {active, direction, class: this.sortOrderClass});
+    //console.log('UpdateSort', {active, direction, class: this.sortOrderClass});
     const sort = {active, direction} as Sort;
     this.currentSort = sort;
     this.sort.next(sort);
