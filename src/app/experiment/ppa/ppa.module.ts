@@ -11,7 +11,6 @@ import {PPADashboardComponent} from './ppa-dashboard/ppa-dashboard.component';
 import {PPAJobPaneComponent} from './ppa-dashboard/ppajob-pane/ppajob-pane.component';
 import {PhasesOptionsWidgetComponent} from './ppa-dashboard/ppajob-pane/phases-options-widget.component';
 import {BD2NgxHBoxplotModule} from '../../bd2-ngx-hboxplot/bd2-ngx-hboxplot.module';
-import {BD2NgxPolarplotModule} from 'bd2-ngx-polarplot';
 import {LegendModule} from '../../graphic/legend/legend.module';
 import {SVGSaverModule} from '../../graphic/svg-saver/svg-saver.module';
 import {ButtonsModule} from 'ngx-bootstrap/buttons';
@@ -26,6 +25,7 @@ import {PPASortWidgetComponent} from './ppa-dashboard/ppajob-pane/ppaplots/ppaso
 import {PPAJobExportDialog2Component} from './ppa-dialogs/ppajob-export-dialog2/ppajob-export-dialog2.component';
 import {PPADialogsService} from './ppa-dialogs/ppadialogs.service';
 import {PPAFitDialogComponent} from './ppa-dialogs/ppa-fit-dialog/ppa-fit-dialog.component';
+import {BD2NgxPolarplotModule} from "../../bd2-ngx-polarplot/bd2-ngx-polarplot.module";
 
 @NgModule({
   declarations: [PPAStartFormComponent, PPAJobParamsRFormComponent,

@@ -8,12 +8,12 @@ import {LegendModule} from '../../../../../graphic/legend/legend.module';
 import {PPAPeriodPlotComponent} from './ppaperiod-plot/ppaperiod-plot.component';
 import {PPASortWidgetComponent} from './ppasort-widget/ppasort-widget.component';
 import {PPAPhasePlotComponent} from './ppaphase-plot/ppaphase-plot.component';
-import {BD2NgxPolarplotModule} from 'bd2-ngx-polarplot';
 import {SVGSaverModule} from '../../../../../graphic/svg-saver/svg-saver.module';
 import {FormsModule} from '@angular/forms';
 import {NgModule} from '@angular/core';
 import {ButtonsModule} from 'ngx-bootstrap/buttons';
 import {BD2NgxHBoxplotModule} from "../../../../../bd2-ngx-hboxplot/bd2-ngx-hboxplot.module";
+import {BD2NgxPolarplotModule} from "../../../../../bd2-ngx-polarplot/bd2-ngx-polarplot.module";
 
 @NgModule({
   imports: [MaterialsModule, NoopAnimationsModule, LegendModule,
