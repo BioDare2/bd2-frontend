@@ -18,25 +18,25 @@
     <div class="col-sm-12">
       <h4>Recently added features</h4>
       <div class="clearfix">
-        <div class="alert alert-info" role="alert">
-          <h5 class="list-group-item-heading">Heatmap charts</h5>
-          <p class="list-group-item-text">You can now easily compare multiple timeseries
-            using a heatmap view.</p>
+        <div class="alert alert-danger" role="alert">
+          <h5 class="list-group-item-heading">Public release of old datasets</h5>
+          <p class="list-group-item-text">
+            We are ready to automatically publish old datasets (at least over 3 years old) as described in the service terms.
+            <br>
+            To avoid overloading the system and users we are going to make data public in tranches, starting with the data
+            from 2017.
+          </p>
         </div>
         <div class="alert alert-info" role="alert">
-          <h5 class="list-group-item-heading">Sorting on charts</h5>
-          <p class="list-group-item-text">Both line plots and heatmap charts can be sorted
-          by nr, labels or even periods from the analysis results.</p>
+          <h5 class="list-group-item-heading">Citing BioDare2</h5>
+          <p class="list-group-item-text">Please cite BioDare2 with its website: <strong><a href="https://biodare2.ed.ac.uk/">biodare2.ed.ac.uk</a></strong>
+          and the following publication:</p>
+          <p>Zieliński, T., Hay, J., Millar, A.J. (2022).
+            <i>Period Estimation and Rhythm Detection in Timeseries Data Using BioDare2, the Free, Online, Community Resource.</i>
+            <br/> In: Staiger, D., Davis, S., Davis, A.M. (eds) Plant Circadian Networks. Methods in Molecular Biology, vol 2398. <br/>
+            Humana, New York, NY. <a href="https://doi.org/10.1007/978-1-0716-1912-4_2">https://doi.org/10.1007/978-1-0716-1912-4_2"</a></p>
         </div>
-        <div class="alert alert-info" role="alert">
-          <h5 class="list-group-item-heading">Rhythmicity Test</h5>
-          <p class="list-group-item-text">We have added the eJTK and classic JTK methods
-            (<a href=" https://doi.org/10.1371/journal.pcbi.1004094">A.L. Hutchison et al. 2015</a>) for rhythmicity tests</p>
-        </div>
-        <div class="alert alert-info" role="alert">
-          <h5 class="list-group-item-heading">CSV and TSV files import</h5>
-          <p class="list-group-item-text">You can now import the timeseries data from text files</p>
-        </div>
+
         <div class="alert alert-success" role="alert">
           <h5 class="list-group-item-heading">BioDare YouTube channel with tutorials</h5>
           <p class="list-group-item-text">Subscribe to our <a
@@ -49,6 +49,25 @@
           <button class="btn btn-primary">see more</button>
         </div>
         <div *ngIf="moreFeatures">
+
+          <div class="alert alert-info" role="alert">
+            <h5 class="list-group-item-heading">Rhythmicity Test</h5>
+            <p class="list-group-item-text">We have added the eJTK and classic JTK methods
+              (<a href=" https://doi.org/10.1371/journal.pcbi.1004094">A.L. Hutchison et al. 2015</a>) for rhythmicity tests</p>
+          </div>
+
+          <div class="alert alert-info" role="alert">
+            <h5 class="list-group-item-heading">Sorting on charts</h5>
+            <p class="list-group-item-text">Both line plots and heatmap charts can be sorted
+              by nr, labels or even periods from the analysis results.</p>
+          </div>
+
+
+          <div class="alert alert-info" role="alert">
+            <h5 class="list-group-item-heading">CSV and TSV files import</h5>
+            <p class="list-group-item-text">You can now import the timeseries data from text files</p>
+          </div>
+
           <div class="alert alert-info" role="alert">
             <h5 class="list-group-item-heading">Better handling of large data sets</h5>
             <p class="list-group-item-text">Data views are now paginated so the large datasets will can be
@@ -140,7 +159,7 @@
       <h4>Public datasets</h4>
       <ul>
         <li>Multiple dataset are publicly available <a href="experiments">here.</a></li>
-        <li>All data become public after the maximum 3 years embargo period</li>
+        <li><b>All data become public</b> after the maximum 3 years embargo period</li>
       </ul>
       <hr>
     </div>
@@ -241,6 +260,7 @@
         <li>Enright Periodogram</li>
         <li>Lomb-Scargle periodogram</li>
         <li>Spectrum resampling</li>
+        <li>JTK and eJTK</li>
       </ul>
     </div>
     <div class="col-sm-6">
@@ -273,8 +293,8 @@
     <div class="col-sm-4">
       <h4>Data</h4>
       <p>Your data is safe, changes to BioDare will not affect the deposited data.</p>
-      <p>At the moment data grouping and averaging is not available but we are working on it.</p>
-      <!--<p>Currently, the supported time series formats are Excel file (with a time column and data columns) and
+      <!--<p>At the moment data grouping and averaging is not available but we are working on it.</p>
+      <p>Currently, the supported time series formats are Excel file (with a time column and data columns) and
         Topcount.</p>-->
       <!--<p>We also cannot guarantee that we will preserve the data deposited during <i>beta</i> period.</p>
       <p>The reason is that there is a small chance that we may need to change our internal representation
@@ -296,12 +316,18 @@
   <hr>
   <div class="text-center">
     <p> Please cite BioDare2 with its website: <strong>biodare2.ed.ac.uk</strong> and the paper:</p>
-    <p><i>Zielinski T, Moore AM, Troup E, Halliday KJ, Millar AJ (2014)<br>
-      Strengths and Limitations of Period Estimation Methods for Circadian Data<br>
-      (2014) PLoS ONE 9(5): e96462. doi:10.1371/journal.pone.0096462</i>
-       <a href="http://dx.doi.org/10.1371/journal.pone.0096462"> read</a>
+    <p>Zieliński, T., Hay, J., Millar, A.J. (2022).
+      <i>Period Estimation and Rhythm Detection in Timeseries Data Using BioDare2, the Free, Online, Community Resource.</i>
+      <br/> In: Staiger, D., Davis, S., Davis, A.M. (eds) Plant Circadian Networks. Methods in Molecular Biology, vol 2398. <br/>
+      Humana, New York, NY. <a href="https://doi.org/10.1007/978-1-0716-1912-4_2">https://doi.org/10.1007/978-1-0716-1912-4_2"</a>
     </p>
-    <p>BioDare2 development was funded by the EU FP7 Collaborative Project TiMet (award 245143)
-      and the UK Centre for Mammalian Synthetic Biology (award BB/M018040/1).</p>
+    <p>and for the analysis methods:<br/>
+      Zielinski T, Moore AM, Troup E, Halliday KJ, Millar AJ (2014)<br>
+      <i>Strengths and Limitations of Period Estimation Methods for Circadian Data</i><br>
+      (2014) PLoS ONE 9(5): e96462. <a href="http://dx.doi.org/10.1371/journal.pone.0096462">doi:10.1371/journal.pone.0096462</a>
+    </p>
+    <p>BioDare2 original development was funded by the EU FP7 Collaborative Project TiMet (award 245143)
+      and the UK Centre for Mammalian Synthetic Biology (award BB/M018040/1).
+      Since then it has been supported in kind by Prof. Andrew Millar BioRDM team.</p>
   </div>
 </div>
