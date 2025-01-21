@@ -2,9 +2,10 @@ import {Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild} f
 import {removeItemFromArr} from '../../shared/collections-util';
 
 @Component({
-  selector: 'bd2-file-upload-widget',
-  templateUrl: './file-upload-widget.component.html',
-  styleUrls: ['./file-upload-widget.component.css']
+    selector: 'bd2-file-upload-widget',
+    templateUrl: './file-upload-widget.component.html',
+    styleUrls: ['./file-upload-widget.component.css'],
+    standalone: false
 })
 export class FileUploadWidgetComponent implements OnInit {
 

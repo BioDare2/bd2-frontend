@@ -10,12 +10,13 @@ import {EditLabelDialogComponent, EditLabelDialogData} from './edit-label-dialog
 import {CellSelection} from '../../import-dom';
 
 @Component({
-  selector: 'bd2-assign-labels-step',
-  templateUrl: './assign-labels-step.component.html',
-  styles: [],
-  providers: [DataTableService],
-  // tslint:disable-next-line:no-inputs-metadata-property
-  inputs: ['importDetails']
+    selector: 'bd2-assign-labels-step',
+    templateUrl: './assign-labels-step.component.html',
+    styles: [],
+    providers: [DataTableService],
+    // tslint:disable-next-line:no-inputs-metadata-property
+    inputs: ['importDetails'],
+    standalone: false
 })
 export class AssignLabelsStepComponent extends DataTableDependentStep implements OnInit, OnDestroy, AfterViewInit {
 

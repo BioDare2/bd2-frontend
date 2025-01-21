@@ -3,10 +3,11 @@ import {StaticContentService} from '../static-content.service';
 import {FeedbackService} from '../../../feedback/feedback.service';
 
 @Component({
-  selector: 'bd2-static-content',
-  template: `
+    selector: 'bd2-static-content',
+    template: `
     <div [innerHTML]="content"></div>
-  `
+  `,
+    standalone: false
 })
 export class StaticContentComponent implements OnInit {
 

@@ -4,8 +4,8 @@ import {FileAssetService} from '../file-asset-service';
 import {FeedbackService} from '../../feedback/feedback.service';
 
 @Component({
-  selector: 'bd2-file-asset-form',
-  template: `
+    selector: 'bd2-file-asset-form',
+    template: `
 
   <div *ngIf="file">
     <form>
@@ -28,6 +28,7 @@ import {FeedbackService} from '../../feedback/feedback.service';
     </form>
   </div>
 `,
+    standalone: false
 })
 export class FileAssetFormComponent implements OnInit {
 

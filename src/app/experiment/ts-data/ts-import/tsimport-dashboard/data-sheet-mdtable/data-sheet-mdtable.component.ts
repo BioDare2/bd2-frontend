@@ -5,9 +5,9 @@ import {TableStyler} from './table-styling';
 import {CellSelection} from '../../import-dom';
 
 @Component({
-  selector: 'bd2-data-sheet-mdtable',
-  templateUrl: './data-sheet-mdtable.component.html',
-  styles: [`
+    selector: 'bd2-data-sheet-mdtable',
+    templateUrl: './data-sheet-mdtable.component.html',
+    styles: [`
     .data-sheet-container {
       max-height: 300px;
       overflow: auto;
@@ -27,7 +27,8 @@ import {CellSelection} from '../../import-dom';
     label {
       color: rgba(0,0,0,0.54);
     }
-  `]
+  `],
+    standalone: false
 })
 export class DataSheetMDTableComponent implements OnInit {
 

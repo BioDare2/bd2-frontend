@@ -11,7 +11,7 @@ export class ConfirmationQuestion {
 }
 
 @Component({
-  template: `
+    template: `
     <h4 mat-dialog-title class="modal-title">{{question.question}}
     </h4>
     <div mat-dialog-content class="modal-body">
@@ -24,7 +24,8 @@ export class ConfirmationQuestion {
       <button class="btn btn-primary btn-sm" [mat-dialog-close]="true">{{question.okLabel}}</button>
     </div>
   `,
-  styles: []
+    styles: [],
+    standalone: false
 })
 export class ConfirmDialogComponentComponent implements OnInit {
 

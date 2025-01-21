@@ -2,8 +2,8 @@ import {Component, Input, OnInit} from '@angular/core';
 import {TraceSet} from './ts-plot.dom';
 
 @Component({
-  selector: 'bd2-ts-plot',
-  template: `
+    selector: 'bd2-ts-plot',
+    template: `
 
     <div *ngIf="dataset" style="display: block;">
     <canvas baseChart width="auto" height="200"
@@ -14,7 +14,8 @@ import {TraceSet} from './ts-plot.dom';
     </div>
 
 
-`
+`,
+    standalone: false
 })
 export class TSPlotComponent implements OnInit {
 

@@ -9,10 +9,11 @@ import {DataTableService} from '../data-table.service';
 import {SelectBackgroundsLabelsStepComponent} from '../select-backgrounds-labels-step/select-backgrounds-labels-step.component';
 
 @Component({
-  selector: 'bd2-import-steps',
-  templateUrl: './import-steps.component.html',
-  styles: [],
-  providers: [ DataTableService]
+    selector: 'bd2-import-steps',
+    templateUrl: './import-steps.component.html',
+    styles: [],
+    providers: [DataTableService],
+    standalone: false
 })
 export class ImportStepsComponent implements OnInit, OnDestroy {
 

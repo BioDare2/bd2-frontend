@@ -2,15 +2,16 @@ import {ChangeDetectionStrategy, Component, Input, OnChanges, OnInit, SimpleChan
 import {GraphicContext} from '../../bd2-heatmap.dom';
 
 @Component({
-  selector: '[bd2hm-pane-back]',
-  template: `
+    selector: '[bd2hm-pane-back]',
+    template: `
     <svg:rect class="bd2hm-dataBackground" [attr.x]="margin" [attr.y]="margin"
               [attr.width]="width" [attr.height]="height"
     >
     </svg:rect>
   `,
-  styles: [],
-  changeDetection: ChangeDetectionStrategy.OnPush
+    styles: [],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class PaneBackComponent implements OnInit, OnChanges {
 

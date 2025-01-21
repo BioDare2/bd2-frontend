@@ -4,8 +4,8 @@ import {ReCaptchaComponent} from '../../recaptcha/recaptcha.component';
 import {environment} from '../../../environments/environment';
 
 @Component({
-  selector: 'bd2-reset-request',
-  template: `
+    selector: 'bd2-reset-request',
+    template: `
     <div>
       <h3>Forgotten password</h3>
 
@@ -38,7 +38,8 @@ import {environment} from '../../../environments/environment';
       </form>
     </div>
   `,
-  styles: []
+    styles: [],
+    standalone: false
 })
 export class ResetRequestComponent implements OnInit {
 

@@ -2,8 +2,8 @@ import {ChangeDetectionStrategy, Component, Input, OnInit} from '@angular/core';
 import {GraphicContext, Serie} from '../../bd2-heatmap.dom';
 
 @Component({
-  selector: '[bd2hm-labels]',
-  template: `
+    selector: '[bd2hm-labels]',
+    template: `
     <svg:g *ngIf="graphic && data" class="bd2hm-labels">
       <svg:g bd2hm-label-box *ngFor="let serie of data; let ix = index; trackBy: trackByIndex"
              [serie]="serie"
@@ -11,8 +11,9 @@ import {GraphicContext, Serie} from '../../bd2-heatmap.dom';
       ></svg:g>
     </svg:g>
   `,
-  styles: [],
-  changeDetection: ChangeDetectionStrategy.OnPush
+    styles: [],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class LabelsComponent implements OnInit {
 

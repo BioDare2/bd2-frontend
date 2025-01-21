@@ -11,9 +11,10 @@ import {TSFileService} from '../ts-file.service';
 
 
 @Component({
-  selector: 'bd2-select-backgrounds-labels-step',
-  templateUrl: './select-backgrounds-labels-step.component.html',
-  styles: []
+    selector: 'bd2-select-backgrounds-labels-step',
+    templateUrl: './select-backgrounds-labels-step.component.html',
+    styles: [],
+    standalone: false
 })
 export class SelectBackgroundsLabelsStepComponent implements OnInit {
 

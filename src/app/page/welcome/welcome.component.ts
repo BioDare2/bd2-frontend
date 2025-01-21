@@ -4,12 +4,13 @@ import {Subscription} from 'rxjs';
 import {BD2User} from '../../auth/user.dom';
 
 @Component({
-  templateUrl: './welcome.component.html',
-  styles: [`
+    templateUrl: './welcome.component.html',
+    styles: [`
     .list-group-item-heading {
       font-weight: bold;
     }
-  `]
+  `],
+    standalone: false
 })
 export class WelcomeComponent implements OnInit, OnDestroy {
 

@@ -21,13 +21,14 @@ import {  fileSave } from 'browser-fs-access';
  */
 
 @Component({
-  selector: 'bd2-ngx-svg-saver',
-  template: `
+    selector: 'bd2-ngx-svg-saver',
+    template: `
     <button (click)="save()" [disabled]="disabled"
     class="btn btn-light btn-sm"><i class="material-icons bd-icon">save_alt</i>
     </button>
   `,
-  styles: []
+    styles: [],
+    standalone: false
 })
 export class SVGSaverComponent implements OnInit {
 

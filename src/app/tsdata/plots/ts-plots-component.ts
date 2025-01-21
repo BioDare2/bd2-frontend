@@ -2,8 +2,8 @@ import {Component, Input, OnInit} from '@angular/core';
 import {Trace, TraceSet} from './ts-plot.dom';
 
 @Component({
-  selector: 'bd2-ts-plots',
-  template: `
+    selector: 'bd2-ts-plots',
+    template: `
 
   <div *ngFor="let dataset of datasets; let i = index; trackBy:trackByIx">
     <h4>{{(i+1)}}. {{dataset.title}}</h4>
@@ -12,7 +12,8 @@ import {Trace, TraceSet} from './ts-plot.dom';
     ></bd2-ts-plot>
   </div>
 
-`
+`,
+    standalone: false
 })
 export class TSPlotsComponent implements OnInit {
 

@@ -7,9 +7,10 @@ import {ExperimentGeneralDescView} from '../../../dom/repo/exp/experiment-genera
 import {LocalDate} from '../../../dom/repo/shared/dates';
 
 @Component({
-  selector: 'bd2-general-desc-form',
-  templateUrl: './general-desc-form.component.html',
-  outputs: ['onAccepted', 'onCancelled']
+    selector: 'bd2-general-desc-form',
+    templateUrl: './general-desc-form.component.html',
+    outputs: ['onAccepted', 'onCancelled'],
+    standalone: false
 })
 export class GeneralDescFormComponent extends RevertableFormComponent<ExperimentGeneralDescView> {
 

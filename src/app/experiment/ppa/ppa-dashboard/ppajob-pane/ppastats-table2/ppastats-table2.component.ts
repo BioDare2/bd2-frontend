@@ -8,10 +8,11 @@ import {Reloadable} from '../reloadable';
 import {FeedbackService} from '../../../../../feedback/feedback.service';
 
 @Component({
-  selector: 'bd2-ppastats-table2',
-  templateUrl: './ppastats-table2.component.html',
-  styles: [],
-  providers: [PPAStatsFetcherService]
+    selector: 'bd2-ppastats-table2',
+    templateUrl: './ppastats-table2.component.html',
+    styles: [],
+    providers: [PPAStatsFetcherService],
+    standalone: false
 })
 export class PPAStatsTable2Component implements OnInit, OnDestroy, Reloadable {
 

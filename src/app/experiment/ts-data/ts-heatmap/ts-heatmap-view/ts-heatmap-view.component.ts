@@ -20,11 +20,11 @@ import {CSVExporter} from '../../../../tsdata/export/csv-exporter';
 import {DataJobsService} from '../../data-jobs.service';
 
 @Component({
-  selector: 'bd2-ts-heatmap-view',
-  templateUrl: './ts-heatmap-view.component.html',
-  styles: [
-  ],
-  providers: [TSFetcher, DataJobsService]
+    selector: 'bd2-ts-heatmap-view',
+    templateUrl: './ts-heatmap-view.component.html',
+    styles: [],
+    providers: [TSFetcher, DataJobsService],
+    standalone: false
 })
 export class TsHeatmapViewComponent extends ExperimentBaseComponent implements OnDestroy, OnInit {
 

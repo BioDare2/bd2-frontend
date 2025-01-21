@@ -3,10 +3,10 @@ import {Trace} from '../../../../tsdata/plots/ts-plot.dom';
 
 
 @Component({
-  selector: 'bd2-heatmap-plot',
-  templateUrl: './heatmap-plot.component.html',
-  styles: [
-  ],
+    selector: 'bd2-heatmap-plot',
+    templateUrl: './heatmap-plot.component.html',
+    styles: [],
+    standalone: false
 })
 export class HeatmapPlotComponent implements OnInit {
 

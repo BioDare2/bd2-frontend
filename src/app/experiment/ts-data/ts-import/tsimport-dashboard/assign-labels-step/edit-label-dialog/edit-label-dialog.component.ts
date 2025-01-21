@@ -9,9 +9,10 @@ export interface EditLabelDialogData {
 }
 
 @Component({
-  selector: 'bd2-edit-label-dialog',
-  templateUrl: './edit-label-dialog.component.html',
-  styles: []
+    selector: 'bd2-edit-label-dialog',
+    templateUrl: './edit-label-dialog.component.html',
+    styles: [],
+    standalone: false
 })
 export class EditLabelDialogComponent implements OnInit {
 

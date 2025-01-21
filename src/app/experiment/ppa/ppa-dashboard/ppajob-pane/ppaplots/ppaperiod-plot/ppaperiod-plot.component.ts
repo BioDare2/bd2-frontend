@@ -2,9 +2,10 @@ import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core'
 import {PPAResultsGroupSummary} from '../../../../ppa-dom';
 
 @Component({
-  selector: 'bd2-ppaperiod-plot',
-  templateUrl: './ppaperiod-plot.component.html',
-  styles: []
+    selector: 'bd2-ppaperiod-plot',
+    templateUrl: './ppaperiod-plot.component.html',
+    styles: [],
+    standalone: false
 })
 export class PPAPeriodPlotComponent implements OnInit, OnChanges {
 

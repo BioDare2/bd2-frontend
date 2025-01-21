@@ -12,9 +12,10 @@ import {SearchAndSortOptions, SearchOptions} from '../search-and-sort-panel/sear
 import {ExperimentsFetcherService} from '../services/experiments-fetcher.service';
 
 @Component({
-  templateUrl: './experiments-list.component.html',
-  styles: [],
-  providers: [ExperimentsFetcherService]
+    templateUrl: './experiments-list.component.html',
+    styles: [],
+    providers: [ExperimentsFetcherService],
+    standalone: false
 })
 export class ExperimentsListComponent implements OnInit, OnDestroy {
 

@@ -8,8 +8,9 @@ import {ExperimentalAssayViewValidator} from '../../dom/repo/exp/experimental-as
 import {RDMSocialServiceService} from '../../rdmsocial/rdmsocial-service.service';
 
 @Component({
-  templateUrl: './experiment-assay-create-form.component.html',
-  styles: []
+    templateUrl: './experiment-assay-create-form.component.html',
+    styles: [],
+    standalone: false
 })
 export class ExperimentAssayCreateFormComponent extends ValidableFormComponent<ExperimentalAssayView> implements OnInit {
 

@@ -8,8 +8,9 @@ import {map, startWith} from 'rxjs/operators';
 import {MatAutocompleteSelectedEvent} from '@angular/material/autocomplete';
 
 @Component({
-  selector: 'bd2-measurement-desc-rform',
-  templateUrl: './measurement-desc-rform.component.html',
+    selector: 'bd2-measurement-desc-rform',
+    templateUrl: './measurement-desc-rform.component.html',
+    standalone: false
 })
 export class MeasurementDescRFormComponent /*extends RevertableFormComponent<MeasurementDesc>*/
   implements OnInit {

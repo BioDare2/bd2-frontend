@@ -3,9 +3,10 @@ import {ShutdownEventsService} from './system/shutdown-events.service';
 import { environment } from './../environments/environment';
 
 @Component({
-  selector: 'bd2-root',
-  templateUrl: './app.component.html',
-  styles: []
+    selector: 'bd2-root',
+    templateUrl: './app.component.html',
+    styles: [],
+    standalone: false
 })
 export class AppComponent {
   title = 'Welcome to BioDare2!';

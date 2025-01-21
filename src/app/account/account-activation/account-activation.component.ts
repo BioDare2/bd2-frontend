@@ -4,10 +4,11 @@ import {UserService} from '../../auth/user.service';
 import {FeedbackService} from '../../feedback/feedback.service';
 
 @Component({
-  template: `
+    template: `
     <div *ngIf="!token" class="alert alert-danger danger">Use the activation link that was sent in the email</div>
   `,
-  styles: []
+    styles: [],
+    standalone: false
 })
 export class AccountActivationComponent implements OnInit {
 

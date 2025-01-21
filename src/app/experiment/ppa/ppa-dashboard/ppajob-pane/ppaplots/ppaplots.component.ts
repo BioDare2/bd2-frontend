@@ -10,10 +10,11 @@ import {Reloadable} from '../reloadable';
 import {FeedbackService} from '../../../../../feedback/feedback.service';
 
 @Component({
-  selector: 'bd2-ppaplots',
-  templateUrl: './ppaplots.component.html',
-  styles: [],
-  providers: [PPAGroupResultsFetcherService]
+    selector: 'bd2-ppaplots',
+    templateUrl: './ppaplots.component.html',
+    styles: [],
+    providers: [PPAGroupResultsFetcherService],
+    standalone: false
 })
 export class PPAPlotsComponent implements OnInit, OnDestroy, Reloadable {
 

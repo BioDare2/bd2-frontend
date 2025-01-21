@@ -20,8 +20,8 @@ import {ColumnTypeMatDialogComponent, ColumnTypeMatDialogComponentParams} from '
 import {ConfirmRowCopyMatDialogComponent} from './confirm-row-copy-mat-dialog/confirm-row-copy-mat-dialog.component';
 
 @Component({
-  selector: 'bd2-describe-topcount-table',
-  template: `
+    selector: 'bd2-describe-topcount-table',
+    template: `
     <div *ngIf="dataModel">
 
       <!--<bd2-column-type-dialog #columnTypeDialog (onAccepted)="setColumnType($event)"
@@ -135,7 +135,8 @@ import {ConfirmRowCopyMatDialogComponent} from './confirm-row-copy-mat-dialog/co
       </div>
 
     </div>
-  `
+  `,
+    standalone: false
 })
 export class DescribeTopcountTableComponent {
 

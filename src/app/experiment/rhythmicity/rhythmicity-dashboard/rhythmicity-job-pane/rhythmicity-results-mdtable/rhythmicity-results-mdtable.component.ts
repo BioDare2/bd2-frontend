@@ -6,15 +6,16 @@ import {RhythmicityJobSummary, StatTestOptions} from '../../../rhythmicity-dom';
 import {FeedbackService} from '../../../../../feedback/feedback.service';
 
 @Component({
-  selector: 'bd2-rhythmicity-results-mdtable',
-  templateUrl: './rhythmicity-results-mdtable.component.html',
-  styles: [`
+    selector: 'bd2-rhythmicity-results-mdtable',
+    templateUrl: './rhythmicity-results-mdtable.component.html',
+    styles: [`
     .full-width-table {
       width: 100%;
     }
 
   `],
-  providers: [RhythmicityResultsFetcherService]
+    providers: [RhythmicityResultsFetcherService],
+    standalone: false
 })
 export class RhythmicityResultsMDTableComponent implements AfterViewInit, OnInit, OnDestroy {
   // @ViewChild(MatPaginator, {static: false}) paginator: MatPaginator;

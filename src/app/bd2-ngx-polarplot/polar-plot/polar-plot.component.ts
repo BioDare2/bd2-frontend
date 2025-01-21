@@ -27,13 +27,13 @@ import {GraphicContext, LookAndFeel, ShowIndividualsOptions} from './polar-plot.
 
 
 @Component({
-  selector: 'bd2-ngx-polar-plot',
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  template: `
+    selector: 'bd2-ngx-polar-plot',
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    template: `
     <div class="polarplot"></div>
   `,
-  styles: [
-    `
+    styles: [
+        `
       :host ::ng-deep .axis .legend {
         font-size: 15px;
       }
@@ -46,7 +46,8 @@ import {GraphicContext, LookAndFeel, ShowIndividualsOptions} from './polar-plot.
         font-size: 18px;
       }
     `
-  ]
+    ],
+    standalone: false
 })
 export class PolarPlotComponent implements OnInit, AfterViewInit, OnChanges, OnDestroy {
 

@@ -2,8 +2,8 @@ import {ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output}
 import {BD2User} from '../../auth/user.dom';
 
 @Component({
-  selector: 'bd2-top-bar-menu',
-  template: `
+    selector: 'bd2-top-bar-menu',
+    template: `
     <ul class="nav navbar-nav">
       <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
         <a routerLink="welcome" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"
@@ -35,8 +35,9 @@ import {BD2User} from '../../auth/user.dom';
       </li>
     </ul>
   `,
-  styles: [],
-  changeDetection: ChangeDetectionStrategy.OnPush
+    styles: [],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class TopBarMenuComponent implements OnInit {
 

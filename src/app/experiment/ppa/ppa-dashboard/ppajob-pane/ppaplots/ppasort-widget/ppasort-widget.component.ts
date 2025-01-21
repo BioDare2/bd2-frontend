@@ -2,9 +2,10 @@ import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {Sort} from '@angular/material/sort';
 
 @Component({
-  selector: 'bd2-ppasort-widget',
-  templateUrl: './ppasort-widget.component.html',
-  styles: []
+    selector: 'bd2-ppasort-widget',
+    templateUrl: './ppasort-widget.component.html',
+    styles: [],
+    standalone: false
 })
 export class PPASortWidgetComponent implements OnInit {
 

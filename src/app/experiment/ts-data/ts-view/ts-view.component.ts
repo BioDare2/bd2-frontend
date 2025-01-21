@@ -21,7 +21,7 @@ import {TimeSeriesMetrics} from '../../../tsdata/ts-data-dom';
 import {DataJobsService} from '../data-jobs.service';
 
 @Component({
-  template: `
+    template: `
     <div *ngIf="assay">
     <h3>Show timeseries</h3>
     <hr>
@@ -90,7 +90,8 @@ import {DataJobsService} from '../data-jobs.service';
     ></bd2-ts-plots>
     </div>
   `,
-  providers: [TSFetcher, DataJobsService]
+    providers: [TSFetcher, DataJobsService],
+    standalone: false
 })
 export class TSViewComponent extends ExperimentBaseComponent implements OnDestroy, OnInit {
 

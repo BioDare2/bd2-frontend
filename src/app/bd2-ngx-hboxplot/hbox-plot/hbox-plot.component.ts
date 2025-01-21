@@ -16,13 +16,13 @@ import {SmartRounder} from '../hbox-utils/smart-rounding';
 
 
 @Component({
-  selector: 'bd2-ngx-hbox-plot',
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  template: `
+    selector: 'bd2-ngx-hbox-plot',
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    template: `
     <div class="hbox-plot" [hidden]="hidden"></div>
   `,
-  styles: [
-      `
+    styles: [
+        `
       :host ::ng-deep .axisWrapper path {
         stroke: gray;
       }
@@ -35,7 +35,8 @@ import {SmartRounder} from '../hbox-utils/smart-rounding';
         fill: gray;
       }
     `
-  ]
+    ],
+    standalone: false
 })
 export class HBoxPlotComponent implements OnInit, AfterViewInit, OnChanges, OnDestroy {
 

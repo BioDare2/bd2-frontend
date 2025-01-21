@@ -4,8 +4,8 @@ import {FeedbackService} from '../../feedback/feedback.service';
 import {FileAsset} from '../dom/file-asset';
 
 @Component({
-  selector: 'bd2-file-asset-upload',
-  template: `
+    selector: 'bd2-file-asset-upload',
+    template: `
 
 
 
@@ -30,6 +30,7 @@ import {FileAsset} from '../dom/file-asset';
   </div>
 
 `,
+    standalone: false
 })
 export class FileAssetUploadComponent implements OnInit {
 

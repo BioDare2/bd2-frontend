@@ -9,8 +9,8 @@ import {debounceTime, map, tap} from 'rxjs/operators';
 // [style.visibility]="showBack ? undefined :'hidden'"
 
 @Component({
-  selector: '[bd2hm-tooltip]',
-  template: `
+    selector: '[bd2hm-tooltip]',
+    template: `
     <svg:g *ngIf="graphic" class="bd2hm-tooltipBox" [attr.display]="show ? undefined : 'none'" [attr.transform]="position">
 
       <svg:g [attr.opacity]="ready ? 1 : 0">
@@ -25,8 +25,9 @@ import {debounceTime, map, tap} from 'rxjs/operators';
 
     </svg:g>
   `,
-  styles: [],
-  changeDetection: ChangeDetectionStrategy.OnPush
+    styles: [],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class TooltipComponent implements OnInit, OnDestroy {
 

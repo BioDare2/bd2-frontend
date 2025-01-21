@@ -3,8 +3,8 @@ import {MAT_DIALOG_DATA} from '@angular/material/dialog';
 import {isKnownStaticDoc, StaticDocsOptions} from '../../known-docs';
 
 @Component({
-  selector: 'bd2-static-content-dialog',
-  template: `
+    selector: 'bd2-static-content-dialog',
+    template: `
     <h1 mat-dialog-title>{{title}}</h1>
     <div mat-dialog-content>
       <div class="alert alert-danger" role="alert" type="danger" *ngIf="missing">{{missing}}</div>
@@ -14,7 +14,8 @@ import {isKnownStaticDoc, StaticDocsOptions} from '../../known-docs';
       <button mat-dialog-close class="btn btn-primary" tabindex="-1">Close</button>
     </div>
   `,
-  styles: []
+    styles: [],
+    standalone: false
 })
 export class StaticContentDialogComponent implements OnInit {
 

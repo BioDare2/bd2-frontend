@@ -14,8 +14,8 @@ import {Observable, timer} from 'rxjs';
 import {map, tap} from 'rxjs/operators';
 
 @Component({
-  selector: '[bd2hm-label-box]',
-  template: `
+    selector: '[bd2hm-label-box]',
+    template: `
     <svg:g *ngIf="serie" class="bd2hm-label">
       <svg:text *ngIf="alwaysOn" x="5" [attr.y]="yMiddle" class="bd2hm-onLabel"
                 [attr.font-size]="fontSize()"
@@ -38,8 +38,9 @@ import {map, tap} from 'rxjs/operators';
       </g>
     </svg:g>
   `,
-  styles: [],
-  changeDetection: ChangeDetectionStrategy.OnPush
+    styles: [],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class LabelBoxComponent implements OnInit, OnChanges {
 

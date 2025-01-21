@@ -7,11 +7,12 @@ import {CellSelection} from '../../import-dom';
 
 
 @Component({
-  selector: 'bd2-define-time-step',
-  templateUrl: './define-time-step.component.html',
-  styles: [],
-  // tslint:disable-next-line:no-inputs-metadata-property
-  inputs: ['importDetails']
+    selector: 'bd2-define-time-step',
+    templateUrl: './define-time-step.component.html',
+    styles: [],
+    // tslint:disable-next-line:no-inputs-metadata-property
+    inputs: ['importDetails'],
+    standalone: false
 })
 export class DefineTimeStepComponent extends DataTableDependentStep implements OnInit, OnDestroy {
 

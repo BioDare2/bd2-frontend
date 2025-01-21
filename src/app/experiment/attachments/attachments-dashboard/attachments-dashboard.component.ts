@@ -8,8 +8,9 @@ import {AssetType} from '../../../file-asset/dom/asset-type';
 import {ExperimentComponentsDependencies} from '../../experiment-components.dependencies';
 
 @Component({
-  templateUrl: './attachments-dashboard.component.html',
-  styleUrls: ['./attachments-dashboard.component.css']
+    templateUrl: './attachments-dashboard.component.html',
+    styleUrls: ['./attachments-dashboard.component.css'],
+    standalone: false
 })
 export class AttachmentsDashboardComponent extends ExperimentBaseComponent {
 

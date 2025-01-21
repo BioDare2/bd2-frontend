@@ -5,8 +5,8 @@ import {Subscription} from 'rxjs';
 import {filter} from 'rxjs/operators';
 
 @Component({
-  selector: 'bd2-top-bar',
-  template: `
+    selector: 'bd2-top-bar',
+    template: `
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
       <div class="container">
         <div class="navbar-header">
@@ -30,8 +30,9 @@ import {filter} from 'rxjs/operators';
       </div>
     </nav>
   `,
-  styles: [],
-  changeDetection: ChangeDetectionStrategy.OnPush
+    styles: [],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class TopBarComponent implements OnInit, OnDestroy {
 

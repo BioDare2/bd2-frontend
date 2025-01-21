@@ -11,8 +11,9 @@ import {Component, ElementRef, EventEmitter, Input, NgZone, OnInit, Output, View
 import {ReCaptchaService} from './recaptcha.service';
 
 @Component({
-  selector: 'bd2-recaptcha',
-  template: '<div #target></div>'
+    selector: 'bd2-recaptcha',
+    template: '<div #target></div>',
+    standalone: false
 })
 
 export class ReCaptchaComponent implements OnInit {

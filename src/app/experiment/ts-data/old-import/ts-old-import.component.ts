@@ -6,7 +6,7 @@ import {FileViewService} from '../file-view.service';
 import {ExperimentComponentsDependencies} from '../../experiment-components.dependencies';
 
 @Component({
-  template: `
+    template: `
     <h3>Timeseries import</h3>
 
     <!--
@@ -17,7 +17,8 @@ import {ExperimentComponentsDependencies} from '../../experiment-components.depe
                                  [blocked]="blocked" [confirmDataLoss]="assay?.features.hasTSData"
                                  (onAccepted)="import($event)"></bd2-describe-topcount-table>
   `,
-  providers: []
+    providers: [],
+    standalone: false
 })
 export class TSOldImportComponent extends ExperimentBaseComponent implements OnInit {
 

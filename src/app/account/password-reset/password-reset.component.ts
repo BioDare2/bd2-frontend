@@ -4,7 +4,7 @@ import {ActivatedRoute} from '@angular/router';
 import {isWeakPassword} from '../user.util';
 
 @Component({
-  template: `
+    template: `
     <div>
       <h3>Password reset</h3>
 
@@ -49,7 +49,8 @@ import {isWeakPassword} from '../user.util';
       </div>
     </div>
   `,
-  styles: []
+    styles: [],
+    standalone: false
 })
 export class PasswordResetComponent implements OnInit {
 

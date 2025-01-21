@@ -3,9 +3,10 @@ import {UserService} from '../user.service';
 import {BD2User} from '../user.dom';
 
 @Component({
-  selector: 'bd2-login-form',
-  templateUrl: './login-form.component.html',
-  styles: []
+    selector: 'bd2-login-form',
+    templateUrl: './login-form.component.html',
+    styles: [],
+    standalone: false
 })
 export class LoginFormComponent implements OnInit {
 

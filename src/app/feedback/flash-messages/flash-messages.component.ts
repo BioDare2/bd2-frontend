@@ -12,9 +12,10 @@ import {FeedbackMessage, FeedbackMessageType} from '../feedback.dom';
  * I believe an explicit compoenent on the template better reflects the idea why the messages are rendered.
  */
 @Component({
-  selector: 'bd2-flash-messages',
-  template: ``,
-  styles: []
+    selector: 'bd2-flash-messages',
+    template: ``,
+    styles: [],
+    standalone: false
 })
 export class FlashMessagesComponent implements OnInit, OnDestroy {
 

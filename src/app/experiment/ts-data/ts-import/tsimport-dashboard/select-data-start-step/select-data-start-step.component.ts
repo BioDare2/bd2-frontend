@@ -6,11 +6,12 @@ import {CellSelection} from '../../import-dom';
 
 
 @Component({
-  selector: 'bd2-select-data-start-step',
-  templateUrl: './select-data-start-step.component.html',
-  styles: [],
-  // tslint:disable-next-line:no-inputs-metadata-property
-  inputs: ['importDetails']
+    selector: 'bd2-select-data-start-step',
+    templateUrl: './select-data-start-step.component.html',
+    styles: [],
+    // tslint:disable-next-line:no-inputs-metadata-property
+    inputs: ['importDetails'],
+    standalone: false
 })
 export class SelectDataStartStepComponent extends DataTableDependentStep implements OnInit, OnDestroy {
 

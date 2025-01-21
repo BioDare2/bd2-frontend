@@ -6,11 +6,12 @@ import {FixedGraphicContext} from './bd2-fixed-heatmap.dom';
 
 
 @Component({
-  selector: 'bd2-fixedint-heatmap',
-  templateUrl: './bd2-fixed-interval-heatmap.component.html',
-  styleUrls: ['./bd2-fixed-interval-heatmap.component.css'],
-  providers: [TooltipService],
-  changeDetection: ChangeDetectionStrategy.OnPush
+    selector: 'bd2-fixedint-heatmap',
+    templateUrl: './bd2-fixed-interval-heatmap.component.html',
+    styleUrls: ['./bd2-fixed-interval-heatmap.component.css'],
+    providers: [TooltipService],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class Bd2FixedIntervalHeatmapComponent implements OnInit, OnDestroy, OnChanges {
 

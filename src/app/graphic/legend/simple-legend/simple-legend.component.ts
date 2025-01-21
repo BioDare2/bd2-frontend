@@ -10,9 +10,9 @@ class LegendItem {
 }
 
 @Component({
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  selector: 'bd2-simple-legend',
-  template: `
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'bd2-simple-legend',
+    template: `
     <div class="simple-legend clearfix">
       <div *ngFor="let item of items" class="legend-item float-left"
            [class.marked]="item.marked"
@@ -24,9 +24,8 @@ class LegendItem {
       </div>
     </div>
   `,
-  styles: [
-
-      `
+    styles: [
+        `
                                  div.marked {
                                    text-decoration: line-through;
                                  }
@@ -48,7 +47,8 @@ class LegendItem {
                                    overflow-wrap: break-word; /* Renamed property in CSS3 draft spec */
                                  }
                                `
-  ]
+    ],
+    standalone: false
 })
 export class SimpleLegendComponent implements OnInit, OnChanges {
 

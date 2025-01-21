@@ -2,13 +2,14 @@ import {AfterViewInit, Component, EventEmitter, OnInit, Output} from '@angular/c
 import {MatRadioChange} from '@angular/material/radio';
 
 @Component({
-  selector: 'bd2-pvalue-form',
-  templateUrl: './pvalue-form.component.html',
-  styles: [`
+    selector: 'bd2-pvalue-form',
+    templateUrl: './pvalue-form.component.html',
+    styles: [`
     .mat-mdc-radio-button  {
       margin-right: 15px;
     }
-  `]
+  `],
+    standalone: false
 })
 export class PValueFormComponent implements OnInit, AfterViewInit {
 

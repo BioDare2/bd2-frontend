@@ -20,8 +20,9 @@ export class ColumnTypeMatDialogComponentParams {
 }
 
 @Component({
-  templateUrl: './column-type-mat-dialog.component.html',
-  styles: []
+    templateUrl: './column-type-mat-dialog.component.html',
+    styles: [],
+    standalone: false
 })
 export class ColumnTypeMatDialogComponent implements OnInit {
 

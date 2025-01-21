@@ -2,8 +2,8 @@ import {Component, Input} from '@angular/core';
 import {ExperimentalAssayView} from '../dom/repo/exp/experimental-assay-view';
 
 @Component({
-  selector: 'bd2-experiment-basic-info-view',
-  template: `
+    selector: 'bd2-experiment-basic-info-view',
+    template: `
     <div *ngIf="model" class="summary-box">
       <!--<div>
           <label>Experiment</label>
@@ -31,7 +31,8 @@ import {ExperimentalAssayView} from '../dom/repo/exp/experimental-assay-view';
 
 
     </div>
-  `
+  `,
+    standalone: false
 })
 export class ExperimentBasicInfoViewComponent {
 

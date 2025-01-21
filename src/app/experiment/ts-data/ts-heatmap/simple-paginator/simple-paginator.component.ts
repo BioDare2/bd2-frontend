@@ -6,10 +6,10 @@ import {PageEvent} from '@angular/material/paginator';
 const DEFAULT_PAGE_SIZE = 50;
 
 @Component({
-  selector: 'bd2-simple-paginator',
-  templateUrl: './simple-paginator.component.html',
-  styles: [
-    `
+    selector: 'bd2-simple-paginator',
+    templateUrl: './simple-paginator.component.html',
+    styles: [
+        `
                      .mat-mdc-paginator-icon {
                        width: 28px;
                        fill: currentColor;
@@ -60,8 +60,9 @@ const DEFAULT_PAGE_SIZE = 50;
                        margin:  0 32px 0 24px;
                      }
                    `
-  ],
-  changeDetection: ChangeDetectionStrategy.OnPush
+    ],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class SimplePaginatorComponent implements OnInit {
 

@@ -9,10 +9,11 @@ import {FeedbackService} from '../../../../../feedback/feedback.service';
 import {PPADialogsService} from '../../../ppa-dialogs/ppadialogs.service';
 
 @Component({
-  selector: 'bd2-pparesults-table2',
-  templateUrl: './pparesults-table2.component.html',
-  styles: [],
-  providers: [PPAResultsFetcherService]
+    selector: 'bd2-pparesults-table2',
+    templateUrl: './pparesults-table2.component.html',
+    styles: [],
+    providers: [PPAResultsFetcherService],
+    standalone: false
 })
 export class PPAResultsTable2Component implements OnInit, OnDestroy, Reloadable {
 

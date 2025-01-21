@@ -10,9 +10,10 @@ import {removeItemFromArr} from '../../../shared/collections-util';
 import {ContributionDescValidator} from '../../../dom/repo/contribution/contribution-desc.validator';
 
 @Component({
-  selector: 'bd2-contr-desc-form',
-  templateUrl: './contribution-desc-form.component.html',
-  outputs: ['onAccepted', 'onCancelled']
+    selector: 'bd2-contr-desc-form',
+    templateUrl: './contribution-desc-form.component.html',
+    outputs: ['onAccepted', 'onCancelled'],
+    standalone: false
 })
 export class ContributionDescFormComponent extends RevertableFormComponent<ContributionDesc> {
 
