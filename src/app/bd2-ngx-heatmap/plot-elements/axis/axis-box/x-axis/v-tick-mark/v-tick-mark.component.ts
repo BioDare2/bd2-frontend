@@ -2,15 +2,16 @@ import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core'
 import {Tick} from '../../../../../bd2-heatmap.dom';
 
 @Component({
-  selector: '[bd2hm-vtick-mark]',
-  template: `
+    selector: '[bd2hm-vtick-mark]',
+    template: `
     <svg:line *ngIf="tick"
               [attr.x1]="tick.x" [attr.x2]="tick.x"
               y1="0" [attr.y2]="marky2"
     ></svg:line>
     <svg:text *ngIf="tick" [attr.x]="tick.x" [attr.y]="texty2" [attr.dy]="textdy">{{tick.label}}</svg:text>
   `,
-  styles: []
+    styles: [],
+    standalone: false
 })
 export class VTickMarkComponent implements OnInit, OnChanges {
 

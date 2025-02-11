@@ -4,8 +4,8 @@ import {BD2User} from '../user.dom';
 import {Router} from '@angular/router';
 
 @Component({
-  selector: 'bd2-inline-login-form',
-  template: `
+    selector: 'bd2-inline-login-form',
+    template: `
     <form #loginForm="ngForm" class="login-form form-inline">
       <div *ngIf="!logged" class="d-none d-lg-block d-xl-block no-clues">
         <input type="text" class="form-control mr-1"
@@ -34,8 +34,9 @@ import {Router} from '@angular/router';
       </div>
     </form>
   `,
-  styles: [],
-  changeDetection: ChangeDetectionStrategy.OnPush
+    styles: [],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class InlineLoginFormComponent implements OnInit {
 

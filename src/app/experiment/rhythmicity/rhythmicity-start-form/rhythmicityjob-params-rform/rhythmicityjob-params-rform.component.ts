@@ -13,13 +13,14 @@ import {
 import {BaseTSDisplayParamsRForm} from '../../../../tsdata/plots/tsdisplay-params-rform/base-tsdisplay-params-rform';
 
 @Component({
-  selector: 'bd2-rhythmicityjob-params-rform',
-  templateUrl: './rhythmicityjob-params-rform.component.html',
-  styles: [],
-  // tslint:disable-next-line:no-outputs-metadata-property
-  outputs: ['displayParams', 'rhythmicityRequests'],
-  // tslint:disable-next-line:no-inputs-metadata-property
-  inputs: ['disabled', 'totalTraces', 'currentPage']
+    selector: 'bd2-rhythmicityjob-params-rform',
+    templateUrl: './rhythmicityjob-params-rform.component.html',
+    styles: [],
+    // tslint:disable-next-line:no-outputs-metadata-property
+    outputs: ['displayParams', 'rhythmicityRequests'],
+    // tslint:disable-next-line:no-inputs-metadata-property
+    inputs: ['disabled', 'totalTraces', 'currentPage'],
+    standalone: false
 })
 export class RhythmicityjobParamsRformComponent extends BaseTSDisplayParamsRForm implements OnInit, OnDestroy, AfterViewInit {
 

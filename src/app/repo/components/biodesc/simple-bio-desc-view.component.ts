@@ -3,8 +3,8 @@ import {ExperimentalAssayView} from '../../../dom/repo/exp/experimental-assay-vi
 
 
 @Component({
-  selector: 'bd2-simple-bio-desc-view',
-  template: `
+    selector: 'bd2-simple-bio-desc-view',
+    template: `
 
 <div *ngIf="model">
 
@@ -15,7 +15,8 @@ import {ExperimentalAssayView} from '../../../dom/repo/exp/experimental-assay-vi
   <strong>Data category: </strong> {{model.dataCategory?.longName}}
   </p>
 </div>
-`
+`,
+    standalone: false
 })
 export class SimpleBioDescViewComponent {
 

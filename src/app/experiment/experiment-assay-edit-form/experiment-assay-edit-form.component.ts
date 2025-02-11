@@ -6,8 +6,9 @@ import {ExperimentalAssayView} from '../../dom/repo/exp/experimental-assay-view'
 import {ExperimentalAssayViewValidator} from '../../dom/repo/exp/experimental-assay-view.validator';
 
 @Component({
-  templateUrl: './experiment-assay-edit-form.component.html',
-  providers: []
+    templateUrl: './experiment-assay-edit-form.component.html',
+    providers: [],
+    standalone: false
 })
 export class ExperimentAssayEditFormComponent extends ExperimentBaseComponent implements AfterViewInit {
 

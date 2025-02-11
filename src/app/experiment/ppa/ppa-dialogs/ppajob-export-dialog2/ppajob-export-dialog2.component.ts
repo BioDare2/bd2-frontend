@@ -2,7 +2,7 @@ import {Component, Inject, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA} from '@angular/material/dialog';
 
 @Component({
-  template: `
+    template: `
     <h4 mat-dialog-title class="modal-title">Export job results</h4>
 
     <div mat-dialog-content class="modal-body">
@@ -25,7 +25,8 @@ import {MAT_DIALOG_DATA} from '@angular/material/dialog';
       <button class="btn btn-primary btn-sm" [mat-dialog-close]="phaseType">Export</button>
     </div>
   `,
-  styles: []
+    styles: [],
+    standalone: false
 })
 export class PPAJobExportDialog2Component implements OnInit {
 

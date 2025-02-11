@@ -6,12 +6,13 @@ import {BaseTSDisplayParamsRForm} from '../../../../tsdata/plots/tsdisplay-param
 import {StaticContentDialogService} from '../../../../documents/static-content/static-content-dialog.service';
 
 @Component({
-  selector: 'bd2-ppajob-params-rform',
-  templateUrl: './ppajob-params-rform.component.html',
-  // tslint:disable-next-line:no-outputs-metadata-property
-  outputs: ['displayParams', 'ppaRequests'],
-  // tslint:disable-next-line:no-inputs-metadata-property
-  inputs: ['disabled', 'totalTraces', 'currentPage'],
+    selector: 'bd2-ppajob-params-rform',
+    templateUrl: './ppajob-params-rform.component.html',
+    // tslint:disable-next-line:no-outputs-metadata-property
+    outputs: ['displayParams', 'ppaRequests'],
+    // tslint:disable-next-line:no-inputs-metadata-property
+    inputs: ['disabled', 'totalTraces', 'currentPage'],
+    standalone: false
 })
 export class PPAJobParamsRFormComponent extends BaseTSDisplayParamsRForm implements OnInit, OnDestroy, AfterViewInit {
 

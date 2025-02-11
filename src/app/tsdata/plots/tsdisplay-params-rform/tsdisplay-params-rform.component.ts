@@ -3,8 +3,8 @@ import {UntypedFormBuilder} from '@angular/forms';
 import {BaseTSDisplayParamsRForm} from './base-tsdisplay-params-rform';
 
 @Component({
-  selector: 'bd2-tsdisplay-params-rform',
-  template: `
+    selector: 'bd2-tsdisplay-params-rform',
+    template: `
   <form [formGroup]="mainForm" class="form-horizontal container" role="form">
 
     <div class="row">
@@ -107,11 +107,11 @@ import {BaseTSDisplayParamsRForm} from './base-tsdisplay-params-rform';
   </form>
 
 `,
-  // tslint:disable-next-line:no-outputs-metadata-property
-  outputs: ['displayParams'],
-  // tslint:disable-next-line:no-inputs-metadata-property
-  inputs: ['disabled', 'totalTraces', 'currentPage'],
-
+    // tslint:disable-next-line:no-outputs-metadata-property
+    outputs: ['displayParams'],
+    // tslint:disable-next-line:no-inputs-metadata-property
+    inputs: ['disabled', 'totalTraces', 'currentPage'],
+    standalone: false
 })
 export class TSDisplayParamsRFormComponent extends BaseTSDisplayParamsRForm implements OnInit, OnDestroy, AfterViewInit {
 

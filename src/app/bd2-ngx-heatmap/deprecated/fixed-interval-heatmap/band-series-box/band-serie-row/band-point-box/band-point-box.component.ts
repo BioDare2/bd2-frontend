@@ -18,16 +18,17 @@ import {TooltipService} from '../../../../../plot-elements/tooltip/tooltip.servi
 
 // (mouseout)="hideTooltip($event)" (mouseover)="showTooltip($event)"
 @Component({
-  selector: '[bd2hm-band-point-box]',
-  template: `
+    selector: '[bd2hm-band-point-box]',
+    template: `
     <svg:rect #box *ngIf="point && xScale" [attr.x]="xPosition" [attr.y]="yPosition"
               [attr.width]="xWidth"
               [attr.height]="yHeight" [attr.fill]="colorScale(point.y)" [attr.stroke]="colorScale(point.y)"
     >
     </svg:rect>
   `,
-  styles: [],
-  changeDetection: ChangeDetectionStrategy.OnPush
+    styles: [],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class BandPointBoxComponent implements OnInit, OnDestroy, OnChanges, AfterViewInit {
 

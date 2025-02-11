@@ -12,9 +12,10 @@ import {ExperimentComponentsDependencies} from '../experiment-components.depende
 import {SharedDialogsService} from '../../shared/shared-dialogs/shared-dialogs.service';
 
 @Component({
-  templateUrl: './experiment-feature.component.html',
-  styles: [],
-  providers: [CurrentExperimentService, ExperimentComponentsDependencies]
+    templateUrl: './experiment-feature.component.html',
+    styles: [],
+    providers: [CurrentExperimentService, ExperimentComponentsDependencies],
+    standalone: false
 })
 export class ExperimentFeatureComponent implements OnInit, OnDestroy {
 

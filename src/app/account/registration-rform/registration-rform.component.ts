@@ -11,7 +11,8 @@ import {Observable, of} from 'rxjs';
 import {catchError, map} from 'rxjs/operators';
 
 @Component({
-  templateUrl: './registration-rform.component.html',
+    templateUrl: './registration-rform.component.html',
+    standalone: false
 })
 export class RegistrationRFormComponent implements OnInit {
 

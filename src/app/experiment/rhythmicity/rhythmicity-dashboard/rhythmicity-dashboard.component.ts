@@ -10,8 +10,9 @@ import {RhythmicityJobPaneComponent} from './rhythmicity-job-pane/rhythmicity-jo
 
 
 @Component({
-  templateUrl: './rhythmicity-dashboard.component.html',
-  styles: []
+    templateUrl: './rhythmicity-dashboard.component.html',
+    styles: [],
+    standalone: false
 })
 export class RhythmicityDashboardComponent extends RhythmicityBaseComponent {
 

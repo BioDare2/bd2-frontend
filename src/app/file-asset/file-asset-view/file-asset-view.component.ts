@@ -3,8 +3,8 @@ import {FileAsset} from '../dom/file-asset';
 import {AnalyticsService} from '../../analytics/analytics.service';
 
 @Component({
-  selector: 'bd2-file-asset-view',
-  template: `
+    selector: 'bd2-file-asset-view',
+    template: `
 
   <div *ngIf="file && file.last">
     <div class="float-right">
@@ -31,6 +31,7 @@ import {AnalyticsService} from '../../analytics/analytics.service';
     </div>
   </div>
 `,
+    standalone: false
 })
 export class FileAssetViewComponent implements OnInit {
 

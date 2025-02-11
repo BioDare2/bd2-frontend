@@ -3,8 +3,8 @@ import {ExperimentalAssayView} from '../dom/repo/exp/experimental-assay-view';
 
 
 @Component({
-  selector: 'bd2-experiment-navigation',
-  template: `
+    selector: 'bd2-experiment-navigation',
+    template: `
     <div *ngIf="experiment" style="margin-bottom: 2em;">
       <nav class="secondary">
         <a [routerLink]="['/experiments']"><i class="material-icons bd-icon">fast_rewind</i></a>
@@ -41,7 +41,8 @@ import {ExperimentalAssayView} from '../dom/repo/exp/experimental-assay-view';
       </nav>
     </div>
   `,
-  providers: []
+    providers: [],
+    standalone: false
 })
 export class ExperimentNavigationComponent {
 

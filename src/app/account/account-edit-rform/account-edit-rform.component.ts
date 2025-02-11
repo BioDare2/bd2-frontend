@@ -7,8 +7,9 @@ import {validEmail} from '../user.util';
 import {timer} from 'rxjs';
 
 @Component({
-  templateUrl: './account-edit-rform.component.html',
-  styles: []
+    templateUrl: './account-edit-rform.component.html',
+    styles: [],
+    standalone: false
 })
 export class AccountEditRFormComponent implements OnInit {
 

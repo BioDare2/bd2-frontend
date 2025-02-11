@@ -3,7 +3,7 @@ import {ExperimentBaseComponent} from '../experiment-base.component';
 import {ExperimentComponentsDependencies} from '../experiment-components.dependencies';
 
 @Component({
-  template: `
+    template: `
     <div *ngIf="assay">
 
   <h3>Overview of experimental details</h3>
@@ -57,7 +57,8 @@ import {ExperimentComponentsDependencies} from '../experiment-components.depende
 
     </div>
       `,
-  providers: []
+    providers: [],
+    standalone: false
 })
 export class ExperimentAssayOverviewComponent extends ExperimentBaseComponent {
 

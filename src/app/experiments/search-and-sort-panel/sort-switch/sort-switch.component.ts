@@ -14,16 +14,17 @@ const CUSTOM_VALUE_ACCESSOR: any = {
 };
 
 @Component({
-  selector: 'bd2-sort-switch',
-  template: `
+    selector: 'bd2-sort-switch',
+    template: `
     <button mat-mini-fab aria-label="sorting" [disabled]="disabled">
       <i *ngIf="value === 'asc'" class="material-icons  icon-flipped-h" (click)="select('desc')">sort</i>
       <i *ngIf="value === 'desc'" class="material-icons"  (click)="select('')">sort</i>
       <i *ngIf="value === ''" class="material-icons" (click)="select('asc')">more_horiz</i>
     </button>
   `,
-  styles: [],
-  providers : [CUSTOM_VALUE_ACCESSOR],
+    styles: [],
+    providers: [CUSTOM_VALUE_ACCESSOR],
+    standalone: false
 })
 export class SortSwitchComponent implements OnInit, ControlValueAccessor {
 

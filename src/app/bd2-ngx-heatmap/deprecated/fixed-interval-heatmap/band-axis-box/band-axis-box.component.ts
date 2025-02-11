@@ -2,8 +2,8 @@ import {ChangeDetectionStrategy, Component, Input, OnInit} from '@angular/core';
 import {FixedGraphicContext} from '../bd2-fixed-heatmap.dom';
 
 @Component({
-  selector: '[bd2hm-band-axis-box]',
-  template: `
+    selector: '[bd2hm-band-axis-box]',
+    template: `
     <svg:g *ngIf="graphic" class="bd2hm-axisWrapper">
 
       <g bd2hm-band-x-axis class="xTopAxis" [top]="true" [xScale]="graphic.xBandScale" [yPosition]="0"></g>
@@ -13,8 +13,9 @@ import {FixedGraphicContext} from '../bd2-fixed-heatmap.dom';
       <g bd2hm-y-axis class="yRightAxis" [left]="false" [yScale]="graphic.yScale" [xPosition]="graphic.workspaceWidth"></g>
     </svg:g>
   `,
-  styles: [],
-  changeDetection: ChangeDetectionStrategy.OnPush
+    styles: [],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class BandAxisBoxComponent implements OnInit {
 

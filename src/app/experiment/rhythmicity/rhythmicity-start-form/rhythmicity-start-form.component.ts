@@ -14,9 +14,10 @@ import {ExperimentalAssayView} from '../../../dom/repo/exp/experimental-assay-vi
 
 
 @Component({
-  templateUrl: './rhythmicity-start-form.component.html',
-  styles: [],
-  providers: [TSFetcher]
+    templateUrl: './rhythmicity-start-form.component.html',
+    styles: [],
+    providers: [TSFetcher],
+    standalone: false
 })
 export class RhythmicityStartFormComponent extends RhythmicityBaseComponent implements OnInit, OnDestroy {
 

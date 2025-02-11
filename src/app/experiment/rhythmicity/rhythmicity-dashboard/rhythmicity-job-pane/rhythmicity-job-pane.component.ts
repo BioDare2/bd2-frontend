@@ -17,10 +17,11 @@ import {SharedDialogsService} from '../../../../shared/shared-dialogs/shared-dia
 import {shortUUID} from '../../../../shared/collections-util';
 
 @Component({
-  selector: 'bd2-rhythmicity-job-pane',
-  templateUrl: './rhythmicity-job-pane.component.html',
-  styles: [],
-  providers: [RhythmicityJobFetcherService]
+    selector: 'bd2-rhythmicity-job-pane',
+    templateUrl: './rhythmicity-job-pane.component.html',
+    styles: [],
+    providers: [RhythmicityJobFetcherService],
+    standalone: false
 })
 export class RhythmicityJobPaneComponent implements OnInit, OnChanges, OnDestroy {
 

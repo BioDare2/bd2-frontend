@@ -5,9 +5,9 @@ import {TableStyler} from '../../data-sheet-mdtable/table-styling';
 import {CellSelection} from '../../../import-dom';
 
 @Component({
-  selector: 'bd2-selectable-region-mdtable',
-  templateUrl: './selectable-region-mdtable.component.html',
-  styles: [`
+    selector: 'bd2-selectable-region-mdtable',
+    templateUrl: './selectable-region-mdtable.component.html',
+    styles: [`
     .data-sheet-container {
       max-height: 800px;
       overflow: auto;
@@ -31,7 +31,8 @@ import {CellSelection} from '../../../import-dom';
     label.user {
       color: black;
     }
-  `]
+  `],
+    standalone: false
 })
 export class SelectableRegionMDTableComponent implements OnInit {
 

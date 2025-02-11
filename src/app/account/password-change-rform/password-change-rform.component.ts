@@ -7,8 +7,9 @@ import {timer} from 'rxjs';
 import {passwordMatching, validPasswordStrength} from '../user.util';
 
 @Component({
-  templateUrl: './password-change-rform.component.html',
-  styles: []
+    templateUrl: './password-change-rform.component.html',
+    styles: [],
+    standalone: false
 })
 export class PasswordChangeRFormComponent implements OnInit {
 

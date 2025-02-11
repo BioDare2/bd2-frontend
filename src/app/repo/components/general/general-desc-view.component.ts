@@ -3,8 +3,9 @@ import {ExperimentGeneralDescView} from '../../../dom/repo/exp/experiment-genera
 
 
 @Component({
-  selector: 'bd2-general-desc-view',
-  templateUrl: './general-desc-view.component.html',
+    selector: 'bd2-general-desc-view',
+    templateUrl: './general-desc-view.component.html',
+    standalone: false
 })
 export class GeneralDescViewComponent {
 

@@ -25,8 +25,8 @@ export class PhaseParams {
 }
 
 @Component({
-  selector: 'bd2-phases-options',
-  template: `
+    selector: 'bd2-phases-options',
+    template: `
 
     <div class="mb-2 mt-2">
       <label class="mr-2">Phases by</label>
@@ -62,7 +62,8 @@ export class PhaseParams {
       </div>
     </div>
   `,
-  styles: []
+    styles: [],
+    standalone: false
 })
 export class PhasesOptionsWidgetComponent implements OnInit, OnDestroy {
 

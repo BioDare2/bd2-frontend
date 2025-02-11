@@ -2,9 +2,10 @@ import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {ImportFormat, ImportFormatOptions} from '../../import-dom';
 
 @Component({
-  selector: 'bd2-upload-data-file-step',
-  templateUrl: './upload-data-file-step.component.html',
-  styles: []
+    selector: 'bd2-upload-data-file-step',
+    templateUrl: './upload-data-file-step.component.html',
+    styles: [],
+    standalone: false
 })
 export class UploadDataFileStepComponent implements OnInit {
 

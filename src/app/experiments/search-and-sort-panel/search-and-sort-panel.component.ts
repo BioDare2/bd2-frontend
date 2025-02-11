@@ -14,9 +14,10 @@ export interface SearchAndSortOptions {
 }
 
 @Component({
-  selector: 'bd2-search-and-sort-panel',
-  templateUrl: './search-and-sort-panel.component.html',
-  styles: []
+    selector: 'bd2-search-and-sort-panel',
+    templateUrl: './search-and-sort-panel.component.html',
+    styles: [],
+    standalone: false
 })
 export class SearchAndSortPanelComponent implements OnInit {
 

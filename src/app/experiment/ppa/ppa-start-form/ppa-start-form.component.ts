@@ -15,8 +15,9 @@ import {UserService} from '../../../auth/user.service';
 
 
 @Component({
-  templateUrl: './ppa-start-form.component.html',
-  providers: [TSFetcher]
+    templateUrl: './ppa-start-form.component.html',
+    providers: [TSFetcher],
+    standalone: false
 })
 export class PPAStartFormComponent extends PPABaseComponent implements OnInit, OnDestroy {
 

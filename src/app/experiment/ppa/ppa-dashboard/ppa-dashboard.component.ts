@@ -8,8 +8,9 @@ import {ExperimentalAssayView} from '../../../dom/repo/exp/experimental-assay-vi
 import {StaticContentDialogService} from '../../../documents/static-content/static-content-dialog.service';
 
 @Component({
-  templateUrl: './ppa-dashboard.component.html',
-  providers: []
+    templateUrl: './ppa-dashboard.component.html',
+    providers: [],
+    standalone: false
 })
 export class PPADashboardComponent extends PPABaseComponent {
 

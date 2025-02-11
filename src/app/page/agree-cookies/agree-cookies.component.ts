@@ -2,28 +2,28 @@ import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit} from '@an
 import {animate, state, style, transition, trigger} from '@angular/animations';
 
 @Component({
-  selector: 'bd2-cookieconsent',
-  templateUrl: './agree-cookies.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush, // manually handling to improve performance
-  animations: [
-    trigger('shown', [
-      state('inactive', style({
-        opacity: 0,
-        paddingTop: '0px',
-        paddingBottom: '0px',
-        height: 0
-
-      })),
-      state('active', style({
-        opacity: 1,
-        paddingTop: '90px',
-        paddingBottom: '90px'
-      })),
-      transition('void => *', animate('1200ms 6000ms ease-in')),
-      transition('active => inactive', animate('300ms ease-out'))
-    ])
-  ],
-  styles: []
+    selector: 'bd2-cookieconsent',
+    templateUrl: './agree-cookies.component.html',
+    changeDetection: ChangeDetectionStrategy.OnPush, // manually handling to improve performance
+    animations: [
+        trigger('shown', [
+            state('inactive', style({
+                opacity: 0,
+                paddingTop: '0px',
+                paddingBottom: '0px',
+                height: 0
+            })),
+            state('active', style({
+                opacity: 1,
+                paddingTop: '90px',
+                paddingBottom: '90px'
+            })),
+            transition('void => *', animate('1200ms 6000ms ease-in')),
+            transition('active => inactive', animate('300ms ease-out'))
+        ])
+    ],
+    styles: [],
+    standalone: false
 })
 export class AgreeCookiesComponent implements OnInit {
 

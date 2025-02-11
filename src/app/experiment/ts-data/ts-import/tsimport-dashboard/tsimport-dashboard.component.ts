@@ -6,9 +6,10 @@ import {BioDareRestService} from '../../../../backend/biodare-rest.service';
 
 
 @Component({
-  selector: 'bd2-tsimport-dashboard',
-  templateUrl: './tsimport-dashboard.component.html',
-  styles: [],
+    selector: 'bd2-tsimport-dashboard',
+    templateUrl: './tsimport-dashboard.component.html',
+    styles: [],
+    standalone: false
 })
 export class TSImportDashboardComponent extends ExperimentBaseComponent implements OnInit {
 

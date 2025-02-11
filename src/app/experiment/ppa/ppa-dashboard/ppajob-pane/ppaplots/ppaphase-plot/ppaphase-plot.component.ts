@@ -4,9 +4,10 @@ import {PhaseParams} from '../../phases-options-widget.component';
 import {ShowIndividualsOptions} from "../../../../../../bd2-ngx-polarplot/polar-plot/polar-plot.dom";
 
 @Component({
-  selector: 'bd2-ppaphase-plot',
-  templateUrl: './ppaphase-plot.component.html',
-  styles: []
+    selector: 'bd2-ppaphase-plot',
+    templateUrl: './ppaphase-plot.component.html',
+    styles: [],
+    standalone: false
 })
 export class PPAPhasePlotComponent implements OnInit, OnChanges {
 

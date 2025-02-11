@@ -4,9 +4,9 @@ import {UserService} from '../../auth/user.service';
 import {BD2User} from '../../auth/user.dom';
 
 @Component({
-  selector: 'bd2-header-bar',
-  changeDetection: ChangeDetectionStrategy.OnPush, // manually handling to improve performance
-  template: `
+    selector: 'bd2-header-bar',
+    changeDetection: ChangeDetectionStrategy.OnPush, // manually handling to improve performance
+    template: `
     <div class="header-bar">
       <div *ngIf="isJumbo" class="jumbotron">
         <div class="container">
@@ -24,7 +24,8 @@ import {BD2User} from '../../auth/user.dom';
       </div>
     </div>
   `,
-  styles: []
+    styles: [],
+    standalone: false
 })
 export class HeaderBarComponent implements OnInit, OnDestroy {
 

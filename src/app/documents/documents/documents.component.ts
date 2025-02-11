@@ -7,7 +7,8 @@ import {Subscription} from 'rxjs';
 import {map} from 'rxjs/operators';
 
 @Component({
-  templateUrl: './documents.component.html',
+    templateUrl: './documents.component.html',
+    standalone: false
 })
 export class DocumentsComponent implements OnInit, OnDestroy {
 

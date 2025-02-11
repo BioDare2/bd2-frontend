@@ -2,9 +2,10 @@ import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {StatTestOptions} from '../../../rhythmicity-dom';
 
 @Component({
-  selector: 'bd2-stat-test-options-widget',
-  templateUrl: './stat-test-options-widget.component.html',
-  styles: []
+    selector: 'bd2-stat-test-options-widget',
+    templateUrl: './stat-test-options-widget.component.html',
+    styles: [],
+    standalone: false
 })
 export class StatTestOptionsWidgetComponent implements OnInit {
 

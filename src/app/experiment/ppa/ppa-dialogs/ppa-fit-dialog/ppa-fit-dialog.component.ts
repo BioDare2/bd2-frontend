@@ -14,8 +14,9 @@ export class PPAFitDialogComponentParams {
 }
 
 @Component({
-  templateUrl: './ppa-fit-dialog.component.html',
-  styles: []
+    templateUrl: './ppa-fit-dialog.component.html',
+    styles: [],
+    standalone: false
 })
 export class PPAFitDialogComponent implements OnInit {
 

@@ -10,8 +10,8 @@ import {
 } from '../../ts-import/sheet-dom';
 
 @Component({
-  selector: 'bd2-simple-add-data-form',
-  template: `
+    selector: 'bd2-simple-add-data-form',
+    template: `
 
     <form #simpleAddDataForm="ngForm" class="form-inline  no-clues">
       <label for="colRange">Range</label>
@@ -32,7 +32,8 @@ import {
       >
       <button class="btn btn-primary btn-sm" [disabled]="!simpleAddDataForm.form.valid" (click)="add()">Add</button>
     </form>
-  `
+  `,
+    standalone: false
 })
 export class SimpleAddDataFormComponent {
 

@@ -7,8 +7,8 @@ import {SpeciesService} from './species.service';
 
 
 @Component({
-  selector: 'bd2-simple-bio-desc-form',
-  template: `
+    selector: 'bd2-simple-bio-desc-form',
+    template: `
 
     <div *ngIf="experiment">
       <form #sBioForm="ngForm">
@@ -66,6 +66,7 @@ import {SpeciesService} from './species.service';
     </div>
 
   `,
+    standalone: false
 })
 export class SimpleBioDescFormComponent extends ValidableFormComponent<any> implements OnInit {
 

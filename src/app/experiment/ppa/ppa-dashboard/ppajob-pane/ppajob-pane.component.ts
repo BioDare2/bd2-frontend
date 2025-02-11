@@ -16,9 +16,9 @@ import {shortUUID} from '../../../../shared/collections-util';
 import {LocalDateTime} from '../../../../dom/repo/shared/dates';
 
 @Component({
-  selector: 'bd2-ppajob-pane',
-  templateUrl: './ppajob-pane.component.html',
-  styles: [`
+    selector: 'bd2-ppajob-pane',
+    templateUrl: './ppajob-pane.component.html',
+    styles: [`
     div label {
       margin-bottom: 1em;
     }
@@ -37,7 +37,8 @@ import {LocalDateTime} from '../../../../dom/repo/shared/dates';
     }
 
   `],
-  providers: [PPAJobFetcherService]
+    providers: [PPAJobFetcherService],
+    standalone: false
 })
 export class PPAJobPaneComponent implements OnInit, OnChanges, OnDestroy {
 

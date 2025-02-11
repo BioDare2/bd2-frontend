@@ -5,11 +5,12 @@ import {HeatmapDataUtil} from '../heatmap-data-util';
 import {HeatmapGraphUtil} from '../../heatmap-graph-util';
 
 @Component({
-  selector: 'bd2-num-heatmap',
-  templateUrl: './bd2-num-heatmap.component.html',
-  styleUrls: ['./bd2-num-heatmap.component.css'],
-  providers: [TooltipService],
-  changeDetection: ChangeDetectionStrategy.OnPush
+    selector: 'bd2-num-heatmap',
+    templateUrl: './bd2-num-heatmap.component.html',
+    styleUrls: ['./bd2-num-heatmap.component.css'],
+    providers: [TooltipService],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class Bd2NumHeatmapComponent implements OnInit, OnDestroy, OnChanges {
 

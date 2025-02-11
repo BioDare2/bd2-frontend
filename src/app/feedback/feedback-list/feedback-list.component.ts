@@ -5,9 +5,9 @@ import {FeedbackService} from '../feedback.service';
 import {removeItemFromArr} from '../../shared/collections-util';
 
 @Component({
-  selector: 'bd2-feedback-list',
-  changeDetection: ChangeDetectionStrategy.OnPush, // manually handling to improve performance
-  template: `
+    selector: 'bd2-feedback-list',
+    changeDetection: ChangeDetectionStrategy.OnPush, // manually handling to improve performance
+    template: `
     <div class="bd2-feedback-list">
       <mat-card appearance="outlined" *ngFor="let message of messages; let i = index"
          class="mat-elevation-z4 mb-2 word_wrapping"
@@ -24,7 +24,8 @@ import {removeItemFromArr} from '../../shared/collections-util';
       </mat-card>
     </div>
   `,
-  styles: []
+    styles: [],
+    standalone: false
 })
 export class FeedbackListComponent implements OnInit, OnDestroy {
 

@@ -3,8 +3,8 @@ import {ExperimentBaseComponent} from '../../experiment-base.component';
 import {ExperimentComponentsDependencies} from '../../experiment-components.dependencies';
 
 @Component({
-  selector: 'bd2-publish-form',
-  template: `
+    selector: 'bd2-publish-form',
+    template: `
     <div *ngIf="assay">
       <h3>Publish experiment</h3>
 
@@ -55,7 +55,8 @@ import {ExperimentComponentsDependencies} from '../../experiment-components.depe
       </div>
     </div>
   `,
-  styles: []
+    styles: [],
+    standalone: false
 })
 export class PublishFormComponent extends ExperimentBaseComponent implements OnInit {
 

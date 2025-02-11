@@ -9,16 +9,17 @@ import {Subscription} from 'rxjs';
 import {TSFetcher} from '../ts-fetcher';
 
 @Component({
-  selector: 'bd2-tssort-params-rform',
-  templateUrl: './tssort-params-rform.component.html',
-  styles: [
-    `
+    selector: 'bd2-tssort-params-rform',
+    templateUrl: './tssort-params-rform.component.html',
+    styles: [
+        `
                      /* TODO(mdc-migration): The following rule targets internal classes of radio that may no longer apply for the MDC version. */
                      mat-radio-button {
                        margin-right: 0.5em;
                      }
                    `
-  ]
+    ],
+    standalone: false
 })
 export class TSSortParamsRFormComponent implements OnInit, OnDestroy {
 

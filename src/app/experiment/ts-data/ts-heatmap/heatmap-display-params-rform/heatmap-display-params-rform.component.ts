@@ -4,14 +4,14 @@ import {UntypedFormBuilder} from '@angular/forms';
 import {TSOption} from '../../../../tsdata/ts-data-dom';
 
 @Component({
-  selector: 'bd2-heatmap-display-params-rform',
-  templateUrl: './heatmap-display-params-rform.component.html',
-  styles: [
-  ],
-  // tslint:disable-next-line:no-outputs-metadata-property
-  outputs: ['displayParams'],
-  // tslint:disable-next-line:no-inputs-metadata-property
-  inputs: ['disabled', 'totalTraces', 'currentPage'],
+    selector: 'bd2-heatmap-display-params-rform',
+    templateUrl: './heatmap-display-params-rform.component.html',
+    styles: [],
+    // tslint:disable-next-line:no-outputs-metadata-property
+    outputs: ['displayParams'],
+    // tslint:disable-next-line:no-inputs-metadata-property
+    inputs: ['disabled', 'totalTraces', 'currentPage'],
+    standalone: false
 })
 export class HeatmapDisplayParamsRformComponent extends BaseTSDisplayParamsRForm implements OnInit, OnDestroy, AfterViewInit {
 

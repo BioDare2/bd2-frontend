@@ -6,11 +6,12 @@ import {DataTableDependentStep} from '../data-table-dependent-step';
 import {CellSelection} from '../../import-dom';
 
 @Component({
-  selector: 'bd2-import-labels-step',
-  templateUrl: './import-labels-step.component.html',
-  styles: [],
-  // tslint:disable-next-line:no-inputs-metadata-property
-  inputs: ['importDetails']
+    selector: 'bd2-import-labels-step',
+    templateUrl: './import-labels-step.component.html',
+    styles: [],
+    // tslint:disable-next-line:no-inputs-metadata-property
+    inputs: ['importDetails'],
+    standalone: false
 })
 export class ImportLabelsStepComponent extends DataTableDependentStep implements OnInit, OnDestroy {
 
