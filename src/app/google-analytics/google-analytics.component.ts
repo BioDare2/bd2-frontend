@@ -48,7 +48,7 @@ export class GoogleAnalyticsComponent implements OnInit {
 
       const dataTable = google.visualization.arrayToDataTable(chartData);
       const options = {
-        colorAxis: { colors: ['#e7711c', '#4374e0'] }
+        colorAxis: { colors: ['#9fc5e8', '#4374e0'] }
       };
 
       const chart = new google.visualization.GeoChart(document.getElementById('chart_div'));
