@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { GoogleAnalyticsService } from './google-analytics.service';
+import { environment } from '../../environments/environment';
 
 declare const google: any;
 
@@ -10,7 +11,7 @@ declare const google: any;
   standalone: true
 })
 export class GoogleAnalyticsComponent implements OnInit {
-  private API_KEY = 'AIzaSyDF_971Jkn9spiaqFc5xc3fAXjDN6qimdU';
+  private API_KEY = environment.googleAnalyticsApiKey;
   analyticsData: any;
 
   constructor(private googleanalyticsService: GoogleAnalyticsService) { }
