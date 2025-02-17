@@ -33,6 +33,11 @@ import {BD2User} from '../../auth/user.dom';
            [routerLinkActiveOptions]="{exact: true}"
            class="nav-link" (click)="navigated()">Account</a>
       </li>
+      <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+      <a routerLink="/analytics" routerLinkActive="active"
+         [routerLinkActiveOptions]="{exact: true}"
+         class="nav-link" (click)="navigated()">Usage</a>
+    </li>
     </ul>
   `,
     styles: [],

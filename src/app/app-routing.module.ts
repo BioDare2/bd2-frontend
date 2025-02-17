@@ -2,6 +2,8 @@ import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {LoginFormComponent} from './auth/login-form/login-form.component';
 import {WelcomeComponent} from './page/welcome/welcome.component';
+import { GoogleAnalyticsComponent } from './google-analytics/google-analytics.component';
+
 
 const routes: Routes = [
   {
@@ -19,6 +21,8 @@ const routes: Routes = [
   {path: 'account', loadChildren: () => import('./account/account.module').then(m => m.AccountModule)},
 
   {path: 'documents', loadChildren: () => import('./documents/documents.module').then(m => m.DocumentsModule)},
+
+  {path: 'analytics', component: GoogleAnalyticsComponent},
 
   {path: 'welcome', component: WelcomeComponent},
   {path: '', component: WelcomeComponent, pathMatch: 'full'},
