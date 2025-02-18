@@ -1,14 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { GoogleAnalyticsService } from './google-analytics.service';
-import { environment } from '../../environments/environment';
+import { environment } from '../../../environments/environment';
 
 declare const google: any;
 
 @Component({
-  selector: 'bd2-analytics',
+  selector: 'bd2-google-analytics',
   templateUrl: './google-analytics.component.html',
   styleUrls: ['./google-analytics.component.css'],
-  standalone: true
+  standalone: false
 })
 export class GoogleAnalyticsComponent implements OnInit {
   private API_KEY = environment.googleAnalyticsApiKey;
