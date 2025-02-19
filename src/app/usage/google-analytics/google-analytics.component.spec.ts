@@ -15,13 +15,13 @@ const googleMock = {
     }),
     setOnLoadCallback: jasmine.createSpy('setOnLoadCallback').and.callFake((callback: Function) => {
       callback();
-    }),
-    visualization: {
-      arrayToDataTable: jasmine.createSpy('arrayToDataTable').and.callFake((data: any) => data),
-      GeoChart: jasmine.createSpy('GeoChart').and.returnValue({
-        draw: jasmine.createSpy('draw')
-      })
-    }
+    })
+  },
+  visualization: {
+    arrayToDataTable: jasmine.createSpy('arrayToDataTable').and.callFake((data: any) => data),
+    GeoChart: jasmine.createSpy('GeoChart').and.returnValue({
+      draw: jasmine.createSpy('draw')
+    })
   }
 };
 
@@ -37,7 +37,7 @@ describe('GoogleAnalyticsComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [GoogleAnalyticsComponent],
+      declarations: [GoogleAnalyticsComponent],
       providers: [
         GoogleAnalyticsService,
         provideHttpClient(),
@@ -53,8 +53,8 @@ describe('GoogleAnalyticsComponent', () => {
     googleAnalyticsService = TestBed.inject(GoogleAnalyticsService);
 
     spyOn(googleAnalyticsService, 'getAnalyticsData').and.returnValue(of([
-      { country: 'Country1', sessions: 100 },
-      { country: 'Country2', sessions: 200 }
+      { country: 'Country1', activeUsers: 100 },
+      { country: 'Country2', activeUsers: 200 }
     ]));
 
     fixture.detectChanges();
@@ -74,8 +74,8 @@ describe('GoogleAnalyticsComponent', () => {
     spyOn(component, 'drawChart').and.callThrough();
     component.fetchAnalyticsData();
     expect(component.drawChart).toHaveBeenCalledWith([
-      { country: 'Country1', sessions: 100 },
-      { country: 'Country2', sessions: 200 }
+      { country: 'Country1', activeUsers: 100 },
+      { country: 'Country2', activeUsers: 200 }
     ]);
   });
 
@@ -88,8 +88,8 @@ describe('GoogleAnalyticsComponent', () => {
 
   it('should verify google.visualization is defined', () => {
     console.log('google.visualization:', (window as any).google.visualization);
-    expect((window as any).google.charts.visualization).toBeDefined();
-    expect((window as any).google.charts.visualization.arrayToDataTable).toBeDefined();
-    expect((window as any).google.charts.visualization.GeoChart).toBeDefined();
+    expect((window as any).google.visualization).toBeDefined();
+    expect((window as any).google.visualization.arrayToDataTable).toBeDefined();
+    expect((window as any).google.visualization.GeoChart).toBeDefined();
   });
 });

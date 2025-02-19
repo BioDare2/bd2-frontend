@@ -7,12 +7,12 @@ declare const google: any;
 @Component({
   selector: 'bd2-google-analytics',
   templateUrl: './google-analytics.component.html',
-  styleUrls: ['./google-analytics.component.css'],
   standalone: false
 })
 export class GoogleAnalyticsComponent implements OnInit {
   private API_KEY = environment.googleAnalyticsApiKey;
   analyticsData: any;
+  topCountries: { country: string, activeUsers: number }[] = [];
 
   constructor(private googleanalyticsService: GoogleAnalyticsService) { }
 
@@ -24,6 +24,7 @@ export class GoogleAnalyticsComponent implements OnInit {
     this.googleanalyticsService.getAnalyticsData().subscribe(
       (response: any) => {
         console.log('API Response:', response);
+        this.topCountries = response.sort((a, b) => b.activeUsers - a.activeUsers).slice(0, 5);
         this.drawChart(response);
       },
       (error) => {
@@ -41,7 +42,7 @@ export class GoogleAnalyticsComponent implements OnInit {
     google.charts.setOnLoadCallback(() => {
       const chartData = [['Country', 'Users']];
       data.forEach((row: any) => {
-        chartData.push([row.country, row.sessions]);
+        chartData.push([row.country, row.activeUsers]);
       });
 
       console.log('Chart Data:', chartData);

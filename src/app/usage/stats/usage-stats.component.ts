@@ -4,7 +4,6 @@ import { UsageStatsService } from './usage-stats.service';
 @Component({
   selector: 'bd2-usage-stats',
   templateUrl: './usage-stats.component.html',
-  styleUrls: ['./usage-stats.component.css'],
   standalone: false
 })
 export class UsageStatsComponent implements OnInit {
@@ -21,7 +20,6 @@ export class UsageStatsComponent implements OnInit {
       (response: any) => {
         console.log('API Response:', response);
         this.usageStats = response;
-        // Define here what to do with the data
       },
       (error) => {
         console.error('Error fetching usage stats:', error);

@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class UsageStatsService {
-  private backendUrl = 'http://localhost:9000/api/usage/data';
+  private backendUrl = 'http://localhost:9000/api/usage/count';
 
   constructor(private http: HttpClient) { }
 
