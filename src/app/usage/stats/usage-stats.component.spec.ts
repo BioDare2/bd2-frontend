@@ -23,7 +23,9 @@ describe('UsageStatsComponent', () => {
   beforeEach(() => {
     const mockStats = {
       totalSets: 20190,
+      totalPublicSets: 12345,
       totalSeries: 123456,
+      totalPublicSeries: 67890,
       totalUsers: 7890
     };
     mockUsageStatsService.getUsageStats.and.returnValue(of(mockStats));
@@ -39,9 +41,10 @@ describe('UsageStatsComponent', () => {
 
   it('should fetch and display usage stats', () => {
     const compiled = fixture.nativeElement;
-    expect(compiled.querySelector('strong').textContent).toContain('BioDare2');
     expect(compiled.querySelector('div').textContent).toContain('20,190');
     expect(compiled.querySelector('div').textContent).toContain('123,456');
     expect(compiled.querySelector('div').textContent).toContain('7,890');
+    expect(compiled.querySelector('div').textContent).toContain('12,345');
+    expect(compiled.querySelector('div').textContent).toContain('67,890');
   });
 });

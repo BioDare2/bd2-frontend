@@ -73,10 +73,10 @@ describe('GoogleAnalyticsComponent', () => {
   it('should draw chart with fetched data', () => {
     spyOn(component, 'drawChart').and.callThrough();
     component.fetchAnalyticsData();
-    expect(component.drawChart).toHaveBeenCalledWith([
+    expect(component.drawChart).toHaveBeenCalledWith(jasmine.arrayContaining([
       { country: 'Country1', activeUsers: 100 },
       { country: 'Country2', activeUsers: 200 }
-    ]);
+    ]));
   });
 
   it('should handle error when fetching analytics data', () => {

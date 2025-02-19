@@ -1,7 +1,5 @@
 <div *ngIf="usageStats">
-    <strong>BioDare2</strong> contains {{usageStats.totalSeries | number}} timeseries in {{usageStats.totalSets | number}} experiments.
-    <br>
-    XXX of these experiments are public, containing a total of YYY timeseries.
-    <br>
+    Experiments: {{usageStats.totalSets | number}} ({{usageStats.totalPublicSets | number}} are public).<br>
+    Timeseries: {{usageStats.totalSeries | number}} ({{usageStats.totalPublicSeries | number}} are public).<br>
     There are currently {{usageStats.totalUsers | number}} registered users.
 </div>
