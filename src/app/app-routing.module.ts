@@ -2,7 +2,6 @@ import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {LoginFormComponent} from './auth/login-form/login-form.component';
 import {WelcomeComponent} from './page/welcome/welcome.component';
-import { UsageComponent } from './usage/usage.component';
 
 const routes: Routes = [
   {
@@ -22,8 +21,6 @@ const routes: Routes = [
   {path: 'documents', loadChildren: () => import('./documents/documents.module').then(m => m.DocumentsModule)},
 
   {path: 'usage', loadChildren: () => import('./usage/usage.module').then(m => m.UsageModule)},
-
-  // {path: 'usage', component: UsageComponent},
 
   {path: 'welcome', component: WelcomeComponent},
   {path: '', component: WelcomeComponent, pathMatch: 'full'},

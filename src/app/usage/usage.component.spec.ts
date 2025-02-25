@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { UsageModule } from './usage.module';
 import { UsageComponent } from './usage.component';
 import { UsageStatsComponent } from './stats/usage-stats.component';
 import { UsageStatsService } from './stats/usage-stats.service';
@@ -13,6 +14,7 @@ describe('UsageComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
+      imports: [UsageModule],
       declarations: [
         UsageComponent,
         UsageStatsComponent,

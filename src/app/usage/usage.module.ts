@@ -3,21 +3,19 @@ import { CommonModule } from '@angular/common';
 import { UsageComponent } from './usage.component';
 import { GoogleAnalyticsComponent } from './google-analytics/google-analytics.component';
 import { UsageStatsComponent } from './stats/usage-stats.component';
+import { SpeciesCardsComponent } from './species-cards/species-cards.component';
 import { UsageRoutingModule } from './usage-routing.module';
-import { provideHttpClient } from '@angular/common/http';
 
 @NgModule({
   declarations: [
     UsageComponent,
     GoogleAnalyticsComponent,
-    UsageStatsComponent
+    UsageStatsComponent,
+    SpeciesCardsComponent
   ],
   imports: [
     CommonModule,
     UsageRoutingModule
-  ],
-  providers: [
-    provideHttpClient()
   ],
   exports: [
     UsageComponent
