@@ -1,0 +1,5 @@
+<div *ngIf="usageStats">
+    Number of experiments: {{usageStats.totalSets | number}} ({{usageStats.totalPublicSets | number}} are public).<br>
+    Number of timeseries: {{usageStats.totalSeries | number}} ({{usageStats.totalPublicSeries | number}} are public).<br>
+    Number of registered users: {{usageStats.totalUsers | number}}.
+</div>

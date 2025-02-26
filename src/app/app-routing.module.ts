@@ -20,6 +20,8 @@ const routes: Routes = [
 
   {path: 'documents', loadChildren: () => import('./documents/documents.module').then(m => m.DocumentsModule)},
 
+  {path: 'usage', loadChildren: () => import('./usage/usage.module').then(m => m.UsageModule)},
+
   {path: 'welcome', component: WelcomeComponent},
   {path: '', component: WelcomeComponent, pathMatch: 'full'},
   {path: '**', component: WelcomeComponent}
