@@ -7,7 +7,7 @@ import { environment } from '../../../environments/environment';
   providedIn: 'root'
 })
 export class UsageStatsService {
-  private backendUrl = environment.backendUrl + '/usage/get_count';
+  private backendUrl = environment.backendUrl + '/usage/get_usage_stats';
 
   constructor(private http: HttpClient) { }
 

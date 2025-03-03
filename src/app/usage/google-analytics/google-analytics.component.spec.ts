@@ -52,10 +52,12 @@ describe('GoogleAnalyticsComponent', () => {
     component = fixture.componentInstance;
     googleAnalyticsService = TestBed.inject(GoogleAnalyticsService);
 
-    spyOn(googleAnalyticsService, 'getAnalyticsData').and.returnValue(of([
-      { country: 'Country1', activeUsers: 100 },
-      { country: 'Country2', activeUsers: 200 }
-    ]));
+    spyOn(googleAnalyticsService, 'getAnalyticsData').and.returnValue(of({
+      analytics: [
+        { country: 'Country1', activeUsers: 100 },
+        { country: 'Country2', activeUsers: 200 }
+      ]
+    }));
 
     fixture.detectChanges();
 

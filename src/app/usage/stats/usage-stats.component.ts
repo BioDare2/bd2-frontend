@@ -8,6 +8,11 @@ import { UsageStatsService } from './usage-stats.service';
 })
 export class UsageStatsComponent implements OnInit {
   usageStats: any;
+  totalSets: number = 0;
+  totalSeries: number = 0;
+  totalPublicSets: number = 0;
+  totalPublicSeries: number = 0;
+  totalUsers: number = 0;
 
   constructor(private usagestatsService: UsageStatsService) { }
 
@@ -19,7 +24,15 @@ export class UsageStatsComponent implements OnInit {
     this.usagestatsService.getUsageStats().subscribe(
       (response: any) => {
         console.log('API Response:', response);
+        const yearStatsData = response.year_stats;
         this.usageStats = response;
+
+        // Sum up the counts per year
+        this.totalSets = yearStatsData.reduce((sum, stat) => sum + stat.sets, 0);
+        this.totalSeries = yearStatsData.reduce((sum, stat) => sum + stat.series, 0);
+        this.totalPublicSets = yearStatsData.reduce((sum, stat) => sum + stat.public_sets, 0);
+        this.totalPublicSeries = yearStatsData.reduce((sum, stat) => sum + stat.public_series, 0);
+        this.totalUsers = yearStatsData.reduce((sum, stat) => sum + stat.users, 0);
       },
       (error) => {
         console.error('Error fetching usage stats:', error);

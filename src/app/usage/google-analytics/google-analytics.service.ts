@@ -7,7 +7,7 @@ import { environment } from '../../../environments/environment';
   providedIn: 'root'
 })
 export class GoogleAnalyticsService {
-  private backendUrl = environment.backendUrl + '/analytics/data';
+  private backendUrl = environment.backendUrl + '/usage/get_usage_stats';
 
   constructor(private http: HttpClient) { }
 

@@ -24,8 +24,9 @@ export class GoogleAnalyticsComponent implements OnInit {
     this.googleanalyticsService.getAnalyticsData().subscribe(
       (response: any) => {
         console.log('API Response:', response);
-        this.topCountries = response.sort((a, b) => b.activeUsers - a.activeUsers).slice(0, 5);
-        this.drawChart(response);
+        const analyticsData = response.analytics;
+        this.topCountries = analyticsData.sort((a, b) => b.activeUsers - a.activeUsers).slice(0, 5);
+        this.drawChart(analyticsData);
       },
       (error) => {
         console.error('Error fetching analytics data:', error);
