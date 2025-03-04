@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 import { UsageComponent } from './usage.component';
 import { GoogleAnalyticsComponent } from './google-analytics/google-analytics.component';
 import { UsageStatsComponent } from './stats/usage-stats.component';
+import { UsageStatsPlotComponent } from './stats/usage-stats-plot.component';
+import { NgChartsModule } from 'ng2-charts';
 import { SpeciesCardsComponent } from './species-cards/species-cards.component';
 import { UsageRoutingModule } from './usage-routing.module';
 
@@ -11,10 +13,12 @@ import { UsageRoutingModule } from './usage-routing.module';
     UsageComponent,
     GoogleAnalyticsComponent,
     UsageStatsComponent,
+    UsageStatsPlotComponent,
     SpeciesCardsComponent
   ],
   imports: [
     CommonModule,
+    NgChartsModule,
     UsageRoutingModule
   ],
   exports: [

@@ -3,3 +3,8 @@
     Number of timeseries: {{totalSeries | number}} ({{totalPublicSeries | number}} are public).<br>
     Number of registered users: {{totalUsers | number}}.
 </div>
+
+<div class="chart-container">
+    <bd2-usage-stats-plot [data]="usersPerYear"></bd2-usage-stats-plot>
+    <bd2-usage-stats-plot [data]="usersPerYear"></bd2-usage-stats-plot>
+</div>
