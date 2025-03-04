@@ -50,7 +50,7 @@ export class WelcomeComponent implements OnInit, OnDestroy {
 
   showMaintenance(): boolean {
     console.log("",new Date());
-    return ((new Date()) < (new Date(2021, 7, 28)));
+    return ((new Date()) < (new Date(2025, 3, 24)));
   }
 
 }
