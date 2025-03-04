@@ -16,7 +16,8 @@ import { Component, Input, OnInit, OnChanges, SimpleChanges } from '@angular/cor
   standalone: false
 })
 export class UsageStatsPlotComponent implements OnInit, OnChanges {
-  @Input() data: { year: number, users: number }[];
+  @Input() data: { year: number, value: number }[];
+  @Input() chartLabel: string;
 
   dataset: any;
   labels: string[];
@@ -57,8 +58,8 @@ export class UsageStatsPlotComponent implements OnInit, OnChanges {
       console.log('Input data:', this.data);
       this.labels = this.data.map(d => d.year.toString());
       this.dataset = [{
-        label: 'New users per Year',
-        data: this.data.map(d => d.users),
+        label: this.chartLabel,
+        data: this.data.map(d => d.value),
         backgroundColor: 'rgba(75, 192, 192, 0.2)',
         borderColor: 'rgba(75, 192, 192, 1)',
         borderWidth: 1

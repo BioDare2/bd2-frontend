@@ -4,7 +4,7 @@
     Number of registered users: {{totalUsers | number}}.
 </div>
 
-<div class="chart-container">
-    <bd2-usage-stats-plot [data]="usersPerYear"></bd2-usage-stats-plot>
-    <bd2-usage-stats-plot [data]="usersPerYear"></bd2-usage-stats-plot>
+<div class="charts-container">
+    <bd2-usage-stats-plot [data]="usersPerYear" chartLabel="New Users per Year"></bd2-usage-stats-plot>
+    <bd2-usage-stats-plot [data]="datasetsPerYear" chartLabel="New Datasets per Year"></bd2-usage-stats-plot>
 </div>
