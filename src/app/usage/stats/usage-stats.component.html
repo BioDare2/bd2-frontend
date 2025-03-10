@@ -3,8 +3,17 @@
     Number of timeseries: {{totalSeries | number}} ({{totalPublicSeries | number}} are public).<br>
     Number of registered users: {{totalUsers | number}}.
 </div>
-
+<br>
 <div class="charts-container">
-    <bd2-usage-stats-plot [data]="usersPerYear" chartLabel="New Users per Year"></bd2-usage-stats-plot>
-    <bd2-usage-stats-plot [data]="datasetsPerYear" chartLabel="New Datasets per Year"></bd2-usage-stats-plot>
+    <bd2-usage-stats-plot [publicData]="publicSetsPerYear"
+                          [privateData]="privateSetsPerYear"
+                          chartLabel="Datasets"
+                          barColor="rgba(31, 119, 180, 0.4)"></bd2-usage-stats-plot>
+    <bd2-usage-stats-plot [publicData]="publicSeriesPerYear"
+                          [privateData]="privateSeriesPerYear"
+                          chartLabel="Series"
+                          barColor="rgba(255, 127, 14, 0.4)"></bd2-usage-stats-plot>
+    <bd2-usage-stats-plot [publicData]="usersPerYear"
+                          chartLabel="New Users"
+                          barColor="rgba(44, 160, 44, 0.4)"></bd2-usage-stats-plot>
 </div>

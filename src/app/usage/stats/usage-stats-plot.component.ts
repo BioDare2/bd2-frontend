@@ -16,8 +16,10 @@ import { Component, Input, OnInit, OnChanges, SimpleChanges } from '@angular/cor
   standalone: false
 })
 export class UsageStatsPlotComponent implements OnInit, OnChanges {
-  @Input() data: { year: number, value: number }[];
+  @Input() publicData: { year: number, value: number }[];
+  @Input() privateData: { year: number, value: number }[];
   @Input() chartLabel: string;
+  @Input() barColor: string = 'rgba(75, 192, 192, 0.4)';
 
   dataset: any;
   labels: string[];
@@ -28,10 +30,12 @@ export class UsageStatsPlotComponent implements OnInit, OnChanges {
       scales: {
         x: {
           type: 'category',
-          position: 'bottom'
+          position: 'bottom',
+          stacked: true
         },
         y: {
-            beginAtZero: true
+            beginAtZero: true,
+            stacked:true
         }
       },
       plugins: {
@@ -48,22 +52,38 @@ export class UsageStatsPlotComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    if (changes.data) {
+    if (changes.publicData || changes.privateData) {
       this.updateChart();
     }
   }
 
   updateChart() {
-    if (this.data) {
-      console.log('Input data:', this.data);
-      this.labels = this.data.map(d => d.year.toString());
-      this.dataset = [{
-        label: this.chartLabel,
-        data: this.data.map(d => d.value),
-        backgroundColor: 'rgba(75, 192, 192, 0.2)',
-        borderColor: 'rgba(75, 192, 192, 1)',
-        borderWidth: 1
-      }];
+    if (this.publicData || this.privateData) {
+      console.log('Input public data:', this.publicData);
+      console.log('Input private data:', this.privateData);
+      this.labels = (this.publicData.length ? this.publicData : this.privateData).map(d => d.year.toString());
+      this.dataset = [];
+
+      if (this.privateData && this.privateData.length) {
+        this.dataset.push({
+          label: this.publicData && this.publicData.length ? `Private ${this.chartLabel}` : this.chartLabel,
+          data: this.privateData.map(d => d.value),
+          backgroundColor: 'rgba(128, 128, 128, 0.4)',
+          borderColor: 'rgba(128, 128, 128, 1)',
+          borderWidth: 1
+        });
+      }
+
+      if (this.publicData && this.publicData.length) {
+        this.dataset.push({
+          label: this.privateData && this.privateData.length ? `Public ${this.chartLabel}` : this.chartLabel,
+          data: this.publicData.map(d => d.value),
+          backgroundColor: this.barColor,
+          borderColor: this.barColor.replace('0.4', '1'),
+          borderWidth: 1
+        });
+      }
+
       console.log('Chart labels:', this.labels);
       console.log('Chart dataset:', this.dataset);
     }
