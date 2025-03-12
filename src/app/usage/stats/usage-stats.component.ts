@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { UsageStatsService } from './usage-stats.service';
+import { UsageDataService } from '../usage-data.service';
 
 @Component({
   selector: 'bd2-usage-stats',
@@ -20,14 +20,14 @@ export class UsageStatsComponent implements OnInit {
   privateSetsPerYear: { year: number, value: number }[] = [];
   privateSeriesPerYear: { year: number, value: number }[] = [];
 
-  constructor(private usagestatsService: UsageStatsService) { }
+  constructor(private usagedataService: UsageDataService) { }
 
   ngOnInit(): void {
     this.fetchUsageStats();
   }
 
   fetchUsageStats() {
-    this.usagestatsService.getUsageStats().subscribe(
+    this.usagedataService.getUsageData().subscribe(
       (response: any) => {
         console.log('API Response:', response);
         const yearStatsData = response.year_stats;

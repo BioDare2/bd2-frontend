@@ -61,7 +61,14 @@ export class UsageStatsPlotComponent implements OnInit, OnChanges {
     if (this.publicData || this.privateData) {
       console.log('Input public data:', this.publicData);
       console.log('Input private data:', this.privateData);
-      this.labels = (this.publicData.length ? this.publicData : this.privateData).map(d => d.year.toString());
+
+      const dataToUse = this.publicData && this.publicData.length ? this.publicData : this.privateData;
+      if (dataToUse) {
+        this.labels = dataToUse.map(d => d.year.toString());
+      } else {
+        this.labels = [];
+      }
+
       this.dataset = [];
 
       if (this.privateData && this.privateData.length) {

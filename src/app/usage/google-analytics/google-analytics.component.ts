@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { GoogleAnalyticsService } from './google-analytics.service';
+import { UsageDataService } from '../usage-data.service';
 import { environment } from '../../../environments/environment';
 
 declare const google: any;
@@ -14,14 +14,14 @@ export class GoogleAnalyticsComponent implements OnInit {
   analyticsData: any;
   topCountries: { country: string, activeUsers: number }[] = [];
 
-  constructor(private googleanalyticsService: GoogleAnalyticsService) { }
+  constructor(private usagedataService: UsageDataService) { }
 
   ngOnInit(): void {
     this.fetchAnalyticsData();
   }
 
   fetchAnalyticsData() {
-    this.googleanalyticsService.getAnalyticsData().subscribe(
+    this.usagedataService.getUsageData().subscribe(
       (response: any) => {
         console.log('API Response:', response);
         const analyticsData = response.analytics;

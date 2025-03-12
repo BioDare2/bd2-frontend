@@ -5,6 +5,7 @@ import { GoogleAnalyticsComponent } from './google-analytics/google-analytics.co
 import { UsageStatsComponent } from './stats/usage-stats.component';
 import { UsageStatsPlotComponent } from './stats/usage-stats-plot.component';
 import { NgChartsModule } from 'ng2-charts';
+import { SpeciesCardComponent } from './species-cards/species-card.component';
 import { SpeciesCardsComponent } from './species-cards/species-cards.component';
 import { UsageRoutingModule } from './usage-routing.module';
 
@@ -14,6 +15,7 @@ import { UsageRoutingModule } from './usage-routing.module';
     GoogleAnalyticsComponent,
     UsageStatsComponent,
     UsageStatsPlotComponent,
+    SpeciesCardComponent,
     SpeciesCardsComponent
   ],
   imports: [

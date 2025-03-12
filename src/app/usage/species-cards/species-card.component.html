@@ -1,0 +1,17 @@
+<div class="card" (click)="cardClicked()" [@cardFlip]="data.state">
+    <div class="face back">
+      <div class="species">{{ name }}</div>
+      <img [src]="image" />
+      <small class="reference" [innerHTML]="reference"></small>
+    </div>
+    <div class="face front">
+      <div class="species">{{ name }}</div>
+      <br>
+      Datasets: {{ datasets }} <br>
+      <small>(Public: {{ publicDatasets }})</small>
+      Timeseries: {{ timeseries }} <br>
+      <small>(Public: {{ publicTimeseries }})</small>
+      <br>
+      Popular keywords: {{ keywords }}
+    </div>
+</div>

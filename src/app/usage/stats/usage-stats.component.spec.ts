@@ -1,22 +1,25 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { UsageStatsComponent } from './usage-stats.component';
-import { UsageStatsService } from './usage-stats.service';
+import { UsageDataService } from '../usage-data.service';
 import { of } from 'rxjs';
 import { CommonModule } from '@angular/common';
+import { UsageStatsPlotComponent } from './usage-stats-plot.component';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 
 describe('UsageStatsComponent', () => {
   let component: UsageStatsComponent;
   let fixture: ComponentFixture<UsageStatsComponent>;
-  let mockUsageStatsService: jasmine.SpyObj<UsageStatsService>;
+  let mockUsageDataService: jasmine.SpyObj<UsageDataService>;
 
   beforeEach(async () => {
-    mockUsageStatsService = jasmine.createSpyObj('UsageStatsService', ['getUsageStats']);
+    mockUsageDataService = jasmine.createSpyObj('UsageDataService', ['getUsageData']);
     await TestBed.configureTestingModule({
       declarations: [UsageStatsComponent],
       imports: [CommonModule],
       providers: [
-        { provide: UsageStatsService, useValue: mockUsageStatsService }
-      ]
+        { provide: UsageDataService, useValue: mockUsageDataService }
+      ],
+      schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();
   });
 
@@ -28,7 +31,7 @@ describe('UsageStatsComponent', () => {
         { year: 2017, sets: 14, series: 1079, public_sets: 0, public_series: 0, users: 3 }
       ]
     };
-    mockUsageStatsService.getUsageStats.and.returnValue(of(mockStats));
+    mockUsageDataService.getUsageData.and.returnValue(of(mockStats));
 
     fixture = TestBed.createComponent(UsageStatsComponent);
     component = fixture.componentInstance;
@@ -54,5 +57,11 @@ describe('UsageStatsComponent', () => {
     expect(component.totalPublicSets).toBe(20);
     expect(component.totalPublicSeries).toBe(3933);
     expect(component.totalUsers).toBe(18);
+  });
+
+  it('should render three charts side-by-side', () => {
+    const compiled = fixture.nativeElement;
+    const charts = compiled.querySelectorAll('bd2-usage-stats-plot');
+    expect(charts.length).toBe(3);
   });
 });
