@@ -15,6 +15,8 @@ import {MatTableModule} from '@angular/material/table';
 import {SearchAndSortPanelComponent} from './search-and-sort-panel/search-and-sort-panel.component';
 import {SortSwitchComponent} from './search-and-sort-panel/sort-switch/sort-switch.component';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatSelectModule } from '@angular/material/select';
 
 @NgModule({
   declarations: [ExperimentsListComponent, ExperimentSummaryComponent, SearchAndSortPanelComponent, SortSwitchComponent],
@@ -30,8 +32,10 @@ import {MatProgressBarModule} from '@angular/material/progress-bar';
     MatTableModule,
     MatProgressBarModule,
     RepoComponentsModule,
-    ExperimentsRoutingModule
-  ]
+    ExperimentsRoutingModule,
+    MatFormFieldModule,
+    MatSelectModule
+]
 })
 export class ExperimentsModule {
 }

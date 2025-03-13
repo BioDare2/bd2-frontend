@@ -180,8 +180,8 @@ export class BioDareRestService {
   searchExperiments(listOptions: { [index: string]: any; }): Observable<any> {
     const options = this.makeOptions() as any;
     options.params = this.objectToParams(listOptions, options.params);
+    console.log('Frontend calling backend search:', listOptions);
     const url = this.endPoints.experiments_url + '/search';
-
     return this.OKJson(this.http.get(url, options));
 
   }
@@ -577,6 +577,14 @@ export class BioDareRestService {
 
     return this.OKJson(this.http.get<string[]>(url, options));
 
+  }
+
+  getUsageData(): Observable<any> {
+
+    const options = this.makeOptions();
+    const url = this.endPoints.usage_data_url;
+    
+    return this.OKJson(this.http.get<any>(url, options));
   }
 
   shutdownStatus(): Observable<any> {

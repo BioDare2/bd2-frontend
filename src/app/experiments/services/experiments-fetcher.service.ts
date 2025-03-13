@@ -29,12 +29,8 @@ export class ExperimentsFetcherService
     // console.log('Fetching experiments q', search);
     // console.log('Fetching experiments sort', sort);
     // console.log('Fetching experiments p', page);
-    const query = (search.query || '').trim();
-    if (query === '') {
-      return this.experimentService.getExperiments(search.showPublic, sort, page);
-    } else {
-      return this.experimentService.searchExperiments(query, search.showPublic, sort, page);
-    }
+    const query = (search.query || '*').trim();
+    return this.experimentService.searchExperiments(query, search.species, search.showPublic, sort, page);
   }
 
   protected processData(asset: ListWrapper<ExperimentSummary>, params: string): ExperimentSummary[] {
@@ -42,7 +38,7 @@ export class ExperimentsFetcherService
   }
 
   protected sameInput(def1: SearchOptions, def2: SearchOptions): boolean {
-    return (def1.showPublic === def2.showPublic) && (def1.query === def2.query);
+    return (def1.showPublic === def2.showPublic) && (def1.query === def2.query) && (def1.species === def2.species);
   }
 
   protected assetToDataLength(asset: ListWrapper<ExperimentSummary>): number {
