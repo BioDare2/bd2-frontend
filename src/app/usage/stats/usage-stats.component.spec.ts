@@ -1,34 +1,37 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { UsageStatsComponent } from './usage-stats.component';
-import { UsageStatsService } from './usage-stats.service';
+import { UsageDataService } from '../usage-data.service';
 import { of } from 'rxjs';
 import { CommonModule } from '@angular/common';
+import { UsageStatsPlotComponent } from './usage-stats-plot.component';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 
 describe('UsageStatsComponent', () => {
   let component: UsageStatsComponent;
   let fixture: ComponentFixture<UsageStatsComponent>;
-  let mockUsageStatsService: jasmine.SpyObj<UsageStatsService>;
+  let mockUsageDataService: jasmine.SpyObj<UsageDataService>;
 
   beforeEach(async () => {
-    mockUsageStatsService = jasmine.createSpyObj('UsageStatsService', ['getUsageStats']);
+    mockUsageDataService = jasmine.createSpyObj('UsageDataService', ['getUsageData']);
     await TestBed.configureTestingModule({
       declarations: [UsageStatsComponent],
       imports: [CommonModule],
       providers: [
-        { provide: UsageStatsService, useValue: mockUsageStatsService }
-      ]
+        { provide: UsageDataService, useValue: mockUsageDataService }
+      ],
+      schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();
   });
 
   beforeEach(() => {
     const mockStats = {
-      totalSets: 20190,
-      totalPublicSets: 12345,
-      totalSeries: 123456,
-      totalPublicSeries: 67890,
-      totalUsers: 7890
+      year_stats: [
+        { year: 2019, sets: 19, series: 3838, public_sets: 19, public_series: 3838, users: 10 },
+        { year: 2018, sets: 1, series: 95, public_sets: 1, public_series: 95, users: 5 },
+        { year: 2017, sets: 14, series: 1079, public_sets: 0, public_series: 0, users: 3 }
+      ]
     };
-    mockUsageStatsService.getUsageStats.and.returnValue(of(mockStats));
+    mockUsageDataService.getUsageData.and.returnValue(of(mockStats));
 
     fixture = TestBed.createComponent(UsageStatsComponent);
     component = fixture.componentInstance;
@@ -41,10 +44,24 @@ describe('UsageStatsComponent', () => {
 
   it('should fetch and display usage stats', () => {
     const compiled = fixture.nativeElement;
-    expect(compiled.querySelector('div').textContent).toContain('20,190');
-    expect(compiled.querySelector('div').textContent).toContain('123,456');
-    expect(compiled.querySelector('div').textContent).toContain('7,890');
-    expect(compiled.querySelector('div').textContent).toContain('12,345');
-    expect(compiled.querySelector('div').textContent).toContain('67,890');
+    expect(compiled.querySelector('div').textContent).toContain('34');
+    expect(compiled.querySelector('div').textContent).toContain('5,012');
+    expect(compiled.querySelector('div').textContent).toContain('18');
+    expect(compiled.querySelector('div').textContent).toContain('3,933');
+    expect(compiled.querySelector('div').textContent).toContain('18');
+  });
+
+  it('should correctly sum up the counts per year', () => {
+    expect(component.totalSets).toBe(34);
+    expect(component.totalSeries).toBe(5012);
+    expect(component.totalPublicSets).toBe(20);
+    expect(component.totalPublicSeries).toBe(3933);
+    expect(component.totalUsers).toBe(18);
+  });
+
+  it('should render three charts side-by-side', () => {
+    const compiled = fixture.nativeElement;
+    const charts = compiled.querySelectorAll('bd2-usage-stats-plot');
+    expect(charts.length).toBe(3);
   });
 });

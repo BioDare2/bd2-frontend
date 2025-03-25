@@ -1,0 +1,60 @@
+:host {
+  display: block;
+  perspective: 600px;
+}
+
+.card {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  box-shadow: 10px 10px 43px -18px rgba(0, 0, 0, 0.75);
+  border-radius: 20px;
+  height: 250px;
+  width: 200px;
+  cursor: pointer;
+  position: relative;
+  transform-style: preserve-3d;
+}
+
+.face {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: inherit;
+  backface-visibility: hidden;
+
+  > img {
+    width: 90%;
+    height: 70%;
+    object-fit: cover;
+    border-radius: inherit;
+  }
+}
+
+.front {
+  transform: rotateY(180deg);
+}
+
+.back {
+  transform: rotateY(0deg); /* Ensure the back face is correctly oriented */
+}
+
+.reference {
+  font-size: 0.7em; /* Adjust the font size as needed */
+}
+
+.species {
+  font-style: italic;
+  font-weight: bold;
+}
+
+.reference {
+  display: block;
+  height: 3em;
+}

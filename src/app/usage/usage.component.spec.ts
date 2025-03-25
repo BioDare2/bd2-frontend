@@ -2,11 +2,12 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { UsageModule } from './usage.module';
 import { UsageComponent } from './usage.component';
 import { UsageStatsComponent } from './stats/usage-stats.component';
-import { UsageStatsService } from './stats/usage-stats.service';
+import { SpeciesCardsComponent } from './species-cards/species-cards.component'; 
 import { GoogleAnalyticsComponent } from './google-analytics/google-analytics.component';
-import { GoogleAnalyticsService } from './google-analytics/google-analytics.service';
+import { UsageDataService } from './usage-data.service';
 import { provideHttpClient } from '@angular/common/http';
 import { provideHttpClientTesting } from '@angular/common/http/testing';
+import { BioDareEndPoints } from '../backend/biodare-rest.dom';
 
 describe('UsageComponent', () => {
   let component: UsageComponent;
@@ -18,13 +19,14 @@ describe('UsageComponent', () => {
       declarations: [
         UsageComponent,
         UsageStatsComponent,
-        GoogleAnalyticsComponent
+        GoogleAnalyticsComponent,
+        SpeciesCardsComponent
       ],
       providers: [
         provideHttpClient(),
         provideHttpClientTesting(),
-        UsageStatsService,
-        GoogleAnalyticsService
+        UsageDataService,
+        BioDareEndPoints
       ]
     })
     .compileComponents();

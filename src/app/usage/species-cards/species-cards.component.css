@@ -4,9 +4,13 @@
   }
   
   .card {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
     box-shadow: 10px 10px 43px -18px rgba(0, 0, 0, 0.75);
     border-radius: 20px;
-    height: 300px;
+    height: 250px;
     width: 200px;
     cursor: pointer;
     position: relative;
@@ -14,7 +18,11 @@
   }
   
   .face {
-    display: block;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
     position: absolute;
     width: 100%;
     height: 100%;
@@ -22,8 +30,8 @@
     backface-visibility: hidden;
   
     > img {
-      width: 100%;
-      height: 100%;
+      width: 90%;
+      height: 70%;
       object-fit: cover;
       border-radius: inherit;
     }
@@ -33,3 +41,18 @@
     transform: rotateY(180deg);
   }
   
+  .reference {
+    font-size: 0.7em; /* Adjust the font size as needed */
+  }
+
+  .species {
+    font-style: italic;
+    font-weight: bold;
+  }
+
+  .species-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 16px;
+    padding: 16px;
+  }

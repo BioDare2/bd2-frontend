@@ -19,6 +19,7 @@ export interface SearchAndSortOptions {
     styles: [],
     standalone: false
 })
+
 export class SearchAndSortPanelComponent implements OnInit {
 
   sortOptionsF: UntypedFormGroup;
@@ -54,13 +55,10 @@ export class SearchAndSortPanelComponent implements OnInit {
     }
   }
 
-  constructor(private fb: UntypedFormBuilder) {
+  constructor(private fb: UntypedFormBuilder) {}
 
     // this.currentDisplayOptions = { sorting: 'modified', direction: 'desc', showPublic: false, query: ''};
     // this.currentQuery = '';
-  }
-
-
 
   ngOnInit() {
 
@@ -72,14 +70,12 @@ export class SearchAndSortPanelComponent implements OnInit {
     this.showPublicF = this.fb.control(this.currentShowPublic);
     this.queryF = this.fb.control(this.currentQuery, [Validators.required, Validators.minLength(3)]);
 
-
     this.sortOptionsF.valueChanges.subscribe( val => this.updateSort(val.sorting, this.currentSort.direction));
 
     this.showPublicF.valueChanges.subscribe( val => {
       this.currentShowPublic = val;
       this.emitSearch();
     });
-
 
   }
 
@@ -121,4 +117,5 @@ export class SearchAndSortPanelComponent implements OnInit {
     this.currentQuery = '';
     this.emitSearch();
   }
+
 }

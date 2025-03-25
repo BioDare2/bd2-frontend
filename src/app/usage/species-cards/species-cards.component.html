@@ -1,14 +1,16 @@
 <h3>Species on BioDare2</h3>
 Click the cards for more details!
-<!-- <div class="card" (click)="cardClicked()"> -->
-<div class="card">
-    <div class="face back">
-        Back of the card
-      <!-- <img src="assets/card-back.jpg" /> -->
-    </div>
-    <div class="face front">
-        Front of the card
-      <!-- <img [src]="'https://source.unsplash.com/' + data.imageId + '/200x300'" /> -->
-    </div>
+
+<div class="species-cards">
+  <bd2-species-card
+    *ngFor="let species of speciesData"
+    [name]="species.name"
+    [image]="species.image"
+    [reference]="species.reference"
+    [datasets]="species.sets"
+    [publicDatasets]="species.public_sets"
+    [timeseries]="species.series"
+    [publicTimeseries]="species.public_series"
+    [keywords]="species.keywords">
+  </bd2-species-card>
 </div>
-  

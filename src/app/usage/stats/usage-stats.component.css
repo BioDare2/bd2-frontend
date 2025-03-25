@@ -1,0 +1,9 @@
+.charts-container {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+.charts-container bd2-usage-stats-plot {
+flex: 1;
+margin: 0 10px; /* Add some margin between the charts */
+}
