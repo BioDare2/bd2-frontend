@@ -41,6 +41,10 @@
   transform: rotateY(180deg);
 }
 
+.back {
+  transform: rotateY(0deg); /* Ensure the back face is correctly oriented */
+}
+
 .reference {
   font-size: 0.7em; /* Adjust the font size as needed */
 }
