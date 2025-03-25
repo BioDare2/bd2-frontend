@@ -32,9 +32,7 @@ import { MatSelectModule } from '@angular/material/select';
     MatTableModule,
     MatProgressBarModule,
     RepoComponentsModule,
-    ExperimentsRoutingModule,
-    MatFormFieldModule,
-    MatSelectModule
+    ExperimentsRoutingModule
 ]
 })
 export class ExperimentsModule {

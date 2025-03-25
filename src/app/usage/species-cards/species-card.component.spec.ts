@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { SpeciesCardComponent } from './species-card.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { BioDareEndPoints } from 'src/app/backend/biodare-rest.dom';
 
 describe('SpeciesCardComponent', () => {
   let component: SpeciesCardComponent;
@@ -9,7 +10,8 @@ describe('SpeciesCardComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [SpeciesCardComponent],
-      imports: [BrowserAnimationsModule]
+      imports: [BrowserAnimationsModule],
+      providers: [BioDareEndPoints]
     })
     .compileComponents();
 

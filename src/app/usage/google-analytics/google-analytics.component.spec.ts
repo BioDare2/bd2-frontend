@@ -4,6 +4,7 @@ import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { GoogleAnalyticsComponent } from './google-analytics.component';
 import { UsageDataService } from '../usage-data.service';
 import { of, throwError } from 'rxjs';
+import { BioDareEndPoints } from 'src/app/backend/biodare-rest.dom';
 
 // Mock the google object
 const googleMock = {
@@ -41,7 +42,8 @@ describe('GoogleAnalyticsComponent', () => {
       providers: [
         UsageDataService,
         provideHttpClient(),
-        provideHttpClientTesting()
+        provideHttpClientTesting(),
+        BioDareEndPoints
       ]
     })
     .compileComponents();
