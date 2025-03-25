@@ -2,17 +2,26 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, Validators} from '@angular/forms';
 import {Sort} from '@angular/material/sort';
 import {SpeciesService} from '../../repo/components/biodesc/species.service';
+import { DataCategory } from '../../dom/repo/biodesc/data-category';
 
 export interface SearchOptions {
   showPublic: boolean;
   query: string;
   species: string;
+  author: string;
+  executedFrom: string;
+  executedTo: string;
+  dataCategory: string;
 }
 
 export interface SearchAndSortOptions {
   showPublic: boolean;
   query: string;
   species: string;
+  author: string;
+  executedFrom: string;
+  executedTo: string;
+  dataCategory: string;
   sorting: Sort;
 }
 
@@ -30,6 +39,10 @@ export class SearchAndSortPanelComponent implements OnInit {
   sortOptionsF: UntypedFormGroup;
   queryF: UntypedFormControl;
   speciesF: UntypedFormControl;
+  authorF: UntypedFormControl;
+  executedFromF: UntypedFormControl;
+  executedToF: UntypedFormControl;
+  dataCategoryF: UntypedFormControl;
   showPublicF: UntypedFormControl;
   sortingF: UntypedFormControl;
 
@@ -50,14 +63,23 @@ export class SearchAndSortPanelComponent implements OnInit {
   currentQuery = '';
   currentShowPublic = false;
   currentSpecies = '';
+  currentAuthor = '';
+  currentExecutedFrom = '';
+  currentExecutedTo = '';
+  currentDataCategory = '';
 
   knownSpecies: string[] = [];
+  knownDataCategories: DataCategory[] = [];
 
   @Input()
   set options(val: SearchAndSortOptions) {
 
     if (val) {
       this.currentSpecies = val.species;
+      this.currentAuthor = val.author;
+      this.currentExecutedFrom = val.executedFrom;
+      this.currentExecutedTo = val.executedTo;
+      this.currentDataCategory = val.dataCategory;
       this.currentQuery = val.query;
       this.currentShowPublic = val.showPublic;
       this.currentSort = val.sorting;
@@ -79,6 +101,10 @@ export class SearchAndSortPanelComponent implements OnInit {
     this.showPublicF = this.fb.control(this.currentShowPublic);
     this.queryF = this.fb.control(this.currentQuery, [Validators.minLength(3)]);
     this.speciesF = this.fb.control(this.currentSpecies);
+    this.authorF = this.fb.control(this.currentAuthor);
+    this.executedFromF = this.fb.control(this.currentExecutedFrom);
+    this.executedToF = this.fb.control(this.currentExecutedTo);
+    this.dataCategoryF = this.fb.control(this.currentDataCategory);
 
     this.sortOptionsF.valueChanges.subscribe( val => this.updateSort(val.sorting, this.currentSort.direction));
 
@@ -91,9 +117,17 @@ export class SearchAndSortPanelComponent implements OnInit {
       this.currentSpecies = val;
       this.emitSearch();
     });
+
+    this.dataCategoryF.valueChanges.subscribe(val => {
+      this.currentDataCategory = val;
+      this.emitSearch();
+    });
+
     this.speciesService.species().then(sp => {
       this.knownSpecies = ['', ...sp];
     });
+
+    this.knownDataCategories = DataCategory.getValidOptions();
 
   }
 
@@ -105,7 +139,15 @@ export class SearchAndSortPanelComponent implements OnInit {
   }
 
   emitSearch() {
-    const search = { showPublic: this.currentShowPublic, query: this.currentQuery, species: this.currentSpecies } as SearchOptions;
+    const search = {
+      showPublic: this.currentShowPublic,
+      query: this.currentQuery,
+      species: this.currentSpecies,
+      author: this.currentAuthor,
+      executedFrom: this.currentExecutedFrom,
+      executedTo: this.currentExecutedTo,
+      dataCategory: this.currentDataCategory
+    } as SearchOptions;
     this.search.next(search);
   }
 
@@ -130,14 +172,26 @@ export class SearchAndSortPanelComponent implements OnInit {
   find() {
     this.currentQuery = this.queryF.value;
     this.currentSpecies = this.speciesF.value;
+    this.currentAuthor = this.authorF.value;
+    this.currentExecutedFrom = this.executedFromF.value;
+    this.currentExecutedTo = this.executedToF.value;
+    this.currentDataCategory = this.dataCategoryF.value;
     this.emitSearch();
   }
 
   all() {
     this.queryF.setValue('');
     this.speciesF.setValue('');
+    this.authorF.setValue('');
+    this.executedFromF.setValue('');
+    this.executedToF.setValue('');
+    this.dataCategoryF.setValue('');
     this.currentQuery = '';
     this.currentSpecies = '';
+    this.currentAuthor = '';
+    this.currentExecutedFrom = '';
+    this.currentExecutedTo = '';
+    this.currentDataCategory = '';
     this.emitSearch();
   }
 

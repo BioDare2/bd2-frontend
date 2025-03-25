@@ -31,10 +31,14 @@ export class ExperimentService {
     );
   }
 
-  searchExperiments(query: string, species: string, showPublic: boolean, sort: Sort, page: PageEvent): Observable<ListWrapper<ExperimentSummary>> {
+  searchExperiments(query: string, species: string, author: string, executedFrom: string, executedTo:string, dataCategory: string, showPublic: boolean, sort: Sort, page: PageEvent): Observable<ListWrapper<ExperimentSummary>> {
 
     const options = {query,
       species,
+      author,
+      executedFrom,
+      executedTo,
+      dataCategory,
       showPublic,
       sorting: sort.active, direction: sort.direction,
       pageIndex: page.pageIndex, pageSize: page.pageSize};

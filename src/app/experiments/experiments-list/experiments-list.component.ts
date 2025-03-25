@@ -41,7 +41,11 @@ export class ExperimentsListComponent implements OnInit, OnDestroy {
       sorting: {active: 'modified', direction: 'desc'},
       showPublic: !this.userService.isLoggedIn(),
       query: '',
-      species: ''
+      species: '',
+      author: '',
+      executedFrom: '',
+      executedTo: '',
+      dataCategory: ''
     };
 
 
