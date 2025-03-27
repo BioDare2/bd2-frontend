@@ -7,13 +7,16 @@
 <div class="charts-container">
     <bd2-usage-stats-plot [publicData]="publicSetsPerYear"
                           [privateData]="privateSetsPerYear"
-                          chartLabel="Datasets"
+                          chartLabel="Exp."
                           barColor="rgba(31, 119, 180, 0.4)"></bd2-usage-stats-plot>
     <bd2-usage-stats-plot [publicData]="publicSeriesPerYear"
                           [privateData]="privateSeriesPerYear"
                           chartLabel="Series"
                           barColor="rgba(255, 127, 14, 0.4)"></bd2-usage-stats-plot>
     <bd2-usage-stats-plot [publicData]="usersPerYear"
-                          chartLabel="New Users"
+                          chartLabel="User Registrations"
                           barColor="rgba(44, 160, 44, 0.4)"></bd2-usage-stats-plot>
 </div>
+<small>
+Hover on the bars to see the exact numbers. Click on the legend to hide/show the data.<br>
+</small>

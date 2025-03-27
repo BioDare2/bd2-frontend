@@ -7,10 +7,10 @@
     <div class="face front">
       <div class="species">{{ name }}</div>
       
-      Datasets: {{ datasets }} <br>
-      <small>(Public: {{ publicDatasets }})</small>
-      Timeseries: {{ timeseries }} <br>
-      <small>(Public: {{ publicTimeseries }})</small>
+      Experiments: {{ datasets | number }} <br>
+      <small>(Public: {{ publicDatasets | number }})</small>
+      Timeseries: {{ timeseries | number }} <br>
+      <small>(Public: {{ publicTimeseries | number }})</small>
       <br>
       <b>Popular keywords</b>{{ keywords }}
     </div>
