@@ -50,7 +50,7 @@ export class WelcomeComponent implements OnInit, OnDestroy {
 
   showMaintenance(): boolean {
     console.log("",new Date());
-    return ((new Date()) < (new Date(2025, 4, 11)));
+    return ((new Date()) < (new Date(2025, 3, 11))); // Note date uses month *index* (0-11)
   }
 
 }
