@@ -1,29 +1,23 @@
 <div class="pb-1 pt-1 searchpanel">
+
   <small>
-    <div class="search-controls">
-      <div class="left-controls">
-        <div [formGroup]="sortOptionsF" class="float-left">
-          <!-- was not working after angular material update
-          <bd2-sort-switch formControlName="direction" class="mr-1"></bd2-sort-switch>
-          -->
 
-          <button mat-mini-fab aria-label="sort direction" (click)="changeDirection()" class="mr-1"
-            style="vertical-align: bottom;">
-            <mat-icon [class]="sortOrderClass">sort</mat-icon>
-          </button>
+    <div [formGroup]="sortOptionsF" class="float-left">
 
+      <!-- was not working after angular material update
+      <bd2-sort-switch formControlName="direction" class="mr-1"></bd2-sort-switch>
+      -->
 
-
-          <mat-button-toggle-group name="sorting" aria-label="sorting" class="mr-4" formControlName="sorting">
-
-            <mat-button-toggle value="id">Id</mat-button-toggle>
-            <mat-button-toggle value="name">Title</mat-button-toggle>
-            <mat-button-toggle value="author">Author</mat-button-toggle>
-            <mat-button-toggle value="executed">Exec.</mat-button-toggle>
-            <mat-button-toggle value="modified">Mod.</mat-button-toggle>
-
-
-          </mat-button-toggle-group>
+      <button mat-mini-fab aria-label="sort direction"  (click)="changeDirection()" class="mr-1" style="vertical-align: bottom;">
+        <mat-icon [class]="sortOrderClass">sort</mat-icon>
+      </button>
+      <mat-button-toggle-group name="sorting" aria-label="sorting" class="mr-4" formControlName="sorting" >
+        <mat-button-toggle value="id">Id</mat-button-toggle>
+        <mat-button-toggle value="name">Title</mat-button-toggle>
+        <mat-button-toggle value="author">Author</mat-button-toggle>
+        <mat-button-toggle value="executed">Exec.</mat-button-toggle>
+        <mat-button-toggle value="modified">Mod.</mat-button-toggle>
+      </mat-button-toggle-group>
 
           <!--<mat-button-toggle value="rank"><i class="material-icons">cancel</i></mat-button-toggle>-->
 
@@ -102,5 +96,7 @@
     </div>
   </small>
 
-  <div class="clearfix"></div>
+<div class="clearfix"></div>
+
+
 </div>

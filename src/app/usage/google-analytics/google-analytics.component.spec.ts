@@ -5,6 +5,7 @@ import { GoogleAnalyticsComponent } from './google-analytics.component';
 import { UsageDataService } from '../usage-data.service';
 import { BioDareEndPoints } from 'src/app/backend/biodare-rest.dom';
 import { of, throwError } from 'rxjs';
+import { BioDareEndPoints } from 'src/app/backend/biodare-rest.dom';
 
 // Mock the google object
 const googleMock = {
