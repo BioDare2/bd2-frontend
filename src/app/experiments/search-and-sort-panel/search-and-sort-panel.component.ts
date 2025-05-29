@@ -99,7 +99,7 @@ export class SearchAndSortPanelComponent implements OnInit {
     });
 
     this.showPublicF = this.fb.control(this.currentShowPublic);
-    this.queryF = this.fb.control(this.currentQuery, [Validators.minLength(3)]);
+    this.queryF = this.fb.control(this.currentQuery, [Validators.required, Validators.minLength(3)]);
     this.speciesF = this.fb.control(this.currentSpecies);
     this.authorF = this.fb.control(this.currentAuthor);
     this.executedFromF = this.fb.control(this.currentExecutedFrom);
