@@ -28,11 +28,13 @@ export interface SearchAndSortOptions {
 @Component({
     selector: 'bd2-search-and-sort-panel',
     templateUrl: './search-and-sort-panel.component.html',
-    styles: [],
+    styleUrl: './search-and-sort-panel.component.css',
     standalone: false
 })
 
 export class SearchAndSortPanelComponent implements OnInit {
+
+  advancedSearch = false;
 
   sortOptionsF: UntypedFormGroup;
   queryF: UntypedFormControl;
@@ -84,7 +86,7 @@ export class SearchAndSortPanelComponent implements OnInit {
     }
   }
 
-  constructor(private fb: UntypedFormBuilder) {}
+  constructor(private fb: UntypedFormBuilder, private speciesService: SpeciesService) {}
 
     // this.currentDisplayOptions = { sorting: 'modified', direction: 'desc', showPublic: false, query: ''};
     // this.currentQuery = '';
@@ -176,6 +178,10 @@ export class SearchAndSortPanelComponent implements OnInit {
     }*/
 
     this.updateSort(this.currentSort.active, direction);
+  }
+  
+  toggleAdvancedSearch() {
+    this.advancedSearch = !this.advancedSearch;
   }
 
   find() {
