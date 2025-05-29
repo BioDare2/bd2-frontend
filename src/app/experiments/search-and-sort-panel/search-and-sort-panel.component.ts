@@ -142,6 +142,7 @@ export class SearchAndSortPanelComponent implements OnInit {
   }
 
   private formatDateToISO(date: Date): string {
+    if (!date) return '';
     return date.toISOString().split('T')[0];
   }
 
@@ -187,8 +188,8 @@ export class SearchAndSortPanelComponent implements OnInit {
     this.currentQuery = this.queryF.value;
     this.currentSpecies = this.speciesF.value;
     this.currentAuthor = this.authorF.value;
-    this.currentExecutedFrom = this.executedFromF.value;
-    this.currentExecutedTo = this.executedToF.value;
+    this.currentExecutedFrom = this.formatDateToISO(this.executedFromF.value);
+    this.currentExecutedTo = this.formatDateToISO(this.executedToF.value);
     this.currentDataCategory = this.dataCategoryF.value;
     this.emitSearch();
   }
@@ -206,6 +207,12 @@ export class SearchAndSortPanelComponent implements OnInit {
     this.currentExecutedFrom = '';
     this.currentExecutedTo = '';
     this.currentDataCategory = '';
+    this.emitSearch();
+  }
+
+  resetDateFilters() {
+    this.executedFromF.setValue('');
+    this.executedToF.setValue('');
     this.emitSearch();
   }
 
