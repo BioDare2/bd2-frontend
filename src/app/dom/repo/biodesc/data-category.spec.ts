@@ -25,7 +25,7 @@ describe('DataCategory', () => {
 
   it('Correctly deserializes numbers', () => {
 
-    const ixs = [0, 3, 10, 16];
+    const ixs = [1, 4, 11, 17];
     const names = ['NONE', 'DELAYED_FLUORESCENCE', 'PHYSIOLOGY', 'TRANSL_FUSION'];
 
     for (let i = 0; i < ixs.length; i++) {

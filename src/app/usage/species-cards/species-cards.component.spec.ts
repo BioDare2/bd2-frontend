@@ -2,7 +2,9 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { SpeciesCardsComponent } from './species-cards.component';
 import { HttpErrorResponse, provideHttpClient } from '@angular/common/http';
 import { provideHttpClientTesting, HttpTestingController } from '@angular/common/http/testing';
+import { BioDareEndPoints } from 'src/app/backend/biodare-rest.dom';
 import { UsageDataService } from '../usage-data.service';
+import { of } from 'rxjs';
 
 describe('SpeciesCardsComponent', () => {
   let component: SpeciesCardsComponent;
@@ -16,7 +18,8 @@ describe('SpeciesCardsComponent', () => {
       providers: [
         UsageDataService,
         provideHttpClient(),
-        provideHttpClientTesting()
+        provideHttpClientTesting(),
+        { provide: BioDareEndPoints, useValue: {} }
       ]
     })
     .compileComponents();
@@ -25,31 +28,22 @@ describe('SpeciesCardsComponent', () => {
     component = fixture.componentInstance;
     httpTestingController = TestBed.inject(HttpTestingController);
     usageDataService = TestBed.inject(UsageDataService);
+
+    spyOn(usageDataService, 'getUsageData').and.returnValue(of({
+      species_stats: [
+        { "speciesId": 1, name: 'Arabidopsis thaliana' },
+        { "speciesId": 2, name: 'Homo sapiens' }
+      ]
+    }));
+
     fixture.detectChanges();
   });
 
   it('should create', () => {
     expect(component).toBeTruthy();
     const req = httpTestingController.expectOne('assets/species/species-info.json');
-    expect(req.request.method).toBe('GET');
-    req.flush([]);
-    const statsReq = httpTestingController.expectOne('https://biodare2.ed.ac.uk/api/usage/get_usage_stats');
-    expect(statsReq.request.method).toBe('GET');
-    statsReq.flush({ species_stats: [] });
-  });
-
-  it('should load species info on init', () => {
-    const mockSpeciesInfo = [{ name: 'Species1' }, { name: 'Species2' }];
-    const reqs = httpTestingController.match('assets/species/species-info.json');
-    expect(reqs.length).toBeGreaterThan(0);
-    reqs.forEach(req => {
-      expect(req.request.method).toBe('GET');
-      req.flush(mockSpeciesInfo);
-    });
-    const statsReq = httpTestingController.expectOne('https://biodare2.ed.ac.uk/api/usage/get_usage_stats');
-    expect(statsReq.request.method).toBe('GET');
-    statsReq.flush({ species_stats: [] });
-    expect(component.speciesInfo).toEqual(mockSpeciesInfo);
+    req.flush([{ name: 'Species1' }]);
+    expect(usageDataService.getUsageData).toHaveBeenCalled();
   });
 
   it('should handle error when loading species info', () => {

@@ -29,3 +29,7 @@
 .advanced-search-fields {
   width: 100%;
 }
+
+.search-field {
+  margin-right: 16px;
+}

@@ -3,6 +3,7 @@ import { provideHttpClient } from '@angular/common/http';
 import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { GoogleAnalyticsComponent } from './google-analytics.component';
 import { UsageDataService } from '../usage-data.service';
+import { BioDareEndPoints } from 'src/app/backend/biodare-rest.dom';
 import { of, throwError } from 'rxjs';
 
 // Mock the google object
@@ -33,7 +34,7 @@ document.getElementById = jasmine.createSpy('getElementById').and.returnValue(mo
 describe('GoogleAnalyticsComponent', () => {
   let component: GoogleAnalyticsComponent;
   let fixture: ComponentFixture<GoogleAnalyticsComponent>;
-  let googleAnalyticsService: UsageDataService;
+  let usageDataService: UsageDataService;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -41,7 +42,8 @@ describe('GoogleAnalyticsComponent', () => {
       providers: [
         UsageDataService,
         provideHttpClient(),
-        provideHttpClientTesting()
+        provideHttpClientTesting(),
+        { provide: BioDareEndPoints, useValue: {} }
       ]
     })
     .compileComponents();
@@ -50,9 +52,9 @@ describe('GoogleAnalyticsComponent', () => {
 
     fixture = TestBed.createComponent(GoogleAnalyticsComponent);
     component = fixture.componentInstance;
-    googleAnalyticsService = TestBed.inject(UsageDataService);
+    usageDataService = TestBed.inject(UsageDataService);
 
-    spyOn(googleAnalyticsService, 'getUsageData').and.returnValue(of({
+    spyOn(usageDataService, 'getUsageData').and.returnValue(of({
       analytics: [
         { country: 'Country1', activeUsers: 100 },
         { country: 'Country2', activeUsers: 200 }
@@ -69,7 +71,7 @@ describe('GoogleAnalyticsComponent', () => {
 
   it('should fetch analytics data on init', () => {
     component.ngOnInit();
-    expect(googleAnalyticsService.getUsageData).toHaveBeenCalled();
+    expect(usageDataService.getUsageData).toHaveBeenCalled();
   });
 
   it('should draw chart with fetched data', () => {
@@ -83,7 +85,7 @@ describe('GoogleAnalyticsComponent', () => {
 
   it('should handle error when fetching analytics data', () => {
     spyOn(console, 'error');
-    (googleAnalyticsService.getUsageData as jasmine.Spy).and.returnValue(throwError(() => new Error('Error fetching analytics data')));
+    (usageDataService.getUsageData as jasmine.Spy).and.returnValue(throwError(() => new Error('Error fetching analytics data')));
     component.fetchAnalyticsData();
     expect(console.error).toHaveBeenCalledWith('Error fetching analytics data:', new Error('Error fetching analytics data'));
   });

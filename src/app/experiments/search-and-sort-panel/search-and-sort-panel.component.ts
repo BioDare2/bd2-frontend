@@ -113,6 +113,16 @@ export class SearchAndSortPanelComponent implements OnInit {
       this.emitSearch();
     });
 
+    this.executedFromF.valueChanges.subscribe(val => {
+      this.currentExecutedFrom = this.formatDateToISO(val);
+      this.emitSearch();
+    });
+
+    this.executedToF.valueChanges.subscribe(val => {
+      this.currentExecutedTo = this.formatDateToISO(val);
+      this.emitSearch();
+    });
+
     this.speciesF.valueChanges.subscribe(val => {
       this.currentSpecies = val;
       this.emitSearch();
@@ -129,6 +139,10 @@ export class SearchAndSortPanelComponent implements OnInit {
 
     this.knownDataCategories = DataCategory.getValidOptions();
 
+  }
+
+  private formatDateToISO(date: Date): string {
+    return date.toISOString().split('T')[0];
   }
 
   updateSort(active: string, direction: string) {

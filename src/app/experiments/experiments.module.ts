@@ -17,6 +17,9 @@ import {SortSwitchComponent} from './search-and-sort-panel/sort-switch/sort-swit
 import {MatProgressBarModule} from '@angular/material/progress-bar';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatInputModule } from '@angular/material/input';
+import { MatNativeDateModule } from '@angular/material/core';
 
 @NgModule({
   declarations: [ExperimentsListComponent, ExperimentSummaryComponent, SearchAndSortPanelComponent, SortSwitchComponent],
@@ -34,7 +37,10 @@ import { MatSelectModule } from '@angular/material/select';
     RepoComponentsModule,
     ExperimentsRoutingModule,
     MatFormFieldModule,
-    MatSelectModule
+    MatSelectModule,
+    MatDatepickerModule,
+    MatInputModule,
+    MatNativeDateModule
 ]
 })
 export class ExperimentsModule {
