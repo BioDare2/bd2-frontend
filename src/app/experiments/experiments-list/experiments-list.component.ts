@@ -40,7 +40,12 @@ export class ExperimentsListComponent implements OnInit, OnDestroy {
     this.initialSearchOptions = {
       sorting: {active: 'modified', direction: 'desc'},
       showPublic: !this.userService.isLoggedIn(),
-      query: ''
+      query: '',
+      species: '',
+      author: '',
+      executedFrom: '',
+      executedTo: '',
+      dataCategory: ''
     };
 
 

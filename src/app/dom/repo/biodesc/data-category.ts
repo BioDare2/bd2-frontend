@@ -45,6 +45,7 @@ export class DataCategory {
   protected static initValues(): DataCategory[] {
 
     const v: DataCategory[] = [];
+    v.push(new DataCategory(-1, '', '', ''));
     v.push(new DataCategory(0, 'NONE', 'NONE', 'None', true));
     v.push(new DataCategory(1, 'EXPR_REPORTER', 'EXPR_REP', 'Expression reporter (e.g. Luc/GFP-imaging)'));
     v.push(new DataCategory(2, 'SIGNALLING_REPORTER', 'SIG_REP', 'Signalling reporter (e.g. Aequorin)'));
