@@ -7,7 +7,7 @@ import { GoogleAnalyticsComponent } from './google-analytics/google-analytics.co
 import { UsageDataService } from './usage-data.service';
 import { provideHttpClient } from '@angular/common/http';
 import { provideHttpClientTesting } from '@angular/common/http/testing';
-import { BioDareEndPoints } from '../backend/biodare-rest.dom';
+import { BioDareEndPoints } from 'src/app/backend/biodare-rest.dom';
 
 describe('UsageComponent', () => {
   let component: UsageComponent;
@@ -26,7 +26,7 @@ describe('UsageComponent', () => {
         provideHttpClient(),
         provideHttpClientTesting(),
         UsageDataService,
-        BioDareEndPoints
+        { provide: BioDareEndPoints, useValue: {} }
       ]
     })
     .compileComponents();

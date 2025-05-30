@@ -23,7 +23,7 @@ export function fakeBioDareRestService() {
     'experiments', 'experimentNewDraft', 'experimentNewExperiment',
     'rdmAssayGuiAspects', 'rdmRegisterWarning', 'tsdataExportURL',
     'fileURL',
-    'species'
+    'species', 'searchExperiments'
   ]);
 
   ser.login.and.returnValue(of(user));
@@ -31,6 +31,10 @@ export function fakeBioDareRestService() {
   ser.refreshUser.and.returnValue(of(unlogged));
 
   ser.experiments.and.returnValue(of({ data: [], currentPage: new PageEvent()}));
+
+  ser.species.and.returnValue(of({ data: []}));
+
+  ser.searchExperiments.and.returnValue(of({ data: [], currentPage: new PageEvent()}));
 
   function f(exp: ExperimentalAssayView, id: any): string {
     return 'exp/file/' + id;
