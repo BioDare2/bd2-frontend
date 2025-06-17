@@ -210,10 +210,10 @@ export class SearchAndSortPanelComponent implements OnInit {
     this.emitSearch();
   }
 
-  resetDateFilters() {
-    this.executedFromF.setValue('');
-    this.executedToF.setValue('');
-    this.emitSearch();
-  }
+  // resetDateFilters() {
+  //   this.executedFromF.setValue('');
+  //   this.executedToF.setValue('');
+  //   this.emitSearch();
+  // }
 
 }
