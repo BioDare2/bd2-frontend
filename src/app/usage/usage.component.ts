@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { UsageDataService } from './usage-data.service';
 
 @Component({
   selector: 'bd2-usage',
@@ -8,10 +9,21 @@ import { Component, OnInit } from '@angular/core';
 export class UsageComponent implements OnInit {
   currentDate: Date;
 
-  constructor() {
-    this.currentDate = new Date();
-  }
+  constructor(private usagedataService: UsageDataService) { }
 
   ngOnInit(): void {
+    this.fetchUsageDate();
+  }
+
+  fetchUsageDate() {
+    this.usagedataService.getUsageData().subscribe(
+      (response: any) => {
+        console.log('API Response:', response);
+        this.currentDate = new Date(response.timestamp);
+      },
+      (error) => {
+        console.error('Error fetching usage date:', error);
+      }
+    );
   }
 }
