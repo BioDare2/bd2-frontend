@@ -14,7 +14,7 @@
     There are no visible experiments matching the criteria.
   </div>
 
-  <div *ngIf="experiments.length >= 5000" class="alert alert-info">
+  <div *ngIf="experiments && experiments.length >= 5000" class="alert alert-info">
     There are more than 5000 search results. Displaying only the first 5000.
   </div>
 
