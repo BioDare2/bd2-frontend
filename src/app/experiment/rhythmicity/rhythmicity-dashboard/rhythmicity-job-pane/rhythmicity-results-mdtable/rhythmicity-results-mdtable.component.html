@@ -1,19 +1,21 @@
 <div class="mat-elevation-z8">
-  <mat-progress-bar *ngIf="fetcher.isBusy$ | async" mode="indeterminate"></mat-progress-bar>
+  @if (fetcher.isBusy$ | async) {
+    <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+  }
 
   <mat-paginator #paginator [length]="fetcher.dataLength" [disabled]="disablePaginator"
-                 [pageSize]="fetcher.currentPage?.pageSize || 25"
-                 [pageIndex]="fetcher.currentPage?.pageIndex"
-                 [pageSizeOptions]="[10, 25, 50, 100, 250]"
-                 (page)="loadPage($event)"
+    [pageSize]="fetcher.currentPage?.pageSize || 25"
+    [pageIndex]="fetcher.currentPage?.pageIndex"
+    [pageSizeOptions]="[10, 25, 50, 100, 250]"
+    (page)="loadPage($event)"
 
-  >
+    >
   </mat-paginator>
 
   <table mat-table class="full-width-table" matSort aria-label="Results"
-         [dataSource]="fetcher.results$"
-         matSort (matSortChange)="sortData($event)" matSortActive="id" matSortDirection="asc"
-  >
+    [dataSource]="fetcher.results$"
+    matSort (matSortChange)="sortData($event)" matSortActive="id" matSortDirection="asc"
+    >
     <!-- Id Column -->
     <ng-container matColumnDef="id">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>Id</th>
@@ -111,11 +113,11 @@
   </table>
 
   <mat-paginator #paginator2 [length]="fetcher.dataLength" [disabled]="disablePaginator"
-                 [pageSize]="fetcher.currentPage?.pageSize || 25"
-                 [pageIndex]="fetcher.currentPage?.pageIndex"
-                 [pageSizeOptions]="[10, 25, 50, 100, 250]"
-                 (page)="loadPage($event)"
+    [pageSize]="fetcher.currentPage?.pageSize || 25"
+    [pageIndex]="fetcher.currentPage?.pageIndex"
+    [pageSizeOptions]="[10, 25, 50, 100, 250]"
+    (page)="loadPage($event)"
 
-  >
+    >
   </mat-paginator>
 </div>

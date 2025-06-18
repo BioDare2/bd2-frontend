@@ -4,12 +4,16 @@ import {Tick} from '../../../../../bd2-heatmap.dom';
 @Component({
     selector: '[bd2hm-vtick-mark]',
     template: `
-    <svg:line *ngIf="tick"
-              [attr.x1]="tick.x" [attr.x2]="tick.x"
-              y1="0" [attr.y2]="marky2"
-    ></svg:line>
-    <svg:text *ngIf="tick" [attr.x]="tick.x" [attr.y]="texty2" [attr.dy]="textdy">{{tick.label}}</svg:text>
-  `,
+    @if (tick) {
+      <svg:line
+        [attr.x1]="tick.x" [attr.x2]="tick.x"
+        y1="0" [attr.y2]="marky2"
+        ></svg:line>
+      }
+      @if (tick) {
+        <svg:text [attr.x]="tick.x" [attr.y]="texty2" [attr.dy]="textdy">{{tick.label}}</svg:text>
+        }
+    `,
     styles: [],
     standalone: false
 })

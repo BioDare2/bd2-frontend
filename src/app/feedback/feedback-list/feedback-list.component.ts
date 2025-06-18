@@ -9,21 +9,23 @@ import {removeItemFromArr} from '../../shared/collections-util';
     changeDetection: ChangeDetectionStrategy.OnPush, // manually handling to improve performance
     template: `
     <div class="bd2-feedback-list">
-      <mat-card appearance="outlined" *ngFor="let message of messages; let i = index"
-         class="mat-elevation-z4 mb-2 word_wrapping"
-            [class.success]="message.isSuccess()"
-            [class.error]="message.isError()"
-            [class.info]="message.isInfo()"
-      >
-        <mat-card-content>
-        <button (click)="close(message)" class="float-right close" aria-label="Close">
-          <span aria-hidden="true">×</span><span class="sr-only">Close</span>
-        </button>
-        {{ message?.message }}
-        </mat-card-content>
-      </mat-card>
+      @for (message of messages; track message; let i = $index) {
+        <mat-card appearance="outlined"
+          class="mat-elevation-z4 mb-2 word_wrapping"
+          [class.success]="message.isSuccess()"
+          [class.error]="message.isError()"
+          [class.info]="message.isInfo()"
+          >
+          <mat-card-content>
+            <button (click)="close(message)" class="float-right close" aria-label="Close">
+              <span aria-hidden="true">×</span><span class="sr-only">Close</span>
+            </button>
+            {{ message?.message }}
+          </mat-card-content>
+        </mat-card>
+      }
     </div>
-  `,
+    `,
     styles: [],
     standalone: false
 })

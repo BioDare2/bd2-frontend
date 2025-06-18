@@ -5,56 +5,57 @@ import {ExperimentComponentsDependencies} from '../../experiment-components.depe
 @Component({
     selector: 'bd2-publish-form',
     template: `
-    <div *ngIf="assay">
-      <h3>Publish experiment</h3>
-
-      <div *ngIf="assay.features.isOpenAccess">
-        <div type="info" class="alert alert-info" role="alert">
-          Experiment is already publicly available under <strong>{{assay.features.licence}}</strong> licence.
-        </div>
-      </div>
-      <div *ngIf="!assay.features.isOpenAccess">
-        <div type="danger" class="alert alert-danger" role="alert">
-          You are about to make the data public. Once they are public they cannot be made private again.
-          <ul>
-            <li>make sure you know what you are doing</li>
-            <li>make sure all contributors agree to public sharing</li>
-            <li>double check the description is correct, not all changes will be possible after the publishing</li>
-          </ul>
-        </div>
-
-        <form #publishForm="ngForm">
-
-          <div class="form-group">
-            <label for="licence">Licence</label>
-            <select class="form-control"
-                    id="licence"
-                    required
-                    placeholder="Select licence"
-                    [(ngModel)]="licence"
-                    name="licence" #licenceF="ngModel"
-
-            >
-              <option *ngFor="let opt of licences; let ix = index" [value]="opt">{{opt}}
-              </option>
-            </select>
+    @if (assay) {
+      <div>
+        <h3>Publish experiment</h3>
+        @if (assay.features.isOpenAccess) {
+          <div>
+            <div type="info" class="alert alert-info" role="alert">
+              Experiment is already publicly available under <strong>{{assay.features.licence}}</strong> licence.
+            </div>
           </div>
-
-          <div class="form-group">
-            <label><input type="checkbox" required
-                          id="terms"
-                          [(ngModel)]="terms"
-                          name="fTerms" #fTerms="ngModel"> I understand that I cannot undo this operation </label>
+        }
+        @if (!assay.features.isOpenAccess) {
+          <div>
+            <div type="danger" class="alert alert-danger" role="alert">
+              You are about to make the data public. Once they are public they cannot be made private again.
+              <ul>
+                <li>make sure you know what you are doing</li>
+                <li>make sure all contributors agree to public sharing</li>
+                <li>double check the description is correct, not all changes will be possible after the publishing</li>
+              </ul>
+            </div>
+            <form #publishForm="ngForm">
+              <div class="form-group">
+                <label for="licence">Licence</label>
+                <select class="form-control"
+                  id="licence"
+                  required
+                  placeholder="Select licence"
+                  [(ngModel)]="licence"
+                  name="licence" #licenceF="ngModel"
+                  >
+                  @for (opt of licences; track opt; let ix = $index) {
+                    <option [value]="opt">{{opt}}
+                    </option>
+                  }
+                </select>
+              </div>
+              <div class="form-group">
+                <label><input type="checkbox" required
+                  id="terms"
+                  [(ngModel)]="terms"
+                name="fTerms" #fTerms="ngModel"> I understand that I cannot undo this operation </label>
+              </div>
+              <button type="submit" class="btn btn-primary" [disabled]="!publishForm.form.valid " (click)="publish()">
+                Publish
+              </button>
+            </form>
           </div>
-
-          <button type="submit" class="btn btn-primary" [disabled]="!publishForm.form.valid " (click)="publish()">
-            Publish
-          </button>
-
-        </form>
+        }
       </div>
-    </div>
-  `,
+    }
+    `,
     styles: [],
     standalone: false
 })

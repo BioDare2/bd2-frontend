@@ -4,12 +4,18 @@
   <div class="card-header bd-bg-primary" (click)="tocON = !tocON">Table of Content</div>
   <div [hidden]="!tocON" class="card-body">
     <ul>
-      <li *ngFor="let doc of documentOptions"><a [routerLink]="['/documents', doc[0]]">{{doc[1]}}</a></li>
+      @for (doc of documentOptions; track doc) {
+        <li><a [routerLink]="['/documents', doc[0]]">{{doc[1]}}</a></li>
+      }
     </ul>
   </div>
 </div>
 
-<div class="alert alert-danger" role="alert" type="danger" *ngIf="missing">{{missing}}</div>
-<bd2-static-content *ngIf="!missing" [docName]="document"></bd2-static-content>
+@if (missing) {
+  <div class="alert alert-danger" role="alert" type="danger">{{missing}}</div>
+}
+@if (!missing) {
+  <bd2-static-content [docName]="document"></bd2-static-content>
+}
 
 

@@ -2,15 +2,16 @@
 <small>Click the cards for more details!</small>
 
 <div class="species-cards">
-  <bd2-species-card
-    *ngFor="let species of speciesData"
-    [name]="species.name"
-    [image]="species.image"
-    [reference]="species.reference"
-    [datasets]="species.sets"
-    [publicDatasets]="species.public_sets"
-    [timeseries]="species.series"
-    [publicTimeseries]="species.public_series"
-    [keywords]="species.keywords">
-  </bd2-species-card>
+  @for (species of speciesData; track species) {
+    <bd2-species-card
+      [name]="species.name"
+      [image]="species.image"
+      [reference]="species.reference"
+      [datasets]="species.sets"
+      [publicDatasets]="species.public_sets"
+      [timeseries]="species.series"
+      [publicTimeseries]="species.public_series"
+      [keywords]="species.keywords">
+    </bd2-species-card>
+  }
 </div>

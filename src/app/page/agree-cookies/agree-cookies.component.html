@@ -1,4 +1,5 @@
-<div *ngIf="show" [@shown]="show ? 'active' : 'inactive'" class="cookieconsent"
+@if (show) {
+  <div [@shown]="show ? 'active' : 'inactive'" class="cookieconsent"
      style="
   background: black;
   color:white;
@@ -12,13 +13,16 @@
   padding-bottom: 0;
   padding-top: 0;
   ">
-  <div class="container">
-    This website uses cookies to ensure you get the best experience with BioDare.
-    We are also using Google Analytics cookies to monitor how you interact with BioDare.<br>
-    By continuing to use our site you are agreeing to our use of cookies and Google Analytics.
-    <button (click)="agree()" class="btn btn-success" type="submit">I understand</button>
-    <div *ngIf="nostorage">Your browser does not support local storage we cannot record your consent!!!
+    <div class="container">
+      This website uses cookies to ensure you get the best experience with BioDare.
+      We are also using Google Analytics cookies to monitor how you interact with BioDare.<br>
+      By continuing to use our site you are agreeing to our use of cookies and Google Analytics.
+      <button (click)="agree()" class="btn btn-success" type="submit">I understand</button>
+      @if (nostorage) {
+        <div>Your browser does not support local storage we cannot record your consent!!!
+        </div>
+      }
     </div>
   </div>
-</div>
+}
 

@@ -4,13 +4,17 @@ import {GraphicContext, Serie} from '../../bd2-heatmap.dom';
 @Component({
     selector: '[bd2hm-labels]',
     template: `
-    <svg:g *ngIf="graphic && data" class="bd2hm-labels">
-      <svg:g bd2hm-label-box *ngFor="let serie of data; let ix = index; trackBy: trackByIndex"
-             [serie]="serie"
-             [yStart]="yStart(serie)" [maxHeight]="maxHeight()" [alwaysOn]="alwaysOn"
-      ></svg:g>
-    </svg:g>
-  `,
+    @if (graphic && data) {
+      <svg:g class="bd2hm-labels">
+        @for (serie of data; track trackByIndex(ix, serie); let ix = $index) {
+          <svg:g bd2hm-label-box
+            [serie]="serie"
+            [yStart]="yStart(serie)" [maxHeight]="maxHeight()" [alwaysOn]="alwaysOn"
+            ></svg:g>
+          }
+          </svg:g>
+        }
+    `,
     styles: [],
     changeDetection: ChangeDetectionStrategy.OnPush,
     standalone: false

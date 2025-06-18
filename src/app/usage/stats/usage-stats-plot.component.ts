@@ -3,15 +3,17 @@ import { Component, Input, OnInit, OnChanges, SimpleChanges } from '@angular/cor
 @Component({
   selector: 'bd2-usage-stats-plot',
   template: `
-    <div *ngIf="dataset" class="chart-container">
-      <canvas baseChart width="auto" height="200"
-              [type]="'bar'"
-              [datasets]="dataset"
-              [options]="barOptions"
-              [labels]="labels"
-              ></canvas>
-    </div>
-  `,
+    @if (dataset) {
+      <div class="chart-container">
+        <canvas baseChart width="auto" height="200"
+          [type]="'bar'"
+          [datasets]="dataset"
+          [options]="barOptions"
+          [labels]="labels"
+        ></canvas>
+      </div>
+    }
+    `,
   styleUrl: './usage-stats-plot.component.css',
   standalone: false
 })

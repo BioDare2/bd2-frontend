@@ -6,30 +6,36 @@ import {AnalyticsService} from '../../analytics/analytics.service';
     selector: 'bd2-file-asset-view',
     template: `
 
-  <div *ngIf="file && file.last">
+@if (file && file.last) {
+  <div>
     <div class="float-right">
       {{file.versions.length}} versions
       <a role="button" (click)="showVersions = !showVersions" aria-label="expand">
-          <i class="material-icons bd-icon">expand_more</i>
+        <i class="material-icons bd-icon">expand_more</i>
         <!-- <span class="glyphicon glyphicon glyphicon-chevron-down" aria-hidden="true"></span> -->
       </a>
     </div>
     <h5>
       <a href="{{file.url}}" (click)="recordDownload()" download="{{file.last.originalName}}">{{file.last.originalName}}</a>
     </h5>
-
-    <div *ngIf="file.last.description">{{file.last.description}}</div>
-
-    <div *ngIf="showVersions">
-      <ul class="list-unstyled">
-      <li *ngFor="let ver of file.versions; let i = index">
-        Version {{ver.versionId}}. {{ver.created.date | date:'shortDate'}}
-        <strong><a href="{{ver.url}}" (click)="recordDownload()" download="{{ver.originalName}}">{{ver.originalName}}</a></strong>
-        <br>{{ver.description}}
-      </li>
-      </ul>
+    @if (file.last.description) {
+      <div>{{file.last.description}}</div>
+    }
+    @if (showVersions) {
+      <div>
+        <ul class="list-unstyled">
+          @for (ver of file.versions; track ver; let i = $index) {
+            <li>
+              Version {{ver.versionId}}. {{ver.created.date | date:'shortDate'}}
+              <strong><a href="{{ver.url}}" (click)="recordDownload()" download="{{ver.originalName}}">{{ver.originalName}}</a></strong>
+              <br>{{ver.description}}
+              </li>
+            }
+          </ul>
+        </div>
+      }
     </div>
-  </div>
+  }
 `,
     standalone: false
 })

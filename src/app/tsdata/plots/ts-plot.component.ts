@@ -5,13 +5,15 @@ import {TraceSet} from './ts-plot.dom';
     selector: 'bd2-ts-plot',
     template: `
 
-    <div *ngIf="dataset" style="display: block;">
+@if (dataset) {
+  <div style="display: block;">
     <canvas baseChart width="auto" height="200"
-                [type]="'line'"
-                [datasets]="dataset.traces"
-                [options]="scatterOptions"
-                ></canvas>
-    </div>
+      [type]="'line'"
+      [datasets]="dataset.traces"
+      [options]="scatterOptions"
+    ></canvas>
+  </div>
+}
 
 
 `,

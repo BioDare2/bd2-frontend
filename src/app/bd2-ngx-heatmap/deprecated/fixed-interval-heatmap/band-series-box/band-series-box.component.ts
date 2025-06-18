@@ -6,9 +6,11 @@ import {FixedGraphicContext} from '../bd2-fixed-heatmap.dom';
 @Component({
     selector: '[bd2hm-band-series-box]',
     template: `
-    <svg:g *ngFor="let serie of series; trackBy: trackByIndex"
-           bd2hm-band-serie-row [graphic]="graphic" [serie]="serie"></svg:g>
-  `,
+    @for (serie of series; track trackByIndex($index, serie)) {
+      <svg:g
+        bd2hm-band-serie-row [graphic]="graphic" [serie]="serie"></svg:g>
+      }
+    `,
     styles: [],
     changeDetection: ChangeDetectionStrategy.OnPush,
     standalone: false

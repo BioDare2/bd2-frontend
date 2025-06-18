@@ -1,111 +1,100 @@
-<div *ngIf="formModel">
-
-  <form [formGroup]="formModel">
-
-    <mat-hint class="mb-2">Please email us if you don't see suitable terms in the value lists</mat-hint>
-
-    <div class="form-group">
-      <mat-form-field class="w-100">
-        <mat-label for="mTechNameA">Technique</mat-label>
-        <input matInput #mTechNameA [matAutocomplete]="techniqueAuto"
-               class=""
-               formControlName="technique"
-               id="mTechNameA"
-               placeholder="Type to select technique (backspace for all available)"
-               required
-        >
-        <mat-hint>Type to select technique (backspace for all available)</mat-hint>
-        <mat-error *ngIf="formModel.get('technique').errors?.validTechnique">Known technique must be selected</mat-error>
-      </mat-form-field>
-
-      <mat-autocomplete #techniqueAuto="matAutocomplete" (optionSelected)="techniqueSelected($event)">
-        <mat-option *ngFor="let option of filteredTechniques | async" [value]="option">
-          {{ option }}
-        </mat-option>
-      </mat-autocomplete>
-    </div>
-
-    <div class="form-group">
-      <mat-form-field class="w-100">
-        <mat-label for="mEquipNameA">Equipment</mat-label>
-        <input matInput #mEquipNameA [matAutocomplete]="equipmentAuto"
-               class=""
-               formControlName="equipment"
-               id="mEquipNameA"
-               placeholder="Type to choose or define equipment"
-        >
-        <mat-hint>Type define your equipment or choose from the list (backspace for all known)</mat-hint>
-      </mat-form-field>
-
-      <mat-autocomplete #equipmentAuto="matAutocomplete" >
-        <mat-option *ngFor="let option of filteredEquipments | async" [value]="option">
-          {{ option }}
-        </mat-option>
-      </mat-autocomplete>
-    </div>
-
-    <div class="form-group">
-      <mat-form-field class="w-100">
-      <mat-label for="mDescription">Description</mat-label>
-      <textarea matInput class="" formControlName="description" id="mDescription"
-                placeholder=
-                  "Describe how the measurement was conducted, used technical tricks etc...
-For example: plants were sprayed with luciferase two ours before measurement. Images were taken every two ours."
-                rows="5"
-                type="text"
-      >
-     </textarea>
-      <mat-hint>Describe how the measurement was conducted</mat-hint>
-      </mat-form-field>
-    </div>
-
-    <!-- autocomplete with boostrap typeahead
-
-    <div class="form-group">
-      <div class="alert alert-success" role="alert">
-        Please email us if you don't see suitable terms in the value lists
+@if (formModel) {
+  <div>
+    <form [formGroup]="formModel">
+      <mat-hint class="mb-2">Please email us if you don't see suitable terms in the value lists</mat-hint>
+      <div class="form-group">
+        <mat-form-field class="w-100">
+          <mat-label for="mTechNameA">Technique</mat-label>
+          <input matInput #mTechNameA [matAutocomplete]="techniqueAuto"
+            class=""
+            formControlName="technique"
+            id="mTechNameA"
+            placeholder="Type to select technique (backspace for all available)"
+            required
+            >
+          <mat-hint>Type to select technique (backspace for all available)</mat-hint>
+          @if (formModel.get('technique').errors?.validTechnique) {
+            <mat-error>Known technique must be selected</mat-error>
+          }
+        </mat-form-field>
+        <mat-autocomplete #techniqueAuto="matAutocomplete" (optionSelected)="techniqueSelected($event)">
+          @for (option of filteredTechniques | async; track option) {
+            <mat-option [value]="option">
+              {{ option }}
+            </mat-option>
+          }
+        </mat-autocomplete>
       </div>
-
-      <label for="mTechName">Technique</label>
-
-      <input #mTechName
-             (typeaheadOnSelect)="techniqueOnSelect($event)"
-             [typeaheadMinLength]="0"
-             [typeaheadOptionsLimit]="15"
-             [typeahead]="techniques"
-             class="form-control"
-             formControlName="technique"
-             id="mTechName"
-             placeholder="Type to select technique (backspace for all available)"
-             required
-      >
-      <div [hidden]="formModel.get('technique').valid || formModel.get('technique').pristine"
-           class="alert alert-danger">
-        Known technique must be selected
+      <div class="form-group">
+        <mat-form-field class="w-100">
+          <mat-label for="mEquipNameA">Equipment</mat-label>
+          <input matInput #mEquipNameA [matAutocomplete]="equipmentAuto"
+            class=""
+            formControlName="equipment"
+            id="mEquipNameA"
+            placeholder="Type to choose or define equipment"
+            >
+          <mat-hint>Type define your equipment or choose from the list (backspace for all known)</mat-hint>
+        </mat-form-field>
+        <mat-autocomplete #equipmentAuto="matAutocomplete" >
+          @for (option of filteredEquipments | async; track option) {
+            <mat-option [value]="option">
+              {{ option }}
+            </mat-option>
+          }
+        </mat-autocomplete>
       </div>
-    </div>
-
-    <div class="form-group">
-      <label for="mEquipName">Equipment</label>
-
-      <input [typeaheadMinLength]="0" [typeaheadOptionsLimit]="7" [typeahead]="equipments"
-             class="form-control"
-             formControlName="equipment"
-             id="mEquipName"
-             placeholder="Type to choose or define equipment"
-             rows="5"
-             type="text"
-      >
-
-
-    </div> -->
-
-
-
-    <button (click)="save()" [disabled]="blocked || !formModel.valid" class="btn btn-primary mr-1"
-            type="button">{{okLabel}}</button>
-    <button (click)="cancel()" class="btn btn-outline-secondary" type="button">Cancel</button>
-
-  </form>
-</div>
+      <div class="form-group">
+        <mat-form-field class="w-100">
+          <mat-label for="mDescription">Description</mat-label>
+          <textarea matInput class="" formControlName="description" id="mDescription"
+            placeholder=
+            "Describe how the measurement was conducted, used technical tricks etc...
+            For example: plants were sprayed with luciferase two ours before measurement. Images were taken every two ours."
+            rows="5"
+            type="text"
+            >
+          </textarea>
+          <mat-hint>Describe how the measurement was conducted</mat-hint>
+        </mat-form-field>
+      </div>
+      <!-- autocomplete with boostrap typeahead
+      <div class="form-group">
+        <div class="alert alert-success" role="alert">
+          Please email us if you don't see suitable terms in the value lists
+        </div>
+        <label for="mTechName">Technique</label>
+        <input #mTechName
+          (typeaheadOnSelect)="techniqueOnSelect($event)"
+          [typeaheadMinLength]="0"
+          [typeaheadOptionsLimit]="15"
+          [typeahead]="techniques"
+          class="form-control"
+          formControlName="technique"
+          id="mTechName"
+          placeholder="Type to select technique (backspace for all available)"
+          required
+          >
+        <div [hidden]="formModel.get('technique').valid || formModel.get('technique').pristine"
+          class="alert alert-danger">
+          Known technique must be selected
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="mEquipName">Equipment</label>
+        <input [typeaheadMinLength]="0" [typeaheadOptionsLimit]="7" [typeahead]="equipments"
+          class="form-control"
+          formControlName="equipment"
+          id="mEquipName"
+          placeholder="Type to choose or define equipment"
+          rows="5"
+          type="text"
+          >
+      </div> -->
+      <button (click)="save()" [disabled]="blocked || !formModel.valid" class="btn btn-primary mr-1"
+      type="button">{{okLabel}}</button>
+      <button (click)="cancel()" class="btn btn-outline-secondary" type="button">Cancel</button>
+    </form>
+  </div>
+}
 

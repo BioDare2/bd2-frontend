@@ -16,28 +16,29 @@ import {map, tap} from 'rxjs/operators';
 @Component({
     selector: '[bd2hm-label-box]',
     template: `
-    <svg:g *ngIf="serie" class="bd2hm-label">
-      <svg:text *ngIf="alwaysOn" x="5" [attr.y]="yMiddle" class="bd2hm-onLabel"
-                [attr.font-size]="fontSize()"
-      >{{serie.label}}</svg:text>
-
-      <g (mouseout)="toggleLabel(false)" (mouseover)="toggleLabel(true)">
-        <svg:rect x="-7" width="7" [attr.y]="triggerY" [attr.height]="triggerHeight" [attr.fill]="color"
-        ></svg:rect>
-
-        <!--<svg:circle [attr.cx]="-cirR()-2" [attr.cy]="yMiddle" [attr.r]="cirR()" [attr.fill]="'rgb(67, 125, 179)'"
-                    [attr.filter]="band < 7 ? undefined : 'url(#bd2hm-shadow)'"
-        ></svg:circle>-->
-
-        <svg:g class="bd2hm-hover" [attr.opacity]="ready ? 1 : 0" [attr.display]="toggled ? undefined : 'none'">
-          <svg:rect x="0" [attr.width]="textBWidth" [attr.y]="textBY" [attr.height]="textBHeight"
-          ></svg:rect>
-          <svg:text #text x="5" [attr.y]="yMiddle"
-          >{{serie.label}}</svg:text>
-        </svg:g>
-      </g>
-    </svg:g>
-  `,
+    @if (serie) {
+      <svg:g class="bd2hm-label">
+        @if (alwaysOn) {
+          <svg:text x="5" [attr.y]="yMiddle" class="bd2hm-onLabel"
+            [attr.font-size]="fontSize()"
+            >{{serie.label}}</svg:text>
+          }
+          <g (mouseout)="toggleLabel(false)" (mouseover)="toggleLabel(true)">
+            <svg:rect x="-7" width="7" [attr.y]="triggerY" [attr.height]="triggerHeight" [attr.fill]="color"
+              ></svg:rect>
+              <!--<svg:circle [attr.cx]="-cirR()-2" [attr.cy]="yMiddle" [attr.r]="cirR()" [attr.fill]="'rgb(67, 125, 179)'"
+              [attr.filter]="band < 7 ? undefined : 'url(#bd2hm-shadow)'"
+              ></svg:circle>-->
+              <svg:g class="bd2hm-hover" [attr.opacity]="ready ? 1 : 0" [attr.display]="toggled ? undefined : 'none'">
+                <svg:rect x="0" [attr.width]="textBWidth" [attr.y]="textBY" [attr.height]="textBHeight"
+                  ></svg:rect>
+                  <svg:text #text x="5" [attr.y]="yMiddle"
+                    >{{serie.label}}</svg:text>
+                    </svg:g>
+                  </g>
+                  </svg:g>
+                }
+    `,
     styles: [],
     changeDetection: ChangeDetectionStrategy.OnPush,
     standalone: false

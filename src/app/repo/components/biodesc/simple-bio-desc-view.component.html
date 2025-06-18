@@ -1,9 +1,10 @@
-<div *ngIf="model">
-
+@if (model) {
+  <div>
     <p>
-    <strong>Species: </strong> {{model.species}}
+      <strong>Species: </strong> {{model.species}}
     </p>
     <p>
-    <strong>Data category: </strong> {{model.dataCategory?.longName}}
+      <strong>Data category: </strong> {{model.dataCategory?.longName}}
     </p>
-</div>
+  </div>
+}

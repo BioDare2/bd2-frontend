@@ -1,40 +1,42 @@
-<div *ngIf="importDetails?.containsBackgrounds">
-  <mat-card appearance="outlined" class="mat-elevation-z4">
-    <mat-card-content>
-
-    <div type="info" class="alert alert-info" role="alert">
-      Select labels for which data should be treated as the background noise
-    </div>
-
-      <!-- inside chip row [selectable]="selectable" -->
-      <mat-form-field style="width: 100%">
-        <mat-chip-grid #chipList aria-label="Backgrounds selection">
-          <mat-chip-row
-            *ngFor="let background of backgrounds"
-
-            [removable]="removable"
-            (removed)="remove(background)">
-            {{background}}
-            <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
-          </mat-chip-row>
-          <input
-            placeholder="Type to select background label..."
-            #backgroundInput
-            [formControl]="backgroundCtrl"
-            [matAutocomplete]="auto"
-            [matChipInputFor]="chipList"
-            [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-            [matChipInputAddOnBlur]="addOnBlur"
-            (matChipInputTokenEnd)="add($event)">
-        </mat-chip-grid>
-        <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
-          <mat-option *ngFor="let label of filteredLabels | async" [value]="label">
-            {{label}}
-          </mat-option>
-        </mat-autocomplete>
-      </mat-form-field>
-
-
-    </mat-card-content>
-  </mat-card>
-</div>
+@if (importDetails?.containsBackgrounds) {
+  <div>
+    <mat-card appearance="outlined" class="mat-elevation-z4">
+      <mat-card-content>
+        <div type="info" class="alert alert-info" role="alert">
+          Select labels for which data should be treated as the background noise
+        </div>
+        <!-- inside chip row [selectable]="selectable" -->
+        <mat-form-field style="width: 100%">
+          <mat-chip-grid #chipList aria-label="Backgrounds selection">
+            @for (background of backgrounds; track background) {
+              <mat-chip-row
+                [removable]="removable"
+                (removed)="remove(background)">
+                {{background}}
+                @if (removable) {
+                  <mat-icon matChipRemove>cancel</mat-icon>
+                }
+              </mat-chip-row>
+            }
+            <input
+              placeholder="Type to select background label..."
+              #backgroundInput
+              [formControl]="backgroundCtrl"
+              [matAutocomplete]="auto"
+              [matChipInputFor]="chipList"
+              [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+              [matChipInputAddOnBlur]="addOnBlur"
+              (matChipInputTokenEnd)="add($event)">
+          </mat-chip-grid>
+          <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+            @for (label of filteredLabels | async; track label) {
+              <mat-option [value]="label">
+                {{label}}
+              </mat-option>
+            }
+          </mat-autocomplete>
+        </mat-form-field>
+      </mat-card-content>
+    </mat-card>
+  </div>
+}

@@ -1,130 +1,128 @@
-<div *ngIf="isUnauthorised">
-  <h4>You don't have permission to create experiment</h4>
-  <p>Try to login</p>
-</div>
-<div *ngIf="assay">
-
-  <h3>Create experiment</h3>
-
-
-  <div class="card mb-2">
-    <div class="card-header">General description</div>
-    <div class="card-body">
-      <bd2-general-desc-form
-        *ngIf="activeGeneralDescForm"
-        [model]="assay.generalDesc"
-        okLabel="Accept"
-        (onAccepted)="hideEdits($event)"
-        (onCancelled)="hideEdits($event)"
-      ></bd2-general-desc-form>
-      <bd2-general-desc-view
-        *ngIf="!activeGeneralDescForm"
-        [model]="assay.generalDesc"
-      ></bd2-general-desc-view>
-
-      <div *ngIf="!activeGeneralDescForm">
-        <hr>
-        <button type="button" class="btn btn-primary" [disabled]="activeGeneralDescForm"
+@if (isUnauthorised) {
+  <div>
+    <h4>You don't have permission to create experiment</h4>
+    <p>Try to login</p>
+  </div>
+}
+@if (assay) {
+  <div>
+    <h3>Create experiment</h3>
+    <div class="card mb-2">
+      <div class="card-header">General description</div>
+      <div class="card-body">
+        @if (activeGeneralDescForm) {
+          <bd2-general-desc-form
+            [model]="assay.generalDesc"
+            okLabel="Accept"
+            (onAccepted)="hideEdits($event)"
+            (onCancelled)="hideEdits($event)"
+          ></bd2-general-desc-form>
+        }
+        @if (!activeGeneralDescForm) {
+          <bd2-general-desc-view
+            [model]="assay.generalDesc"
+          ></bd2-general-desc-view>
+        }
+        @if (!activeGeneralDescForm) {
+          <div>
+            <hr>
+              <button type="button" class="btn btn-primary" [disabled]="activeGeneralDescForm"
                 (click)="activeGeneralDescForm=true">Modify
-        </button>
+              </button>
+            </div>
+          }
+        </div>
       </div>
-
-    </div>
-  </div>
-
-  <div class="card mb-2">
-    <div class="card-header">Biological details</div>
-    <div class="card-body">
-
-      <bd2-simple-bio-desc-form
-        *ngIf="activeSimpleBioDescForm"
-        [model]="assay"
-        okLabel="Accept"
-        (onAccepted)="hideEdits($event)"
-        (onCancelled)="hideEdits($event)"
-      ></bd2-simple-bio-desc-form>
-
-      <bd2-simple-bio-desc-view
-        *ngIf="!activeSimpleBioDescForm"
-        [model]="assay"
-      ></bd2-simple-bio-desc-view>
-
-      <div *ngIf="!activeSimpleBioDescForm">
-        <hr>
-        <button type="button" class="btn btn-primary" [disabled]="activeSimpleBioDescForm"
-                (click)="activeSimpleBioDescForm=true">Modify
-        </button>
-      </div>
-
-    </div>
-
-  </div>
-
-  <div class="card mb-2">
-    <div class="card-header">Contributions</div>
-    <div class="card-body">
-
-      <bd2-contr-desc-form
-        *ngIf="activeContributionDescForm"
-        [model]="assay.contributionDesc"
-        okLabel="Accept"
-        (onAccepted)="hideEdits($event)"
-        (onCancelled)="hideEdits($event)"
-      ></bd2-contr-desc-form>
-      <bd2-contr-desc-view
-        *ngIf="!activeContributionDescForm"
-        [model]="assay.contributionDesc"
-      ></bd2-contr-desc-view>
-
-      <div *ngIf="!activeContributionDescForm">
-        <hr>
-        <button type="button" class="btn btn-primary" [disabled]="activeContributionDescForm"
-                (click)="activeContributionDescForm=true">Modify
-        </button>
-      </div>
-    </div>
-
-  </div>
-
-  <div class="card mb-2">
-    <div class="card-header">Measurement details</div>
-    <div class="card-body">
-
-      <bd2-measurement-desc-rform
-        *ngIf="activeMeasurementDescForm"
-        [model]="assay.experimentalDetails.measurementDesc"
-        okLabel="Accept"
-        (onAccepted)="hideEdits($event)"
-        (onCancelled)="hideEdits($event)"
-      ></bd2-measurement-desc-rform>
-
-      <bd2-measurement-desc-view
-        *ngIf="!activeMeasurementDescForm"
-        [model]="assay.experimentalDetails.measurementDesc"
-      >
-      </bd2-measurement-desc-view>
-
-      <div *ngIf="!activeMeasurementDescForm">
-        <hr>
-        <button type="button" class="btn btn-primary" [disabled]="activeMeasurementDescForm"
-                (click)="activeMeasurementDescForm=true">Modify
-        </button>
-      </div>
-
-    </div>
-
-  </div>
-
-
-  <div *ngIf="errors" class="alert alert-danger">
-    <ul>
-      <li *ngFor="let err of errors">{{err}}</li>
-    </ul>
-  </div>
-
-
-  <button type="button" class="btn btn-primary mr-1" [disabled]="blocked || errors" (click)="save()">Create</button>
-  <button type="button" class="btn btn-outline-secondary" (click)="cancel()">Cancel</button>
-
-  <!--{{ assay | json }}-->
-</div>
+      <div class="card mb-2">
+        <div class="card-header">Biological details</div>
+        <div class="card-body">
+          @if (activeSimpleBioDescForm) {
+            <bd2-simple-bio-desc-form
+              [model]="assay"
+              okLabel="Accept"
+              (onAccepted)="hideEdits($event)"
+              (onCancelled)="hideEdits($event)"
+            ></bd2-simple-bio-desc-form>
+          }
+          @if (!activeSimpleBioDescForm) {
+            <bd2-simple-bio-desc-view
+              [model]="assay"
+            ></bd2-simple-bio-desc-view>
+          }
+          @if (!activeSimpleBioDescForm) {
+            <div>
+              <hr>
+                <button type="button" class="btn btn-primary" [disabled]="activeSimpleBioDescForm"
+                  (click)="activeSimpleBioDescForm=true">Modify
+                </button>
+              </div>
+            }
+          </div>
+        </div>
+        <div class="card mb-2">
+          <div class="card-header">Contributions</div>
+          <div class="card-body">
+            @if (activeContributionDescForm) {
+              <bd2-contr-desc-form
+                [model]="assay.contributionDesc"
+                okLabel="Accept"
+                (onAccepted)="hideEdits($event)"
+                (onCancelled)="hideEdits($event)"
+              ></bd2-contr-desc-form>
+            }
+            @if (!activeContributionDescForm) {
+              <bd2-contr-desc-view
+                [model]="assay.contributionDesc"
+              ></bd2-contr-desc-view>
+            }
+            @if (!activeContributionDescForm) {
+              <div>
+                <hr>
+                  <button type="button" class="btn btn-primary" [disabled]="activeContributionDescForm"
+                    (click)="activeContributionDescForm=true">Modify
+                  </button>
+                </div>
+              }
+            </div>
+          </div>
+          <div class="card mb-2">
+            <div class="card-header">Measurement details</div>
+            <div class="card-body">
+              @if (activeMeasurementDescForm) {
+                <bd2-measurement-desc-rform
+                  [model]="assay.experimentalDetails.measurementDesc"
+                  okLabel="Accept"
+                  (onAccepted)="hideEdits($event)"
+                  (onCancelled)="hideEdits($event)"
+                ></bd2-measurement-desc-rform>
+              }
+              @if (!activeMeasurementDescForm) {
+                <bd2-measurement-desc-view
+                  [model]="assay.experimentalDetails.measurementDesc"
+                  >
+                </bd2-measurement-desc-view>
+              }
+              @if (!activeMeasurementDescForm) {
+                <div>
+                  <hr>
+                    <button type="button" class="btn btn-primary" [disabled]="activeMeasurementDescForm"
+                      (click)="activeMeasurementDescForm=true">Modify
+                    </button>
+                  </div>
+                }
+              </div>
+            </div>
+            @if (errors) {
+              <div class="alert alert-danger">
+                <ul>
+                  @for (err of errors; track err) {
+                    <li>{{err}}</li>
+                  }
+                </ul>
+              </div>
+            }
+            <button type="button" class="btn btn-primary mr-1" [disabled]="blocked || errors" (click)="save()">Create</button>
+            <button type="button" class="btn btn-outline-secondary" (click)="cancel()">Cancel</button>
+            <!--{{ assay | json }}-->
+          </div>
+        }

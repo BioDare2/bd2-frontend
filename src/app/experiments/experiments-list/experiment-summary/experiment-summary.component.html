@@ -1,6 +1,8 @@
 <a [routerLink]="['/experiment',exp.id]" class="list-group-item list-group-item-action">
   <h5 class="list-group-item-heading">
-    <i *ngIf="exp.features.isOpenAccess" class="material-icons bd-icon" style="color: green">lock_open</i>
+    @if (exp.features.isOpenAccess) {
+      <i class="material-icons bd-icon" style="color: green">lock_open</i>
+    }
     <!-- <img *ngIf="exp.features.isOpenAccess" src="assets/Open_Access_logo_small.svg" style="height: 1.5em;"> -->
     {{exp.name}}
   </h5>
@@ -12,6 +14,6 @@
       <strong>Executed:</strong> {{ exp.generalDesc.executionDate.date | date}}
       <strong>Modified:</strong> {{ exp.provenance.modified.date | date}}
     </small>
-    </div>
   </div>
+</div>
 </a>

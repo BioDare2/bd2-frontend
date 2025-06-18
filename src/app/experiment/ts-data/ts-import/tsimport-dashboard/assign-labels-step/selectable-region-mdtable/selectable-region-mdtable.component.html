@@ -1,73 +1,67 @@
-<div class="data-sheet-container" *ngIf="dataSlice">
-  <table mat-table [dataSource]="data" #table>
-
-    <!-- Row Nr Column -->
-    <ng-container matColumnDef="rowNr" sticky>
-      <th mat-header-cell *matHeaderCellDef></th>
-      <td mat-cell matRipple   *matCellDef="let row; let rowIx = index"
+@if (dataSlice) {
+  <div class="data-sheet-container">
+    <table mat-table [dataSource]="data" #table>
+      <!-- Row Nr Column -->
+      <ng-container matColumnDef="rowNr" sticky>
+        <th mat-header-cell *matHeaderCellDef></th>
+        <td mat-cell matRipple   *matCellDef="let row; let rowIx = index"
           (mousedown)="startSelectCell(-1,rowIx)" (mouseup)="endSelectCell(-1,rowIx)">
-        <label>{{rowsNames[rowIx]}}</label>
-      </td>
-      <td mat-footer-cell *matFooterCellDef (click)="nextRow()">{{ hasMoreRows ? '...' : 'end'}}</td>
-    </ng-container>
-
-    <!-- Row Label Column -->
-    <ng-container matColumnDef="rowLabel" sticky>
-      <th mat-header-cell *matHeaderCellDef>Labels</th>
-      <td mat-cell matRipple  *matCellDef="let row; let rowIx = index"
-          (mousedown)="startSelectCell(-1,rowIx)" (mouseup)="endSelectCell(-1,rowIx)">
-        <label class="user">{{rowsLabels[rowIx]}}</label> </td>
-        <td mat-footer-cell *matFooterCellDef (click)="nextRow()"></td>
-    </ng-container>
-
-    <!-- Data Columns -->
-    <ng-container *ngFor="let col of columnsNames; let colIx = index" [matColumnDef]="col">
-      <th mat-header-cell matRipple  *matHeaderCellDef [style.background-color]="colBackground(colIx)"
-          (mousedown)="startSelectCell(colIx,-1)" (mouseup)="endSelectCell(colIx,-1)"
-      > {{col}} </th>
-      <td mat-cell *matCellDef="let row; let rowIx = index"
-          [style.background-color]="cellBackground(colIx, rowIx)"
-          > {{row[colIx]}} </td>
-      <td mat-footer-cell *matFooterCellDef (click)="nextRow()">{{ hasMoreRows ? '...' : ''}}</td>
-    </ng-container>
-
-    <!-- More data Column -->
-    <ng-container matColumnDef="more" sticky>
-      <th mat-header-cell *matHeaderCellDef (click)="nextColumn()">...</th>
-      <td mat-cell *matCellDef="let row; let rowIx = index" (click)="nextColumn()">...</td>
-      <td mat-footer-cell *matFooterCellDef></td>
-    </ng-container>
-
-    <!-- 2nd Row Nr Column -->
-    <ng-container matColumnDef="rowNr2" sticky>
-      <th mat-header-cell *matHeaderCellDef>Labels</th>
-    </ng-container>
-
-    <!-- 2Row Label Column -->
-    <ng-container matColumnDef="rowLabel2" sticky>
-      <th mat-header-cell *matHeaderCellDef></th>
-    </ng-container>
-
-    <!-- label Columns -->
-    <ng-container *ngIf="showColumnsLabels">
-      <ng-container *ngFor="let col of columnsNames; let colIx = index" [matColumnDef]="'label'+colIx">
-        <th mat-header-cell matRipple  *matHeaderCellDef [style.background-color]="colBackground(colIx)"
-            (mousedown)="startSelectCell(colIx,-1)" (mouseup)="endSelectCell(colIx,-1)"
-        ><label class="user">{{columnsLabels[colIx]}}</label></th>
+          <label>{{rowsNames[rowIx]}}</label>
+        </td>
+        <td mat-footer-cell *matFooterCellDef (click)="nextRow()">{{ hasMoreRows ? '...' : 'end'}}</td>
       </ng-container>
-    </ng-container>
-
-    <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
-
-    <ng-container *ngIf="showColumnsLabels">
-      <tr mat-header-row *matHeaderRowDef="displayedLabelsColumns; sticky: true"></tr>
-    </ng-container>
-
-    <tr mat-row *matRowDef="let row; let rowIx = index; columns: displayedColumns;"
-        [style.background-color]="rowBackground(rowIx)"
-    ></tr>
-
-      <tr mat-footer-row *matFooterRowDef="displayedColumns"></tr>
-
-  </table>
-</div>
+      <!-- Row Label Column -->
+      <ng-container matColumnDef="rowLabel" sticky>
+        <th mat-header-cell *matHeaderCellDef>Labels</th>
+        <td mat-cell matRipple  *matCellDef="let row; let rowIx = index"
+          (mousedown)="startSelectCell(-1,rowIx)" (mouseup)="endSelectCell(-1,rowIx)">
+          <label class="user">{{rowsLabels[rowIx]}}</label> </td>
+          <td mat-footer-cell *matFooterCellDef (click)="nextRow()"></td>
+        </ng-container>
+        <!-- Data Columns -->
+        @for (col of columnsNames; track col; let colIx = $index) {
+          <ng-container [matColumnDef]="col">
+            <th mat-header-cell matRipple  *matHeaderCellDef [style.background-color]="colBackground(colIx)"
+              (mousedown)="startSelectCell(colIx,-1)" (mouseup)="endSelectCell(colIx,-1)"
+            > {{col}} </th>
+            <td mat-cell *matCellDef="let row; let rowIx = index"
+              [style.background-color]="cellBackground(colIx, rowIx)"
+            > {{row[colIx]}} </td>
+            <td mat-footer-cell *matFooterCellDef (click)="nextRow()">{{ hasMoreRows ? '...' : ''}}</td>
+          </ng-container>
+        }
+        <!-- More data Column -->
+        <ng-container matColumnDef="more" sticky>
+          <th mat-header-cell *matHeaderCellDef (click)="nextColumn()">...</th>
+          <td mat-cell *matCellDef="let row; let rowIx = index" (click)="nextColumn()">...</td>
+          <td mat-footer-cell *matFooterCellDef></td>
+        </ng-container>
+        <!-- 2nd Row Nr Column -->
+        <ng-container matColumnDef="rowNr2" sticky>
+          <th mat-header-cell *matHeaderCellDef>Labels</th>
+        </ng-container>
+        <!-- 2Row Label Column -->
+        <ng-container matColumnDef="rowLabel2" sticky>
+          <th mat-header-cell *matHeaderCellDef></th>
+        </ng-container>
+        <!-- label Columns -->
+        @if (showColumnsLabels) {
+          @for (col of columnsNames; track col; let colIx = $index) {
+            <ng-container [matColumnDef]="'label'+colIx">
+              <th mat-header-cell matRipple  *matHeaderCellDef [style.background-color]="colBackground(colIx)"
+                (mousedown)="startSelectCell(colIx,-1)" (mouseup)="endSelectCell(colIx,-1)"
+                ><label class="user">{{columnsLabels[colIx]}}</label></th>
+              </ng-container>
+            }
+          }
+          <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+          @if (showColumnsLabels) {
+            <tr mat-header-row *matHeaderRowDef="displayedLabelsColumns; sticky: true"></tr>
+          }
+          <tr mat-row *matRowDef="let row; let rowIx = index; columns: displayedColumns;"
+            [style.background-color]="rowBackground(rowIx)"
+          ></tr>
+          <tr mat-footer-row *matFooterRowDef="displayedColumns"></tr>
+        </table>
+      </div>
+    }

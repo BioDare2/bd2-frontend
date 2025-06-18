@@ -7,13 +7,17 @@ import {isKnownStaticDoc, StaticDocsOptions} from '../../known-docs';
     template: `
     <h1 mat-dialog-title>{{title}}</h1>
     <div mat-dialog-content>
-      <div class="alert alert-danger" role="alert" type="danger" *ngIf="missing">{{missing}}</div>
-      <bd2-static-content *ngIf="!missing" [docName]="docName"></bd2-static-content>
+      @if (missing) {
+        <div class="alert alert-danger" role="alert" type="danger">{{missing}}</div>
+      }
+      @if (!missing) {
+        <bd2-static-content [docName]="docName"></bd2-static-content>
+      }
     </div>
     <div mat-dialog-actions>
       <button mat-dialog-close class="btn btn-primary" tabindex="-1">Close</button>
     </div>
-  `,
+    `,
     styles: [],
     standalone: false
 })
