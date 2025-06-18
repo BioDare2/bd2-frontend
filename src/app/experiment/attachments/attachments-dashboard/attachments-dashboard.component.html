@@ -1,39 +1,51 @@
 <h3>Attached files</h3>
 <hr>
 
-<div *ngIf="assay">
-
-  <div *ngIf="assay.security.canWrite">
-    <bd2-file-upload-widget #uploadWidget
-                            [autoReset]="false"
-                            [blocked]="blocked"
-                            (uploadFiles)="upload($event)"
-    ></bd2-file-upload-widget>
-    <hr>
-  </div>
-
-  <div *ngIf="tsData && tsData.length > 0">
-    <h4>Timeseries files</h4>
-    <bd2-file-asset-view *ngFor="let file of tsData" [model]="file" [parentId]="assay.id">
-    </bd2-file-asset-view>
-    <div *ngIf="assay.security.canWrite" type="info" class="alert alert-info" role="alert" >
-      Use "Replace data" to change timeseries files.
-    </div>
-    <hr>
-  </div>
-
-  <div  *ngIf="!tsData || tsData.length === 0" type="info" class="alert alert-info" role="alert">
-    Use "Import data" to add timeseries files.
-  </div>
-
-
-  <div *ngIf="attachments && attachments.length > 0">
-    <h4>Attachments</h4>
-    <bd2-file-asset-view *ngFor="let file of attachments" [model]="file" [parentId]="assay.id">
-    </bd2-file-asset-view>
-  </div>
-  <div *ngIf="assay.security.canWrite" type="info" class="alert alert-info" role="alert" >
-    Drag and upload files using the upload area in order to update the attachments.
-  </div>
-
-</div>
+  @if (assay) {
+    <div>
+      @if (assay.security.canWrite) {
+        <div>
+          <bd2-file-upload-widget #uploadWidget
+            [autoReset]="false"
+            [blocked]="blocked"
+            (uploadFiles)="upload($event)"
+          ></bd2-file-upload-widget>
+          <hr>
+          </div>
+        }
+        @if (tsData && tsData.length > 0) {
+          <div>
+            <h4>Timeseries files</h4>
+            @for (file of tsData; track file) {
+              <bd2-file-asset-view [model]="file" [parentId]="assay.id">
+              </bd2-file-asset-view>
+            }
+            @if (assay.security.canWrite) {
+              <div type="info" class="alert alert-info" role="alert" >
+                Use "Replace data" to change timeseries files.
+              </div>
+            }
+            <hr>
+            </div>
+          }
+          @if (!tsData || tsData.length === 0) {
+            <div  type="info" class="alert alert-info" role="alert">
+              Use "Import data" to add timeseries files.
+            </div>
+          }
+          @if (attachments && attachments.length > 0) {
+            <div>
+              <h4>Attachments</h4>
+              @for (file of attachments; track file) {
+                <bd2-file-asset-view [model]="file" [parentId]="assay.id">
+                </bd2-file-asset-view>
+              }
+            </div>
+          }
+          @if (assay.security.canWrite) {
+            <div type="info" class="alert alert-info" role="alert" >
+              Drag and upload files using the upload area in order to update the attachments.
+            </div>
+          }
+        </div>
+      }

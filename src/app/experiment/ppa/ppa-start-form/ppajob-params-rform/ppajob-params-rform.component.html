@@ -8,19 +8,19 @@
       <label class="col-sm-1" for="windowStart">from:</label>
       <div class="col-sm-2 clues">
         <input class="form-control" formControlName="timeStart" id="windowStart" min="0" required
-               size="5"
-               step="any"
-               type="number"
-        >
+          size="5"
+          step="any"
+          type="number"
+          >
       </div>
       <label class="col-sm-1" for="windowEnd">to:</label>
       <div class="col-sm-2 clues">
         <input class="form-control" formControlName="timeEnd" id="windowEnd" min="0" placeholder=""
-               required
-               size="5"
-               step="any"
-               type="number"
-        >
+          required
+          size="5"
+          step="any"
+          type="number"
+          >
       </div>
     </div>
 
@@ -31,10 +31,12 @@
 
       <div class="col-sm-6">
         <select class="form-control" formControlName="detrending"
-                id="detrending"
-                required
-        >
-          <option *ngFor="let opt of detrendingOptions; let ix = index" [value]="opt.name">{{opt.label}}</option>
+          id="detrending"
+          required
+          >
+          @for (opt of detrendingOptions; track opt; let ix = $index) {
+            <option [value]="opt.name">{{opt.label}}</option>
+          }
         </select>
 
       </div>
@@ -48,21 +50,21 @@
     <label class="col-sm-1" for="periodMin">from:</label>
     <div class="col-sm-2  clues">
       <input class="form-control" formControlName="periodMin" id="periodMin" max="50" min="10" placeholder=""
-             required
-             size="5"
-             step="any"
-             type="number"
-      >
+        required
+        size="5"
+        step="any"
+        type="number"
+        >
     </div>
 
     <label class="col-sm-1" for="periodMax">to:</label>
     <div class="col-sm-2  clues">
       <input class="form-control" formControlName="periodMax" id="periodMax" max="50" min="10" placeholder=""
-             required
-             size="5"
-             step="any"
-             type="number"
-      >
+        required
+        size="5"
+        step="any"
+        type="number"
+        >
     </div>
   </div>
 
@@ -73,10 +75,12 @@
 
     <div class="col-sm-6">
       <select class="form-control" formControlName="method"
-              id="method"
-              required
-      >
-        <option *ngFor="let opt of methodOptions; let ix = index" [value]="opt.name">{{opt.label}}</option>
+        id="method"
+        required
+        >
+        @for (opt of methodOptions; track opt; let ix = $index) {
+          <option [value]="opt.name">{{opt.label}}</option>
+        }
       </select>
     </div>
   </div>
@@ -86,12 +90,12 @@
     <div class="col-sm-8">
 
       <mat-paginator #dataPaginator [length]="totalTraces" [disabled]="disabledPagination"
-                     [pageSize]="currentPage.pageSize"
-                     [pageIndex]="currentPage.pageIndex"
-                     [pageSizeOptions]="[10, 25, 50, 100, 200]"
-                     (page)="loadDataPage($event)"
+        [pageSize]="currentPage.pageSize"
+        [pageIndex]="currentPage.pageIndex"
+        [pageSizeOptions]="[10, 25, 50, 100, 200]"
+        (page)="loadDataPage($event)"
 
-      >
+        >
       </mat-paginator>
     </div>
   </div>

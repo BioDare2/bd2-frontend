@@ -1,8 +1,8 @@
 
 <mat-expansion-panel class="mat-elevation-z2" [expanded]="true"
-                     (opened)="on = true"
-                     (closed)="on = false"
->
+  (opened)="on = true"
+  (closed)="on = false"
+  >
 
   <mat-expansion-panel-header>
     <mat-panel-title>
@@ -15,34 +15,36 @@
   </mat-expansion-panel-header>
 
   <mat-divider></mat-divider>
-  <mat-progress-bar *ngIf="fetcher.isBusy$ | async" mode="indeterminate"></mat-progress-bar>
+  @if (fetcher.isBusy$ | async) {
+    <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+  }
 
   <div #periodPlotDiv>
-  <bd2-ppaperiod-plot
-    [groups]="this.fetcher.results$ | async"
-    [legend]="legend" [palette]="palette" [removed]="removed"
-  ></bd2-ppaperiod-plot>
+    <bd2-ppaperiod-plot
+      [groups]="this.fetcher.results$ | async"
+      [legend]="legend" [palette]="palette" [removed]="removed"
+    ></bd2-ppaperiod-plot>
   </div>
 
   <bd2-ngx-svg-saver [fileName]="fetcher.currentInput?.parentId+'_'+fetcher.currentInput?.method+'.periods'"
-                     [refNode]="periodPlotDiv" class="float-left"
+    [refNode]="periodPlotDiv" class="float-left"
   ></bd2-ngx-svg-saver>
   <bd2-ppasort-widget (sort)="sort($event)" class="float-right"></bd2-ppasort-widget>
   <div class="clearfix"></div>
 
 
   <mat-paginator #paginator [length]="fetcher.dataLength" [disabled]="disablePaginator"
-                 [pageSize]="fetcher.currentPage?.pageSize || 25"
-                 [pageIndex]="fetcher.currentPage?.pageIndex"
-                 [pageSizeOptions]="[5, 10, 25, 50, 100]"
-                 (page)="loadPage($event)"
+    [pageSize]="fetcher.currentPage?.pageSize || 25"
+    [pageIndex]="fetcher.currentPage?.pageIndex"
+    [pageSizeOptions]="[5, 10, 25, 50, 100]"
+    (page)="loadPage($event)"
 
-  >
+    >
   </mat-paginator>
 
 
   <bd2-simple-legend [labels]="legend" [palette]="palette"
-                     (marked)="hideGroups($event)"
+    (marked)="hideGroups($event)"
   ></bd2-simple-legend>
 
   <div #phasePlotDiv>
@@ -51,17 +53,17 @@
 
         <bd2-ppaphase-plot [phaseParams]="phaseParams"
           [legend]="legend" [palette]="palette" [removed]="removed"
-                           [groups]="this.fetcher.results$ | async"
+          [groups]="this.fetcher.results$ | async"
         ></bd2-ppaphase-plot>
       </div>
     </div>
     <bd2-ngx-svg-saver [fileName]="fetcher.currentInput?.parentId+'_'+fetcher.currentInput?.method+'.phases'"
-                       [refNode]="phasePlotDiv" class="float-left"
+      [refNode]="phasePlotDiv" class="float-left"
     ></bd2-ngx-svg-saver>
   </div>
   <!--
   <bd2-phases-options phaseType="ByFit" phaseUnit="circ" relativeTo="zero"
-                      (options)="phaseOptions($event)">
+    (options)="phaseOptions($event)">
   </bd2-phases-options>
   -->
 

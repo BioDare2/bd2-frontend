@@ -17,11 +17,17 @@ const CUSTOM_VALUE_ACCESSOR: any = {
     selector: 'bd2-sort-switch',
     template: `
     <button mat-mini-fab aria-label="sorting" [disabled]="disabled">
-      <i *ngIf="value === 'asc'" class="material-icons  icon-flipped-h" (click)="select('desc')">sort</i>
-      <i *ngIf="value === 'desc'" class="material-icons"  (click)="select('')">sort</i>
-      <i *ngIf="value === ''" class="material-icons" (click)="select('asc')">more_horiz</i>
+      @if (value === 'asc') {
+        <i class="material-icons  icon-flipped-h" (click)="select('desc')">sort</i>
+      }
+      @if (value === 'desc') {
+        <i class="material-icons"  (click)="select('')">sort</i>
+      }
+      @if (value === '') {
+        <i class="material-icons" (click)="select('asc')">more_horiz</i>
+      }
     </button>
-  `,
+    `,
     styles: [],
     providers: [CUSTOM_VALUE_ACCESSOR],
     standalone: false

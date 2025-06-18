@@ -22,120 +22,122 @@ import {ConfirmRowCopyMatDialogComponent} from './confirm-row-copy-mat-dialog/co
 @Component({
     selector: 'bd2-describe-topcount-table',
     template: `
-    <div *ngIf="dataModel">
-
-      <!--<bd2-column-type-dialog #columnTypeDialog (onAccepted)="setColumnType($event)"
-                              [lastCol]="lastCol" [showTime]="false"
+    @if (dataModel) {
+      <div>
+        <!--<bd2-column-type-dialog #columnTypeDialog (onAccepted)="setColumnType($event)"
+        [lastCol]="lastCol" [showTime]="false"
       ></bd2-column-type-dialog>-->
       <!--<bd2-confirm-row-copy-dialog #rowCopyDialog (onAccepted)="copyRowAsLabels($event)"></bd2-confirm-row-copy-dialog>
       -->
-
-
       <hr>
-
-      <div>
-
-        <h4>Current Topcount import parameters </h4>
-
-        <div *ngIf="!hasData()" type="danger" class="alert alert-danger" role="alert">
-          <strong>Missing data labels. Please use one of the methods:</strong>
-          <ul>
-            <li>Click and draw over the headers of columns to select the range and
-              assign the data labels in the popup dialog.
-            </li>
-            <li>Use the form below to manually provide the column range and the data label.</li>
-          </ul>
-        </div>
-
-        <div *ngIf="timeColumnDescription">
-          <div class="form-group">
-            <label for="timeOffset">Time parameter: offset (hours)</label>
-            <input type="number" class="form-control short-input"
-                   id="timeOffset"
-                   step="any"
-                   placeholder="e.g. -4"
-                   [(ngModel)]="timeColumnDescription.details.timeOffset"
-                   name="fTimeOffset" #fTimeOffset="ngModel"
-            >
-          </div>
-        </div>
-
-        <div *ngIf="dataBlocks && dataBlocks.length > 0" style="">
-          <p>
-            <strong>Columns descriptions (select to edit)</strong>
-          </p>
-          <div style="max-height: 20em; overflow-y: auto; margin-bottom: 1em;">
-            <ul class="list-group">
-              <li *ngFor="let block of dataBlocks" (click)="editBlock(block)" class="list-group-item">
-                <span><strong>{{block.topcountLabel}}</strong> : {{block.value}}</span>
-                <a (click)="deleteBlock(block)" role="button" class="float-right" aria-label="delete">
-                  <i class="material-icons bd-icon bd-primary">delete_forever</i>
-                <!-- <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> -->
-                </a>
-              </li>
-            </ul>
-          </div>
-        </div>
-
         <div>
-          <button class="btn btn-primary" [disabled]="blocked || !hasTime() || !hasData()" (click)="accept()">Import
-            timeseries
-          </button>
+          <h4>Current Topcount import parameters </h4>
+          @if (!hasData()) {
+            <div type="danger" class="alert alert-danger" role="alert">
+              <strong>Missing data labels. Please use one of the methods:</strong>
+              <ul>
+                <li>Click and draw over the headers of columns to select the range and
+                  assign the data labels in the popup dialog.
+                </li>
+                <li>Use the form below to manually provide the column range and the data label.</li>
+              </ul>
+            </div>
+          }
+          @if (timeColumnDescription) {
+            <div>
+              <div class="form-group">
+                <label for="timeOffset">Time parameter: offset (hours)</label>
+                <input type="number" class="form-control short-input"
+                  id="timeOffset"
+                  step="any"
+                  placeholder="e.g. -4"
+                  [(ngModel)]="timeColumnDescription.details.timeOffset"
+                  name="fTimeOffset" #fTimeOffset="ngModel"
+                  >
+              </div>
+            </div>
+          }
+          @if (dataBlocks && dataBlocks.length > 0) {
+            <div style="">
+              <p>
+                <strong>Columns descriptions (select to edit)</strong>
+              </p>
+              <div style="max-height: 20em; overflow-y: auto; margin-bottom: 1em;">
+                <ul class="list-group">
+                  @for (block of dataBlocks; track block) {
+                    <li (click)="editBlock(block)" class="list-group-item">
+                      <span><strong>{{block.topcountLabel}}</strong> : {{block.value}}</span>
+                      <a (click)="deleteBlock(block)" role="button" class="float-right" aria-label="delete">
+                        <i class="material-icons bd-icon bd-primary">delete_forever</i>
+                        <!-- <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> -->
+                      </a>
+                    </li>
+                  }
+                </ul>
+              </div>
+            </div>
+          }
+          <div>
+            <button class="btn btn-primary" [disabled]="blocked || !hasTime() || !hasData()" (click)="accept()">Import
+              timeseries
+            </button>
+          </div>
         </div>
-
-      </div>
-
-      <!--
-      <hr>
-      <bd2-simple-add-data-form (onAccepted)="setColumnType($event)" [lastCol]="lastCol"></bd2-simple-add-data-form>
-      -->
-
-      <hr>
-
-      <h4>Data table
-        <small>(only top rows)</small>
-      </h4>
-      <p>Click on column headers for description options</p>
-
-      <!--<div style="width: 100%;">-->
-      <div style="overflow-x: auto;">
-        <table class="table table-bordered excel-table"
-               role="grid" style="width: auto;">
-
-          <thead>
-          <tr role="row">
-            <th></th>
-            <th *ngFor="let colIx of visibleColIx"
-                (mousedown)="thSelectStart(colIx)"
-                (mouseup)="thSelectEnd(colIx)"
-
-            >
-              {{dataModel.th[colIx]}}
-            </th>
-          </tr>
-          </thead>
-          <tbody>
-          <tr *ngFor="let row of dataModel.specialRows; let rowIx = index">
-            <td class="rowh">{{dataModel.specialRowsLabels[rowIx]}}</td>
-            <td *ngFor="let colIx of visibleColIx"
-                [style.background-color]="bgColors[colIx] ? bgColors[colIx]:'inherited'"
-            >{{row[colIx]}}
-            </td>
-          </tr>
-
-          <tr *ngFor="let row of dataModel.rows; let rowIx = index">
-            <td class="rowh">{{dataModel.rowsLabels[rowIx]}}</td>
-            <td *ngFor="let colIx of visibleColIx"
-                [style.background-color]="bgColors[colIx] ? bgColors[colIx]:'inherited'"
-            >{{row[colIx]}}
-            </td>
-          </tr>
-          </tbody>
-        </table>
-      </div>
-
-    </div>
-  `,
+        <!--
+        <hr>
+          <bd2-simple-add-data-form (onAccepted)="setColumnType($event)" [lastCol]="lastCol"></bd2-simple-add-data-form>
+          -->
+          <hr>
+            <h4>Data table
+              <small>(only top rows)</small>
+            </h4>
+            <p>Click on column headers for description options</p>
+            <!--<div style="width: 100%;">-->
+            <div style="overflow-x: auto;">
+              <table class="table table-bordered excel-table"
+                role="grid" style="width: auto;">
+                <thead>
+                  <tr role="row">
+                    <th></th>
+                    @for (colIx of visibleColIx; track colIx) {
+                      <th
+                        (mousedown)="thSelectStart(colIx)"
+                        (mouseup)="thSelectEnd(colIx)"
+                        >
+                        {{dataModel.th[colIx]}}
+                      </th>
+                    }
+                  </tr>
+                </thead>
+                <tbody>
+                  @for (row of dataModel.specialRows; track row; let rowIx = $index) {
+                    <tr>
+                      <td class="rowh">{{dataModel.specialRowsLabels[rowIx]}}</td>
+                      @for (colIx of visibleColIx; track colIx) {
+                        <td
+                          [style.background-color]="bgColors[colIx] ? bgColors[colIx]:'inherited'"
+                          >{{row[colIx]}}
+                        </td>
+                      }
+                    </tr>
+                  }
+                  @for (row of dataModel.rows; track row; let rowIx = $index) {
+                    <tr>
+                      <td class="rowh">{{dataModel.rowsLabels[rowIx]}}</td>
+                      @for (colIx of visibleColIx; track colIx) {
+                        <td
+                          [style.background-color]="bgColors[colIx] ? bgColors[colIx]:'inherited'"
+                          >{{row[colIx]}}
+                        </td>
+                      }
+                    </tr>
+                  }
+                </tbody>
+              </table>
+            </div>
+          </div>
+        }
+    `,
     standalone: false
 })
 export class DescribeTopcountTableComponent {

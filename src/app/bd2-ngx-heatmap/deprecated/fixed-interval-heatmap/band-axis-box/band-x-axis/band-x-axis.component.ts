@@ -9,9 +9,11 @@ import {Tick} from '../../../../bd2-heatmap.dom';
     template: `
     <svg:g class="bd2hm-x-axis" [attr.transform]="axisTransform" >
       <svg:line x1="0" y1="0" y2="0" [attr.x2]="x2"></svg:line>
-      <svg:g *ngFor="let tick of ticks; trackBy: trackByIndex" bd2hm-vtick-mark class="bd2hm-tickMark" [tick]="tick"></svg:g>
-    </svg:g>
-  `,
+        @for (tick of ticks; track trackByIndex($index, tick)) {
+          <svg:g bd2hm-vtick-mark class="bd2hm-tickMark" [tick]="tick"></svg:g>
+          }
+          </svg:g>
+    `,
     styles: [],
     changeDetection: ChangeDetectionStrategy.OnPush,
     standalone: false

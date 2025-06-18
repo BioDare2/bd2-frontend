@@ -2,32 +2,32 @@
 
   <small>
     <div class="search-controls">
-    <div class="left-controls">
-    <div [formGroup]="sortOptionsF" class="float-left">
+      <div class="left-controls">
+        <div [formGroup]="sortOptionsF" class="float-left">
 
-      <!-- was not working after angular material update
-      <bd2-sort-switch formControlName="direction" class="mr-1"></bd2-sort-switch>
-      -->
+          <!-- was not working after angular material update
+          <bd2-sort-switch formControlName="direction" class="mr-1"></bd2-sort-switch>
+          -->
 
-      <button mat-mini-fab aria-label="sort direction"  (click)="changeDirection()" class="mr-1" style="vertical-align: bottom;">
-        <mat-icon [class]="sortOrderClass">sort</mat-icon>
-      </button>
-      <mat-button-toggle-group name="sorting" aria-label="sorting" class="mr-4" formControlName="sorting" >
-        <mat-button-toggle value="id">Id</mat-button-toggle>
-        <mat-button-toggle value="name">Title</mat-button-toggle>
-        <mat-button-toggle value="author">Author</mat-button-toggle>
-        <mat-button-toggle value="executed">Exec.</mat-button-toggle>
-        <mat-button-toggle value="modified">Mod.</mat-button-toggle>
-      </mat-button-toggle-group>
+          <button mat-mini-fab aria-label="sort direction"  (click)="changeDirection()" class="mr-1" style="vertical-align: bottom;">
+            <mat-icon [class]="sortOrderClass">sort</mat-icon>
+          </button>
+          <mat-button-toggle-group name="sorting" aria-label="sorting" class="mr-4" formControlName="sorting" >
+            <mat-button-toggle value="id">Id</mat-button-toggle>
+            <mat-button-toggle value="name">Title</mat-button-toggle>
+            <mat-button-toggle value="author">Author</mat-button-toggle>
+            <mat-button-toggle value="executed">Exec.</mat-button-toggle>
+            <mat-button-toggle value="modified">Mod.</mat-button-toggle>
+          </mat-button-toggle-group>
 
           <!--<mat-button-toggle value="rank"><i class="material-icons">cancel</i></mat-button-toggle>-->
 
           <!--
-        <mat-button-toggle-group name="direction" aria-label="direction" class="mr-2" >
-          <mat-button-toggle value="asc"><i class="material-icons">arrow_downward</i></mat-button-toggle>
-          <mat-button-toggle value="desc"><i class="material-icons">arrow_upward</i></mat-button-toggle>
-        </mat-button-toggle-group>
-        -->
+          <mat-button-toggle-group name="direction" aria-label="direction" class="mr-2" >
+            <mat-button-toggle value="asc"><i class="material-icons">arrow_downward</i></mat-button-toggle>
+            <mat-button-toggle value="desc"><i class="material-icons">arrow_upward</i></mat-button-toggle>
+          </mat-button-toggle-group>
+          -->
 
 
         </div>
@@ -42,7 +42,7 @@
           <mat-icon>search</mat-icon>
         </button>
         <button mat-mini-fab color="primary" aria-label="all" (click)="all()"
-          style="vertical-align: bottom;">all</button>
+        style="vertical-align: bottom;">all</button>
       </div>
     </div>
 
@@ -51,51 +51,50 @@
         <button class="btn btn-primary">Advanced search options</button>
       </div>
       <div class="advanced-search-fields">
-        <div *ngIf="advancedSearch">
-          <mat-form-field class="mt-2 search-field">
-            <mat-label>Species</mat-label>
-            <mat-select [formControl]="speciesF">
-              <mat-option *ngFor="let species of knownSpecies" [value]="species">{{species}}</mat-option>
-            </mat-select>
-          </mat-form-field>
-
-          <mat-form-field class = "search-field">
-            <mat-label>Data Category</mat-label>
-            <mat-select [formControl]="dataCategoryF">
-              <mat-option *ngFor="let category of knownDataCategories" [value]="category.shortName">
-                {{ category.longName }}
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
-
-          <input class="form-control-sm mr-1 search-field" name="author-search" [formControl]="authorF" minlength="3"
-          placeholder="Author name" (keydown.enter)="find()">
-
-          <br/>
-
-          <mat-form-field class="search-field">
-            <mat-label>From (creation date)</mat-label>
-            <input matInput [matDatepicker]="fromPicker" [formControl]="executedFromF" placeholder="">
-            <mat-datepicker-toggle matSuffix [for]="fromPicker"></mat-datepicker-toggle>
-            <mat-datepicker #fromPicker></mat-datepicker>
-          </mat-form-field>
-
-          <mat-form-field class="search-field">
-            <mat-label>To (creation date)</mat-label>
-            <input matInput [matDatepicker]="toPicker" [formControl]="executedToF" placeholder="">
-            <mat-datepicker-toggle matSuffix [for]="toPicker"></mat-datepicker-toggle>
-            <mat-datepicker #toPicker></mat-datepicker>
-          </mat-form-field>
-
-          <!-- <button mat-mini-fab aria-label="Clear dates"
-                  class="ml-2 mb-2" (click)="resetDateFilters()">
+        @if (advancedSearch) {
+          <div>
+            <mat-form-field class="mt-2 search-field">
+              <mat-label>Species</mat-label>
+              <mat-select [formControl]="speciesF">
+                @for (species of knownSpecies; track species) {
+                  <mat-option [value]="species">{{species}}</mat-option>
+                }
+              </mat-select>
+            </mat-form-field>
+            <mat-form-field class = "search-field">
+              <mat-label>Data Category</mat-label>
+              <mat-select [formControl]="dataCategoryF">
+                @for (category of knownDataCategories; track category) {
+                  <mat-option [value]="category.shortName">
+                    {{ category.longName }}
+                  </mat-option>
+                }
+              </mat-select>
+            </mat-form-field>
+            <input class="form-control-sm mr-1 search-field" name="author-search" [formControl]="authorF" minlength="3"
+              placeholder="Author name" (keydown.enter)="find()">
+            <br/>
+            <mat-form-field class="search-field">
+              <mat-label>From (creation date)</mat-label>
+              <input matInput [matDatepicker]="fromPicker" [formControl]="executedFromF" placeholder="">
+              <mat-datepicker-toggle matSuffix [for]="fromPicker"></mat-datepicker-toggle>
+              <mat-datepicker #fromPicker></mat-datepicker>
+            </mat-form-field>
+            <mat-form-field class="search-field">
+              <mat-label>To (creation date)</mat-label>
+              <input matInput [matDatepicker]="toPicker" [formControl]="executedToF" placeholder="">
+              <mat-datepicker-toggle matSuffix [for]="toPicker"></mat-datepicker-toggle>
+              <mat-datepicker #toPicker></mat-datepicker>
+            </mat-form-field>
+            <!-- <button mat-mini-fab aria-label="Clear dates"
+            class="ml-2 mb-2" (click)="resetDateFilters()">
             <mat-icon>close</mat-icon>
           </button> -->
-
         </div>
-      </div>
+      }
     </div>
-  </small>
+  </div>
+</small>
 
 <div class="clearfix"></div>
 

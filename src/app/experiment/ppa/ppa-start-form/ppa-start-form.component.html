@@ -1,23 +1,28 @@
-<div *ngIf="assay">
-
-  <h3>Start period analysis</h3>
-  <hr>
-  <div *ngIf="!disabled">
-    <bd2-ppajob-params-rform (displayParams)="emitDisplayParams($event)"
-                             (ppaRequests)="doAnalysis($event)"
-                             [disabled]="blocked" [currentPage]="currentPage" [totalTraces]="totalTraces">
-
-    </bd2-ppajob-params-rform>
-
+@if (assay) {
+  <div>
+    <h3>Start period analysis</h3>
     <hr>
-    <bd2-ts-plots *ngIf="timeseries"
-                  [data]="timeseries"
-                  [tracesPerPlot]="tracesPerPlot"
-    ></bd2-ts-plots>
-  </div>
-  <div *ngIf="disabled" type="danger" class="alert alert-danger" role="alert">
-    Please complete <a (click)="goToExpEdit(assay.id,'MeasurementSection')">Measurement details</a> before starting a
-    new analysis
-  </div>
-</div>
+      @if (!disabled) {
+        <div>
+          <bd2-ppajob-params-rform (displayParams)="emitDisplayParams($event)"
+            (ppaRequests)="doAnalysis($event)"
+            [disabled]="blocked" [currentPage]="currentPage" [totalTraces]="totalTraces">
+          </bd2-ppajob-params-rform>
+          <hr>
+            @if (timeseries) {
+              <bd2-ts-plots
+                [data]="timeseries"
+                [tracesPerPlot]="tracesPerPlot"
+              ></bd2-ts-plots>
+            }
+          </div>
+        }
+        @if (disabled) {
+          <div type="danger" class="alert alert-danger" role="alert">
+            Please complete <a (click)="goToExpEdit(assay.id,'MeasurementSection')">Measurement details</a> before starting a
+            new analysis
+          </div>
+        }
+      </div>
+    }
 

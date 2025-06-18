@@ -8,36 +8,41 @@ import {environment} from '../../../environments/environment';
     template: `
     <div>
       <h3>Forgotten password</h3>
-
-      <div *ngIf="msg" class="alert alert-success">{{msg}}
-      </div>
-      <div *ngIf="errMsg" class="alert alert-danger">{{errMsg}}
-      </div>
-
-      <form *ngIf="!requested" #reminderForm="ngForm">
-
-        <div class="form-group">
-          <label for="identifier">Login or email</label>
-          <input type="text" class="form-control" required
-                 id="identifier"
-                 [(ngModel)]="identifier"
-                 name="identifier"
-          >
+    
+      @if (msg) {
+        <div class="alert alert-success">{{msg}}
         </div>
-        <div class="form-group">
-          <bd2-recaptcha #recaptcha [site_key]="captchaSiteKey"
-                         (captchaResponse)="captcha($event)"
-                         (captchaExpired)="captchaExpired()"
-          ></bd2-recaptcha>
-          <div [hidden]="!missingCaptcha" class="alert alert-danger">
-            Captcha selection is needed
+      }
+      @if (errMsg) {
+        <div class="alert alert-danger">{{errMsg}}
+        </div>
+      }
+    
+      @if (!requested) {
+        <form #reminderForm="ngForm">
+          <div class="form-group">
+            <label for="identifier">Login or email</label>
+            <input type="text" class="form-control" required
+              id="identifier"
+              [(ngModel)]="identifier"
+              name="identifier"
+              >
           </div>
-        </div>
-        <button type="submit" class="btn btn-primary" [disabled]="!reminderForm.valid" (click)="request()">Send
-        </button>
-      </form>
+          <div class="form-group">
+            <bd2-recaptcha #recaptcha [site_key]="captchaSiteKey"
+              (captchaResponse)="captcha($event)"
+              (captchaExpired)="captchaExpired()"
+            ></bd2-recaptcha>
+            <div [hidden]="!missingCaptcha" class="alert alert-danger">
+              Captcha selection is needed
+            </div>
+          </div>
+          <button type="submit" class="btn btn-primary" [disabled]="!reminderForm.valid" (click)="request()">Send
+          </button>
+        </form>
+      }
     </div>
-  `,
+    `,
     styles: [],
     standalone: false
 })

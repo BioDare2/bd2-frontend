@@ -1,27 +1,41 @@
 <mat-card appearance="outlined" class="mat-elevation-z4">
-    <p>{{importDetails?.importFormat?.label}}: <strong>{{importDetails?.fileName}}</strong></p>
+  <p>{{importDetails?.importFormat?.label}}: <strong>{{importDetails?.fileName}}</strong></p>
 
-    <p><label>Time series in {{importDetails?.inLabel+'s'}}</label></p>
+  <p><label>Time series in {{importDetails?.inLabel+'s'}}</label></p>
 
-    <p *ngIf="showTime && firstTimeCell"><label>First time point:</label>
-        <strong>{{firstTimeCell.value}} {{importDetails.timeType?.unit}}
-          [{{firstTimeCell.colName+':'+firstTimeCell.rowName}}]</strong>
-        <span *ngIf="importDetails.timeType?.name === 'IMG_NUMBER'"> <label>Images every</label> {{importDetails.imgInterval}}h </span>
-        <span *ngIf="importDetails.timeOffset != 0"> <label>Time offset</label> {{importDetails.timeOffset}}h </span>
-    </p>
+  @if (showTime && firstTimeCell) {
+    <p><label>First time point:</label>
+    <strong>{{firstTimeCell.value}} {{importDetails.timeType?.unit}}
+    [{{firstTimeCell.colName+':'+firstTimeCell.rowName}}]</strong>
+    @if (importDetails.timeType?.name === 'IMG_NUMBER') {
+      <span> <label>Images every</label> {{importDetails.imgInterval}}h </span>
+    }
+    @if (importDetails.timeOffset != 0) {
+      <span> <label>Time offset</label> {{importDetails.timeOffset}}h </span>
+    }
+  </p>
+}
 
-    <p *ngIf="showLabelling && importDetails.importLabels && labelsSelection">
-      Labels in {{importDetails.inLabelNeg}}
-        <strong>{{importDetails.inRows ? labelsSelection.colName : labelsSelection.rowName}};</strong>
-    </p>
-    <p *ngIf="showLabelling && !importDetails.importLabels">
-      <label>Selected Labels:</label> {{importDetails.summarizeLabels()}}
-    </p>
-    <p *ngIf="showDataStart && importDetails.importLabels && dataStart">
-      Data starts in {{importDetails.inLabel}}
-      <strong>{{importDetails.inRows ? dataStart.rowName : dataStart.colName}};</strong>
-    </p>
-    <p *ngIf="showLabelling && importDetails.containsBackgrounds && importDetails.backgroundsLabels">
-      Background noise as: {{importDetails.backgroundsLabels.join(", ")}}
-    </p>
+@if (showLabelling && importDetails.importLabels && labelsSelection) {
+  <p>
+    Labels in {{importDetails.inLabelNeg}}
+    <strong>{{importDetails.inRows ? labelsSelection.colName : labelsSelection.rowName}};</strong>
+  </p>
+}
+@if (showLabelling && !importDetails.importLabels) {
+  <p>
+    <label>Selected Labels:</label> {{importDetails.summarizeLabels()}}
+  </p>
+}
+@if (showDataStart && importDetails.importLabels && dataStart) {
+  <p>
+    Data starts in {{importDetails.inLabel}}
+    <strong>{{importDetails.inRows ? dataStart.rowName : dataStart.colName}};</strong>
+  </p>
+}
+@if (showLabelling && importDetails.containsBackgrounds && importDetails.backgroundsLabels) {
+  <p>
+    Background noise as: {{importDetails.backgroundsLabels.join(", ")}}
+  </p>
+}
 </mat-card>

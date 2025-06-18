@@ -1,73 +1,74 @@
-<div *ngIf="rhythmicityJobDatasource.allJob$ | async as job" class="card mb-2">
-  <div class="card-header clearfix">
-    <div (click)="toggleExpanded()" role="button" class="float-left">
-      <i class="material-icons bd-icon" [style.color]="isExpanded ? 'green' : 'red'" [style.font-size.%]="150">waves</i>
-      <!--<span class="glyphicon glyphicon-sort-by-attributes" aria-hidden="true"></span>-->
-      &nbsp;{{shortUUID(job.jobId)}} ({{toLocalDateTime(job.jobStatus.submitted) | date}}) <br>
-      {{friendlyMethod(job.parameters.METHOD)}}; &nbsp; waveforms: {{job.parameters.PRESET}}
-    </div>
-    <div class="float-right">
-      {{job.jobStatus.state}}
-      <a (click)="refresh()" role="button" aria-label="refresh">
-        <i class="material-icons bd-icon bd-primary">refresh</i>
-        <!--<span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>-->
-      </a>
-    </div>
-
-  </div>
-  <div class="card-body">
-    <mat-card appearance="outlined">
-      <mat-card-content>
-
-      <div class="clearfix">
-
-      <div *ngIf="assay.security.canWrite" class="float-right">
-        <button type="button" class="btn btn-danger btn-sm mr-1" (click)="delete()">
-          <i class="material-icons bd-icon">delete_forever</i>
-        </button>
-        <button type="button" class="btn btn-primary btn-sm" (click)="export()">
-          <i class="material-icons bd-icon">save_alt</i>
-        </button>
+@if (rhythmicityJobDatasource.allJob$ | async; as job) {
+  <div class="card mb-2">
+    <div class="card-header clearfix">
+      <div (click)="toggleExpanded()" role="button" class="float-left">
+        <i class="material-icons bd-icon" [style.color]="isExpanded ? 'green' : 'red'" [style.font-size.%]="150">waves</i>
+        <!--<span class="glyphicon glyphicon-sort-by-attributes" aria-hidden="true"></span>-->
+        &nbsp;{{shortUUID(job.jobId)}} ({{toLocalDateTime(job.jobStatus.submitted) | date}}) <br>
+        {{friendlyMethod(job.parameters.METHOD)}}; &nbsp; waveforms: {{job.parameters.PRESET}}
       </div>
-
-      {{job.parameters.PARAMS_SUMMARY}}
-      <div *ngIf="job.jobStatus.message && job.jobStatus.message != 'OK'" class="text-danger" style="word-wrap: break-word;"><br>ERROR:
-        {{job.jobStatus.message}}
+      <div class="float-right">
+        {{job.jobStatus.state}}
+        <a (click)="refresh()" role="button" aria-label="refresh">
+          <i class="material-icons bd-icon bd-primary">refresh</i>
+          <!--<span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>-->
+        </a>
       </div>
     </div>
-      </mat-card-content>
-    </mat-card>
-
-    <div *ngIf="isExpanded">
-      <mat-divider></mat-divider>
-          <div *ngIf="rhythmicityJobDatasource.isReloading$ | async">
-            <mat-card appearance="outlined">
-              <mat-card-content>
-            <mat-spinner class="center-block"></mat-spinner>
-            <!--<div style="margin-top: 0.5em; text-align: center" >It may take up to 10 minutes to test for rhythmicity</div>-->
-              </mat-card-content>
-            </mat-card>
+    <div class="card-body">
+      <mat-card appearance="outlined">
+        <mat-card-content>
+          <div class="clearfix">
+            @if (assay.security.canWrite) {
+              <div class="float-right">
+                <button type="button" class="btn btn-danger btn-sm mr-1" (click)="delete()">
+                  <i class="material-icons bd-icon">delete_forever</i>
+                </button>
+                <button type="button" class="btn btn-primary btn-sm" (click)="export()">
+                  <i class="material-icons bd-icon">save_alt</i>
+                </button>
+              </div>
+            }
+            {{job.parameters.PARAMS_SUMMARY}}
+            @if (job.jobStatus.message && job.jobStatus.message != 'OK') {
+              <div class="text-danger" style="word-wrap: break-word;"><br>ERROR:
+                {{job.jobStatus.message}}
+              </div>
+            }
           </div>
-          <div *ngIf="job.jobStatus.state === 'SUBMITTED'">
-            <mat-card appearance="outlined">
-              <mat-card-content>
-                <div style="margin-top: 0.5em; text-align: center" >It may take up to 10 minutes to test for rhythmicity</div>
-              </mat-card-content>
-            </mat-card>
-          </div>
-
-          <ng-container *ngIf="rhythmicityJobDatasource.finishedJob$ | async as finishedJob">
-
+        </mat-card-content>
+      </mat-card>
+      @if (isExpanded) {
+        <div>
+          <mat-divider></mat-divider>
+          @if (rhythmicityJobDatasource.isReloading$ | async) {
+            <div>
+              <mat-card appearance="outlined">
+                <mat-card-content>
+                  <mat-spinner class="center-block"></mat-spinner>
+                  <!--<div style="margin-top: 0.5em; text-align: center" >It may take up to 10 minutes to test for rhythmicity</div>-->
+                </mat-card-content>
+              </mat-card>
+            </div>
+          }
+          @if (job.jobStatus.state === 'SUBMITTED') {
+            <div>
+              <mat-card appearance="outlined">
+                <mat-card-content>
+                  <div style="margin-top: 0.5em; text-align: center" >It may take up to 10 minutes to test for rhythmicity</div>
+                </mat-card-content>
+              </mat-card>
+            </div>
+          }
+          @if (rhythmicityJobDatasource.finishedJob$ | async; as finishedJob) {
             <bd2-stat-test-options-widget (options)="statTestOptions($event)">
             </bd2-stat-test-options-widget>
-
-
             <bd2-rhythmicity-results-mdtable
-            [statTestParams]="statTestParams"
+              [statTestParams]="statTestParams"
             [job]="finishedJob"></bd2-rhythmicity-results-mdtable>
-          </ng-container>
-
-
+          }
+        </div>
+      }
     </div>
   </div>
-</div>
+}

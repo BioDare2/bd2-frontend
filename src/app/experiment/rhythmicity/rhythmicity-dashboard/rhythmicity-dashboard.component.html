@@ -1,52 +1,47 @@
-<div *ngIf="assay">
-
-  <h3>Rhythmicity tests</h3>
-  <hr>
-
-
-  <div class="card">
-    <div class="card-header">
-      <div *ngIf="jobs && jobs.length > 0">
-        <strong>Submitted jobs: {{jobs.length}}</strong>
-        <!--<span [hidden]="!queuing"><br>{{queuing}} jobs queuing</span>-->
-      </div>
-      <div *ngIf="!jobs || jobs.length == 0">
-        No jobs submitted, start a new test.
+@if (assay) {
+  <div>
+    <h3>Rhythmicity tests</h3>
+    <hr>
+      <div class="card">
+        <div class="card-header">
+          @if (jobs && jobs.length > 0) {
+            <div>
+              <strong>Submitted jobs: {{jobs.length}}</strong>
+              <!--<span [hidden]="!queuing"><br>{{queuing}} jobs queuing</span>-->
+            </div>
+          }
+          @if (!jobs || jobs.length == 0) {
+            <div>
+              No jobs submitted, start a new test.
+            </div>
+          }
+        </div>
+        <div class="card-body">
+          @if (assay.security.canWrite) {
+            <a [routerLink]="['new']" class="btn btn-primary mr-1">
+              New test
+            </a>
+          }
+          <button (click)="refresh()" [disabled]="blocked" class="btn btn-outline-secondary" type="button">Refresh
+          </button>
+          <!--<div *ngIf="jobsIds?.length" class="pull-right">
+          <a class="btn btn-outline-secondary" download href="{{exportURL}}" role="button">Download all</a>
+        </div>-->
       </div>
     </div>
-    <div class="card-body">
-
-      <a *ngIf="assay.security.canWrite" [routerLink]="['new']" class="btn btn-primary mr-1">
-        New test
-      </a>
-
-      <button (click)="refresh()" [disabled]="blocked" class="btn btn-outline-secondary" type="button">Refresh
-      </button>
-
-
-      <!--<div *ngIf="jobsIds?.length" class="pull-right">
-        <a class="btn btn-outline-secondary" download href="{{exportURL}}" role="button">Download all</a>
-      </div>-->
-
-    </div>
-  </div>
-
-  <hr>
-
-
-  <div *ngFor="let jobId of jobsIds; let i=index">
-    <bd2-rhythmicity-job-pane (deleted)="remove($event)" [assay]="assay"
-                              [jobId]="jobId"
-                              [expanded]="expandAll || i == 0"
-
-    >
-    </bd2-rhythmicity-job-pane>
-    <!--[confirmDialog]="confirmDialog"
-    [exportDialog]="exportDialog"
-    [fitDialog]="fitDialog"-->
-  </div>
-
-
-  <hr>
-
-</div>
+    <hr>
+      @for (jobId of jobsIds; track jobId; let i = $index) {
+        <div>
+          <bd2-rhythmicity-job-pane (deleted)="remove($event)" [assay]="assay"
+            [jobId]="jobId"
+            [expanded]="expandAll || i == 0"
+            >
+          </bd2-rhythmicity-job-pane>
+          <!--[confirmDialog]="confirmDialog"
+          [exportDialog]="exportDialog"
+          [fitDialog]="fitDialog"-->
+        </div>
+      }
+      <hr>
+      </div>
+    }

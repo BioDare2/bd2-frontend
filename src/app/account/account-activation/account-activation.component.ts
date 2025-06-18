@@ -5,8 +5,10 @@ import {FeedbackService} from '../../feedback/feedback.service';
 
 @Component({
     template: `
-    <div *ngIf="!token" class="alert alert-danger danger">Use the activation link that was sent in the email</div>
-  `,
+    @if (!token) {
+      <div class="alert alert-danger danger">Use the activation link that was sent in the email</div>
+    }
+    `,
     styles: [],
     standalone: false
 })

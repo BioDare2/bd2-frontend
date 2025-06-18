@@ -7,7 +7,8 @@ import {FeedbackService} from '../../feedback/feedback.service';
     selector: 'bd2-file-asset-form',
     template: `
 
-  <div *ngIf="file">
+@if (file) {
+  <div>
     <form>
       <div class="form-group">
         <label for="fFile">File</label>
@@ -15,18 +16,19 @@ import {FeedbackService} from '../../feedback/feedback.service';
         <p>Leave empty when changing description only</p>
       </div>
       <div class="form-group">
-          <label for="fDescription">Description</label>
-          <textarea type="text" class="form-control" rows="2"
-                 id ="fDescription"
-                 placeholder="Describe content of the file"
-                 [(ngModel)]="description"
-                 name="fDescription"  #fDescription="ngModel" >
-           </textarea>
+        <label for="fDescription">Description</label>
+        <textarea type="text" class="form-control" rows="2"
+          id ="fDescription"
+          placeholder="Describe content of the file"
+          [(ngModel)]="description"
+          name="fDescription"  #fDescription="ngModel" >
+        </textarea>
       </div>
       <button type="button" class="btn btn-primary btn-sm" [disabled]="blocked" (click)="save(fFile)">Save</button>
       <button type="button" class="btn btn-sm" (click)="cancel()">Cancel</button>
     </form>
   </div>
+}
 `,
     standalone: false
 })

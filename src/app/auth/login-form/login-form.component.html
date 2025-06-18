@@ -1,50 +1,49 @@
 <div>
 
 
-  <div *ngIf="!isLoggedIn()">
-    <h2>Sign in to BioDare2</h2>
-
-    <form #loginForm="ngForm">
-      <div class="form-group">
-        <label for="username">Login</label>
-        <input [(ngModel)]="username" class="form-control" id="username"
-               name="usernameF"
-               placeholder="Your login"
-               required
-               type="text">
+  @if (!isLoggedIn()) {
+    <div>
+      <h2>Sign in to BioDare2</h2>
+      <form #loginForm="ngForm">
+        <div class="form-group">
+          <label for="username">Login</label>
+          <input [(ngModel)]="username" class="form-control" id="username"
+            name="usernameF"
+            placeholder="Your login"
+            required
+            type="text">
+        </div>
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input [(ngModel)]="password" class="form-control" id="password"
+            name="passwordF"
+            placeholder="Your password"
+            required
+            type="password">
+        </div>
+        <div class="form-group">
+          <button (click)="login()" [disabled]="!loginForm.form.valid || loginForm.form.pristine"
+            class="btn btn-primary" type="button">Sign in
+          </button>
+          <!--<button type="button" class="btn btn-default" (click)="goBack()">Go back</button>-->
+          <div class="float-right">
+            <a routerLink="/account/remind">Forgotten password?</a></div>
+          </div>
+        </form>
       </div>
+    }
 
-      <div class="form-group">
-        <label for="password">Password</label>
-        <input [(ngModel)]="password" class="form-control" id="password"
-               name="passwordF"
-               placeholder="Your password"
-               required
-               type="password">
-      </div>
-
-      <div class="form-group">
-        <button (click)="login()" [disabled]="!loginForm.form.valid || loginForm.form.pristine"
-                class="btn btn-primary" type="button">Sign in
-        </button>
+    @if (isLoggedIn()) {
+      <div>
+        <h2>You are logged in to BioDare2</h2>
+        <h3 style="margin-bottom: 2em;">Current user: <strong>{{currentUser?.name}}</strong>
+      </h3>
+      <form>
+        <button (click)="logout()" class="btn btn-primary" type="button">Logout</button>
         <!--<button type="button" class="btn btn-default" (click)="goBack()">Go back</button>-->
-        <div class="float-right">
-          <a routerLink="/account/remind">Forgotten password?</a></div>
-      </div>
-    </form>
-  </div>
-
-  <div *ngIf="isLoggedIn()">
-
-    <h2>You are logged in to BioDare2</h2>
-    <h3 style="margin-bottom: 2em;">Current user: <strong>{{currentUser?.name}}</strong>
-    </h3>
-
-    <form>
-      <button (click)="logout()" class="btn btn-primary" type="button">Logout</button>
-      <!--<button type="button" class="btn btn-default" (click)="goBack()">Go back</button>-->
-    </form>
-  </div>
+      </form>
+    </div>
+  }
 
 
 </div>

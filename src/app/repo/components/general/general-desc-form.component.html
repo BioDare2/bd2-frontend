@@ -1,93 +1,89 @@
-<div *ngIf="model">
-  <form #gDescForm="ngForm">
-    <div class="form-group">
-      <mat-form-field class="w-100">
-        <mat-label for="gName">Name</mat-label>
-        <input matInput #gName="ngModel" [(ngModel)]="model.name" class=""
-               id="gName"
-               maxlength="100"
-               minlength="6"
-               name="gName"
-               placeholder="e.g. Testing robustness in low light (E12)"
-               required type="text">
-        <mat-hint >Good name hints the data content</mat-hint>
-        <mat-error >Descriptive name is required</mat-error>
-      </mat-form-field>
-      <!--<div [hidden]="gName.valid " class="alert alert-danger">
+@if (model) {
+  <div>
+    <form #gDescForm="ngForm">
+      <div class="form-group">
+        <mat-form-field class="w-100">
+          <mat-label for="gName">Name</mat-label>
+          <input matInput #gName="ngModel" [(ngModel)]="model.name" class=""
+            id="gName"
+            maxlength="100"
+            minlength="6"
+            name="gName"
+            placeholder="e.g. Testing robustness in low light (E12)"
+            required type="text">
+          <mat-hint >Good name hints the data content</mat-hint>
+          <mat-error >Descriptive name is required</mat-error>
+        </mat-form-field>
+        <!--<div [hidden]="gName.valid " class="alert alert-danger">
         Descriptive name is required
       </div>
       [style.color]="gName.invalid && !gName.pristine ? 'red' : ''"
       -->
     </div>
-
     <div class="form-group">
       <mat-form-field class="w-100">
         <mat-label for="gPurpose">Purpose/Hypothesis</mat-label>
         <textarea matInput #gPurpose="ngModel" (input)="checkPurpose()" [(ngModel)]="model.purpose" class=""
-                  id="gPurpose"
-                  minlength="55"
-                  name="gPurpose"
-                  placeholder=
-                    "Describe the main aim of the experiment. What you tried to achieve, test, verify, on what kind of samples."
-                  required
-                  rows="4" type="text">
-                   </textarea>
+          id="gPurpose"
+          minlength="55"
+          name="gPurpose"
+          placeholder=
+          "Describe the main aim of the experiment. What you tried to achieve, test, verify, on what kind of samples."
+          required
+          rows="4" type="text">
+        </textarea>
         <mat-hint [style.color]="!sufficientPurpose && !gPurpose.pristine ? 'red' : ''">Sensible description with more than few words is required</mat-hint>
         <!--<div [hidden]="gPurpose.valid && sufficientPurpose" class="alert alert-danger">
-          Sensible description with more than few words is required
-        </div>-->
-      </mat-form-field>
-    </div>
-
-    <div class="form-group">
-      <mat-form-field class="w-100">
+        Sensible description with more than few words is required
+      </div>-->
+    </mat-form-field>
+  </div>
+  <div class="form-group">
+    <mat-form-field class="w-100">
       <mat-label for="gDescription">Description</mat-label>
       <textarea matInput #gDescription="ngModel" [(ngModel)]="model.description" class=""
-                id="gDescription"
-                name="gDescription"
-                placeholder=
-                  "Describe how the experiment was conducted, what environmental conditions, sampling procedure.
-For example: seedlings were exposed to short day light regime (LD 6:18) at two temperatures 15 and 25. Samples where harvested every 4 hours for 3 days and the genes levels measured with RT PCR"
-                rows="5" type="text">
-                 </textarea>
+        id="gDescription"
+        name="gDescription"
+        placeholder=
+        "Describe how the experiment was conducted, what environmental conditions, sampling procedure.
+        For example: seedlings were exposed to short day light regime (LD 6:18) at two temperatures 15 and 25. Samples where harvested every 4 hours for 3 days and the genes levels measured with RT PCR"
+        rows="5" type="text">
+      </textarea>
       <!--<div [hidden]="gDescription.valid || gDescription.pristine" class="alert alert-danger">
-          Valid description is required
-      </div>-->
-      </mat-form-field>
-    </div>
-
-    <div class="form-group">
-      <mat-form-field class="w-100">
-      <mat-label for="gComments">Comments</mat-label>
-      <textarea  matInput #gComments="ngModel" [(ngModel)]="model.comments"
-                class=""
-                id="gComments"
-                name="gComments"
-                placeholder="Optional remarks, for example technical issues during the experiment, discrepancies/simplifications of in the following sections"
-                type="text">
-                </textarea>
-      <!--<div [hidden]="gComments.valid || gComments.pristine" class="alert alert-danger">
-          Valid comments are required
-      </div>-->
-      </mat-form-field>
-    </div>
-
-    <div class="form-group">
-      <mat-form-field>
-        <input matInput [matDatepicker]="picker" [(ngModel)]="executionDate"
-               name="executionDate" placeholder="Exp. execution date"
-               [max]="maxDate" [min]="minDate" required #gDate="ngModel">
-        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-        <mat-datepicker #picker ></mat-datepicker>
-        <mat-error>Date is required and cannot be much in the future</mat-error>
-      </mat-form-field>
-      <br>
-    </div>
-
-    <button (click)="save()" [disabled]="blocked || !gDescForm.form.valid || !sufficientPurpose" class="btn btn-primary mr-1"
-            type="button">{{okLabel}}</button>
-    <button (click)="cancel()" class="btn btn-outline-secondary" type="button">Cancel</button>
-
-    <!--{{model | json }} -->
-  </form>
+      Valid description is required
+    </div>-->
+  </mat-form-field>
 </div>
+<div class="form-group">
+  <mat-form-field class="w-100">
+    <mat-label for="gComments">Comments</mat-label>
+    <textarea  matInput #gComments="ngModel" [(ngModel)]="model.comments"
+      class=""
+      id="gComments"
+      name="gComments"
+      placeholder="Optional remarks, for example technical issues during the experiment, discrepancies/simplifications of in the following sections"
+      type="text">
+    </textarea>
+    <!--<div [hidden]="gComments.valid || gComments.pristine" class="alert alert-danger">
+    Valid comments are required
+  </div>-->
+</mat-form-field>
+</div>
+<div class="form-group">
+  <mat-form-field>
+    <input matInput [matDatepicker]="picker" [(ngModel)]="executionDate"
+      name="executionDate" placeholder="Exp. execution date"
+      [max]="maxDate" [min]="minDate" required #gDate="ngModel">
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker ></mat-datepicker>
+    <mat-error>Date is required and cannot be much in the future</mat-error>
+  </mat-form-field>
+  <br>
+  </div>
+  <button (click)="save()" [disabled]="blocked || !gDescForm.form.valid || !sufficientPurpose" class="btn btn-primary mr-1"
+  type="button">{{okLabel}}</button>
+  <button (click)="cancel()" class="btn btn-outline-secondary" type="button">Cancel</button>
+  <!--{{model | json }} -->
+</form>
+</div>
+}

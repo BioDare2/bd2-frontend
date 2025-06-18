@@ -1,51 +1,49 @@
-<div *ngIf="assay">
-  <h3>Data heatmap</h3>
-  <hr>
-
-
-  <bd2-heatmap-display-params-rform
-    (displayParams)="displayChanged($event)"
-    [disabled]="disabledSecondary"
-    [totalTraces]="totalTraces"
-    [currentPage]="currentPage"
-  ></bd2-heatmap-display-params-rform>
-
-  <mat-expansion-panel>
-    <mat-expansion-panel-header>
-      <mat-panel-title>
-        Sorting
-      </mat-panel-title>
-    </mat-expansion-panel-header>
-    <bd2-tssort-params-rform
-                             [ppaJobs]="analysis.ppaJobs$ | async"
-                             [rhythmJobs]="analysis.rhythmJobs$ | async"
-    >
-    </bd2-tssort-params-rform>
-  </mat-expansion-panel>
-  <hr>
-
-  <div class="clearfix">
-    <div *ngIf="timeseries" class="float-right">
-      <label class="mr-4">
-        <a download (click)="exportDataView()" role="button" class="btn btn-primary" aria-label="download" style="color: white;">
-          <i class="material-icons bd-icon">save_alt</i><span class="cdk-visually-hidden">Download</span></a>
-        current view
-      </label>
-      <label class="mr-4">
-        <a download (click)="exportFullData()" role="button" class="btn btn-primary" aria-label="download whole" style="color: white;">
-          <i class="material-icons bd-icon">save_alt</i><span class="cdk-visually-hidden">Download</span></a>
-        full
-      </label>
-
-    </div>
-  </div>
-  <hr>
-
-  <bd2-heatmap-plot *ngIf="timeseries" [traces]="timeseries" [middleZero]="middleZero"></bd2-heatmap-plot>
-
-  <!--
-  <p>Timeseries: </p>
-  <p>{{ timeseries | json }}</p>
-  -->
-
-</div>
+@if (assay) {
+  <div>
+    <h3>Data heatmap</h3>
+    <hr>
+      <bd2-heatmap-display-params-rform
+        (displayParams)="displayChanged($event)"
+        [disabled]="disabledSecondary"
+        [totalTraces]="totalTraces"
+        [currentPage]="currentPage"
+      ></bd2-heatmap-display-params-rform>
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Sorting
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <bd2-tssort-params-rform
+          [ppaJobs]="analysis.ppaJobs$ | async"
+          [rhythmJobs]="analysis.rhythmJobs$ | async"
+          >
+        </bd2-tssort-params-rform>
+      </mat-expansion-panel>
+      <hr>
+        <div class="clearfix">
+          @if (timeseries) {
+            <div class="float-right">
+              <label class="mr-4">
+                <a download (click)="exportDataView()" role="button" class="btn btn-primary" aria-label="download" style="color: white;">
+                  <i class="material-icons bd-icon">save_alt</i><span class="cdk-visually-hidden">Download</span></a>
+                  current view
+                </label>
+                <label class="mr-4">
+                  <a download (click)="exportFullData()" role="button" class="btn btn-primary" aria-label="download whole" style="color: white;">
+                    <i class="material-icons bd-icon">save_alt</i><span class="cdk-visually-hidden">Download</span></a>
+                    full
+                  </label>
+                </div>
+              }
+            </div>
+            <hr>
+              @if (timeseries) {
+                <bd2-heatmap-plot [traces]="timeseries" [middleZero]="middleZero"></bd2-heatmap-plot>
+              }
+              <!--
+              <p>Timeseries: </p>
+              <p>{{ timeseries | json }}</p>
+              -->
+            </div>
+          }

@@ -4,15 +4,19 @@ import {BoxSerie, GraphicContext} from '../../../bd2-heatmap.dom';
 @Component({
     selector: '[bd2hm-serie-row]',
     template: `
-    <svg:g *ngIf="graphic && serie" class="bd2hm-serie">
-      <svg:g *ngFor="let point of serie.data; trackBy: trackByIndex" bd2hm-data-point-box
-             [point]="point" [xScale]="graphic.xScale"
-             [yPosition]="yPosition"
-             [yHeight]="yHeight" [colorScale]="graphic.colorScale"
-             [label]="serie.label"
-      ></svg:g>
-    </svg:g>
-  `,
+    @if (graphic && serie) {
+      <svg:g class="bd2hm-serie">
+        @for (point of serie.data; track trackByIndex($index, point)) {
+          <svg:g bd2hm-data-point-box
+            [point]="point" [xScale]="graphic.xScale"
+            [yPosition]="yPosition"
+            [yHeight]="yHeight" [colorScale]="graphic.colorScale"
+            [label]="serie.label"
+            ></svg:g>
+          }
+          </svg:g>
+        }
+    `,
     styles: [],
     changeDetection: ChangeDetectionStrategy.OnPush,
     standalone: false

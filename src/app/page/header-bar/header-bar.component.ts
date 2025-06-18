@@ -8,22 +8,28 @@ import {BD2User} from '../../auth/user.dom';
     changeDetection: ChangeDetectionStrategy.OnPush, // manually handling to improve performance
     template: `
     <div class="header-bar">
-      <div *ngIf="isJumbo" class="jumbotron">
-        <div class="container">
-          <h1>BioDare2
-            <!--<small>beta</small>-->
-          </h1>
-          <p>Fast period analysis, timeseries processing and aesthetic visualizations</p>
-          <p><a *ngIf="!logged" routerLink="/account/register" class="btn btn-primary btn-lg" role="button">Register
-            &raquo;</a>
+      @if (isJumbo) {
+        <div class="jumbotron">
+          <div class="container">
+            <h1>BioDare2
+              <!--<small>beta</small>-->
+            </h1>
+            <p>Fast period analysis, timeseries processing and aesthetic visualizations</p>
+            <p>@if (!logged) {
+              <a routerLink="/account/register" class="btn btn-primary btn-lg" role="button">Register
+              &raquo;</a>
+            }
           </p>
         </div>
       </div>
-      <div *ngIf="!isJumbo" class="bd2-page-header">
+    }
+    @if (!isJumbo) {
+      <div class="bd2-page-header">
         <div class="container">&nbsp;</div>
       </div>
+    }
     </div>
-  `,
+    `,
     styles: [],
     standalone: false
 })

@@ -8,160 +8,172 @@
       <label class="col-sm-1" for="windowStart">from:</label>
       <div class="col-sm-2">
         <input class="form-control" formControlName="timeStart" id="windowStart" min="0" required
-               size="5"
-               step="any"
-               type="number"
-        >
-      </div>
-      <label class="col-sm-1" for="windowEnd">to:</label>
-      <div class="col-sm-2">
-        <input class="form-control" formControlName="timeEnd" id="windowEnd" min="0" placeholder=""
-               required
-               size="5"
-               step="any"
-               type="number"
-        >
-      </div>
-    </div>
+          size="5"
+          step="any"
+          type="number"
+          >
+        </div>
+        <label class="col-sm-1" for="windowEnd">to:</label>
+        <div class="col-sm-2">
+          <input class="form-control" formControlName="timeEnd" id="windowEnd" min="0" placeholder=""
+            required
+            size="5"
+            step="any"
+            type="number"
+            >
+          </div>
+        </div>
 
-    <div class="form-group row">
-      <label class="col-sm-4" for="detrending">Input Data <a (click)="dataHelp = !dataHelp">
-        <i class="material-icons bd-icon bd-primary">help</i>
-      </a></label>
+        <div class="form-group row">
+          <label class="col-sm-4" for="detrending">Input Data <a (click)="dataHelp = !dataHelp">
+            <i class="material-icons bd-icon bd-primary">help</i>
+          </a></label>
 
-      <div class="col-sm-6">
-        <select class="form-control" formControlName="detrending"
-                id="detrending"
-                required
-        >
-          <option *ngFor="let opt of detrendingOptions; let ix = index" [value]="opt.name">{{opt.label}}</option>
-        </select>
-
-      </div>
-
-    </div>
-  </div>
-  <div  *ngIf="dataHelp" class="col-sm-12">
-    <div class="alert alert-info" role="alert" type="info">
-      Rhythmicity tests are generally used for short, sparse timeseries. <br>
-      The current limit is 5 or 4 days of hourly sampled data for eJTK preset and BD2 preset respectivelly.<br>
-      Generally the raw data are being analysed, but we also enabled a linear detrended option.
-    </div>
-  </div>
-
-
-  <div class="form-group row">
-    <label class="col-sm-4" for="method">Test Method <a (click)="methodHelp = !methodHelp">
-      <i class="material-icons bd-icon bd-primary">help</i>
-    </a></label>
-
-    <div class="col-sm-6">
-      <select class="form-control" formControlName="method"
-              id="method"
+          <div class="col-sm-6">
+            <select class="form-control" formControlName="detrending"
+              id="detrending"
               required
-      >
-        <option *ngFor="let opt of methodOptions; let ix = index" [value]="opt.name">{{opt.label}}</option>
-      </select>
-    </div>
-  </div>
-  <div *ngIf="methodHelp"  class="col-sm-12">
-    <div class="alert alert-info" role="alert" type="info">
-      <p><b>Classic JTK</b> is the implementation of JTK_CYCLE from
-        <a href="https://dx.doi.org/10.1177%2F0748730410379711">Michael E. Hughes et al. 2010</a>
-        a standard method for detecting rhythmicity in genome-scale datasets.
-        <br>The method is fast but it is reliable only when it tests against small set of patterns, we provide patterns
-        of 24h cosines with different phases.</p>
-      <p><b>BD2 eJTK</b> is the BioDare2 implementation of Empirical JTK_CYCLE with asymmetry search
-      from <a href=" https://doi.org/10.1371/journal.pcbi.1004094" target="_blank">Alan L. Hutchison et al. 2015</a>.
-        It is similar to the classic JTK method but with p values empirically calculated against set of random noise data.
-      <br>This modification permits using larger sets of test patterns and it provides better accuracy.
-      However, this method is much slower so it can only analyze timeseries only up to 5 days of data (though the Classic
-      JTK method was never intended to be used with such a long data).</p>
-    </div>
-  </div>
+              >
+              @for (opt of detrendingOptions; track opt; let ix = $index) {
+                <option [value]="opt.name">{{opt.label}}</option>
+              }
+            </select>
+
+          </div>
+
+        </div>
+      </div>
+      @if (dataHelp) {
+        <div  class="col-sm-12">
+          <div class="alert alert-info" role="alert" type="info">
+            Rhythmicity tests are generally used for short, sparse timeseries. <br>
+            The current limit is 5 or 4 days of hourly sampled data for eJTK preset and BD2 preset respectivelly.<br>
+            Generally the raw data are being analysed, but we also enabled a linear detrended option.
+          </div>
+        </div>
+      }
 
 
-  <div class="form-group row">
-    <label class="col-sm-4" for="method">Analysis Presets <a (click)="presetsHelp = !presetsHelp">
-      <i class="material-icons bd-icon bd-primary">help</i>
-    </a></label>
+      <div class="form-group row">
+        <label class="col-sm-4" for="method">Test Method <a (click)="methodHelp = !methodHelp">
+          <i class="material-icons bd-icon bd-primary">help</i>
+        </a></label>
 
-    <div class="col-sm-6">
-      <select class="form-control" formControlName="preset"
-              id="preset"
+        <div class="col-sm-6">
+          <select class="form-control" formControlName="method"
+            id="method"
+            required
+            >
+            @for (opt of methodOptions; track opt; let ix = $index) {
+              <option [value]="opt.name">{{opt.label}}</option>
+            }
+          </select>
+        </div>
+      </div>
+      @if (methodHelp) {
+        <div  class="col-sm-12">
+          <div class="alert alert-info" role="alert" type="info">
+            <p><b>Classic JTK</b> is the implementation of JTK_CYCLE from
+            <a href="https://dx.doi.org/10.1177%2F0748730410379711">Michael E. Hughes et al. 2010</a>
+            a standard method for detecting rhythmicity in genome-scale datasets.
+            <br>The method is fast but it is reliable only when it tests against small set of patterns, we provide patterns
+            of 24h cosines with different phases.</p>
+            <p><b>BD2 eJTK</b> is the BioDare2 implementation of Empirical JTK_CYCLE with asymmetry search
+            from <a href=" https://doi.org/10.1371/journal.pcbi.1004094" target="_blank">Alan L. Hutchison et al. 2015</a>.
+            It is similar to the classic JTK method but with p values empirically calculated against set of random noise data.
+            <br>This modification permits using larger sets of test patterns and it provides better accuracy.
+              However, this method is much slower so it can only analyze timeseries only up to 5 days of data (though the Classic
+            JTK method was never intended to be used with such a long data).</p>
+          </div>
+        </div>
+      }
+
+
+      <div class="form-group row">
+        <label class="col-sm-4" for="method">Analysis Presets <a (click)="presetsHelp = !presetsHelp">
+          <i class="material-icons bd-icon bd-primary">help</i>
+        </a></label>
+
+        <div class="col-sm-6">
+          <select class="form-control" formControlName="preset"
+            id="preset"
+            required
+            >
+            @for (opt of presetOptions; track opt; let ix = $index) {
+              <option [value]="opt.name">{{opt.label}}</option>
+            }
+          </select>
+        </div>
+      </div>
+      @if (presetsHelp) {
+        <div class="col-sm-12">
+          <div class="alert alert-info" role="alert" type="info">
+            Presets determine set of pattern curves against the comparison test is run.<br>
+            <ul>
+              <li>Cosine 24h 1/2/4h are set of cosine curves of 24h periods, and phases spread every 1, 2, or 4 hours.
+              To be used mainly with Classic JTK.</li>
+              <li>eJTK Classic is recommended for typical omics-like data for which eJTK method was developed. <br>
+                It works well for short data (48h, 2h- 1h-sampled) when actual period is within range 22-26 hours.<br>
+                The patterns are series of cosine-like waveforms with 24h period, phases by 2hours
+                and range of asymmetries by 2h (see original paper).<br>
+              </li>
+              <li>BD2 Classic can detect non 24 periods and some forms of the spikes.<br>
+                As it compares against much more patterns it has a weaker power.<br>
+                It should be used when there is a good reason
+                to suspect periods outside 22-26h range.<br>
+                The patterns are series of cosine-like waverforms with periods from 18-35hours, for each period there are multiple
+                <b>circadian</b> phases with step 2h (so each period value generates the same number of patterns
+                but the peaks in absolute units do not coincide) and a range of assymetries by 2h
+                in circadian units (see original paper). The preset contains also additional some spike patterns.
+              </li>
+            </ul>
+          </div>
+        </div>
+      }
+
+      <div [hidden]="true" class="form-group row" formGroupName="periodScale">
+        <label class="col-sm-4">Expected periods</label>
+
+        <label class="col-sm-1" for="periodMin">from:</label>
+        <div class="col-sm-2">
+          <input class="form-control" formControlName="periodMin" id="periodMin" max="50" min="10" placeholder=""
+            required
+            size="5"
+            step="any"
+            type="number"
+            >
+          </div>
+
+          <label class="col-sm-1" for="periodMax">to:</label>
+          <div class="col-sm-2">
+            <input class="form-control" formControlName="periodMax" id="periodMax" max="50" min="10" placeholder=""
               required
-      >
-        <option *ngFor="let opt of presetOptions; let ix = index" [value]="opt.name">{{opt.label}}</option>
-      </select>
-    </div>
-  </div>
-  <div *ngIf="presetsHelp" class="col-sm-12">
-    <div class="alert alert-info" role="alert" type="info">
-      Presets determine set of pattern curves against the comparison test is run.<br>
-      <ul>
-      <li>Cosine 24h 1/2/4h are set of cosine curves of 24h periods, and phases spread every 1, 2, or 4 hours.
-      To be used mainly with Classic JTK.</li>
-      <li>eJTK Classic is recommended for typical omics-like data for which eJTK method was developed. <br>
-        It works well for short data (48h, 2h- 1h-sampled) when actual period is within range 22-26 hours.<br>
-        The patterns are series of cosine-like waveforms with 24h period, phases by 2hours
-        and range of asymmetries by 2h (see original paper).<br>
-      </li>
-      <li>BD2 Classic can detect non 24 periods and some forms of the spikes.<br>
-        As it compares against much more patterns it has a weaker power.<br>
-        It should be used when there is a good reason
-        to suspect periods outside 22-26h range.<br>
-      The patterns are series of cosine-like waverforms with periods from 18-35hours, for each period there are multiple
-        <b>circadian</b> phases with step 2h (so each period value generates the same number of patterns
-        but the peaks in absolute units do not coincide) and a range of assymetries by 2h
-        in circadian units (see original paper). The preset contains also additional some spike patterns.
-      </li>
-      </ul>
-    </div>
-  </div>
+              size="5"
+              step="any"
+              type="number"
+              >
+            </div>
+          </div>
 
-  <div [hidden]="true" class="form-group row" formGroupName="periodScale">
-    <label class="col-sm-4">Expected periods</label>
+          <div class="form-group row">
+            <label class="col-sm-2"></label>
+            <div class="col-sm-8">
 
-    <label class="col-sm-1" for="periodMin">from:</label>
-    <div class="col-sm-2">
-      <input class="form-control" formControlName="periodMin" id="periodMin" max="50" min="10" placeholder=""
-             required
-             size="5"
-             step="any"
-             type="number"
-      >
-    </div>
+              <mat-paginator #dataPaginator [length]="totalTraces" [disabled]="disabledPagination"
+                [pageSize]="currentPage.pageSize"
+                [pageIndex]="currentPage.pageIndex"
+                [pageSizeOptions]="[10, 25, 50, 100, 200]"
+                (page)="loadDataPage($event)"
 
-    <label class="col-sm-1" for="periodMax">to:</label>
-    <div class="col-sm-2">
-      <input class="form-control" formControlName="periodMax" id="periodMax" max="50" min="10" placeholder=""
-             required
-             size="5"
-             step="any"
-             type="number"
-      >
-    </div>
-  </div>
+                >
+              </mat-paginator>
+            </div>
+          </div>
 
-  <div class="form-group row">
-    <label class="col-sm-2"></label>
-    <div class="col-sm-8">
+          <button (click)="analyse()" [disabled]="disabled || mainForm.invalid" class="btn btn-primary" type="button">Test Rhythmicity
+          </button>
 
-      <mat-paginator #dataPaginator [length]="totalTraces" [disabled]="disabledPagination"
-                     [pageSize]="currentPage.pageSize"
-                     [pageIndex]="currentPage.pageIndex"
-                     [pageSizeOptions]="[10, 25, 50, 100, 200]"
-                     (page)="loadDataPage($event)"
-
-      >
-      </mat-paginator>
-    </div>
-  </div>
-
-  <button (click)="analyse()" [disabled]="disabled || mainForm.invalid" class="btn btn-primary" type="button">Test Rhythmicity
-  </button>
-
-  <!--{{params | json }}-->
-</form>
+          <!--{{params | json }}-->
+        </form>
 
 

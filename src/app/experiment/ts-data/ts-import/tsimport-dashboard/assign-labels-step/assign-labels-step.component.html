@@ -5,33 +5,35 @@
 </div>
 
 <div [hidden]="importDetails?.inRows">
-<mat-paginator #colPaginator [length]="dataSlice?.totalColumns" [disabled]="importDetails?.inRows"
-               [pageSize]="currentPageSlice.colPage.pageSize"
-               [pageIndex]="currentPageSlice.colPage.pageIndex"
-               [pageSizeOptions]="[10, 25, 50, 100]"
-               (page)="loadColPage($event)"
+  <mat-paginator #colPaginator [length]="dataSlice?.totalColumns" [disabled]="importDetails?.inRows"
+    [pageSize]="currentPageSlice.colPage.pageSize"
+    [pageIndex]="currentPageSlice.colPage.pageIndex"
+    [pageSizeOptions]="[10, 25, 50, 100]"
+    (page)="loadColPage($event)"
 
->
-</mat-paginator>
+    >
+  </mat-paginator>
 </div>
 
 <bd2-selectable-region-mdtable (selected)="selected($event)" (moreColumns)="moreColumns()" (moreRows)="moreRows()"
-                        [dataSlice]="dataSlice" [columnsLabels]="columnsLabels" [rowsLabels]="rowsLabels"
-                        [styler]="tableSelector.tableStyler"
-                        [selectRows]="importDetails?.inRows" [selectCols]="!importDetails?.inRows"
+  [dataSlice]="dataSlice" [columnsLabels]="columnsLabels" [rowsLabels]="rowsLabels"
+  [styler]="tableSelector.tableStyler"
+  [selectRows]="importDetails?.inRows" [selectCols]="!importDetails?.inRows"
 ></bd2-selectable-region-mdtable>
 
 <div [hidden]="!importDetails?.inRows">
-<mat-paginator #rowPaginator [length]="dataSlice?.totalRows" [disabled]="!importDetails?.inRows"
-               [pageSize]="firstPageSlice.rowPage.pageSize"
-               [pageSizeOptions]="[10, 25, 50, 100]"
-               (page)="loadRowPage($event)"
->
-</mat-paginator>
+  <mat-paginator #rowPaginator [length]="dataSlice?.totalRows" [disabled]="!importDetails?.inRows"
+    [pageSize]="firstPageSlice.rowPage.pageSize"
+    [pageSizeOptions]="[10, 25, 50, 100]"
+    (page)="loadRowPage($event)"
+    >
+  </mat-paginator>
 </div>
-<div *ngIf="!hasSeenAll()" type="danger" class="alert alert-danger mt-2" role="alert">
-  You have not seen yet all the available {{importDetails?.inLabel}}s for labelling
-</div>
+@if (!hasSeenAll()) {
+  <div type="danger" class="alert alert-danger mt-2" role="alert">
+    You have not seen yet all the available {{importDetails?.inLabel}}s for labelling
+  </div>
+}
 <div style="margin-top: 1em;">
   <label>Selected labels: </label>{{labelsSummary}}
 </div>

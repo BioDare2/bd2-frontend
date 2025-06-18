@@ -1,22 +1,25 @@
-<div *ngIf="assay">
-
-  <h3>Start rhythmicity test</h3>
-  <hr>
-  <div *ngIf="!disabled">
-    <bd2-rhythmicityjob-params-rform (displayParams)="emitDisplayParams($event)"
-                             (rhythmicityRequests)="doAnalysis($event)"
-                             [disabled]="blocked" [totalTraces]="totalTraces" [currentPage]="currentPage">
-
-    </bd2-rhythmicityjob-params-rform>
-
+@if (assay) {
+  <div>
+    <h3>Start rhythmicity test</h3>
     <hr>
-    <bd2-ts-plots *ngIf="timeseries"
-                  [data]="timeseries"
-                  [tracesPerPlot]="tracesPerPlot"
-    ></bd2-ts-plots>
-  </div>
-  <!--<alert *ngIf="disabled" type="danger">
-    Please complete <a (click)="goToExpEdit(assay.id,'MeasurementSection')">Measurement details</a> before starting a
-    new analysis
-  </alert>-->
-</div>
+      @if (!disabled) {
+        <div>
+          <bd2-rhythmicityjob-params-rform (displayParams)="emitDisplayParams($event)"
+            (rhythmicityRequests)="doAnalysis($event)"
+            [disabled]="blocked" [totalTraces]="totalTraces" [currentPage]="currentPage">
+          </bd2-rhythmicityjob-params-rform>
+          <hr>
+            @if (timeseries) {
+              <bd2-ts-plots
+                [data]="timeseries"
+                [tracesPerPlot]="tracesPerPlot"
+              ></bd2-ts-plots>
+            }
+          </div>
+        }
+        <!--<alert *ngIf="disabled" type="danger">
+        Please complete <a (click)="goToExpEdit(assay.id,'MeasurementSection')">Measurement details</a> before starting a
+        new analysis
+      </alert>-->
+    </div>
+  }

@@ -20,12 +20,14 @@ import {TooltipService} from '../../../../../plot-elements/tooltip/tooltip.servi
 @Component({
     selector: '[bd2hm-band-point-box]',
     template: `
-    <svg:rect #box *ngIf="point && xScale" [attr.x]="xPosition" [attr.y]="yPosition"
-              [attr.width]="xWidth"
-              [attr.height]="yHeight" [attr.fill]="colorScale(point.y)" [attr.stroke]="colorScale(point.y)"
-    >
-    </svg:rect>
-  `,
+    @if (point && xScale) {
+      <svg:rect #box [attr.x]="xPosition" [attr.y]="yPosition"
+        [attr.width]="xWidth"
+        [attr.height]="yHeight" [attr.fill]="colorScale(point.y)" [attr.stroke]="colorScale(point.y)"
+        >
+        </svg:rect>
+      }
+    `,
     styles: [],
     changeDetection: ChangeDetectionStrategy.OnPush,
     standalone: false

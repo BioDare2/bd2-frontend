@@ -1,149 +1,148 @@
 <mat-card appearance="outlined" class="mb-2">
 
   <mat-card-title>
-  <h2>User registration</h2>
+    <h2>User registration</h2>
   </mat-card-title>
 
   <mat-card-content>
-  <div *ngIf="registered" class="alert alert-success">
-    <h4>Your registration was successful.</h4>
-	<!-- Try to login now or check your email (<strong>{{registeredMsg}}</strong>) for the activation link. -->
-    We have sent you the activation link to <strong>{{registeredMsg}}</strong>, please use that link before logging in
-  </div>
-
-  <div *ngIf="!registered" class="mb-4">
-    <form #registrationForm [formGroup]="userForm">
-      <div class="form-group">
-        <mat-form-field class="w-100">
-        <mat-label for="username">Login</mat-label>
-        <input matInput class="" formControlName="username" id="username"
-               minlength="5"
-               pattern="[0-9a-z._]+"
-               placeholder="choose login"
-               required
-               type="text"
-        >
-        <mat-hint>Alphanumerical login, min length 5</mat-hint>
-        <mat-error *ngIf="userNameField.errors && !userNameField.errors['login-taken']">Alphanumerical login, min length 5, only numbers, small letters and ._</mat-error>
-        <mat-error *ngIf="userNameField.errors && userNameField.errors['login-taken']">Such login already exists</mat-error>
-        </mat-form-field>
-
+    @if (registered) {
+      <div class="alert alert-success">
+        <h4>Your registration was successful.</h4>
+        <!-- Try to login now or check your email (<strong>{{registeredMsg}}</strong>) for the activation link. -->
+        We have sent you the activation link to <strong>{{registeredMsg}}</strong>, please use that link before logging in
       </div>
+    }
 
-      <div class="form-group">
-        <mat-form-field class="w-100">
-        <mat-label for="email">Email</mat-label>
-        <input matInput class="" formControlName="email" id="email"
-               placeholder="your email"
-               required
-               type="text"
-        >
-          <mat-error *ngIf="emailField.errors && emailField.errors['pattern']">Not valid email format</mat-error>
-          <mat-error *ngIf="emailField.errors && emailField.errors['email-taken']">Address is already being used</mat-error>
-          <mat-error *ngIf="emailField.errors && emailField.errors['email-nonacademic']">
-            Academic email is required for the registration. Contact us if your email is not recognized as academic.
-          </mat-error>
-        </mat-form-field>
+    @if (!registered) {
+      <div class="mb-4">
+        <form #registrationForm [formGroup]="userForm">
+          <div class="form-group">
+            <mat-form-field class="w-100">
+              <mat-label for="username">Login</mat-label>
+              <input matInput class="" formControlName="username" id="username"
+                minlength="5"
+                pattern="[0-9a-z._]+"
+                placeholder="choose login"
+                required
+                type="text"
+                >
+              <mat-hint>Alphanumerical login, min length 5</mat-hint>
+              @if (userNameField.errors && !userNameField.errors['login-taken']) {
+                <mat-error>Alphanumerical login, min length 5, only numbers, small letters and ._</mat-error>
+              }
+              @if (userNameField.errors && userNameField.errors['login-taken']) {
+                <mat-error>Such login already exists</mat-error>
+              }
+            </mat-form-field>
+          </div>
+          <div class="form-group">
+            <mat-form-field class="w-100">
+              <mat-label for="email">Email</mat-label>
+              <input matInput class="" formControlName="email" id="email"
+                placeholder="your email"
+                required
+                type="text"
+                >
+              @if (emailField.errors && emailField.errors['pattern']) {
+                <mat-error>Not valid email format</mat-error>
+              }
+              @if (emailField.errors && emailField.errors['email-taken']) {
+                <mat-error>Address is already being used</mat-error>
+              }
+              @if (emailField.errors && emailField.errors['email-nonacademic']) {
+                <mat-error>
+                  Academic email is required for the registration. Contact us if your email is not recognized as academic.
+                </mat-error>
+              }
+            </mat-form-field>
+          </div>
+          <div formGroupName="passwords">
+            <div class="form-group">
+              <mat-form-field class="w-100">
+                <mat-label for="password">Password</mat-label>
+                <input matInput class="" formControlName="password" id="password"
+                  minlength="8"
+                  placeholder="password"
+                  required
+                  type="password"
+                  >
+                <mat-hint>Password must be at least 8 long, containing a digit or symbol or capital letter</mat-hint>
+                <mat-error>Password must be at least 8 long, containing a digit or symbol or capital letter</mat-error>
+              </mat-form-field>
+            </div>
+            <div class="form-group">
+              <mat-form-field class="w-100">
+                <mat-label for="password2">Repeat password</mat-label>
+                <input matInput class="" formControlName="password2" id="password2"
+                  minlength="8"
+                  placeholder="password"
+                  required
+                  type="password"
+                  >
+                @if (passwordsGroup.errors) {
+                  <mat-error>Passwords do not match</mat-error>
+                }
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="form-group">
+            <mat-form-field class="w-100">
+              <mat-label for="firstName">First Name</mat-label>
+              <input matInput class="" formControlName="firstName" id="firstName"
+                minlength="2"
+                placeholder="e.g. Charles"
+                required
+                type="text"
+                >
+            </mat-form-field>
+          </div>
+          <div class="form-group">
+            <mat-form-field class="w-100">
+              <mat-label for="lastName">Family Name</mat-label>
+              <input matInput class="" formControlName="lastName" id="lastName"
+                minlength="2"
+                placeholder="e.g. Darwin"
+                required
+                type="text"
+                >
+            </mat-form-field>
+          </div>
+          <div class="form-group">
+            <mat-form-field class="w-100">
+              <mat-label for="institution">Institution</mat-label>
+              <input matInput class="" formControlName="institution" id="institution"
+                minlength="3"
+                placeholder="e.g. University of Edinburgh"
+                required
+                type="text"
+                >
+            </mat-form-field>
+          </div>
+          <div class="form-group">
+            <bd2-recaptcha #recaptcha (captchaExpired)="captchaExpired()"
+              (captchaResponse)="captcha($event)"
+              [site_key]="captchaSiteKey"
+            ></bd2-recaptcha>
+            <div [hidden]="!missingCaptcha" class="alert alert-danger">
+              Captcha selection is needed
+            </div>
+          </div>
+          <div class="form-group">
+            <mat-checkbox formControlName="terms" id="terms"
+              required
+              type="checkbox"
+              > I agree to conditions of
+              <span style="font-weight: bold; text-decoration: underline;"><a (click)="helpDialog.show('service')" role="button">service</a></span>.<br/>
+              I understand that my data will be shared 3 years after their deposition,
+              unless I subscribe to a paid service for a longer embargo period.
+            </mat-checkbox>
+          </div>
+          <button (click)="register()" [disabled]="blocked || userForm.invalid" class="btn btn-primary" type="button">
+            Register
+          </button>
+        </form>
       </div>
-
-
-
-      <div formGroupName="passwords">
-        <div class="form-group">
-          <mat-form-field class="w-100">
-          <mat-label for="password">Password</mat-label>
-          <input matInput class="" formControlName="password" id="password"
-                 minlength="8"
-                 placeholder="password"
-                 required
-                 type="password"
-          >
-            <mat-hint>Password must be at least 8 long, containing a digit or symbol or capital letter</mat-hint>
-            <mat-error>Password must be at least 8 long, containing a digit or symbol or capital letter</mat-error>
-          </mat-form-field>
-
-        </div>
-
-        <div class="form-group">
-          <mat-form-field class="w-100">
-          <mat-label for="password2">Repeat password</mat-label>
-          <input matInput class="" formControlName="password2" id="password2"
-                 minlength="8"
-                 placeholder="password"
-                 required
-                 type="password"
-          >
-            <mat-error *ngIf="passwordsGroup.errors">Passwords do not match</mat-error>
-          </mat-form-field>
-
-        </div>
-      </div>
-
-      <div class="form-group">
-        <mat-form-field class="w-100">
-        <mat-label for="firstName">First Name</mat-label>
-        <input matInput class="" formControlName="firstName" id="firstName"
-               minlength="2"
-               placeholder="e.g. Charles"
-               required
-               type="text"
-        >
-        </mat-form-field>
-      </div>
-
-      <div class="form-group">
-        <mat-form-field class="w-100">
-        <mat-label for="lastName">Family Name</mat-label>
-        <input matInput class="" formControlName="lastName" id="lastName"
-               minlength="2"
-               placeholder="e.g. Darwin"
-               required
-               type="text"
-        >
-        </mat-form-field>
-      </div>
-
-      <div class="form-group">
-        <mat-form-field class="w-100">
-        <mat-label for="institution">Institution</mat-label>
-        <input matInput class="" formControlName="institution" id="institution"
-               minlength="3"
-               placeholder="e.g. University of Edinburgh"
-               required
-               type="text"
-        >
-        </mat-form-field>
-      </div>
-
-      <div class="form-group">
-        <bd2-recaptcha #recaptcha (captchaExpired)="captchaExpired()"
-                       (captchaResponse)="captcha($event)"
-                       [site_key]="captchaSiteKey"
-        ></bd2-recaptcha>
-        <div [hidden]="!missingCaptcha" class="alert alert-danger">
-          Captcha selection is needed
-        </div>
-      </div>
-
-
-      <div class="form-group">
-        <mat-checkbox formControlName="terms" id="terms"
-                      required
-                      type="checkbox"
-        > I agree to conditions of
-        <span style="font-weight: bold; text-decoration: underline;"><a (click)="helpDialog.show('service')" role="button">service</a></span>.<br/>
-        I understand that my data will be shared 3 years after their deposition,
-          unless I subscribe to a paid service for a longer embargo period.
-        </mat-checkbox>
-      </div>
-
-      <button (click)="register()" [disabled]="blocked || userForm.invalid" class="btn btn-primary" type="button">
-        Register
-      </button>
-
-
-    </form>
-  </div>
+    }
 
   </mat-card-content>
 </mat-card>

@@ -1,29 +1,31 @@
-<div *ngIf="model">
-
-  <h4>{{model.name}}</h4>
-
+@if (model) {
   <div>
-    <hr>
-    <strong>Purpose/Hypothesis</strong>
-    <div>{{model.purpose}}</div>
-  </div>
-
-  <div *ngIf="model.description">
-    <hr>
-    <strong>Description</strong>
-    <div>{{model.description}}</div>
-  </div>
-
-  <div *ngIf="model.comments">
-    <hr>
-    <strong>Comments</strong>
-    <div>{{model.comments}}</div>
-  </div>
-
-  <div *ngIf="model.executionDate">
-    <hr>
-    <strong>Execution date</strong>
-    <div>{{model.executionDate.date | date}}</div>
-  </div>
-
-</div>
+    <h4>{{model.name}}</h4>
+    <div>
+      <hr>
+        <strong>Purpose/Hypothesis</strong>
+        <div>{{model.purpose}}</div>
+      </div>
+      @if (model.description) {
+        <div>
+          <hr>
+            <strong>Description</strong>
+            <div>{{model.description}}</div>
+          </div>
+        }
+        @if (model.comments) {
+          <div>
+            <hr>
+              <strong>Comments</strong>
+              <div>{{model.comments}}</div>
+            </div>
+          }
+          @if (model.executionDate) {
+            <div>
+              <hr>
+                <strong>Execution date</strong>
+                <div>{{model.executionDate.date | date}}</div>
+              </div>
+            }
+          </div>
+        }

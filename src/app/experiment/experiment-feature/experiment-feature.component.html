@@ -1,39 +1,41 @@
 <div>
-  <div *ngIf="model">
-
-    <div class="card asset-card">
-      <div class="card-header">
-        <h3>
-          <!--<img *ngIf="model.features.isOpenAccess" src="assets/Open_Access_logo_small.svg" style="height: 1.5em;">-->
-          <i *ngIf="model.features.isOpenAccess" class="material-icons bd-icon" style="color: green; font-size: 1.5em;">lock_open</i>
-          Experiment: {{model.id}}<br>
-          <small>{{model.name}}</small>
-        </h3>
+  @if (model) {
+    <div>
+      <div class="card asset-card">
+        <div class="card-header">
+          <h3>
+            <!--<img *ngIf="model.features.isOpenAccess" src="assets/Open_Access_logo_small.svg" style="height: 1.5em;">-->
+            @if (model.features.isOpenAccess) {
+              <i class="material-icons bd-icon" style="color: green; font-size: 1.5em;">lock_open</i>
+            }
+            Experiment: {{model.id}}<br>
+            <small>{{model.name}}</small>
+          </h3>
+        </div>
+        <div class="card-body">
+          <bd2-experiment-basic-info-view
+            [model]="model"
+          ></bd2-experiment-basic-info-view>
+        </div>
       </div>
-
-      <div class="card-body">
-        <bd2-experiment-basic-info-view
-          [model]="model"
-        ></bd2-experiment-basic-info-view>
-      </div>
+      <bd2-experiment-navigation
+        (onRefresh)="refresh()" [experiment]="model"
+        >
+      </bd2-experiment-navigation>
     </div>
-
-    <bd2-experiment-navigation
-      (onRefresh)="refresh()" [experiment]="model"
-    >
-    </bd2-experiment-navigation>
-
-  </div>
-  <div *ngIf="!model && !isUnauthorised">
-
-    ... loading experiment
-    <p>If just logged in try to refresh the window if the experiment is not loading.</p>
-  </div>
-  <div *ngIf="!model && isUnauthorised">
-
-    <h4>You don't have sufficient permissions to see the experiment</h4>
-    <p>Try to login</p>
-  </div>
+  }
+  @if (!model && !isUnauthorised) {
+    <div>
+      ... loading experiment
+      <p>If just logged in try to refresh the window if the experiment is not loading.</p>
+    </div>
+  }
+  @if (!model && isUnauthorised) {
+    <div>
+      <h4>You don't have sufficient permissions to see the experiment</h4>
+      <p>Try to login</p>
+    </div>
+  }
 
   <router-outlet></router-outlet>
 
@@ -41,10 +43,10 @@
 
   <!--
   <bd2-confirm-dialog #warningDialog
-                      [ignorable]="false"
-                      cancelLabel="Not now"
-                      okLabel="OK"
-  >
+    [ignorable]="false"
+    cancelLabel="Not now"
+    okLabel="OK"
+    >
   </bd2-confirm-dialog>
   -->
 

@@ -5,12 +5,14 @@ import {Trace, TraceSet} from './ts-plot.dom';
     selector: 'bd2-ts-plots',
     template: `
 
-  <div *ngFor="let dataset of datasets; let i = index; trackBy:trackByIx">
+@for (dataset of datasets; track trackByIx(i, dataset); let i = $index) {
+  <div>
     <h4>{{(i+1)}}. {{dataset.title}}</h4>
     <bd2-ts-plot
       [data]="dataset"
     ></bd2-ts-plot>
   </div>
+}
 
 `,
     standalone: false

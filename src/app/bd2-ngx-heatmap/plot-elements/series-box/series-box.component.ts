@@ -4,9 +4,11 @@ import {BoxSerie, GraphicContext} from '../../bd2-heatmap.dom';
 @Component({
     selector: '[bd2hm-series-box]',
     template: `
-    <svg:g *ngFor="let serie of series; trackBy: trackByIndex"
-           bd2hm-serie-row [graphic]="graphic" [serie]="serie"></svg:g>
-  `,
+    @for (serie of series; track trackByIndex($index, serie)) {
+      <svg:g
+        bd2hm-serie-row [graphic]="graphic" [serie]="serie"></svg:g>
+      }
+    `,
     styles: [],
     changeDetection: ChangeDetectionStrategy.OnPush,
     standalone: false
