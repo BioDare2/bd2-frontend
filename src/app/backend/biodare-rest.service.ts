@@ -666,8 +666,7 @@ export class BioDareRestService {
 
     switch (resp.status) {
       case 401: {
-        message = 'Could not connect (bad credentials, account locked or non-activated)\n' +
-        'If you have just registered, please check your email for the activation link.\n' +
+        message = 'Could not connect (bad credentials, account locked or non-activated).' +
         'If you have entered several incorrect passwords, your account may be locked for the next 30 min.';
         break;
       }
