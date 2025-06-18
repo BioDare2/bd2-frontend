@@ -14,14 +14,14 @@
     There are no visible experiments matching the criteria.
   </div>
 
-  <div *ngIf="experiments && experiments.length >= 5000" class="alert alert-info">
-    There are more than 5000 search results. Displaying only the first 5000.
-  </div>
-
   <div>
 
 
   <bd2-search-and-sort-panel [options]="initialSearchOptions" (search)="search($event)" (sort)="sort($event)"></bd2-search-and-sort-panel>
+
+  <div *ngIf="fetcher.dataLength >= 5000" class="alert alert-info">
+    There are more than 5000 search results. Displaying only the first 5000.
+  </div>
 
   <mat-paginator #paginator [length]="fetcher.dataLength"
                  [pageSize]="fetcher.currentPage?.pageSize || 25"
