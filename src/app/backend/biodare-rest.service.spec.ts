@@ -65,7 +65,7 @@ describe('BioDareRestService', () => {
       .subscribe(
         data => fail('should have failed with the 401 error'),
         (error: string) => {
-          expect(error).toEqual('Bad credentials, locked or not activated account');
+          expect(error).toEqual('Could not connect (bad credentials, account locked or non-activated).If you have entered several incorrect passwords, your account may be locked for the next 30 min.');
         }
       );
 
