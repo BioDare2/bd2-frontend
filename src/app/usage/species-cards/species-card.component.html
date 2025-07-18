@@ -1,7 +1,13 @@
-<div class="card" (click)="cardClicked()" [@cardFlip]="data.state">
+<div
+  class="card"
+  tabindex="0"
+  (click)="cardClicked()"
+  (keydown.enter)="cardClicked()"
+  [@cardFlip]="data.state"
+>
     <div class="face back">
       <div class="species">{{ name }}</div>
-      <img [src]="image" />
+      <img [src]="image" [alt]="alt"/>
       <small class="reference" [innerHTML]="reference"></small>
     </div>
     <div class="face front">

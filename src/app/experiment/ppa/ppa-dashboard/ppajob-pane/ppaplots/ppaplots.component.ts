@@ -16,6 +16,7 @@ import {FeedbackService} from '../../../../../feedback/feedback.service';
     providers: [PPAGroupResultsFetcherService],
     standalone: false
 })
+
 export class PPAPlotsComponent implements OnInit, OnDestroy, Reloadable {
 
   @Input()

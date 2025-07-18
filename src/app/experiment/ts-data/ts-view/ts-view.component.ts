@@ -21,75 +21,7 @@ import {TimeSeriesMetrics} from '../../../tsdata/ts-data-dom';
 import {DataJobsService} from '../data-jobs.service';
 
 @Component({
-    template: `
-    @if (assay) {
-      <div>
-        <h3>Show timeseries</h3>
-        <hr>
-          <bd2-tsdisplay-params-rform
-            (displayParams)="displayChanged($event)"
-            [disabled]="disabledSecondary"
-            [totalTraces]="totalTraces"
-            [currentPage]="currentPage"
-          ></bd2-tsdisplay-params-rform>
-          <mat-expansion-panel>
-            <mat-expansion-panel-header>
-              <mat-panel-title>
-                Sorting
-              </mat-panel-title>
-            </mat-expansion-panel-header>
-            <bd2-tssort-params-rform
-              [ppaJobs]="analysis.ppaJobs$ | async"
-              [rhythmJobs]="analysis.rhythmJobs$ | async"
-              >
-            </bd2-tssort-params-rform>
-          </mat-expansion-panel>
-          @if (disabledSecondary) {
-            <div type="danger" class="alert alert-danger" role="alert"
-              >Please complete <a (click)="goToExpEdit(assay.id,'MeasurementSection')">Measurement details</a> to get access to
-              the secondary data
-            </div>
-          }
-          <hr>
-            <div
-              type="info" class="alert alert-info" role="alert"
-              dismissible="true" dismissOnTimeout="20000"
-              >
-              Hint: You can click on trace label box to remove it from the plot.
-            </div>
-            <div class="clearfix">
-              @if (timeseries) {
-                <div class="float-right">
-                  <label class="mr-4">
-                    <a download (click)="exportDataView()" role="button" class="btn btn-primary" aria-label="download" style="color: white;">
-                      <i class="material-icons bd-icon">save_alt</i><span class="cdk-visually-hidden">Download</span></a>
-                      current view
-                    </label>
-                    <label class="mr-4">
-                      <a download (click)="exportFullData()" role="button" class="btn btn-primary" aria-label="download whole" style="color: white;">
-                        <i class="material-icons bd-icon">save_alt</i><span class="cdk-visually-hidden">Download</span></a>
-                        full
-                      </label>
-                      <!--
-                      <label>
-                        <a download href="{{exportURL}}" (click)="recordExport()" role="button" class="btn btn-primary">
-                          <i class="material-icons bd-icon">save_alt</i><span class="cdk-visually-hidden">Download</span></a>
-                          the detrended dataset
-                        </label>
-                        -->
-                      </div>
-                    }
-                  </div>
-                  <hr>
-                    @if (timeseries) {
-                      <bd2-ts-plots
-                        [tracesPerPlot]="tracesPerPlot"
-                        [data]="timeseries"
-                      ></bd2-ts-plots>
-                    }
-                  </div>
-                }
-    `,
+    templateUrl: './ts-view.component.html',
     providers: [TSFetcher, DataJobsService],
     standalone: false
 })

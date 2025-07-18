@@ -3,6 +3,11 @@
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
+.mat-drawer-content,
+.mat-sidenav-content {
+  background-color: #fff !important; /* Or your preferred color */
+}
+
 /* Move down content because we have a fixed navbar that is 50px tall */
 body {
   /*padding-top: 50px;*/
@@ -19,10 +24,6 @@ div.bd2-page-header {
   background-color: #EEE;
   margin-bottom: 1em;
 
-}
-
-div.main-area {
-  /*padding-left: 30px;*/
 }
 
 div.workspace {
@@ -85,13 +86,52 @@ input.short-input {
 }
 
 /* buttons */
+.btn-success,
+.btn-success:active,
+.btn-success.active,
+.btn-success:focus,
+.btn-success:disabled,
+.btn-success.disabled,
+.btn-success:hover {
+  background-color: #207c20 !important; /* Replace with your desired color */
+  border-color: #207c20 !important;     /* Optional: border color */
+  color: #fff !important;               /* Optional: text color */
+}
 
-.btn-success.active, .btn-success:active {
-  background-color: #258e25;
+/* Cancel button on experiment creation page */
+.btn-outline-secondary {
+  color: #607D8B;
+  border-color: #607D8B;
 }
 
 
 /* Navigation link styles */
+/* Main navigation bar */
+.navbar,
+.navbar a,
+.navbar-brand,
+.navbar-toggler,
+.navbar-collapse,
+.nav-link,
+.navbar-header {
+  color: #e9ecef !important;
+}
+
+.nav-link {
+  margin-left: 0px;
+  margin-right: 12px;
+  /* Padding for larger clickable area */
+  padding: 6px 12px;
+}
+
+.nav-link:hover {
+  color: #000 !important;
+  background-color: #fff !important;
+  border-radius: 5px;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+/* Experiment view navigation bar */
 nav.secondary a {
   padding: 5px 10px;
   text-decoration: none;
@@ -123,10 +163,6 @@ hr {
 div.asset-card .panel-heading h3 {
   margin-top: 0px;
   margin-bottom: 0px;
-}
-
-div.summary-box {
-  /*margin-bottom: 1.5em;*/
 }
 
 div.summary-box div.item {
@@ -250,6 +286,12 @@ mat-snack-bar-container {
   margin-top: 75px !important;
 }
 
+.alert.alert-danger {
+  background-color: #f8d7da !important;
+  color: #721c24 !important;
+  border-color: #f5c6cb !important;
+}
+
 /* those do not work with material update */
 mat-snack-bar-container.flash-error {
   color: #721c24;
@@ -268,7 +310,7 @@ mat-card.error, mat-card.danger {
 
 mat-card.info, mat-card.success {
   color: #155724;
-  background-color: #d4edda;;
+  background-color: #d4edda;
 }
 
 snack-bar-container.mat-snack-bar-top {

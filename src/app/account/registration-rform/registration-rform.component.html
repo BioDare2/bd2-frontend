@@ -26,12 +26,12 @@
                 required
                 type="text"
                 >
-              <mat-hint>Alphanumerical login, min length 5</mat-hint>
+              <mat-hint>Alphanumerical login, minimum length 5 characters</mat-hint>
               @if (userNameField.errors && !userNameField.errors['login-taken']) {
-                <mat-error>Alphanumerical login, min length 5, only numbers, small letters and ._</mat-error>
+                <mat-error>Alphanumerical login, minimum length 5 characters, only numbers, small letters and ._</mat-error>
               }
               @if (userNameField.errors && userNameField.errors['login-taken']) {
-                <mat-error>Such login already exists</mat-error>
+                <mat-error>This login already exists</mat-error>
               }
             </mat-form-field>
           </div>
@@ -66,8 +66,8 @@
                   required
                   type="password"
                   >
-                <mat-hint>Password must be at least 8 long, containing a digit or symbol or capital letter</mat-hint>
-                <mat-error>Password must be at least 8 long, containing a digit or symbol or capital letter</mat-error>
+                <mat-hint>Password must be at least 8 characters long, contain a digit, symbol or capital letter</mat-hint>
+                <mat-error>Password must be at least 8 characters long, contain a digit, symbol or capital letter</mat-error>
               </mat-form-field>
             </div>
             <div class="form-group">
@@ -131,9 +131,8 @@
             <mat-checkbox formControlName="terms" id="terms"
               required
               type="checkbox"
-              > I agree to conditions of
-              <span style="font-weight: bold; text-decoration: underline;"><a (click)="helpDialog.show('service')" role="button">service</a></span>.<br/>
-              I understand that my data will be shared 3 years after their deposition,
+              > I agree to the <span style="font-weight: bold; text-decoration: underline;"><a (click)="helpDialog.show('service')" role="button">conditions of service</a></span>.<br/>
+              I understand that my data will be shared publicly 3 years after their deposition,
               unless I subscribe to a paid service for a longer embargo period.
             </mat-checkbox>
           </div>

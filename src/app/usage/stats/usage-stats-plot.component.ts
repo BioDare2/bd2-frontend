@@ -10,6 +10,7 @@ import { Component, Input, OnInit, OnChanges, SimpleChanges } from '@angular/cor
           [datasets]="dataset"
           [options]="barOptions"
           [labels]="labels"
+          [attr.aria-label]="ariaLabel"
         ></canvas>
       </div>
     }
@@ -20,6 +21,7 @@ import { Component, Input, OnInit, OnChanges, SimpleChanges } from '@angular/cor
 export class UsageStatsPlotComponent implements OnInit, OnChanges {
   @Input() publicData: { year: number, value: number }[];
   @Input() privateData: { year: number, value: number }[];
+  @Input() ariaLabel: string;
   @Input() chartLabel: string;
   @Input() barColor: string = 'rgba(75, 192, 192, 0.4)';
 

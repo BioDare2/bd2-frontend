@@ -9,6 +9,7 @@ import {ShowIndividualsOptions} from "../../../../../../bd2-ngx-polarplot/polar-
     styles: [],
     standalone: false
 })
+
 export class PPAPhasePlotComponent implements OnInit, OnChanges {
 
   @Input()

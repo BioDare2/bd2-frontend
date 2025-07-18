@@ -6,19 +6,22 @@
   </div>
 }
 <br>
-  <div class="charts-container">
-    <bd2-usage-stats-plot [publicData]="publicSetsPerYear"
-      [privateData]="privateSetsPerYear"
-      chartLabel="Exp."
-    barColor="rgba(31, 119, 180, 0.4)"></bd2-usage-stats-plot>
-    <bd2-usage-stats-plot [publicData]="publicSeriesPerYear"
-      [privateData]="privateSeriesPerYear"
-      chartLabel="Series"
-    barColor="rgba(255, 127, 14, 0.4)"></bd2-usage-stats-plot>
-    <bd2-usage-stats-plot [publicData]="usersPerYear"
-      chartLabel="User Registrations"
-    barColor="rgba(44, 160, 44, 0.4)"></bd2-usage-stats-plot>
-  </div>
+    <div class="charts-container">
+        <bd2-usage-stats-plot [publicData]="publicSetsPerYear"
+                            [privateData]="privateSetsPerYear"
+                            chartLabel="Exp."
+                            ariaLabel="Bar chart showing the number of public and private experiments per year."
+                            barColor="rgba(31, 119, 180, 0.4)"></bd2-usage-stats-plot>
+        <bd2-usage-stats-plot [publicData]="publicSeriesPerYear"
+                            [privateData]="privateSeriesPerYear"
+                            chartLabel="Series"
+                            ariaLabel="Bar chart showing the number of public and private timeseries per year."
+                            barColor="rgba(255, 127, 14, 0.4)"></bd2-usage-stats-plot>
+        <bd2-usage-stats-plot [publicData]="usersPerYear"
+                            chartLabel="User Registrations"
+                            ariaLabel="Bar chart showing the number of user registrations per year."
+                            barColor="rgba(44, 160, 44, 0.4)"></bd2-usage-stats-plot>
+    </div>
   <small>
     Hover on the bars to see the exact numbers. Click on the legend to hide/show the data.<br>
   </small>

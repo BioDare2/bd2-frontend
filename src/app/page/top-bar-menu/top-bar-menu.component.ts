@@ -44,6 +44,9 @@ import {BD2User} from '../../auth/user.dom';
           [routerLinkActiveOptions]="{exact: true}"
         class="nav-link" (click)="navigated()">Usage</a>
       </li>
+      <li class="nav-item">
+        <a href="mailto:biodare@ed.ac.uk" class="nav-link">Contact Us</a>
+      </li>
     </ul>
     `,
     styles: [],

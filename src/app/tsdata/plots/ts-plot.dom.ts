@@ -22,6 +22,13 @@ export class Trace {
   max: number;
   mean: number;
 
+  borderColor?: string;
+  backgroundColor?: string;
+  pointBackgroundColor?: string;
+  pointBorderColor?: string;
+  pointStyle?: string;
+  pointRadius?: number;
+  pointHoverRadius?: number;
 }
 
 

@@ -31,6 +31,7 @@ export interface CardData {
 export class SpeciesCardComponent {
   @Input() name: string;
   @Input() image: string;
+  @Input() alt: string;
   @Input() reference: string;
   @Input() datasets: number;
   @Input() publicDatasets: number;

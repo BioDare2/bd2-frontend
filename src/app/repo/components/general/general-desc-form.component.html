@@ -11,8 +11,8 @@
             name="gName"
             placeholder="e.g. Testing robustness in low light (E12)"
             required type="text">
-          <mat-hint >Good name hints the data content</mat-hint>
-          <mat-error >Descriptive name is required</mat-error>
+          <mat-hint >Good names hint at the data content</mat-hint>
+          <mat-error >Please enter a name longer than 5 characters</mat-error>
         </mat-form-field>
         <!--<div [hidden]="gName.valid " class="alert alert-danger">
         Descriptive name is required
@@ -32,10 +32,7 @@
           required
           rows="4" type="text">
         </textarea>
-        <mat-hint [style.color]="!sufficientPurpose && !gPurpose.pristine ? 'red' : ''">Sensible description with more than few words is required</mat-hint>
-        <!--<div [hidden]="gPurpose.valid && sufficientPurpose" class="alert alert-danger">
-        Sensible description with more than few words is required
-      </div>-->
+        <mat-hint [style.color]="!sufficientPurpose && !gPurpose.pristine ? 'red' : ''">Please write more than 10 words in the purpose field</mat-hint>
     </mat-form-field>
   </div>
   <div class="form-group">

@@ -1,5 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Trace, TraceSet} from './ts-plot.dom';
+import { BD2ColorPalette } from '../../graphic/color/color-palette';
 
 @Component({
     selector: 'bd2-ts-plots',
@@ -32,13 +33,30 @@ export class TSPlotsComponent implements OnInit {
     // console.log(JSON.stringify(this.dataset));
   }
 
+  setTraceStyle(trace: Trace, index: number, tracesPerPlot: number) {
+    const colors = BD2ColorPalette.palette(tracesPerPlot);
+    const pointStyles = ['circle', 'rect', 'triangle', 'rectRot', 'rectRounded'];
+    const pointRadii = [3, 4, 5, 4, 4];
+
+    const color = colors[index % colors.length];
+    trace.borderColor = BD2ColorPalette.toRGBA(color, 0.8);
+    trace.backgroundColor = BD2ColorPalette.toRGBA(color, 0.2);
+    trace.pointBackgroundColor = color;
+    trace.pointBorderColor = '#ffffff';
+    trace.pointStyle = pointStyles[index % pointStyles.length];
+    trace.pointRadius = pointRadii[index % pointRadii.length];
+    trace.pointHoverRadius = pointRadii[index % pointRadii.length] + 1;
+  }
+
   @Input()
   set data(traces: Trace[]) {
     if (!traces) {
       return;
     }
+    
     const sets = this.split(traces, this.tracesPerPlot)
       .map(ts => {
+        ts.forEach((trace, i) => this.setTraceStyle(trace, i, this.tracesPerPlot));
         const set = new TraceSet();
         set.traces = ts;
         return set;
