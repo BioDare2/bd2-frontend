@@ -1,5 +1,13 @@
 <h3>Species on BioDare2</h3>
-<small>Click the cards for more details!</small>
+<p>
+  These 9 cards show the most common species in BioDare2, based on the number of experiments and timeseries available for each species.<br>
+  Clicking on the cards displays the number of public and private experiments and timeseries for each species (updated daily), as well as the most commonly used keywords in experiment descriptions.
+</p>
+
+<label>
+  <mat-slide-toggle class="mr-1 mt-2" [(ngModel)]="animationEnabled">Card animation
+  </mat-slide-toggle>
+</label>
 
 <div class="species-cards">
   @for (species of speciesData; track species) {
@@ -11,7 +19,9 @@
       [publicDatasets]="species.public_sets"
       [timeseries]="species.series"
       [publicTimeseries]="species.public_series"
-      [keywords]="species.keywords">
+      [keywords]="species.keywords"
+      [animationEnabled]="animationEnabled"
+    >
     </bd2-species-card>
   }
 </div>

@@ -7,8 +7,7 @@ import {filter} from 'rxjs/operators';
 @Component({
     selector: 'bd2-top-bar',
     template: `
-    <!-- <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top"> -->
-    <nav class="navbar navbar-expand-lg bg-dark sticky-top">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
       <div class="container">
         <div class="navbar-header">
           <button class="navbar-toggler" type="button" data-toggle="collapse"

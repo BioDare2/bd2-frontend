@@ -3,7 +3,9 @@
   tabindex="0"
   (click)="cardClicked()"
   (keydown.enter)="cardClicked()"
-  [@cardFlip]="data.state"
+  [class.no-animation]="!animationEnabled"
+  [@cardFlip]="animationEnabled ? data.state : null"
+  [style.transform]="!animationEnabled && data.state === 'flipped' ? 'rotateY(180deg)' : 'none'"
 >
     <div class="face back">
       <div class="species">{{ name }}</div>

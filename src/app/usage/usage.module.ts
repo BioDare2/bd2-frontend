@@ -8,6 +8,8 @@ import { NgChartsModule } from 'ng2-charts';
 import { SpeciesCardComponent } from './species-cards/species-card.component';
 import { SpeciesCardsComponent } from './species-cards/species-cards.component';
 import { UsageRoutingModule } from './usage-routing.module';
+import { FormsModule } from '@angular/forms';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 
 @NgModule({
   declarations: [
@@ -21,7 +23,9 @@ import { UsageRoutingModule } from './usage-routing.module';
   imports: [
     CommonModule,
     NgChartsModule,
-    UsageRoutingModule
+    UsageRoutingModule,
+    FormsModule,
+    MatSlideToggleModule
   ],
   exports: [
     UsageComponent

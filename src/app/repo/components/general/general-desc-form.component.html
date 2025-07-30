@@ -32,7 +32,8 @@
           required
           rows="4" type="text">
         </textarea>
-        <mat-hint [style.color]="!sufficientPurpose && !gPurpose.pristine ? 'red' : ''">Please write more than 10 words in the purpose field</mat-hint>
+        <mat-hint [style.color]="!sufficientPurpose && !gPurpose.pristine ? 'var(--mat-form-field-error-text-color, var(--mat-sys-error))' : ''">
+          Please write more than 10 words in the purpose field</mat-hint>
     </mat-form-field>
   </div>
   <div class="form-group">

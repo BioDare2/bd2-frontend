@@ -13,6 +13,7 @@ export class SpeciesCardsComponent implements OnInit {
   speciesStats: any[] = [];
   speciesInfo: any[] = [];
   speciesData: any[] = [];
+  animationEnabled = true;
 
   constructor(private usageDataService: UsageDataService, private http: HttpClient) {}
 

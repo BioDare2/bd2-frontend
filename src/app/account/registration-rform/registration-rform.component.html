@@ -123,6 +123,7 @@
               (captchaResponse)="captcha($event)"
               [site_key]="captchaSiteKey"
             ></bd2-recaptcha>
+            <mat-hint>Captcha will expire after 1 min.</mat-hint>
             <div [hidden]="!missingCaptcha" class="alert alert-danger">
               Captcha selection is needed
             </div>

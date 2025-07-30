@@ -1,9 +1,4 @@
 <div>
-  <!--<div class="bd2-page-header" style="color: red; border: 2px solid red;">
-  <div class="container" >
-    <h2 >BioDare will be offline on Wednesday 10th October.</h2>
-  </div>
-</div>-->
 
 <h2>{{msg}}</h2>
 
@@ -16,6 +11,8 @@
   </div>
 }
 
+<!-- Classes for coloured boxes -->
+<!-- alert-danger (red), alert-info (blue), alert-success (green) -->
 @if (logged) {
   <div class="row">
     <div class="col-sm-12">
@@ -29,15 +26,6 @@
               If you wish to keep your data private for longer, please see <a href="documents/embargo">extended embargo options</a>.
             </p>
           </div>
-          <div class="alert alert-info" role="alert">
-            <h5 class="list-group-item-heading">Citing BioDare2</h5>
-            <p class="list-group-item-text">Please cite BioDare2 with its website: <strong><a href="https://biodare2.ed.ac.uk/">biodare2.ed.ac.uk</a></strong>
-          and the following publication:</p>
-          <p>Zieliński, T., Hay, J., Millar, A.J. (2022).
-            <i>Period Estimation and Rhythm Detection in Timeseries Data Using BioDare2, the Free, Online, Community Resource.</i>
-            <br/> In: Staiger, D., Davis, S., Davis, A.M. (eds) Plant Circadian Networks. Methods in Molecular Biology, vol 2398. <br/>
-            Humana, New York, NY. <a href="https://doi.org/10.1007/978-1-0716-1912-4_2">DOI"</a></p>
-          </div>
           <div class="alert alert-success" role="alert">
             <h5 class="list-group-item-heading">Advanced search options for experiments</h5>
             <p class="list-group-item-text">
@@ -45,40 +33,6 @@
               To help you navigate them, we have added advanced search filters on the <a href="experiments">Experiments page</a>, such as species, data category, author name and creation date.
             </p>
           </div>
-          <div class="alert alert-success" role="alert">
-            <h5 class="list-group-item-heading">BioDare Usage Statistics page</h5>
-            <p class="list-group-item-text">Head to the new <a
-            href="https://biodare2.ed.ac.uk/usage">Usage page</a>
-            to see how many people around the world use BioDare2, and how many experiments and timeseries are hosted on the website.
-          </p>
-        </div>
-        <div class="alert alert-success" role="alert">
-          <h5 class="list-group-item-heading">BioDare YouTube channel with tutorials</h5>
-          <p class="list-group-item-text">Subscribe to our <a
-          href="https://www.youtube.com/channel/UC1_kTC0PFOkoKueJGo4h7dA">channel</a>
-          to access training videos. Watch our first tutorial about <a href="https://youtu.be/GW4g5FjbwUs">data
-        import</a>.
-      </p>
-    </div>
-    @if (!moreFeatures) {
-      <div (click)="moreFeatures = true" class="float-right">
-        <button class="btn btn-primary">see more</button>
-      </div>
-    }
-    @if (moreFeatures) {
-      <div>
-        <div class="alert alert-info" role="alert">
-          <h5 class="list-group-item-heading">Rhythmicity Test</h5>
-          <p class="list-group-item-text">We have added the eJTK and classic JTK methods
-            (<a href=" https://doi.org/10.1371/journal.pcbi.1004094">A.L. Hutchison et al. 2015</a>) for rhythmicity tests</p>
-          </div>
-          <div class="alert alert-info" role="alert">
-            <h5 class="list-group-item-heading">Sorting on charts</h5>
-            <p class="list-group-item-text">Both line plots and heatmap charts can be sorted
-            by nr, labels or even periods from the analysis results.</p>
-          </div>
-        </div>
-      }
     </div>
     <hr>
     </div>
@@ -115,8 +69,6 @@ experience.</p>
     </p>
     <p>You can contact us at: <strong>biodare (&#64;) ed.ac.uk</strong></p>
     <p>You need a modern, up to date browser to use <strong>BioDare2</strong> (we are testing it with Chrome).</p>
-    <p><strong>BioDare2</strong> is currently at <i><strong>beta</strong></i> version.
-  Check the bottom of the page how this early stage may affect you.</p>
 </div>
 </div>
 
@@ -127,11 +79,11 @@ experience.</p>
       <div class="col-sm-12">
         <h4>Public datasets</h4>
         <ul>
-          <li>Multiple dataset are publicly available <a href="experiments">here.</a></li>
-          <li><b>All data become public</b> after the maximum 3 years embargo period</li>
+          <li>A large number of datasets are publicly available on the <a href="experiments">experiments page.</a></li>
+          <li><b>All data become public</b> after the default 3 year embargo period</li>
         </ul>
         <hr>
-        </div>
+      </div>
       }
 
       <div class="col-sm-6">
@@ -159,11 +111,6 @@ experience.</p>
               Carboxylase Is Essential for Maximal and Sustained Dark CO2 Fixation...
             </a></small>
           </li>
-          <!--<li>Brancaccio, M. et al.
-          <small><a href="https://doi.org/10.1016/j.neuron.2017.02.030">
-            Astrocytes Control Circadian Timekeeping in the Suprachiasmatic Nucleus via Glutamatergic Signaling.
-          </a></small>
-        </li>-->
       </ul>
     </div>
     <div class="col-sm-6">
@@ -191,12 +138,6 @@ experience.</p>
             of a bioluminescent reporter.
           </a></small>
         </li>
-        <!--<li>Patton, A.P. et al.
-        <small><a href="http://doi.org/10.1523/JNEUROSCI.0958-16.2016">
-          Combined Pharmacological and Genetic Manipulations Unlock Unprecedented Temporal
-          Elasticity ...
-        </a></small>
-      </li>-->
     </ul>
   </div>
 </div>
@@ -256,46 +197,33 @@ experience.</p>
         >
     </div>
   </div>
+
   <hr>
-
-
-    <p><strong>BioDare2</strong> is still under development.
-    Please read below to find out how this may affect you.<br>&nbsp;</p>
 
     <div class="row">
 
-      <div class="col-sm-4">
+      <div class="col-sm-6">
+        <h4>BioDare development</h4>
+        <p>
+          <strong>BioDare2</strong> is an academic project, and is provided free of charge on a best-efforts basis.
+          <br><br>
+          Unfortunately, bugs and glitches are to be expected. Please be patient; refresh the page if the system appears stuck, and email bug reports to <strong>biodare&nbsp;(&#64;)&nbsp;ed.ac.uk</strong>.
+        </p>
+      </div>
+
+      <div class="col-sm-6">
         <h4>Rhythm analysis</h4>
-        <p>We are using exactly the same implementation of period analysis methods as in the original
-          BioDare.</p>
-          <p>These methods will not change so any results you obtain using this version will be the
-          same as in the future ones.</p>
-        </div>
+        <p>
+          The Rhythm analysis functions are the same as in previous versions of BioDare, and will not change in the future.
+          <br><br>
+          Therefore, results obtained with different versions of BioDare will be consistent.
+        </p>
+      </div>
 
-        <div class="col-sm-4">
-          <h4>Data</h4>
-          <p>Your data is safe, changes to BioDare will not affect the deposited data.</p>
-          <!--<p>At the moment data grouping and averaging is not available but we are working on it.</p>
-          <p>Currently, the supported time series formats are Excel file (with a time column and data columns) and
-          Topcount.</p>-->
-          <!--<p>We also cannot guarantee that we will preserve the data deposited during <i>beta</i> period.</p>
-          <p>The reason is that there is a small chance that we may need to change our internal representation
-            of the data in order to introduce new features and automatic migration may be too difficult for us.
-          However, it is a small chance and we will warn you before discarding any saved work in the beta test version of Biodare2.</p>-->
-        </div>
-
-        <div class="col-sm-4">
-          <h4>You</h4>
-          <p>Unfortunately bugs and glitches are to be expected.</p>
-          <p>The error messages are vague and probably not very informative.
-            Please have patience; refresh page if the system appears stuck;
-            email bug reports to <strong>biodare&nbsp;(&#64;)&nbsp;ed.ac.uk</strong>.</p>
-            <p>Lab groups, as in BioDare, will return with a further release.</p>
-          </div>
-
-        </div>
+    </div>
 
         <hr>
+
           <div class="text-center">
             <p> Please cite BioDare2 with its website: <strong>biodare2.ed.ac.uk</strong> and the paper:</p>
             <p>Zieliński, T., Hay, J., Millar, A.J. (2022).

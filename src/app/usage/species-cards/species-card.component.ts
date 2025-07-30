@@ -38,6 +38,7 @@ export class SpeciesCardComponent {
   @Input() timeseries: number;
   @Input() publicTimeseries: number;
   @Input() keywords: string;
+  @Input() animationEnabled = true;
 
   data: CardData = {
     state: "default",

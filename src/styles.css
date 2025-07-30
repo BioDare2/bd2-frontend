@@ -104,6 +104,12 @@ input.short-input {
   border-color: #607D8B;
 }
 
+/* Selection display for small buttons (e.g. sort order or "all" in search panel) */
+button.mat-mdc-mini-fab:focus-visible {
+  outline: 3px solid #1976d2;
+  outline-offset: 2px;
+  box-shadow: 0 0 0 4px rgba(25, 118, 210, 0.2);
+}
 
 /* Navigation link styles */
 /* Main navigation bar */
@@ -246,17 +252,17 @@ nav.secondary a {
 /* Bootstrap 4 migration */
 
 .bd-bg-primary {
-  background-color: #337ab7;
+  background-color: #1f6caf;
   color: white;
 }
 
 .btn-primary {
-  background-color: #337ab7;
+  background-color: #1f6caf;
   border-color: #2e6da4;
 }
 
 a {
-  color: #337ab7;
+  color: #1f6caf;
 }
 
 [role=button] {
@@ -319,6 +325,14 @@ snack-bar-container.mat-snack-bar-top {
 
 mat-form-field .form-control:focus {
   box-shadow: none;
+}
+
+.mat-mdc-form-field-error {
+  font-size: 14px;
+}
+
+.mat-mdc-form-field-hint {
+  font-size: 14px;
 }
 
 /*
