@@ -1,8 +1,16 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { Component } from '@angular/core';
 
 import {WelcomeComponent} from './welcome.component';
 import {UserService} from '../../auth/user.service';
 import {fakeUserService} from '../../auth/auth_test_tool.spec';
+
+@Component({
+  selector: 'bd2-featured-dataset',
+  template: '',
+  standalone: false
+})
+class FeaturedDatasetStubComponent {}
 
 describe('WelcomeComponent', () => {
   let component: WelcomeComponent;
@@ -10,7 +18,10 @@ describe('WelcomeComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [WelcomeComponent],
+      declarations: [
+        WelcomeComponent,
+        FeaturedDatasetStubComponent
+      ],
       providers: [
         {provide: UserService, useValue: fakeUserService()}
       ]

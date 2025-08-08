@@ -1,0 +1,17 @@
+.featured-plot {
+  float: left;
+  width: 35%;
+  min-width: 240px;
+  margin: 0 0 1rem 1rem;
+}
+
+.featured-dataset-wrapper::after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.featured-plot canvas {
+  width: 100% !important;
+  height: auto !important;
+}

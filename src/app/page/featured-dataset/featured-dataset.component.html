@@ -1,0 +1,32 @@
+@if (featuredDataset) {
+  <div class="card mb-2">
+    <div class="card-header"><h4>Weekly Featured Dataset</h4></div>
+    <div class="card-body">
+    <h5>{{ featuredDataset.generalDesc.name }}</h5>
+
+    <div class="featured-dataset-wrapper">
+      
+      @if (previewTraces?.length) {
+        <div class="featured-plot">
+          <bd2-ts-plots
+            [data]="previewTraces"
+            [tracesPerPlot]="5"
+            [showLegend]="false"
+            [compact]="true">
+          </bd2-ts-plots>
+        </div>
+      }
+
+      <p><b>Species:</b> {{ featuredDataset.species }}</p>
+      <p><b>Data category:</b> {{ featuredDataset.dataCategory.longName }}</p>
+      <p><b>Description:</b> {{ featuredDataset.generalDesc.description }}</p>
+      <p><b>Purpose:</b> {{ featuredDataset.generalDesc.purpose }}</p>
+
+      <div class="clearfix"></div>
+    </div>
+
+    <p><b>Authors:</b> {{ authors }} - {{ affiliations }}</p>
+    <p>Do you have a dataset that could be featured here? Contact us at <strong>biodare (&#64;) ed.ac.uk</strong></p>
+    </div>
+  </div>
+}

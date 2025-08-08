@@ -48,6 +48,7 @@ export class BioDareEndPoints {
   ontology_species_url: string;
 
   usage_data_url: string;
+  featured_dataset_url: string;
 
   shutdown_url: string;
 }
@@ -113,6 +114,8 @@ export function bioDareRestConfigurator(environment: any): BioDareEndPoints {
 
   endPoints.ontology_url = backendRoot + '/onto';
   endPoints.ontology_species_url = endPoints.ontology_url + '/species';
+
+  endPoints.featured_dataset_url = backendRoot + '/featured-dataset';
 
   endPoints.usage_data_url = backendRoot + '/usage/get_usage_stats';
 

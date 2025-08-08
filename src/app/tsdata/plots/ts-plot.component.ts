@@ -6,12 +6,12 @@ import {TraceSet} from './ts-plot.dom';
     template: `
 
 @if (dataset) {
-  <div style="display: block;">
+  <div class="tsplot-shell" [class.compact]="compact">
     <canvas baseChart width="auto" height="200"
       [type]="'line'"
       [datasets]="dataset.traces"
-      [options]="scatterOptions"
-    ></canvas>
+      [options]="chartOptions">
+    </canvas>
   </div>
 }
 
@@ -21,38 +21,15 @@ import {TraceSet} from './ts-plot.dom';
 })
 export class TSPlotComponent implements OnInit {
 
-  // static counter:number = 0;
+  @Input() showLegend = true;
+  @Input() compact = false;
 
   dataset: TraceSet;
+  chartOptions: any;
 
   scatterOptions: any;
 
-  constructor() {
-
-    // this.id = TSPlotComponent.counter++;
-
-    // console.log("Created P: "+this.id+":"+this.ix);
-    this.scatterOptions = {
-      scales: {
-        xAxes: {
-          type: 'linear',
-          position: 'bottom',
-          /*ticks: {
-              fixedStepSize: 24
-          }*/
-        }
-      },
-      legend: {
-        display: true,
-        position: 'bottom'
-      }
-    };
-  }
-
-  // @Input()
-  // ix:number;
-
-  // id:number;
+  constructor() {}
 
   @Input()
   set data(data: TraceSet) {
@@ -60,7 +37,20 @@ export class TSPlotComponent implements OnInit {
   }
 
   ngOnInit() {
-    // console.log("Initiated P: "+this.id+":"+this.ix);
+    this.chartOptions = {
+      responsive: true,
+      plugins: {
+        legend: {
+          display: this.showLegend,
+          position: 'top'
+        }
+      },
+      scales: {
+        x: { type: 'linear',
+             position: 'bottom'
+            }
+      }
+    };
   }
 
   // events

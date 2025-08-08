@@ -5,6 +5,8 @@ import { provideHttpClientTesting, HttpTestingController } from '@angular/common
 import { BioDareEndPoints } from 'src/app/backend/biodare-rest.dom';
 import { UsageDataService } from '../usage-data.service';
 import { of } from 'rxjs';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { FormsModule } from '@angular/forms';
 
 describe('SpeciesCardsComponent', () => {
   let component: SpeciesCardsComponent;
@@ -15,6 +17,7 @@ describe('SpeciesCardsComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [SpeciesCardsComponent],
+      imports: [MatSlideToggleModule, FormsModule],
       providers: [
         UsageDataService,
         provideHttpClient(),

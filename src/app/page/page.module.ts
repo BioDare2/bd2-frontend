@@ -8,7 +8,7 @@ import {TopBarMenuComponent} from './top-bar-menu/top-bar-menu.component';
 import {WelcomeComponent} from './welcome/welcome.component';
 import {RouterModule} from '@angular/router';
 import {AuthModule} from '../auth/auth.module';
-
+import { FeaturedDatasetModule } from './featured-dataset/featured-dataset.module';
 
 @NgModule({
   declarations: [AgreeCookiesComponent, HeaderBarComponent,
@@ -19,13 +19,14 @@ import {AuthModule} from '../auth/auth.module';
     BrowserAnimationsModule, // for Cookie consent
     // FeedbackModule,
     AuthModule,
+    FeaturedDatasetModule
   ],
   exports: [
     AgreeCookiesComponent,
     HeaderBarComponent,
     // FeedbackListComponent,
     TopBarComponent
-  ]
+    ]
 })
 export class PageModule {
 }

@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnInit, SimpleChanges} from '@angular/core';
 import {Trace, TraceSet} from './ts-plot.dom';
 import { BD2ColorPalette } from '../../graphic/color/color-palette';
 
@@ -7,10 +7,12 @@ import { BD2ColorPalette } from '../../graphic/color/color-palette';
     template: `
 
 @for (dataset of datasets; track trackByIx(i, dataset); let i = $index) {
-  <div>
-    <h4>{{(i+1)}}. {{dataset.title}}</h4>
+  <div class="tsplots-block">
+    <h4 *ngIf="!(compact)">{{ (i+1) }}. {{ dataset.title }}</h4>
     <bd2-ts-plot
       [data]="dataset"
+      [showLegend]="showLegend"
+      [compact]="compact"
     ></bd2-ts-plot>
   </div>
 }
@@ -20,10 +22,11 @@ import { BD2ColorPalette } from '../../graphic/color/color-palette';
 })
 export class TSPlotsComponent implements OnInit {
 
-  @Input()
-  tracesPerPlot = 7;
+  @Input() tracesPerPlot = 7;
+  @Input() showLegend = true;
+  @Input() compact = false;
 
-
+  private rawTraces: Trace[] = [];
   datasets: TraceSet[] = [];
 
   constructor() {
@@ -35,38 +38,60 @@ export class TSPlotsComponent implements OnInit {
 
   setTraceStyle(trace: Trace, index: number, tracesPerPlot: number) {
     const colors = BD2ColorPalette.palette(tracesPerPlot);
-    const pointStyles = ['circle', 'rect', 'triangle', 'rectRot', 'rectRounded'];
-    const pointRadii = [3, 4, 5, 4, 4];
 
+    if (this.compact) {
+      const color = colors[index % colors.length];
+      trace.fill = false;
+      trace.borderColor = BD2ColorPalette.toRGBA(color,0.8);
+      (trace as any).borderWidth = 1;
+      trace.backgroundColor = BD2ColorPalette.toRGBA(color,0.2);
+      trace.pointRadius = 2;
+      trace.pointHoverRadius = 1;
+      trace.pointBackgroundColor = color;
+      (trace as any).pointBorderWidth = 0;
+      return;
+    }
+    
+    const pointStyles = ['circle','rect','triangle','rectRot','rectRounded'];
+    const pointRadii = [3, 4, 5, 4, 4];
     const color = colors[index % colors.length];
-    trace.borderColor = BD2ColorPalette.toRGBA(color, 0.8);
-    trace.backgroundColor = BD2ColorPalette.toRGBA(color, 0.2);
+    trace.fill = false;
+    trace.borderColor = BD2ColorPalette.toRGBA(color,0.8);
+    (trace as any).borderWidth = 2;
+    trace.backgroundColor = BD2ColorPalette.toRGBA(color,0.2);
     trace.pointBackgroundColor = color;
-    trace.pointBorderColor = '#ffffff';
+    trace.pointBorderColor = '#ffffffff';
     trace.pointStyle = pointStyles[index % pointStyles.length];
     trace.pointRadius = pointRadii[index % pointRadii.length];
-    trace.pointHoverRadius = pointRadii[index % pointRadii.length] + 1;
+    trace.pointHoverRadius = trace.pointRadius + 1;
   }
 
   @Input()
   set data(traces: Trace[]) {
-    if (!traces) {
-      return;
+    this.rawTraces = traces || [];
+    this.buildDatasets();
     }
-    
-    const sets = this.split(traces, this.tracesPerPlot)
-      .map(ts => {
-        ts.forEach((trace, i) => this.setTraceStyle(trace, i, this.tracesPerPlot));
-        const set = new TraceSet();
-        set.traces = ts;
-        return set;
-      });
 
-    this.datasets = sets;
+  ngOnInit() {}
 
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes['compact'] || changes['tracesPerPlot']) {
+      this.buildDatasets();
+    }
   }
 
-  ngOnInit() {
+  private buildDatasets() {
+    if (!this.rawTraces.length) {
+      this.datasets = [];
+      return;
+    }
+    const sets = this.split(this.rawTraces, this.tracesPerPlot).map(ts => {
+      ts.forEach((trace, i) => this.setTraceStyle(trace, i, this.tracesPerPlot));
+      const set = new TraceSet();
+      set.traces = ts;
+      return set;
+    });
+    this.datasets = sets;
   }
 
   trackByIx(index: number, dataset: any) {
