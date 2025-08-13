@@ -10,6 +10,7 @@ export const StaticDocsOptions = [
   ['detrending', 'Detrending for period analysis', 'Detrending and analysis'],
   ['phases', 'Phase calculation', 'Phase calculation'],
   ['service-2017-01-20', 'Service Description 2017', 'Service Description 2017'],
+  ['Accessibility_statement', 'Accessibility Statement', 'Accessibility Statement'],
 ];
 
 export function isKnownStaticDoc(name: string) {
