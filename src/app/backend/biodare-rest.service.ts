@@ -587,6 +587,16 @@ export class BioDareRestService {
     return this.OKJson(this.http.get<any>(url, options));
   }
 
+  getFeaturedDataset(): any {
+
+    const options = this.makeOptions();
+    const url = this.endPoints.featured_dataset_url;
+
+    return this.OKJson(this.http.get<any>(url, options)).pipe(
+      map(v => (v === undefined || v === null) ? null : v)
+    );
+  }
+
   shutdownStatus(): Observable<any> {
 
     const options = this.makeOptions();

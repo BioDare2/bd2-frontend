@@ -15,6 +15,7 @@ import {MatSidenavModule} from '@angular/material/sidenav';
 import {StaticContentModule} from './documents/static-content/static-content.module';
 import {SharedDialogsModule} from './shared/shared-dialogs/shared-dialogs.module';
 import { UsageModule } from './usage/usage.module';
+import { FeaturedDatasetModule } from './page/featured-dataset/featured-dataset.module';
 
 const endPoints: BioDareEndPoints = bioDareRestConfigurator(environment);
 
@@ -31,6 +32,7 @@ const endPoints: BioDareEndPoints = bioDareRestConfigurator(environment);
         PageModule,
         FeedbackModule,
         UsageModule,
+        FeaturedDatasetModule,
         AppRoutingModule], providers: [
         { provide: BioDareEndPoints, useValue: endPoints },
         provideHttpClient(withInterceptorsFromDi())
