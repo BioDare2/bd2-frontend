@@ -2,8 +2,7 @@
   <div class="card mb-2">
     <div class="card-header"><h4>Weekly Featured Dataset</h4></div>
     <div class="card-body">
-    <h5>{{ featuredDataset.generalDesc.name }}</h5>
-
+    <h5><a [routerLink]="['/experiment', featuredDataset.id]">{{ featuredDataset.generalDesc.name }}</a></h5>
     <div class="featured-dataset-wrapper">
       
       @if (previewTraces?.length) {
@@ -12,7 +11,8 @@
             [data]="previewTraces"
             [tracesPerPlot]="5"
             [showLegend]="false"
-            [compact]="true">
+            [compact]="true"
+            [ariaLabel]="'Preview of timeseries for featured dataset ' + featuredDataset.generalDesc.name">
           </bd2-ts-plots>
         </div>
       }

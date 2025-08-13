@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 import { TSPlotModule } from '../../tsdata/plots/ts-plot.module';
 import { FeaturedDatasetComponent } from './featured-dataset.component';
 
@@ -7,7 +8,8 @@ import { FeaturedDatasetComponent } from './featured-dataset.component';
   declarations: [FeaturedDatasetComponent],
   imports: [
     CommonModule,
-    TSPlotModule
+    TSPlotModule,
+    RouterModule
   ],
   exports: [FeaturedDatasetComponent]
 })

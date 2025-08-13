@@ -2,6 +2,7 @@ import { ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testin
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { of } from 'rxjs';
 
+import { provideRouter, RouterLink } from '@angular/router';
 import { FeaturedDatasetComponent } from './featured-dataset.component';
 import { FeaturedDatasetService } from './featured-dataset.service';
 import { ExperimentalAssayView } from '../../dom/repo/exp/experimental-assay-view';
@@ -22,7 +23,10 @@ describe('FeaturedDatasetComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [FeaturedDatasetComponent],
-      providers: [{ provide: FeaturedDatasetService, useClass: MockFeaturedDatasetService }],
+      imports: [RouterLink],
+      providers: [{ provide: FeaturedDatasetService, useClass: MockFeaturedDatasetService },
+        provideRouter([])
+      ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA] // suppress unknown bd2-ts-plots
     }).compileComponents();
 

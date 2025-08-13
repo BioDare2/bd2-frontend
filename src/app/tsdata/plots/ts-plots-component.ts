@@ -13,6 +13,7 @@ import { BD2ColorPalette } from '../../graphic/color/color-palette';
       [data]="dataset"
       [showLegend]="showLegend"
       [compact]="compact"
+      [attr.aria-label]="ariaLabel"
     ></bd2-ts-plot>
   </div>
 }
@@ -25,6 +26,7 @@ export class TSPlotsComponent implements OnInit {
   @Input() tracesPerPlot = 7;
   @Input() showLegend = true;
   @Input() compact = false;
+  @Input() ariaLabel: string;
 
   private rawTraces: Trace[] = [];
   datasets: TraceSet[] = [];
