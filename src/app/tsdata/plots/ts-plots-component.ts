@@ -63,6 +63,7 @@ export class TSPlotsComponent implements OnInit {
     trace.backgroundColor = BD2ColorPalette.toRGBA(color,0.2);
     trace.pointBackgroundColor = color;
     trace.pointBorderColor = '#ffffffff';
+    (trace as any).pointBorderWidth = 0;
     trace.pointStyle = pointStyles[index % pointStyles.length];
     trace.pointRadius = pointRadii[index % pointRadii.length];
     trace.pointHoverRadius = trace.pointRadius + 1;
