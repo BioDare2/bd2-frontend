@@ -25,7 +25,8 @@ export class GoogleAnalyticsComponent implements OnInit {
       (response: any) => {
         console.log('API Response:', response);
         const analyticsData = response.analytics;
-        this.topCountries = analyticsData.sort((a, b) => b.activeUsers - a.activeUsers).slice(0, 5);
+        const filteredData = analyticsData.filter((row: any) => row.country !== '(not set)');
+        this.topCountries = filteredData.sort((a, b) => b.activeUsers - a.activeUsers).slice(0, 5);
         this.drawChart(analyticsData);
       },
       (error) => {
