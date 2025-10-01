@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { UsageDataService } from '../usage-data.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'bd2-species-cards',
@@ -14,6 +15,8 @@ export class SpeciesCardsComponent implements OnInit {
   speciesInfo: any[] = [];
   speciesData: any[] = [];
   animationEnabled = true;
+  private speciesInfoSub?: Subscription;
+  private speciesStatsSub?: Subscription;
 
   constructor(private usageDataService: UsageDataService, private http: HttpClient) {}
 
@@ -22,20 +25,20 @@ export class SpeciesCardsComponent implements OnInit {
   }
 
   loadSpeciesInfo() {
-    this.http.get<any[]>('assets/species/species-info.json').subscribe(
-      data => {
+    this.speciesInfoSub = this.http.get<any[]>('assets/species/species-info.json').subscribe({
+      next: data => {
         this.speciesInfo = data;
         this.fetchSpeciesStats();
       },
-      error => {
+      error: error => {
         console.error('Error loading static species info', error);
       }
-    );
+    });
   }
 
   fetchSpeciesStats() {
-    this.usageDataService.getUsageData().subscribe(
-      (response: any) => {
+    this.speciesStatsSub = this.usageDataService.getUsageData().subscribe({
+      next: (response: any) => {
         this.speciesStats = response.species_stats;
   
         this.speciesData = this.speciesInfo.map(species => {
@@ -43,9 +46,14 @@ export class SpeciesCardsComponent implements OnInit {
           return stats ? { ...species, ...stats } : species;
         });
       },
-      error => {
+      error: error => {
         console.error('Error fetching species stats from backend', error);
       }
-    );
+    });
+  }
+
+  ngOnDestroy(): void {
+    this.speciesInfoSub?.unsubscribe();
+    this.speciesStatsSub?.unsubscribe();
   }
 }

@@ -16,14 +16,14 @@ export class UsageComponent implements OnInit {
   }
 
   fetchUsageDate() {
-    this.usagedataService.getUsageData().subscribe(
-      (response: any) => {
+    this.usagedataService.getUsageData().subscribe({
+      next: (response: any) => {
         console.log('API Response:', response);
         this.currentDate = new Date(response.timestamp);
       },
-      (error) => {
+      error: (error) => {
         console.error('Error fetching usage date:', error);
       }
-    );
+    });
   }
 }

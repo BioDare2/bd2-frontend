@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FeaturedDatasetService } from './featured-dataset.service';
 import { ExperimentalAssayView } from '../../dom/repo/exp/experimental-assay-view';
 import { Trace } from '../../tsdata/plots/ts-plot.dom';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'bd2-featured-dataset',
@@ -15,6 +16,7 @@ export class FeaturedDatasetComponent {
   authors: string = '';
   affiliations: string = '';
   previewTraces: Trace[] = [];
+  previewTracesSub?: Subscription;
 
   constructor(private featuredDatasetService: FeaturedDatasetService) { }
 
@@ -34,9 +36,15 @@ export class FeaturedDatasetComponent {
         .map(a => `${a.firstName} ${a.lastName}`).join(', ');
       this.affiliations = (this.featuredDataset.contributionDesc.institutions || [])
         .map(i => i.name).join(', ');
-      this.featuredDatasetService.previewTraces(this.featuredDataset.id)
+
+      this.previewTracesSub?.unsubscribe();
+      this.previewTracesSub = this.featuredDatasetService.previewTraces(this.featuredDataset.id)
         .subscribe(trs => this.previewTraces = (trs || []) as Trace[]);
     }).catch(err => {
     });
+  }
+
+  ngOnDestroy(): void {
+    this.previewTracesSub?.unsubscribe();
   }
 }

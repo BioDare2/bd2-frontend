@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UsageDataService } from '../usage-data.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'bd2-usage-stats',
@@ -19,6 +20,7 @@ export class UsageStatsComponent implements OnInit {
   publicSeriesPerYear: { year: number, value: number }[] = [];
   privateSetsPerYear: { year: number, value: number }[] = [];
   privateSeriesPerYear: { year: number, value: number }[] = [];
+  private usageStatsSub?: Subscription;
 
   constructor(private usagedataService: UsageDataService) { }
 
@@ -27,8 +29,9 @@ export class UsageStatsComponent implements OnInit {
   }
 
   fetchUsageStats() {
-    this.usagedataService.getUsageData().subscribe(
-      (response: any) => {
+    this.usageStatsSub?.unsubscribe();
+    this.usageStatsSub = this.usagedataService.getUsageData().subscribe({
+      next: (response: any) => {
         console.log('API Response:', response);
         const yearStatsData = response.year_stats;
         this.usageStats = response;
@@ -46,11 +49,14 @@ export class UsageStatsComponent implements OnInit {
         this.publicSeriesPerYear = yearStatsData.map(stat => ({ year: stat.year, value: stat.public_series }));
         this.privateSetsPerYear = yearStatsData.map(stat => ({ year: stat.year, value: stat.sets - stat.public_sets }));
         this.privateSeriesPerYear = yearStatsData.map(stat => ({ year: stat.year, value: stat.series - stat.public_series }));
-
       },
-      (error) => {
+      error: (error) => {
         console.error('Error fetching usage stats:', error);
       }
-    );
+    });
+  }
+
+  ngOnDestroy(): void {
+    this.usageStatsSub?.unsubscribe();
   }
 }
