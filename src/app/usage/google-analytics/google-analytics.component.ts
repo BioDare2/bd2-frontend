@@ -64,10 +64,10 @@ export class GoogleAnalyticsComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.analyticsSub?.unsubscribe();
-    if (this.chart) {
+    if (this.chart && typeof this.chart.clearChart === 'function') {
       this.chart.clearChart();
-      const chartDiv = document.getElementById('chart_div');
-      if (chartDiv) chartDiv.innerHTML = '';
     }
+    const chartDiv = document.getElementById('chart_div');
+    if (chartDiv) chartDiv.innerHTML = '';
   }
 }
