@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, AfterViewChecked, ChangeDetectorRef } from '@angular/core';
 import { UsageDataService } from '../usage-data.service';
 import { environment } from '../../../environments/environment';
 import { Subscription } from 'rxjs';
@@ -10,17 +10,29 @@ declare const google: any;
   templateUrl: './google-analytics.component.html',
   standalone: false
 })
-export class GoogleAnalyticsComponent implements OnInit, OnDestroy {
+export class GoogleAnalyticsComponent implements OnInit, OnDestroy, AfterViewChecked {
   private analyticsSub?: Subscription;
   private API_KEY = environment.googleAnalyticsApiKey;
+  private chartDrawn = false;
   analyticsData: any;
   chart: any;
   topCountries: { country: string, activeUsers: number }[] = [];
 
-  constructor(private usagedataService: UsageDataService) { }
+  constructor(
+    private usagedataService: UsageDataService,
+    private cdr: ChangeDetectorRef
+  ) { }
 
   ngOnInit(): void {
     this.fetchAnalyticsData();
+  }
+
+  ngAfterViewChecked(): void {
+    // Only draw chart if analyticsData is set, chart_div exists, and chart not yet drawn
+    if (this.analyticsData && !this.chartDrawn && document.getElementById('chart_div')) {
+      this.drawChart(this.analyticsData);
+      this.chartDrawn = true;
+    }
   }
 
   fetchAnalyticsData() {
@@ -28,9 +40,11 @@ export class GoogleAnalyticsComponent implements OnInit, OnDestroy {
       next: (response: any) => {
         console.log('API Response:', response);
         const analyticsData = response.analytics;
+        this.analyticsData = analyticsData;
         const filteredData = analyticsData.filter((row: any) => row.country !== '(not set)');
         this.topCountries = filteredData.sort((a, b) => b.activeUsers - a.activeUsers).slice(0, 5);
-        this.drawChart(analyticsData);
+        this.chartDrawn = false; // Reset so chart can be drawn after DOM update
+        this.cdr.detectChanges(); 
       },
       error: (error) => {
         console.error('Error fetching analytics data:', error);
@@ -50,8 +64,6 @@ export class GoogleAnalyticsComponent implements OnInit, OnDestroy {
         chartData.push([row.country, row.activeUsers]);
       });
 
-      console.log('Chart Data:', chartData);
-
       const dataTable = google.visualization.arrayToDataTable(chartData);
       const options = {
         colorAxis: { colors: ['#9fc5e8', '#4374e0'] }
@@ -66,8 +78,12 @@ export class GoogleAnalyticsComponent implements OnInit, OnDestroy {
     this.analyticsSub?.unsubscribe();
     if (this.chart && typeof this.chart.clearChart === 'function') {
       this.chart.clearChart();
+      this.chart = null;
     }
     const chartDiv = document.getElementById('chart_div');
-    if (chartDiv) chartDiv.innerHTML = '';
+    if (chartDiv && chartDiv.parentNode) {
+      chartDiv.parentNode.removeChild(chartDiv);
+    }
+    this.analyticsData = null;
   }
 }
