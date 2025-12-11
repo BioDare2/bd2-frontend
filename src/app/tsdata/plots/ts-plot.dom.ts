@@ -29,6 +29,7 @@ export class Trace {
   pointStyle?: string;
   pointRadius?: number;
   pointHoverRadius?: number;
+  hidden?: boolean;
 }
 
 
@@ -40,4 +41,5 @@ export class TraceSet {
   currentPage: PageEvent;
   detrending: DetrendingType;
   sort: TSSort;
+  hidden?: boolean;
 }

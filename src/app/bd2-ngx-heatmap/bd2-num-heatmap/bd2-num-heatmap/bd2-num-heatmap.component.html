@@ -1,6 +1,10 @@
 <div class="bd2hm-heatmap" [hidden]="hidden">
   @if (graphic) {
-    <svg width="100%" [attr.viewBox]="graphic.viewBox">
+    <svg 
+      width="100%"
+      [attr.viewBox]="graphic.viewBox"
+      aria-label="Heatmap showing the signal for the current dataset"
+      >
       <defs>
         <filter id="bd2hm-shadow">
           <feDropShadow dx="1" dy="1" stdDeviation="1"/>

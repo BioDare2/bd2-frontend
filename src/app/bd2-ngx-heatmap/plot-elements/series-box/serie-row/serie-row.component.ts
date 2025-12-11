@@ -6,16 +6,31 @@ import {BoxSerie, GraphicContext} from '../../../bd2-heatmap.dom';
     template: `
     @if (graphic && serie) {
       <svg:g class="bd2hm-serie">
+        @if (usePattern) {
+          <svg:defs>
+            <svg:pattern [attr.id]="'pos-stripes-' + serie.key" patternUnits="userSpaceOnUse" width="8" height="8" patternTransform="rotate(45)">
+              <svg:rect x="0" y="0" width="8" height="8" fill="white"/>
+              <svg:line x1="0" y1="0" x2="0" y2="8" stroke="#666" stroke-width="3"/>
+            </svg:pattern>
+            <svg:pattern [attr.id]="'neg-stripes-' + serie.key" patternUnits="userSpaceOnUse" width="8" height="8" patternTransform="rotate(-45)">
+              <svg:rect x="0" y="0" width="8" height="8" fill="white"/>
+              <svg:line x1="0" y1="0" x2="0" y2="8" stroke="#666" stroke-width="3"/>
+            </svg:pattern>
+          </svg:defs>
+        }
         @for (point of serie.data; track trackByIndex($index, point)) {
           <svg:g bd2hm-data-point-box
-            [point]="point" [xScale]="graphic.xScale"
+            [point]="point"
+            [xScale]="graphic.xScale"
             [yPosition]="yPosition"
-            [yHeight]="yHeight" [colorScale]="graphic.colorScale"
+            [yHeight]="yHeight"
+            [colorScale]="graphic.colorScale"
             [label]="serie.label"
-            ></svg:g>
-          }
-          </svg:g>
+            [pattern]="usePattern ? (point.y > 0 ? 'pos-stripes-' + serie.key : 'neg-stripes-' + serie.key) : null"
+          ></svg:g>
         }
+      </svg:g>
+    }
     `,
     styles: [],
     changeDetection: ChangeDetectionStrategy.OnPush,
@@ -28,6 +43,9 @@ export class SerieRowComponent implements OnInit, OnChanges {
 
   @Input()
   serie: BoxSerie;
+
+  @Input()
+  usePattern: boolean = true;
 
   yPosition: number;
 

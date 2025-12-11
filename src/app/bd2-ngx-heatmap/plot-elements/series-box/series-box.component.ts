@@ -6,7 +6,10 @@ import {BoxSerie, GraphicContext} from '../../bd2-heatmap.dom';
     template: `
     @for (serie of series; track trackByIndex($index, serie)) {
       <svg:g
-        bd2hm-serie-row [graphic]="graphic" [serie]="serie"></svg:g>
+        bd2hm-serie-row
+        [graphic]="graphic"
+        [serie]="serie">
+      </svg:g>
       }
     `,
     styles: [],

@@ -1,0 +1,31 @@
+.custom-legend button {
+  margin-right: 8px;
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-size: 0.8em;
+  outline: none;
+  padding: 2px 6px;
+}
+
+.custom-legend button:focus-visible {
+  box-shadow: 0 0 0 2px #4374e0;
+  background: #eef6ff;
+  border-radius: 4px;
+}
+
+.legend-color {
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  margin-right: 0.5em;
+  vertical-align: middle;
+  border-radius: 3px;
+  position: relative;
+  top: -1px;
+}
+
+.custom-legend button.strike {
+  text-decoration: line-through;
+  opacity: 0.6;
+}

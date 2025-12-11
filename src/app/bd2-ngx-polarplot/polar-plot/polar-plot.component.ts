@@ -124,7 +124,7 @@ export class PolarPlotComponent implements OnInit, AfterViewInit, OnChanges, OnD
   }
 
   /**
-   * Explicit triggers re-drawing as need to have all the parameters set (so will not redrawn if data came frist and domain later)
+   * Explicit triggers re-drawing as need to have all the parameters set (so will not be redrawn if data came first and domain later)
    * @param changes
    */
   ngOnChanges(changes: SimpleChanges) {
@@ -167,10 +167,9 @@ export class PolarPlotComponent implements OnInit, AfterViewInit, OnChanges, OnD
 
     const d3ParentElement = this.d3.select(this.parentNativeElement);
     this.d3Svg = d3ParentElement.select('.polarplot').append('svg');
-
-
     this.d3Svg.attr('width', '100%')
       .attr('viewBox', '0 0 ' + pWidth + ' ' + pHeight);
+    this.d3Svg.attr('aria-label', 'Polar plot showing the fitted phases for the current dataset and analysis method.');
 
     const context = new GraphicContext();
     context.mainPane = this.d3Svg.append<SVGGElement>('g')

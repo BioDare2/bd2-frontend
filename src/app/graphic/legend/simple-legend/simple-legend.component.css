@@ -1,0 +1,46 @@
+div.marked {
+  text-decoration: line-through;
+  opacity: 0.6;
+}
+
+.legend-item {
+  margin-right: 1.5em;
+  cursor: pointer;
+  display: inline-block;
+  vertical-align: middle;
+  padding: 2px 6px;
+  outline: none;
+}
+
+.legend-item:focus-visible {
+  box-shadow: 0 0 0 2px #4374e0;
+  background: #eef6ff;
+  border-radius: 4px;
+}
+
+.legend-item.marked {
+  text-decoration: line-through;
+  opacity: 0.6;
+}
+
+.color-box {
+  width: 1em;
+  height: 1em;
+  margin-right: 0.5em;
+  vertical-align: middle;
+  border-radius: 3px;
+  position: relative;
+  top: 3px; /* To align with the text */
+}
+
+.custom-legend button:focus-visible {
+  box-shadow: 0 0 0 2px #4374e0;
+  background: #eef6ff;
+}
+
+.legend-item span {
+  vertical-align: middle;
+  line-height: 1em;
+  word-wrap: break-word; /* All browsers since IE 5.5+ */
+  overflow-wrap: break-word; /* Renamed property in CSS3 draft spec */
+}
