@@ -41,6 +41,8 @@ export class TsHeatmapViewComponent extends ExperimentBaseComponent implements O
 
   disabledSecondary = false;
 
+  patterned = false;
+
   metrics: TimeSeriesMetrics;
   private timeSeriesSubsripction: Subscription;
   private csvExporter = new CSVExporter();

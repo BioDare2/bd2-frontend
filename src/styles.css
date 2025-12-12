@@ -158,6 +158,7 @@ nav.secondary a:hover {
 
 nav.secondary a.router-link-active, nav.secondary a.active {
   color: #039be5;
+
   /*background-color: #CFD8DC;*/
 }
 
@@ -293,9 +294,13 @@ mat-snack-bar-container {
 }
 
 .alert.alert-danger {
-  background-color: #f8d7da !important;
+  background-color: #fae7e8 !important;
   color: #721c24 !important;
   border-color: #f5c6cb !important;
+}
+
+.alert.alert-success {
+  background-color: #e8fae8 !important;
 }
 
 /* those do not work with material update */

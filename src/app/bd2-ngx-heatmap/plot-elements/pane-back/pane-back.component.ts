@@ -4,8 +4,12 @@ import {GraphicContext} from '../../bd2-heatmap.dom';
 @Component({
     selector: '[bd2hm-pane-back]',
     template: `
-    <svg:rect class="bd2hm-dataBackground" [attr.x]="margin" [attr.y]="margin"
-              [attr.width]="width" [attr.height]="height"
+    <svg:rect
+      class="bd2hm-dataBackground"
+      [attr.x]="margin"
+      [attr.y]="margin"
+      [attr.width]="width"
+      [attr.height]="height"
     >
     </svg:rect>
   `,

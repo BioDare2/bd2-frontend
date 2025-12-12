@@ -1,6 +1,5 @@
 import {NgModule} from '@angular/core';
 
-
 import {TSPlotComponent} from './ts-plot.component';
 import {TSPlotsComponent} from './ts-plots-component';
 import {TSDisplayParamsRFormComponent} from './tsdisplay-params-rform/tsdisplay-params-rform.component';

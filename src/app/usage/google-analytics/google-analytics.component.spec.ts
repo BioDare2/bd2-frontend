@@ -77,6 +77,7 @@ describe('GoogleAnalyticsComponent', () => {
   it('should draw chart with fetched data', () => {
     spyOn(component, 'drawChart').and.callThrough();
     component.fetchAnalyticsData();
+    component.ngAfterViewChecked();
     expect(component.drawChart).toHaveBeenCalledWith(jasmine.arrayContaining([
       { country: 'Country1', activeUsers: 100 },
       { country: 'Country2', activeUsers: 200 }

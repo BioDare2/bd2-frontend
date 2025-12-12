@@ -15,41 +15,21 @@ class LegendItem {
     template: `
     <div class="simple-legend clearfix">
       @for (item of items; track item) {
-        <div class="legend-item float-left"
-          [class.marked]="item.marked"
-          (click)="toggleMark(item)">
-          <div class="color-box float-left"
-            [style.border-color]="item.borderColor"
+      <div class="legend-item float-left"
+        [class.marked]="item.marked"
+        tabindex="0"
+        role="button"
+        (click)="toggleMark(item)"
+        (keydown)="onLegendKeydown($event, item)">
+        <div class="color-box float-left"
+          [style.border-color]="item.borderColor"
           [style.background]="item.bcgColor"></div>
-          <span>{{item.title}}</span>
-        </div>
+        <span>{{item.title}}</span>
+      </div>
       }
     </div>
     `,
-    styles: [
-        `
-                                 div.marked {
-                                   text-decoration: line-through;
-                                 }
-                           
-                                 div.legend-item {
-                                   margin-right: 1.5em;
-                                 }
-                           
-                                 div.color-box {
-                                   width: 2.5em;
-                                   height: 1.1em;
-                                   margin-right: 0.5em;
-                                   border-width: 3px;
-                                   border-style: solid;
-                                 }
-                           
-                                 div.legend-item span {
-                                   word-wrap: break-word; /* All browsers since IE 5.5+ */
-                                   overflow-wrap: break-word; /* Renamed property in CSS3 draft spec */
-                                 }
-                               `
-    ],
+    styleUrls: ["./simple-legend.component.css"],
     standalone: false
 })
 export class SimpleLegendComponent implements OnInit, OnChanges {
@@ -61,7 +41,7 @@ export class SimpleLegendComponent implements OnInit, OnChanges {
   palette: string[] = [];
 
   @Input()
-  opacity = 0.35;
+  opacity = 1;
 
   @Output()
   marked = new EventEmitter<number[]>();
@@ -110,6 +90,13 @@ export class SimpleLegendComponent implements OnInit, OnChanges {
       }
     });
     this.marked.emit(marked);
+  }
+
+  onLegendKeydown(event: KeyboardEvent, item: LegendItem) {
+    if (event.key === 'Enter' || event.key === ' ') {
+      this.toggleMark(item);
+      event.preventDefault();
+    }
   }
 
 

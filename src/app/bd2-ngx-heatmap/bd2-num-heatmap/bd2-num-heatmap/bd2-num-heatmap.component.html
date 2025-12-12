@@ -1,6 +1,10 @@
 <div class="bd2hm-heatmap" [hidden]="hidden">
   @if (graphic) {
-    <svg width="100%" [attr.viewBox]="graphic.viewBox">
+    <svg 
+      width="100%"
+      [attr.viewBox]="graphic.viewBox"
+      aria-label="Heatmap showing the signal for the current dataset"
+      >
       <defs>
         <filter id="bd2hm-shadow">
           <feDropShadow dx="1" dy="1" stdDeviation="1"/>
@@ -10,10 +14,11 @@
           <line x1="0" y1="0" x2="0" y2="10" style="stroke:lightgrey; stroke-width:1"/>
         </pattern>
       </defs>
+      <g bd2hm-legend [show]="patterned" [graphic]="graphic" [position]="'translate(20, 0)'"></g>
       <g class="bd2hm-mainPane" [attr.transform]="graphic.mainPaneTransform">
         <g bd2hm-pane-back [graphic]="graphic" class="bd2hm-paneBack"></g>
         <g bd2hm-axis-box [graphic]="graphic"></g>
-        <g bd2hm-series-box [graphic]="graphic" [series]="series" class="bd2hm-seriesBox"></g>
+        <g bd2hm-series-box [graphic]="graphic" [series]="series" [usePattern]="patterned" class="bd2hm-seriesBox"></g>
         <g bd2hm-labels [graphic]="graphic" [data]="series" [alwaysOn]="labelsAlwaysOn"></g>
         <g bd2hm-tooltip [graphic]="graphic"></g>
       </g>

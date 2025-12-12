@@ -259,12 +259,13 @@ describe('HeatmapGraphUtil', () => {
     const lookAndFeel = new LookAndFeelSizing();
     lookAndFeel.vMargin = 2;
     lookAndFeel.hMargin = 1;
+    const legendOffset = 0;
 
     const graphic = new GraphicContext();
 
     const data = [1, 2, 3, 4, 5];
 
-    util.calculateDimensions(graphic, data, lookAndFeel);
+    util.calculateDimensions(graphic, data, lookAndFeel, legendOffset);
     expect(graphic.pWidth).toEqual(500);
     expect(graphic.pHeight).toEqual(5 * 25 + 2 * 2);
     expect(graphic.workspaceWidth).toEqual(500 - 3 * 1);
@@ -279,12 +280,13 @@ describe('HeatmapGraphUtil', () => {
     lookAndFeel.hMargin = 20;
     lookAndFeel.vMargin = 25;
     const graphic = new GraphicContext();
+    const legendOffset = 0;
 
     const data = [1, 2, 3, 4, 5];
 
-    util.calculateDimensions(graphic, data, lookAndFeel);
+    util.calculateDimensions(graphic, data, lookAndFeel, legendOffset);
 
-    util.addPaneAttributes(graphic, lookAndFeel);
+    util.addPaneAttributes(graphic, lookAndFeel, legendOffset);
 
     expect(graphic.viewBox).toEqual('0 0 500 175');
     expect(graphic.mainPaneTransform).toEqual('translate(40, 25)');

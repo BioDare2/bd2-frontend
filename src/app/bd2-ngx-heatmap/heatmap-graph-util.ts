@@ -6,12 +6,15 @@ import {interpolateSpectral} from 'd3-scale-chromatic';
 
 export class HeatmapGraphUtil {
 
-  prepareGraphicContext(data: Serie[], lookAndFeel: LookAndFeelSizing, middleZero: boolean=false): GraphicContext {
+  prepareGraphicContext(data: Serie[],
+                        lookAndFeel: LookAndFeelSizing,
+                        middleZero: boolean=false,
+                        legendOffset: number = 0): GraphicContext {
 
     const context = new GraphicContext();
 
-    this.calculateDimensions(context, data, lookAndFeel);
-    this.addPaneAttributes(context, lookAndFeel);
+    this.calculateDimensions(context, data, lookAndFeel, legendOffset);
+    this.addPaneAttributes(context, lookAndFeel, legendOffset);
 
     this.addScales(context, data, lookAndFeel, middleZero);
     this.addFormatters(context, data);
@@ -20,13 +23,16 @@ export class HeatmapGraphUtil {
     return context;
   }
 
-  calculateDimensions(context: GraphicContext, data: any[], lookAndFeel: LookAndFeelSizing) {
+  calculateDimensions(context: GraphicContext,
+                      data: any[],
+                      lookAndFeel: LookAndFeelSizing,
+                      legendOffset: number) {
 
     context.pWidth = 500;
     context.workspaceWidth = context.pWidth - 3 * lookAndFeel.hMargin;
 
     context.workspaceHeight = this.calculateWorkspaceHeight(data, lookAndFeel);
-    context.pHeight = context.workspaceHeight + 2 * lookAndFeel.vMargin;
+    context.pHeight = context.workspaceHeight + 2 * lookAndFeel.vMargin + legendOffset;
   }
 
   calculateWorkspaceHeight(data: any[], lookAndFeel: LookAndFeelSizing) {
@@ -39,10 +45,12 @@ export class HeatmapGraphUtil {
     return data.length * lookAndFeel.smallRowWidth;
   }
 
-  addPaneAttributes(context: GraphicContext, lookAndFeel: LookAndFeelSizing) {
+  addPaneAttributes(context: GraphicContext,
+                    lookAndFeel: LookAndFeelSizing,
+                    legendOffset: number) {
     context.viewBox = `0 0 500 ${context.pHeight}`;
 
-    context.mainPaneTransform = `translate(${2 * lookAndFeel.hMargin}, ${lookAndFeel.vMargin})`;
+    context.mainPaneTransform = `translate(${2 * lookAndFeel.hMargin}, ${lookAndFeel.vMargin + legendOffset})`;
   }
 
   addScales(context: GraphicContext, data: Serie[], lookAndFeel: LookAndFeelSizing, middleZero: boolean) {

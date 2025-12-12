@@ -19,9 +19,14 @@ import {map, tap} from 'rxjs/operators';
     @if (serie) {
       <svg:g class="bd2hm-label">
         @if (alwaysOn) {
-          <svg:text x="5" [attr.y]="yMiddle" class="bd2hm-onLabel"
+          <svg:text
+            class="bd2hm-onLabel"
+            x="-12"
+            text-anchor="end"
+            [attr.y]="yMiddle"
             [attr.font-size]="fontSize()"
-            >{{serie.label}}</svg:text>
+            >{{ shortLabel}}
+          </svg:text>
           }
           <g (mouseout)="toggleLabel(false)" (mouseover)="toggleLabel(true)">
             <svg:rect x="-7" width="7" [attr.y]="triggerY" [attr.height]="triggerHeight" [attr.fill]="color"
@@ -152,6 +157,12 @@ export class LabelBoxComponent implements OnInit, OnChanges {
       return {x: 0, y: 0, height: 0, width: 0} as SVGRect;
     }
     return this.textNode.nativeElement.getBBox();
+  }
+
+  get shortLabel(): string {
+    if (!this.serie?.label) return '';
+    const idx = this.serie.label.indexOf('.');
+    return idx !== -1 ? this.serie.label.substring(0, idx + 1) : this.serie.label;
   }
 
   /*

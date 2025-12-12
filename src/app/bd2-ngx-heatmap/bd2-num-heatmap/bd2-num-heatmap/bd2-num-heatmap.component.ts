@@ -34,6 +34,11 @@ export class Bd2NumHeatmapComponent implements OnInit, OnDestroy, OnChanges {
   @Input()
   lookAndFeel = new LookAndFeelSizing();
 
+  @Input()
+  patterned = false;
+
+  legendOffset: number;
+
   graphic: GraphicContext;
 
   heatmapDataUtil = new HeatmapDataUtil();
@@ -54,9 +59,10 @@ export class Bd2NumHeatmapComponent implements OnInit, OnDestroy, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
+    this.legendOffset = this.patterned ? 20 : 0;
     if (this.data && this.data.length > 0) {
       this.series = this.heatmapDataUtil.seriesToBoxes(this.data, this.asymmetric);
-      this.graphic = this.heatmapGraphUtil.prepareGraphicContext(this.series, this.lookAndFeel, this.middleZero);
+      this.graphic = this.heatmapGraphUtil.prepareGraphicContext(this.series, this.lookAndFeel, this.middleZero, this.legendOffset);
     } else {
       this.graphic = undefined;
       this.series = undefined;

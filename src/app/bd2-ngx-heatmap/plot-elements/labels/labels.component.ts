@@ -9,8 +9,11 @@ import {GraphicContext, Serie} from '../../bd2-heatmap.dom';
         @for (serie of data; track trackByIndex(ix, serie); let ix = $index) {
           <svg:g bd2hm-label-box
             [serie]="serie"
-            [yStart]="yStart(serie)" [maxHeight]="maxHeight()" [alwaysOn]="alwaysOn"
-            ></svg:g>
+            [yStart]="yStart(serie)"
+            [maxHeight]="maxHeight()"
+            [alwaysOn]="alwaysOn"
+            >
+          </svg:g>
           }
           </svg:g>
         }

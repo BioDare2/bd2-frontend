@@ -7,6 +7,7 @@ import {SerieRowComponent} from './series-box/serie-row/serie-row.component';
 import {DataPointBoxComponent} from './series-box/serie-row/data-point-box/data-point-box.component';
 import {SeriesBoxComponent} from './series-box/series-box.component';
 import {PaneBackComponent} from './pane-back/pane-back.component';
+import { LegendComponent } from './legend/legend.component';
 import {AxisModule} from './axis/axis.module';
 
 
@@ -19,6 +20,7 @@ import {AxisModule} from './axis/axis.module';
     SeriesBoxComponent,
     SerieRowComponent,
     DataPointBoxComponent,
+    LegendComponent
   ],
   imports: [
     CommonModule,
@@ -32,7 +34,8 @@ import {AxisModule} from './axis/axis.module';
     SeriesBoxComponent,
     SerieRowComponent,
     DataPointBoxComponent,
-    AxisModule
+    AxisModule,
+    LegendComponent
   ]
 
 })

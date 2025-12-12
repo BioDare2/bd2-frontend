@@ -23,15 +23,20 @@
       <hr>
         <div class="clearfix">
           @if (timeseries) {
+            <mat-slide-toggle [(ngModel)]="patterned" class="mr-3">Patterned view</mat-slide-toggle>
             <div class="float-right">
               <label class="mr-4">
-                <a download (click)="exportDataView()" role="button" class="btn btn-primary" aria-label="download" style="color: white;">
-                  <i class="material-icons bd-icon">save_alt</i><span class="cdk-visually-hidden">Download</span></a>
+                <button (click)="exportDataView()" class="btn btn-primary" aria-label="download" style="color: white;">
+                  <i class="material-icons bd-icon">save_alt</i>
+                  <span class="cdk-visually-hidden">Download</span>
+                </button>
                   current view
                 </label>
                 <label class="mr-4">
-                  <a download (click)="exportFullData()" role="button" class="btn btn-primary" aria-label="download whole" style="color: white;">
-                    <i class="material-icons bd-icon">save_alt</i><span class="cdk-visually-hidden">Download</span></a>
+                  <button (click)="exportDataView()" class="btn btn-primary" aria-label="download" style="color: white;">
+                    <i class="material-icons bd-icon">save_alt</i>
+                    <span class="cdk-visually-hidden">Download</span>
+                  </button>
                     full
                   </label>
                 </div>
@@ -39,7 +44,7 @@
             </div>
             <hr>
               @if (timeseries) {
-                <bd2-heatmap-plot [traces]="timeseries" [middleZero]="middleZero"></bd2-heatmap-plot>
+                <bd2-heatmap-plot [traces]="timeseries" [middleZero]="middleZero" [patterned]="patterned"></bd2-heatmap-plot>
               }
               <!--
               <p>Timeseries: </p>

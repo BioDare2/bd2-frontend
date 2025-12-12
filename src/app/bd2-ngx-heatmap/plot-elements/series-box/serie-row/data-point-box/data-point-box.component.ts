@@ -20,9 +20,13 @@ import {TooltipService} from '../../../tooltip/tooltip.service';
     selector: '[bd2hm-data-point-box]',
     template: `
     @if (point && xScale) {
-      <svg:rect #box [attr.x]="xPosition" [attr.y]="yPosition"
+      <svg:rect #box
+        [attr.x]="xPosition"
+        [attr.y]="yPosition"
         [attr.width]="xWidth"
-        [attr.height]="yHeight" [attr.fill]="colorScale(point.y)" [attr.stroke]="colorScale(point.y)"
+        [attr.height]="yHeight" [attr.fill]="colorScale(point.y)"
+        [attr.stroke]="colorScale(point.y)"
+        [attr.fill]="pattern ? 'url(#' + pattern + ')' : colorScale(point.y)"
         >
         </svg:rect>
       }
@@ -56,6 +60,9 @@ export class DataPointBoxComponent implements OnInit, OnDestroy, OnChanges, Afte
   @Input()
   label: string;
 
+  @Input()
+  pattern: string | null;
+
   xPosition: number;
   xWidth: number;
 
@@ -85,7 +92,6 @@ export class DataPointBoxComponent implements OnInit, OnDestroy, OnChanges, Afte
 
   ngOnInit(): void {
   }
-
 
   ngOnDestroy(): void {
     this.removeMouseListeners(this.boxNode);

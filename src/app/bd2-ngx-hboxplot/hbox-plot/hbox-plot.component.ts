@@ -169,6 +169,7 @@ export class HBoxPlotComponent implements OnInit, AfterViewInit, OnChanges, OnDe
       const d3ParentElement = this.d3.select(this.parentNativeElement);
       this.d3Svg = d3ParentElement.select('.hbox-plot').append('svg');
       this.d3Svg.attr('width', '0');
+      this.d3Svg.attr('aria-label', 'Box-plot showing the fitted periods for the current dataset and analysis method.');
     }
   }
 
