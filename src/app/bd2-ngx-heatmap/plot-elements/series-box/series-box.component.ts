@@ -8,7 +8,8 @@ import {BoxSerie, GraphicContext} from '../../bd2-heatmap.dom';
       <svg:g
         bd2hm-serie-row
         [graphic]="graphic"
-        [serie]="serie">
+        [serie]="serie"
+        [usePattern]="usePattern">
       </svg:g>
       }
     `,
@@ -23,6 +24,9 @@ export class SeriesBoxComponent implements OnInit {
 
   @Input()
   graphic: GraphicContext;
+
+  @Input()
+  usePattern: boolean = false;
 
   constructor() {
   }

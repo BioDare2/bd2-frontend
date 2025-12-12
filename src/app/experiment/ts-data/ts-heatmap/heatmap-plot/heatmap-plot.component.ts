@@ -20,6 +20,9 @@ export class HeatmapPlotComponent implements OnInit {
   @Input()
   middleZero = false;
 
+  @Input()
+  patterned = false;
+
   constructor() { }
 
   ngOnInit(): void {

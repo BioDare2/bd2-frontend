@@ -45,7 +45,7 @@ export class SerieRowComponent implements OnInit, OnChanges {
   serie: BoxSerie;
 
   @Input()
-  usePattern: boolean = true;
+  usePattern: boolean = false;
 
   yPosition: number;
 
