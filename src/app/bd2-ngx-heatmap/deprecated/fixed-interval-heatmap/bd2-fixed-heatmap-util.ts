@@ -9,8 +9,10 @@ export class Bd2FixedHeatmapUtil extends HeatmapGraphUtil {
 
     const context = new FixedGraphicContext();
 
-    this.calculateDimensions(context, data, lookAndFeel);
-    this.addPaneAttributes(context, lookAndFeel);
+    const legendOffset = 0;
+
+    this.calculateDimensions(context, data, lookAndFeel, legendOffset);
+    this.addPaneAttributes(context, lookAndFeel, legendOffset);
 
     this.addScales(context, data, lookAndFeel, middleZero);
     this.addFormatters(context, data);
