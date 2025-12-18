@@ -3,6 +3,9 @@ export class EmailSuitability {
   isFree: boolean;
 }
 
+/**
+ * Object representing a user in the system.
+ */
 export class BD2User {
 
   email: string;
@@ -32,6 +35,7 @@ export class BD2User {
     }
   }
 
+  /* Retrieve user info from a JSON object */
   static deserialize(jsonObj: any): BD2User {
     if (!jsonObj) {
       throw new Error('Cannot deserialize null user');
@@ -41,6 +45,7 @@ export class BD2User {
     return obj;
   }
 
+  /* Set all user info to match another user */
   setAll(other: BD2User): void {
     this.login = other.login;
     this.firstName = other.firstName;
@@ -50,10 +55,11 @@ export class BD2User {
     this.anonymous = other.anonymous; // this.string2Bool(other.anonymous);
   }
 
-  string2Bool(val: any) {
-    if (val === true || val === 'true' || val === 'TRUE') {
-      return true;
-    }
-    return false;
-  }
+  // Unused; to be removed
+  // string2Bool(val: any) {
+  //   if (val === true || val === 'true' || val === 'TRUE') {
+  //     return true;
+  //   }
+  //   return false;
+  // }
 }

@@ -5,37 +5,27 @@ import {
 import * as d3 from 'd3';
 
 import {Selection} from 'd3';
-import {defualtLookAndFeel, GraphicContext, LookAndFeel, offsetScaleValue} from './hbox-plot.dom';
+import {defaultLookAndFeel, GraphicContext, LookAndFeel, offsetScaleValue} from './hbox-plot.dom';
 import {BoxDefinition} from '../hbox-utils/box-dom';
 import {BoxUtil} from '../hbox-utils/box-util';
 import {BD2ColorPalette} from '../hbox-utils/color-palette';
 import {SmartRounder} from '../hbox-utils/smart-rounding';
 
 
-
-
-
+/**
+ * Horizontal Box Plot component
+ * 
+ * This component renders a horizontal boxplot by assembling SVG elements using the D3 library.
+ * It is used to visualise fitted periods in BioDare2 PPA analyses.
+ * 
+ * @remarks
+ * "Box widgets" refers to all boxplot elements: backdrop, whiskers, box, median and mean lines, outliers.
+ */
 @Component({
     selector: 'bd2-ngx-hbox-plot',
     changeDetection: ChangeDetectionStrategy.OnPush,
-    template: `
-    <div class="hbox-plot" [hidden]="hidden"></div>
-  `,
-    styles: [
-        `
-      :host ::ng-deep .axisWrapper path {
-        stroke: gray;
-      }
-
-      :host ::ng-deep .axisWrapper line {
-        stroke: gray;
-      }
-
-      :host ::ng-deep .axisWrapper text {
-        fill: gray;
-      }
-    `
-    ],
+    template: `<div class="hbox-plot" [hidden]="hidden"></div>`,
+    styleUrls: ['./hbox-plot.component.css'],
     standalone: false
 })
 export class HBoxPlotComponent implements OnInit, AfterViewInit, OnChanges, OnDestroy {
@@ -43,11 +33,9 @@ export class HBoxPlotComponent implements OnInit, AfterViewInit, OnChanges, OnDe
   /**
    * Necessary to control hiding of the element, otherwise the BBoxes are not defined and labels
    * were not rendered in correct places.
-   *
    */
   @Input()
   hidden = false;
-
 
   @Input()
   data: number[][] = [];
@@ -68,7 +56,7 @@ export class HBoxPlotComponent implements OnInit, AfterViewInit, OnChanges, OnDe
   labelsOn = 'always'; // trigger //null
 
   @Input()
-  lookAndFeel = defualtLookAndFeel();
+  lookAndFeel = defaultLookAndFeel();
 
   @Input() // median, label, null
   set sorted(sorting: string) {
@@ -97,7 +85,6 @@ export class HBoxPlotComponent implements OnInit, AfterViewInit, OnChanges, OnDe
     }
   }
 
-
   sortChanged = false;
 
   @Output()
@@ -117,11 +104,9 @@ export class HBoxPlotComponent implements OnInit, AfterViewInit, OnChanges, OnDe
     return b1.ix - b2.ix;
   };
 
-
   constructor(private ngZone: NgZone, private changeDetectorRef: ChangeDetectorRef, element: ElementRef) {
     this.d3 = d3;
     this.parentNativeElement = element.nativeElement;
-
   }
 
   /**
@@ -133,20 +118,14 @@ export class HBoxPlotComponent implements OnInit, AfterViewInit, OnChanges, OnDe
   }
 
   /**
-   * Explicit triggers re-drawing as need to have all the parameters set (so will not redrawn if data came frist and domain later)
+   * Explicit triggers re-drawing as need to have all the parameters set (so will not be redrawn if data came first and domain later)
    * @param changes
    */
   ngOnChanges(changes: SimpleChanges) {
-
-    // console.log("Changes", changes);
-
     // otherwise the hidden on inner div was not updated
     this.changeDetectorRef.detectChanges();
 
-
     this.initSVG();
-
-    // this.handleHiding();
 
     if (!this.data) {
       return;
@@ -159,11 +138,12 @@ export class HBoxPlotComponent implements OnInit, AfterViewInit, OnChanges, OnDe
     }
   }
 
+  /* Detect if any of the data or aesthetics have changed */
   isDataUpdate(changes: any): boolean {
-
     return (changes.data || changes.removed || changes.domain || changes.palette || changes.labels );
   }
 
+  /* Initialise the SVG element */
   initSVG() {
     if (!this.d3Svg) {
       const d3ParentElement = this.d3.select(this.parentNativeElement);
@@ -174,11 +154,7 @@ export class HBoxPlotComponent implements OnInit, AfterViewInit, OnChanges, OnDe
   }
 
   ngOnInit() {
-
-    if (this.parentNativeElement !== null) {
-
-
-    } else {
+    if (this.parentNativeElement === null) {
       console.error('Missing parrent element for the component');
     }
   }
@@ -197,22 +173,7 @@ export class HBoxPlotComponent implements OnInit, AfterViewInit, OnChanges, OnDe
     this.graphicContext = context;
   }
 
-  /* Not needed any more, the hidding is achieved by simple div hidden attribute
-   // and the problem with labels background rendering is solved using delayed rendering with a timer.
-   handleHiding() {
-   if (this.hidden) {
-   this.removed = this.d3Svg.remove();
-   } else {
-   if (this.removed) {
-   this.d3.select(this.parentNativeElement)
-   .select('.hbox-plot')
-   .append(() => this.d3Svg.node());
-   this.removed = undefined;
-   }
-   }
-
-   }*/
-
+  /* Redraw the plot based on the current data and graphic context */
   updatePlot() {
 
     // this.graphicContext.transitionTime = this.lookAndFeel.transitionTime;
@@ -249,6 +210,7 @@ export class HBoxPlotComponent implements OnInit, AfterViewInit, OnChanges, OnDe
 
   }
 
+  /* Format data into boxes for plotting */
   prepareDataModel(data: number[][], removed: number[], labels: string[], palette: string[], domain: number[],
                    sortFunction: (b1: BoxDefinition, b2: BoxDefinition) => number): BoxDefinition[] {
 
@@ -270,7 +232,7 @@ export class HBoxPlotComponent implements OnInit, AfterViewInit, OnChanges, OnDe
 
   }
 
-
+  /* Extend the color palette by the number of data points, or create it if it does not exist */
   updatePalette(data: any[], palette: string[], graphicContext: GraphicContext): GraphicContext {
 
     if (!palette || palette.length === 0) {
@@ -284,11 +246,12 @@ export class HBoxPlotComponent implements OnInit, AfterViewInit, OnChanges, OnDe
     return graphicContext;
   }
 
+  /* Apply colors from the palette to the boxes */
   colorBoxes(boxes: BoxDefinition[], palette: string[]) {
     boxes.forEach(b => b.color = palette[b.ix]);
   }
 
-
+  /* Set up the main SVG panel for plotting */
   preparePane(data: any[], lookAndFeel: LookAndFeel, graphicContext: GraphicContext): GraphicContext {
 
     // console.log("PP",data);
@@ -300,7 +263,6 @@ export class HBoxPlotComponent implements OnInit, AfterViewInit, OnChanges, OnDe
 
       this.mainPane = this.d3Svg.append<SVGGElement>('g');
       this.mainPane.classed('mainPane', true);
-
     }
 
     const pWidth = 500;
@@ -318,23 +280,23 @@ export class HBoxPlotComponent implements OnInit, AfterViewInit, OnChanges, OnDe
 
   }
 
+  /* Get workspace height to adjust the height of the main SVG panel*/
   calculateWorkspaceHeight(data: any[], lookAndFeel: LookAndFeel) {
     return lookAndFeel.rowWidth * data.length;
-
   }
 
-
+  /* Label the boxes based on provided labels or default numbering */
   labelBoxes(boxes: BoxDefinition[], labels: string[]) {
     if (!labels) {
       labels = [];
     }
-
 
     boxes.forEach((b, ix) => {
       b.label = labels[ix] ? labels[ix] : '' + (ix + 1);
     });
   }
 
+  /* Create and style the label elements */
   prepareLabels(boxes: BoxDefinition[], mainPane: Selection<SVGGElement, any, null, undefined>, lookAndFeel: LookAndFeel,
                 graphicContext: GraphicContext, labelsOn: string): GraphicContext {
 
@@ -422,21 +384,19 @@ export class HBoxPlotComponent implements OnInit, AfterViewInit, OnChanges, OnDe
       .attr('x', 5);
     // .style("visibility", "hidden");
 
-
     const enterUpdate: Selection<SVGSVGElement, BoxDefinition, null, undefined> =
       newLabels.merge(labels as any) as Selection<SVGSVGElement, BoxDefinition, null, undefined>;
 
     const backEnterUpdate: Selection<SVGSVGElement, BoxDefinition, null, undefined> =
       newBackLabels.merge(backLabels as any) as Selection<SVGSVGElement, BoxDefinition, null, undefined>;
 
-    // called with delay to allow, parent divs to component sets their visibility, otherwise the bboxes cannot be calculated
+    // called with delay to allow parent divs to component sets their visibility, otherwise the bboxes cannot be calculated
     // and the labels backgrounds and trigers are not rendered correctly
     // it is a hack, but don't know how to do it correctly
     // timers have to be cleared as otherwise saw errors in logs for fast changing input data (like cause by sorting and pagination)
     graphicContext.labelsTimers.forEach( timer => clearTimeout(timer));
     graphicContext.labelsTimers = [];
     const timer = setTimeout(() => {
-
 
       const bboxes: SVGRect[] = [];
 
@@ -449,7 +409,6 @@ export class HBoxPlotComponent implements OnInit, AfterViewInit, OnChanges, OnDe
           // console.log("D: " + d.label, this.getBBox());
         })
         .style('display', 'none');
-
 
       let elm = backEnterUpdate.select<SVGSVGElement>('text');
       elm = (graphicContext.transitionOn ? elm.transition(graphicContext.transition) : elm) as any;
@@ -466,7 +425,6 @@ export class HBoxPlotComponent implements OnInit, AfterViewInit, OnChanges, OnDe
       const trigers = enterUpdate.select<SVGSVGElement>('.yTrigger')
         .style('fill', d => d.color)
         .style('stroke', d => d.color);
-
 
       let telm = trigers.data(bboxes);
       telm = (graphicContext.transitionOn ? telm.transition(graphicContext.transition) : telm) as any;
@@ -486,7 +444,6 @@ export class HBoxPlotComponent implements OnInit, AfterViewInit, OnChanges, OnDe
         .attr('width', b => b.width + 10)
         .attr('height', b => b.height + 7);
 
-
       /*
        let backFrames = backEnterUpdate.select<SVGSVGElement>("rect.yLabel")
        .style("fill", d => d.color);
@@ -497,16 +454,14 @@ export class HBoxPlotComponent implements OnInit, AfterViewInit, OnChanges, OnDe
        .attr("width", b => b.width + 10)
        .attr("height", b => b.height + 7);
        */
-
-    }, 10);
+    }, 10); // Timeout delay
 
     graphicContext.labelsTimers.push(timer);
     return graphicContext;
   }
 
-
+  /* Create and style the tooltip elements */
   prepareTooltip(mainPane: Selection<SVGGElement, any, null, undefined>, graphicContext: GraphicContext): GraphicContext {
-
     if (graphicContext.tooltipWrapper) {
       return graphicContext;
     }
@@ -541,13 +496,8 @@ export class HBoxPlotComponent implements OnInit, AfterViewInit, OnChanges, OnDe
     return graphicContext;
   }
 
+  /* Display the tooltip with value v at position (x,y) */
   showTooltip(v: number, x: any, y: any) {
-    // console.log("Show: " + v + ";" + this.constructor.name);
-    // console.log('Show: ' + v + '; ' + x + ': ' + y);
-    // console.log('v', SmartRounder.round(v));
-    // console.log('x', this.graphicContext.xScale(x));
-    // console.log('y', this.graphicContext.yScale(y));
-
     if (!this.graphicContext.tooltipText) {
       return;
     }
@@ -556,8 +506,6 @@ export class HBoxPlotComponent implements OnInit, AfterViewInit, OnChanges, OnDe
       .attr('x', this.graphicContext.xScale(x))
       .attr('y', this.graphicContext.yScale(y))
       .text(SmartRounder.round(v))
-    // .transition().duration(this.lookAndFeel.baseTransitionsTime / 2)
-    // .style('opacity', 1);
     ;
 
     // I have to change the display here even before the box is ready as
@@ -574,29 +522,20 @@ export class HBoxPlotComponent implements OnInit, AfterViewInit, OnChanges, OnDe
       .attr('y', bbox.y - 2)
       .attr('width', bbox.width + 6)
       .attr('height', bbox.height + 4);
-
-
-
-
   }
 
+  /* Hide the tooltip */
   hideTooltip() {
-    // console.log("Hide: ");
     if (!this.graphicContext.tooltipText) {
       return;
     }
 
-
     this.graphicContext.tooltipWrapper
     // .style("visibility", "hidden");
       .style('display', 'none');
-
-
-    // this.graphicContext.tooltipText
-    // .transition().duration(this.lookAndFeel.baseTransitionsTime / 2)
-    // .style("opacity", 0);
   }
 
+  /* Set up the scales for plotting based on data and graphic context */
   prepareScales(data: BoxDefinition[], domain: number[], lookAndFeel: LookAndFeel,
                 graphicContext: GraphicContext): GraphicContext {
 
@@ -621,10 +560,10 @@ export class HBoxPlotComponent implements OnInit, AfterViewInit, OnChanges, OnDe
       .domain(domainY)
       .range([0, graphicContext.workspaceHeight]);
 
-
     return graphicContext;
   }
 
+  /* Add the axes to the graphic context */
   plotAxisBox(data: BoxDefinition[], domain: number[], lookAndFeel: LookAndFeel, mainPane: Selection<SVGGElement, any, null, undefined>,
               graphicContext: GraphicContext): GraphicContext {
 
@@ -639,6 +578,7 @@ export class HBoxPlotComponent implements OnInit, AfterViewInit, OnChanges, OnDe
 
   }
 
+  /* Initialize the axis wrapper group (contains 4 axes around the plot: top, bottom, left, right) */
   initAxisWrapper(mainPane: Selection<SVGGElement, any, null, undefined>): Selection<SVGGElement, any, null, undefined> {
 
     let wrapper = mainPane.select<SVGGElement>('.axisWrapper');
@@ -654,9 +594,8 @@ export class HBoxPlotComponent implements OnInit, AfterViewInit, OnChanges, OnDe
     return wrapper;
   }
 
+  /* Add the top and bottom axes to the graphic context */
   plotHorizontalScales(domain: number[], lookAndFeel: LookAndFeel, graphicContext: GraphicContext): GraphicContext {
-
-
     if (!graphicContext.xTopAxis) {
       graphicContext.xTopAxis = d3.axisTop(graphicContext.xScale);
     }
@@ -664,7 +603,6 @@ export class HBoxPlotComponent implements OnInit, AfterViewInit, OnChanges, OnDe
     if (!graphicContext.xBottomAxis) {
       graphicContext.xBottomAxis = d3.axisBottom(graphicContext.xScale);
     }
-
 
     let elmT = graphicContext.axisWrapper.select('g.xTopAxis')  as any;
     elmT.call(graphicContext.xTopAxis);
@@ -679,9 +617,8 @@ export class HBoxPlotComponent implements OnInit, AfterViewInit, OnChanges, OnDe
 
   }
 
+  /* Add the left and right axes to the graphic context */
   plotVerticalScales(data: BoxDefinition[], lookAndFeel: LookAndFeel, graphicContext: GraphicContext): GraphicContext {
-
-
     if (!graphicContext.yLeftAxis) {
       graphicContext.yLeftAxis = d3.axisLeft(graphicContext.yScale)
         .tickFormat(() => '')
@@ -710,7 +647,7 @@ export class HBoxPlotComponent implements OnInit, AfterViewInit, OnChanges, OnDe
 
   }
 
-
+  /* Plot the data boxes */
   plotDataBoxes(boxes: BoxDefinition[], lookAndFeel: LookAndFeel, mainPane: Selection<SVGGElement, any, null, undefined>,
                 graphicContext: GraphicContext): GraphicContext {
 
@@ -718,31 +655,25 @@ export class HBoxPlotComponent implements OnInit, AfterViewInit, OnChanges, OnDe
       graphicContext.dataWrapper = mainPane.append<SVGGElement>('g').attr('class', 'dataWrapper');
     }
 
-
-
     let boxWidgets = graphicContext.dataWrapper.selectAll('.boxWidget') as Selection<SVGGElement, BoxDefinition, null, undefined>;
 
     boxWidgets = boxWidgets.data(boxes, d => d.key);
-
 
     this.updateBoxWidgets(boxWidgets, lookAndFeel, graphicContext);
 
     const newBoxWidgets = boxWidgets.enter()
       .append<SVGGElement>('g').attr('class', 'boxWidget');
 
-
     this.createBoxWidgets(newBoxWidgets, lookAndFeel, graphicContext);
 
     boxWidgets.exit().remove();
 
-
     return graphicContext;
   }
 
+  /* Update box widgets with new data and styles */
   updateBoxWidgets(boxWidgets: Selection<SVGGElement, BoxDefinition, null, undefined>,
                    lookAndFeel: LookAndFeel, graphicContext: GraphicContext) {
-
-    // this.ngZone.runOutsideAngular(() => {
 
     boxWidgets.select('rect.backdrop')
       .call(this.positionBackdrop, graphicContext);
@@ -767,12 +698,9 @@ export class HBoxPlotComponent implements OnInit, AfterViewInit, OnChanges, OnDe
     out.call(this.positionOutlier, graphicContext);
 
     out.exit().remove();
-
-    // });
-
   }
 
-
+  /* Position the backdrop rectangle for each box */
   positionBackdrop(elm: Selection<SVGGElement, BoxDefinition, null, undefined>, graphicContext: GraphicContext) {
 
     elm = (graphicContext.transitionOn ? elm.transition(graphicContext.transition) : elm) as any;
@@ -792,9 +720,9 @@ export class HBoxPlotComponent implements OnInit, AfterViewInit, OnChanges, OnDe
     // .style("stroke", d => d.color)
     // .style("fill", d => d.color)
     ;
-
   }
 
+  /* Adjust the size and position of a box rectangle */
   positionBoxRectangle(elm: Selection<SVGGElement, BoxDefinition, null, undefined>, graphicContext: GraphicContext) {
 
     elm = (graphicContext.transitionOn ? elm.transition(graphicContext.transition) : elm) as any;
@@ -809,9 +737,9 @@ export class HBoxPlotComponent implements OnInit, AfterViewInit, OnChanges, OnDe
       })
       .style('stroke', d => d.color)
       .style('fill', d => d.color);
-
   }
 
+  /* Position the median line within a box */
   positionMedianLine(elm: Selection<SVGGElement, BoxDefinition, null, undefined>, graphicContext: GraphicContext) {
 
     elm = (graphicContext.transitionOn ? elm.transition(graphicContext.transition) : elm) as any;
@@ -823,11 +751,9 @@ export class HBoxPlotComponent implements OnInit, AfterViewInit, OnChanges, OnDe
       .style('stroke', d => d.color)
       // .style("visibility", d => d.mean === d.median ? "hidden" : "visible");
       .style('display', d => d.mean === d.median ? 'none' : null);
-
-
-
   }
 
+  /* Position the mean line within a box */
   positionMeanLine(elm: Selection<SVGGElement, BoxDefinition, null, undefined>, graphicContext: GraphicContext) {
 
     elm = (graphicContext.transitionOn ? elm.transition(graphicContext.transition) : elm) as any;
@@ -839,6 +765,7 @@ export class HBoxPlotComponent implements OnInit, AfterViewInit, OnChanges, OnDe
       .style('stroke', d => d.color);
   }
 
+  /* Position any outlier points */
   positionOutlier(elm: Selection<SVGGElement, any, null, undefined>, graphicContext: GraphicContext) {
 
     elm = (graphicContext.transitionOn ? elm.transition(graphicContext.transition) : elm) as any;
@@ -846,13 +773,11 @@ export class HBoxPlotComponent implements OnInit, AfterViewInit, OnChanges, OnDe
       .attr('cy', d => graphicContext.yScale(d[1]) + graphicContext.yScale.bandwidth() / 2)
       .style('stroke', d => d[2])
       .style('fill', d => d[2]);
-
   }
 
-
+  /* Create an outlier point element (circle) */
   createOutlier(elm: Selection<SVGGElement, any, null, undefined>, lookAndFeel: LookAndFeel, graphicContext: GraphicContext,
                 positionOutlierFunction: (elm: Selection<SVGGElement, any, null, undefined>, graphicContext: GraphicContext) => {}) {
-
 
     elm
       .append<SVGGElement>('circle')
@@ -862,9 +787,9 @@ export class HBoxPlotComponent implements OnInit, AfterViewInit, OnChanges, OnDe
       .style('fill-opacity', lookAndFeel.outliersFillOpacity)
       .call(positionOutlierFunction, graphicContext)
     ;
-
   }
 
+  /* Position the whisker lines */
   positionWhiskerLine(elm: Selection<SVGGElement, BoxDefinition, null, undefined>, left: boolean, graphicContext: GraphicContext) {
 
     elm = (graphicContext.transitionOn ? elm.transition(graphicContext.transition) : elm) as any;
@@ -876,10 +801,9 @@ export class HBoxPlotComponent implements OnInit, AfterViewInit, OnChanges, OnDe
       .style('stroke', d => d.color)
       // .style("visibility", d => (left && (d.lowWskr === d.fstQnt)) || (!left && (d.highWskr === d.thrdQnt)) ? "hidden" : "visible");
       .style('display', d => (left && (d.lowWskr === d.fstQnt)) || (!left && (d.highWskr === d.thrdQnt)) ? 'none' : null);
-
-
   }
 
+  /* Position the whisker tip lines */
   positionWhiskerTip(elm: Selection<SVGGElement, BoxDefinition, null, undefined>, left: boolean, graphicContext: GraphicContext) {
 
     elm = (graphicContext.transitionOn ? elm.transition(graphicContext.transition) : elm) as any;
@@ -891,11 +815,9 @@ export class HBoxPlotComponent implements OnInit, AfterViewInit, OnChanges, OnDe
       .style('stroke', d => d.color)
       // .style("visibility", d => (left && (d.lowWskr === d.fstQnt)) || (!left && (d.highWskr === d.thrdQnt)) ? "hidden" : "visible");
       .style('display', d => (left && (d.lowWskr === d.fstQnt)) || (!left && (d.highWskr === d.thrdQnt)) ? 'none' : null);
-
-
-
   }
 
+  /* Update the whisker elements with new data and styles */
   updateWhiskers(whiskers: Selection<SVGGElement, BoxDefinition, null, undefined>,
                  graphicContext: GraphicContext) {
 
@@ -910,12 +832,11 @@ export class HBoxPlotComponent implements OnInit, AfterViewInit, OnChanges, OnDe
 
     whiskers.select('line.whiskertipR')
       .call(this.positionWhiskerTip, false, graphicContext);
-
   }
 
+  /* Create the whisker elements */
   createWhiskers(whiskers: Selection<SVGGElement, BoxDefinition, null, undefined>,
                  lookAndFeel: LookAndFeel, graphicContext: GraphicContext) {
-
 
     const lwhiskr = whiskers.append('line')
       .attr('class', 'whiskerlineL')
@@ -941,20 +862,17 @@ export class HBoxPlotComponent implements OnInit, AfterViewInit, OnChanges, OnDe
       .style('stroke-width', lookAndFeel.whiskerStrokeWidth)
       .call(this.positionWhiskerTip, false, graphicContext)
     ;
-
-
   }
 
+  /* Create the box elements */
   createBoxes(widgets: Selection<SVGGElement, BoxDefinition, null, undefined>,
               lookAndFeel: LookAndFeel, graphicContext: GraphicContext) {
-
 
     const rect = widgets.append('rect')
       .attr('class', 'box')
       .style('stroke-width', lookAndFeel.boxStrokeWidth)
       .style('fill-opacity', lookAndFeel.boxFillOpacity)
       .call(this.positionBoxRectangle, graphicContext);
-
 
     const median = widgets.append('line')
       .attr('class', 'medianline')
@@ -997,15 +915,12 @@ export class HBoxPlotComponent implements OnInit, AfterViewInit, OnChanges, OnDe
         .on('mouseout', function() {
           instance.hideTooltip();
         });
-
     });
-
   }
 
+  /* Create all box widgets (backdrop, whiskers, box, outliers) */
   createBoxWidgets(newBoxWidgets: Selection<SVGGElement, BoxDefinition, null, undefined>,
                    lookAndFeel: LookAndFeel, graphicContext: GraphicContext) {
-
-    // this.ngZone.runOutsideAngular(() => {
 
     const instance = this;
 
@@ -1015,7 +930,6 @@ export class HBoxPlotComponent implements OnInit, AfterViewInit, OnChanges, OnDe
       .style('fill', lookAndFeel.backdropColor)
       .call(this.positionBackdrop, graphicContext);
 
-
     const whiskers = newBoxWidgets.append<SVGGElement>('g').attr('class', 'whiskers');
 
     this.createWhiskers(whiskers, lookAndFeel, graphicContext);
@@ -1023,17 +937,12 @@ export class HBoxPlotComponent implements OnInit, AfterViewInit, OnChanges, OnDe
     const boxes = newBoxWidgets.append<SVGGElement>('g').attr('class', 'box');
     this.createBoxes(boxes, lookAndFeel, graphicContext);
 
-
     const outliers = newBoxWidgets.append<SVGGElement>('g').attr('class', 'outliers');
-
 
     outliers.selectAll('.outlier')
       .data(d => d.outliers.map(x => [x, d.key, d.color]))
       .enter()
       .call(this.createOutlier, lookAndFeel, graphicContext, this.positionOutlier)
     ;
-
-    // });
   }
-
 }

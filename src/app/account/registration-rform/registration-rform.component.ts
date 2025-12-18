@@ -10,6 +10,17 @@ import {StaticContentDialogService} from '../../documents/static-content/static-
 import {Observable, of} from 'rxjs';
 import {catchError, map} from 'rxjs/operators';
 
+/**
+ * Registration R Form Component
+ * 
+ * Reactive forms for user registration.
+ * The form will check field validity, login availability, and email suitability (must be academic and not already used).
+ * 
+ * @remarks
+ * reCAPTCHA is integrated to prevent bot registrations.
+ * However, unavailability of reCAPTCHA in China means that users there must contact support for registration.
+ * Anyone outside China can create an account on their behalf, and communicate the login details to the user.
+ */
 @Component({
     templateUrl: './registration-rform.component.html',
     standalone: false
@@ -77,111 +88,20 @@ export class RegistrationRFormComponent implements OnInit {
     // this.subscribeValidationMessages();
   }
 
-  /*
-  subscribeValidationMessages() {
-
-    this.userNameField.valueChanges.pipe(
-      debounceTime(500),
-      distinctUntilChanged((prev: any, next: any) => prev === next)
-    )
-      .subscribe(change => {
-          // console.log("C"+change,change);
-
-          const val = change;
-          this.userNameError = this.decodeUserNameErrors(this.userNameField.errors);
-
-          if (this.userNameField.valid) { // check availability only for valid
-            this.availableLogin(val)
-              .then(err => {
-                this.userNameField.setErrors(err);
-                this.userNameError = this.decodeUserNameErrors(this.userNameField.errors);
-              });
-          }
-        }
-      );
-
-
-    this.emailField.valueChanges.pipe(
-      debounceTime(500),
-      distinctUntilChanged((prev: any, next: any) => prev === next)
-    )
-      .subscribe(change => {
-        // console.log("C"+change,change);
-
-        const val = change;
-        this.emailError = this.decodeEmailErrors(this.emailField.errors);
-
-        if (this.emailField.valid) { // check availability only for valid
-          this.suitableEmail(val)
-            .then(err => {
-              this.emailField.setErrors(err);
-              this.emailError = this.decodeEmailErrors(this.emailField.errors);
-            });
-        }
-      });
-
-  } */
-
-  /*
-  decodeEmailErrors(errors: any): string {
-    console.log("Decode error", errors);
-    let msg = '';
-    if (errors) {
-      for (const key in errors) {
-        if (errors[key] === true) {
-          continue;
-        }
-        msg += errors[key] + '<br/>';
-      }
-    }
-
-    // console.log(""+msg,errors);
-    return msg;
-  } */
-
-  /*
-  decodeUserNameErrors(errors: any): string {
-
-    if (errors) {
-      let msg = '';
-      if (
-        errors.required ||
-        errors.minlength ||
-        errors.pattern
-      ) {
-        msg = 'Alphanumerical login is required (".", "_" are allowed, min length 5, only small letters).<br/>';
-      }
-
-      if (errors['login-taken']) {
-        msg += errors['login-taken'];
-      }
-      // console.log(""+msg,errors);
-      return msg;
-    } else {
-      return undefined;
-    }
-  }*/
-
+  /* Monitor the captcha response */
   captcha(value: string) {
     this.gRecaptchaResponse = value;
     if (value) {
       this.missingCaptcha = false;
     }
-    // console.log('Captcha: '+value);
   }
 
+  /* Reset captcha value on expiry */
   captchaExpired() {
     this.gRecaptchaResponse = null;
-    // console.log('Captcha expired');
   }
 
-
-
-
-
-
-
-
+  /* Check if login is long enough and available */
   availableLogin(val: string): Observable<{ [key: string]: any }> {
 
     if (!val || val.length < 5) {
@@ -202,6 +122,7 @@ export class RegistrationRFormComponent implements OnInit {
     );
   }
 
+  /* Check if email is academic and not already used */
   suitableEmail(val: string): Observable<{ [key: string]: any }> {
 
     return this.userService.suitableEmail(val).pipe(
@@ -215,7 +136,7 @@ export class RegistrationRFormComponent implements OnInit {
           problems['email-taken'] = 'Email: ' + val + ' is already being used';
         }
         if (!suitability.isAcademic) {
-          problems['email-nonacademic'] = 'Academic email is required for the registration. ' +
+          problems['email-nonacademic'] = 'An academic email is required for registration. ' +
             'Contact us if your email is not recognized as academic.';
         }
         return problems;
@@ -227,9 +148,8 @@ export class RegistrationRFormComponent implements OnInit {
     );
   }
 
+  /* Register the user if the form and CAPTCHA are valid (except for .cn and .tw addresses) */
   register() {
-    // console.log('Register');
-
     if (this.userForm.valid) {
       if (!this.gRecaptchaResponse) {
         if (!this.emailField.value.endsWith('.cn') && !this.emailField.value.endsWith('.tw')) {
@@ -238,28 +158,12 @@ export class RegistrationRFormComponent implements OnInit {
         }
       }
 
-
       const user = this.makeUserData(this.userForm.value);
-      // user.login = user.username;
-      // user.g_recaptcha_response = this.g_recaptcha_response;
-
       this.triggerRegistration(user);
-
-      /*
-      this.dblCheckValidity(user)
-        .then(
-          resp => {
-            if (resp) {
-              this.triggerRegistration(user);
-            } else {
-              this.feedback.error('Form submitted before validation');
-            }
-          }
-        );
-      */
     }
   }
 
+  /* Prepare user data from form contents */
   makeUserData(form: any): any {
     const user = {
       login: form.username,
@@ -274,19 +178,8 @@ export class RegistrationRFormComponent implements OnInit {
     return user;
   }
 
-  /*dblCheckValidity(user: any): Promise<boolean> {
-    return this.availableLogin(user.login)
-      .then(resp => {
-        if (resp) {
-          return false;
-        }
-        return this.suitableEmail(user.email)
-          .then(resp => resp ? false : true);
-      });
-  }*/
-
+  /* Register the user */
   triggerRegistration(user: any) {
-
     this.userService.register(user)
       .then(registered => {
         this.registered = true;
@@ -299,10 +192,6 @@ export class RegistrationRFormComponent implements OnInit {
         if (this.recaptcha) {
           this.recaptcha.reset();
         }
-
       });
-
   }
-
-
 }

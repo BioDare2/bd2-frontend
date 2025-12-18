@@ -1,0 +1,11 @@
+:host ::ng-deep .axisWrapper path {
+stroke: gray;
+}
+
+:host ::ng-deep .axisWrapper line {
+stroke: gray;
+}
+
+:host ::ng-deep .axisWrapper text {
+fill: gray;
+}

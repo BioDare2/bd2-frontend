@@ -6,6 +6,11 @@ import {FeedbackService} from '../../feedback/feedback.service';
 import {timer} from 'rxjs';
 import {passwordMatching, validPasswordStrength} from '../user.util';
 
+/**
+ * Password Change R Form Component
+ *
+ * Change user password using reactive forms.
+ */
 @Component({
     templateUrl: './password-change-rform.component.html',
     styles: [],
@@ -16,7 +21,6 @@ export class PasswordChangeRFormComponent implements OnInit {
   user: BD2User;
 
   userForm: UntypedFormGroup;
-  // currentPasswordField: FormControl;
   passwordsGroup: UntypedFormGroup;
 
   updated = false;
@@ -38,10 +42,10 @@ export class PasswordChangeRFormComponent implements OnInit {
       currentPassword: [undefined, [Validators.required]],
     });
 
-    // this.currentPasswordField = this.userForm.get('currentPassword') as FormControl;
     this.passwordsGroup = this.userForm.get('passwords') as UntypedFormGroup;
   }
 
+  /* Save the form information if valid */
   save() {
 
     if (!this.userForm.valid) {
@@ -62,7 +66,6 @@ export class PasswordChangeRFormComponent implements OnInit {
       user => {
         this.user = user;
         this.userForm.reset();
-        // this.currentPasswordField.reset(); // = undefined;
         this.feedback.success('User: ' + user.login + ' password has been updated');
 
         // show the status
@@ -72,7 +75,6 @@ export class PasswordChangeRFormComponent implements OnInit {
       reason => {
         this.userForm.reset();
         this.feedback.error(reason);
-        // this.currentPasswordField.reset(); // this.currentPassword = undefined;
       });
   }
 }

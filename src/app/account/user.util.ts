@@ -92,7 +92,7 @@ export function passwordMatching(val: any) {
 export function validEmail(val: string): { [key: string]: any } {
   // console.log("VP "+val,val);
   if (!isValidEmail(val)) {
-    return {pattern: 'Not valid email format'};
+    return {pattern: 'Invalid email format'};
   } else {
     return null;
   }

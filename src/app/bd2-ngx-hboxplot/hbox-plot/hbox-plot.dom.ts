@@ -3,7 +3,9 @@ import {Axis} from 'd3-axis';
 import {ScaleBand, ScaleLinear} from 'd3-scale';
 import {Selection, Transition} from 'd3';
 
-
+/**
+ * Definition of look and feel parameters for the box plot
+ */
 export class LookAndFeel {
 
   vMargin = 25;
@@ -33,10 +35,13 @@ export class LookAndFeel {
 }
 
 
-export let defualtLookAndFeel: () => LookAndFeel = function() {
+export let defaultLookAndFeel: () => LookAndFeel = function() {
   return new LookAndFeel();
 };
 
+/**
+ * Graphic context for the box plot, holding D3 elements and scales
+ */
 export class GraphicContext {
 
   /*transitionTime: number;

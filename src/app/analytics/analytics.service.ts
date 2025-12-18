@@ -6,6 +6,11 @@ import {distinctUntilChanged, filter} from 'rxjs/operators';
 
 declare let gtag: Function;
 
+/**
+ * Analytics Event
+ * 
+ * Send navigation and user interaction events to Google Analytics using gtag.
+ */
 class AnalEvent {
   constructor(public category: string,
               public action: string,
@@ -101,7 +106,6 @@ export class AnalyticsService {
     this.dataStream.next(new AnalEvent('data', 'heatmap', '' + id));
   }
 
-
   public experimentDataExport(id: number) {
     this.dataStream.next(new AnalEvent('data', 'export', '' + id));
   }
@@ -111,7 +115,6 @@ export class AnalyticsService {
   }
 
   public ppaNew(method: string, id: number, login: string) {
-    // this.ppaStream.next(new AnalEvent('ppa', method, this.userService.currentUser.login));
     this.ppaStream.next(new AnalEvent('ppa', method, login));
     this.ppaStream.next(new AnalEvent('ppa', method, '' + id));
   }
@@ -158,5 +161,4 @@ export class AnalyticsService {
     const o6 = this.rhythmicityStream;
     return merge(o1, o2, o3, o4, o5, o6);
   }
-
 }

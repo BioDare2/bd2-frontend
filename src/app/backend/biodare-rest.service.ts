@@ -13,6 +13,9 @@ import {RhythmicityRequest} from '../experiment/rhythmicity/rhythmicity-dom';
 import {Slice} from '../experiment/ts-data/ts-import/tsimport-dashboard/data-table-dom';
 import {PageEvent} from '@angular/material/paginator';
 
+/**
+ * Service to send requests to the BioDare REST API.
+ */
 @Injectable({
   providedIn: 'root'
 })
@@ -28,7 +31,7 @@ export class BioDareRestService {
   public static extractMessage(resp: HttpErrorResponse, def: string): string {
 
     // console.log("R:", resp);
-    def = ''+def;
+    def = '' + def;
 
     if (!resp) {
       return def;
@@ -670,7 +673,6 @@ export class BioDareRestService {
     // console.log("BR",resp);
 
     console.error('Response error', resp);
-
 
     let message: string;
 

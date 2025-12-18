@@ -3,44 +3,15 @@ import {UserService} from '../user.service';
 import {BD2User} from '../user.dom';
 import {Router} from '@angular/router';
 
+/**
+ * Inline Login Form Component
+ * 
+ * Compact login form for embedding in other components.
+ * Allows user login from username and password.
+ */
 @Component({
     selector: 'bd2-inline-login-form',
-    template: `
-    <form #loginForm="ngForm" class="login-form form-inline">
-      @if (!logged) {
-        <div class="d-none d-lg-block d-xl-block no-clues">
-          <input type="text" class="form-control mr-1"
-            placeholder="Login"
-            required
-            [(ngModel)]="username"
-            name="usernameF"
-            >
-          <input type="password" class="form-control mr-1"
-            placeholder="Password"
-            required
-            [(ngModel)]="password"
-            name="passwordF"
-            >
-          <button type="submit" class="btn btn-success"
-            [disabled]="!loginForm.form.valid || loginForm.form.pristine" (click)="login()">Sign in
-          </button>
-        </div>
-      }
-      <!-- button to full screen login on small devices -->
-      @if (!logged) {
-        <div class="d-lg-none d-xl-none">
-          <a routerLink="/login" routerLinkActive="active" class="btn btn-success" role="button"
-          (click)="navigated()">Sign in</a>
-        </div>
-      }
-      @if (logged) {
-        <div>
-          <button type="submit" class="btn btn-success" (click)="logout()">Logout</button>
-        </div>
-      }
-    </form>
-    `,
-    styles: [],
+    templateUrl: './inline-login-form.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
     standalone: false
 })
@@ -67,7 +38,7 @@ export class InlineLoginFormComponent implements OnInit {
   ngOnInit() {
   }
 
-
+  /* Log the user in */
   login() {
     this.username = this.username ? this.username.trim() : undefined;
     this.password = this.password ? this.password.trim() : undefined;
@@ -83,6 +54,7 @@ export class InlineLoginFormComponent implements OnInit {
     }
   }
 
+  /* Refresh the current view (to update the page once the user has logged in) */
   refreshView() {
     const path = this.router.url;
     this.router
@@ -91,6 +63,7 @@ export class InlineLoginFormComponent implements OnInit {
     );
   }
 
+  /* Log the user out */
   logout() {
     this.userService.logout()
       .then(state => {
@@ -100,10 +73,9 @@ export class InlineLoginFormComponent implements OnInit {
       });
   }
 
-
+  /* Reset the login form fields */
   clearForm() {
     this.username = undefined;
     this.password = undefined;
   }
-
 }

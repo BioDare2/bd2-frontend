@@ -6,9 +6,13 @@ import {AbstractControl, UntypedFormBuilder, UntypedFormControl, UntypedFormGrou
 import {validEmail} from '../user.util';
 import {timer} from 'rxjs';
 
+/**
+ * Account Edit R Form Component
+ *
+ * Edit user account details using reactive forms.
+ */
 @Component({
     templateUrl: './account-edit-rform.component.html',
-    styles: [],
     standalone: false
 })
 export class AccountEditRFormComponent implements OnInit {
@@ -44,6 +48,7 @@ export class AccountEditRFormComponent implements OnInit {
     this.currentPasswordField = this.userForm.get('currentPassword') as UntypedFormControl;
   }
 
+  /* Save the form information if valid */
   save() {
 
     if (!this.userForm.valid) {

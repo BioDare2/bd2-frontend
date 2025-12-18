@@ -3,57 +3,13 @@ import {UserService} from '../../auth/user.service';
 import {ActivatedRoute} from '@angular/router';
 import {isWeakPassword} from '../user.util';
 
+/**
+ * Password Reset Component
+ *
+ * Handle password reset using the token from the password reset email.
+ */
 @Component({
-    template: `
-    <div>
-      <h3>Password reset</h3>
-    
-      @if (msg) {
-        <div class="alert alert-success">{{msg}}
-        </div>
-      }
-      @if (errMsg) {
-        <div class="alert alert-danger">{{errMsg}}
-        </div>
-      }
-    
-      @if (token) {
-        <div>
-          @if (!requested) {
-            <form #resetForm="ngForm">
-              <div class="form-group">
-                <label for="password">Password</label>
-                <input type="password" class="form-control"
-                  required minlength="8"
-                  id="password"
-                  placeholder="new password"
-                  [(ngModel)]="password"
-                  name="fPassword" #fPassword="ngModel">
-                <div [hidden]="fPassword.pristine || !weakPassword()" class="alert alert-danger">
-                  Password must be at least 8 long, containing a digit or symbol or capital letter
-                </div>
-              </div>
-              <div class="form-group">
-                <label for="password2">Repeat password</label>
-                <input type="password" class="form-control"
-                  id="password2" required
-                  placeholder="password"
-                  [(ngModel)]="password2"
-                  name="fPassword2" #fPassword2="ngModel">
-                <div [hidden]="fPassword2.pristine || matching()" class="alert alert-danger">
-                  Passwords do not match
-                </div>
-              </div>
-              <button type="submit" class="btn btn-primary" [disabled]="!resetForm.form.valid || passwordProblem() "
-                (click)="reset()">Reset
-              </button>
-            </form>
-          }
-        </div>
-      }
-    </div>
-    `,
-    styles: [],
+    templateUrl: './password-reset.component.html',
     standalone: false
 })
 export class PasswordResetComponent implements OnInit {
@@ -79,8 +35,8 @@ export class PasswordResetComponent implements OnInit {
     }
   }
 
+  /* If token is present, reset the password and notify the user */
   reset() {
-
     if (!this.token) {
       return;
     }
@@ -95,17 +51,17 @@ export class PasswordResetComponent implements OnInit {
       });
   }
 
+  /* Check if the provided password is too weak */
   weakPassword(): boolean {
-
     return isWeakPassword(this.password);
-
   }
 
-
+  /* Check if the provided passwords match */
   matching(): boolean {
     return this.password === this.password2;
   }
 
+  /* Check if there is any problem with the provided passwords (too weak or not matching) */
   passwordProblem(): boolean {
     if (this.weakPassword()) {
       return true;

@@ -18,6 +18,11 @@ import {MatInputModule} from '@angular/material/input';
 import {AccountEditRFormComponent} from './account-edit-rform/account-edit-rform.component';
 import {PasswordChangeRFormComponent} from './password-change-rform/password-change-rform.component';
 
+/**
+ * Account Module
+ * 
+ * Handles user account related functionalities including registration, activation, password reset, and account editing.
+ */
 @NgModule({
   declarations: [ResetRequestComponent, PasswordResetComponent, AccountActivationComponent,
     RegistrationRFormComponent, AccountEditRFormComponent, PasswordChangeRFormComponent],

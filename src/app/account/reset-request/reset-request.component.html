@@ -1,0 +1,36 @@
+<div>
+    <h3>Forgotten password</h3>
+
+    @if (msg) {
+    <div class="alert alert-success">{{msg}}
+    </div>
+    }
+    @if (errMsg) {
+    <div class="alert alert-danger">{{errMsg}}
+    </div>
+    }
+
+    @if (!requested) {
+    <form #reminderForm="ngForm">
+        <div class="form-group">
+        <label for="identifier">Login or email</label>
+        <input type="text" class="form-control" required
+            id="identifier"
+            [(ngModel)]="identifier"
+            name="identifier"
+            >
+        </div>
+        <div class="form-group">
+        <bd2-recaptcha #recaptcha [site_key]="captchaSiteKey"
+            (captchaResponse)="captcha($event)"
+            (captchaExpired)="captchaExpired()"
+        ></bd2-recaptcha>
+        <div [hidden]="!missingCaptcha" class="alert alert-danger">
+            Captcha selection is needed
+        </div>
+        </div>
+        <button type="submit" class="btn btn-primary" [disabled]="!reminderForm.valid" (click)="request()">Send
+        </button>
+    </form>
+    }
+</div>

@@ -7,6 +7,13 @@ import {BioDareRestService} from '../backend/biodare-rest.service';
 import {map, switchMap, tap} from 'rxjs/operators';
 import {SystemEventsService} from '../system/system-events.service';
 
+/**
+ * Service managing user authentication and information.
+ * 
+ * Provides methods for login, logout, registration, password reset,
+ * and user data updates. Maintains the current user state and exposes
+ * it as an observable stream. Passes relevant requests to the backend through the API.
+ */
 @Injectable({
   providedIn: 'root'
 })
@@ -51,6 +58,7 @@ export class UserService implements OnDestroy {
     return this.userStream;
   }
 
+  /* Check if user is logged in */
   isLoggedIn(): boolean {
     if (!this.user || this.user.anonymous) {
       return false;
@@ -58,6 +66,7 @@ export class UserService implements OnDestroy {
     return true;
   }
 
+  /* Log user in */
   login(login: string, password: string): Promise<BD2User> {
 
     // making promise so login can be called without having to subscribe
@@ -109,6 +118,7 @@ export class UserService implements OnDestroy {
 
   */
 
+  /* Log user out */
   logout(): Promise<boolean> {
 
     return this.BD2REST.logout()
@@ -125,44 +135,44 @@ export class UserService implements OnDestroy {
       ).toPromise();
   }
 
+  /* Activate user account (requires token from activation email) */
   activate(token: string): Promise<BD2User> {
-
     return this.BD2REST.userActivate(token)
       .then(user => {
         user = BD2User.deserialize(user);
         this.analytics.userActivation(user.login);
         return user;
       });
-
   }
 
+  /* Request a password reset email */
   requestReset(identifier: string, gRecaptchaResponse: string): Promise<string> {
-
     return this.BD2REST.userRequestReset(identifier, gRecaptchaResponse)
       .then(jsonObj => jsonObj.email);
   }
 
+  /* Reset password using token from reset email */
   resetPassword(password: string, token: string): Promise<string> {
     return this.BD2REST.userResetPassword(password, token)
       .then(jsonObj => jsonObj.login);
   }
 
+  /* Check if a login is available */
   availableLogin(login: string): Observable<boolean> {
     return this.BD2REST.userAvailableLogin(login);
-    // .then( txt => ('true' === txt));
   }
 
   /*isAcademicEmail(email: string): Observable<boolean> {
     return this.BD2REST.userAcademicEmail(email);
   }*/
 
+  /* Check if an email is suitable for registration */
   suitableEmail(email: string): Observable<EmailSuitability> {
-
     return this.BD2REST.userSuitableEmail(email);
   }
 
+  /* Register a new user */
   register(user: any): Promise<BD2User> {
-
     return this.BD2REST.userRegister(user)
       .then(registered => {
         registered = BD2User.deserialize(registered);
@@ -172,8 +182,8 @@ export class UserService implements OnDestroy {
 
   }
 
+  /* Update user information */
   update(userDsc: any): Observable<BD2User> {
-
     return this.BD2REST.userUpdate(userDsc)
       .pipe(
         map(user => BD2User.deserialize(user)),
@@ -190,8 +200,8 @@ export class UserService implements OnDestroy {
 
   }
 
+  /* Update user password */
   passwordUpdate(userDsc: any): Observable<BD2User> {
-
     return this.BD2REST.passwordUpdate(userDsc)
       .pipe(
         map(user => BD2User.deserialize(user)),
@@ -207,8 +217,8 @@ export class UserService implements OnDestroy {
       );
   }
 
+  /* Refresh current user information */
   protected refresh() {
-
     return this.BD2REST.refreshUser()
       .subscribe(
         user => {
@@ -234,5 +244,4 @@ export class UserService implements OnDestroy {
     user.anonymous = true;
     return user;
   }
-
 }

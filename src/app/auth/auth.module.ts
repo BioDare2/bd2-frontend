@@ -5,6 +5,9 @@ import {FormsModule} from '@angular/forms';
 import {LoginFormComponent} from './login-form/login-form.component';
 import {RouterModule} from '@angular/router';
 
+/**
+ * Module for login forms.
+ */
 @NgModule({
   declarations: [InlineLoginFormComponent, LoginFormComponent],
   imports: [

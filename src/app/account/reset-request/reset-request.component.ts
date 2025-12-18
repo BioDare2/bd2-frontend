@@ -3,47 +3,14 @@ import {UserService} from '../../auth/user.service';
 import {ReCaptchaComponent} from '../../recaptcha/recaptcha.component';
 import {environment} from '../../../environments/environment';
 
+/**
+ * Reset Request Component
+ * 
+ * Send a password reset email to the user.
+ */
 @Component({
     selector: 'bd2-reset-request',
-    template: `
-    <div>
-      <h3>Forgotten password</h3>
-    
-      @if (msg) {
-        <div class="alert alert-success">{{msg}}
-        </div>
-      }
-      @if (errMsg) {
-        <div class="alert alert-danger">{{errMsg}}
-        </div>
-      }
-    
-      @if (!requested) {
-        <form #reminderForm="ngForm">
-          <div class="form-group">
-            <label for="identifier">Login or email</label>
-            <input type="text" class="form-control" required
-              id="identifier"
-              [(ngModel)]="identifier"
-              name="identifier"
-              >
-          </div>
-          <div class="form-group">
-            <bd2-recaptcha #recaptcha [site_key]="captchaSiteKey"
-              (captchaResponse)="captcha($event)"
-              (captchaExpired)="captchaExpired()"
-            ></bd2-recaptcha>
-            <div [hidden]="!missingCaptcha" class="alert alert-danger">
-              Captcha selection is needed
-            </div>
-          </div>
-          <button type="submit" class="btn btn-primary" [disabled]="!reminderForm.valid" (click)="request()">Send
-          </button>
-        </form>
-      }
-    </div>
-    `,
-    styles: [],
+    templateUrl: './reset-request.component.html',
     standalone: false
 })
 export class ResetRequestComponent implements OnInit {
@@ -67,19 +34,20 @@ export class ResetRequestComponent implements OnInit {
   ngOnInit() {
   }
 
+  /* Monitor captcha value */
   captcha(value: string) {
     this.gRecaptchaResponse = value;
     if (value) {
       this.missingCaptcha = false;
     }
-    // console.log('Captcha: '+value);
   }
 
+  /* Reset captcha value on expiry */
   captchaExpired() {
     this.gRecaptchaResponse = null;
-    // console.log('Captcha expired');
   }
 
+  /* Send a password reset email */
   request() {
     if (!this.identifier || this.identifier.trim() === '') {
       return;
@@ -100,7 +68,5 @@ export class ResetRequestComponent implements OnInit {
           this.recaptcha.reset();
         }
       });
-
   }
-
 }

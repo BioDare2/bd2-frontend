@@ -1,3 +1,6 @@
+/**
+ * List of BioDare REST API Endpoints
+ */
 export class BioDareEndPoints {
 
   login_url: string;
@@ -53,6 +56,12 @@ export class BioDareEndPoints {
   shutdown_url: string;
 }
 
+/**
+ * Configures and returns all BioDare REST API endpoints based on the environment (prod or development).
+ * 
+ * @param environment Whether the environment is prod or development (changes the backend root)
+ * @returns all BioDare REST API endpoints
+ */
 export function bioDareRestConfigurator(environment: any): BioDareEndPoints {
 
   if (!environment.backendUrl) {
@@ -121,6 +130,4 @@ export function bioDareRestConfigurator(environment: any): BioDareEndPoints {
 
   endPoints.shutdown_url = backendRoot + '/status/shutdown';
   return endPoints;
-
 }
-

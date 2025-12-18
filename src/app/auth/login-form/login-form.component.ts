@@ -2,10 +2,17 @@ import {Component, OnInit} from '@angular/core';
 import {UserService} from '../user.service';
 import {BD2User} from '../user.dom';
 
+/**
+ * Login Form Component
+ * 
+ * Full-page form for user login.
+ * 
+ * @remarks
+ * This is only accessible through the /login URL. The top-bar login form uses the {@link InlineLoginFormComponent}.
+ */
 @Component({
     selector: 'bd2-login-form',
     templateUrl: './login-form.component.html',
-    styles: [],
     standalone: false
 })
 export class LoginFormComponent implements OnInit {
@@ -24,6 +31,7 @@ export class LoginFormComponent implements OnInit {
   ngOnInit() {
   }
 
+  /* Log the user in */
   login() {
     if (this.username && this.username.trim()) {
       this.userService.login(this.username, this.password)
@@ -32,21 +40,14 @@ export class LoginFormComponent implements OnInit {
     }
   }
 
+  /* Log the user out */
   logout() {
     this.userService.logout()
       .then(u => this.clearForm())
       .catch(reason => console.error(reason));
-
-    /*
-      .then( state => {
-        if (state) this.feedback.success("You are logged out");
-        this.clearForm();
-      })
-      .then(() => this.router.navigate(['/']))
-      .catch( reason => this.feedback.error(reason));
-    */
   }
 
+  /* Reset the login form fields */
   clearForm() {
     this.username = undefined;
     this.password = undefined;
@@ -59,12 +60,4 @@ export class LoginFormComponent implements OnInit {
   goBack() {
     window.history.back();
   }
-
-  /*
-refreshView() {
-  let path = window.location.pathname;
-  this.router.navigate(['/refresh',{path:path}]);
-}*/
-
-
 }
