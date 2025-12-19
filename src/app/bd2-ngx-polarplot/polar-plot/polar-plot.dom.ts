@@ -2,6 +2,7 @@ import {Selection} from 'd3-selection';
 
 export type ShowIndividualsOptions = 'none' | 'all' | 'selected';
 
+/* Graphic context holding svg elements and parameters used in the polar plot */
 export class GraphicContext {
 
   palette: string[];
@@ -22,16 +23,13 @@ export class GraphicContext {
   radius: number;
 }
 
+/* Look and feel parameters for the polar plot */
 export class LookAndFeel {
   baseTransitionsTime = 400;
 
   gridColor = '#CDCDCD';
   axisColor = 'white';
   axisWidth = '2px';
-
-  // done by css
-  // axisFontSize: "10px",
-  // tooltipFontSize: "11px",
 
   dotsCircleRadius = 4;
   dotsCircleStrokeWidth = '1px';

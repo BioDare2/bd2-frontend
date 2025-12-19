@@ -1,0 +1,12 @@
+<h1 mat-dialog-title>{{title}}</h1>
+<div mat-dialog-content>
+    @if (missing) {
+      <div class="alert alert-danger" role="alert" type="danger">{{missing}}</div>
+    }
+    @if (!missing) {
+      <bd2-static-content [docName]="docName"></bd2-static-content>
+    }
+</div>
+<div mat-dialog-actions>
+    <button mat-dialog-close class="btn btn-primary" tabindex="-1">Close</button>
+</div>

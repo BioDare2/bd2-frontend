@@ -22,39 +22,22 @@ import {PetalNode, PolarPoint} from '../polar-plot-utils/polar-plot.dom';
 import {BD2ColorPalette} from '../polar-plot-utils/color-palette';
 import {GraphicContext, LookAndFeel, ShowIndividualsOptions} from './polar-plot.dom';
 
-
-
-
-
+/**
+ * Component for plotting polar plots
+ * 
+ * The polar plot is used in BioDare2 for showing fitted phases.
+ */
 @Component({
     selector: 'bd2-ngx-polar-plot',
     changeDetection: ChangeDetectionStrategy.OnPush,
-    template: `
-    <div class="polarplot"></div>
-  `,
-    styles: [
-        `
-      :host ::ng-deep .axis .legend {
-        font-size: 15px;
-      }
-
-      :host ::ng-deep .tooltip {
-        font-size: 15px;
-      }
-
-      :host ::ng-deep .legendtip {
-        font-size: 18px;
-      }
-    `
-    ],
+    template: `<div class="polarplot"></div>`,
+    stylesUrls: ['./polar-plot.component.css'],
     standalone: false
 })
 export class PolarPlotComponent implements OnInit, AfterViewInit, OnChanges, OnDestroy {
 
-
   @Input()
   data: number[][];
-
 
   @Input()
   errors: number[];
@@ -85,7 +68,6 @@ export class PolarPlotComponent implements OnInit, AfterViewInit, OnChanges, OnD
   @Input()
   labelsOn = true;
 
-
   @Input()
   lookAndFeel = new LookAndFeel();
 
@@ -97,27 +79,21 @@ export class PolarPlotComponent implements OnInit, AfterViewInit, OnChanges, OnD
   private polarUtil: PolarDomainUtil;
   private d3Svg: Selection<SVGSVGElement, any, null, undefined>;
 
-
   private _domain: number[];
   private showAllIndividuals = false;
   private showSelectedIndividuals = false;
 
-  //private individualPolarData: PolarPoint[][];
-
   private graphicContext = new GraphicContext();
-
 
   constructor(private ngZone: NgZone, private changeDetectorRef: ChangeDetectorRef, element: ElementRef) {
     this.d3 = d3;
     // this.d3 = d3Service.getD3();
     this.parentNativeElement = element.nativeElement;
     this.polarUtil = new PolarDomainUtil();
-
   }
 
-
   /**
-   * It is detached from angular to prevent unnecessary change detection
+   * Detached from angular to prevent unnecessary change detection
    */
   ngAfterViewInit() {
     this.changeDetectorRef.detach();
@@ -125,31 +101,21 @@ export class PolarPlotComponent implements OnInit, AfterViewInit, OnChanges, OnD
 
   /**
    * Explicit triggers re-drawing as need to have all the parameters set (so will not be redrawn if data came first and domain later)
-   * @param changes
+   * @param changes - A set of changes to the plot inputs
    */
   ngOnChanges(changes: SimpleChanges) {
-
     if (!this.data || !this._domain) {
       return;
     }
-
-    // console.log("Changes", changes);
-
     this.showSelectedIndividuals = (this.showIndividuals === 'selected');
-
     this.showAllIndividuals = (this.showIndividuals === 'all');
-
     this.updatePlot();
-
   }
 
-
   ngOnInit() {
-
     if (this.parentNativeElement !== null) {
-
     } else {
-      console.error('Missing parrent element for the component');
+      console.error('Missing parent element for the component');
     }
   }
 
@@ -159,7 +125,7 @@ export class PolarPlotComponent implements OnInit, AfterViewInit, OnChanges, OnD
     }
   }
 
-
+  /* Initialization of the SVG element with basic dimensions */
   initializeSvg(): GraphicContext {
 
     const pWidth = 500;
@@ -173,16 +139,17 @@ export class PolarPlotComponent implements OnInit, AfterViewInit, OnChanges, OnD
 
     const context = new GraphicContext();
     context.mainPane = this.d3Svg.append<SVGGElement>('g')
-      .attr('transform', 'translate(' + (pWidth / 2) + ',' + (pHeight / 2) + ')'); // moves 0,0 of the pain to the middle of the graphics
+      .attr('transform', 'translate(' + (pWidth / 2) + ',' + (pHeight / 2) + ')'); // moves 0,0 of the pane to the middle of the graphics
 
     context.radius = Math.min(pWidth, pHeight) / 2 - 30;
     return context;
   }
 
+  /* Initialization of the legend tooltip */
   prepareLegendtip(context: GraphicContext): GraphicContext {
 
     if (!context.legendtip) {
-      // Set up the small tooltip in the centre for when you hover over a circle
+      // Set up the small tooltip in the centre (series name) for when you hover over a circle
       context.legendtip = context.mainPane.append<SVGGElement>('g')
         .classed('legendtipWrapper', true) as any;
 
@@ -192,22 +159,19 @@ export class PolarPlotComponent implements OnInit, AfterViewInit, OnChanges, OnD
         .style('stroke', 'grey')
       ;
 
-
       context.legendtipText = context.legendtip.append('text')
         .attr('class', 'legendtip')
         .attr('text-anchor', 'middle')
-        // .attr("dy", "0.35em")
-        // .style("font-size", this.lookAndFeel.tooltipFontSize) //"11px")
         .style('opacity', 1) as any
       ;
 
       context.legendtip
-      // .style("visibility", "hidden");
         .style('display', 'none');
     }
     return context;
   }
 
+  /* Show the legend tooltip on the relevant petal */
   showLegendtip(p: PetalNode, radius: number) {
 
     if (!this.labelsOn) {
@@ -218,13 +182,10 @@ export class PolarPlotComponent implements OnInit, AfterViewInit, OnChanges, OnD
       .attr('x', 0)
       .attr('y', 0)
       .text(p.label)
-    // .transition().duration(this.lookAndFeel.baseTransitionsTime / 2)
-    // .style('opacity', 1);
     ;
 
     // it has to be before the box cause of the bug in firefox
     this.graphicContext.legendtip
-      // .style("visibility", "visible");
       .style('display', null);
 
     const bbox = this.graphicContext.legendtipText.node().getBBox();
@@ -234,18 +195,15 @@ export class PolarPlotComponent implements OnInit, AfterViewInit, OnChanges, OnD
       .attr('y', bbox.y - 2)
       .attr('width', bbox.width + 6)
       .attr('height', bbox.height + 4);
-
-
   }
 
+  /* Hide the legend tooltip */
   hideLegendtip() {
-
     this.graphicContext.legendtip
-    // .style("visibility", "hidden");
       .style('display', 'none');
   }
 
-
+  /* Initialization of the tooltip */
   prepareTooltip(context: GraphicContext): GraphicContext {
 
     if (!context.tooltip) {
@@ -257,39 +215,32 @@ export class PolarPlotComponent implements OnInit, AfterViewInit, OnChanges, OnD
         .style('fill', 'white')
         .style('fill-opacity', 0.8)
         .style('stroke', 'grey')
-      // .style("visibility", "hidden");
       ;
-
 
       context.tooltipText = context.tooltip.append('text')
         .attr('class', 'tooltip')
         .attr('text-anchor', 'middle')
         .attr('dy', '0.35em')
-        // .style("font-size", this.lookAndFeel.tooltipFontSize) //"11px")
         .style('opacity', 1) as any
       ;
 
       context.tooltip
-      // .style("visibility", "hidden");
         .style('display', 'none');
     }
     return context;
   }
 
+  /* Show the tooltip on the relevant petal */
   showTooltip(p: PetalNode, radius: number) {
-
 
     this.graphicContext.tooltipText
       .attr('x', (radius + 15) * p.polarCoordinates[0])
       .attr('y', (radius + 15) * p.polarCoordinates[1])
       .text(p.roundedPeak)
-    // .transition().duration(this.lookAndFeel.baseTransitionsTime / 2)
-    // .style('opacity', 1);
     ;
 
     // it has to be before the get BBox cause of the firefox errors
     this.graphicContext.tooltip
-      // .style("visibility", "visible");
       .style('display', null);
 
     const bbox = this.graphicContext.tooltipText.node().getBBox();
@@ -299,42 +250,29 @@ export class PolarPlotComponent implements OnInit, AfterViewInit, OnChanges, OnD
       .attr('y', bbox.y - 2)
       .attr('width', bbox.width + 6)
       .attr('height', bbox.height + 4);
-
-
   }
 
+  /* Hide the tooltip */
   hideTooltip() {
-    // this.graphicContext.tooltip
-    // .transition().duration(this.lookAndFeel.baseTransitionsTime / 2)
-    // .style("opacity", 0);
-
     this.graphicContext.tooltip
-    // .style("visibility", "hidden");
       .style('display', 'none');
   }
 
-
+  /* Main update method called when data or parameters change */
   updatePlot() {
 
     if (!this.d3Svg) {
       this.graphicContext = this.initializeSvg();
-
       this.graphicContext = this.plotAxisGrid(this.graphicContext);
     }
 
-
-    // the grid is plotted only once, only the lables are updated
+    // the grid is plotted only once, only the labels are updated
     this.updateAxisLabels(this._domain, this.graphicContext.axisGrid);
 
     this.graphicContext = this.updatePalette(this.data, this.palette, this.graphicContext);
 
-
     const petalNodes = this.prepareDataModel(this.data, this._domain, this.scaleRadius, this.scaleWidth, this.errors,
       this.labels, this.removed, this.graphicContext.palette);
-
-
-    //this.individualPolarData = this.prepareIndividualPolarData(this.data, this._domain, this.removed, this.graphicContext.palette);
-    //this.individualPolarData = this.individualPolarData.filter(d => d.length !== 0);
 
     this.graphicContext = this.plotDataPetals(petalNodes, this.scaleRadius, this.scaleWidth, this.graphicContext);
 
@@ -344,9 +282,9 @@ export class PolarPlotComponent implements OnInit, AfterViewInit, OnChanges, OnD
 
     this.graphicContext = this.prepareTooltip(this.graphicContext);
     this.graphicContext = this.prepareLegendtip(this.graphicContext);
-
   }
 
+  /* Prepare the data model for plotting */
   prepareDataModel(dataGroups: number[][], domain: number[],
                    scaleRadius: boolean, scaleWidth: boolean, errors: number[],
                    labels: string[], removed: number[],
@@ -363,13 +301,13 @@ export class PolarPlotComponent implements OnInit, AfterViewInit, OnChanges, OnD
         petalNodes[ix].individuals.forEach( p => p.hidden = true);
       }
     });
-    // petalNodes = petalNodes.filter(n => !n.hidden);
 
     // remove empty data
     petalNodes = petalNodes.filter(n => !isNaN(n.peak));
     return petalNodes;
   }
 
+  /* Update the color palette used for plotting */
   updatePalette(data: any[], palette: string[], context: GraphicContext): GraphicContext {
     if (!palette || palette.length === 0) {
       context.palette = BD2ColorPalette.palette(data.length);
@@ -381,14 +319,15 @@ export class PolarPlotComponent implements OnInit, AfterViewInit, OnChanges, OnD
     return context;
   }
 
+  /* Add formatted labels to the petals */
   labelPetals(petals: PetalNode[], labels: string[]) {
     if (!labels) {
       labels = [];
     }
-
     petals.forEach((n, ix) => n.label = labels[ix] ? labels[ix] : '' + (ix + 1));
   }
-
+  
+  /* Assign colors to the petals */
   colorPetals(petals: PetalNode[], palette: string[]) {
     petals.forEach((b, ix) => {
       b.color = palette[ix];
@@ -396,6 +335,7 @@ export class PolarPlotComponent implements OnInit, AfterViewInit, OnChanges, OnD
     });
   }
 
+  /* Plot the petals */
   plotDataPetals(petalNodes: PetalNode[],
                  scaleRadius: boolean, scaleWidth: boolean,
                  context: GraphicContext): GraphicContext {
@@ -429,7 +369,6 @@ export class PolarPlotComponent implements OnInit, AfterViewInit, OnChanges, OnD
 
       const petals = petalsWrapper.selectAll('.petal')
         .data(petalNodes);
-
 
       const petalAreaOpacity = this.lookAndFeel.petalAreaOpacity;
 
@@ -489,7 +428,6 @@ export class PolarPlotComponent implements OnInit, AfterViewInit, OnChanges, OnD
         .append<SVGGElement>('g')
         .attr('class', 'petal');
 
-
       const petalsArea = newPetals.append('path');
 
       petalsArea
@@ -505,13 +443,6 @@ export class PolarPlotComponent implements OnInit, AfterViewInit, OnChanges, OnD
 
           instance.showTooltip(d, radius);
           instance.showLegendtip(d, radius);
-
-          /*const e = petalsArea.nodes();
-          console.log("Nodes",e);
-          console.log("T", this);
-          console.log("S",d3.select(this));
-          const ix = e.indexOf(this);
-          */
 
           instance.showIndividualDataInset(d, radius);
 
@@ -542,7 +473,6 @@ export class PolarPlotComponent implements OnInit, AfterViewInit, OnChanges, OnD
         .style('fill', 'none')
         .style('stroke-opacity', 1)
       ;
-      // .style("filter" , "url(#glow)");
 
       // Append the circles
       newPetals
@@ -559,49 +489,29 @@ export class PolarPlotComponent implements OnInit, AfterViewInit, OnChanges, OnD
         .style('fill-opacity', this.lookAndFeel.petalCircleOpacity);
 
       petals.exit()
-        // .transition().duration(transitionsTime / 2)
-        // .style('opacity', 0.0)
         .remove();
 
       const petalsAll: Selection<SVGGElement, PetalNode, null, undefined> = petalsWrapper.selectAll('.petal')
-        // .style("visibility", (n:PetalNode) => n.hidden ? "hidden":"visible");
         .style('display', (n: PetalNode) => n.hidden ? 'none' : null) as any;
 
     });
-
     return context;
   }
 
-  /*
-  prepareIndividualPolarData(dataGroups: number[][], domain: number[],
-                             removed: number[], palette: string[]): PolarPoint[][] {
-    // append group index to the data so the colors can be generated for each data point (ix is for the parrent so it would
-    // not be available
-    const ind = dataGroups.map((g, ix) => g.map(a => {
-      const v = new PolarPoint(this.polarUtil.calculatePolarCoordinate(a, domain), palette[ix]);
-      return v;
-    }));
-    removed.forEach (ix => {
-      if (ind[ix]) {
-        ind[ix].forEach(p => p.hidden = true);
-      }
-    });
-    return ind;
-  }*/
-
+  /* Prepare the small dots for individual data points shown on hover */
   prepareIndividualDataInset(context: GraphicContext): GraphicContext {
 
     if (!context.individualDotsInsetWrapper) {
       context.individualDotsInsetWrapper = context.mainPane.append<SVGGElement>('g').attr('class', 'dotsInset');
     }
 
-    // the actual plotting happens in showIndividuals as it is data depended
-
-    // we always hide it with new data first;
+    // the actual plotting happens in showIndividualDataInset as it is data dependent
+    // For new data, we start with the individual points hidden (display only on hover)
     this.hideIndividualDataInset();
     return context;
   }
 
+  /* Hide the individual data points (for hover out) */
   hideIndividualDataInset() {
     if (!this.graphicContext.individualDotsInsetWrapper) {
       return;
@@ -611,22 +521,18 @@ export class PolarPlotComponent implements OnInit, AfterViewInit, OnChanges, OnD
       .style('opacity', 0.0);
   }
 
+  /* Show the individual data points (for hover in) */
   showIndividualDataInset(p: PetalNode, radius: number) {
 
     if (!this.graphicContext.individualDotsInsetWrapper || !p.individuals || !this.showSelectedIndividuals) {
       return;
     }
 
-    // console.log("P: "+p.polarCoordinates[0], p.polarCoordinates);
-
     const transitionsTime = this.lookAndFeel.baseTransitionsTime / 2;
 
     const d3 = this.d3;
 
-    // console.log("Ix",ix);
-    // console.log("D",this.individualPolarData[ix]);
-    const individuals = p.individuals; // this.individualPolarData[ix];
-
+    const individuals = p.individuals;
 
     const dots = this.graphicContext.individualDotsInsetWrapper.selectAll('.dotsCircle')
       .data(individuals);
@@ -670,9 +576,9 @@ export class PolarPlotComponent implements OnInit, AfterViewInit, OnChanges, OnD
       .style('opacity', 1);
   }
 
+  /* Plot data dots for all petals (average phase values) */
   plotAllDataDots(petals: PetalNode[], showDots: boolean,
                   context: GraphicContext): GraphicContext {
-
 
     const transitionsTime = this.lookAndFeel.baseTransitionsTime;
     const d3 = this.d3;
@@ -693,13 +599,11 @@ export class PolarPlotComponent implements OnInit, AfterViewInit, OnChanges, OnD
     const dotsData = petals.map(p => p.individuals);
     const instance = this;
 
-
     // so that angular change detection is not triggered for mouseover/our events or transitions
     this.ngZone.runOutsideAngular(() => {
 
       const dotsGroup = dotsWrapper.selectAll('.dotsGroup')
         .data(dotsData);
-
 
       const dotsInExisting = dotsGroup.selectAll('.dotsCircle')
         .data(d => d);
@@ -724,7 +628,6 @@ export class PolarPlotComponent implements OnInit, AfterViewInit, OnChanges, OnD
         .style('fill', d => d.color)
         .style('fill-opacity', this.lookAndFeel.dotsCircleFillOpacity);
 
-
       dotsInExisting.exit()
         .transition().duration(transitionsTime / 2)
         .style('opacity', 0.0)
@@ -736,7 +639,6 @@ export class PolarPlotComponent implements OnInit, AfterViewInit, OnChanges, OnD
         .attr('class', 'dotsGroup')
         .selectAll('.dotsCircle')
         .data(d => d);
-
 
       dotsInNewGroups.enter()
         .append('circle')
@@ -750,129 +652,27 @@ export class PolarPlotComponent implements OnInit, AfterViewInit, OnChanges, OnD
         .style('fill', d => d.color)
         .style('fill-opacity', this.lookAndFeel.dotsCircleFillOpacity);
 
-      // dotsGroup exit section
       dotsGroup.exit()
         .transition().duration(transitionsTime / 2)
         .style('opacity', 0.0)
         .remove();
-
     });
 
-    const dotsGroup = dotsWrapper// .selectAll(".dotsGroup")
+    const dotsGroup = dotsWrapper
       .selectAll('.dotsCircle')
-      // .style("visibility", (n:PolarPoint) => n.hidden ? "hidden":"visible");
       .style('display', (n: PolarPoint) => n.hidden ? 'none' : null);
-
     return context;
   }
 
-  /*
-  plotAllDataDots(dotsData: PolarPoint[][], showDots: boolean,
-                  context: GraphicContext): GraphicContext {
-
-
-    const transitionsTime = this.lookAndFeel.baseTransitionsTime;
-    const d3 = this.d3;
-    const radius = context.radius;
-
-    if (!context.dotsWrapper) {
-      context.dotsWrapper = context.mainPane.append<SVGGElement>('g').attr('class', 'dotsWrapper');
-    }
-    const dotsWrapper = context.dotsWrapper;
-
-    if (!showDots) {
-      context.dotsWrapper.style('opacity', 0.0);
-      return context;
-    } else {
-      context.dotsWrapper.style('opacity', 1);
-    }
-
-    const instance = this;
-
-
-    // so that angular change detection is not triggered for mouseover/our events or transitions
-    this.ngZone.runOutsideAngular(() => {
-
-      const dotsGroup = dotsWrapper.selectAll('.dotsGroup')
-        .data(dotsData);
-
-
-      const dotsInExisting = dotsGroup.selectAll('.dotsCircle')
-        .data(d => d);
-
-      dotsInExisting
-        .transition().duration(transitionsTime)
-        .attr('cx', d => radius * d.xy[0])
-        .attr('cy', d => radius * d.xy[1]) // Math.sin(d * 2 * Math.PI / 24 - Math.PI / 2);
-        .style('stroke', d => d.color)
-        .style('fill', d => d.color)
-      ;
-
-      dotsInExisting.enter()
-        .append('circle')
-        .attr('class', 'dotsCircle')
-        .transition().duration(transitionsTime)
-        .attr('cx', d => radius * d.xy[0])
-        .attr('cy', d => radius * d.xy[1]) // Math.sin(d * 2 * Math.PI / 24 - Math.PI / 2);
-        .attr('r', this.lookAndFeel.dotsCircleRadius)
-        .style('stroke-width', this.lookAndFeel.dotsCircleStrokeWidth)
-        .style('stroke', d => d.color)
-        .style('fill', d => d.color)
-        .style('fill-opacity', this.lookAndFeel.dotsCircleFillOpacity);
-
-
-      dotsInExisting.exit()
-        .transition().duration(transitionsTime / 2)
-        .style('opacity', 0.0)
-        .remove();
-
-      // dotsGroup enter section
-      const dotsInNewGroups = dotsGroup.enter()
-        .append<SVGGElement>('g')
-        .attr('class', 'dotsGroup')
-        .selectAll('.dotsCircle')
-        .data(d => d);
-
-
-      dotsInNewGroups.enter()
-        .append('circle')
-        .attr('class', 'dotsCircle')
-        .transition().duration(transitionsTime)
-        .attr('cx', d => radius * d.xy[0])
-        .attr('cy', d => radius * d.xy[1]) // Math.sin(d * 2 * Math.PI / 24 - Math.PI / 2);
-        .attr('r', this.lookAndFeel.dotsCircleRadius)
-        .style('stroke-width', this.lookAndFeel.dotsCircleStrokeWidth)
-        .style('stroke', d => d.color)
-        .style('fill', d => d.color)
-        .style('fill-opacity', this.lookAndFeel.dotsCircleFillOpacity);
-
-      // dotsGroup exit section
-      dotsGroup.exit()
-        .transition().duration(transitionsTime / 2)
-        .style('opacity', 0.0)
-        .remove();
-
-    });
-
-    const dotsGroup = dotsWrapper// .selectAll(".dotsGroup")
-      .selectAll('.dotsCircle')
-      // .style("visibility", (n:PolarPoint) => n.hidden ? "hidden":"visible");
-      .style('display', (n: PolarPoint) => n.hidden ? 'none' : null);
-
-    return context;
-  }
-  */
-
+  /* Plot the axis grid */
   plotAxisGrid(context: GraphicContext): GraphicContext {
 
-
     if (context.axisGrid) {
-      return context; // this.axisGrid; //we only plot grid once
+      return context; //we only plot the grid once, so return if already present
     }
 
     const radius = context.radius;
     const axisGrid = context.axisGrid = context.mainPane.append<SVGGElement>('g').attr('class', 'axisWrapper');
-
 
     axisGrid.selectAll('.levels')
       .data([10, 2, 1])
@@ -885,7 +685,6 @@ export class PolarPlotComponent implements OnInit, AfterViewInit, OnChanges, OnD
       .style('fill', this.lookAndFeel.gridColor)
       .style('stroke', this.lookAndFeel.gridColor)
       .style('fill-opacity', 0.15);
-    // .style("filter" , "url(#glow)");
 
     const axis = axisGrid.selectAll('.axis')
       .data(
@@ -913,7 +712,6 @@ export class PolarPlotComponent implements OnInit, AfterViewInit, OnChanges, OnD
 
     axis.append('text')
       .attr('class', 'legend')
-      // .style("font-size", this.lookAndFeel.axisFontSize) //"10px")
       .attr('text-anchor', 'middle')
       .attr('dy', '0.35em')
       .attr('x', function(d, i) {
@@ -929,6 +727,7 @@ export class PolarPlotComponent implements OnInit, AfterViewInit, OnChanges, OnD
     return context;
   }
 
+  /* Update the axis labels according to the current domain */
   updateAxisLabels(domain: number[], axisGrid: Selection<SVGGElement, any, null, undefined>) {
 
     const range = domain[1] - domain[0];
@@ -941,7 +740,5 @@ export class PolarPlotComponent implements OnInit, AfterViewInit, OnChanges, OnD
           return SmartRounder.round(domain[0] + d[2] / 24 * range);
         }
       });
-
   }
-
 }

@@ -1,14 +1,12 @@
 import {ChangeDetectionStrategy, Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
 import {ScaleBand} from 'd3-scale';
 
+/**
+ * Render a y-axis for the heatmap.
+ */
 @Component({
     selector: '[bd2hm-y-axis]',
-    template: `
-    <svg:g class="bd2hm-y-axis" [attr.transform]="axisTransform">
-      <svg:line x1="0" y1="0" x2="0" [attr.y2]="y2"></svg:line>
-    </svg:g>
-  `,
-    styles: [],
+    templateUrl: './y-axis.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
     standalone: false
 })
@@ -33,9 +31,7 @@ export class YAxisComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-
     this.axisTransform = `translate(${this.xPosition},0)`;
     this.y2 = this.yScale?.range()[1];
   }
-
 }

@@ -1,21 +1,12 @@
 import {ChangeDetectionStrategy, Component, Input, OnInit} from '@angular/core';
 import {GraphicContext} from '../../../bd2-heatmap.dom';
 
+/**
+ * Component for rendering the 4 axes (= axis box) in the heatmap plot.
+ */
 @Component({
     selector: '[bd2hm-axis-box]',
-    template: `
-    @if (graphic) {
-      <svg:g class="bd2hm-axisWrapper">
-        <g bd2hm-num-x-axis class="xTopAxis" [top]="true" [xScale]="graphic.xScale"
-        [yPosition]="0" [xDomain]="graphic.xDomain"></g>
-        <g bd2hm-num-x-axis class="xBottomAxis" [top]="false" [xScale]="graphic.xScale"
-        [yPosition]="graphic.workspaceHeight" [xDomain]="graphic.xDomain"></g>
-        <g bd2hm-y-axis class="yLeftAxis" [left]="true" [yScale]="graphic.yScale" [xPosition]="0"></g>
-        <g bd2hm-y-axis class="yRightAxis" [left]="false" [yScale]="graphic.yScale" [xPosition]="graphic.workspaceWidth"></g>
-        </svg:g>
-      }
-    `,
-    styles: [],
+    templateUrl: './axis-box.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
     standalone: false
 })
@@ -29,6 +20,4 @@ export class AxisBoxComponent implements OnInit {
 
   ngOnInit(): void {
   }
-
-
 }

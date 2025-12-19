@@ -1,0 +1,11 @@
+@if (tick) {
+  <svg:line
+  [attr.x1]="tick.x"
+  [attr.x2]="tick.x"
+  y1="0"
+  [attr.y2]="marky2"
+  ></svg:line>
+}
+@if (tick) {
+    <svg:text [attr.x]="tick.x" [attr.y]="texty2" [attr.dy]="textdy">{{tick.label}}</svg:text>
+}

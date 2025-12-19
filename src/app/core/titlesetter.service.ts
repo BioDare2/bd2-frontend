@@ -3,6 +3,9 @@ import {NavigationEnd, Router} from '@angular/router';
 import {Title} from '@angular/platform-browser';
 import {distinctUntilChanged, filter} from 'rxjs/operators';
 
+/**
+ * Service to set the browser title according to the current route
+ */
 @Injectable({
   providedIn: 'root'
 })
@@ -26,7 +29,6 @@ export class TitleSetterService {
       })
     ).subscribe(
       (x: NavigationEnd) => {
-        // console.log('router.change', x);
         this.changedURL(x.urlAfterRedirects);
       },
       err => {
@@ -37,15 +39,15 @@ export class TitleSetterService {
 
   }
 
+  /* Get the title part from the url and set the title */
   changedURL(url: string) {
-    // console.log("U: "+url+"; "+url.constructor.name);
-
     const part = this.getTitleFromURL(url);
     if (part) {
       this.setTitle(part);
     }
   }
 
+  /* Map url to title part */
   getTitleFromURL(url: string): string {
 
     if (url.endsWith('welcome')) {
@@ -66,12 +68,14 @@ export class TitleSetterService {
     if (url.endsWith('account/edit')) {
       return 'Account';
     }
+    if (url.endsWith('usage')) {
+      return 'Usage';
+    }
     return '';
   }
 
+  /* Set the browser title */
   public setTitle(titlePart: string) {
-    // console.log("ST: "+titlePart);
     this.titleService.setTitle('BioDare2 ' + titlePart);
   }
-
 }

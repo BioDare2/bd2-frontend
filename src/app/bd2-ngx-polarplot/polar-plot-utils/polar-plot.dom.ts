@@ -1,9 +1,13 @@
-
-
+/**
+ * Class representing a point in polar coordinates
+ */
 export class PolarPoint {
   constructor(public xy: number[], public color: string, public hidden?: boolean) {}
 }
 
+/**
+ * Class representing a petal node in the polar plot
+ */
 export class PetalNode {
 
   peak: number;
@@ -20,4 +24,3 @@ export class PetalNode {
 
   individuals: PolarPoint[] = [];
 }
-

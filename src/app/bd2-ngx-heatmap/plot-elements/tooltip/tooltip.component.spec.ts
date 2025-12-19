@@ -99,7 +99,7 @@ describe('TooltipComponent', () => {
     component = new TooltipComponent(tooltip, change);
     component.show = true;
 
-    component.hideTooltip(undefined, undefined);
+    component.hideTooltip();
     expect(component.show).toBe(false);
     expect(change.detectChanges.calls.count()).toBe(1);
 

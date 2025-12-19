@@ -4,6 +4,11 @@ import {TooltipService} from '../../plot-elements/tooltip/tooltip.service';
 import {HeatmapDataUtil} from '../heatmap-data-util';
 import {HeatmapGraphUtil} from '../../heatmap-graph-util';
 
+/**
+ * Render a numerical heatmap.
+ * 
+ * Triggers redrawing of boxes and graphic context on input changes.
+ */
 @Component({
     selector: 'bd2-num-heatmap',
     templateUrl: './bd2-num-heatmap.component.html',
@@ -68,6 +73,4 @@ export class Bd2NumHeatmapComponent implements OnInit, OnDestroy, OnChanges {
       this.series = undefined;
     }
   }
-
-
 }

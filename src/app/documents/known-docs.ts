@@ -1,5 +1,5 @@
+/* List of known static documents */
 export const StaticDocsOptions = [
-
   ['about', 'About', 'Documentation'],
   ['service', 'Service Description (T&C)', 'Service Description (T&C)'],
   ['embargo','Embargo period explained','Embargo period explained'],
@@ -13,13 +13,12 @@ export const StaticDocsOptions = [
   ['Accessibility_statement', 'Accessibility Statement', 'Accessibility Statement'],
 ];
 
+/* Check if the given document name is a known static document. */
 export function isKnownStaticDoc(name: string) {
-
   return (StaticDocsOptions.findIndex(op => op[0] === name) >= 0);
 }
 
+/* Get the parameters for the static document with the given name. */
 export function getStaticDocParams(name: string): string[] {
-
   return (StaticDocsOptions.find(op => op[0] === name));
 }
-

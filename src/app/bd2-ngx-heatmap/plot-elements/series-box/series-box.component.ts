@@ -1,19 +1,12 @@
 import {ChangeDetectionStrategy, Component, Input, OnInit} from '@angular/core';
 import {BoxSerie, GraphicContext} from '../../bd2-heatmap.dom';
 
+/**
+ * Component to render a box series (contains multiple series rows)
+ */
 @Component({
     selector: '[bd2hm-series-box]',
-    template: `
-    @for (serie of series; track trackByIndex($index, serie)) {
-      <svg:g
-        bd2hm-serie-row
-        [graphic]="graphic"
-        [serie]="serie"
-        [usePattern]="usePattern">
-      </svg:g>
-      }
-    `,
-    styles: [],
+    templateUrl: './series-box.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
     standalone: false
 })
@@ -37,6 +30,4 @@ export class SeriesBoxComponent implements OnInit {
 
   ngOnInit(): void {
   }
-
-
 }

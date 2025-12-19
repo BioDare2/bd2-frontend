@@ -4,6 +4,9 @@ import {StaticContentComponent} from './static-content/static-content.component'
 import {StaticContentDialogComponent} from './static-content-dialog/static-content-dialog.component';
 import {MatDialogModule} from '@angular/material/dialog';
 
+/**
+ * Module for static content components.
+ */
 @NgModule({
     imports: [
         CommonModule,

@@ -1,22 +1,18 @@
 import {ChangeDetectionStrategy, Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
 import {GraphicContext} from '../../bd2-heatmap.dom';
 
+/**
+ * Background pane component for the heatmap plot area.
+ *
+ * Renders a rectangle as the background of the heatmap plot area.
+ */
 @Component({
     selector: '[bd2hm-pane-back]',
-    template: `
-    <svg:rect
-      class="bd2hm-dataBackground"
-      [attr.x]="margin"
-      [attr.y]="margin"
-      [attr.width]="width"
-      [attr.height]="height"
-    >
-    </svg:rect>
-  `,
-    styles: [],
+    templateUrl: './pane-back.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
     standalone: false
 })
+
 export class PaneBackComponent implements OnInit, OnChanges {
 
   @Input()

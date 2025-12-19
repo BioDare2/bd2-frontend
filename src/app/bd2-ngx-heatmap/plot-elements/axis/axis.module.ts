@@ -5,7 +5,9 @@ import {YAxisComponent} from './axis-box/y-axis/y-axis.component';
 import {VTickMarkComponent} from './axis-box/x-axis/v-tick-mark/v-tick-mark.component';
 import {NumXAxisComponent} from './axis-box/x-axis/num-x-axis.component';
 
-
+/**
+ * Module to render heatmap axes.
+ */
 @NgModule({
   declarations: [
     AxisBoxComponent,

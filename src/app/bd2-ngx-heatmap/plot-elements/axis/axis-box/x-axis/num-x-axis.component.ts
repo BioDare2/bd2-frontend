@@ -2,19 +2,12 @@ import {ChangeDetectionStrategy, Component, Input, OnChanges, OnInit, SimpleChan
 import {ScaleLinear} from 'd3-scale';
 import {Tick} from '../../../../bd2-heatmap.dom';
 
-//
-
+/**
+ * Render a numerical x-axis for the heatmap.
+ */
 @Component({
     selector: '[bd2hm-num-x-axis]',
-    template: `
-    <svg:g class="bd2hm-x-axis" [attr.transform]="axisTransform" >
-      <svg:line x1="0" y1="0" y2="0" [attr.x2]="x2"></svg:line>
-        @for (tick of ticks; track trackByIndex($index, tick)) {
-          <svg:g bd2hm-vtick-mark class="bd2hm-tickMark" [tick]="tick"></svg:g>
-          }
-          </svg:g>
-    `,
-    styles: [],
+    templateUrl: './num-x-axis.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
     standalone: false
 })
@@ -43,26 +36,23 @@ export class NumXAxisComponent implements OnInit, OnChanges {
     return index;
   }
 
-
   ngOnInit(): void {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-
     this.axisTransform = `translate(0,${this.yPosition})`;
     this.x2 = this.xScale?.range()[1];
     this.ticks = this.prepareTicks(this.xScale);
   }
 
-
+  /* Map updated tick positions to Tick objects */
   prepareTicks(xScale: ScaleLinear<number, number>): Tick[] {
     const positions = this.calculateTicksPosition(xScale);
 
     return positions.map(tick => new Tick(xScale(tick), 0, tick, this.top, false));
   }
 
-
-
+  /* Calculate tick positions based on the xScale and domain */
   calculateTicksPosition(xScale: ScaleLinear<number, number>) {
     if (!xScale) {
       return [];
@@ -78,6 +68,7 @@ export class NumXAxisComponent implements OnInit, OnChanges {
     return ticks;
   }
 
+  /* Determine an appropriate step size for tick marks based on the domain range */
   domainStep(range: number) {
     if (range <= 25) {
       return 4;
@@ -90,5 +81,4 @@ export class NumXAxisComponent implements OnInit, OnChanges {
     }
     return 24;
   }
-
 }

@@ -2,11 +2,12 @@ import {Component, Input, OnInit} from '@angular/core';
 import {StaticContentService} from '../static-content.service';
 import {FeedbackService} from '../../../feedback/feedback.service';
 
+/**
+ * Component for displaying static HTML content.
+ */
 @Component({
     selector: 'bd2-static-content',
-    template: `
-    <div [innerHTML]="content"></div>
-  `,
+    template: `<div [innerHTML]="content"></div>`,
     standalone: false
 })
 export class StaticContentComponent implements OnInit {

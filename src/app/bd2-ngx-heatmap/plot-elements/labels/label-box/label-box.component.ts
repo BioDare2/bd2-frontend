@@ -13,38 +13,12 @@ import {Serie} from '../../../bd2-heatmap.dom';
 import {Observable, timer} from 'rxjs';
 import {map, tap} from 'rxjs/operators';
 
+/**
+ * Component for rendering the label text boxes for a heatmap.
+ */
 @Component({
     selector: '[bd2hm-label-box]',
-    template: `
-    @if (serie) {
-      <svg:g class="bd2hm-label">
-        @if (alwaysOn) {
-          <svg:text
-            class="bd2hm-onLabel"
-            x="-12"
-            text-anchor="end"
-            [attr.y]="yMiddle"
-            [attr.font-size]="fontSize()"
-            >{{ shortLabel}}
-          </svg:text>
-          }
-          <g (mouseout)="toggleLabel(false)" (mouseover)="toggleLabel(true)">
-            <svg:rect x="-7" width="7" [attr.y]="triggerY" [attr.height]="triggerHeight" [attr.fill]="color"
-              ></svg:rect>
-              <!--<svg:circle [attr.cx]="-cirR()-2" [attr.cy]="yMiddle" [attr.r]="cirR()" [attr.fill]="'rgb(67, 125, 179)'"
-              [attr.filter]="band < 7 ? undefined : 'url(#bd2hm-shadow)'"
-              ></svg:circle>-->
-              <svg:g class="bd2hm-hover" [attr.opacity]="ready ? 1 : 0" [attr.display]="toggled ? undefined : 'none'">
-                <svg:rect x="0" [attr.width]="textBWidth" [attr.y]="textBY" [attr.height]="textBHeight"
-                  ></svg:rect>
-                  <svg:text #text x="5" [attr.y]="yMiddle"
-                    >{{serie.label}}</svg:text>
-                    </svg:g>
-                  </g>
-                  </svg:g>
-                }
-    `,
-    styles: [],
+    templateUrl: './label-box.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
     standalone: false
 })
@@ -71,7 +45,6 @@ export class LabelBoxComponent implements OnInit, OnChanges {
 
   yMiddle: number;
 
-
   @ViewChild('text')
   textNode: ElementRef<SVGGraphicsElement>;
 
@@ -93,9 +66,9 @@ export class LabelBoxComponent implements OnInit, OnChanges {
     this.triggerY = this.yStart + this.margin;
     this.triggerHeight = this.margin > 1 ? this.maxHeight - 2 * this.margin : this.maxHeight - 1;
     this.yMiddle = this.yStart + this.maxHeight / 2;
-
   }
 
+  /* Adapt margin size based on the height of the heatmap */
   marginSize() {
     if (this.maxHeight >= 20) {
       return 4;
@@ -106,6 +79,7 @@ export class LabelBoxComponent implements OnInit, OnChanges {
     return 1;
   }
 
+  /* Adapt font size based on the height of the heatmap */
   fontSize() {
     if (this.maxHeight > 12) {
       return 10;
@@ -116,6 +90,7 @@ export class LabelBoxComponent implements OnInit, OnChanges {
     return 0;
   }
 
+  /* Toggle the visibility of the label */
   toggleLabel(val?: boolean) {
 
     if (val === undefined) {
@@ -138,20 +113,22 @@ export class LabelBoxComponent implements OnInit, OnChanges {
 
   }
 
+  /* Update the bounding box of the text element */
   updateTextBBox(): Observable<SVGRect> {
-
     return timer(0).pipe(
       map(r => this.textBBox()),
       tap(rect => this.setTextBBox(rect))
     );
   }
 
+  /* Set the text box position and dimensions */
   setTextBBox(rect: SVGRect) {
     this.textBY = rect.y - 4;
     this.textBHeight = rect.height + 8;
     this.textBWidth = rect.x + rect.width + 4;
   }
 
+  /* Get the bounding box of the text element */
   textBBox(): SVGRect {
     if (!this.textNode) {
       return {x: 0, y: 0, height: 0, width: 0} as SVGRect;
@@ -159,18 +136,10 @@ export class LabelBoxComponent implements OnInit, OnChanges {
     return this.textNode.nativeElement.getBBox();
   }
 
+  /* Get the short label (up to the first dot) */
   get shortLabel(): string {
     if (!this.serie?.label) return '';
     const idx = this.serie.label.indexOf('.');
     return idx !== -1 ? this.serie.label.substring(0, idx + 1) : this.serie.label;
   }
-
-  /*
-  cirR() {
-    if (this.band >= 20) { return 9; }
-    if (this.band <= 5 ) { return 2; }
-    return this.band / 2 - 1;
-  } */
-
-
 }

@@ -2,6 +2,7 @@ import {scaleLinear} from 'd3-scale';
 import {rgb} from 'd3-color';
 import {range} from 'd3-array';
 
+/* Define the colormap for the heatmap */
 export function colors(minColor = '#d62728', zeroColor = 'white', maxColor = '#1f77b4', step = 0.1) {
 
   const scale = (scaleLinear()

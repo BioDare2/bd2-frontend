@@ -11,6 +11,9 @@ import { LegendComponent } from './legend/legend.component';
 import {AxisModule} from './axis/axis.module';
 
 
+/**
+ * Module for plot elements used in the heatmap.
+ */
 @NgModule({
   declarations: [
     LabelsComponent,

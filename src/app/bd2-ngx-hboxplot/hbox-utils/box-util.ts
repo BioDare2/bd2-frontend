@@ -2,13 +2,18 @@ import {BoxDefinition} from './box-dom';
 //import {d3} from '../d3service';
 import * as d3 from 'd3';
 
+/**
+ * Utilities to convert data to box plot definitions
+ * 
+ * The box definition contains all necessary statistical values to draw a box plot
+ */
 export class BoxUtil {
 
+  /* Create box definitions from data */
   dataToBoxes(data: number[][]): BoxDefinition[] {
     if (!data) {
       return [];
     }
-
 
     return data.map((v, ix) => {
       const b = this.datumToBox(v);
@@ -18,6 +23,7 @@ export class BoxUtil {
     });
   }
 
+  /* Create a box definition from a single data array */
   datumToBox(data: number[]): BoxDefinition {
 
     const box = new BoxDefinition();
@@ -54,6 +60,7 @@ export class BoxUtil {
     return box;
   }
 
+  /* If box definition could not be created, mock with arbitrary values */
   mockEmptyValues(boxes: BoxDefinition[], missingVal: number) {
     boxes.forEach(box => {
       if (box.mean === undefined || box.mean === null) {

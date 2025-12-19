@@ -1,4 +1,6 @@
-
+/**
+ * Class for smart rounding of numerical values based on their magnitude
+ */
 export class SmartRounder {
 
   static round(value: number, base?: number): number {

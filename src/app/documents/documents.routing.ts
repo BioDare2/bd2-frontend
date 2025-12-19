@@ -21,6 +21,9 @@ const routes: Routes = [
   }
 ];
 
+/**
+ * Routing module for document-related routes.
+ */
 @NgModule({
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]

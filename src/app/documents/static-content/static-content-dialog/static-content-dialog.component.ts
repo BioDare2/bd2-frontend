@@ -2,23 +2,12 @@ import {Component, Inject, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA} from '@angular/material/dialog';
 import {isKnownStaticDoc, StaticDocsOptions} from '../../known-docs';
 
+/**
+ * Component for displaying static HTML content in a dialog box.
+ */
 @Component({
     selector: 'bd2-static-content-dialog',
-    template: `
-    <h1 mat-dialog-title>{{title}}</h1>
-    <div mat-dialog-content>
-      @if (missing) {
-        <div class="alert alert-danger" role="alert" type="danger">{{missing}}</div>
-      }
-      @if (!missing) {
-        <bd2-static-content [docName]="docName"></bd2-static-content>
-      }
-    </div>
-    <div mat-dialog-actions>
-      <button mat-dialog-close class="btn btn-primary" tabindex="-1">Close</button>
-    </div>
-    `,
-    styles: [],
+    templateUrl: './static-content-dialog.component.html',
     standalone: false
 })
 export class StaticContentDialogComponent implements OnInit {

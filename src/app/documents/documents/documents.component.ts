@@ -6,6 +6,9 @@ import {TitleSetterService} from '../../core/titlesetter.service';
 import {Subscription} from 'rxjs';
 import {map} from 'rxjs/operators';
 
+/**
+ * Component for displaying static documents.
+ */
 @Component({
     templateUrl: './documents.component.html',
     standalone: false
@@ -29,8 +32,8 @@ export class DocumentsComponent implements OnInit, OnDestroy {
     }
   }
 
+  /* Get the relevant document from the route and set the title accordingly. */
   ngOnInit() {
-
     this.docSubscription =
       this.route.paramMap.pipe(
         map(params => {
@@ -58,9 +61,9 @@ export class DocumentsComponent implements OnInit, OnDestroy {
 
         }
       });
-
   }
 
+  /* Set the browser title based on the document parameters. */
   setTitle(docParams: string[]) {
     const title = docParams[2] ? docParams[2] : docParams[0].charAt(0).toUpperCase() + docParams[0].slice(1);
     this.titleSetter.setTitle(title);

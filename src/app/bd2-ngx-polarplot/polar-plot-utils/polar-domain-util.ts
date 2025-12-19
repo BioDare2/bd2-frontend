@@ -2,15 +2,18 @@ import {PetalNode, PolarPoint} from './polar-plot.dom';
 import * as d3 from 'd3';
 import {SmartRounder} from './smart-rounding';
 
-
 const DEF_ERR = 0.6 / 24;
 const DEF_WIDTH = 0.6 / 24;
 const MIN_WIDTH = 0.1 / 24;
 const NEGLIGIBLE_ERROR = 0.5 / 24;
 const MAX_ERROR = 0.33; // 8/24
 
+/**
+ * Utilities to convert data to polar domain representations
+ */
 export class PolarDomainUtil {
 
+  /* Convert data groups to petal nodes */
   dataToPetals(dataGroups: number[][], domain: number[],
                scaleRadius?: boolean, scaleWidth?: boolean, errors?: number[]): PetalNode[] {
 
@@ -22,9 +25,9 @@ export class PolarDomainUtil {
     return dataGroups.map((g, ix) => this.dataToPetal(g, domain, scaleRadius, scaleWidth, errors ? errors[ix] : null));
   }
 
+  /* Convert a data group to a petal node */
   dataToPetal(data: number[], domain: number[],
               scaleRadius?: boolean, scaleWidth?: boolean, error?: number): PetalNode {
-
 
     const node = this.calculatePetalProperties(data, domain, scaleRadius, scaleWidth, error);
     node.polarAngle = this.calculatePolarAngle(node.peak, domain);
@@ -38,6 +41,7 @@ export class PolarDomainUtil {
     return node;
   }
 
+  /* Convert data points to polar points */
   dataToPolarPoint(data: number[], domain: number[]): PolarPoint[] {
 
     const ind = data.map(a => {
@@ -48,6 +52,7 @@ export class PolarDomainUtil {
     return ind;
   }
 
+  /* Calculate circular mean and standard deviation for the data */
   calculateCircularMeanAndDev(data: number[], domain: number[]) {
 
     data = data.map(v => this.normalize(v, domain));
@@ -66,6 +71,7 @@ export class PolarDomainUtil {
     }
   }
 
+  /* Calculate petal properties from data */
   calculatePetalProperties(data: number[], domain: number[],
                            scaleRadius?: boolean, scaleWidth?: boolean, error?: number): PetalNode {
 
@@ -79,7 +85,6 @@ export class PolarDomainUtil {
     if ((scaleRadius || scaleWidth) && !error) {
       error = meanStd[1];
     }
-
 
     node.width = scaleWidth ? error : DEF_WIDTH * domain[2];
     if (node.width < MIN_WIDTH * domain[2]) {
@@ -101,7 +106,7 @@ export class PolarDomainUtil {
     return node;
   }
 
-
+  /* Calculate petal path coordinates */
   calculatePetalPath(peak: number, width: number, radiusScale: number, domain: number[]): number[][] {
 
     const path = [
@@ -114,7 +119,7 @@ export class PolarDomainUtil {
 
   }
 
-
+  /* Normalize a value to the polar domain */
   normalize(value: number, domain: number[]): number {
     value = value - domain[0];
     value = value % domain[2];
@@ -125,12 +130,14 @@ export class PolarDomainUtil {
     return value;
   }
 
+  /* Calculate polar coordinates for a value */
   calculatePolarCoordinate(value: number, domain: number[]): number[] {
     value = this.normalize(value, domain);
 
     return this.normalizedPeakToPolar(value, domain[2]);
   }
 
+  /* Convert a normalized peak to polar coordinates */
   normalizedPeakToPolar(value: number, range: number): number[] {
     return [
       Math.cos(value * 2 * Math.PI / range - Math.PI / 2),
@@ -139,9 +146,9 @@ export class PolarDomainUtil {
     ];
   }
 
+  /* Calculate polar angle for a value */
   calculatePolarAngle(value: number, domain: number[]): number {
     value = this.normalize(value, domain);
-
     return value * 2 * Math.PI / domain[2];
   }
 }

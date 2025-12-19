@@ -1,6 +1,9 @@
 // import * as d3Scale from 'd3-scale';
 import {ScaleBand, ScaleLinear, ScaleQuantize} from 'd3-scale';
 
+/**
+ * Defines heatmap margins, row widths and gaps between rows
+ */
 export class LookAndFeelSizing {
   vMargin = 25;
   hMargin = 20;
@@ -12,6 +15,9 @@ export class LookAndFeelSizing {
   rowGap = 0.05;
 }
 
+/**
+ * Graphic context class to store scales, dimensions, formatters, etc.
+ */
 export class GraphicContext {
 
   viewBox: string;
@@ -36,7 +42,9 @@ export class GraphicContext {
   domainFormatter: (n: number | { valueOf(): number }) => string;
 }
 
+/* ***** Data model types ***** */
 
+/* Heatmap timeseries */
 export type Serie = {
 
   key?: any;
@@ -50,6 +58,7 @@ export type Serie = {
 };
 
 
+/* Heatmap data point */
 export type Point = {
 
   x: number;
@@ -58,6 +67,7 @@ export type Point = {
 
 };
 
+/* Axes ticks */
 export class Tick {
 
   // tslint:disable-next-line:no-unnecessary-initializer
@@ -67,6 +77,7 @@ export class Tick {
 
 }
 
+/* Box definition (= single data point) */
 export class BoxDef {
 
   width: number;
@@ -80,6 +91,7 @@ export class BoxDef {
   }
 }
 
+/* Box series (= full timeseries = heatmap row) */
 export class BoxSerie {
 
   key?: any;

@@ -4,8 +4,14 @@ import {colors} from './color-util';
 import {format} from 'd3-format';
 import {interpolateSpectral} from 'd3-scale-chromatic';
 
+/**
+ * Utility class to prepare the graphic context for heatmap rendering
+ * 
+ * This includes calculation of dimensions, scales, formatters and label colors
+ */
 export class HeatmapGraphUtil {
 
+  /* Create the graphic context for the heatmap */
   prepareGraphicContext(data: Serie[],
                         lookAndFeel: LookAndFeelSizing,
                         middleZero: boolean=false,
@@ -23,6 +29,7 @@ export class HeatmapGraphUtil {
     return context;
   }
 
+  /* Calculate the dimensions of the graphic context */
   calculateDimensions(context: GraphicContext,
                       data: any[],
                       lookAndFeel: LookAndFeelSizing,
@@ -35,6 +42,7 @@ export class HeatmapGraphUtil {
     context.pHeight = context.workspaceHeight + 2 * lookAndFeel.vMargin + legendOffset;
   }
 
+  /* Calculate the height of the workspace based on the number of data series */
   calculateWorkspaceHeight(data: any[], lookAndFeel: LookAndFeelSizing) {
     if (data.length <= 25) {
       return data.length * lookAndFeel.bigRowWidth;
@@ -45,6 +53,7 @@ export class HeatmapGraphUtil {
     return data.length * lookAndFeel.smallRowWidth;
   }
 
+  /* Add attributes related to the main drawing pane */
   addPaneAttributes(context: GraphicContext,
                     lookAndFeel: LookAndFeelSizing,
                     legendOffset: number) {
@@ -53,6 +62,7 @@ export class HeatmapGraphUtil {
     context.mainPaneTransform = `translate(${2 * lookAndFeel.hMargin}, ${lookAndFeel.vMargin + legendOffset})`;
   }
 
+  /* Add scales for x, y and color */
   addScales(context: GraphicContext, data: Serie[], lookAndFeel: LookAndFeelSizing, middleZero: boolean) {
 
     let timeDomain = this.timeDomain(data);
@@ -76,10 +86,9 @@ export class HeatmapGraphUtil {
       .range([0, context.workspaceHeight]);
 
     context.colorScale = this.heatmapScale(data, middleZero);
-
-
   }
 
+  /* Add formatters for the axes */
   addFormatters(context: GraphicContext, data: Serie[]) {
     const timeDomain = this.timeDomain(data);
     context.domainFormatter = this.formatForDomain(timeDomain);
@@ -88,6 +97,7 @@ export class HeatmapGraphUtil {
     context.valuesFormatter = this.formatForDomain(valuesRange);
   }
 
+  /* Calculate margin for time axis based on datapoint box definition */
   timeMargin(data: Serie[], timeDomain: [number, number]) {
 
     const min = timeDomain[0];
@@ -104,6 +114,7 @@ export class HeatmapGraphUtil {
     return margin;
   }
 
+  /* Calculate time domain from the data series */
   timeDomain(data: Serie[]): [number, number] {
 
     let min = Number.POSITIVE_INFINITY;
@@ -120,11 +131,9 @@ export class HeatmapGraphUtil {
     max = isFinite(max) ? max : 1;
 
     return [min, max];
-
   }
 
-
-
+  /* Create the value scale for the heatmap */
   heatmapScale(data: Serie[], middleZero: boolean) {
 
     let domain = this.valuesRange(data);
@@ -137,6 +146,7 @@ export class HeatmapGraphUtil {
     return scaleQuantize<string>().domain(domain).range(range);
   }
 
+  /* Calculate the overall min and max values from the data series */
   valuesRange(traces: Serie[]): [number, number] {
 
     if (traces.length === 0) {
@@ -153,6 +163,7 @@ export class HeatmapGraphUtil {
     return [min, max];
   }
 
+  /* Create a number formatter depending on the range of values */
   formatForDomain([min, max]: [number, number]) {
     const range = max - min;
     if (range < 1) {
@@ -167,6 +178,7 @@ export class HeatmapGraphUtil {
     return format('.2~e');
   }
 
+  /* Create a function to assign colors to labels */
   labelsColors(traces: Serie[]) {
     const size = traces.length;
 

@@ -1,20 +1,24 @@
 import {BoxDef, BoxSerie, Point, Serie} from '../bd2-heatmap.dom';
 
+/**
+ * Utility class to transform heatmap data series into box series for rendering.
+ */
 export class HeatmapDataUtil {
 
-
-
+  /* Convert an array of timeseries to a array of box series (1 box series = 1 line in the heatmap)*/
   seriesToBoxes(series: Serie[], asymmetric = false): BoxSerie[] {
     return series.map(s => this.serieToBoxes(s, asymmetric));
   }
 
+  /* Convert a single timeseries to a box series (= heatmap line) */
   serieToBoxes(org: Serie, asymmetric = false): BoxSerie {
-
     const cpy = Object.assign(new BoxSerie(), org);
     cpy.data = asymmetric ? this.pointsToAsymBoxes(org.data) : this.pointsToSymBoxes(org.data);
     return cpy;
   }
 
+  /* Convert an array of points to an array of asymmetric boxes
+  This feature seems unused for now (asymmetric input is not set)*/
   pointsToAsymBoxes(points: Point[], defMargin = 0.5): BoxDef[] {
     if (!points || points.length === 0) { return []; }
 
@@ -37,10 +41,12 @@ export class HeatmapDataUtil {
     return boxes;
   }
 
+  /* Create an asymmetric box from a point and its neighbours */
   asymBoxFromPoints(point: Point, prev: Point, next: Point) {
     return new BoxDef(point.x, point.y, (prev.x + point.x) / 2, (point.x + next.x) / 2);
   }
 
+  /* Convert an array of points to an array of symmetric boxes */
   pointsToSymBoxes(points: Point[], defMargin = 0.5): BoxDef[] {
     if (!points || points.length === 0) { return []; }
 
@@ -63,6 +69,7 @@ export class HeatmapDataUtil {
     return boxes;
   }
 
+  /* Create a symmetric box from a point and its neighbours */
   symBoxFromPoints(point: Point, prev: Point, next: Point) {
     const defL = point.x - prev.x;
     const defR = next.x - point.x;

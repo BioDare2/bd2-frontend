@@ -1,4 +1,6 @@
-
+/**
+ * Color palette utilities for the polar plot
+ */
 export class BD2ColorPalette {
 
   static schemeCategory10 = [
@@ -36,6 +38,7 @@ export class BD2ColorPalette {
 , '#17becf'
 , '#9edae5'];
 
+  /* Extend a given palette to the desired size by repeating its colors */
   static extendPalette(palette: string[] | ReadonlyArray<string>, size: number): string[] {
 
     if (!palette || palette.length === 0) {
@@ -50,6 +53,7 @@ export class BD2ColorPalette {
 
   }
 
+  /* Get a palette of the desired size */
   static palette(size: number): string[] {
 
     if (size <= BD2ColorPalette.schemeCategory10.length) {

@@ -15,23 +15,14 @@ import {BoxDef} from '../../../../bd2-heatmap.dom';
 import {ScaleLinear, ScaleQuantize} from 'd3-scale';
 import {TooltipService} from '../../../tooltip/tooltip.service';
 
-
+/**
+ * Component representing a single data point (box-shaped) in the heatmap.
+ *
+ * It handles rendering the box and managing tooltip interactions.
+ */
 @Component({
     selector: '[bd2hm-data-point-box]',
-    template: `
-    @if (point && xScale) {
-      <svg:rect #box
-        [attr.x]="xPosition"
-        [attr.y]="yPosition"
-        [attr.width]="xWidth"
-        [attr.height]="yHeight" [attr.fill]="colorScale(point.y)"
-        [attr.stroke]="colorScale(point.y)"
-        [attr.fill]="pattern ? 'url(#' + pattern + ')' : colorScale(point.y)"
-        >
-        </svg:rect>
-      }
-    `,
-    styles: [],
+    templateUrl: './data-point-box.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
     standalone: false
 })
@@ -69,6 +60,7 @@ export class DataPointBoxComponent implements OnInit, OnDestroy, OnChanges, Afte
   constructor(private tooltip: TooltipService, private zone: NgZone) {
   }
 
+  /* Scale data point boxes when inputs change */
   ngOnChanges(changes: SimpleChanges): void {
     if (this.xScale && this.point) {
         this.xPosition = this.xScale(this.point.left);
@@ -77,6 +69,7 @@ export class DataPointBoxComponent implements OnInit, OnDestroy, OnChanges, Afte
     }
   }
 
+  /* Lifecycle hook to set up event listeners for tooltip handling */
   ngAfterViewInit(): void {
     if (this.boxNode) {
 
@@ -97,6 +90,7 @@ export class DataPointBoxComponent implements OnInit, OnDestroy, OnChanges, Afte
     this.removeMouseListeners(this.boxNode);
   }
 
+  /* Add mouse event listeners for tooltip display */
   addMouseListeners(elm: ElementRef<SVGGraphicsElement>) {
     if (elm) {
       elm.nativeElement.addEventListener('mouseover', this.showTooltip.bind(this));
@@ -104,6 +98,7 @@ export class DataPointBoxComponent implements OnInit, OnDestroy, OnChanges, Afte
     }
   }
 
+  /* Remove mouse event listeners */
   removeMouseListeners(elm: ElementRef<SVGGraphicsElement>) {
     if (elm) {
       elm.nativeElement.removeEventListener('mouseover', this.showTooltip);
@@ -111,17 +106,15 @@ export class DataPointBoxComponent implements OnInit, OnDestroy, OnChanges, Afte
     }
   }
 
+  /* Hide tooltip on mouse out */
   hideTooltip($event: any) {
     const location = {x: this.xPosition, y: this.yPosition, width: this.xWidth};
     this.tooltip.hideTooltip(this.point, location);
   }
 
+  /* Show tooltip on mouse over */
   showTooltip($event: any) {
     const location = {x: this.xPosition, y: this.yPosition, width: this.xWidth};
     this.tooltip.showTooltip(this.label, this.point, location);
   }
-
-
 }
-
-

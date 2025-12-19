@@ -1,0 +1,11 @@
+:host ::ng-deep .axis .legend {
+  font-size: 15px;
+}
+
+:host ::ng-deep .tooltip {
+  font-size: 15px;
+}
+
+:host ::ng-deep .legendtip {
+  font-size: 18px;
+}

@@ -4,6 +4,9 @@ import {Observable, throwError} from 'rxjs';
 import {catchError, map} from 'rxjs/operators';
 import {BioDareRestService} from '../../backend/biodare-rest.service';
 
+/**
+ * Service for fetching static HTML content from assets.
+ */
 @Injectable({
   providedIn: 'root'
 })
@@ -12,8 +15,8 @@ export class StaticContentService {
   constructor(private http: HttpClient) {
   }
 
+  /* Get the static document with the given name. */
   getDocs(name: string): Promise<string> {
-
 
     const options = this.makeOptions();
     const url = 'assets/' + name + '.html';
@@ -21,6 +24,7 @@ export class StaticContentService {
     return this.OKTxt(this.http.get(url, options as any)).toPromise();
   }
 
+  /* Create HTTP options for the request. */
   protected makeOptions() {
     const headers = new HttpHeaders({
       Accept: 'text/html'
@@ -34,6 +38,7 @@ export class StaticContentService {
     };
   }
 
+  /* Process the HTTP response to extract text content. */
   protected OKTxt(resp$: Observable<any>): Observable<string> {
     return resp$.pipe(
       map(resp => {
@@ -49,11 +54,10 @@ export class StaticContentService {
     );
   }
 
-
+  /* Handle HTTP errors and extract meaningful messages. */
   protected handleBadResponse(resp: HttpErrorResponse) {
 
     console.error('Response error', resp);
-
 
     let message: string;
 
@@ -65,9 +69,7 @@ export class StaticContentService {
       default: {
         message = BioDareRestService.extractMessage(resp, 'No error details');
       }
-
     }
     return throwError(message);
   }
-
 }

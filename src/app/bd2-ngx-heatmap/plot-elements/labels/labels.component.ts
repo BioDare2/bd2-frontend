@@ -1,23 +1,12 @@
 import {ChangeDetectionStrategy, Component, Input, OnInit} from '@angular/core';
 import {GraphicContext, Serie} from '../../bd2-heatmap.dom';
 
+/**
+ * Component to render the labels for each row in the heatmap.
+ */
 @Component({
     selector: '[bd2hm-labels]',
-    template: `
-    @if (graphic && data) {
-      <svg:g class="bd2hm-labels">
-        @for (serie of data; track trackByIndex(ix, serie); let ix = $index) {
-          <svg:g bd2hm-label-box
-            [serie]="serie"
-            [yStart]="yStart(serie)"
-            [maxHeight]="maxHeight()"
-            [alwaysOn]="alwaysOn"
-            >
-          </svg:g>
-          }
-          </svg:g>
-        }
-    `,
+    templateUrl: './labels.component.html',
     styles: [],
     changeDetection: ChangeDetectionStrategy.OnPush,
     standalone: false
@@ -43,29 +32,18 @@ export class LabelsComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  /* Get the y-coordinate for the label */
   yStart(serie: Serie) {
-    // return this.graphic.yScale(serie.key) + this.graphic.yScale.bandwidth() / 4;
     return this.graphic.yScale(serie.key);
   }
 
+  /* Get the maximum height for the label */
   maxHeight() {
     return this.graphic.yScale.bandwidth();
   }
 
+  /* Get the color for the label */
   color(ix: number) {
     return this.graphic.labelsColors(ix);
   }
-
-  /*
-  yMiddle(serie: Serie) {
-    // console.log("Band", this.graphic.yScale.bandwidth());
-    return this.graphic.yScale(serie.key) + this.graphic.yScale.bandwidth() / 2;
-  }*/
-
-
-  /*yHeight() {
-    return 2 + this.graphic.yScale.bandwidth() / 2;
-  }*/
-
-
 }

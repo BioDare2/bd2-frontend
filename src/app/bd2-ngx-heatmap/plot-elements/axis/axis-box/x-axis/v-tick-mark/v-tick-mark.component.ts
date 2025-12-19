@@ -1,20 +1,12 @@
 import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
 import {Tick} from '../../../../../bd2-heatmap.dom';
 
+/**
+ * Render a vertical tick mark for the heatmap x-axis.
+ */
 @Component({
     selector: '[bd2hm-vtick-mark]',
-    template: `
-    @if (tick) {
-      <svg:line
-        [attr.x1]="tick.x" [attr.x2]="tick.x"
-        y1="0" [attr.y2]="marky2"
-        ></svg:line>
-      }
-      @if (tick) {
-        <svg:text [attr.x]="tick.x" [attr.y]="texty2" [attr.dy]="textdy">{{tick.label}}</svg:text>
-        }
-    `,
-    styles: [],
+    templateUrl: './v-tick-mark.component.html',
     standalone: false
 })
 export class VTickMarkComponent implements OnInit, OnChanges {
@@ -41,7 +33,7 @@ export class VTickMarkComponent implements OnInit, OnChanges {
     this.calculatePositions();
   }
 
-
+  /* Calculate positions for the tick mark and label */
   calculatePositions() {
     this.marky2 = this.tick?.top ? -this.length : this.length;
     this.texty2 = this.tick?.top ? -(this.length + 4) : (this.length + 4);
