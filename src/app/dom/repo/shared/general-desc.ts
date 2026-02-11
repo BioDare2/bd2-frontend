@@ -1,5 +1,10 @@
 import {SetAble} from '../../../shared/common-interfaces';
 
+/**
+ * General description of an experiment.
+ * 
+ * Basic description of a BioDare2 experiment, including name, purpose, description and comments.
+ */
 export class GeneralDesc implements SetAble<GeneralDesc> {
 
   public name: string;

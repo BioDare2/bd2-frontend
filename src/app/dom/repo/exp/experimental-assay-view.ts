@@ -7,6 +7,11 @@ import {SetAble} from '../../../shared/common-interfaces';
 import {DataCategory} from '../biodesc/data-category';
 import {ExperimentGeneralDescView} from './experiment-general-desc-view';
 
+/**
+ * View for an experiment.
+ * 
+ * Includes general description, contribution description, experimental details, features, species, data category, provenance and security.
+ */
 export class ExperimentalAssayView implements SetAble<ExperimentalAssayView> {
 
   id: number;
@@ -76,5 +81,4 @@ export class ExperimentalAssayView implements SetAble<ExperimentalAssayView> {
     this.provenance = other.provenance;
     this.security = other.security;
   }
-
 }

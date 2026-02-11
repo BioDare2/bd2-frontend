@@ -1,6 +1,11 @@
 import {Validator} from '../../../shared/common-interfaces';
 import {ExperimentalAssayView} from '../../../dom/repo/exp/experimental-assay-view';
 
+/**
+ * Validator for the biological description of an experiment.
+ * 
+ * Ensures that required fields such as species and data category are properly set.
+ */
 export class SimpleBioDescValidator implements Validator<ExperimentalAssayView> {
 
   static INSTANCE = new SimpleBioDescValidator();
@@ -9,6 +14,7 @@ export class SimpleBioDescValidator implements Validator<ExperimentalAssayView> 
   }
 
 
+  /* Validate the ExperimentalAssayView object based on presence of species and data category fields */
   validate(obj: ExperimentalAssayView): string[] {
     const err: string[] = [];
     if (!obj) {

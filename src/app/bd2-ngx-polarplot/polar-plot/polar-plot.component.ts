@@ -31,7 +31,7 @@ import {GraphicContext, LookAndFeel, ShowIndividualsOptions} from './polar-plot.
     selector: 'bd2-ngx-polar-plot',
     changeDetection: ChangeDetectionStrategy.OnPush,
     template: `<div class="polarplot"></div>`,
-    stylesUrls: ['./polar-plot.component.css'],
+    styleUrls: ['./polar-plot.component.css'],
     standalone: false
 })
 export class PolarPlotComponent implements OnInit, AfterViewInit, OnChanges, OnDestroy {

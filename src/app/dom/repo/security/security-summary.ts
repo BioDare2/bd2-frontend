@@ -1,3 +1,9 @@
+/**
+ * Security parameters for an experiment
+ * 
+ * Defines if the current user can read/write the experiment
+ * and if the user is owner/super-owner of the experiment
+ */
 export class SecuritySummary {
 
   canRead: boolean;

@@ -3,6 +3,11 @@ import {Institution} from '../actors/institution';
 import {Person} from '../actors/person';
 import {SetAble} from '../../../shared/common-interfaces';
 
+/**
+ * Description of contributions to an experiment.
+ * 
+ * Includes authors, curators, institutions, fundings.
+ */
 export class ContributionDesc implements SetAble<ContributionDesc> {
 
   public authors: Person[] = [];
@@ -10,6 +15,7 @@ export class ContributionDesc implements SetAble<ContributionDesc> {
   public institutions: Institution[] = [];
   public fundings: Funding[] = [];
 
+  /* Deserialise a JSON object into a ContributionDesc object */
   static deserialize(jsonObj: any): ContributionDesc {
     const obj = new ContributionDesc();
 
@@ -21,6 +27,7 @@ export class ContributionDesc implements SetAble<ContributionDesc> {
     return obj;
   }
 
+  /* Create a clone of a ContributionDesc object with the same attributes */
   clone(): ContributionDesc {
     const other = new ContributionDesc();
 
@@ -31,6 +38,7 @@ export class ContributionDesc implements SetAble<ContributionDesc> {
     return other;
   }
 
+  /* Set all attributes from a deserialised JSON object */
   setAll(other: any) {
     this.authors = other.authors;
     this.curators = other.curators;

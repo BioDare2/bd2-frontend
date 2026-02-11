@@ -3,15 +3,17 @@ import {Environments} from '../conditions/environments';
 import {LocalDate} from '../shared/dates';
 import {SetAble} from '../../../shared/common-interfaces';
 
+/**
+ * Experimental details
+ * 
+ * Includes a description of the measurements, growth and experimental environments, and execution date.
+ */
 export class ExperimentalDetails implements SetAble<ExperimentalDetails> {
-
 
   public measurementDesc: MeasurementDesc;
   public growthEnvironments: Environments;
   public experimentalEnvironments: Environments;
-
   public executionDate: LocalDate;
-
 
   static deserialize(jsonObj: any): ExperimentalDetails {
 
@@ -40,5 +42,4 @@ export class ExperimentalDetails implements SetAble<ExperimentalDetails> {
     this.experimentalEnvironments = other.experimentalEnvironments;
     this.executionDate = other.executionDate;
   }
-
 }

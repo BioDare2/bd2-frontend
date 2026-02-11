@@ -1,3 +1,8 @@
+/**
+ * Parameter
+ * 
+ * A single parameter with name, value, label, and unit.
+ */
 export class Parameter {
 
   constructor(public name?: string, public value?: string, public label?: string, public unit?: string) {
@@ -5,7 +10,6 @@ export class Parameter {
       this.label = name;
     }
   }
-
 
   static deserialize(jsonObj: any): Parameter {
     const obj = new Parameter();
@@ -19,9 +23,13 @@ export class Parameter {
     this.label = other.label;
     this.unit = other.unit;
   }
-
 }
 
+/**
+ * Full parameters
+ * 
+ * A collection of parameters used in measurements or analyses.
+ */
 export class FullParameters {
 
   parameters: Map<string, Parameter> = new Map<string, Parameter>();
@@ -49,20 +57,15 @@ export class FullParameters {
     return this.parameters.get(name);
   }
 
-
   toJSON(): Parameter[] {
-
     const ps: Parameter[] = [];
     this.parameters.forEach(e => ps.push(e));
     return ps;
   }
-
 
   clone(): FullParameters {
     const other = new FullParameters();
     this.parameters.forEach(e => other.set(e));
     return other;
   }
-
-
 }

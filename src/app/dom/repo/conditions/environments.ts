@@ -1,10 +1,16 @@
 import {Environment} from './environment';
 import {SetAble} from '../../../shared/common-interfaces';
 
+/**
+ * Environments
+ * 
+ * A class representing a collection of biological environments.
+ */
 export class Environments implements SetAble<Environments> {
 
   environments: Environment[] = [];
 
+  /* Deserialise Environments from a JSON object */
   static deserialize(jsonObj: any): Environments {
     const obj = new Environments();
 
@@ -13,6 +19,7 @@ export class Environments implements SetAble<Environments> {
     return obj;
   }
 
+  /* Create a clone of the Environments object */
   clone(): Environments {
 
     const txt = JSON.stringify(this);

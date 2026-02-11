@@ -1,3 +1,8 @@
+/**
+ * Experiment features
+ * 
+ * Contains several metadata fields describing an experiment (type of jobs and files attached, re-use terms, etc.)
+ */
 export class ExperimentalFeatures {
 
   hasAttachments: boolean;

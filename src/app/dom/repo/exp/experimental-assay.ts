@@ -2,6 +2,10 @@ import {GeneralDesc} from '../shared/general-desc';
 import {ContributionDesc} from '../contribution/contribution-desc';
 import {ExperimentalDetails} from './experimental-details';
 
+/** Experimental Assay
+ * 
+ * Represents an experiment on BioDare2. Includes general description, contribution description and experimental details.
+ */
 export class ExperimentalAssay {
 
   id: number;
@@ -30,5 +34,4 @@ export class ExperimentalAssay {
     this.contributionDesc = other.contributionDesc;
     this.experimentalDetails = other.experimentalDetails;
   }
-
 }

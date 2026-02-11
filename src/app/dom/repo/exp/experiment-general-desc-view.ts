@@ -1,6 +1,11 @@
 import {GeneralDesc} from '../shared/general-desc';
 import {LocalDate} from '../shared/dates';
 
+/**
+ * View for the general description of an experiment.
+ * 
+ * Includes the execution date.
+ */
 export class ExperimentGeneralDescView extends GeneralDesc {
   public executionDate: LocalDate;
 

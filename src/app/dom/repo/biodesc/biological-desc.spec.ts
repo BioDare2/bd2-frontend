@@ -60,5 +60,4 @@ describe('BiologicalDescription', () => {
       expect(b.dataCategory.constructor).toBe(DataCategory);
     });
   });
-
 });

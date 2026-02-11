@@ -1,6 +1,12 @@
 import {FullParameters} from '../param/parameters';
 import {SetAble} from '../../../shared/common-interfaces';
 
+/**
+ * Measurement description
+ * 
+ * Description of how measurements were performed for an experiment.
+ * Includes technique, equipment, parameters, and a description.
+ */
 export class MeasurementDesc implements SetAble<MeasurementDesc> {
 
   technique: string;
@@ -25,7 +31,6 @@ export class MeasurementDesc implements SetAble<MeasurementDesc> {
   }
 
   setAll(other: any) {
-    // console.log("Set all called: ",other);
     this.technique = other.technique;
     this.equipment = other.equipment;
     this.description = other.description;

@@ -1,3 +1,8 @@
+/**
+ * Local Date
+ * 
+ * Represents a date without time zone information.
+ */
 export class LocalDate {
 
   constructor(private _year: number,
@@ -25,10 +30,14 @@ export class LocalDate {
   toJSON(): number[] {
     return [this._year, this._month, this._day];
   }
-
-
 }
 
+/**
+ * Local Date Time
+ * 
+ * Represents a date and time (ms precision) without time zone information.
+ * Seconds and milliseconds are optional.
+ */
 export class LocalDateTime {
 
   constructor(private _year: number,
@@ -60,6 +69,4 @@ export class LocalDateTime {
   toJSON(): number[] {
     return [this._year, this._month, this._day, this._hour, this._minute, this._second, this._milisecond];
   }
-
-
 }

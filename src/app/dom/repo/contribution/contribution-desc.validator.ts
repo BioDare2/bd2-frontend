@@ -1,6 +1,11 @@
 import {Validator} from '../../../shared/common-interfaces';
 import {ContributionDesc} from './contribution-desc';
 
+/**
+ * Validator for ContributionDesc objects.
+ * 
+ * Ensures that the description has at least one author.
+ */
 export class ContributionDescValidator implements Validator<ContributionDesc> {
 
   static INSTANCE = new ContributionDescValidator();

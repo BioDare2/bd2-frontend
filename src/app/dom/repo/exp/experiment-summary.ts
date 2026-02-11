@@ -2,6 +2,11 @@ import {SimpleProvenance} from '../shared/simple-provenance';
 import {ExperimentalFeatures} from './experimental-features';
 import {ExperimentGeneralDescView} from './experiment-general-desc-view';
 
+/**
+ * Summary information about an experiment.
+ * 
+ * Includes general description, provenance, features and authors.
+ */
 export class ExperimentSummary {
 
   id: number;
@@ -26,5 +31,4 @@ export class ExperimentSummary {
     obj.authors = jsonObj.authors;
     return obj;
   }
-
 }

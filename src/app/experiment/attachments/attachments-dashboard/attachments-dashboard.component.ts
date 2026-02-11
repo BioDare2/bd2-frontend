@@ -7,6 +7,11 @@ import {FileAsset} from '../../../file-asset/dom/file-asset';
 import {AssetType} from '../../../file-asset/dom/asset-type';
 import {ExperimentComponentsDependencies} from '../../experiment-components.dependencies';
 
+/**
+ * Dashboard for managing file attachments to an experiment
+ * 
+ * Includes timeseries and other attachments
+ */
 @Component({
     templateUrl: './attachments-dashboard.component.html',
     styleUrls: ['./attachments-dashboard.component.css'],
@@ -29,15 +34,15 @@ export class AttachmentsDashboardComponent extends ExperimentBaseComponent {
     super(serviceDependencies);
 
     this.titlePart = ' Files';
-
   }
 
+  /* Update the attachments list when a new experiment is provided */
   updateModel(exp: ExperimentalAssayView) {
     super.updateModel(exp);
-
     this.refreshAttachments();
   }
 
+  /* Get the files for the current experiment and add them to this attachment list */
   refreshAttachments() {
     this.attachmentsService.getFiles(this.assay)
       .then(files => this.setFiles(files))
@@ -47,12 +52,13 @@ export class AttachmentsDashboardComponent extends ExperimentBaseComponent {
     ;
   }
 
+  /* Add files to the timeseries and attachments lists */
   setFiles(files: FileAsset[]) {
     this.tsData = files.filter(f => f.assetType.equals(AssetType.TS_DATA));
     this.attachments = files.filter(f => !f.assetType.equals(AssetType.TS_DATA));
   }
 
-
+  /* Upload files and refresh the current experiment */
   upload(files: File[]) {
 
     console.log('Uploading ' + files.length);

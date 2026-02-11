@@ -1,3 +1,10 @@
+/**
+ * Data Category
+ * 
+ * Represents the category of data for an experiment.
+ * Each category has an index, name, short name, and long name.
+ * An optional 'disabled' flag can be used to inactivate certain categories.
+ */
 export class DataCategory {
 
   protected static valuesMap: Map<String, DataCategory>;
@@ -8,17 +15,17 @@ export class DataCategory {
                         public longName: string, public disabled?: boolean) {
   }
 
+  /* Get a DataCategory by name */
   public static get(name: string) {
     return DataCategory.getValuesMap().get(name);
   }
 
+  /* Get all DataCategory values */
   public static getValues() {
-    /*if (!DataCategory.values) {
-      DataCategory.values = DataCategory.initValues();
-    }*/
     return DataCategory.values;
   }
 
+  /* Get only valid (not disabled) DataCategory options */
   public static getValidOptions(): DataCategory[] {
     if (!DataCategory.validOptions) {
       DataCategory.validOptions = DataCategory.values.filter(dc => !(dc.disabled));
@@ -26,6 +33,7 @@ export class DataCategory {
     return DataCategory.validOptions;
   }
 
+  /* Deserialize a DataCategory from a string or number */
   static deserialize(val: string | number): DataCategory {
 
     if (val === null || val === undefined) {
@@ -42,6 +50,7 @@ export class DataCategory {
     return DataCategory.getValues()[ix];
   }
 
+  /* Initialise all DataCategory values */
   protected static initValues(): DataCategory[] {
 
     const v: DataCategory[] = [];
@@ -66,6 +75,7 @@ export class DataCategory {
     return v;
   }
 
+  /* Create a map of DataCategory values by name */
   protected static getValuesMap(): Map<String, DataCategory> {
     if (!DataCategory.valuesMap) {
       const map = new Map<String, DataCategory>();
@@ -76,13 +86,13 @@ export class DataCategory {
     return DataCategory.valuesMap;
   }
 
+  /* Check if two DataCategory instances are equal */
   public equals(other: DataCategory) {
     return (this.name === other.name);
   }
 
+  /* Serialize DataCategory to JSON (name only) */
   toJSON(): string {
     return this.name;
   }
-
-
 }

@@ -3,6 +3,9 @@ import {AttachmentsDashboardComponent} from './attachments-dashboard/attachments
 import {CommonModule} from '@angular/common';
 import {FileAssetModule} from '../../file-asset/file-asset.module';
 
+/**
+ * Module for the experiment file attachments dashboard.
+ */
 @NgModule({
   imports: [
     CommonModule,

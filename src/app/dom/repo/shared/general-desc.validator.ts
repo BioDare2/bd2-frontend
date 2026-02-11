@@ -1,6 +1,11 @@
 import {Validator} from '../../../shared/common-interfaces';
 import {GeneralDesc} from './general-desc';
 
+/**
+ * Validator for the experiment general description
+ * 
+ * Validate based on non-empty name, and long-enough purpose (>=20 chars)
+ */
 export class GeneralDescValidator implements Validator<GeneralDesc> {
 
   static INSTANCE = new GeneralDescValidator();

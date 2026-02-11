@@ -4,6 +4,11 @@ import {GeneralDescValidator} from '../shared/general-desc.validator';
 import {ContributionDescValidator} from '../contribution/contribution-desc.validator';
 import {SimpleBioDescValidator} from '../biodesc/simple-bio-desc.validator';
 
+/**
+ * Validator for ExperimentalAssayView objects.
+ * 
+ * Validate the experiment by checking its parts: generalDesc, contributionDesc, bioDesc.
+ */
 export class ExperimentalAssayViewValidator implements Validator<ExperimentalAssayView> {
 
   static INSTANCE = new ExperimentalAssayViewValidator();
