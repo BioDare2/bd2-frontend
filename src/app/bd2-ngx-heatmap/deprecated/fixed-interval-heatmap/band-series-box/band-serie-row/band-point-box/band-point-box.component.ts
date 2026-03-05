@@ -108,7 +108,7 @@ export class BandPointBoxComponent implements OnInit, OnDestroy, OnChanges, Afte
 
   hideTooltip($event: any) {
     const location = {x: this.xPosition, y: this.yPosition, width: this.xWidth};
-    this.tooltip.hideTooltip(this.point, location);
+    this.tooltip.hideTooltip();
   }
 
   showTooltip($event: any) {

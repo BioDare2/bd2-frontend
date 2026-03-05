@@ -1,7 +1,7 @@
 import { ComponentFixture, fakeAsync, TestBed, tick, waitForAsync } from '@angular/core/testing';
 
 import {HBoxPlotComponent} from './hbox-plot.component';
-import {defualtLookAndFeel, LookAndFeel, GraphicContext} from './hbox-plot.dom';
+import {defaultLookAndFeel, LookAndFeel, GraphicContext} from './hbox-plot.dom';
 import * as d3 from 'd3';
 import {Selection} from 'd3-selection';
 import {BD2ColorPalette} from '../hbox-utils/color-palette';
@@ -30,7 +30,7 @@ describe('HBoxPlotComponent', () => {
   };
 
   beforeEach(waitForAsync(() => {
-    lookAndFeel = defualtLookAndFeel();
+    lookAndFeel = defaultLookAndFeel();
     graphicContext = new GraphicContext();
     TestBed.configureTestingModule({
       declarations: [HBoxPlotComponent]

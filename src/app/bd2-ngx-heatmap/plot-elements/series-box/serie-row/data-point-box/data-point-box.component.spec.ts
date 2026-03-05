@@ -51,8 +51,6 @@ describe('DataPointBoxComponent', () => {
     component.ngOnChanges({});
     component.hideTooltip({});
 
-    const [point, location] = tooltip.hideTooltip.calls.mostRecent().args;
-    expect(point).toBeTruthy();
-    expect(location).toBeTruthy();
+    expect(tooltip.hideTooltip).toHaveBeenCalled();
   });
 });

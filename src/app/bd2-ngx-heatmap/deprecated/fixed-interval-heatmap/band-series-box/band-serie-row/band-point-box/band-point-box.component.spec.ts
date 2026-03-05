@@ -49,9 +49,5 @@ describe('DataPointBoxComponent', () => {
   it('hideTooltip calls service', () => {
     component.ngOnChanges({});
     component.hideTooltip({});
-
-    const [point, location] = tooltip.hideTooltip.calls.mostRecent().args;
-    expect(point).toBeTruthy();
-    expect(location).toBeTruthy();
   });
 });

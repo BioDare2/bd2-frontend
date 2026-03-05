@@ -33,7 +33,7 @@ describe('TooltipService', () => {
 
   }));
 
-  it('hide sends reques', fakeAsync(() => {
+  it('hide sends request', fakeAsync(() => {
     const point = {x: 1, y: 2};
     const location = {x: 2, y: 3};
 
@@ -41,13 +41,13 @@ describe('TooltipService', () => {
 
     service.request$.subscribe( v => resp = v);
     expect(resp).toBeUndefined();
-    service.hideTooltip(point, location);
+    service.hideTooltip();
     tick();
 
     expect(resp[0]).toBe(false);
     expect(resp[1]).toBeUndefined();
-    expect(resp[2]).toBe(point);
-    expect(resp[3]).toBe(location);
+    expect(resp[2]).toBeUndefined();
+    expect(resp[3]).toBeUndefined();
 
   }));
 
