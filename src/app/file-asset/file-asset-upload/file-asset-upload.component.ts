@@ -6,10 +6,6 @@ import {FileAsset} from '../dom/file-asset';
 @Component({
     selector: 'bd2-file-asset-upload',
     template: `
-
-
-
-
   <div>
     <form #faUploadForm="ngForm">
       <div class="form-group">
@@ -45,12 +41,10 @@ export class FileAssetUploadComponent implements OnInit {
   constructor(private fileService: FileAssetService, private feedback: FeedbackService) {
   }
 
-
   ngOnInit() {
   }
 
   upload(fileField: any) {
-
     console.log(this.file ? this.file.constructor.name : 'not set', this.file);
   }
 }

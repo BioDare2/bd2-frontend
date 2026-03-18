@@ -1,41 +1,44 @@
 <div>
   @if (files.length > 0) {
-    <div class="clearfix" style="margin-bottom: 1em;">
-      <div class=""><label>Files:</label></div>
-      @for (file of files; track file) {
-        <div class="float-left fileitem">
-          {{file.name}}
-          <button (click)="remove(file)" aria-label="Close" class="close" style="margin-left: 0.5em;" type="button"><span
-          aria-hidden="true">&times;</span></button>
-        </div>
-      }
+  <div class="clearfix" style="margin-bottom: 1em;">
+    <div class=""><label>Files:</label></div>
+    @for (file of files; track file) {
+    <div class="float-left fileitem">
+      {{file.name}}
+      <button (click)="remove(file)" aria-label="Close" class="close" style="margin-left: 0.5em;" type="button"><span
+														  aria-hidden="true">&times;</span></button>
     </div>
+    }
+  </div>
   }
   <div style="margin-bottom: 1em;">
     <label (dragenter)="handleDragEnter()" (dragleave)="handleDragLeave()"
-      (drop)="handleDrop($event)"
-      [class.loaded]="loaded"
-      [style.outlineColor]="dragging ? activeColor : baseColor"
-      class="uploader-zone"
-      ondragover="return false;">
+	   (drop)="handleDrop($event)"
+	   [class.loaded]="loaded"
+	   [style.outlineColor]="dragging ? activeColor : baseColor"
+	   class="uploader-zone"
+	   ondragover="return false;">
 
       <i class="material-icons bd-icon bd-primary" style="font-size: 400%;">cloud_upload</i>
       <p> Drag file(s) or click to select</p>
 
       @if (multiple) {
-        <input #inputField (change)="handleFileSelect($event)" multiple name="inputField" type="file">
+      <input #inputField (change)="handleFileSelect($event)" multiple name="inputField" type="file">
       }
       @if (!multiple) {
-        <input #inputField (change)="handleFileSelect($event)" name="inputField" type="file">
+      <input #inputField (change)="handleFileSelect($event)" name="inputField" type="file">
       }
     </label>
   </div>
   @if (sizeError) {
-    <div class="alert alert-danger">
-      Maximum upload size is {{sizeLimit}}MB
-    </div>
+  <div class="alert alert-danger">
+    Maximum upload size is {{sizeLimit}}MB
+  </div>
   }
-  <button (click)="upload()" [disabled]="blocked || files.length < 1 || sizeError" class="btn btn-primary btn-sm"
-    type="button">Upload selected
+  <button (click)="upload()"
+	  [disabled]="blocked || uploading || files.length < 1 || sizeError"
+	  class="btn btn-primary btn-sm"
+	  type="button">
+    {{ uploading ? 'Uploading...' : 'Upload selected' }}
   </button>
 </div>

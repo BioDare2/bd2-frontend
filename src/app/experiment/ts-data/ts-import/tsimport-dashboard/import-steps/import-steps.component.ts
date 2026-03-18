@@ -7,6 +7,7 @@ import {TSFileService} from '../ts-file.service';
 import {FeedbackService} from '../../../../../feedback/feedback.service';
 import {DataTableService} from '../data-table.service';
 import {SelectBackgroundsLabelsStepComponent} from '../select-backgrounds-labels-step/select-backgrounds-labels-step.component';
+import { finalize } from 'rxjs';
 
 @Component({
     selector: 'bd2-import-steps',
@@ -32,15 +33,14 @@ export class ImportStepsComponent implements OnInit, OnDestroy {
   @ViewChild('importLabelsStep')
   importLabelsStep: DataTableDependentStep;
 
-
   @ViewChild('assignLabelsStep')
   assignLabelsStep: DataTableDependentStep;
 
   @ViewChild('selectBackgroundsStep')
   selectBackgroundsStep: SelectBackgroundsLabelsStepComponent;
 
+  uploading = false;
   importDetails: ImportDetails;
-
 
   constructor(private fileService: TSFileService,
               private feedback: FeedbackService,
@@ -61,16 +61,22 @@ export class ImportStepsComponent implements OnInit, OnDestroy {
     }
   }
 
-
   upload(upload: {files: File[], importFormat: ImportFormat}) {
     // console.log('Upload', upload);
+    if (this.uploading || this.blocked) {
+      return;
+    }
 
     if (!upload.files || upload.files.length !== 1) {
       console.error('Wrong upload files size', upload.files);
       return;
     }
 
-    this.fileService.uploadFile(upload.files[0], upload.importFormat).subscribe(
+    this.uploading = true;
+
+    this.fileService.uploadFile(upload.files[0], upload.importFormat).pipe(
+      finalize(() => this.uploading = false)
+    ).subscribe(
       fileId => {
         this.importDetails.fileId = fileId;
         this.importDetails.fileName = upload.files[0].name;
@@ -132,7 +138,4 @@ export class ImportStepsComponent implements OnInit, OnDestroy {
       this.import.next(this.importDetails);
     }
   }
-
-
-
 }

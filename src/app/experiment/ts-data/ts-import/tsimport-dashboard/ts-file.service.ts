@@ -30,8 +30,6 @@ export class TSFileService {
                                     .pipe(map( res => fileId))
               )
       );
-
-
   }
 
   verifyFormat(format: ImportFormat, fileId: string): Observable<boolean> {

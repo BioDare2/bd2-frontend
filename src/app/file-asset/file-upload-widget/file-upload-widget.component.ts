@@ -43,6 +43,7 @@ export class FileUploadWidgetComponent implements OnInit {
 
   dragging = false;
   loaded = false;
+  uploading = false;
 
   sizeError = false;
   files: File[] = [];
@@ -58,10 +59,18 @@ export class FileUploadWidgetComponent implements OnInit {
 
   public reset() {
     this.files = [];
+    this.uploading = false;
     if (this.inputField && this.inputField.nativeElement) {
       this.inputField.nativeElement.value = '';
     }
+  }
 
+  public uploadFinished() {
+    this.uploading = false;
+  }
+
+  public uploadFailed() {
+    this.uploading = false;
   }
 
   handleDragEnter() {
@@ -125,11 +134,15 @@ export class FileUploadWidgetComponent implements OnInit {
   }
 
   upload() {
+    if (this.uploading || this.blocked || this.files.length < 1 || this.sizeError) {
+      return;
+    }
+
+    this.uploading = true;
     this.uploadFiles.next(this.files);
     if (this.autoReset) {
       this.reset();
     }
   }
-
 
 }

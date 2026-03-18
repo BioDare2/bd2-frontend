@@ -1,4 +1,4 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, OnInit, Output, Input} from '@angular/core';
 import {ImportFormat, ImportFormatOptions} from '../../import-dom';
 
 @Component({
@@ -11,9 +11,11 @@ export class UploadDataFileStepComponent implements OnInit {
 
   importFormat: ImportFormat;
   importFormatOptions: ImportFormat[];
-  blocked = false;
   formatWarning: string;
   lastFiles: File[];
+
+  @Input()
+  blocked = false;
 
   @Output()
   uploadFiles = new EventEmitter<{files: File[], importFormat: ImportFormat}>();
@@ -28,6 +30,10 @@ export class UploadDataFileStepComponent implements OnInit {
   }
 
   upload(filesA: File[]) {
+    if (this.blocked || !this.importFormat) {
+      return;
+    }
+
     // console.log('Upload', filesA);
     this.uploadFiles.next({files: filesA, importFormat: this.importFormat});
   }
@@ -48,25 +54,25 @@ export class UploadDataFileStepComponent implements OnInit {
         const err = this.isTopCount(file);
         if (err) {
           this.formatWarning = 'The selected file does not seem to be a topcount file/archive but rather: ' + err
-            + '. If you sure it is a valid topcount file/archive you can continue upload.';
+            + '. If you are sure it is a valid topcount file/archive you can continue upload.';
         }
       } else if (this.importFormat === ImportFormat.EXCEL_TABLE) {
         const err = this.isExcel(file);
         if (err) {
           this.formatWarning = 'The selected file does not seem to be an excel file but rather: ' + err
-            + '. If you sure it is a valid excel file you can continue upload.';
+            + '. If you are sure it is a valid excel file you can continue upload.';
         }
       } else if (this.importFormat === ImportFormat.TAB_SEP) {
         const err = this.isTab(file);
         if (err) {
           this.formatWarning = 'The selected file does not seem to be a tab-separated file but rather: ' + err
-            + '. If you sure it is a valid tsv file you can continue upload.';
+            + '. If you are sure it is a valid tsv file you can continue upload.';
         }
       } else if (this.importFormat === ImportFormat.COMA_SEP) {
         const err = this.isComa(file);
         if (err) {
           this.formatWarning = 'The selected file does not seem to be a coma-separated file but rather: ' + err
-            + '. If you sure it is a valid csv file you can continue upload.';
+            + '. If you are sure it is a valid csv file you can continue upload.';
         }
       }
     });

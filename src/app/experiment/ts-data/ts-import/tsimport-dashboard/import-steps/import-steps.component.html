@@ -2,10 +2,11 @@
 
   <mat-step >
     <ng-template matStepLabel>Upload data file</ng-template>
-
-    <bd2-upload-data-file-step (uploadFiles)="upload($event)"></bd2-upload-data-file-step>
+    <bd2-upload-data-file-step
+      (uploadFiles)="upload($event)"
+      [blocked]="uploading">
+    </bd2-upload-data-file-step>
   </mat-step>
-
 
   <mat-step >
     <form >
@@ -56,7 +57,7 @@
     <div>
       <button mat-button matStepperPrevious>Back</button>
       <button mat-button matStepperNext type="button" [disabled]="!importDetails.isTimeDefined()"
-      (click)="startLabelling()">Next</button>
+	      (click)="startLabelling()">Next</button>
       <!--<button mat-button (click)="stepper.reset()">Reset</button> -->
     </div>
   </mat-step>
@@ -64,61 +65,61 @@
 
 
   @if (!importDetails.importLabels) {
-    <mat-step [completed]="importDetails.areLabelsCorrectlyAssigned()">
-      <ng-template matStepLabel>Label data</ng-template>
-      <mat-divider></mat-divider>
-      <bd2-import-details-summary [importDetails]="importDetails" [showTime]="true" ></bd2-import-details-summary>
-      <bd2-assign-labels-step [importDetails]="importDetails" #assignLabelsStep></bd2-assign-labels-step>
-      <div>
-        <button mat-button matStepperPrevious>Back</button>
-        <button mat-button matStepperNext type="button"
-          [disabled]="!importDetails.areLabelsCorrectlyAssigned()" (click)="startChoosingBackgrounds()"
-        >Next</button>
-      </div>
-    </mat-step>
+  <mat-step [completed]="importDetails.areLabelsCorrectlyAssigned()">
+    <ng-template matStepLabel>Label data</ng-template>
+    <mat-divider></mat-divider>
+    <bd2-import-details-summary [importDetails]="importDetails" [showTime]="true" ></bd2-import-details-summary>
+    <bd2-assign-labels-step [importDetails]="importDetails" #assignLabelsStep></bd2-assign-labels-step>
+    <div>
+      <button mat-button matStepperPrevious>Back</button>
+      <button mat-button matStepperNext type="button"
+              [disabled]="!importDetails.areLabelsCorrectlyAssigned()" (click)="startChoosingBackgrounds()"
+              >Next</button>
+    </div>
+  </mat-step>
   }
 
   @if (importDetails.importLabels) {
-    <mat-step [completed]="importDetails.areLabelsCorrectlySelected()">
-      <ng-template matStepLabel>Select labels {{importDetails.inLabelNeg}}</ng-template>
-      <mat-divider></mat-divider>
-      <bd2-import-details-summary [importDetails]="importDetails" [showTime]="true" ></bd2-import-details-summary>
-      <bd2-import-labels-step [importDetails]="importDetails" #importLabelsStep></bd2-import-labels-step>
-      <div>
-        <button mat-button matStepperPrevious>Back</button>
-        <button mat-button matStepperNext type="button"
-          [disabled]="!importDetails.areLabelsCorrectlySelected()"
-          (click)="loadData(selectDataStartStep)"
-        >Next</button>
-      </div>
-    </mat-step>
-    <mat-step [completed]="importDetails.areLabelsCorrectlySelected() && importDetails.isDataStartCorrectlySelected()">
-      <ng-template matStepLabel>Select data start</ng-template>
-      <mat-divider></mat-divider>
-      <bd2-import-details-summary [importDetails]="importDetails" [showTime]="true" [showLabelling]="true" ></bd2-import-details-summary>
-      <bd2-select-data-start-step [importDetails]="importDetails" #selectDataStartStep></bd2-select-data-start-step>
-      <div>
-        <button mat-button matStepperPrevious>Back</button>
-        <button mat-button matStepperNext type="button" [disabled]="!importDetails.isDataStartCorrectlySelected()"
-        (click)="startChoosingBackgrounds()">Next</button>
-        <!--<button mat-button (click)="stepper.reset()">Reset</button> -->
-      </div>
-    </mat-step>
+  <mat-step [completed]="importDetails.areLabelsCorrectlySelected()">
+    <ng-template matStepLabel>Select labels {{importDetails.inLabelNeg}}</ng-template>
+    <mat-divider></mat-divider>
+    <bd2-import-details-summary [importDetails]="importDetails" [showTime]="true" ></bd2-import-details-summary>
+    <bd2-import-labels-step [importDetails]="importDetails" #importLabelsStep></bd2-import-labels-step>
+    <div>
+      <button mat-button matStepperPrevious>Back</button>
+      <button mat-button matStepperNext type="button"
+              [disabled]="!importDetails.areLabelsCorrectlySelected()"
+              (click)="loadData(selectDataStartStep)"
+              >Next</button>
+    </div>
+  </mat-step>
+  <mat-step [completed]="importDetails.areLabelsCorrectlySelected() && importDetails.isDataStartCorrectlySelected()">
+    <ng-template matStepLabel>Select data start</ng-template>
+    <mat-divider></mat-divider>
+    <bd2-import-details-summary [importDetails]="importDetails" [showTime]="true" [showLabelling]="true" ></bd2-import-details-summary>
+    <bd2-select-data-start-step [importDetails]="importDetails" #selectDataStartStep></bd2-select-data-start-step>
+    <div>
+      <button mat-button matStepperPrevious>Back</button>
+      <button mat-button matStepperNext type="button" [disabled]="!importDetails.isDataStartCorrectlySelected()"
+              (click)="startChoosingBackgrounds()">Next</button>
+      <!--<button mat-button (click)="stepper.reset()">Reset</button> -->
+    </div>
+  </mat-step>
   }
 
   @if (importDetails.containsBackgrounds) {
-    <mat-step >
-      <ng-template matStepLabel>Select backgrounds labels</ng-template>
-      <mat-divider></mat-divider>
-      <bd2-import-details-summary [importDetails]="importDetails" [showTime]="true" [showLabelling]="true"
-      [showDataStart]="true"></bd2-import-details-summary>
-      <bd2-select-backgrounds-labels-step #selectBackgroundsStep [importDetails]="importDetails">
-      </bd2-select-backgrounds-labels-step>
-      <div>
-        <button mat-button matStepperPrevious>Back</button>
-        <button mat-button matStepperNext type="button">Next</button>
-      </div>
-    </mat-step>
+  <mat-step >
+    <ng-template matStepLabel>Select backgrounds labels</ng-template>
+    <mat-divider></mat-divider>
+    <bd2-import-details-summary [importDetails]="importDetails" [showTime]="true" [showLabelling]="true"
+				[showDataStart]="true"></bd2-import-details-summary>
+    <bd2-select-backgrounds-labels-step #selectBackgroundsStep [importDetails]="importDetails">
+    </bd2-select-backgrounds-labels-step>
+    <div>
+      <button mat-button matStepperPrevious>Back</button>
+      <button mat-button matStepperNext type="button">Next</button>
+    </div>
+  </mat-step>
   }
 
 
@@ -127,7 +128,7 @@
     <ng-template matStepLabel>Import timeseries</ng-template>
     <mat-divider></mat-divider>
     <bd2-import-details-summary [importDetails]="importDetails" [showTime]="true" [showLabelling]="true"
-    [showDataStart]="true"></bd2-import-details-summary>
+				[showDataStart]="true"></bd2-import-details-summary>
 
     <mat-card appearance="outlined" class="mat-elevation-z4">
       <mat-card-content>
