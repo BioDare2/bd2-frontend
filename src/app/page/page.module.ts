@@ -9,6 +9,8 @@ import {WelcomeComponent} from './welcome/welcome.component';
 import {RouterModule} from '@angular/router';
 import {AuthModule} from '../auth/auth.module';
 import { FeaturedDatasetModule } from './featured-dataset/featured-dataset.module';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatButtonModule } from '@angular/material/button';
 
 @NgModule({
   declarations: [AgreeCookiesComponent, HeaderBarComponent,
@@ -19,7 +21,9 @@ import { FeaturedDatasetModule } from './featured-dataset/featured-dataset.modul
     BrowserAnimationsModule, // for Cookie consent
     // FeedbackModule,
     AuthModule,
-    FeaturedDatasetModule
+    FeaturedDatasetModule,
+    MatMenuModule,
+    MatButtonModule
   ],
   exports: [
     AgreeCookiesComponent,

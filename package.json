@@ -1,6 +1,6 @@
 {
   "name": "biodare2-ui",
-  "version": "2.21.1",
+  "version": "2.21.2",
   "license": "MIT",
   "keywords": [
     "BioDare",
@@ -13,7 +13,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/SynthSys/BioDare2-UI"
+    "url": "https://github.com/BioDare2/bd2-frontend"
   },
   "scripts": {
     "ng": "ng",
@@ -34,6 +34,7 @@
     "@angular/platform-browser": "^21.2.1",
     "@angular/platform-browser-dynamic": "^21.2.1",
     "@angular/router": "^21.2.1",
+    "@ng-bootstrap/ng-bootstrap": "^20.0.0",
     "bootstrap": "^4.6.2",
     "browser-fs-access": "^0.31.2",
     "chart.js": "^4.4.7",
@@ -41,8 +42,10 @@
     "gapi-client": "^0.0.3",
     "google-auth-library": "^9.15.1",
     "googleapis": "^144.0.0",
+    "jquery": "^4.0.0",
     "ng2-charts": "^4.1.1",
     "ngx-bootstrap": "^18.0.2",
+    "popper.js": "^1.16.1",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.15.0"

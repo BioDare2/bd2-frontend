@@ -2,56 +2,11 @@ import {ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output}
 import {BD2User} from '../../auth/user.dom';
 
 @Component({
-    selector: 'bd2-top-bar-menu',
-    template: `
-    <ul class="nav navbar-nav">
-      <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
-        <a routerLink="welcome" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"
-        class="nav-link" (click)="navigated()">Home</a>
-      </li>
-      <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
-        <a routerLink="/experiments" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"
-        class="nav-link" (click)="navigated()">Experiments</a>
-      </li>
-      <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
-        @if (logged) {
-          <a routerLink="/experiment/new" routerLinkActive="active"
-            [routerLinkActiveOptions]="{exact: true}"
-          class="nav-link" (click)="navigated()">New Experiment</a>
-        }
-      </li>
-      <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{exact: false}">
-        <a routerLink="/documents" routerLinkActive="active"
-          [routerLinkActiveOptions]="{exact: false}"
-        class="nav-link" (click)="navigated()">Docs</a>
-      </li>
-      <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
-        @if (!logged) {
-          <a routerLink="/account/register" routerLinkActive="active"
-            [routerLinkActiveOptions]="{exact: true}"
-          class="nav-link" (click)="navigated()">Register</a>
-        }
-      </li>
-      <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
-        @if (logged) {
-          <a routerLink="/account/edit" routerLinkActive="active"
-            [routerLinkActiveOptions]="{exact: true}"
-          class="nav-link" (click)="navigated()">Account</a>
-        }
-      </li>
-      <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
-        <a routerLink="/usage" routerLinkActive="active"
-          [routerLinkActiveOptions]="{exact: true}"
-        class="nav-link" (click)="navigated()">Usage</a>
-      </li>
-      <li class="nav-item">
-        <a href="mailto:biodare@ed.ac.uk" class="nav-link">Contact Us</a>
-      </li>
-    </ul>
-    `,
-    styles: [],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: false
+  selector: 'bd2-top-bar-menu',
+  templateUrl: 'top-bar-menu.component.html',
+  styles: [':host ::ng-deep .nav-link.mat-mdc-menu-trigger {cursor: pointer;}'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: false
 })
 export class TopBarMenuComponent implements OnInit {
 

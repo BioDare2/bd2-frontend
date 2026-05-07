@@ -1,120 +1,137 @@
 <div>
 
-<h2>{{msg}}</h2>
+  <h2>{{msg}}</h2>
 
-@if (showMaintenance()) {
+  @if (showMaintenance()) {
   <div class="row" >
     <div class="col-md8 p-4 mb-4" style="background-color: #f8d7da;">
       <h3>BioDare will be unavailable all day on Thursday 10th of April due
-      to a server maintenance.</h3>
+	to a server maintenance.</h3>
     </div>
   </div>
-}
+  }
 
-<!-- Classes for coloured boxes -->
-<!-- alert-danger (red), alert-info (blue), alert-success (green) -->
-@if (logged) {
+  <!-- Classes for coloured boxes -->
+  <!-- alert-danger (red), alert-info (blue), alert-success (green) -->
+  @if (logged) {
   <div class="row">
     <div class="col-sm-12">
       <h4>Recently added features</h4>
       <div class="clearfix">
+
+	<div class="alert alert-info" role="alert">
+          <h5 class="list-group-item-heading">Join us on the BioDare2 <a href="https://github.com/orgs/BioDare2/discussions">Discussion space</a>!</h5>
+          <p class="list-group-item-text">
+            This community space is intended for all BioDare2 users to:
+          </p>
+	  <ul>
+	    <li> Ask for help with your analysis
+	    <li> Discuss about circadian data analysis and open data sharing
+	    <li> Give ideas or suggestions about BioDare2
+	    <li> Share your latest experiment or publication
+	  </ul>
+	  As a start, why not come and give a <a href="https://github.com/orgs/BioDare2/discussions/61">brief introduction</a> about yourself?
+        </div>
+	
         <div class="alert alert-danger" role="alert">
           <h5 class="list-group-item-heading">Public release of datasets</h5>
           <p class="list-group-item-text">
             We are now releasing datasets automatically after the embargo period (3 years), as described in the service terms.
             <br>
-              If you wish to keep your data private for longer, please see <a href="documents/embargo">extended embargo options</a>.
-            </p>
-          </div>
-          <div class="alert alert-success" role="alert">
-            <h5 class="list-group-item-heading">Advanced search options for experiments</h5>
-            <p class="list-group-item-text">
-              BioDare2 now has over 10,000 public experiments!<br/>
-              To help you navigate them, we have added advanced search filters on the <a href="experiments">Experiments page</a>, such as species, data category, author name and creation date.
-            </p>
-          </div>
-    </div>
-    <hr>
+            If you wish to keep your data private for longer, please see <a href="documents/embargo">extended embargo options</a>.
+          </p>
+        </div>
+	
+        <div class="alert alert-success" role="alert">
+          <h5 class="list-group-item-heading">Advanced search options for experiments</h5>
+          <p class="list-group-item-text">
+            BioDare2 now has over 10,000 public experiments!<br/>
+            To help you navigate them, we have added advanced search filters on the <a href="experiments">Experiments page</a>, such as species, data category, author name and creation date.
+          </p>
+        </div>
+	
+      </div>
+      <hr>
     </div>
   </div>
-}
+  }
 
-<p><strong>BioDare2</strong> is a repository for circadian, biological data, providing
-a platform for data sharing and period analysis.
-The main features of <strong>BioDare2</strong> are: fast period analysis, timeseries processing,
-attractive visualizations, simple data description and modern UI, all of it to assure the best user
-experience.</p>
+  <p><strong>BioDare2</strong> is a repository for circadian, biological data, providing
+    a platform for data sharing and period analysis.
+    The main features of <strong>BioDare2</strong> are: fast period analysis, timeseries processing,
+    attractive visualizations, simple data description and modern UI, all of it to assure the best user
+    experience.</p>
 
-<hr>
+  <hr>
 
   <bd2-featured-dataset></bd2-featured-dataset>
 
-<hr>
+  <hr>
 
   <div class="row"> 
     <div class="col-sm-6">
       <!--<iframe allowfullscreen frameborder="0"
-      src="https://www.youtube.com/embed/prqTuygHfhk?showinfo=0" style="min-height: 220px;"
-    width="100%"></iframe>-->
+	  src="https://www.youtube.com/embed/prqTuygHfhk?showinfo=0" style="min-height: 220px;"
+	  width="100%"></iframe>-->
 
-    <iframe src="https://www.youtube.com/embed/prqTuygHfhk"
-      title="Introductory video about BioDare2 on YouTube"
-      frameborder="0"
-      allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-      allowfullscreen
-      style="min-height: 220px;">
-    </iframe>
+      <iframe src="https://www.youtube.com/embed/prqTuygHfhk"
+	      title="Introductory video about BioDare2 on YouTube"
+	      frameborder="0"
+	      allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+	      allowfullscreen
+	      style="min-height: 220px;">
+      </iframe>
+    </div>
+
+    <div class="col-sm-6">
+      <p>Watch our introductory video and subscribe to our
+	<a href="https://www.youtube.com/channel/UC1_kTC0PFOkoKueJGo4h7dA">channel</a>
+	for training materials.
+      </p>
+      <p>You can contact us at: <strong>biodare (&#64;) ed.ac.uk</strong></p>
+      <p>You need a modern, up to date browser to use <strong>BioDare2</strong> (we are testing it with Chrome).</p>
+    </div>
   </div>
 
-  <div class="col-sm-6">
-    <p>Watch our introductory video and subscribe to our
-      <a href="https://www.youtube.com/channel/UC1_kTC0PFOkoKueJGo4h7dA">channel</a>
-      for training materials.
-    </p>
-    <p>You can contact us at: <strong>biodare (&#64;) ed.ac.uk</strong></p>
-    <p>You need a modern, up to date browser to use <strong>BioDare2</strong> (we are testing it with Chrome).</p>
-</div>
-</div>
-
-<hr>
+  <hr>
 
   <div class="row">
     @if (!logged) {
-      <div class="col-sm-12">
-        <h4>Public datasets</h4>
-        <ul>
-          <li>A large number of datasets are publicly available on the <a href="experiments">experiments page.</a></li>
-          <li><b>All data become public</b> after the default 3 year embargo period</li>
-        </ul>
-        <hr>
-      </div>
-      }
+    <div class="col-sm-12">
+      <h4>Public datasets</h4>
+      <ul>
+        <li>A large number of datasets are publicly available on the <a href="experiments">experiments page.</a></li>
+        <li><b>All data become public</b> after the default 3 year embargo period</li>
+      </ul>
+      <hr>
+    </div>
+    }
 
-      <div class="col-sm-6">
-        <h4>Excellent research that used BioDare </h4>
-        <ul>
-          <li>Hamnett, R. et al.
-            <small><a href="https://doi.org/10.1038/s41467-019-08427-3">
+    <div class="col-sm-6">
+      <h4>Excellent research that used BioDare </h4>
+      <ul>
+        <li>Hamnett, R. et al.
+          <small><a href="https://doi.org/10.1038/s41467-019-08427-3">
               Vasoactive intestinal peptide controls the suprachiasmatic circadian clock network via ERK1/2 and DUSP4 signalling
-            </a></small>
-          </li>
-          <li>Lee, CM. et al.
-            <small><a href="https://doi.org/10.1038/s41467-019-11769-7">
+          </a></small>
+        </li>
+        <li>Lee, CM. et al.
+          <small><a href="https://doi.org/10.1038/s41467-019-11769-7">
               GIGANTEA recruits the UBP12 and UBP13 deubiquitylases to regulate accumulation of the ZTL photoreceptor complex
-            </a></small>
-          </li>
-          <li>Enganti, R. et al.
-            <small><a href="https://doi.org/10.3389/fpls.2017.02210">Phosphorylation of
+          </a></small>
+        </li>
+        <li>Enganti, R. et al.
+          <small><a href="https://doi.org/10.3389/fpls.2017.02210">Phosphorylation of
               Ribosomal Protein RPS6 Integrates
               Light Signals and Circadian Clock Signals.
-            </a></small>
-          </li>
-          <li>Boxall, S.F. et al.
-            <small><a href="https://doi.org/10.1105/tpc.17.00301">Phosphorylation of
+          </a></small>
+        </li>
+        <li>Boxall, S.F. et al.
+          <small><a href="https://doi.org/10.1105/tpc.17.00301">Phosphorylation of
               Phosphoenolpyruvate
               Carboxylase Is Essential for Maximal and Sustained Dark CO2 Fixation...
-            </a></small>
-          </li>
+          </a></small>
+        </li>
       </ul>
     </div>
     <div class="col-sm-6">
@@ -122,36 +139,36 @@ experience.</p>
       <ul>
         <li>Brancaccio, M. et al.
           <small><a href="https://doi.org/10.1126/science.aat4104">
-            Cell-autonomous clock of astrocytes drives circadian behavior in mammals
+              Cell-autonomous clock of astrocytes drives circadian behavior in mammals
           </a></small>
         </li>
         <li>Mwimba, M. et al.
           <small><a href="https://doi.org/10.1038/s41467-018-06692-2">
-            Daily humidity oscillation regulates the circadian clock to influence plant physiology
+              Daily humidity oscillation regulates the circadian clock to influence plant physiology
           </a></small>
         </li>
         <li>Dekhang, R. et al.
           <small><a href="https://doi.org/10.1534/g3.116.034298">
-            The Neurospora Transcription Factor ADV-1 Transduces Light Signals and Temporal
-            Information...
+              The Neurospora Transcription Factor ADV-1 Transduces Light Signals and Temporal
+              Information...
           </a></small>
         </li>
         <li>Goya, M.E. et al.
           <small><a href="https://doi.org/10.1073/pnas.1605769113">
-            Circadian rhythms identified in Caenorhabditis elegans by in vivo long-term monitoring
-            of a bioluminescent reporter.
+              Circadian rhythms identified in Caenorhabditis elegans by in vivo long-term monitoring
+              of a bioluminescent reporter.
           </a></small>
         </li>
-    </ul>
+      </ul>
+    </div>
   </div>
-</div>
-<hr>
+  <hr>
 
   <div class="row">
     <div class="col-sm-6">
       <h4>Timeseries data</h4>
       <p>Circadian research is all about timeseries. BioDare can visualize your data and allows you to perform
-      various timeseries processing:</p>
+	various timeseries processing:</p>
       <ul>
         <li>four detrending methods</li>
         <li>normalization</li>
@@ -204,49 +221,49 @@ experience.</p>
 
   <hr>
 
-    <div class="row">
+  <div class="row">
 
-      <div class="col-sm-6">
-        <h4>BioDare development</h4>
-        <p>
-          <strong>BioDare2</strong> is an academic project, and is provided free of charge on a best-efforts basis.
-          <br><br>
-          Unfortunately, bugs and glitches are to be expected. Please be patient; refresh the page if the system appears stuck, and email bug reports to <strong>biodare&nbsp;(&#64;)&nbsp;ed.ac.uk</strong>.
-        </p>
-      </div>
-
-      <div class="col-sm-6">
-        <h4>Rhythm analysis</h4>
-        <p>
-          The Rhythm analysis functions are the same as in previous versions of BioDare, and will not change in the future.
-          <br><br>
-          Therefore, results obtained with different versions of BioDare will be consistent.
-        </p>
-      </div>
-
+    <div class="col-sm-6">
+      <h4>BioDare development</h4>
+      <p>
+        <strong>BioDare2</strong> is an academic project, and is provided free of charge on a best-efforts basis.
+        <br><br>
+        Unfortunately, bugs and glitches are to be expected. Please be patient; refresh the page if the system appears stuck, and email bug reports to <strong>biodare&nbsp;(&#64;)&nbsp;ed.ac.uk</strong>.
+      </p>
     </div>
 
-        <hr>
+    <div class="col-sm-6">
+      <h4>Rhythm analysis</h4>
+      <p>
+        The Rhythm analysis functions are the same as in previous versions of BioDare, and will not change in the future.
+        <br><br>
+        Therefore, results obtained with different versions of BioDare will be consistent.
+      </p>
+    </div>
 
-          <div class="text-center">
-            <p> Please cite BioDare2 with its website: <strong>biodare2.ed.ac.uk</strong> and the paper:</p>
-            <p>Zieliński, T., Hay, J., Millar, A.J. (2022).
-              <i>Period Estimation and Rhythm Detection in Timeseries Data Using BioDare2, the Free, Online, Community Resource.</i>
-              <br/> In: Staiger, D., Davis, S., Davis, A.M. (eds) Plant Circadian Networks. Methods in Molecular Biology, vol 2398. <br/>
-              Humana, New York, NY. <a href="https://doi.org/10.1007/978-1-0716-1912-4_2">DOI</a>
-            </p>
-            <p>and for the analysis methods:<br/>
-              Zielinski T, Moore AM, Troup E, Halliday KJ, Millar AJ (2014)<br>
-              <i>Strengths and Limitations of Period Estimation Methods for Circadian Data</i><br>
-              (2014) PLoS ONE 9(5): e96462. <a href="https://dx.doi.org/10.1371/journal.pone.0096462">DOI</a>
-            </p>
-            <p>You can find BioDare2 on <a href="https://scicrunch.org">Scicrunch</a>, RRID: SCR_027193</p>
+  </div>
 
-            <hr>
+  <hr>
 
-            <p>BioDare2 original development was funded by the EU FP7 Collaborative Project TiMet (award 245143)
-              and the UK Centre for Mammalian Synthetic Biology (award BB/M018040/1). <br>
-              From 2024, maintenance was funded by BBSRC via BioClocks UK (award BB/Y006194/1).
-            </p>
-          </div>
-        </div>
+  <div class="text-center">
+    <p> Please cite BioDare2 with its website: <strong>biodare2.ed.ac.uk</strong> and the paper:</p>
+    <p>Zieliński, T., Hay, J., Millar, A.J. (2022).
+      <i>Period Estimation and Rhythm Detection in Timeseries Data Using BioDare2, the Free, Online, Community Resource.</i>
+      <br/> In: Staiger, D., Davis, S., Davis, A.M. (eds) Plant Circadian Networks. Methods in Molecular Biology, vol 2398. <br/>
+      Humana, New York, NY. <a href="https://doi.org/10.1007/978-1-0716-1912-4_2">DOI</a>
+    </p>
+    <p>and for the analysis methods:<br/>
+      Zielinski T, Moore AM, Troup E, Halliday KJ, Millar AJ (2014)<br>
+      <i>Strengths and Limitations of Period Estimation Methods for Circadian Data</i><br>
+      (2014) PLoS ONE 9(5): e96462. <a href="https://dx.doi.org/10.1371/journal.pone.0096462">DOI</a>
+    </p>
+    <p>You can find BioDare2 on <a href="https://scicrunch.org">Scicrunch</a>, RRID: SCR_027193</p>
+
+    <hr>
+
+    <p>BioDare2 original development was funded by the EU FP7 Collaborative Project TiMet (award 245143)
+      and the UK Centre for Mammalian Synthetic Biology (award BB/M018040/1). <br>
+      From 2024, maintenance was funded by BBSRC via BioClocks UK (award BB/Y006194/1).
+    </p>
+  </div>
+</div>

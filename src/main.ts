@@ -1,6 +1,5 @@
 import { provideZoneChangeDetection } from "@angular/core";
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
-
 import { AppModule } from './app/app.module';
 
 /* maybe no longer needed with new angular, to be checked in the startup logs
