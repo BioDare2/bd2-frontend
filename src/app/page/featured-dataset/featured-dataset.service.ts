@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable, firstValueFrom } from 'rxjs';
-import { BioDareRestService } from 'src/app/backend/biodare-rest.service';
-import { DetrendingType, TSSort } from 'src/app/tsdata/ts-data-dom';
+import { BioDareRestService } from '../../backend/biodare-rest.service';
+import { DetrendingType, TSSort } from '../../tsdata/ts-data-dom';
 import { PageEvent } from '@angular/material/paginator';
 import { map } from 'rxjs/operators';
 

@@ -6,7 +6,6 @@ import { AppComponent } from './app.component';
 
 import {environment} from '../environments/environment';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {BootstrapRootModule} from './page/bootstrap.modules';
 import {PageModule} from './page/page.module';
 import {BioDareEndPoints, bioDareRestConfigurator} from './backend/biodare-rest.dom';
 import { provideHttpClient, withInterceptorsFromDi, withXhr } from '@angular/common/http';
@@ -25,7 +24,6 @@ const endPoints: BioDareEndPoints = bioDareRestConfigurator(environment);
     ],
     bootstrap: [AppComponent], imports: [BrowserModule,
         BrowserAnimationsModule,
-        BootstrapRootModule,
         MatSidenavModule,
         SharedDialogsModule,
         StaticContentModule,

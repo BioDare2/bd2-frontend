@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { BioDareRestService } from 'src/app/backend/biodare-rest.service';
+import { BioDareRestService } from '../backend/biodare-rest.service';
 
 @Injectable({
   providedIn: 'root'
