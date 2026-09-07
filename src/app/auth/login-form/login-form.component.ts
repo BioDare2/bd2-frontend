@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ChangeDetectionStrategy} from '@angular/core';
 import {UserService} from '../user.service';
 import {BD2User} from '../user.dom';
 
@@ -13,6 +13,7 @@ import {BD2User} from '../user.dom';
 @Component({
     selector: 'bd2-login-form',
     templateUrl: './login-form.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class LoginFormComponent implements OnInit {

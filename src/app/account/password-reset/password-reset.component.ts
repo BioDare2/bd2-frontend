@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ChangeDetectionStrategy} from '@angular/core';
 import {UserService} from '../../auth/user.service';
 import {ActivatedRoute} from '@angular/router';
 import {isWeakPassword} from '../user.util';
@@ -10,6 +10,7 @@ import {isWeakPassword} from '../user.util';
  */
 @Component({
     templateUrl: './password-reset.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class PasswordResetComponent implements OnInit {

@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { SpeciesCardsComponent } from './species-cards.component';
-import { HttpErrorResponse, provideHttpClient } from '@angular/common/http';
+import { HttpErrorResponse, provideHttpClient, withXhr } from '@angular/common/http';
 import { provideHttpClientTesting, HttpTestingController } from '@angular/common/http/testing';
 import { BioDareEndPoints } from 'src/app/backend/biodare-rest.dom';
 import { UsageDataService } from '../usage-data.service';
@@ -20,7 +20,7 @@ describe('SpeciesCardsComponent', () => {
       imports: [MatSlideToggleModule, FormsModule],
       providers: [
         UsageDataService,
-        provideHttpClient(),
+        provideHttpClient(withXhr()),
         provideHttpClientTesting(),
         { provide: BioDareEndPoints, useValue: {} }
       ]

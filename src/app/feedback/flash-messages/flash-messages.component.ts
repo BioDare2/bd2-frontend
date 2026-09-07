@@ -1,4 +1,4 @@
-import {Component, Input, NgZone, OnDestroy, OnInit} from '@angular/core';
+import {Component, Input, NgZone, OnDestroy, OnInit, ChangeDetectionStrategy} from '@angular/core';
 import {Subscription} from 'rxjs';
 import {FeedbackService} from '../feedback.service';
 import {MatSnackBar} from '@angular/material/snack-bar';
@@ -15,6 +15,7 @@ import {FeedbackMessage, FeedbackMessageType} from '../feedback.dom';
     selector: 'bd2-flash-messages',
     template: ``,
     styles: [],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class FlashMessagesComponent implements OnInit, OnDestroy {

@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 
 import {WelcomeComponent} from './welcome.component';
 import {UserService} from '../../auth/user.service';
@@ -8,6 +8,7 @@ import {fakeUserService} from '../../auth/auth_test_tool.spec';
 @Component({
   selector: 'bd2-featured-dataset',
   template: '',
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false
 })
 class FeaturedDatasetStubComponent {}

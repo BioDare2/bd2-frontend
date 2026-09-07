@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit, ChangeDetectionStrategy} from '@angular/core';
 import {PPABaseComponent} from '../ppa-base.component';
 import {FitSelection, PPAJobSummary, PPASelectGroup} from '../ppa-dom';
 import {ActivatedRoute, Params} from '@angular/router';
@@ -12,6 +12,7 @@ import {PPADialogsService} from '../ppa-dialogs/ppadialogs.service';
 @Component({
     templateUrl: './ppa-select-periods-form.component.html',
     providers: [],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class PPASelectPeriodsFormComponent extends PPABaseComponent implements OnInit, OnDestroy {

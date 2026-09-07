@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output, ViewChild, ChangeDetectionStrategy} from '@angular/core';
 import {MatTable} from '@angular/material/table';
 import {DataTableSlice} from '../../data-table-dom';
 import {TableStyler} from '../../data-sheet-mdtable/table-styling';
@@ -32,6 +32,7 @@ import {CellSelection} from '../../../import-dom';
       color: black;
     }
   `],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class SelectableRegionMDTableComponent implements OnInit {

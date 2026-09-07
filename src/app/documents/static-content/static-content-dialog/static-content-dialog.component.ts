@@ -1,4 +1,4 @@
-import {Component, Inject, OnInit} from '@angular/core';
+import {Component, Inject, OnInit, ChangeDetectionStrategy} from '@angular/core';
 import {MAT_DIALOG_DATA} from '@angular/material/dialog';
 import {isKnownStaticDoc, StaticDocsOptions} from '../../known-docs';
 
@@ -8,6 +8,7 @@ import {isKnownStaticDoc, StaticDocsOptions} from '../../known-docs';
 @Component({
     selector: 'bd2-static-content-dialog',
     templateUrl: './static-content-dialog.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class StaticContentDialogComponent implements OnInit {

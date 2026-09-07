@@ -1,10 +1,11 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnInit, ChangeDetectionStrategy} from '@angular/core';
 import {ImportDetails} from '../../import-dom';
 
 @Component({
     selector: 'bd2-import-details-summary',
     templateUrl: './import-details-summary.component.html',
     styles: [],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class ImportDetailsSummaryComponent implements OnInit {

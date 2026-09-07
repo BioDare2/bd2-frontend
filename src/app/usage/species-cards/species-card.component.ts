@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 
 export interface CardData {
@@ -10,6 +10,7 @@ export interface CardData {
   templateUrl: './species-card.component.html',
   styleUrl: './species-card.component.css',
   standalone: false,
+  changeDetection: ChangeDetectionStrategy.Eager,
   animations: [
     trigger('cardFlip', [
       state('default',

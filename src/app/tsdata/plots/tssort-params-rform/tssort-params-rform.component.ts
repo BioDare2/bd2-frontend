@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnDestroy, OnInit, Optional, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnDestroy, OnInit, Optional, Output, ChangeDetectionStrategy} from '@angular/core';
 import {UntypedFormBuilder, UntypedFormGroup, Validators} from '@angular/forms';
 import {RhythmicityJobSummary} from '../../../experiment/rhythmicity/rhythmicity-dom';
 import {PPAJobSummary} from '../../../experiment/ppa/ppa-dom';
@@ -19,6 +19,7 @@ import {TSFetcher} from '../ts-fetcher';
                      }
                    `
     ],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class TSSortParamsRFormComponent implements OnInit, OnDestroy {

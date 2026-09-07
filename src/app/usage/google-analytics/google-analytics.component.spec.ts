@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClient, withXhr } from '@angular/common/http';
 import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { GoogleAnalyticsComponent } from './google-analytics.component';
 import { UsageDataService } from '../usage-data.service';
@@ -41,7 +41,7 @@ describe('GoogleAnalyticsComponent', () => {
       declarations: [GoogleAnalyticsComponent],
       providers: [
         UsageDataService,
-        provideHttpClient(),
+        provideHttpClient(withXhr()),
         provideHttpClientTesting(),
         { provide: BioDareEndPoints, useValue: {} }
       ]

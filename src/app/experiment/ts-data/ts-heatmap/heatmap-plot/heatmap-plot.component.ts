@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnInit, ChangeDetectionStrategy} from '@angular/core';
 import {Trace} from '../../../../tsdata/plots/ts-plot.dom';
 
 
@@ -6,6 +6,7 @@ import {Trace} from '../../../../tsdata/plots/ts-plot.dom';
     selector: 'bd2-heatmap-plot',
     templateUrl: './heatmap-plot.component.html',
     styles: [],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class HeatmapPlotComponent implements OnInit {

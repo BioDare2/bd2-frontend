@@ -1,4 +1,4 @@
-import {Component, Input, OnDestroy, OnInit} from '@angular/core';
+import {Component, Input, OnDestroy, OnInit, ChangeDetectionStrategy} from '@angular/core';
 import {PPAStatsFetcherService} from '../services/ppastats-fetcher.service';
 import {phaseValuesFromOptions, PPAJobSummary, PPASimpleStats, valueFromPhaseName} from '../../../ppa-dom';
 import {PageEvent} from '@angular/material/paginator';
@@ -12,6 +12,7 @@ import {FeedbackService} from '../../../../../feedback/feedback.service';
     templateUrl: './ppastats-table2.component.html',
     styles: [],
     providers: [PPAStatsFetcherService],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class PPAStatsTable2Component implements OnInit, OnDestroy, Reloadable {

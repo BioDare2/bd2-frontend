@@ -1,4 +1,4 @@
-import {Component, Input, ViewChild} from '@angular/core';
+import {Component, Input, ViewChild, ChangeDetectionStrategy} from '@angular/core';
 import {NgForm} from '@angular/forms';
 
 import {RevertableFormComponent} from '../../../shared/revertable-form.component';
@@ -13,6 +13,7 @@ import {ContributionDescValidator} from '../../../dom/repo/contribution/contribu
     selector: 'bd2-contr-desc-form',
     templateUrl: './contribution-desc-form.component.html',
     outputs: ['onAccepted', 'onCancelled'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class ContributionDescFormComponent extends RevertableFormComponent<ContributionDesc> {

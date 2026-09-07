@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ChangeDetectionStrategy} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {UserService} from '../../auth/user.service';
 import {FeedbackService} from '../../feedback/feedback.service';
@@ -16,6 +16,7 @@ import {FeedbackService} from '../../feedback/feedback.service';
       <div class="alert alert-danger danger">Use the activation link that was sent in the email</div>
     }
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class AccountActivationComponent implements OnInit {

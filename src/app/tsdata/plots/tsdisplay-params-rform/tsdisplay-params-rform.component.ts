@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, OnDestroy, OnInit,} from '@angular/core';
+import {AfterViewInit, Component, OnDestroy, OnInit, ChangeDetectionStrategy} from '@angular/core';
 import {UntypedFormBuilder} from '@angular/forms';
 import {BaseTSDisplayParamsRForm} from './base-tsdisplay-params-rform';
 
@@ -117,6 +117,7 @@ import {BaseTSDisplayParamsRForm} from './base-tsdisplay-params-rform';
     outputs: ['displayParams'],
     // tslint:disable-next-line:no-inputs-metadata-property
     inputs: ['disabled', 'totalTraces', 'currentPage'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class TSDisplayParamsRFormComponent extends BaseTSDisplayParamsRForm implements OnInit, OnDestroy, AfterViewInit {

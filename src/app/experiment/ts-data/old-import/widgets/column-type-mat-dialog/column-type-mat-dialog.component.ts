@@ -1,4 +1,4 @@
-import {Component, Inject, OnInit, ViewChild} from '@angular/core';
+import {Component, Inject, OnInit, ViewChild, ChangeDetectionStrategy} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import {
   CellCoordinates,
@@ -22,6 +22,7 @@ export class ColumnTypeMatDialogComponentParams {
 @Component({
     templateUrl: './column-type-mat-dialog.component.html',
     styles: [],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class ColumnTypeMatDialogComponent implements OnInit {

@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit, ViewChild, ChangeDetectionStrategy} from '@angular/core';
 import {UserService} from '../../auth/user.service';
 import {ReCaptchaComponent} from '../../recaptcha/recaptcha.component';
 import {environment} from '../../../environments/environment';
@@ -11,6 +11,7 @@ import {environment} from '../../../environments/environment';
 @Component({
     selector: 'bd2-reset-request',
     templateUrl: './reset-request.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class ResetRequestComponent implements OnInit {

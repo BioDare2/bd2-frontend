@@ -1,4 +1,4 @@
-import {Component, Input, OnInit, ViewChild} from '@angular/core';
+import {Component, Input, OnInit, ViewChild, ChangeDetectionStrategy} from '@angular/core';
 import { BaseChartDirective } from 'ng2-charts';
 import {TraceSet} from './ts-plot.dom';
 
@@ -33,6 +33,7 @@ import {TraceSet} from './ts-plot.dom';
   }
 `,
   styleUrls: ['./ts-plot.component.css'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false
 })
 export class TSPlotComponent implements OnInit {

@@ -1,4 +1,4 @@
-import {Component, Inject, OnInit} from '@angular/core';
+import {Component, Inject, OnInit, ChangeDetectionStrategy} from '@angular/core';
 import {PPAFitPack} from '../../ppa-fit/ppa-fit.dom';
 import {PPAFitService} from '../../ppa-fit/ppa-fit.service';
 import {FeedbackService} from '../../../../feedback/feedback.service';
@@ -16,6 +16,7 @@ export class PPAFitDialogComponentParams {
 @Component({
     templateUrl: './ppa-fit-dialog.component.html',
     styles: [],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class PPAFitDialogComponent implements OnInit {

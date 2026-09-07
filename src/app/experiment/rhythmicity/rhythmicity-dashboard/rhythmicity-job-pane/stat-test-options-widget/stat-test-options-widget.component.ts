@@ -1,10 +1,11 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, OnInit, Output, ChangeDetectionStrategy} from '@angular/core';
 import {StatTestOptions} from '../../../rhythmicity-dom';
 
 @Component({
     selector: 'bd2-stat-test-options-widget',
     templateUrl: './stat-test-options-widget.component.html',
     styles: [],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class StatTestOptionsWidgetComponent implements OnInit {

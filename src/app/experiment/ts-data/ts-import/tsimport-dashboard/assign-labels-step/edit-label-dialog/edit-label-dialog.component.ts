@@ -1,4 +1,4 @@
-import {Component, Inject, OnInit} from '@angular/core';
+import {Component, Inject, OnInit, ChangeDetectionStrategy} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 
 
@@ -12,6 +12,7 @@ export interface EditLabelDialogData {
     selector: 'bd2-edit-label-dialog',
     templateUrl: './edit-label-dialog.component.html',
     styles: [],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class EditLabelDialogComponent implements OnInit {

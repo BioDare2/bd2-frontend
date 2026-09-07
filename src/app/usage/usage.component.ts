@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { UsageDataService } from './usage-data.service';
 
 @Component({
   selector: 'bd2-usage',
   templateUrl: './usage.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false
 })
 export class UsageComponent implements OnInit {

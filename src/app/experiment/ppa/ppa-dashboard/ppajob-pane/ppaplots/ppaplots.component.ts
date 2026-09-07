@@ -1,4 +1,4 @@
-import {Component, Input, OnDestroy, OnInit} from '@angular/core';
+import {Component, Input, OnDestroy, OnInit, ChangeDetectionStrategy} from '@angular/core';
 import {PPAGroupResultsFetcherService} from '../services/ppagroupresults-fetcher.service';
 import {PPAJobSummary, PPAResultsGroupSummary} from '../../../ppa-dom';
 import {BD2ColorPalette} from '../../../../../graphic/color/color-palette';
@@ -14,6 +14,7 @@ import {FeedbackService} from '../../../../../feedback/feedback.service';
     templateUrl: './ppaplots.component.html',
     styles: [],
     providers: [PPAGroupResultsFetcherService],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 

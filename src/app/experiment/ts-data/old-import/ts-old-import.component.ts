@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ChangeDetectionStrategy} from '@angular/core';
 import {ActivatedRoute, Params} from '@angular/router';
 import {ExperimentBaseComponent} from '../../experiment-base.component';
 import {ExcelTSImportParameters, FileImportRequest, ImportFormat} from '../ts-import/import-dom';
@@ -15,11 +15,12 @@ import {ExperimentComponentsDependencies} from '../../experiment-components.depe
     (onAccepted)="import($event)"></bd2-describe-ts-table>-->
     @if (format?.name === 'TOPCOUNT') {
       <bd2-describe-topcount-table [dataTable]="dataTable"
-        [blocked]="blocked" [confirmDataLoss]="assay?.features.hasTSData"
+        [blocked]="blocked" [confirmDataLoss]="$safeNavigationMigration(assay?.features.hasTSData)"
       (onAccepted)="import($event)"></bd2-describe-topcount-table>
     }
     `,
     providers: [],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class TSOldImportComponent extends ExperimentBaseComponent implements OnInit {

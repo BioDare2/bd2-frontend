@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ChangeDetectionStrategy} from '@angular/core';
 import {UserService} from '../../auth/user.service';
 import {FeedbackService} from '../../feedback/feedback.service';
 import {BD2User} from '../../auth/user.dom';
@@ -13,6 +13,7 @@ import {timer} from 'rxjs';
  */
 @Component({
     templateUrl: './account-edit-rform.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class AccountEditRFormComponent implements OnInit {

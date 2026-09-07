@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
 
 /**
  * Legend component for the heatmap's "patterned" mode.
@@ -8,6 +8,7 @@ import { Component, Input } from '@angular/core';
 @Component({
   selector: '[bd2hm-legend]',
   templateUrl: './legend.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false
 })
 

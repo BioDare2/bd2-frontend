@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output, ChangeDetectionStrategy} from '@angular/core';
 import {MeasurementDesc} from '../../../../dom/repo/measure/measurement-desc';
 import {AbstractControl, UntypedFormBuilder, UntypedFormGroup, Validators} from '@angular/forms';
 import {TechniqueService} from '../technique.service';
@@ -10,6 +10,7 @@ import {MatAutocompleteSelectedEvent} from '@angular/material/autocomplete';
 @Component({
     selector: 'bd2-measurement-desc-rform',
     templateUrl: './measurement-desc-rform.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class MeasurementDescRFormComponent /*extends RevertableFormComponent<MeasurementDesc>*/

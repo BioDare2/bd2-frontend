@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, Input, OnDestroy, OnInit} from '@angular/core';
+import {AfterViewInit, Component, Input, OnDestroy, OnInit, ChangeDetectionStrategy} from '@angular/core';
 import {PageEvent} from '@angular/material/paginator';
 import {Sort} from '@angular/material/sort';
 import {RhythmicityResultsFetcherService} from '../services/rhythmicity-results-fetcher.service';
@@ -15,6 +15,7 @@ import {FeedbackService} from '../../../../../feedback/feedback.service';
 
   `],
     providers: [RhythmicityResultsFetcherService],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class RhythmicityResultsMDTableComponent implements AfterViewInit, OnInit, OnDestroy {

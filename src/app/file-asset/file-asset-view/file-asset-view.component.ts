@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnInit, ChangeDetectionStrategy} from '@angular/core';
 import {FileAsset} from '../dom/file-asset';
 import {AnalyticsService} from '../../analytics/analytics.service';
 
@@ -37,6 +37,7 @@ import {AnalyticsService} from '../../analytics/analytics.service';
     </div>
   }
 `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class FileAssetViewComponent implements OnInit {

@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit, ChangeDetectionStrategy} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 
 import {getStaticDocParams, StaticDocsOptions} from '../known-docs';
@@ -11,6 +11,7 @@ import {map} from 'rxjs/operators';
  */
 @Component({
     templateUrl: './documents.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class DocumentsComponent implements OnInit, OnDestroy {

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { UsageDataService } from '../usage-data.service';
 import { Subscription } from 'rxjs';
@@ -7,6 +7,7 @@ import { Subscription } from 'rxjs';
   selector: 'bd2-species-cards',
   templateUrl: './species-cards.component.html',
   styleUrl: './species-cards.component.css',
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false
 })
 

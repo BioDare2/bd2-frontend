@@ -1,4 +1,4 @@
-import {Component, ViewChild} from '@angular/core';
+import {Component, ViewChild, ChangeDetectionStrategy} from '@angular/core';
 import {ExperimentBaseComponent} from '../../experiment-base.component';
 import {AttachmentsService} from '../attachments.service';
 import {FileUploadWidgetComponent} from '../../../file-asset/file-upload-widget/file-upload-widget.component';
@@ -15,6 +15,7 @@ import {ExperimentComponentsDependencies} from '../../experiment-components.depe
 @Component({
     templateUrl: './attachments-dashboard.component.html',
     styleUrls: ['./attachments-dashboard.component.css'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class AttachmentsDashboardComponent extends ExperimentBaseComponent {

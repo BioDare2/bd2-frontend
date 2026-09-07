@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output, ChangeDetectionStrategy} from '@angular/core';
 import {FileAsset} from '../dom/file-asset';
 import {FileAssetService} from '../file-asset-service';
 import {FeedbackService} from '../../feedback/feedback.service';
@@ -30,6 +30,7 @@ import {FeedbackService} from '../../feedback/feedback.service';
   </div>
 }
 `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class FileAssetFormComponent implements OnInit {

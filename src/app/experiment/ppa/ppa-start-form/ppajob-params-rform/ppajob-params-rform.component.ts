@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, EventEmitter, OnDestroy, OnInit} from '@angular/core';
+import {AfterViewInit, Component, EventEmitter, OnDestroy, OnInit, ChangeDetectionStrategy} from '@angular/core';
 import {EnabledPPAMethodOptions, PPAMethod, PPARequest} from '../../ppa-dom';
 import {AbstractControl, UntypedFormBuilder, Validators} from '@angular/forms';
 import {DetrendingType} from '../../../../tsdata/ts-data-dom';
@@ -12,6 +12,7 @@ import {StaticContentDialogService} from '../../../../documents/static-content/s
     outputs: ['displayParams', 'ppaRequests'],
     // tslint:disable-next-line:no-inputs-metadata-property
     inputs: ['disabled', 'totalTraces', 'currentPage'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class PPAJobParamsRFormComponent extends BaseTSDisplayParamsRForm implements OnInit, OnDestroy, AfterViewInit {

@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, AfterViewChecked, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, OnDestroy, AfterViewChecked, ChangeDetectorRef, ChangeDetectionStrategy } from '@angular/core';
 import { UsageDataService } from '../usage-data.service';
 import { environment } from '../../../environments/environment';
 import { Subscription } from 'rxjs';
@@ -8,6 +8,7 @@ declare const google: any;
 @Component({
   selector: 'bd2-google-analytics',
   templateUrl: './google-analytics.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false
 })
 export class GoogleAnalyticsComponent implements OnInit, OnDestroy, AfterViewChecked {

@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {AfterViewInit, Component, EventEmitter, OnInit, Output, ChangeDetectionStrategy} from '@angular/core';
 import {MatRadioChange} from '@angular/material/radio';
 
 @Component({
@@ -9,6 +9,7 @@ import {MatRadioChange} from '@angular/material/radio';
       margin-right: 15px;
     }
   `],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class PValueFormComponent implements OnInit, AfterViewInit {

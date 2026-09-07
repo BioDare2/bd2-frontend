@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, OnDestroy, OnInit, ViewChild, ChangeDetectionStrategy} from '@angular/core';
 import {LabelsToColors,} from '../data-sheet-mdtable/table-styling';
 import {Slice} from '../data-table-dom';
 import {DataTableDependentStep} from '../data-table-dependent-step';
@@ -16,6 +16,7 @@ import {CellSelection} from '../../import-dom';
     providers: [DataTableService],
     // tslint:disable-next-line:no-inputs-metadata-property
     inputs: ['importDetails'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class AssignLabelsStepComponent extends DataTableDependentStep implements OnInit, OnDestroy, AfterViewInit {

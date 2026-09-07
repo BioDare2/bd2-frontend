@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit, ChangeDetectionStrategy} from '@angular/core';
 import {UserService} from '../../auth/user.service';
 import {FeedbackService} from '../../feedback/feedback.service';
 import {ExperimentService} from '../../experiment/experiment.service';
@@ -15,6 +15,7 @@ import {ExperimentsFetcherService} from '../services/experiments-fetcher.service
     templateUrl: './experiments-list.component.html',
     styles: [],
     providers: [ExperimentsFetcherService],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class ExperimentsListComponent implements OnInit, OnDestroy {

@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit, ChangeDetectionStrategy} from '@angular/core';
 import {DataTableDependentStep} from '../data-table-dependent-step';
 import {DataTableService} from '../data-table.service';
 import {FeedbackService} from '../../../../../feedback/feedback.service';
@@ -11,6 +11,7 @@ import {CellSelection} from '../../import-dom';
     styles: [],
     // tslint:disable-next-line:no-inputs-metadata-property
     inputs: ['importDetails'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class SelectDataStartStepComponent extends DataTableDependentStep implements OnInit, OnDestroy {

@@ -26,7 +26,7 @@
     ></bd2-ppaperiod-plot>
   </div>
 
-  <bd2-ngx-svg-saver [fileName]="fetcher.currentInput?.parentId+'_'+fetcher.currentInput?.method+'.periods'"
+  <bd2-ngx-svg-saver [fileName]="$safeNavigationMigration(fetcher.currentInput?.parentId)+'_'+$safeNavigationMigration(fetcher.currentInput?.method)+'.periods'"
     [refNode]="periodPlotDiv" class="float-left"
   ></bd2-ngx-svg-saver>
   <bd2-ppasort-widget (sort)="sort($event)" class="float-right"></bd2-ppasort-widget>
@@ -35,7 +35,7 @@
 
   <mat-paginator #paginator [length]="fetcher.dataLength" [disabled]="disablePaginator"
     [pageSize]="fetcher.currentPage?.pageSize || 25"
-    [pageIndex]="fetcher.currentPage?.pageIndex"
+    [pageIndex]="$safeNavigationMigration(fetcher.currentPage?.pageIndex)"
     [pageSizeOptions]="[5, 10, 25, 50, 100]"
     (page)="loadPage($event)"
 
@@ -57,7 +57,7 @@
         ></bd2-ppaphase-plot>
       </div>
     </div>
-    <bd2-ngx-svg-saver [fileName]="fetcher.currentInput?.parentId+'_'+fetcher.currentInput?.method+'.phases'"
+    <bd2-ngx-svg-saver [fileName]="$safeNavigationMigration(fetcher.currentInput?.parentId)+'_'+$safeNavigationMigration(fetcher.currentInput?.method)+'.phases'"
       [refNode]="phasePlotDiv" class="float-left"
     ></bd2-ngx-svg-saver>
   </div>

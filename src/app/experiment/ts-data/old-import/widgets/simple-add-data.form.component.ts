@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, Output} from '@angular/core';
+import {Component, EventEmitter, Input, Output, ChangeDetectionStrategy} from '@angular/core';
 import {
   CellCoordinates,
   CellRange,
@@ -33,6 +33,7 @@ import {
       <button class="btn btn-primary btn-sm" [disabled]="!simpleAddDataForm.form.valid" (click)="add()">Add</button>
     </form>
   `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class SimpleAddDataFormComponent {

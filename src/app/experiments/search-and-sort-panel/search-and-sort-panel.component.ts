@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output, ChangeDetectionStrategy} from '@angular/core';
 import {UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, Validators} from '@angular/forms';
 import {Sort} from '@angular/material/sort';
 import {SpeciesService} from '../../repo/components/biodesc/species.service';
@@ -29,6 +29,7 @@ export interface SearchAndSortOptions {
     selector: 'bd2-search-and-sort-panel',
     templateUrl: './search-and-sort-panel.component.html',
     styleUrl: './search-and-sort-panel.component.css',
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 

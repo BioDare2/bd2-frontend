@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ChangeDetectionStrategy} from '@angular/core';
 import {FileImportRequest, ImportDetails} from '../import-dom';
 import {ExperimentBaseComponent} from '../../../experiment-base.component';
 import {ExperimentComponentsDependencies} from '../../../experiment-components.dependencies';
@@ -9,6 +9,7 @@ import {BioDareRestService} from '../../../../backend/biodare-rest.service';
     selector: 'bd2-tsimport-dashboard',
     templateUrl: './tsimport-dashboard.component.html',
     styles: [],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class TSImportDashboardComponent extends ExperimentBaseComponent implements OnInit {

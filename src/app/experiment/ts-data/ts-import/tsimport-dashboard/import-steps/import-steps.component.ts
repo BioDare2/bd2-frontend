@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild} from '@angular/core';
+import {Component, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild, ChangeDetectionStrategy} from '@angular/core';
 import {MatStepper} from '@angular/material/stepper';
 import {DataTableDependentStep} from '../data-table-dependent-step';
 import {DataTableImportParameters, ImportDetails, ImportFormat} from '../../import-dom';
@@ -14,6 +14,7 @@ import { finalize } from 'rxjs';
     templateUrl: './import-steps.component.html',
     styles: [],
     providers: [DataTableService],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class ImportStepsComponent implements OnInit, OnDestroy {

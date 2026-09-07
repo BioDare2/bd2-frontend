@@ -1,4 +1,4 @@
-import {AfterViewInit, Component} from '@angular/core';
+import {AfterViewInit, Component, ChangeDetectionStrategy} from '@angular/core';
 import {ExperimentBaseComponent} from '../experiment-base.component';
 import {ExperimentComponentsDependencies} from '../experiment-components.dependencies';
 import {ActivatedRoute} from '@angular/router';
@@ -8,6 +8,7 @@ import {ExperimentalAssayViewValidator} from '../../dom/repo/exp/experimental-as
 @Component({
     templateUrl: './experiment-assay-edit-form.component.html',
     providers: [],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class ExperimentAssayEditFormComponent extends ExperimentBaseComponent implements AfterViewInit {

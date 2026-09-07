@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit, ChangeDetectionStrategy} from '@angular/core';
 import {ExperimentalAssayView} from '../../dom/repo/exp/experimental-assay-view';
 import {Subscription} from 'rxjs';
 import {ExperimentService} from '../experiment.service';
@@ -15,6 +15,7 @@ import {SharedDialogsService} from '../../shared/shared-dialogs/shared-dialogs.s
     templateUrl: './experiment-feature.component.html',
     styles: [],
     providers: [CurrentExperimentService, ExperimentComponentsDependencies],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class ExperimentFeatureComponent implements OnInit, OnDestroy {

@@ -1,4 +1,4 @@
-import {Component, Input, OnInit, SimpleChanges} from '@angular/core';
+import {Component, Input, OnInit, SimpleChanges, ChangeDetectionStrategy} from '@angular/core';
 import {Trace, TraceSet} from './ts-plot.dom';
 import { BD2ColorPalette } from '../../graphic/color/color-palette';
 
@@ -20,6 +20,7 @@ import { BD2ColorPalette } from '../../graphic/color/color-palette';
 }
 
 `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class TSPlotsComponent implements OnInit {

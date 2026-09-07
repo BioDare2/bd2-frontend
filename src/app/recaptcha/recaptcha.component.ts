@@ -7,12 +7,13 @@
  */
 
 
-import {Component, ElementRef, EventEmitter, Input, NgZone, OnInit, Output, ViewChild} from '@angular/core';
+import {Component, ElementRef, EventEmitter, Input, NgZone, OnInit, Output, ViewChild, ChangeDetectionStrategy} from '@angular/core';
 import {ReCaptchaService} from './recaptcha.service';
 
 @Component({
     selector: 'bd2-recaptcha',
     template: '<div #target></div>',
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 

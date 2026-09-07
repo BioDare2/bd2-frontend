@@ -1,4 +1,4 @@
-import {Component, QueryList, ViewChildren} from '@angular/core';
+import {Component, QueryList, ViewChildren, ChangeDetectionStrategy} from '@angular/core';
 import {PPABaseComponent} from '../ppa-base.component';
 import {PPAJobPaneComponent} from './ppajob-pane/ppajob-pane.component';
 import {PPAJobSummary} from '../ppa-dom';
@@ -10,6 +10,7 @@ import {StaticContentDialogService} from '../../../documents/static-content/stat
 @Component({
     templateUrl: './ppa-dashboard.component.html',
     providers: [],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class PPADashboardComponent extends PPABaseComponent {

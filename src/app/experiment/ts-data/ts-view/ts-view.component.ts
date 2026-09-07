@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit, ChangeDetectionStrategy} from '@angular/core';
 import {ExperimentBaseComponent} from '../../experiment-base.component';
 import {RDMSocialServiceService} from '../../../rdmsocial/rdmsocial-service.service';
 import {ExperimentalAssayView} from '../../../dom/repo/exp/experimental-assay-view';
@@ -23,6 +23,7 @@ import {DataJobsService} from '../data-jobs.service';
 @Component({
     templateUrl: './ts-view.component.html',
     providers: [TSFetcher, DataJobsService],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class TSViewComponent extends ExperimentBaseComponent implements OnDestroy, OnInit {

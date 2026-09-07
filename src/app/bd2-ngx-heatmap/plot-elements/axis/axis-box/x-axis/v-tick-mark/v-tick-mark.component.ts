@@ -1,4 +1,4 @@
-import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
+import {Component, Input, OnChanges, OnInit, SimpleChanges, ChangeDetectionStrategy} from '@angular/core';
 import {Tick} from '../../../../../bd2-heatmap.dom';
 
 /**
@@ -7,6 +7,7 @@ import {Tick} from '../../../../../bd2-heatmap.dom';
 @Component({
     selector: '[bd2hm-vtick-mark]',
     templateUrl: './v-tick-mark.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class VTickMarkComponent implements OnInit, OnChanges {

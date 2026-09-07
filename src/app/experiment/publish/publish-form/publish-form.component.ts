@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ChangeDetectionStrategy} from '@angular/core';
 import {ExperimentBaseComponent} from '../../experiment-base.component';
 import {ExperimentComponentsDependencies} from '../../experiment-components.dependencies';
 
@@ -57,6 +57,7 @@ import {ExperimentComponentsDependencies} from '../../experiment-components.depe
     }
     `,
     styles: [],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class PublishFormComponent extends ExperimentBaseComponent implements OnInit {

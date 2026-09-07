@@ -1,10 +1,11 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, OnInit, Output, ChangeDetectionStrategy} from '@angular/core';
 import {Sort} from '@angular/material/sort';
 
 @Component({
     selector: 'bd2-ppasort-widget',
     templateUrl: './ppasort-widget.component.html',
     styles: [],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class PPASortWidgetComponent implements OnInit {

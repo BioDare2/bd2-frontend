@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, ChangeDetectionStrategy} from '@angular/core';
 import {ExperimentBaseComponent} from '../experiment-base.component';
 import {ExperimentComponentsDependencies} from '../experiment-components.dependencies';
 
@@ -44,6 +44,7 @@ import {ExperimentComponentsDependencies} from '../experiment-components.depende
     }
     `,
     providers: [],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class ExperimentAssayOverviewComponent extends ExperimentBaseComponent {

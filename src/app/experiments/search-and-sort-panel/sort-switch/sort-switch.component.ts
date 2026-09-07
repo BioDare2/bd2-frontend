@@ -1,4 +1,4 @@
-import {Component, forwardRef, OnInit} from '@angular/core';
+import {Component, forwardRef, OnInit, ChangeDetectionStrategy} from '@angular/core';
 import {ControlValueAccessor, NG_VALUE_ACCESSOR} from '@angular/forms';
 
 /**
@@ -30,6 +30,7 @@ const CUSTOM_VALUE_ACCESSOR: any = {
     `,
     styles: [],
     providers: [CUSTOM_VALUE_ACCESSOR],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class SortSwitchComponent implements OnInit, ControlValueAccessor {

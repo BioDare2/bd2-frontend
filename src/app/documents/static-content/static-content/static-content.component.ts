@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnInit, ChangeDetectionStrategy} from '@angular/core';
 import {StaticContentService} from '../static-content.service';
 import {FeedbackService} from '../../../feedback/feedback.service';
 
@@ -8,6 +8,7 @@ import {FeedbackService} from '../../../feedback/feedback.service';
 @Component({
     selector: 'bd2-static-content',
     template: `<div [innerHTML]="content"></div>`,
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class StaticContentComponent implements OnInit {

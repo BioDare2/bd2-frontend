@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit, ChangeDetectionStrategy} from '@angular/core';
 import {ExperimentBaseComponent} from '../../../experiment-base.component';
 import {RDMSocialServiceService} from '../../../../rdmsocial/rdmsocial-service.service';
 import {AnalyticsService} from '../../../../analytics/analytics.service';
@@ -24,6 +24,7 @@ import {DataJobsService} from '../../data-jobs.service';
     templateUrl: './ts-heatmap-view.component.html',
     styles: [],
     providers: [TSFetcher, DataJobsService],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class TsHeatmapViewComponent extends ExperimentBaseComponent implements OnDestroy, OnInit {

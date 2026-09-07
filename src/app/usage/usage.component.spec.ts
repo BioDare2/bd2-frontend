@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { UsageModule } from './usage.module';
 import { UsageComponent } from './usage.component';
 import { UsageDataService } from './usage-data.service';
-import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClient, withXhr } from '@angular/common/http';
 import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { BioDareEndPoints } from 'src/app/backend/biodare-rest.dom';
 
@@ -17,7 +17,7 @@ describe('UsageComponent', () => {
         UsageComponent
       ],
       providers: [
-        provideHttpClient(),
+        provideHttpClient(withXhr()),
         provideHttpClientTesting(),
         UsageDataService,
         { provide: BioDareEndPoints, useValue: {} }

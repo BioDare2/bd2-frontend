@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit, ViewChild, ChangeDetectionStrategy} from '@angular/core';
 import {AbstractControl, UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, Validators} from '@angular/forms';
 import {environment} from '../../../environments/environment';
 import {ReCaptchaComponent} from '../../recaptcha/recaptcha.component';
@@ -23,6 +23,7 @@ import {catchError, map} from 'rxjs/operators';
  */
 @Component({
     templateUrl: './registration-rform.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class RegistrationRFormComponent implements OnInit {

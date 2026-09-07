@@ -1,4 +1,4 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, OnInit, Output, ChangeDetectionStrategy} from '@angular/core';
 import {FileAssetService} from '../file-asset-service';
 import {FeedbackService} from '../../feedback/feedback.service';
 import {FileAsset} from '../dom/file-asset';
@@ -26,6 +26,7 @@ import {FileAsset} from '../dom/file-asset';
   </div>
 
 `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class FileAssetUploadComponent implements OnInit {

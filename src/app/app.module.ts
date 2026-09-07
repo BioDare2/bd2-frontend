@@ -9,7 +9,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {BootstrapRootModule} from './page/bootstrap.modules';
 import {PageModule} from './page/page.module';
 import {BioDareEndPoints, bioDareRestConfigurator} from './backend/biodare-rest.dom';
-import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+import { provideHttpClient, withInterceptorsFromDi, withXhr } from '@angular/common/http';
 import {FeedbackModule} from './feedback/feedback.module';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {StaticContentModule} from './documents/static-content/static-content.module';
@@ -35,6 +35,6 @@ const endPoints: BioDareEndPoints = bioDareRestConfigurator(environment);
         FeaturedDatasetModule,
         AppRoutingModule], providers: [
         { provide: BioDareEndPoints, useValue: endPoints },
-        provideHttpClient(withInterceptorsFromDi())
+        provideHttpClient(withXhr(), withInterceptorsFromDi())
     ] })
 export class AppModule { }

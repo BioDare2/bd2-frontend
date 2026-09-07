@@ -1,4 +1,4 @@
-import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
+import {Component, Input, OnChanges, OnInit, SimpleChanges, ChangeDetectionStrategy} from '@angular/core';
 import {PPAResultsGroupSummary, valueFromPhaseName} from '../../../../ppa-dom';
 import {PhaseParams} from '../../phases-options-widget.component';
 import {ShowIndividualsOptions} from "../../../../../../bd2-ngx-polarplot/polar-plot/polar-plot.dom";
@@ -7,6 +7,7 @@ import {ShowIndividualsOptions} from "../../../../../../bd2-ngx-polarplot/polar-
     selector: 'bd2-ppaphase-plot',
     templateUrl: './ppaphase-plot.component.html',
     styles: [],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 

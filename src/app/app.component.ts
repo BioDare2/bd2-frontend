@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, ChangeDetectionStrategy} from '@angular/core';
 import {ShutdownEventsService} from './system/shutdown-events.service';
 import { environment } from './../environments/environment';
 
@@ -6,6 +6,7 @@ import { environment } from './../environments/environment';
     selector: 'bd2-root',
     templateUrl: './app.component.html',
     styles: [],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class AppComponent {

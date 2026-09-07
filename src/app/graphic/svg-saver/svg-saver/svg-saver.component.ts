@@ -1,4 +1,4 @@
-import {Component, ElementRef, Input, OnInit} from '@angular/core';
+import {Component, ElementRef, Input, OnInit, ChangeDetectionStrategy} from '@angular/core';
 // a explanation how to save files https://nils-mehlhorn.de/posts/angular-file-download-progress
 // in case I want to remove filesaver
 
@@ -28,6 +28,7 @@ import {  fileSave } from 'browser-fs-access';
     </button>
   `,
     styles: [],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class SVGSaverComponent implements OnInit {

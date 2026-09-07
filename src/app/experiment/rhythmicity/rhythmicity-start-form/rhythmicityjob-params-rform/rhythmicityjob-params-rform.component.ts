@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, EventEmitter, OnDestroy, OnInit} from '@angular/core';
+import {AfterViewInit, Component, EventEmitter, OnDestroy, OnInit, ChangeDetectionStrategy} from '@angular/core';
 
 import {AbstractControl, UntypedFormBuilder, UntypedFormControl, Validators} from '@angular/forms';
 import {DetrendingType} from '../../../../tsdata/ts-data-dom';
@@ -20,6 +20,7 @@ import {BaseTSDisplayParamsRForm} from '../../../../tsdata/plots/tsdisplay-param
     outputs: ['displayParams', 'rhythmicityRequests'],
     // tslint:disable-next-line:no-inputs-metadata-property
     inputs: ['disabled', 'totalTraces', 'currentPage'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class RhythmicityjobParamsRformComponent extends BaseTSDisplayParamsRForm implements OnInit, OnDestroy, AfterViewInit {

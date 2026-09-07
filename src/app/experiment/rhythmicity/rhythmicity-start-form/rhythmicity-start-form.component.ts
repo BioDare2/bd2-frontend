@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit, ChangeDetectionStrategy} from '@angular/core';
 import {RhythmicityBaseComponent} from '../rhythmicity-base.component';
 import {RhythmicityService} from '../rhythmicity.service';
 import {ExperimentComponentsDependencies} from '../../experiment-components.dependencies';
@@ -17,6 +17,7 @@ import {ExperimentalAssayView} from '../../../dom/repo/exp/experimental-assay-vi
     templateUrl: './rhythmicity-start-form.component.html',
     styles: [],
     providers: [TSFetcher],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class RhythmicityStartFormComponent extends RhythmicityBaseComponent implements OnInit, OnDestroy {

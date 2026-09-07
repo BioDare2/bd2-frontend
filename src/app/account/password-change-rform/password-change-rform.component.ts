@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ChangeDetectionStrategy} from '@angular/core';
 import {BD2User} from '../../auth/user.dom';
 import {AbstractControl, UntypedFormBuilder, UntypedFormGroup, Validators} from '@angular/forms';
 import {UserService} from '../../auth/user.service';
@@ -14,6 +14,7 @@ import {passwordMatching, validPasswordStrength} from '../user.util';
 @Component({
     templateUrl: './password-change-rform.component.html',
     styles: [],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class PasswordChangeRFormComponent implements OnInit {

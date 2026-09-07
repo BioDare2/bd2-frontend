@@ -5,7 +5,7 @@
 
   <mat-paginator #paginator [length]="fetcher.dataLength" [disabled]="disablePaginator"
     [pageSize]="fetcher.currentPage?.pageSize || 25"
-    [pageIndex]="fetcher.currentPage?.pageIndex"
+    [pageIndex]="$safeNavigationMigration(fetcher.currentPage?.pageIndex)"
     [pageSizeOptions]="[10, 25, 50, 100, 250]"
     (page)="loadPage($event)"
 
@@ -114,7 +114,7 @@
 
   <mat-paginator #paginator2 [length]="fetcher.dataLength" [disabled]="disablePaginator"
     [pageSize]="fetcher.currentPage?.pageSize || 25"
-    [pageIndex]="fetcher.currentPage?.pageIndex"
+    [pageIndex]="$safeNavigationMigration(fetcher.currentPage?.pageIndex)"
     [pageSizeOptions]="[10, 25, 50, 100, 250]"
     (page)="loadPage($event)"
 

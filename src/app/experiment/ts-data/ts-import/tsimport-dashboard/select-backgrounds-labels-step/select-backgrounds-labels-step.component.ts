@@ -1,4 +1,4 @@
-import {Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
+import {Component, ElementRef, Input, OnInit, ViewChild, ChangeDetectionStrategy} from '@angular/core';
 import {ImportDetails} from '../../import-dom';
 import {Observable} from 'rxjs';
 import {UntypedFormControl} from '@angular/forms';
@@ -14,6 +14,7 @@ import {TSFileService} from '../ts-file.service';
     selector: 'bd2-select-backgrounds-labels-step',
     templateUrl: './select-backgrounds-labels-step.component.html',
     styles: [],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class SelectBackgroundsLabelsStepComponent implements OnInit {

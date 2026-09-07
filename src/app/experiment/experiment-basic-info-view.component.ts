@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import {Component, Input, ChangeDetectionStrategy} from '@angular/core';
 import {ExperimentalAssayView} from '../dom/repo/exp/experimental-assay-view';
 
 @Component({
@@ -38,6 +38,7 @@ import {ExperimentalAssayView} from '../dom/repo/exp/experimental-assay-view';
     </div>
     }
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class ExperimentBasicInfoViewComponent {

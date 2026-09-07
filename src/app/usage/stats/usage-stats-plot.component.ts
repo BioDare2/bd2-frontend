@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, Input, OnInit, OnChanges, SimpleChanges, ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
   selector: 'bd2-usage-stats-plot',
@@ -16,6 +16,7 @@ import { Component, Input, OnInit, OnChanges, SimpleChanges } from '@angular/cor
     }
     `,
   styleUrl: './usage-stats-plot.component.css',
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false
 })
 export class UsageStatsPlotComponent implements OnInit, OnChanges {

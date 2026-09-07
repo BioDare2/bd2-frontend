@@ -1,7 +1,7 @@
 import {TestBed} from '@angular/core/testing';
 import {BioDareRestService} from './biodare-rest.service';
 import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
-import { HttpClient, HttpParams, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+import { HttpClient, HttpParams, provideHttpClient, withInterceptorsFromDi, withXhr } from '@angular/common/http';
 import {BioDareEndPoints, bioDareRestConfigurator} from './biodare-rest.dom';
 
 
@@ -18,7 +18,7 @@ describe('BioDareRestService', () => {
     imports: [],
     providers: [
         { provide: BioDareEndPoints, useValue: endPoints },
-        provideHttpClient(withInterceptorsFromDi()),
+        provideHttpClient(withXhr(), withInterceptorsFromDi()),
         provideHttpClientTesting()
     ]
 });

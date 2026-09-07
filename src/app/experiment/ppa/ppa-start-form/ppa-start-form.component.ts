@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit, ChangeDetectionStrategy} from '@angular/core';
 import {PPABaseComponent} from '../ppa-base.component';
 import {Trace} from '../../../tsdata/plots/ts-plot.dom';
 import {Subscription} from 'rxjs';
@@ -17,6 +17,7 @@ import {UserService} from '../../../auth/user.service';
 @Component({
     templateUrl: './ppa-start-form.component.html',
     providers: [TSFetcher],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class PPAStartFormComponent extends PPABaseComponent implements OnInit, OnDestroy {

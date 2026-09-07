@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output, ViewChild, ChangeDetectionStrategy} from '@angular/core';
 import {DataTableSlice} from '../data-table-dom';
 import {MatTable} from '@angular/material/table';
 import {TableStyler} from './table-styling';
@@ -28,6 +28,7 @@ import {CellSelection} from '../../import-dom';
       color: rgba(0,0,0,0.54);
     }
   `],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class DataSheetMDTableComponent implements OnInit {

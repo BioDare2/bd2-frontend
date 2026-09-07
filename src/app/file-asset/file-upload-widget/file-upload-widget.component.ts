@@ -1,10 +1,11 @@
-import {Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
+import {Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild, ChangeDetectionStrategy} from '@angular/core';
 import {removeItemFromArr} from '../../shared/collections-util';
 
 @Component({
     selector: 'bd2-file-upload-widget',
     templateUrl: './file-upload-widget.component.html',
     styleUrls: ['./file-upload-widget.component.css'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class FileUploadWidgetComponent implements OnInit {

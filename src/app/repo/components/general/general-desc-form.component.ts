@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import {Component, Input, ChangeDetectionStrategy} from '@angular/core';
 
 import {RevertableFormComponent} from '../../../shared/revertable-form.component';
 import {GeneralDescValidator} from '../../../dom/repo/shared/general-desc.validator';
@@ -10,6 +10,7 @@ import {LocalDate} from '../../../dom/repo/shared/dates';
     selector: 'bd2-general-desc-form',
     templateUrl: './general-desc-form.component.html',
     outputs: ['onAccepted', 'onCancelled'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class GeneralDescFormComponent extends RevertableFormComponent<ExperimentGeneralDescView> {

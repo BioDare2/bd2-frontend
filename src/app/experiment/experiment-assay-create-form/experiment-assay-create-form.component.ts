@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ChangeDetectionStrategy} from '@angular/core';
 import {ValidableFormComponent} from '../../shared/validable-form.component';
 import {ExperimentalAssayView} from '../../dom/repo/exp/experimental-assay-view';
 import {ExperimentService} from '../experiment.service';
@@ -10,6 +10,7 @@ import {RDMSocialServiceService} from '../../rdmsocial/rdmsocial-service.service
 @Component({
     templateUrl: './experiment-assay-create-form.component.html',
     styles: [],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class ExperimentAssayCreateFormComponent extends ValidableFormComponent<ExperimentalAssayView> implements OnInit {

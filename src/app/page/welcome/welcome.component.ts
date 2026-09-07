@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit, ChangeDetectionStrategy} from '@angular/core';
 import {UserService} from '../../auth/user.service';
 import {Subscription} from 'rxjs';
 import {BD2User} from '../../auth/user.dom';
@@ -10,6 +10,7 @@ import {BD2User} from '../../auth/user.dom';
       font-weight: bold;
     }
   `],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class WelcomeComponent implements OnInit, OnDestroy {

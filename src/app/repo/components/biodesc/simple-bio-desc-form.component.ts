@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output, ChangeDetectionStrategy} from '@angular/core';
 import {ExperimentalAssayView} from '../../../dom/repo/exp/experimental-assay-view';
 import {DataCategory} from '../../../dom/repo/biodesc/data-category';
 import {removeItemFromArr} from '../../../shared/collections-util';
@@ -9,6 +9,7 @@ import {SpeciesService} from './species.service';
 @Component({
     selector: 'bd2-simple-bio-desc-form',
     templateUrl: './simple-bio-desc-form.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class SimpleBioDescFormComponent extends ValidableFormComponent<any> implements OnInit {

@@ -1,4 +1,4 @@
-import {Component, QueryList, ViewChildren} from '@angular/core';
+import {Component, QueryList, ViewChildren, ChangeDetectionStrategy} from '@angular/core';
 import {RhythmicityBaseComponent} from '../rhythmicity-base.component';
 import {RhythmicityService} from '../rhythmicity.service';
 import {ExperimentComponentsDependencies} from '../../experiment-components.dependencies';
@@ -12,6 +12,7 @@ import {RhythmicityJobPaneComponent} from './rhythmicity-job-pane/rhythmicity-jo
 @Component({
     templateUrl: './rhythmicity-dashboard.component.html',
     styles: [],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class RhythmicityDashboardComponent extends RhythmicityBaseComponent {

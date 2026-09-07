@@ -1,4 +1,4 @@
-import {Component, Input, OnDestroy, OnInit} from '@angular/core';
+import {Component, Input, OnDestroy, OnInit, ChangeDetectionStrategy} from '@angular/core';
 import {PPAResultsFetcherService} from '../services/pparesults-fetcher.service';
 import {PageEvent} from '@angular/material/paginator';
 import {Sort} from '@angular/material/sort';
@@ -13,6 +13,7 @@ import {PPADialogsService} from '../../../ppa-dialogs/ppadialogs.service';
     templateUrl: './pparesults-table2.component.html',
     styles: [],
     providers: [PPAResultsFetcherService],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class PPAResultsTable2Component implements OnInit, OnDestroy, Reloadable {

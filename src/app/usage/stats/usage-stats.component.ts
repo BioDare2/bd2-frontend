@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { UsageDataService } from '../usage-data.service';
 import { Subscription } from 'rxjs';
 
@@ -6,6 +6,7 @@ import { Subscription } from 'rxjs';
   selector: 'bd2-usage-stats',
   templateUrl: './usage-stats.component.html',
   styleUrl: './usage-stats.component.css',
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false
 })
 export class UsageStatsComponent implements OnInit {

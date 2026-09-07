@@ -1,10 +1,11 @@
-import {Component, EventEmitter, OnInit, Output, Input} from '@angular/core';
+import {Component, EventEmitter, OnInit, Output, Input, ChangeDetectionStrategy} from '@angular/core';
 import {ImportFormat, ImportFormatOptions} from '../../import-dom';
 
 @Component({
     selector: 'bd2-upload-data-file-step',
     templateUrl: './upload-data-file-step.component.html',
     styles: [],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class UploadDataFileStepComponent implements OnInit {
