@@ -1,3 +1,4 @@
+2.22.0 ng update 22
 2.21.1
 	Fixed an issue where multiple clicks on the "Upload" button would trigger multiple uploads of the same file
 2.21.0 ng upgrade 21

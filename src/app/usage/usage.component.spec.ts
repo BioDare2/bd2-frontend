@@ -4,7 +4,7 @@ import { UsageComponent } from './usage.component';
 import { UsageDataService } from './usage-data.service';
 import { provideHttpClient, withXhr } from '@angular/common/http';
 import { provideHttpClientTesting } from '@angular/common/http/testing';
-import { BioDareEndPoints } from 'src/app/backend/biodare-rest.dom';
+import { BioDareEndPoints } from '../backend/biodare-rest.dom';
 
 describe('UsageComponent', () => {
   let component: UsageComponent;

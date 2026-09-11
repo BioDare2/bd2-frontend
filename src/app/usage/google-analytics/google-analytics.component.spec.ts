@@ -3,7 +3,7 @@ import { provideHttpClient, withXhr } from '@angular/common/http';
 import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { GoogleAnalyticsComponent } from './google-analytics.component';
 import { UsageDataService } from '../usage-data.service';
-import { BioDareEndPoints } from 'src/app/backend/biodare-rest.dom';
+import { BioDareEndPoints } from '../../backend/biodare-rest.dom';
 import { of, throwError } from 'rxjs';
 
 // Mock the google object

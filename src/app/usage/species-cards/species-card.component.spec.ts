@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { SpeciesCardComponent } from './species-card.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { BioDareEndPoints } from 'src/app/backend/biodare-rest.dom';
+import { BioDareEndPoints } from '../../backend/biodare-rest.dom';
 
 describe('SpeciesCardComponent', () => {
   let component: SpeciesCardComponent;

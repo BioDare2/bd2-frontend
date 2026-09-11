@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { SpeciesCardsComponent } from './species-cards.component';
 import { HttpErrorResponse, provideHttpClient, withXhr } from '@angular/common/http';
 import { provideHttpClientTesting, HttpTestingController } from '@angular/common/http/testing';
-import { BioDareEndPoints } from 'src/app/backend/biodare-rest.dom';
+import { BioDareEndPoints } from '../../backend/biodare-rest.dom';
 import { UsageDataService } from '../usage-data.service';
 import { of } from 'rxjs';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
